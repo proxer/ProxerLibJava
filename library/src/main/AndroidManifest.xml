@@ -1,0 +1,6 @@
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    package="com.rubengees.proxerlibandroid">
+
+    <application tools:ignore="AllowBackup" />
+
+</manifest>
