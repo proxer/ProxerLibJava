@@ -12,7 +12,7 @@ public class UrlHolder {
 
     private static final String HOST = "http://proxer.me";
     private static final String NEWS = "/notifications?format=json&s=news&p=";
-    private static final String NEWS_IMAGE = "http://cdn.proxer.me/news/";
+    private static final String NEWS_IMAGE = "http://cdn.proxer.me/news/tmp/";
     private static final String LOGIN = "/login?format=json&action=login";
 
     @NonNull
