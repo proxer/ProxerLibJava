@@ -66,11 +66,16 @@ public class ProxerConnection {
         });
     }
 
-    public static List<News> loadNewsSync(@IntRange(from = 1) int page) throws BridgeException,
-            JSONException {
-        JSONObject result = Bridge.client().get(UrlHolder.getNewsUrl(page)).tag(TAG_NEWS_SYNC).asJsonObject();
+    public static List<News> loadNewsSync(@IntRange(from = 1) int page) throws ProxerException {
+        try {
+            JSONObject result = Bridge.client().get(UrlHolder.getNewsUrl(page)).tag(TAG_NEWS_SYNC).asJsonObject();
 
-        return ProxerParser.parseNewsJSON(result);
+            return ProxerParser.parseNewsJSON(result);
+        } catch (BridgeException e) {
+            throw ErrorHandler.handleException(e);
+        } catch (JSONException e) {
+            throw ErrorHandler.handleException(e);
+        }
     }
 
     public static void login(@NonNull final LoginUser user,
@@ -100,16 +105,20 @@ public class ProxerConnection {
                 });
     }
 
-    public static LoginUser loginSync(@NonNull final LoginUser user) throws BridgeException,
-            JSONException {
+    public static LoginUser loginSync(@NonNull final LoginUser user) throws ProxerException {
         Form loginCredentials = new Form().add(FORM_USERNAME, user.getUsername())
                 .add(FORM_PASSWORD, user.getPassword());
+        try {
+            JSONObject result = Bridge.client().post(UrlHolder.getLoginUrl()).tag(TAG_LOGIN_SYNC)
+                    .body(loginCredentials).asJsonObject();
 
-        JSONObject result = Bridge.client().post(UrlHolder.getLoginUrl()).tag(TAG_LOGIN_SYNC)
-                .body(loginCredentials).asJsonObject();
-
-        return new LoginUser(user.getUsername(), user.getPassword(),
-                ProxerParser.parseLoginJSON(result));
+            return new LoginUser(user.getUsername(), user.getPassword(),
+                    ProxerParser.parseLoginJSON(result));
+        } catch (JSONException e) {
+            throw ErrorHandler.handleException(e);
+        } catch (BridgeException e) {
+            throw ErrorHandler.handleException(e);
+        }
     }
 
     public static void cancel(@ConnectionTag int tag, boolean force) {

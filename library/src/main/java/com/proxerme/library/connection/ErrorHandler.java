@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.BridgeException;
 
+import org.json.JSONException;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -25,6 +27,11 @@ import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNPARSEABL
  * @author Ruben Gees
  */
 public class ErrorHandler {
+
+    @NonNull
+    public static ProxerException handleException(@NonNull JSONException jsonException) {
+        return new ProxerException(UNPARSEABLE);
+    }
 
     @NonNull
     public static ProxerException handleException(@NonNull BridgeException bridgeException) {
