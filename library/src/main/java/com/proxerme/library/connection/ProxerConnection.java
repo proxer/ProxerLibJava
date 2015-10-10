@@ -38,6 +38,8 @@ public class ProxerConnection {
     public static final int TAG_NEWS_SYNC = 1;
     public static final int TAG_LOGIN = 2;
     public static final int TAG_LOGIN_SYNC = 3;
+    public static final int TAG_LOGOUT = 4;
+    public static final int TAG_LOGOUT_SYNC = 5;
     private static final String FORM_USERNAME = "username";
     private static final String FORM_PASSWORD = "password";
     private static final String RESPONSE_ERROR = "error";
@@ -68,7 +70,8 @@ public class ProxerConnection {
 
     public static List<News> loadNewsSync(@IntRange(from = 1) int page) throws ProxerException {
         try {
-            JSONObject result = Bridge.client().get(UrlHolder.getNewsUrl(page)).tag(TAG_NEWS_SYNC).asJsonObject();
+            JSONObject result = Bridge.client().get(UrlHolder.getNewsUrl(page)).tag(TAG_NEWS_SYNC)
+                    .asJsonObject();
 
             return ProxerParser.parseNewsJSON(result);
         } catch (BridgeException e) {
@@ -89,7 +92,8 @@ public class ProxerConnection {
                     public void response(Request request, Response response, BridgeException exception) {
                         if (exception == null) {
                             try {
-                                callback.onResult(new LoginUser(user.getUsername(), user.getPassword(),
+                                callback.onResult(new LoginUser(user.getUsername(),
+                                        user.getPassword(),
                                         ProxerParser.parseLoginJSON(response.asJsonObject())));
                             } catch (JSONException e) {
                                 callback.onError(new ProxerException(UNPARSEABLE));
@@ -116,6 +120,27 @@ public class ProxerConnection {
                     ProxerParser.parseLoginJSON(result));
         } catch (JSONException e) {
             throw ErrorHandler.handleException(e);
+        } catch (BridgeException e) {
+            throw ErrorHandler.handleException(e);
+        }
+    }
+
+    public static void logout(@NonNull final ResultCallback<Void> callback) {
+        Bridge.client().get(UrlHolder.getLogoutUrl()).tag(TAG_LOGOUT).request(new Callback() {
+            @Override
+            public void response(Request request, Response response, BridgeException exception) {
+                if (exception != null) {
+                    if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
+                        callback.onError(ErrorHandler.handleException(exception));
+                    }
+                }
+            }
+        });
+    }
+
+    public static void logoutSync() throws ProxerException {
+        try {
+            Bridge.client().get(UrlHolder.getLogoutUrl()).tag(TAG_LOGOUT_SYNC).request();
         } catch (BridgeException e) {
             throw ErrorHandler.handleException(e);
         }
@@ -169,7 +194,7 @@ public class ProxerConnection {
         void onError(@NonNull ProxerException exception);
     }
 
-    @IntDef({TAG_LOGIN, TAG_LOGIN_SYNC, TAG_NEWS, TAG_NEWS_SYNC})
+    @IntDef({TAG_LOGIN, TAG_LOGIN_SYNC, TAG_NEWS, TAG_NEWS_SYNC, TAG_LOGOUT, TAG_LOGOUT_SYNC})
     @Retention(value = RetentionPolicy.SOURCE)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
     public @interface ConnectionTag {

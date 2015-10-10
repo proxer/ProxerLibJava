@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
  */
 public class UrlHolder {
 
+    public static final String LOGOUT = "/login?format=json&action=logout";
     private static final String HOST = "http://proxer.me";
     private static final String NEWS = "/notifications?format=json&s=news&p=";
     private static final String NEWS_IMAGE = "http://cdn.proxer.me/news/tmp/";
@@ -43,6 +44,11 @@ public class UrlHolder {
     @NonNull
     public static String getLoginUrl() {
         return getHost() + LOGIN;
+    }
+
+    @NonNull
+    public static String getLogoutUrl() {
+        return getHost() + LOGOUT;
     }
 
 }
