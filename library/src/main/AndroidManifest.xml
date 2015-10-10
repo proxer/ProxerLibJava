@@ -1,5 +1,5 @@
 <manifest xmlns:tools="http://schemas.android.com/tools"
-    package="com.rubengees.proxerlibandroid">
+    package="com.proxerme.library">
 
     <application tools:ignore="AllowBackup" />
 
