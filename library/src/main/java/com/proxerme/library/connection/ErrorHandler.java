@@ -64,7 +64,7 @@ public class ErrorHandler {
     @IntDef({PROXER, NETWORK, UNPARSEABLE, IO,
             TIMEOUT, UNKNOWN})
     @Retention(value = RetentionPolicy.SOURCE)
-    @Target({ElementType.METHOD, ElementType.PARAMETER})
+    @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface ErrorCode {
     }
 

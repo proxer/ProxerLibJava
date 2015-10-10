@@ -158,7 +158,7 @@ public class ProxerConnection {
 
     @IntDef({TAG_LOGIN, TAG_LOGIN_SYNC, TAG_NEWS, TAG_NEWS_SYNC})
     @Retention(value = RetentionPolicy.SOURCE)
-    @Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER})
+    @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
     public @interface ConnectionTag {
     }
 }
