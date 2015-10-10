@@ -19,7 +19,7 @@ import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNPARSEABL
 
 /**
  * A Helper class, which converts an {@link Exception} to a integer, represented through the
- * Annotation {@link com.proxerme.library.connection.ErrorHandler.ErrorCode}. It also has
+ * Annotation {@link ErrorCode}. It also has
  * a Method to convert a ErrorCode into a human readable {@link String}.
  *
  * @author Ruben Gees
@@ -64,7 +64,7 @@ public class ErrorHandler {
     @IntDef({PROXER, NETWORK, UNPARSEABLE, IO,
             TIMEOUT, UNKNOWN})
     @Retention(value = RetentionPolicy.SOURCE)
-    @Target({ElementType.CONSTRUCTOR, ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
+    @Target({ElementType.METHOD, ElementType.PARAMETER})
     public @interface ErrorCode {
     }
 

@@ -1,5 +1,6 @@
 package com.proxerme.library.connection;
 
+import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
@@ -16,6 +17,10 @@ import com.proxerme.library.entity.News;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.List;
 
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.PROXER;
@@ -28,15 +33,20 @@ import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNPARSEABL
  * @author Ruben Gees
  */
 public class ProxerConnection {
-    public static final String FORM_USERNAME = "username";
-    public static final String FORM_PASSWORD = "password";
+
+    public static final int TAG_NEWS = 0;
+    public static final int TAG_NEWS_SYNC = 1;
+    public static final int TAG_LOGIN = 2;
+    public static final int TAG_LOGIN_SYNC = 3;
+    private static final String FORM_USERNAME = "username";
+    private static final String FORM_PASSWORD = "password";
     private static final String RESPONSE_ERROR = "error";
     private static final String RESPONSE_ERROR_MESSAGE = "msg";
     private static final String VALIDATOR_ID = "default-validator";
 
     public static void loadNews(@IntRange(from = 1) int page,
                                 @NonNull final ResultCallback<List<News>> callback) {
-        Bridge.client().get(UrlHolder.getNewsUrl(page)).request(new Callback() {
+        Bridge.client().get(UrlHolder.getNewsUrl(page)).tag(TAG_NEWS).request(new Callback() {
             @Override
             public void response(Request request, Response response, BridgeException exception) {
                 if (exception == null) {
@@ -58,7 +68,7 @@ public class ProxerConnection {
 
     public static List<News> loadNewsSync(@IntRange(from = 1) int page) throws BridgeException,
             JSONException {
-        JSONObject result = Bridge.client().get(UrlHolder.getNewsUrl(page)).asJsonObject();
+        JSONObject result = Bridge.client().get(UrlHolder.getNewsUrl(page)).tag(TAG_NEWS_SYNC).asJsonObject();
 
         return ProxerParser.parseNewsJSON(result);
     }
@@ -68,7 +78,7 @@ public class ProxerConnection {
         Form loginCredentials = new Form().add(FORM_USERNAME, user.getUsername())
                 .add(FORM_PASSWORD, user.getPassword());
 
-        Bridge.client().post(UrlHolder.getLoginUrl()).body(loginCredentials)
+        Bridge.client().post(UrlHolder.getLoginUrl()).body(loginCredentials).tag(TAG_LOGIN)
                 .request(new Callback() {
                     @Override
                     public void response(Request request, Response response, BridgeException exception) {
@@ -95,11 +105,19 @@ public class ProxerConnection {
         Form loginCredentials = new Form().add(FORM_USERNAME, user.getUsername())
                 .add(FORM_PASSWORD, user.getPassword());
 
-        JSONObject result = Bridge.client().post(UrlHolder.getLoginUrl()).body(loginCredentials)
-                .asJsonObject();
+        JSONObject result = Bridge.client().post(UrlHolder.getLoginUrl()).tag(TAG_LOGIN_SYNC)
+                .body(loginCredentials).asJsonObject();
 
         return new LoginUser(user.getUsername(), user.getPassword(),
                 ProxerParser.parseLoginJSON(result));
+    }
+
+    public static void cancel(@ConnectionTag int tag, boolean force) {
+        Bridge.client().cancelAll(tag, force);
+    }
+
+    public static void cancelSync(@ConnectionTag int tag, boolean force) {
+        Bridge.client().cancelAllSync(tag, force);
     }
 
     public static void init() {
@@ -138,4 +156,9 @@ public class ProxerConnection {
         void onError(@NonNull ProxerException exception);
     }
 
+    @IntDef({TAG_LOGIN, TAG_LOGIN_SYNC, TAG_NEWS, TAG_NEWS_SYNC})
+    @Retention(value = RetentionPolicy.SOURCE)
+    @Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER})
+    public @interface ConnectionTag {
+    }
 }
