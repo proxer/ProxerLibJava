@@ -150,6 +150,10 @@ public class ProxerConnection {
         });
     }
 
+    public static void cleanup() {
+        Bridge.cleanup();
+    }
+
     public interface ResultCallback<T> {
         void onResult(@NonNull T result);
 
