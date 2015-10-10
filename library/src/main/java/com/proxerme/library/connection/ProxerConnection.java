@@ -28,11 +28,14 @@ import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNPARSEABL
  * @author Ruben Gees
  */
 public class ProxerConnection {
+    public static final String FORM_USERNAME = "username";
+    public static final String FORM_PASSWORD = "password";
     private static final String RESPONSE_ERROR = "error";
     private static final String RESPONSE_ERROR_MESSAGE = "msg";
     private static final String VALIDATOR_ID = "default-validator";
 
-    public static void loadNews(@IntRange(from = 1) int page, @NonNull final ResultCallback<List<News>> callback) {
+    public static void loadNews(@IntRange(from = 1) int page,
+                                @NonNull final ResultCallback<List<News>> callback) {
         Bridge.client().get(UrlHolder.getNewsUrl(page)).request(new Callback() {
             @Override
             public void response(Request request, Response response, BridgeException exception) {
@@ -62,33 +65,35 @@ public class ProxerConnection {
 
     public static void login(@NonNull final LoginUser user,
                              @NonNull final ResultCallback<LoginUser> callback) {
-        Form loginCredentials = new Form().add("username", user.getUsername())
-                .add("password", user.getPassword());
+        Form loginCredentials = new Form().add(FORM_USERNAME, user.getUsername())
+                .add(FORM_PASSWORD, user.getPassword());
 
-        Bridge.client().post(UrlHolder.getLoginUrl()).body(loginCredentials).request(new Callback() {
-            @Override
-            public void response(Request request, Response response, BridgeException exception) {
-                if (exception == null) {
-                    try {
-                        callback.onResult(new LoginUser(user.getUsername(), user.getPassword(),
-                                ProxerParser.parseLoginJSON(response.asJsonObject())));
-                    } catch (JSONException e) {
-                        callback.onError(new ProxerException(UNPARSEABLE));
-                    } catch (BridgeException e) {
-                        callback.onError(ErrorHandler.handleException(e));
+        Bridge.client().post(UrlHolder.getLoginUrl()).body(loginCredentials)
+                .request(new Callback() {
+                    @Override
+                    public void response(Request request, Response response, BridgeException exception) {
+                        if (exception == null) {
+                            try {
+                                callback.onResult(new LoginUser(user.getUsername(), user.getPassword(),
+                                        ProxerParser.parseLoginJSON(response.asJsonObject())));
+                            } catch (JSONException e) {
+                                callback.onError(new ProxerException(UNPARSEABLE));
+                            } catch (BridgeException e) {
+                                callback.onError(ErrorHandler.handleException(e));
+                            }
+                        } else {
+                            if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
+                                callback.onError(ErrorHandler.handleException(exception));
+                            }
+                        }
                     }
-                } else {
-                    if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
-                        callback.onError(ErrorHandler.handleException(exception));
-                    }
-                }
-            }
-        });
+                });
     }
 
-    public static LoginUser loginSync(@NonNull final LoginUser user) throws BridgeException, JSONException {
-        Form loginCredentials = new Form().add("username", user.getUsername())
-                .add("password", user.getPassword());
+    public static LoginUser loginSync(@NonNull final LoginUser user) throws BridgeException,
+            JSONException {
+        Form loginCredentials = new Form().add(FORM_USERNAME, user.getUsername())
+                .add(FORM_PASSWORD, user.getPassword());
 
         JSONObject result = Bridge.client().post(UrlHolder.getLoginUrl()).body(loginCredentials)
                 .asJsonObject();
@@ -108,9 +113,10 @@ public class ProxerConnection {
                         return true;
                     } else {
                         if (json.has(RESPONSE_ERROR_MESSAGE)) {
-                            throw new ProxerException(PROXER, json.getString(RESPONSE_ERROR_MESSAGE));
+                            throw new ProxerException(PROXER,
+                                    json.getString(RESPONSE_ERROR_MESSAGE));
                         } else {
-                            throw new ProxerException(UNKNOWN, "An unknown error occurred.");
+                            throw new ProxerException(UNKNOWN);
                         }
                     }
                 } else {
