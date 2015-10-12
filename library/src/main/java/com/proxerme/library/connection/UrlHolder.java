@@ -10,11 +10,12 @@ import android.support.annotation.NonNull;
  */
 public class UrlHolder {
 
-    public static final String LOGOUT = "/login?format=json&action=logout";
+    private static final String LOGOUT = "/login?format=json&action=logout";
     private static final String HOST = "http://proxer.me";
     private static final String NEWS = "/notifications?format=json&s=news&p=";
     private static final String NEWS_IMAGE = "http://cdn.proxer.me/news/tmp/";
     private static final String LOGIN = "/login?format=json&action=login";
+    private static final String USER_IMAGE = "/images/comprofiler/";
 
     @NonNull
     public static String getHost() {
@@ -34,6 +35,11 @@ public class UrlHolder {
     @NonNull
     public static String getNewsPageUrl(@NonNull String categoryId, @NonNull String threadId) {
         return getHost() + "/forum/" + categoryId + "/" + threadId + "#top";
+    }
+
+    @NonNull
+    public static String getUserImage(@NonNull String imageLink) {
+        return getHost() + USER_IMAGE + imageLink;
     }
 
     @NonNull
