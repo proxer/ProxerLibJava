@@ -48,4 +48,4 @@ The `cleanup()` method is optional, but recommended. It cancels all the active r
 
 ### More
 
-A detailed documentation can be found in the wiki.
+A detailed documentation can be found in the [Wiki](https://github.com/proxer/ProxerLibAndroid/wiki).
