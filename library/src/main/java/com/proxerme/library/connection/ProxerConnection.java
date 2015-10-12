@@ -134,7 +134,9 @@ public class ProxerConnection {
         Bridge.client().get(UrlHolder.getLogoutUrl()).tag(TAG_LOGOUT).request(new Callback() {
             @Override
             public void response(Request request, Response response, BridgeException exception) {
-                if (exception != null) {
+                if (exception == null) {
+                    callback.onResult(null);
+                } else {
                     if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
                         callback.onError(ErrorHandler.handleException(exception));
                     }
@@ -194,7 +196,7 @@ public class ProxerConnection {
     }
 
     public interface ResultCallback<T> {
-        void onResult(@NonNull T result);
+        void onResult(T result);
 
         void onError(@NonNull ProxerException exception);
     }
