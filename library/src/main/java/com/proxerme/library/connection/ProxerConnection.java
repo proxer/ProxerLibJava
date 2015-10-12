@@ -9,6 +9,7 @@ import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Callback;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Request;
+import com.afollestad.bridge.RequestBuilder;
 import com.afollestad.bridge.Response;
 import com.afollestad.bridge.ResponseValidator;
 import com.proxerme.library.entity.LoginData;
@@ -47,110 +48,17 @@ public class ProxerConnection {
     private static final String RESPONSE_ERROR_MESSAGE = "msg";
     private static final String VALIDATOR_ID = "default-validator";
 
-    public static void loadNews(@IntRange(from = 1) int page,
-                                @NonNull final ResultCallback<List<News>> callback) {
-        Bridge.client().get(UrlHolder.getNewsUrl(page)).tag(TAG_NEWS).request(new Callback() {
-            @Override
-            public void response(Request request, Response response, BridgeException exception) {
-                if (exception == null) {
-                    try {
-                        callback.onResult(ProxerParser.parseNewsJSON(response.asJsonObject()));
-                    } catch (JSONException e) {
-                        callback.onError(new ProxerException(UNPARSEABLE));
-                    } catch (BridgeException e) {
-                        callback.onError(ErrorHandler.handleException(e));
-                    }
-                } else {
-                    if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
-                        callback.onError(ErrorHandler.handleException(exception));
-                    }
-                }
-            }
-        });
+    public static NewsRequest loadNews(@IntRange(from = 1) int page) {
+        return new NewsRequest(page);
     }
 
-    public static List<News> loadNewsSync(@IntRange(from = 1) int page) throws ProxerException {
-        try {
-            JSONObject result = Bridge.client().get(UrlHolder.getNewsUrl(page)).tag(TAG_NEWS_SYNC)
-                    .asJsonObject();
-
-            return ProxerParser.parseNewsJSON(result);
-        } catch (BridgeException e) {
-            throw ErrorHandler.handleException(e);
-        } catch (JSONException e) {
-            throw ErrorHandler.handleException(e);
-        }
-    }
-
-    public static void login(@NonNull final LoginUser user,
+    public static LoginRequest login(@NonNull final LoginUser user,
                              @NonNull final ResultCallback<LoginUser> callback) {
-        Form loginCredentials = new Form().add(FORM_USERNAME, user.getUsername())
-                .add(FORM_PASSWORD, user.getPassword());
-
-        Bridge.client().post(UrlHolder.getLoginUrl()).body(loginCredentials).tag(TAG_LOGIN)
-                .request(new Callback() {
-                    @Override
-                    public void response(Request request, Response response, BridgeException exception) {
-                        if (exception == null) {
-                            try {
-                                LoginData data = ProxerParser
-                                        .parseLoginJSON(response.asJsonObject());
-
-                                callback.onResult(new LoginUser(user.getUsername(),
-                                        user.getPassword(), data.getId(),
-                                        data.getImageLink()));
-                            } catch (JSONException e) {
-                                callback.onError(new ProxerException(UNPARSEABLE));
-                            } catch (BridgeException e) {
-                                callback.onError(ErrorHandler.handleException(e));
-                            }
-                        } else {
-                            if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
-                                callback.onError(ErrorHandler.handleException(exception));
-                            }
-                        }
-                    }
-                });
+        return new LoginRequest(user);
     }
 
-    public static LoginUser loginSync(@NonNull final LoginUser user) throws ProxerException {
-        Form loginCredentials = new Form().add(FORM_USERNAME, user.getUsername())
-                .add(FORM_PASSWORD, user.getPassword());
-        try {
-            JSONObject result = Bridge.client().post(UrlHolder.getLoginUrl()).tag(TAG_LOGIN_SYNC)
-                    .body(loginCredentials).asJsonObject();
-            LoginData data = ProxerParser.parseLoginJSON(result);
-
-            return new LoginUser(user.getUsername(), user.getPassword(), data.getId(),
-                    data.getImageLink());
-        } catch (JSONException e) {
-            throw ErrorHandler.handleException(e);
-        } catch (BridgeException e) {
-            throw ErrorHandler.handleException(e);
-        }
-    }
-
-    public static void logout(@NonNull final ResultCallback<Void> callback) {
-        Bridge.client().get(UrlHolder.getLogoutUrl()).tag(TAG_LOGOUT).request(new Callback() {
-            @Override
-            public void response(Request request, Response response, BridgeException exception) {
-                if (exception == null) {
-                    callback.onResult(null);
-                } else {
-                    if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
-                        callback.onError(ErrorHandler.handleException(exception));
-                    }
-                }
-            }
-        });
-    }
-
-    public static void logoutSync() throws ProxerException {
-        try {
-            Bridge.client().get(UrlHolder.getLogoutUrl()).tag(TAG_LOGOUT_SYNC).request();
-        } catch (BridgeException e) {
-            throw ErrorHandler.handleException(e);
-        }
+    public static LogoutRequest logout(@NonNull final ResultCallback<Void> callback) {
+        return new LogoutRequest();
     }
 
     public static void cancel(@ConnectionTag int tag, boolean force) {
@@ -205,5 +113,124 @@ public class ProxerConnection {
     @Retention(value = RetentionPolicy.SOURCE)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
     public @interface ConnectionTag {
+    }
+
+    public static abstract class ProxerRequest<T> {
+
+        @NonNull
+        protected abstract RequestBuilder buildRequest(Bridge bridge);
+
+        @ConnectionTag
+        protected abstract int getTag();
+
+        public void execute(@NonNull final ResultCallback<T> callback) {
+            buildRequest(Bridge.client()).tag(getTag()).request(new Callback() {
+                @Override
+                public void response(Request request, Response response, BridgeException exception) {
+                    if (exception == null) {
+                        try {
+                            callback.onResult(parse(response.asJsonObject()));
+                        } catch (JSONException e) {
+                            callback.onError(new ProxerException(UNPARSEABLE));
+                        } catch (BridgeException e) {
+                            callback.onError(ErrorHandler.handleException(e));
+                        }
+                    } else {
+                        if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
+                            callback.onError(ErrorHandler.handleException(exception));
+                        }
+                    }
+                }
+            });
+        }
+
+        public T executeSynchronized() throws ProxerException {
+            try {
+                JSONObject result = buildRequest(Bridge.client()).tag(getTag() + 1).asJsonObject();
+
+                return parse(result);
+            } catch (JSONException e) {
+                throw ErrorHandler.handleException(e);
+            } catch (BridgeException e) {
+                throw ErrorHandler.handleException(e);
+            }
+        }
+
+        protected abstract T parse(@NonNull JSONObject response) throws JSONException;
+    }
+
+    public static class NewsRequest extends ProxerRequest<List<News>> {
+
+        private int page;
+
+        public NewsRequest(@IntRange(from = 1) int page) {
+            this.page = page;
+        }
+
+        @NonNull
+        @Override
+        protected RequestBuilder buildRequest(Bridge bridge) {
+            return bridge.get(UrlHolder.getNewsUrl(page));
+        }
+
+        @Override
+        protected int getTag() {
+            return TAG_NEWS;
+        }
+
+        @Override
+        protected List<News> parse(@NonNull JSONObject response) throws JSONException {
+            return ProxerParser.parseNewsJSON(response);
+        }
+    }
+
+    public static class LoginRequest extends ProxerRequest<LoginUser> {
+
+        private LoginUser user;
+
+        public LoginRequest(@NonNull LoginUser user) {
+            this.user = user;
+        }
+
+        @NonNull
+        @Override
+        protected RequestBuilder buildRequest(Bridge bridge) {
+            Form loginCredentials = new Form().add(FORM_USERNAME, user.getUsername())
+                    .add(FORM_PASSWORD, user.getPassword());
+
+            return bridge.post(UrlHolder.getLoginUrl()).body(loginCredentials);
+        }
+
+        @Override
+        protected int getTag() {
+            return TAG_LOGIN;
+        }
+
+        @Override
+        protected LoginUser parse(@NonNull JSONObject response) throws JSONException {
+            LoginData data = ProxerParser.parseLoginJSON(response);
+
+            return new LoginUser(user.getUsername(), user.getPassword(), data.getId(),
+                    data.getImageLink());
+        }
+    }
+
+    public static class LogoutRequest extends ProxerRequest<Void> {
+
+        @NonNull
+        @Override
+        protected RequestBuilder buildRequest(Bridge bridge) {
+            return bridge.get(UrlHolder.getLogoutUrl());
+        }
+
+        @Override
+        protected int getTag() {
+            return TAG_LOGOUT;
+        }
+
+        @Override
+        protected Void parse(@NonNull JSONObject response) throws JSONException {
+            return null;
+        }
     }
 }
