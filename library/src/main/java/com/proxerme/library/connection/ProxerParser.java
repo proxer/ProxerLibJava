@@ -2,6 +2,7 @@ package com.proxerme.library.connection;
 
 import android.support.annotation.NonNull;
 
+import com.proxerme.library.entity.LoginData;
 import com.proxerme.library.entity.News;
 
 import org.json.JSONArray;
@@ -51,7 +52,7 @@ public class ProxerParser {
         return result;
     }
 
-    public static String parseLoginJSON(@NonNull JSONObject object) throws JSONException {
-        return object.getString("uid");
+    public static LoginData parseLoginJSON(@NonNull JSONObject object) throws JSONException {
+        return new LoginData(object.getString("uid"), object.getString("avatar"));
     }
 }

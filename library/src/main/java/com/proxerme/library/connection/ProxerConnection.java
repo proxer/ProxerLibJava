@@ -11,6 +11,7 @@ import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Request;
 import com.afollestad.bridge.Response;
 import com.afollestad.bridge.ResponseValidator;
+import com.proxerme.library.entity.LoginData;
 import com.proxerme.library.entity.LoginUser;
 import com.proxerme.library.entity.News;
 
@@ -92,9 +93,12 @@ public class ProxerConnection {
                     public void response(Request request, Response response, BridgeException exception) {
                         if (exception == null) {
                             try {
+                                LoginData data = ProxerParser
+                                        .parseLoginJSON(response.asJsonObject());
+
                                 callback.onResult(new LoginUser(user.getUsername(),
-                                        user.getPassword(),
-                                        ProxerParser.parseLoginJSON(response.asJsonObject())));
+                                        user.getPassword(), data.getId(),
+                                        data.getImageLink()));
                             } catch (JSONException e) {
                                 callback.onError(new ProxerException(UNPARSEABLE));
                             } catch (BridgeException e) {
@@ -115,9 +119,10 @@ public class ProxerConnection {
         try {
             JSONObject result = Bridge.client().post(UrlHolder.getLoginUrl()).tag(TAG_LOGIN_SYNC)
                     .body(loginCredentials).asJsonObject();
+            LoginData data = ProxerParser.parseLoginJSON(result);
 
-            return new LoginUser(user.getUsername(), user.getPassword(),
-                    ProxerParser.parseLoginJSON(result));
+            return new LoginUser(user.getUsername(), user.getPassword(), data.getId(),
+                    data.getImageLink());
         } catch (JSONException e) {
             throw ErrorHandler.handleException(e);
         } catch (BridgeException e) {
