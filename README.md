@@ -1,10 +1,14 @@
 # ProxerLibAndroid
 
+### What is this?
+
+This is a library, providing some core functionality for an Android App aiming to implement the API of the [Proxer.me](https://proxer.me/) website. 
+
 ### Include in your project:
 
 Add this to your build.gradle:
 
-```grrovy
+```groovy
 repositories {
     maven { url "https://jitpack.io" }
 }
@@ -17,3 +21,31 @@ dependencies {
     }
 }
 ```
+
+### Usage
+
+The `ProxerConnection` class provides static methods to retrieve Java representations of the different APIs. Each call to one of the retrieval methods will return a subclass of the `ProxerRequest`, which has the methods `execute()` and `executeSynchronized`. 
+
+#### The `execute()` method
+
+The request will automatically happen on a worker thread, thus not blocking the UI. You will mostly use this. To get the result, you pass a `ConnectionCallback`, whose methods will called, when the request is done. 
+
+#### The `executeSynchronized()` method
+
+The request will happen on the current thread. This is usefull, if you want to use an `IntentService` (which is asynchrounus by default) or manage the Threads yourself.
+
+The `ProxerConnection` also provides several other methods:
+
+#### `cancel()` and `cancelSync()`
+
+These methods will cancel all current request of a specified type. E.g. all login-requests. The difference between `cancel()` and `cancelSync()` is the same as with the `execute()` methods.
+
+#### `init()` and `cleanup()`
+
+You *must* call `init()` somewhere in your lifecycle. The `onCreate()` method of your main activity is recommended for that. If you do not do that, you may get weird Exceptions if a request was uncussesful.
+
+The `cleanup()` method is optional, but recommended. It cancels all the active requests and frees up the memory for the java garbage collection. A good place to call this is the `onDestroy()` method of your main Activity.
+
+### More
+
+A detailed documentation can be found in the wiki.
