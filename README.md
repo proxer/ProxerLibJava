@@ -42,7 +42,7 @@ These methods will cancel all current request of a specified type. E.g. all logi
 
 #### `init()` and `cleanup()`
 
-You *must* call `init()` somewhere in the android lifecycle. The `onCreate()` method of your main activity is recommended for that. If you do not do that, you may get weird Exceptions if a request was uncussesful.
+You *must* call `init()` somewhere in the android lifecycle. The `onCreate()` method of your main activity is recommended for that. If you do not do that, you may get weird Exceptions if a request was unsuccessful.
 
 The `cleanup()` method is optional, but recommended. It cancels all the active requests and frees up the memory for the java garbage collection. A good place to call this is the `onDestroy()` method of your main Activity.
 
