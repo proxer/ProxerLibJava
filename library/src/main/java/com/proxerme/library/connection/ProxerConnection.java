@@ -1,6 +1,5 @@
 package com.proxerme.library.connection;
 
-import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
@@ -19,15 +18,15 @@ import com.proxerme.library.entity.News;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.util.List;
 
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.PROXER;
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNKNOWN;
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNPARSEABLE;
+import static com.proxerme.library.connection.ProxerTag.ConnectionTag;
+import static com.proxerme.library.connection.ProxerTag.LOGIN;
+import static com.proxerme.library.connection.ProxerTag.LOGOUT;
+import static com.proxerme.library.connection.ProxerTag.NEWS;
 
 /**
  * A helper class, which starts all request and manages the {@link Bridge}.
@@ -35,13 +34,6 @@ import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNPARSEABL
  * @author Ruben Gees
  */
 public class ProxerConnection {
-
-    public static final int TAG_NEWS = 0;
-    public static final int TAG_NEWS_SYNC = 1;
-    public static final int TAG_LOGIN = 2;
-    public static final int TAG_LOGIN_SYNC = 3;
-    public static final int TAG_LOGOUT = 4;
-    public static final int TAG_LOGOUT_SYNC = 5;
     private static final String FORM_USERNAME = "username";
     private static final String FORM_PASSWORD = "password";
     private static final String RESPONSE_ERROR = "error";
@@ -108,12 +100,6 @@ public class ProxerConnection {
         void onError(@NonNull ProxerException exception);
     }
 
-    @IntDef({TAG_LOGIN, TAG_LOGIN_SYNC, TAG_NEWS, TAG_NEWS_SYNC, TAG_LOGOUT, TAG_LOGOUT_SYNC})
-    @Retention(value = RetentionPolicy.SOURCE)
-    @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
-    public @interface ConnectionTag {
-    }
-
     public static abstract class ProxerRequest<T> {
 
         @NonNull
@@ -172,9 +158,10 @@ public class ProxerConnection {
             return bridge.get(UrlHolder.getNewsUrl(page));
         }
 
+        @ConnectionTag
         @Override
         protected int getTag() {
-            return TAG_NEWS;
+            return NEWS;
         }
 
         @Override
@@ -200,9 +187,10 @@ public class ProxerConnection {
             return bridge.post(UrlHolder.getLoginUrl()).body(loginCredentials);
         }
 
+        @ConnectionTag
         @Override
         protected int getTag() {
-            return TAG_LOGIN;
+            return LOGIN;
         }
 
         @Override
@@ -222,9 +210,10 @@ public class ProxerConnection {
             return bridge.get(UrlHolder.getLogoutUrl());
         }
 
+        @ConnectionTag
         @Override
         protected int getTag() {
-            return TAG_LOGOUT;
+            return LOGOUT;
         }
 
         @Override
