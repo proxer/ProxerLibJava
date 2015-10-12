@@ -52,12 +52,11 @@ public class ProxerConnection {
         return new NewsRequest(page);
     }
 
-    public static LoginRequest login(@NonNull final LoginUser user,
-                             @NonNull final ResultCallback<LoginUser> callback) {
+    public static LoginRequest login(@NonNull final LoginUser user) {
         return new LoginRequest(user);
     }
 
-    public static LogoutRequest logout(@NonNull final ResultCallback<Void> callback) {
+    public static LogoutRequest logout() {
         return new LogoutRequest();
     }
 
