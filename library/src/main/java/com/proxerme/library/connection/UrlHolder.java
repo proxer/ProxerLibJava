@@ -16,6 +16,7 @@ public class UrlHolder {
     private static final String NEWS_IMAGE = "http://cdn.proxer.me/news/tmp/";
     private static final String LOGIN = "/login?format=json&action=login";
     private static final String USER_IMAGE = "/images/comprofiler/";
+    private static final String CONFERENCES = "/messages?format=json&json=conferences&p=";
 
     @NonNull
     public static String getHost() {
@@ -55,6 +56,11 @@ public class UrlHolder {
     @NonNull
     public static String getLogoutUrl() {
         return getHost() + LOGOUT;
+    }
+
+    @NonNull
+    public static String getConferencesUrl(@IntRange(from = 1) int page) {
+        return getHost() + CONFERENCES + page;
     }
 
 }

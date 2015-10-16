@@ -2,13 +2,17 @@ package com.proxerme.library.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+
+import com.proxerme.library.interfaces.IdItem;
+import com.proxerme.library.interfaces.ImageItem;
 
 /**
  * Todo: Describe Class
  *
  * @author Ruben Gees
  */
-public class LoginData implements Parcelable {
+public class LoginData implements Parcelable, IdItem, ImageItem {
 
     public static final Creator<LoginData> CREATOR = new Creator<LoginData>() {
         public LoginData createFromParcel(Parcel source) {
@@ -32,11 +36,15 @@ public class LoginData implements Parcelable {
         this.imageLink = in.readString();
     }
 
+    @NonNull
+    @Override
     public String getId() {
         return id;
     }
 
-    public String getImageLink() {
+    @NonNull
+    @Override
+    public String getImageId() {
         return imageLink;
     }
 

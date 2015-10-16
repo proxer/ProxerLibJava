@@ -11,6 +11,7 @@ import com.afollestad.bridge.Request;
 import com.afollestad.bridge.RequestBuilder;
 import com.afollestad.bridge.Response;
 import com.afollestad.bridge.ResponseValidator;
+import com.proxerme.library.entity.Conference;
 import com.proxerme.library.entity.LoginData;
 import com.proxerme.library.entity.LoginUser;
 import com.proxerme.library.entity.News;
@@ -23,6 +24,7 @@ import java.util.List;
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.PROXER;
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNKNOWN;
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNPARSEABLE;
+import static com.proxerme.library.connection.ProxerTag.CONFERENCES;
 import static com.proxerme.library.connection.ProxerTag.ConnectionTag;
 import static com.proxerme.library.connection.ProxerTag.LOGIN;
 import static com.proxerme.library.connection.ProxerTag.LOGOUT;
@@ -50,6 +52,10 @@ public class ProxerConnection {
 
     public static LogoutRequest logout() {
         return new LogoutRequest();
+    }
+
+    public static ConferencesRequest loadConferences(@IntRange(from = 1) int page) {
+        return new ConferencesRequest(page);
     }
 
     public static void cancel(@ConnectionTag int tag, boolean force) {
@@ -198,7 +204,7 @@ public class ProxerConnection {
             LoginData data = ProxerParser.parseLoginJSON(response);
 
             return new LoginUser(user.getUsername(), user.getPassword(), data.getId(),
-                    data.getImageLink());
+                    data.getImageId());
         }
     }
 
@@ -219,6 +225,31 @@ public class ProxerConnection {
         @Override
         protected Void parse(@NonNull JSONObject response) throws JSONException {
             return null;
+        }
+    }
+
+    public static class ConferencesRequest extends ProxerRequest<List<Conference>> {
+
+        private int page;
+
+        public ConferencesRequest(@IntRange(from = 1) int page) {
+            this.page = page;
+        }
+
+        @NonNull
+        @Override
+        protected RequestBuilder buildRequest(Bridge bridge) {
+            return bridge.get(UrlHolder.getConferencesUrl(page));
+        }
+
+        @Override
+        protected int getTag() {
+            return CONFERENCES;
+        }
+
+        @Override
+        protected List<Conference> parse(@NonNull JSONObject response) throws JSONException {
+            return ProxerParser.parseConferencesJSON(response);
         }
     }
 }

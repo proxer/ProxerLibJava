@@ -3,14 +3,16 @@ package com.proxerme.library.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import com.proxerme.library.interfaces.IdItem;
+import com.proxerme.library.interfaces.ImageItem;
 
 /**
  * Todo: Describe Class
  *
  * @author Ruben Gees
  */
-public class LoginUser implements Parcelable {
+public class LoginUser implements Parcelable, IdItem, ImageItem {
     public static final Creator<LoginUser> CREATOR = new Creator<LoginUser>() {
         public LoginUser createFromParcel(Parcel source) {
             return new LoginUser(source);
@@ -22,27 +24,27 @@ public class LoginUser implements Parcelable {
     };
     private String username;
     private String password;
-    private String userId;
-    private String imageLink;
+    private String id;
+    private String imageId;
 
     public LoginUser(@NonNull String username, @NonNull String password) {
         this.username = username;
         this.password = password;
     }
 
-    public LoginUser(@NonNull String username, @NonNull String password, @NonNull String userId,
+    public LoginUser(@NonNull String username, @NonNull String password, @NonNull String id,
                      @NonNull String image) {
         this.username = username;
         this.password = password;
-        this.userId = userId;
-        this.imageLink = image;
+        this.id = id;
+        this.imageId = image;
     }
 
     protected LoginUser(Parcel in) {
         this.username = in.readString();
         this.password = in.readString();
-        this.userId = in.readString();
-        this.imageLink = in.readString();
+        this.id = in.readString();
+        this.imageId = in.readString();
     }
 
     @NonNull
@@ -55,22 +57,32 @@ public class LoginUser implements Parcelable {
         return password;
     }
 
-    @Nullable
-    public String getUserId() {
-        return userId;
+    @NonNull
+    @Override
+    public String getId() throws RuntimeException {
+        if (id == null) {
+            throw new RuntimeException("User has no id yet.");
+        }
+
+        return id;
     }
 
-    public void setUserId(@NonNull String userId) {
-        this.userId = userId;
+    public void setId(@NonNull String id) {
+        this.id = id;
     }
 
-    @Nullable
-    public String getImageLink() {
-        return imageLink;
+    @NonNull
+    @Override
+    public String getImageId() throws RuntimeException {
+        if (imageId == null) {
+            throw new RuntimeException("User has no image yet.");
+        }
+
+        return imageId;
     }
 
-    public void setImageLink(@NonNull String imageLink) {
-        this.imageLink = imageLink;
+    public void setImageId(@NonNull String imageId) {
+        this.imageId = imageId;
     }
 
     @Override
@@ -82,9 +94,9 @@ public class LoginUser implements Parcelable {
 
         if (!username.equals(loginUser.username)) return false;
         if (!password.equals(loginUser.password)) return false;
-        if (userId != null ? !userId.equals(loginUser.userId) : loginUser.userId != null)
+        if (id != null ? !id.equals(loginUser.id) : loginUser.id != null)
             return false;
-        return !(imageLink != null ? !imageLink.equals(loginUser.imageLink) : loginUser.imageLink != null);
+        return !(imageId != null ? !imageId.equals(loginUser.imageId) : loginUser.imageId != null);
 
     }
 
@@ -92,8 +104,8 @@ public class LoginUser implements Parcelable {
     public int hashCode() {
         int result = username.hashCode();
         result = 31 * result + password.hashCode();
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        result = 31 * result + (imageLink != null ? imageLink.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (imageId != null ? imageId.hashCode() : 0);
         return result;
     }
 
@@ -106,7 +118,7 @@ public class LoginUser implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.username);
         dest.writeString(this.password);
-        dest.writeString(this.userId);
-        dest.writeString(this.imageLink);
+        dest.writeString(this.id);
+        dest.writeString(this.imageId);
     }
 }

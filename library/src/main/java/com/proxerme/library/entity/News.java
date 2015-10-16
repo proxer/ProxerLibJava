@@ -4,12 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.proxerme.library.interfaces.IdItem;
+import com.proxerme.library.interfaces.ImageItem;
+import com.proxerme.library.interfaces.TimeItem;
+
 /**
  * A bean holding all relevant info of a single news.
  *
  * @author Ruben Gees
  */
-public class News implements Parcelable {
+public class News implements Parcelable, IdItem, TimeItem, ImageItem {
 
     public static final Creator<News> CREATOR = new Creator<News>() {
         public News createFromParcel(Parcel source) {
@@ -66,10 +70,13 @@ public class News implements Parcelable {
         this.categoryTitle = in.readString();
     }
 
+    @NonNull
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public long getTime() {
         return time;
     }
@@ -79,6 +86,8 @@ public class News implements Parcelable {
         return description;
     }
 
+    @NonNull
+    @Override
     public String getImageId() {
         return imageId;
     }
