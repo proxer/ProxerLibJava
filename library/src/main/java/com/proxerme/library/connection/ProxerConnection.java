@@ -82,6 +82,19 @@ public class ProxerConnection {
         new LogoutRequest(callback).execute();
     }
 
+    public void cancel(@ProxerTag.ConnectionTag int tag) {
+        queue.cancelAll(tag);
+    }
+
+    public void cancelAll() {
+        queue.cancelAll(new RequestQueue.RequestFilter() {
+            @Override
+            public boolean apply(Request<?> request) {
+                return true;
+            }
+        });
+    }
+
     public static abstract class ResultCallback<T> {
         public void onResult(T result) {
 
