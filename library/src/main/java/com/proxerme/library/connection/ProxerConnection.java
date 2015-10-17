@@ -63,13 +63,13 @@ public class ProxerConnection {
         return queue;
     }
 
-    public void getNews(@IntRange(from = 1) int page,
-                        @NonNull ResultCallback<List<News>> callback) {
+    public void loadNews(@IntRange(from = 1) int page,
+                         @NonNull ResultCallback<List<News>> callback) {
         new NewsRequest(page, callback).execute();
     }
 
-    public void getConferences(@IntRange(from = 1) int page,
-                               @NonNull ResultCallback<List<Conference>> callback) {
+    public void loadConferences(@IntRange(from = 1) int page,
+                                @NonNull ResultCallback<List<Conference>> callback) {
         new ConferencesRequest(page, callback).execute();
     }
 
