@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -20,9 +19,7 @@ import com.proxerme.library.entity.News;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.PROXER;
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNKNOWN;
@@ -225,8 +222,17 @@ public class ProxerConnection {
         @Override
         protected JsonRequest getRequest(@NonNull Response.Listener<JSONObject> listener,
                                          Response.ErrorListener errorListener) {
-            LoginJsonObjectRequest request = new LoginJsonObjectRequest(user,
-                    listener, errorListener);
+            JSONObject params = new JSONObject();
+
+            try {
+                params.put("username", user.getUsername());
+                params.put("password", user.getPassword());
+            } catch (JSONException exception) {
+                //Ignore
+            }
+
+            PriorityJsonObjectRequest request = new PriorityJsonObjectRequest(Request.Method.POST,
+                    UrlHolder.getLoginUrl(), params, listener, errorListener);
 
             request.setPriority(Request.Priority.IMMEDIATE).setShouldCache(false)
                     .setTag(ProxerTag.LOGIN);
@@ -307,30 +313,6 @@ public class ProxerConnection {
             this.priority = priority;
 
             return this;
-        }
-    }
-
-    private class LoginJsonObjectRequest extends PriorityJsonObjectRequest {
-
-        private Map<String, String> params;
-
-        public LoginJsonObjectRequest(LoginUser user, Response.Listener<JSONObject> listener,
-                                      Response.ErrorListener errorListener) {
-            super(UrlHolder.getLoginUrl(), listener, errorListener);
-
-            params = new HashMap<>(2);
-            params.put(FORM_USERNAME, user.getUsername());
-            params.put(FORM_PASSWORD, user.getPassword());
-        }
-
-        @Override
-        public int getMethod() {
-            return Method.POST;
-        }
-
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            return params;
         }
     }
 }
