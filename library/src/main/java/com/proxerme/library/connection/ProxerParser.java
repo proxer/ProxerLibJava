@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Ruben Gees
  */
-public class ProxerParser {
+class ProxerParser {
 
     private static final String NEWS_ARRAY = "notifications";
     private static final String NEWS_ID = "nid";

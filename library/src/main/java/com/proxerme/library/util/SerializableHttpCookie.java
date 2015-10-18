@@ -31,7 +31,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.net.HttpCookie;
 
-public class SerializableHttpCookie implements Serializable {
+class SerializableHttpCookie implements Serializable {
     private static final String TAG = SerializableHttpCookie.class
             .getSimpleName();
 
