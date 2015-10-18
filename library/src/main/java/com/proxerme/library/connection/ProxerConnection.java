@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,7 +20,9 @@ import com.proxerme.library.entity.News;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.PROXER;
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNKNOWN;
@@ -232,7 +235,14 @@ public class ProxerConnection {
             }
 
             PriorityJsonObjectRequest request = new PriorityJsonObjectRequest(Request.Method.POST,
-                    UrlHolder.getLoginUrl(), params, listener, errorListener);
+                    UrlHolder.getLoginUrl(), params, listener, errorListener) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<>();
+                    headers.put("Content-Type", "application/json; charset=utf-8");
+                    return headers;
+                }
+            };
 
             request.setPriority(Request.Priority.IMMEDIATE).setShouldCache(false)
                     .setTag(ProxerTag.LOGIN);
