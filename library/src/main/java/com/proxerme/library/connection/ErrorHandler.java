@@ -3,10 +3,7 @@ package com.proxerme.library.connection;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 
-import com.android.volley.NetworkError;
-import com.android.volley.ParseError;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
+import com.afollestad.bridge.BridgeException;
 
 import org.json.JSONException;
 
@@ -15,6 +12,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.IO;
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.NETWORK;
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.PROXER;
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.TIMEOUT;
@@ -36,23 +34,42 @@ public class ErrorHandler {
     }
 
     @NonNull
-    public static ProxerException handleException(@NonNull VolleyError error) {
+    public static ProxerException handleException(@NonNull BridgeException bridgeException) {
         ProxerException exception;
 
-        if (error instanceof ParseError) {
-            exception = new ProxerException(UNPARSEABLE);
-        } else if (error instanceof TimeoutError) {
-            exception = new ProxerException(TIMEOUT);
-        } else if (error instanceof NetworkError) {
-            exception = new ProxerException(NETWORK);
-        } else {
-            exception = new ProxerException(UNKNOWN);
+        switch (bridgeException.reason()) {
+            case BridgeException.REASON_REQUEST_TIMEOUT: {
+                exception = new ProxerException(TIMEOUT);
+                break;
+            }
+            case BridgeException.REASON_RESPONSE_UNSUCCESSFUL: {
+                exception = new ProxerException(NETWORK);
+                break;
+            }
+            case BridgeException.REASON_RESPONSE_UNPARSEABLE: {
+                exception = new ProxerException(UNPARSEABLE);
+                break;
+            }
+            case BridgeException.REASON_RESPONSE_IOERROR: {
+                exception = new ProxerException(IO);
+                break;
+            }
+            case BridgeException.REASON_RESPONSE_VALIDATOR_FALSE:
+                exception = new ProxerException(UNKNOWN);
+                break;
+            case BridgeException.REASON_RESPONSE_VALIDATOR_ERROR:
+                exception = new ProxerException(PROXER, bridgeException.getMessage());
+                break;
+            default:
+                exception = new ProxerException(UNKNOWN);
+                break;
         }
 
         return exception;
     }
 
-    @IntDef({PROXER, NETWORK, UNPARSEABLE, TIMEOUT, UNKNOWN})
+    @IntDef({PROXER, NETWORK, UNPARSEABLE, IO,
+            TIMEOUT, UNKNOWN})
     @Retention(value = RetentionPolicy.SOURCE)
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface ErrorCode {
@@ -62,8 +79,9 @@ public class ErrorHandler {
         public static final int PROXER = 0;
         public static final int NETWORK = 1;
         public static final int UNPARSEABLE = 2;
-        public static final int TIMEOUT = 3;
-        public static final int UNKNOWN = 4;
+        public static final int IO = 3;
+        public static final int TIMEOUT = 4;
+        public static final int UNKNOWN = 5;
     }
 
 }

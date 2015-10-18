@@ -1,17 +1,16 @@
 package com.proxerme.library.connection;
 
-import android.content.Context;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.Volley;
+import com.afollestad.bridge.Bridge;
+import com.afollestad.bridge.BridgeException;
+import com.afollestad.bridge.Callback;
+import com.afollestad.bridge.Form;
+import com.afollestad.bridge.Request;
+import com.afollestad.bridge.RequestBuilder;
+import com.afollestad.bridge.Response;
+import com.afollestad.bridge.ResponseValidator;
 import com.proxerme.library.entity.Conference;
 import com.proxerme.library.entity.LoginData;
 import com.proxerme.library.entity.LoginUser;
@@ -20,309 +19,237 @@ import com.proxerme.library.entity.News;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.PROXER;
 import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNKNOWN;
+import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNPARSEABLE;
+import static com.proxerme.library.connection.ProxerTag.CONFERENCES;
+import static com.proxerme.library.connection.ProxerTag.ConnectionTag;
+import static com.proxerme.library.connection.ProxerTag.LOGIN;
+import static com.proxerme.library.connection.ProxerTag.LOGOUT;
+import static com.proxerme.library.connection.ProxerTag.NEWS;
 
 /**
- * Todo: Describe Class
+ * A helper class, which starts all request and manages the {@link Bridge}.
  *
  * @author Ruben Gees
  */
 public class ProxerConnection {
-    public static final String ERROR = "error";
-    public static final String MESSAGE = "message";
     private static final String FORM_USERNAME = "username";
     private static final String FORM_PASSWORD = "password";
-    private static ProxerConnection INSTANCE;
-    private Context context;
-    private RequestQueue queue;
+    private static final String RESPONSE_ERROR = "error";
+    private static final String RESPONSE_ERROR_MESSAGE = "message";
+    private static final String VALIDATOR_ID = "default-validator";
 
-    private ProxerConnection(@NonNull Context context) {
-        this.context = context;
-        getRequestQueue();
+    public static NewsRequest loadNews(@IntRange(from = 1) int page) {
+        return new NewsRequest(page);
     }
 
-    public static ProxerConnection getInstance(@NonNull Context context) {
-        if (INSTANCE == null) {
-            INSTANCE = new ProxerConnection(context);
-        }
-        return INSTANCE;
+    public static LoginRequest login(@NonNull final LoginUser user) {
+        return new LoginRequest(user);
     }
 
-    private RequestQueue getRequestQueue() {
-        if (queue == null) {
-            // getApplicationContext() is key, it keeps you from leaking the
-            // Activity or BroadcastReceiver if someone passes one in.
-            queue = Volley.newRequestQueue(context.getApplicationContext());
-        }
-
-        return queue;
+    public static LogoutRequest logout() {
+        return new LogoutRequest();
     }
 
-    public void loadNews(@IntRange(from = 1) int page,
-                         @NonNull ResultCallback<List<News>> callback) {
-        new NewsRequest(page, callback).execute();
+    public static ConferencesRequest loadConferences(@IntRange(from = 1) int page) {
+        return new ConferencesRequest(page);
     }
 
-    public void loadConferences(@IntRange(from = 1) int page,
-                                @NonNull ResultCallback<List<Conference>> callback) {
-        new ConferencesRequest(page, callback).execute();
+    public static void cancel(@ConnectionTag int tag, boolean force) {
+        Bridge.client().cancelAll(tag, force);
     }
 
-    public void login(@NonNull LoginUser user,
-                      @NonNull ResultCallback<LoginUser> callback) {
-        new LoginRequest(user, callback).execute();
+    public static void cancelSync(@ConnectionTag int tag, boolean force) {
+        Bridge.client().cancelAllSync(tag, force);
     }
 
-    public void logout(@NonNull ResultCallback<Void> callback) {
-        new LogoutRequest(callback).execute();
-    }
-
-    public void cancel(@ProxerTag.ConnectionTag int tag) {
-        queue.cancelAll(tag);
-    }
-
-    public void cancelAll() {
-        queue.cancelAll(new RequestQueue.RequestFilter() {
+    public static void init() {
+        Bridge.client().config().validators(new ResponseValidator() {
             @Override
-            public boolean apply(Request<?> request) {
-                return true;
+            public boolean validate(@NonNull Response response) throws Exception {
+                JSONObject json = response.asJsonObject();
+
+                if (json.has(RESPONSE_ERROR)) {
+                    if (json.getInt(RESPONSE_ERROR) == 0) {
+                        return true;
+                    } else {
+                        if (json.has(RESPONSE_ERROR_MESSAGE)) {
+                            throw new ProxerException(PROXER,
+                                    json.getString(RESPONSE_ERROR_MESSAGE));
+                        } else {
+                            throw new ProxerException(UNKNOWN);
+                        }
+                    }
+                } else {
+                    return false;
+                }
+            }
+
+            @NonNull
+            @Override
+            public String id() {
+                return VALIDATOR_ID;
             }
         });
     }
 
-    public static abstract class ResultCallback<T> {
-        public void onResult(T result) {
-
-        }
-
-        public void onError(@NonNull ProxerException exception) {
-
-        }
+    public static void cleanup() {
+        Bridge.cleanup();
     }
 
-    private abstract class ProxerRequest<T> {
-        private ResultCallback<T> callback;
+    public interface ResultCallback<T> {
+        void onResult(T result);
 
-        public ProxerRequest(ResultCallback<T> callback) {
-            this.callback = callback;
-        }
+        void onError(@NonNull ProxerException exception);
+    }
 
-        public void execute() {
-            queue.add(getRequest(new Response.Listener<JSONObject>() {
+    public static abstract class ProxerRequest<T> {
+
+        @NonNull
+        protected abstract RequestBuilder buildRequest(Bridge bridge);
+
+        @ConnectionTag
+        protected abstract int getTag();
+
+        public void execute(@NonNull final ResultCallback<T> callback) {
+            buildRequest(Bridge.client()).tag(getTag()).request(new Callback() {
                 @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        ProxerException validationException = validateResponse(response);
-
-                        if (validationException != null) {
-                            callback.onError(validationException);
+                public void response(Request request, Response response, BridgeException exception) {
+                    if (exception == null) {
+                        try {
+                            callback.onResult(parse(response.asJsonObject()));
+                        } catch (JSONException e) {
+                            callback.onError(new ProxerException(UNPARSEABLE));
+                        } catch (BridgeException e) {
+                            callback.onError(ErrorHandler.handleException(e));
                         }
-                        callback.onResult(parseResponse(response));
-                    } catch (JSONException exception) {
-                        callback.onError(ErrorHandler.handleException(exception));
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    callback.onError(ErrorHandler.handleException(error));
-                }
-            }));
-        }
-
-        private ProxerException validateResponse(@NonNull JSONObject object) throws JSONException {
-            ProxerException result = null;
-
-            if (object.has(ERROR)) {
-                if (object.getInt(ERROR) != 0) {
-                    if (object.has(MESSAGE)) {
-                        result = new ProxerException(PROXER,
-                                object.getString(MESSAGE));
                     } else {
-                        result = new ProxerException(UNKNOWN);
+                        if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
+                            callback.onError(ErrorHandler.handleException(exception));
+                        }
                     }
                 }
-            } else {
-                result = new ProxerException(UNKNOWN);
+            });
+        }
+
+        public T executeSynchronized() throws ProxerException {
+            try {
+                JSONObject result = buildRequest(Bridge.client()).tag(getTag() + 1).asJsonObject();
+
+                return parse(result);
+            } catch (JSONException e) {
+                throw ErrorHandler.handleException(e);
+            } catch (BridgeException e) {
+                throw ErrorHandler.handleException(e);
             }
-
-            return result;
         }
 
-        protected abstract JsonRequest getRequest(@NonNull Response.Listener<JSONObject> listener,
-                                                  Response.ErrorListener errorListener);
-
-        protected abstract T parseResponse(@NonNull JSONObject object) throws JSONException;
+        protected abstract T parse(@NonNull JSONObject response) throws JSONException;
     }
 
-    private class NewsRequest extends ProxerRequest<List<News>> {
+    public static class NewsRequest extends ProxerRequest<List<News>> {
 
         private int page;
 
-        public NewsRequest(@IntRange(from = 1) int page, ResultCallback<List<News>> callback) {
-            super(callback);
+        public NewsRequest(@IntRange(from = 1) int page) {
             this.page = page;
         }
 
+        @NonNull
         @Override
-        protected JsonRequest getRequest(@NonNull Response.Listener<JSONObject> listener,
-                                         Response.ErrorListener errorListener) {
-            PriorityJsonObjectRequest request = new PriorityJsonObjectRequest(Request.Method.GET,
-                    UrlHolder.getNewsUrl(page), listener, errorListener);
+        protected RequestBuilder buildRequest(Bridge bridge) {
+            return bridge.get(UrlHolder.getNewsUrl(page));
+        }
 
-            request.setPriority(Request.Priority.NORMAL).setShouldCache(false)
-                    .setTag(ProxerTag.NEWS);
-            return request;
+        @ConnectionTag
+        @Override
+        protected int getTag() {
+            return NEWS;
         }
 
         @Override
-        protected List<News> parseResponse(@NonNull JSONObject object) throws JSONException {
-            return ProxerParser.parseNewsJSON(object);
+        protected List<News> parse(@NonNull JSONObject response) throws JSONException {
+            return ProxerParser.parseNewsJSON(response);
         }
     }
 
-    private class ConferencesRequest extends ProxerRequest<List<Conference>> {
-
-        private int page;
-
-        public ConferencesRequest(@IntRange(from = 1) int page,
-                                  ResultCallback<List<Conference>> callback) {
-            super(callback);
-            this.page = page;
-        }
-
-        @Override
-        protected JsonRequest getRequest(@NonNull Response.Listener<JSONObject> listener,
-                                         Response.ErrorListener errorListener) {
-            PriorityJsonObjectRequest request = new PriorityJsonObjectRequest(Request.Method.GET,
-                    UrlHolder.getConferencesUrl(page), listener, errorListener);
-
-            request.setPriority(Request.Priority.NORMAL).setShouldCache(false)
-                    .setTag(ProxerTag.CONFERENCES);
-            return request;
-        }
-
-        @Override
-        protected List<Conference> parseResponse(@NonNull JSONObject object) throws JSONException {
-            return ProxerParser.parseConferencesJSON(object);
-        }
-    }
-
-    private class LoginRequest extends ProxerRequest<LoginUser> {
+    public static class LoginRequest extends ProxerRequest<LoginUser> {
 
         private LoginUser user;
 
-        public LoginRequest(LoginUser user, ResultCallback<LoginUser> callback) {
-            super(callback);
+        public LoginRequest(@NonNull LoginUser user) {
             this.user = user;
         }
 
+        @NonNull
         @Override
-        protected JsonRequest getRequest(@NonNull Response.Listener<JSONObject> listener,
-                                         Response.ErrorListener errorListener) {
-            JSONObject params = new JSONObject();
+        protected RequestBuilder buildRequest(Bridge bridge) {
+            Form loginCredentials = new Form().add(FORM_USERNAME, user.getUsername())
+                    .add(FORM_PASSWORD, user.getPassword());
 
-            try {
-                params.put("username", user.getUsername());
-                params.put("password", user.getPassword());
-            } catch (JSONException exception) {
-                //Ignore
-            }
+            return bridge.post(UrlHolder.getLoginUrl()).body(loginCredentials);
+        }
 
-            PriorityJsonObjectRequest request = new PriorityJsonObjectRequest(Request.Method.POST,
-                    UrlHolder.getLoginUrl(), params, listener, errorListener) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<>();
-                    headers.put("Content-Type", "application/json; charset=utf-8");
-                    return headers;
-                }
-            };
-
-            request.setPriority(Request.Priority.IMMEDIATE).setShouldCache(false)
-                    .setTag(ProxerTag.LOGIN);
-            return request;
+        @ConnectionTag
+        @Override
+        protected int getTag() {
+            return LOGIN;
         }
 
         @Override
-        protected LoginUser parseResponse(@NonNull JSONObject object) throws JSONException {
-            LoginData loginData = ProxerParser.parseLoginJSON(object);
+        protected LoginUser parse(@NonNull JSONObject response) throws JSONException {
+            LoginData data = ProxerParser.parseLoginJSON(response);
 
-            return new LoginUser(user.getUsername(), user.getPassword(), loginData.getId(),
-                    loginData.getImageId());
+            return new LoginUser(user.getUsername(), user.getPassword(), data.getId(),
+                    data.getImageId());
         }
     }
 
-    private class LogoutRequest extends ProxerRequest<Void> {
+    public static class LogoutRequest extends ProxerRequest<Void> {
 
-        public LogoutRequest(ResultCallback<Void> callback) {
-            super(callback);
+        @NonNull
+        @Override
+        protected RequestBuilder buildRequest(Bridge bridge) {
+            return bridge.get(UrlHolder.getLogoutUrl());
+        }
+
+        @ConnectionTag
+        @Override
+        protected int getTag() {
+            return LOGOUT;
         }
 
         @Override
-        protected JsonRequest getRequest(@NonNull Response.Listener<JSONObject> listener,
-                                         Response.ErrorListener errorListener) {
-            PriorityJsonObjectRequest request = new PriorityJsonObjectRequest(
-                    UrlHolder.getLogoutUrl(), listener, errorListener);
-
-            request.setPriority(Request.Priority.IMMEDIATE).setShouldCache(false)
-                    .setTag(ProxerTag.LOGOUT);
-            return request;
-        }
-
-        @Override
-        protected Void parseResponse(@NonNull JSONObject object) throws JSONException {
+        protected Void parse(@NonNull JSONObject response) throws JSONException {
             return null;
         }
     }
 
-    private class PriorityJsonObjectRequest extends JsonObjectRequest {
+    public static class ConferencesRequest extends ProxerRequest<List<Conference>> {
 
-        private Priority priority;
+        private int page;
 
-        public PriorityJsonObjectRequest(int method, String url, String requestBody,
-                                         Response.Listener<JSONObject> listener,
-                                         Response.ErrorListener errorListener) {
-            super(method, url, requestBody, listener, errorListener);
+        public ConferencesRequest(@IntRange(from = 1) int page) {
+            this.page = page;
         }
 
-        public PriorityJsonObjectRequest(String url, Response.Listener<JSONObject> listener,
-                                         Response.ErrorListener errorListener) {
-            super(url, listener, errorListener);
-        }
-
-        public PriorityJsonObjectRequest(int method, String url,
-                                         Response.Listener<JSONObject> listener,
-                                         Response.ErrorListener errorListener) {
-            super(method, url, listener, errorListener);
-        }
-
-        public PriorityJsonObjectRequest(int method, String url, JSONObject jsonRequest,
-                                         Response.Listener<JSONObject> listener,
-                                         Response.ErrorListener errorListener) {
-            super(method, url, jsonRequest, listener, errorListener);
-        }
-
-        public PriorityJsonObjectRequest(String url, JSONObject jsonRequest,
-                                         Response.Listener<JSONObject> listener,
-                                         Response.ErrorListener errorListener) {
-            super(url, jsonRequest, listener, errorListener);
+        @NonNull
+        @Override
+        protected RequestBuilder buildRequest(Bridge bridge) {
+            return bridge.get(UrlHolder.getConferencesUrl(page));
         }
 
         @Override
-        public Priority getPriority() {
-            return priority;
+        protected int getTag() {
+            return CONFERENCES;
         }
 
-        public PriorityJsonObjectRequest setPriority(Priority priority) {
-            this.priority = priority;
-
-            return this;
+        @Override
+        protected List<Conference> parse(@NonNull JSONObject response) throws JSONException {
+            return ProxerParser.parseConferencesJSON(response);
         }
     }
 }
