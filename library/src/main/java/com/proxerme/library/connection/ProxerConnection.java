@@ -21,9 +21,9 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.PROXER;
-import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNKNOWN;
-import static com.proxerme.library.connection.ErrorHandler.ErrorCodes.UNPARSEABLE;
+import static com.proxerme.library.connection.ProxerException.ErrorCodes.PROXER;
+import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNKNOWN;
+import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNPARSEABLE;
 import static com.proxerme.library.connection.ProxerTag.CONFERENCES;
 import static com.proxerme.library.connection.ProxerTag.ConnectionTag;
 import static com.proxerme.library.connection.ProxerTag.LOGIN;
