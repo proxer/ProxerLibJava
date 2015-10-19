@@ -23,7 +23,6 @@ import java.util.List;
 
 import static com.proxerme.library.connection.ProxerException.ErrorCodes.PROXER;
 import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNKNOWN;
-import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNPARSEABLE;
 import static com.proxerme.library.connection.ProxerTag.CONFERENCES;
 import static com.proxerme.library.connection.ProxerTag.ConnectionTag;
 import static com.proxerme.library.connection.ProxerTag.LOGIN;
@@ -122,7 +121,7 @@ public class ProxerConnection {
                         try {
                             callback.onResult(parse(response.asJsonObject()));
                         } catch (JSONException e) {
-                            callback.onError(new ProxerException(UNPARSEABLE));
+                            callback.onError(ErrorHandler.handleException(e));
                         } catch (BridgeException e) {
                             callback.onError(ErrorHandler.handleException(e));
                         }
