@@ -46,6 +46,17 @@ You *must* call `init()` somewhere in the android lifecycle. The `onCreate()` me
 
 The `cleanup()` method is optional, but recommended. It cancels all the active requests and frees up the memory for the java garbage collection. A good place to call this is the `onDestroy()` method of your main Activity.
 
+#### Managing Cookies
+
+The Api needs Cookies to recognize the login state. Android doen't automatically handle this itself, but this Lib has a helper-class for this purpose. 
+To activate cookie handling, add the following to your main Applications `onCreate`:
+
+```java
+CookieManager cookieManager = new CookieManager(new PersistentCookieStore(this),
+                CookiePolicy.ACCEPT_ALL);
+        CookieHandler.setDefault(cookieManager);
+```
+
 ### More
 
 A detailed documentation can be found in the [Wiki](https://github.com/proxer/ProxerLibAndroid/wiki).
