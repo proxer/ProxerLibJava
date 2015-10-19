@@ -54,7 +54,7 @@ To activate cookie handling, add the following to your main Applications `onCrea
 ```java
 CookieManager cookieManager = new CookieManager(new PersistentCookieStore(this),
                 CookiePolicy.ACCEPT_ALL);
-        CookieHandler.setDefault(cookieManager);
+CookieHandler.setDefault(cookieManager);
 ```
 
 ### More
