@@ -16,7 +16,7 @@ repositories {
 
 ```groovy
 dependencies {
-    compile('com.github.proxer:ProxerLibAndroid:1.1.3@aar') {
+    compile('com.github.proxer:ProxerLibAndroid:1.2@aar') {
         transitive = true
     }
 }
