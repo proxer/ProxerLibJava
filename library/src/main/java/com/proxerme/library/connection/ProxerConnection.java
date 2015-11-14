@@ -30,7 +30,7 @@ import static com.proxerme.library.connection.ProxerTag.LOGOUT;
 import static com.proxerme.library.connection.ProxerTag.NEWS;
 
 /**
- * A helper class, which starts all request and manages the {@link Bridge}.
+ * A helper class, which starts all request and manages the networking library.
  *
  * @author Ruben Gees
  */
@@ -41,30 +41,71 @@ public class ProxerConnection {
     private static final String RESPONSE_ERROR_MESSAGE = "message";
     private static final String VALIDATOR_ID = "default-validator";
 
+    /**
+     * Entry point to load the News of the specified page.
+     *
+     * @param page The page to load the News.
+     * @return A {@link NewsRequest} to work with.
+     */
     public static NewsRequest loadNews(@IntRange(from = 1) int page) {
         return new NewsRequest(page);
     }
 
-    public static LoginRequest login(@NonNull final LoginUser user) {
+    /**
+     * Entry point for the Login.
+     *
+     * @param user The User to login with.
+     * @return A {@link LoginRequest} to work with.
+     */
+    public static LoginRequest login(@NonNull LoginUser user) {
         return new LoginRequest(user);
     }
 
+    /**
+     * Entry point for the logout
+     *
+     * @return A {@link LogoutRequest} to work with.
+     */
     public static LogoutRequest logout() {
         return new LogoutRequest();
     }
 
+    /**
+     * Entry point to load the Conferences of the specified page.
+     *
+     * @param page The page to laod the Conferences
+     * @return A {@link ConferencesRequest} to work with.
+     */
     public static ConferencesRequest loadConferences(@IntRange(from = 1) int page) {
         return new ConferencesRequest(page);
     }
 
-    public static void cancel(@ConnectionTag int tag, boolean force) {
-        Bridge.client().cancelAll(tag, force);
+    /**
+     * Cancels all asynchronous started requests of the specified tag.
+     *
+     * @param tag The {@link ProxerTag} to cancel
+     * @see ProxerTag
+     * @see #cancelSync(int)
+     */
+    public static void cancel(@ConnectionTag int tag) {
+        Bridge.client().cancelAll(tag, false);
     }
 
-    public static void cancelSync(@ConnectionTag int tag, boolean force) {
-        Bridge.client().cancelAllSync(tag, force);
+    /**
+     * Cancels all synchronous started requests of the specified tag.
+     *
+     * @param tag The {@link ProxerTag} to cancel
+     * @see ProxerTag
+     * @see #cancel(int)
+     */
+    public static void cancelSync(@ConnectionTag int tag) {
+        Bridge.client().cancelAllSync(tag, false);
     }
 
+    /**
+     * Does some initialization steps. You *must* call this method somewhere in your lifecycle. A
+     * good place might be the onCreate Method of your main Activity.
+     */
     public static void init() {
         Bridge.client().config().validators(new ResponseValidator() {
             @Override
@@ -95,24 +136,64 @@ public class ProxerConnection {
         });
     }
 
+    /**
+     * Cleans up references and left open connections. You should call this method somewhere in the
+     * lifecycle, but don't have to. A good place might be the onDestroy Method of your main
+     * activity.
+     */
     public static void cleanup() {
         Bridge.cleanup();
     }
 
+    /**
+     * An abstract representation of a Callback, passed to the
+     * {@link ProxerRequest#execute(ResultCallback)} Method.
+     *
+     * @param <T> The generic parameter.
+     */
     public interface ResultCallback<T> {
+        /**
+         * A Callback Method, called if the Request was successful.
+         * @param result The result of the specific Request.
+         */
         void onResult(T result);
 
+        /**
+         * A Callback Method, called if an Error occurred during the Request.
+         * @see ProxerException
+         * @param exception The Exception that occurred.
+         */
         void onError(@NonNull ProxerException exception);
     }
 
+    /**
+     * An abstract representation of a Request. All Requests to the API are made through this class.
+     * @param <T> The type of Result, the inheriting Request will return.
+     */
     public static abstract class ProxerRequest<T> {
 
+        /**
+         * Builds the request, to be used in the
+         * {@link #execute(ResultCallback)} or
+         * {@link #executeSynchronized()} method.
+         * @param bridge The Bridge instance to build the request with.
+         * @return The {@link RequestBuilder} to use for further invocations.
+         */
         @NonNull
         protected abstract RequestBuilder buildRequest(Bridge bridge);
 
+        /**
+         * Returnes the {@link ProxerTag} of this Request.
+         * @return The {@link ProxerTag}.
+         */
         @ConnectionTag
         protected abstract int getTag();
 
+        /**
+         * Asynchronously executes this request.
+         * @see #executeSynchronized()
+         * @param callback The Callback for notifications about the Result.
+         */
         public void execute(@NonNull final ResultCallback<T> callback) {
             buildRequest(Bridge.client()).tag(getTag()).request(new Callback() {
                 @Override
@@ -134,6 +215,11 @@ public class ProxerConnection {
             });
         }
 
+        /**
+         * Synchronously executes this request.
+         * @return The Result, specified by this class.
+         * @throws ProxerException An Exception, which might occur, while executing the request.
+         */
         public T executeSynchronized() throws ProxerException {
             try {
                 JSONObject result = buildRequest(Bridge.client()).tag(getTag() + 1).asJsonObject();
@@ -146,9 +232,18 @@ public class ProxerConnection {
             }
         }
 
+        /**
+         * Parses the raw response of the server.
+         * @param response The response in JSON format.
+         * @return The specific type of result of this class.
+         * @throws JSONException An Exception, which might occur while parsing.
+         */
         protected abstract T parse(@NonNull JSONObject response) throws JSONException;
     }
 
+    /**
+     * A request, returning a List of {@link News}.
+     */
     public static class NewsRequest extends ProxerRequest<List<News>> {
 
         private int page;
@@ -175,6 +270,9 @@ public class ProxerConnection {
         }
     }
 
+    /**
+     * A request for the login, returning a {@link LoginUser} on success.
+     */
     public static class LoginRequest extends ProxerRequest<LoginUser> {
 
         private LoginUser user;
@@ -207,6 +305,9 @@ public class ProxerConnection {
         }
     }
 
+    /**
+     * A request for the logout.
+     */
     public static class LogoutRequest extends ProxerRequest<Void> {
 
         @NonNull
@@ -227,6 +328,9 @@ public class ProxerConnection {
         }
     }
 
+    /**
+     * A request for retrieval of the {@link Conference}s of a user.
+     */
     public static class ConferencesRequest extends ProxerRequest<List<Conference>> {
 
         private int page;

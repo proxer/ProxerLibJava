@@ -15,19 +15,30 @@ import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNKNOWN
 import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNPARSEABLE;
 
 /**
- * A Helper class, which converts an {@link Exception} to a integer, represented through the
+ * A Helper class, which converts an Exception to a Integer, represented through the
  * Annotation {@link ErrorCode}. It also has
- * a Method to convert a ErrorCode into a human readable {@link String}.
+ * a Method to convert a ErrorCode into a human readable String.
  *
  * @author Ruben Gees
  */
 class ErrorHandler {
 
+    /**
+     * Handles a JSONException and returnes the appropriate {@link ProxerException}.
+     *
+     * @param jsonException The Exception.
+     * @return The appropriate {@link ProxerException}.
+     */
     @NonNull
     public static ProxerException handleException(@NonNull JSONException jsonException) {
         return new ProxerException(UNPARSEABLE);
     }
 
+    /**
+     * Handles a BridgeException and returnes the appropriate {@link ProxerException}.
+     * @param bridgeException The Exception.
+     * @return The appropriate {@link ProxerException}.
+     */
     @NonNull
     public static ProxerException handleException(@NonNull BridgeException bridgeException) {
         ProxerException exception;

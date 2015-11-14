@@ -34,11 +34,19 @@ public class ProxerException extends Exception {
         this.errorCode = errorCode;
     }
 
+    /**
+     * Returnes the {@link ErrorCode} of this Exception.
+     *
+     * @return The code.
+     */
     @ErrorCode
     public int getErrorCode() {
         return errorCode;
     }
 
+    /**
+     * An annotation, representing the different error codes, which might occur.
+     */
     @IntDef({PROXER, NETWORK, UNPARSEABLE, IO,
             TIMEOUT, UNKNOWN})
     @Retention(value = RetentionPolicy.SOURCE)
@@ -46,12 +54,39 @@ public class ProxerException extends Exception {
     public @interface ErrorCode {
     }
 
+    /**
+     * A class which holds all the different error codes, which might occur.
+     */
     public class ErrorCodes {
+
+        /**
+         * An error happened on the server itself or user date is not correct.
+         */
         public static final int PROXER = 0;
+
+        /**
+         * An error with the network, like no connectivity or wrong configuration.
+         */
         public static final int NETWORK = 1;
+
+        /**
+         * The result of a request was not in the expected format.
+         */
         public static final int UNPARSEABLE = 2;
+
+        /**
+         * There were errors when trying to access storage.
+         */
         public static final int IO = 3;
+
+        /**
+         * The connection timed out, due to and connectivity or server problems.
+         */
         public static final int TIMEOUT = 4;
+
+        /**
+         * Every other error, which doesn't fit into one of the other categories.
+         */
         public static final int UNKNOWN = 5;
     }
 }
