@@ -61,7 +61,7 @@ public class UrlHolder {
     }
 
     /**
-     * Returns the url to a single iamge of a user.
+     * Returns the url to a single image of a user.
      * @param imageLink The link to the image.
      * @return The url.
      */

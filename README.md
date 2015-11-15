@@ -32,7 +32,7 @@ The request will automatically happen on a worker thread, thus not blocking the 
 
 #### The `executeSynchronized()` method
 
-The request will happen on the current thread. This is usefull, if you want to use an `IntentService` (which is asynchrounous by default) or manage the Threads yourself.
+The request will happen on the current thread. This is useful, if you want to use an `IntentService` (which is asynchronous by default) or manage the Threads yourself.
 
 The `ProxerConnection` also provides several other methods:
 
@@ -48,7 +48,7 @@ The `cleanup()` method is optional, but recommended. It cancels all the active r
 
 #### Managing Cookies
 
-The Api needs Cookies to recognize the login state. Android doen't automatically handle this itself, but this Lib has a helper-class for this purpose. 
+The Api needs Cookies to recognize the login state. Android doesn't automatically handle this itself, but this Lib has a helper-class for this purpose.
 To activate cookie handling, add the following to your main Applications `onCreate`:
 
 ```java

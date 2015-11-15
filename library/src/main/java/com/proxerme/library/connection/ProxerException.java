@@ -35,7 +35,7 @@ public class ProxerException extends Exception {
     }
 
     /**
-     * Returnes the {@link ErrorCode} of this Exception.
+     * Returns the {@link ErrorCode} of this Exception.
      *
      * @return The code.
      */

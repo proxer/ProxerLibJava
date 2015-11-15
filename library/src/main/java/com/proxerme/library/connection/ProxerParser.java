@@ -45,7 +45,7 @@ class ProxerParser {
     private static final String CONFERENCES_IMAGE = "image";
 
     /**
-     * Parses a raw JSON, returned by the server and returnes a List of {@link News}.
+     * Parses a raw JSON, returned by the server and returns a List of {@link News}.
      *
      * @param object The JSON object.
      * @return The List of {@link News}.

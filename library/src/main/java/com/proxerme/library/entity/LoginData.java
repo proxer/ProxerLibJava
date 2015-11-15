@@ -61,6 +61,7 @@ public class LoginData implements Parcelable, IdItem, ImageItem {
         return imageLink;
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

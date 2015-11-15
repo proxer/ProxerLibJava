@@ -1,13 +1,20 @@
 package com.proxerme.library.util;
 
 /**
- * Todo: Describe Class
+ * Simple class, which holds some additional constants.
  *
  * @author Ruben Gees
  */
 public class ProxerInfo {
 
+    /**
+     * The amount of news on one page.
+     */
     public static final int NEWS_ON_PAGE = 15;
+
+    /**
+     * The amount of conferences on one page.
+     */
     public static final int CONFERENCES_ON_PAGE = 48;
 
 }

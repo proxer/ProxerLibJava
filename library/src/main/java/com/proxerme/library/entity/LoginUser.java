@@ -40,10 +40,11 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
 
     /**
      * Constructor for a user after the login.
+     *
      * @param username The username of user.
      * @param password The password of the user.
-     * @param id The id of the user.
-     * @param image The profile picture of the user.
+     * @param id       The id of the user.
+     * @param image    The profile picture of the user.
      */
     public LoginUser(@NonNull String username, @NonNull String password, @NonNull String id,
                      @NonNull String image) {
@@ -62,6 +63,7 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
 
     /**
      * Returns the username.
+     *
      * @return The username.
      */
     @NonNull
@@ -71,6 +73,7 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
 
     /**
      * Return the password of the user.
+     *
      * @return The password.
      */
     @NonNull
@@ -80,6 +83,7 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
 
     /**
      * Returns the id of the user.
+     *
      * @return The id.
      * @throws RuntimeException If the user has no id yet, meaning he is not logged in yet.
      */
@@ -95,6 +99,7 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
 
     /**
      * Sets the id of the user.
+     *
      * @param id The id.
      */
     public void setId(@NonNull String id) {
@@ -103,8 +108,9 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
 
     /**
      * Returns the profile picture of the user.
+     *
      * @return The image.
-     * @throws RuntimeException If the user has not iamge yet, meaning he is not logged in yet.
+     * @throws RuntimeException If the user has not image yet, meaning he is not logged in yet.
      */
     @NonNull
     @Override
@@ -118,12 +124,14 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
 
     /**
      * Sets the image of the user.
+     *
      * @param imageId The image.
      */
     public void setImageId(@NonNull String imageId) {
         this.imageId = imageId;
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -25,6 +25,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
             return new News[size];
         }
     };
+
     private String id;
     private long time;
     private String description;
@@ -53,8 +54,8 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
      * @param categoryTitle The title of the category.
      */
     public News(@NonNull String id, long time, @NonNull String description, @NonNull String imageId,
-                @NonNull String subject, int hits, @NonNull String threadId,
-                @NonNull String authorId, @NonNull String author, int posts,
+                @NonNull String subject, @IntRange(from = 0) int hits, @NonNull String threadId,
+                @NonNull String authorId, @NonNull String author, @IntRange(from = 0) int posts,
                 @NonNull String categoryId, @NonNull String categoryTitle) {
         this.id = id;
         this.time = time;
@@ -207,6 +208,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
         return categoryTitle;
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -3,7 +3,7 @@ package com.proxerme.library.interfaces;
 import android.support.annotation.NonNull;
 
 /**
- * An interface for all entities with an iamge.
+ * An interface for all entities with an image.
  *
  * @author Ruben Gees
  */

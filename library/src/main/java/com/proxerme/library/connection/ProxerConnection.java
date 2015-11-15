@@ -47,6 +47,7 @@ public class ProxerConnection {
      * @param page The page to load the News.
      * @return A {@link NewsRequest} to work with.
      */
+    @NonNull
     public static NewsRequest loadNews(@IntRange(from = 1) int page) {
         return new NewsRequest(page);
     }
@@ -57,6 +58,7 @@ public class ProxerConnection {
      * @param user The User to login with.
      * @return A {@link LoginRequest} to work with.
      */
+    @NonNull
     public static LoginRequest login(@NonNull LoginUser user) {
         return new LoginRequest(user);
     }
@@ -66,6 +68,7 @@ public class ProxerConnection {
      *
      * @return A {@link LogoutRequest} to work with.
      */
+    @NonNull
     public static LogoutRequest logout() {
         return new LogoutRequest();
     }
@@ -73,9 +76,10 @@ public class ProxerConnection {
     /**
      * Entry point to load Conferences of the specified page.
      *
-     * @param page The page to laod the Conferences
+     * @param page The page to load the Conferences
      * @return A {@link ConferencesRequest} to work with.
      */
+    @NonNull
     public static ConferencesRequest loadConferences(@IntRange(from = 1) int page) {
         return new ConferencesRequest(page);
     }
@@ -183,7 +187,7 @@ public class ProxerConnection {
         protected abstract RequestBuilder buildRequest(Bridge bridge);
 
         /**
-         * Returnes the {@link ProxerTag} of this request.
+         * Returns the {@link ProxerTag} of this request.
          * @return The {@link ProxerTag}.
          */
         @ConnectionTag
@@ -217,6 +221,7 @@ public class ProxerConnection {
 
         /**
          * Synchronously executes this request.
+         * @see #execute(ResultCallback)
          * @return The result, specified by this class.
          * @throws ProxerException An Exception, which might occur, while executing the request.
          */

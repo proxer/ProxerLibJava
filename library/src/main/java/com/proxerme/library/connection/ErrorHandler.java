@@ -24,18 +24,19 @@ import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNPARSE
 class ErrorHandler {
 
     /**
-     * Handles a JSONException and returnes the appropriate {@link ProxerException}.
+     * Handles a JSONException and returns the appropriate {@link ProxerException}.
      *
      * @param jsonException The Exception.
      * @return The appropriate {@link ProxerException}.
      */
+    @SuppressWarnings("UnusedParameters")
     @NonNull
     public static ProxerException handleException(@NonNull JSONException jsonException) {
         return new ProxerException(UNPARSEABLE);
     }
 
     /**
-     * Handles a BridgeException and returnes the appropriate {@link ProxerException}.
+     * Handles a BridgeException and returns the appropriate {@link ProxerException}.
      * @param bridgeException The Exception.
      * @return The appropriate {@link ProxerException}.
      */
