@@ -8,7 +8,7 @@ import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.ImageItem;
 
 /**
- * Todo: Describe Class
+ * Entity holding information for the login and about the user after the login.
  *
  * @author Ruben Gees
  */
@@ -27,11 +27,24 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
     private String id;
     private String imageId;
 
+    /**
+     * Constructor for a user before a login.
+     *
+     * @param username The username of user.
+     * @param password The password of the user.
+     */
     public LoginUser(@NonNull String username, @NonNull String password) {
         this.username = username;
         this.password = password;
     }
 
+    /**
+     * Constructor for a user after the login.
+     * @param username The username of user.
+     * @param password The password of the user.
+     * @param id The id of the user.
+     * @param image The profile picture of the user.
+     */
     public LoginUser(@NonNull String username, @NonNull String password, @NonNull String id,
                      @NonNull String image) {
         this.username = username;
@@ -47,16 +60,29 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
         this.imageId = in.readString();
     }
 
+    /**
+     * Returns the username.
+     * @return The username.
+     */
     @NonNull
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Return the password of the user.
+     * @return The password.
+     */
     @NonNull
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Returns the id of the user.
+     * @return The id.
+     * @throws RuntimeException If the user has no id yet, meaning he is not logged in yet.
+     */
     @NonNull
     @Override
     public String getId() throws RuntimeException {
@@ -67,10 +93,19 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
         return id;
     }
 
+    /**
+     * Sets the id of the user.
+     * @param id The id.
+     */
     public void setId(@NonNull String id) {
         this.id = id;
     }
 
+    /**
+     * Returns the profile picture of the user.
+     * @return The image.
+     * @throws RuntimeException If the user has not iamge yet, meaning he is not logged in yet.
+     */
     @NonNull
     @Override
     public String getImageId() throws RuntimeException {
@@ -81,6 +116,10 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
         return imageId;
     }
 
+    /**
+     * Sets the image of the user.
+     * @param imageId The image.
+     */
     public void setImageId(@NonNull String imageId) {
         this.imageId = imageId;
     }

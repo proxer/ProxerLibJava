@@ -1,4 +1,4 @@
-package com.proxerme.library.util;/*
+/*
  * Copyright (c) 2015 Fran Montiel
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,6 +13,8 @@ package com.proxerme.library.util;/*
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.proxerme.library.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -30,6 +32,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * A helper class for managing Cookies.
+ */
 public class PersistentCookieStore implements CookieStore {
     private static final String TAG = PersistentCookieStore.class
             .getSimpleName();
@@ -58,6 +63,7 @@ public class PersistentCookieStore implements CookieStore {
      * @param cookie
      * @return
      */
+    @SuppressWarnings("JavaDoc")
     private static URI cookieUri(URI uri, HttpCookie cookie) {
         URI cookieUri = uri;
         if (cookie.getDomain() != null) {

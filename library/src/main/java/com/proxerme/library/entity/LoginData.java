@@ -8,7 +8,7 @@ import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.ImageItem;
 
 /**
- * Todo: Describe Class
+ * Entity for passing received date after a login like the id of the user and his image.
  *
  * @author Ruben Gees
  */
@@ -26,6 +26,10 @@ public class LoginData implements Parcelable, IdItem, ImageItem {
     private String id;
     private String imageLink;
 
+    /**
+     * @param id    The id of the user.
+     * @param image The profile picture of the user.
+     */
     public LoginData(String id, String image) {
         this.id = id;
         this.imageLink = image;
@@ -36,12 +40,21 @@ public class LoginData implements Parcelable, IdItem, ImageItem {
         this.imageLink = in.readString();
     }
 
+    /**
+     * Returns the id of the user.
+     *
+     * @return The id.
+     */
     @NonNull
     @Override
     public String getId() {
         return id;
     }
 
+    /**
+     * Returns the image of the user.
+     * @return The image.
+     */
     @NonNull
     @Override
     public String getImageId() {

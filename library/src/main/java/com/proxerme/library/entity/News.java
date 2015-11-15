@@ -2,6 +2,7 @@ package com.proxerme.library.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import com.proxerme.library.interfaces.IdItem;
@@ -9,7 +10,7 @@ import com.proxerme.library.interfaces.ImageItem;
 import com.proxerme.library.interfaces.TimeItem;
 
 /**
- * A bean holding all relevant info of a single news.
+ * A entity holding all relevant info of a single news.
  *
  * @author Ruben Gees
  */
@@ -37,6 +38,20 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     private String categoryId;
     private String categoryTitle;
 
+    /**
+     * @param id            The id of the News.
+     * @param time          The time the News was published.
+     * @param description   A description.
+     * @param imageId       The image.
+     * @param subject       The subject of the News.
+     * @param hits          The amount of views.
+     * @param threadId      The id of the thread.
+     * @param authorId      The user id of the author.
+     * @param author        The name of the author.
+     * @param posts         The amount of comments on the News.
+     * @param categoryId    The id of the category this News is in.
+     * @param categoryTitle The title of the category.
+     */
     public News(@NonNull String id, long time, @NonNull String description, @NonNull String imageId,
                 @NonNull String subject, int hits, @NonNull String threadId,
                 @NonNull String authorId, @NonNull String author, int posts,
@@ -70,58 +85,123 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
         this.categoryTitle = in.readString();
     }
 
+    /**
+     * Returns the id of this News.
+     *
+     * @return The id.
+     */
     @NonNull
     @Override
     public String getId() {
         return id;
     }
 
+    /**
+     * returns the time this News has been published.
+     *
+     * @return The time as a unix-timestamp.
+     */
     @Override
     public long getTime() {
         return time;
     }
 
+    /**
+     * Returns the description of this News.
+     *
+     * @return The description.
+     */
     @NonNull
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Returns the image of this News.
+     *
+     * @return The image.
+     */
     @NonNull
     @Override
     public String getImageId() {
         return imageId;
     }
 
+    /**
+     * Return the subject of this News.
+     *
+     * @return The subject.
+     */
     @NonNull
     public String getSubject() {
         return subject;
     }
 
+    /**
+     * Returns the amount of views of this news.
+     *
+     * @return The amount of views.
+     */
+    @IntRange(from = 0)
     public int getHits() {
         return hits;
     }
 
+    /**
+     * Returns the id of the thread.
+     *
+     * @return The id of the thread.
+     */
+    @NonNull
     public String getThreadId() {
         return threadId;
     }
 
+    /**
+     * Returns the user id of the author.
+     *
+     * @return The id.
+     */
+    @NonNull
     public String getAuthorId() {
         return authorId;
     }
 
+    /**
+     * Returns the username of the author.
+     *
+     * @return The username.
+     */
     @NonNull
     public String getAuthor() {
         return author;
     }
 
+    /**
+     * Returns the amount of comments on this News.
+     *
+     * @return the amount of comments.
+     */
+    @IntRange(from = 0)
     public int getPosts() {
         return posts;
     }
 
+    /**
+     * Returns the id of the category of this News.
+     *
+     * @return The id.
+     */
+    @NonNull
     public String getCategoryId() {
         return categoryId;
     }
 
+    /**
+     * Returns the title of the category of this News.
+     *
+     * @return The title of the category.
+     */
     @NonNull
     public String getCategoryTitle() {
         return categoryTitle;

@@ -2,6 +2,7 @@ package com.proxerme.library.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import com.proxerme.library.interfaces.IdItem;
@@ -9,7 +10,7 @@ import com.proxerme.library.interfaces.ImageItem;
 import com.proxerme.library.interfaces.TimeItem;
 
 /**
- * Todo: Describe Class
+ * Entity holding all relevant information about a Conference.
  *
  * @author Ruben Gees
  */
@@ -32,6 +33,16 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     private boolean read;
     private String imageId;
 
+    /**
+     * @param id                The id of the Conference.
+     * @param topic             The topic.
+     * @param participantAmount The amount of participants.
+     * @param conference        Indicator, if this Conference has more than 2 participants.
+     *                          (group conversation)
+     * @param time              The time of the last message.
+     * @param read              Indicator, if the user has read the last message in this Conference.
+     * @param imageId           The id of the image.
+     */
     public Conference(@NonNull String id, @NonNull String topic, int participantAmount,
                       boolean conference, long time, boolean read, @NonNull String imageId) {
         this.id = id;
@@ -53,34 +64,64 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         this.imageId = in.readString();
     }
 
+    /**
+     * Returns the id of this Conference.
+     * @return The id.
+     */
     @NonNull
     @Override
     public String getId() {
         return id;
     }
 
+    /**
+     * Returns the topic of this Conference.
+     * @return The topic.
+     */
     @NonNull
     public String getTopic() {
         return topic;
     }
 
+    /**
+     * Returns the amount of participants in this Conference.
+     * @return The amount of participants.
+     */
+    @IntRange(from = 2)
     public int getParticipantAmount() {
         return participantAmount;
     }
 
+    /**
+     * Returns if this Conference is a group conversation.
+     * @return Returns true if this conference has more than 2 participants.
+     */
     public boolean isConference() {
         return conference;
     }
 
+    /**
+     * Returns the time of the last message.
+     * @return The time.
+     */
     @Override
     public long getTime() {
         return time;
     }
 
+    /**
+     * Returns if the user has read the last message in this conference.
+     * @return True if the user has read the last message.
+     */
     public boolean isRead() {
         return read;
     }
 
+    /**
+     * Returns the id of this image of the Conference. May be and empty string, if this conference
+     * has no image. (Users without a profile image and group conversation)
+     * @return The id.
+     */
     @NonNull
     @Override
     public String getImageId() {
