@@ -60,7 +60,7 @@ public class ProxerException extends Exception {
     public class ErrorCodes {
 
         /**
-         * An error happened on the server itself or user date is not correct.
+         * An error happened on the server itself or entered user data is incorrect.
          */
         public static final int PROXER = 0;
 

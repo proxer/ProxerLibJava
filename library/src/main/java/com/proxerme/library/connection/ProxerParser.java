@@ -44,6 +44,13 @@ class ProxerParser {
     private static final String CONFERENCES_IS_READ = "read";
     private static final String CONFERENCES_IMAGE = "image";
 
+    /**
+     * Parses a raw JSON, returned by the server and returnes a List of {@link News}.
+     *
+     * @param object The JSON object.
+     * @return The List of {@link News}.
+     * @throws JSONException If the JSON is not formatted as expected.
+     */
     @NonNull
     public static List<News> parseNewsJSON(@NonNull JSONObject object) throws JSONException {
         JSONArray newsArray = object.getJSONArray(NEWS_ARRAY);
@@ -63,10 +70,12 @@ class ProxerParser {
         return result;
     }
 
+    @NonNull
     public static LoginData parseLoginJSON(@NonNull JSONObject object) throws JSONException {
         return new LoginData(object.getString(LOGIN_ID), object.getString(LOGIN_IMAGE));
     }
 
+    @NonNull
     public static List<Conference> parseConferencesJSON(@NonNull JSONObject object) throws JSONException {
         JSONArray conferencesArray = object.getJSONArray(CONFERENCES_ARRAY);
         List<Conference> result = new ArrayList<>(conferencesArray.length());

@@ -15,11 +15,6 @@ package com.proxerme.library.util;/*
  * limitations under the License.
  */
 
-/**
- * Based on the code from this stackoverflow answer http://stackoverflow.com/a/25462286/980387 by janoliver
- * Modifications in the structure of the class and addition of serialization of httpOnly attribute
- */
-
 import android.util.Log;
 
 import java.io.ByteArrayInputStream;
@@ -31,6 +26,10 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.net.HttpCookie;
 
+/**
+ * Based on the code from this stackoverflow answer http://stackoverflow.com/a/25462286/980387 by janoliver
+ * Modifications in the structure of the class and addition of serialization of httpOnly attribute
+ */
 class SerializableHttpCookie implements Serializable {
     private static final String TAG = SerializableHttpCookie.class
             .getSimpleName();

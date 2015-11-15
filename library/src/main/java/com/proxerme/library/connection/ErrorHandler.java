@@ -16,8 +16,8 @@ import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNPARSE
 
 /**
  * A Helper class, which converts an Exception to a Integer, represented through the
- * Annotation {@link ErrorCode}. It also has
- * a Method to convert a ErrorCode into a human readable String.
+ * {@link ErrorCode} annotation. It also has
+ * a method to convert an ErrorCode into a human readable String.
  *
  * @author Ruben Gees
  */

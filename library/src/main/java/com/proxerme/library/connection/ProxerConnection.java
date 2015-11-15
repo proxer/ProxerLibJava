@@ -30,7 +30,7 @@ import static com.proxerme.library.connection.ProxerTag.LOGOUT;
 import static com.proxerme.library.connection.ProxerTag.NEWS;
 
 /**
- * A helper class, which starts all request and manages the networking library.
+ * Main class to start all requests and manage the networking library.
  *
  * @author Ruben Gees
  */
@@ -42,7 +42,7 @@ public class ProxerConnection {
     private static final String VALIDATOR_ID = "default-validator";
 
     /**
-     * Entry point to load the News of the specified page.
+     * Entry point to load News of a specified page.
      *
      * @param page The page to load the News.
      * @return A {@link NewsRequest} to work with.
@@ -71,7 +71,7 @@ public class ProxerConnection {
     }
 
     /**
-     * Entry point to load the Conferences of the specified page.
+     * Entry point to load Conferences of the specified page.
      *
      * @param page The page to laod the Conferences
      * @return A {@link ConferencesRequest} to work with.
@@ -104,7 +104,7 @@ public class ProxerConnection {
 
     /**
      * Does some initialization steps. You *must* call this method somewhere in your lifecycle. A
-     * good place might be the onCreate Method of your main Activity.
+     * good place might be the onCreate method of your main Activity.
      */
     public static void init() {
         Bridge.client().config().validators(new ResponseValidator() {
@@ -138,28 +138,28 @@ public class ProxerConnection {
 
     /**
      * Cleans up references and left open connections. You should call this method somewhere in the
-     * lifecycle, but don't have to. A good place might be the onDestroy Method of your main
-     * activity.
+     * lifecycle, but don't have to. A good place might be the onDestroy method of your main
+     * Activity.
      */
     public static void cleanup() {
         Bridge.cleanup();
     }
 
     /**
-     * An abstract representation of a Callback, passed to the
-     * {@link ProxerRequest#execute(ResultCallback)} Method.
+     * An abstract representation of a callback, passed to the
+     * {@link ProxerRequest#execute(ResultCallback)} method.
      *
      * @param <T> The generic parameter.
      */
     public interface ResultCallback<T> {
         /**
-         * A Callback Method, called if the Request was successful.
-         * @param result The result of the specific Request.
+         * A callback method, called if the request was successful.
+         * @param result The result of the specific request.
          */
         void onResult(T result);
 
         /**
-         * A Callback Method, called if an Error occurred during the Request.
+         * A callback method, called if an error occurred during the request.
          * @see ProxerException
          * @param exception The Exception that occurred.
          */
@@ -167,8 +167,8 @@ public class ProxerConnection {
     }
 
     /**
-     * An abstract representation of a Request. All Requests to the API are made through this class.
-     * @param <T> The type of Result, the inheriting Request will return.
+     * An abstract representation of a request. All requests to the API are made through this class.
+     * @param <T> The type of result, the inheriting request will return.
      */
     public static abstract class ProxerRequest<T> {
 
@@ -183,7 +183,7 @@ public class ProxerConnection {
         protected abstract RequestBuilder buildRequest(Bridge bridge);
 
         /**
-         * Returnes the {@link ProxerTag} of this Request.
+         * Returnes the {@link ProxerTag} of this request.
          * @return The {@link ProxerTag}.
          */
         @ConnectionTag
@@ -192,7 +192,7 @@ public class ProxerConnection {
         /**
          * Asynchronously executes this request.
          * @see #executeSynchronized()
-         * @param callback The Callback for notifications about the Result.
+         * @param callback The callback for notifications about the Result.
          */
         public void execute(@NonNull final ResultCallback<T> callback) {
             buildRequest(Bridge.client()).tag(getTag()).request(new Callback() {
@@ -217,7 +217,7 @@ public class ProxerConnection {
 
         /**
          * Synchronously executes this request.
-         * @return The Result, specified by this class.
+         * @return The result, specified by this class.
          * @throws ProxerException An Exception, which might occur, while executing the request.
          */
         public T executeSynchronized() throws ProxerException {
