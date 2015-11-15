@@ -18,46 +18,90 @@ public class UrlHolder {
     private static final String USER_IMAGE = "/images/comprofiler/";
     private static final String CONFERENCES = "/messages?format=json&json=conferences&p=";
 
+    /**
+     * Returns the host of the API.
+     *
+     * @return The url.
+     */
     @NonNull
     public static String getHost() {
         return HOST;
     }
 
+    /**
+     * Returns the url for news retrieval.
+     * @param page The page to retrieve news from
+     * @return The url.
+     */
     @NonNull
     public static String getNewsUrl(@IntRange(from = 1) int page) {
         return getHost() + NEWS + page;
     }
 
+    /**
+     * Returns the url for a single image of a news.
+     * @param newsId The id of the news.
+     * @param imageId The id of the image.
+     * @return The url.
+     */
     @NonNull
     public static String getNewsImageUrl(@NonNull String newsId, @NonNull String imageId) {
         return NEWS_IMAGE + newsId + "_" + imageId + ".png";
     }
 
+    /**
+     * Returns the url to a single newspage.
+     * @param categoryId The id of the category of the news.
+     * @param threadId The id of the thred.
+     * @return The url.
+     */
     @NonNull
     public static String getNewsPageUrl(@NonNull String categoryId, @NonNull String threadId) {
         return getHost() + "/forum/" + categoryId + "/" + threadId + "#top";
     }
 
+    /**
+     * Returns the url to a single iamge of a user.
+     * @param imageLink The link to the image.
+     * @return The url.
+     */
     @NonNull
     public static String getUserImage(@NonNull String imageLink) {
         return getHost() + USER_IMAGE + imageLink;
     }
 
+    /**
+     * Returns the url for the donation page.
+     * @return The url.
+     */
     @NonNull
     public static String getDonateUrl() {
         return getHost() + "/donate";
     }
 
+    /**
+     * Returns the url for a login.
+     * @return The url.
+     */
     @NonNull
     public static String getLoginUrl() {
         return getHost() + LOGIN;
     }
 
+    /**
+     * Returns the url for a logout.
+     * @return The url.
+     */
     @NonNull
     public static String getLogoutUrl() {
         return getHost() + LOGOUT;
     }
 
+    /**
+     * Returns the url for retrieval of conferences.
+     * @param page The page to retrieve conferences from.
+     * @return The url.
+     */
     @NonNull
     public static String getConferencesUrl(@IntRange(from = 1) int page) {
         return getHost() + CONFERENCES + page;
