@@ -16,7 +16,7 @@ repositories {
 
 ```groovy
 dependencies {
-    compile('com.github.proxer:ProxerLibAndroid:1.2.1@aar') {
+    compile('com.github.proxer:ProxerLibAndroid:1.2.4@aar') {
         transitive = true
     }
 }
@@ -56,7 +56,3 @@ CookieManager cookieManager = new CookieManager(new PersistentCookieStore(this),
                 CookiePolicy.ACCEPT_ALL);
 CookieHandler.setDefault(cookieManager);
 ```
-
-### More
-
-A detailed documentation can be found in the [Wiki](https://github.com/proxer/ProxerLibAndroid/wiki).
