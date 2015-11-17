@@ -56,3 +56,8 @@ CookieManager cookieManager = new CookieManager(new PersistentCookieStore(this),
                 CookiePolicy.ACCEPT_ALL);
 CookieHandler.setDefault(cookieManager);
 ```
+
+### Dependencies
+
+This library highly relies on [Bridge](https://github.com/afollestad/bridge) by [Aidan Follestad](https://github.com/afollestad) for the network communication.  
+Moreover it uses the [Android Support Annotations](http://tools.android.com/tech-docs/support-annotations) to improve the code style.
