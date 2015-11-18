@@ -1,6 +1,7 @@
 package com.proxerme.library.connection;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.CheckResult;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -229,7 +230,7 @@ public class ProxerConnection {
                         Thread parseThread = new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                Handler handler = new Handler();
+                                Handler handler = new Handler(Looper.getMainLooper());
 
                                 try {
                                     final T result = parse(response.asJsonObject());
