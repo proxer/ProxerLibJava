@@ -1,5 +1,6 @@
 package com.proxerme.library.connection;
 
+import android.os.Handler;
 import android.support.annotation.CheckResult;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.proxerme.library.entity.News;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static com.proxerme.library.connection.ProxerException.ErrorCodes.PROXER;
@@ -43,6 +45,8 @@ public class ProxerConnection {
     private static final String RESPONSE_ERROR = "error";
     private static final String RESPONSE_ERROR_MESSAGE = "message";
     private static final String VALIDATOR_ID = "default-validator";
+
+    private static LinkedList<Thread> parseThreads = new LinkedList<>();
 
     /**
      * Entry point to load News of a specified page.
@@ -153,6 +157,11 @@ public class ProxerConnection {
      * Activity.
      */
     public static void cleanup() {
+        for (Thread parseThread : parseThreads) {
+            parseThread.interrupt();
+        }
+
+        parseThreads.clear();
         Bridge.cleanup();
     }
 
@@ -165,20 +174,23 @@ public class ProxerConnection {
     public interface ResultCallback<T> {
         /**
          * A callback method, called if the request was successful.
+         *
          * @param result The result of the specific request.
          */
         void onResult(T result);
 
         /**
          * A callback method, called if an error occurred during the request.
-         * @see ProxerException
+         *
          * @param exception The Exception that occurred.
+         * @see ProxerException
          */
         void onError(@NonNull ProxerException exception);
     }
 
     /**
      * An abstract representation of a request. All requests to the API are made through this class.
+     *
      * @param <T> The type of result, the inheriting request will return.
      */
     public static abstract class ProxerRequest<T> {
@@ -187,6 +199,7 @@ public class ProxerConnection {
          * Builds the request, to be used in the
          * {@link #execute(ResultCallback)} or
          * {@link #executeSynchronized()} method.
+         *
          * @param bridge The Bridge instance to build the request with.
          * @return The {@link RequestBuilder} to use for further invocations.
          */
@@ -195,6 +208,7 @@ public class ProxerConnection {
 
         /**
          * Returns the {@link ProxerTag} of this request.
+         *
          * @return The {@link ProxerTag}.
          */
         @ConnectionTag
@@ -202,22 +216,50 @@ public class ProxerConnection {
 
         /**
          * Asynchronously executes this request.
-         * @see #executeSynchronized()
+         *
          * @param callback The callback for notifications about the Result.
+         * @see #executeSynchronized()
          */
         @RequiresPermission(android.Manifest.permission.INTERNET)
         public final void execute(@NonNull final ResultCallback<T> callback) {
             buildRequest(Bridge.client()).tag(getTag()).request(new Callback() {
                 @Override
-                public void response(Request request, Response response, BridgeException exception) {
+                public void response(Request request, final Response response, BridgeException exception) {
                     if (exception == null) {
-                        try {
-                            callback.onResult(parse(response.asJsonObject()));
-                        } catch (JSONException e) {
-                            callback.onError(ErrorHandler.handleException(e));
-                        } catch (BridgeException e) {
-                            callback.onError(ErrorHandler.handleException(e));
-                        }
+                        Thread parseThread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Handler handler = new Handler();
+
+                                try {
+                                    final T result = parse(response.asJsonObject());
+
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            callback.onResult(result);
+                                        }
+                                    });
+                                } catch (final JSONException e) {
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            callback.onError(ErrorHandler.handleException(e));
+                                        }
+                                    });
+                                } catch (final BridgeException e) {
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            callback.onError(ErrorHandler.handleException(e));
+                                        }
+                                    });
+                                }
+                            }
+                        });
+
+                        parseThreads.add(parseThread);
+                        parseThread.start();
                     } else {
                         if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
                             callback.onError(ErrorHandler.handleException(exception));
@@ -229,9 +271,10 @@ public class ProxerConnection {
 
         /**
          * Synchronously executes this request.
-         * @see #execute(ResultCallback)
+         *
          * @return The result, specified by this class.
          * @throws ProxerException An Exception, which might occur, while executing the request.
+         * @see #execute(ResultCallback)
          */
         @WorkerThread
         @RequiresPermission(android.Manifest.permission.INTERNET)
@@ -249,6 +292,7 @@ public class ProxerConnection {
 
         /**
          * Parses the raw response of the server.
+         *
          * @param response The response in JSON format.
          * @return The specific type of result of this class.
          * @throws JSONException An Exception, which might occur while parsing.
