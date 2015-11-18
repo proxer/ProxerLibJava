@@ -1,7 +1,10 @@
 package com.proxerme.library.connection;
 
+import android.support.annotation.CheckResult;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresPermission;
+import android.support.annotation.WorkerThread;
 
 import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
@@ -48,6 +51,7 @@ public class ProxerConnection {
      * @return A {@link NewsRequest} to work with.
      */
     @NonNull
+    @CheckResult
     public static NewsRequest loadNews(@IntRange(from = 1) int page) {
         return new NewsRequest(page);
     }
@@ -59,6 +63,7 @@ public class ProxerConnection {
      * @return A {@link LoginRequest} to work with.
      */
     @NonNull
+    @CheckResult
     public static LoginRequest login(@NonNull LoginUser user) {
         return new LoginRequest(user);
     }
@@ -69,6 +74,7 @@ public class ProxerConnection {
      * @return A {@link LogoutRequest} to work with.
      */
     @NonNull
+    @CheckResult
     public static LogoutRequest logout() {
         return new LogoutRequest();
     }
@@ -80,6 +86,7 @@ public class ProxerConnection {
      * @return A {@link ConferencesRequest} to work with.
      */
     @NonNull
+    @CheckResult
     public static ConferencesRequest loadConferences(@IntRange(from = 1) int page) {
         return new ConferencesRequest(page);
     }
@@ -184,7 +191,7 @@ public class ProxerConnection {
          * @return The {@link RequestBuilder} to use for further invocations.
          */
         @NonNull
-        protected abstract RequestBuilder buildRequest(Bridge bridge);
+        protected abstract RequestBuilder buildRequest(@NonNull Bridge bridge);
 
         /**
          * Returns the {@link ProxerTag} of this request.
@@ -198,7 +205,8 @@ public class ProxerConnection {
          * @see #executeSynchronized()
          * @param callback The callback for notifications about the Result.
          */
-        public void execute(@NonNull final ResultCallback<T> callback) {
+        @RequiresPermission(android.Manifest.permission.INTERNET)
+        public final void execute(@NonNull final ResultCallback<T> callback) {
             buildRequest(Bridge.client()).tag(getTag()).request(new Callback() {
                 @Override
                 public void response(Request request, Response response, BridgeException exception) {
@@ -225,7 +233,9 @@ public class ProxerConnection {
          * @return The result, specified by this class.
          * @throws ProxerException An Exception, which might occur, while executing the request.
          */
-        public T executeSynchronized() throws ProxerException {
+        @WorkerThread
+        @RequiresPermission(android.Manifest.permission.INTERNET)
+        public final T executeSynchronized() throws ProxerException {
             try {
                 JSONObject result = buildRequest(Bridge.client()).tag(getTag() + 1).asJsonObject();
 
@@ -259,7 +269,7 @@ public class ProxerConnection {
 
         @NonNull
         @Override
-        protected RequestBuilder buildRequest(Bridge bridge) {
+        protected RequestBuilder buildRequest(@NonNull Bridge bridge) {
             return bridge.get(UrlHolder.getNewsUrl(page));
         }
 
@@ -288,7 +298,7 @@ public class ProxerConnection {
 
         @NonNull
         @Override
-        protected RequestBuilder buildRequest(Bridge bridge) {
+        protected RequestBuilder buildRequest(@NonNull Bridge bridge) {
             Form loginCredentials = new Form().add(FORM_USERNAME, user.getUsername())
                     .add(FORM_PASSWORD, user.getPassword());
 
@@ -317,7 +327,7 @@ public class ProxerConnection {
 
         @NonNull
         @Override
-        protected RequestBuilder buildRequest(Bridge bridge) {
+        protected RequestBuilder buildRequest(@NonNull Bridge bridge) {
             return bridge.get(UrlHolder.getLogoutUrl());
         }
 
@@ -346,7 +356,7 @@ public class ProxerConnection {
 
         @NonNull
         @Override
-        protected RequestBuilder buildRequest(Bridge bridge) {
+        protected RequestBuilder buildRequest(@NonNull Bridge bridge) {
             return bridge.get(UrlHolder.getConferencesUrl(page));
         }
 

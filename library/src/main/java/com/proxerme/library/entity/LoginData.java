@@ -30,7 +30,7 @@ public class LoginData implements Parcelable, IdItem, ImageItem {
      * @param id    The id of the user.
      * @param image The profile picture of the user.
      */
-    public LoginData(String id, String image) {
+    public LoginData(@NonNull String id, @NonNull String image) {
         this.id = id;
         this.imageLink = image;
     }

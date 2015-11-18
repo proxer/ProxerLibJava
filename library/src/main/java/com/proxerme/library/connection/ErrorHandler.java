@@ -1,5 +1,6 @@
 package com.proxerme.library.connection;
 
+import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.BridgeException;
@@ -31,6 +32,7 @@ class ErrorHandler {
      */
     @SuppressWarnings("UnusedParameters")
     @NonNull
+    @CheckResult
     public static ProxerException handleException(@NonNull JSONException jsonException) {
         return new ProxerException(UNPARSEABLE);
     }
@@ -41,6 +43,7 @@ class ErrorHandler {
      * @return The appropriate {@link ProxerException}.
      */
     @NonNull
+    @CheckResult
     public static ProxerException handleException(@NonNull BridgeException bridgeException) {
         ProxerException exception;
 
