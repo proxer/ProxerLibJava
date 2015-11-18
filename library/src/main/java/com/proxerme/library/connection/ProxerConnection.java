@@ -44,7 +44,7 @@ public class ProxerConnection {
     private static final String FORM_USERNAME = "username";
     private static final String FORM_PASSWORD = "password";
     private static final String RESPONSE_ERROR = "error";
-    private static final String RESPONSE_ERROR_MESSAGE = "message";
+    private static final String RESPONSE_ERROR_MESSAGE = "msg";
     private static final String VALIDATOR_ID = "default-validator";
 
     private static LinkedList<Thread> parseThreads = new LinkedList<>();
