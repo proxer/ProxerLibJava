@@ -1,4 +1,4 @@
-package com.proxerme.library.util;/*
+/*
  * Copyright (c) 2011 James Smith <james@loopj.com>
  * Copyright (c) 2015 Fran Montiel
  *
@@ -14,6 +14,8 @@ package com.proxerme.library.util;/*
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.proxerme.library.util;
 
 import android.util.Log;
 
