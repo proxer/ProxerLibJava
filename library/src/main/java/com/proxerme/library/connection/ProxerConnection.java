@@ -230,26 +230,24 @@ public class ProxerConnection {
                         Thread parseThread = new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                Handler handler = new Handler(Looper.getMainLooper());
-
                                 try {
                                     final T result = parse(response.asJsonObject());
 
-                                    handler.post(new Runnable() {
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
                                         @Override
                                         public void run() {
                                             callback.onResult(result);
                                         }
                                     });
                                 } catch (final JSONException e) {
-                                    handler.post(new Runnable() {
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
                                         @Override
                                         public void run() {
                                             callback.onError(ErrorHandler.handleException(e));
                                         }
                                     });
                                 } catch (final BridgeException e) {
-                                    handler.post(new Runnable() {
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
                                         @Override
                                         public void run() {
                                             callback.onError(ErrorHandler.handleException(e));
