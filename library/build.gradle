@@ -25,7 +25,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-annotations:23.1.1'
     compile 'com.github.afollestad:bridge:1.6.4@aar'
-    compile 'de.greenrobot:eventbus:2.4.0'
 }
 
 // build a jar with source files

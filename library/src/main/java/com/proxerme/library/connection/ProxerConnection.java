@@ -1,5 +1,7 @@
 package com.proxerme.library.connection;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.CheckResult;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -24,8 +26,6 @@ import org.json.JSONObject;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import de.greenrobot.event.EventBus;
 
 import static com.proxerme.library.connection.ProxerException.ErrorCodes.PROXER;
 import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNKNOWN;
@@ -167,6 +167,29 @@ public class ProxerConnection {
     }
 
     /**
+     * An abstract representation of a callback, passed to the
+     * {@link ProxerRequest#execute(ResultCallback)} method.
+     *
+     * @param <T> The generic parameter.
+     */
+    public interface ResultCallback<T> {
+        /**
+         * A callback method, called if the request was successful.
+         *
+         * @param result The result of the specific request.
+         */
+        void onResult(T result);
+
+        /**
+         * A callback method, called if an error occurred during the request.
+         *
+         * @param exception The Exception that occurred.
+         * @see ProxerException
+         */
+        void onError(@NonNull ProxerException exception);
+    }
+
+    /**
      * An abstract representation of a request. All requests to the API are made through this class.
      *
      * @param <T> The type of result, the inheriting request will return.
@@ -175,7 +198,7 @@ public class ProxerConnection {
 
         /**
          * Builds the request, to be used in the
-         * {@link #execute()} or
+         * {@link #execute(ResultCallback)} or
          * {@link #executeSynchronized()} method.
          *
          * @param bridge The Bridge instance to build the request with.
@@ -193,12 +216,13 @@ public class ProxerConnection {
         protected abstract int getTag();
 
         /**
-         * Asynchronously executes this request. All results are passed back through the EventBus.
+         * Asynchronously executes this request.
          *
+         * @param callback The callback for notifications about the Result.
          * @see #executeSynchronized()
          */
         @RequiresPermission(android.Manifest.permission.INTERNET)
-        public final void execute() {
+        public final void execute(@NonNull final ResultCallback<T> callback) {
             buildRequest(Bridge.client()).tag(getTag()).request(new Callback() {
                 @Override
                 public void response(Request request, final Response response, BridgeException exception) {
@@ -209,11 +233,26 @@ public class ProxerConnection {
                                 try {
                                     final T result = parse(response.asJsonObject());
 
-                                    EventBus.getDefault().post(result);
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            callback.onResult(result);
+                                        }
+                                    });
                                 } catch (final JSONException e) {
-                                    EventBus.getDefault().post(ErrorHandler.handleException(e));
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            callback.onError(ErrorHandler.handleException(e));
+                                        }
+                                    });
                                 } catch (final BridgeException e) {
-                                    EventBus.getDefault().post(ErrorHandler.handleException(e));
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            callback.onError(ErrorHandler.handleException(e));
+                                        }
+                                    });
                                 }
                             }
                         });
@@ -222,7 +261,7 @@ public class ProxerConnection {
                         parseThread.start();
                     } else {
                         if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
-                            EventBus.getDefault().post(ErrorHandler.handleException(exception));
+                            callback.onError(ErrorHandler.handleException(exception));
                         }
                     }
                 }
@@ -234,7 +273,7 @@ public class ProxerConnection {
          *
          * @return The result, specified by this class.
          * @throws ProxerException An Exception, which might occur, while executing the request.
-         * @see #execute()
+         * @see #execute(ResultCallback)
          */
         @WorkerThread
         @RequiresPermission(android.Manifest.permission.INTERNET)
