@@ -97,25 +97,13 @@ public class ProxerConnection {
     }
 
     /**
-     * Cancels all asynchronous started requests of the specified tag.
+     * Cancels all started requests of the specified tag.
      *
      * @param tag The {@link ProxerTag} to cancel
      * @see ProxerTag
-     * @see #cancelSync(int)
      */
     public static void cancel(@ConnectionTag int tag) {
-        Bridge.client().cancelAll(tag, false);
-    }
-
-    /**
-     * Cancels all synchronous started requests of the specified tag.
-     *
-     * @param tag The {@link ProxerTag} to cancel
-     * @see ProxerTag
-     * @see #cancel(int)
-     */
-    public static void cancelSync(@ConnectionTag int tag) {
-        Bridge.client().cancelAllSync(tag, false);
+        Bridge.cancelAll().tag(String.valueOf(tag)).commit();
     }
 
     /**
@@ -123,7 +111,7 @@ public class ProxerConnection {
      * good place might be the onCreate method of your main Activity.
      */
     public static void init() {
-        Bridge.client().config().validators(new ResponseValidator() {
+        Bridge.config().validators(new ResponseValidator() {
             @Override
             public boolean validate(@NonNull Response response) throws Exception {
                 JSONObject json = response.asJsonObject();
@@ -163,7 +151,7 @@ public class ProxerConnection {
         }
 
         parseThreads.clear();
-        Bridge.cleanup();
+        Bridge.destroy();
     }
 
     /**
@@ -201,11 +189,10 @@ public class ProxerConnection {
          * {@link #execute(ResultCallback)} or
          * {@link #executeSynchronized()} method.
          *
-         * @param bridge The Bridge instance to build the request with.
          * @return The {@link RequestBuilder} to use for further invocations.
          */
         @NonNull
-        protected abstract RequestBuilder buildRequest(@NonNull Bridge bridge);
+        protected abstract RequestBuilder buildRequest();
 
         /**
          * Returns the {@link ProxerTag} of this request.
@@ -223,7 +210,7 @@ public class ProxerConnection {
          */
         @RequiresPermission(android.Manifest.permission.INTERNET)
         public final void execute(@NonNull final ResultCallback<T> callback) {
-            buildRequest(Bridge.client()).tag(getTag()).request(new Callback() {
+            buildRequest().tag(getTag()).request(new Callback() {
                 @Override
                 public void response(Request request, final Response response, BridgeException exception) {
                     if (exception == null) {
@@ -279,7 +266,7 @@ public class ProxerConnection {
         @RequiresPermission(android.Manifest.permission.INTERNET)
         public final T executeSynchronized() throws ProxerException {
             try {
-                JSONObject result = buildRequest(Bridge.client()).tag(getTag() + 1).asJsonObject();
+                JSONObject result = buildRequest().tag(getTag() + 1).asJsonObject();
 
                 return parse(result);
             } catch (JSONException e) {
@@ -312,8 +299,8 @@ public class ProxerConnection {
 
         @NonNull
         @Override
-        protected RequestBuilder buildRequest(@NonNull Bridge bridge) {
-            return bridge.get(UrlHolder.getNewsUrl(page));
+        protected RequestBuilder buildRequest() {
+            return Bridge.get(UrlHolder.getNewsUrl(page));
         }
 
         @ConnectionTag
@@ -341,11 +328,11 @@ public class ProxerConnection {
 
         @NonNull
         @Override
-        protected RequestBuilder buildRequest(@NonNull Bridge bridge) {
+        protected RequestBuilder buildRequest() {
             Form loginCredentials = new Form().add(FORM_USERNAME, user.getUsername())
                     .add(FORM_PASSWORD, user.getPassword());
 
-            return bridge.post(UrlHolder.getLoginUrl()).body(loginCredentials);
+            return Bridge.post(UrlHolder.getLoginUrl()).body(loginCredentials);
         }
 
         @ConnectionTag
@@ -370,8 +357,8 @@ public class ProxerConnection {
 
         @NonNull
         @Override
-        protected RequestBuilder buildRequest(@NonNull Bridge bridge) {
-            return bridge.get(UrlHolder.getLogoutUrl());
+        protected RequestBuilder buildRequest() {
+            return Bridge.get(UrlHolder.getLogoutUrl());
         }
 
         @ConnectionTag
@@ -399,8 +386,8 @@ public class ProxerConnection {
 
         @NonNull
         @Override
-        protected RequestBuilder buildRequest(@NonNull Bridge bridge) {
-            return bridge.get(UrlHolder.getConferencesUrl(page));
+        protected RequestBuilder buildRequest() {
+            return Bridge.get(UrlHolder.getConferencesUrl(page));
         }
 
         @Override

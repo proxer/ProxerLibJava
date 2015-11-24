@@ -1,6 +1,6 @@
 <manifest xmlns:tools="http://schemas.android.com/tools"
     package="com.proxerme.library">
 
-    <application tools:ignore="AllowBackup" />
+    <application tools:ignore="AllowBackup,GoogleAppIndexingWarning" />
 
 </manifest>
