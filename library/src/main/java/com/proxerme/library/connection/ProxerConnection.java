@@ -210,7 +210,7 @@ public class ProxerConnection {
          */
         @RequiresPermission(android.Manifest.permission.INTERNET)
         public final void execute(@NonNull final ResultCallback<T> callback) {
-            buildRequest().tag(getTag()).request(new Callback() {
+            buildRequest().tag(String.valueOf(getTag())).request(new Callback() {
                 @Override
                 public void response(Request request, final Response response, BridgeException exception) {
                     if (exception == null) {
