@@ -15,7 +15,7 @@ public class UrlHolder {
     private static final String NEWS = "/notifications?format=json&s=news&p=";
     private static final String NEWS_IMAGE = "http://cdn.proxer.me/news/tmp/";
     private static final String LOGIN = "/login?format=json&action=login";
-    private static final String USER_IMAGE = "/images/comprofiler/";
+    private static final String USER_IMAGE = "http://cdn.proxer.me/avatar/";
     private static final String CONFERENCES = "/messages?format=json&json=conferences&p=";
     private static final String CONFERENCE = "/messages?id=";
 
@@ -69,7 +69,7 @@ public class UrlHolder {
      */
     @NonNull
     public static String getUserImage(@NonNull String imageLink) {
-        return getHost() + USER_IMAGE + imageLink;
+        return USER_IMAGE + imageLink;
     }
 
     /**
