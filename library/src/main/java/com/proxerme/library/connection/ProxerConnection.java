@@ -46,7 +46,33 @@ public class ProxerConnection {
     private static final String RESPONSE_ERROR = "error";
     private static final String RESPONSE_ERROR_MESSAGE = "msg";
     private static final String VALIDATOR_ID = "default-validator";
+    private static final ResponseValidator defaultValidator = new ResponseValidator() {
+        @Override
+        public boolean validate(@NonNull Response response) throws Exception {
+            JSONObject json = response.asJsonObject();
 
+            if (json.has(RESPONSE_ERROR)) {
+                if (json.getInt(RESPONSE_ERROR) == 0) {
+                    return true;
+                } else {
+                    if (json.has(RESPONSE_ERROR_MESSAGE)) {
+                        throw new ProxerException(PROXER,
+                                json.getString(RESPONSE_ERROR_MESSAGE));
+                    } else {
+                        throw new ProxerException(UNKNOWN);
+                    }
+                }
+            } else {
+                return false;
+            }
+        }
+
+        @NonNull
+        @Override
+        public String id() {
+            return VALIDATOR_ID;
+        }
+    };
     private static LinkedList<Thread> parseThreads = new LinkedList<>();
 
     /**
@@ -104,40 +130,6 @@ public class ProxerConnection {
      */
     public static void cancel(@ConnectionTag int tag) {
         Bridge.cancelAll().tag(String.valueOf(tag)).commit();
-    }
-
-    /**
-     * Does some initialization steps. You *must* call this method somewhere in your lifecycle. A
-     * good place might be the onCreate method of your main Activity.
-     */
-    public static void init() {
-        Bridge.config().validators(new ResponseValidator() {
-            @Override
-            public boolean validate(@NonNull Response response) throws Exception {
-                JSONObject json = response.asJsonObject();
-
-                if (json.has(RESPONSE_ERROR)) {
-                    if (json.getInt(RESPONSE_ERROR) == 0) {
-                        return true;
-                    } else {
-                        if (json.has(RESPONSE_ERROR_MESSAGE)) {
-                            throw new ProxerException(PROXER,
-                                    json.getString(RESPONSE_ERROR_MESSAGE));
-                        } else {
-                            throw new ProxerException(UNKNOWN);
-                        }
-                    }
-                } else {
-                    return false;
-                }
-            }
-
-            @NonNull
-            @Override
-            public String id() {
-                return VALIDATOR_ID;
-            }
-        });
     }
 
     /**
@@ -300,7 +292,7 @@ public class ProxerConnection {
         @NonNull
         @Override
         protected RequestBuilder buildRequest() {
-            return Bridge.get(UrlHolder.getNewsUrl(page));
+            return Bridge.get(UrlHolder.getNewsUrl(page)).validators(defaultValidator);
         }
 
         @ConnectionTag
@@ -332,7 +324,8 @@ public class ProxerConnection {
             Form loginCredentials = new Form().add(FORM_USERNAME, user.getUsername())
                     .add(FORM_PASSWORD, user.getPassword());
 
-            return Bridge.post(UrlHolder.getLoginUrl()).body(loginCredentials);
+            return Bridge.post(UrlHolder.getLoginUrl()).body(loginCredentials)
+                    .validators(defaultValidator);
         }
 
         @ConnectionTag
@@ -358,7 +351,7 @@ public class ProxerConnection {
         @NonNull
         @Override
         protected RequestBuilder buildRequest() {
-            return Bridge.get(UrlHolder.getLogoutUrl());
+            return Bridge.get(UrlHolder.getLogoutUrl()).validators(defaultValidator);
         }
 
         @ConnectionTag
@@ -387,7 +380,7 @@ public class ProxerConnection {
         @NonNull
         @Override
         protected RequestBuilder buildRequest() {
-            return Bridge.get(UrlHolder.getConferencesUrl(page));
+            return Bridge.get(UrlHolder.getConferencesUrl(page)).validators(defaultValidator);
         }
 
         @Override
