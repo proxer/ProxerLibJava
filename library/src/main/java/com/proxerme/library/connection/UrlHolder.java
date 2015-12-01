@@ -118,7 +118,7 @@ public class UrlHolder {
      */
     @NonNull
     public static String getConferenceUrl(@NonNull String id) {
-        return getHost() + CONFERENCE + "#top";
+        return getHost() + CONFERENCE + id + "#top";
     }
 
 }
