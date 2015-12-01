@@ -36,9 +36,9 @@ The request will happen on the current thread. This is useful, if you want to us
 
 The `ProxerConnection` also provides several other methods:
 
-#### `cancel()` and `cancelSync()`
+#### `cancel()`
 
-These methods will cancel all current request of a specified type. E.g. all login-requests. The difference between `cancel()` and `cancelSync()` is the same as with the `execute()` methods.
+This methods will cancel all current requests of a specified type. E.g. all login-requests. To specify the type of requests, you pass a `ConnectionTag` from the `ProxerTag` class. That class has constants for all types of requests.
 
 #### `cleanup()`
 
