@@ -17,6 +17,7 @@ public class UrlHolder {
     private static final String LOGIN = "/login?format=json&action=login";
     private static final String USER_IMAGE = "/images/comprofiler/";
     private static final String CONFERENCES = "/messages?format=json&json=conferences&p=";
+    private static final String CONFERENCE = "/messages?id=";
 
     /**
      * Returns the host of the API.
@@ -50,7 +51,8 @@ public class UrlHolder {
     }
 
     /**
-     * Returns the url to a single newspage.
+     * Returns the url to a single newspage. This is not part of the REST-Api, but the link to the
+     * webpage.
      * @param categoryId The id of the category of the news.
      * @param threadId The id of the thred.
      * @return The url.
@@ -105,6 +107,18 @@ public class UrlHolder {
     @NonNull
     public static String getConferencesUrl(@IntRange(from = 1) int page) {
         return getHost() + CONFERENCES + page;
+    }
+
+    /**
+     * Returns the url to a single conference. This is not part of the REST-Api, but the link to the
+     * webpage.
+     *
+     * @param id The id.
+     * @return The url.
+     */
+    @NonNull
+    public static String getConferenceUrl(@NonNull String id) {
+        return getHost() + CONFERENCE + "#top";
     }
 
 }
