@@ -259,7 +259,7 @@ public class ProxerConnection {
                             }
                         });
 
-                        parseThreads.add(getTag(), parseThread);
+                        parseThreads.add(parseThread);
                         parseThread.start();
                     } else {
                         if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
