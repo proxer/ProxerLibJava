@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 import static com.proxerme.library.connection.ProxerException.ErrorCodes.PROXER;
 import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNKNOWN;
@@ -73,7 +74,8 @@ public class ProxerConnection {
             return VALIDATOR_ID;
         }
     };
-    private static LinkedList<Thread> parseThreads = new LinkedList<>();
+
+    private static LinkedList<ParseThread> parseThreads = new LinkedList<>();
 
     /**
      * Entry point to load News of a specified page.
@@ -129,6 +131,17 @@ public class ProxerConnection {
      * @see ProxerTag
      */
     public static void cancel(@ConnectionTag int tag) {
+        ListIterator<ParseThread> iterator = parseThreads.listIterator();
+
+        while (iterator.hasNext()) {
+            ParseThread current = iterator.next();
+
+            if (current.getTag() == tag) {
+                current.interrupt();
+                iterator.remove();
+            }
+        }
+
         Bridge.cancelAll().tag(String.valueOf(tag)).commit();
     }
 
@@ -207,7 +220,7 @@ public class ProxerConnection {
                 public void response(Request request, final Response response,
                                      BridgeException exception) {
                     if (exception == null) {
-                        Thread parseThread = new Thread(new Runnable() {
+                        ParseThread parseThread = new ParseThread(getTag(), new Runnable() {
                             @Override
                             public void run() {
                                 try {
@@ -246,7 +259,7 @@ public class ProxerConnection {
                             }
                         });
 
-                        parseThreads.add(parseThread);
+                        parseThreads.add(getTag(), parseThread);
                         parseThread.start();
                     } else {
                         if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
@@ -401,6 +414,23 @@ public class ProxerConnection {
         @Override
         protected List<Conference> parse(@NonNull JSONObject response) throws JSONException {
             return ProxerParser.parseConferencesJSON(response);
+        }
+    }
+
+    private static class ParseThread extends Thread {
+
+        @ConnectionTag
+        private int tag;
+
+        public ParseThread(@ConnectionTag int tag, Runnable runnable) {
+            super(runnable);
+
+            this.tag = tag;
+        }
+
+        @ConnectionTag
+        public int getTag() {
+            return tag;
         }
     }
 }
