@@ -51,7 +51,7 @@ public class ProxerConnection {
         public boolean validate(@NonNull Response response) throws Exception {
             JSONObject json = response.asJsonObject();
 
-            if (json.has(RESPONSE_ERROR)) {
+            if (json != null && json.has(RESPONSE_ERROR)) {
                 if (json.getInt(RESPONSE_ERROR) == 0) {
                     return true;
                 } else {
@@ -202,22 +202,32 @@ public class ProxerConnection {
          */
         @RequiresPermission(android.Manifest.permission.INTERNET)
         public final void execute(@NonNull final ResultCallback<T> callback) {
-            buildRequest().tag(String.valueOf(getTag())).request(new Callback() {
+            buildRequest().throwIfNotSuccess().tag(String.valueOf(getTag())).request(new Callback() {
                 @Override
-                public void response(Request request, final Response response, BridgeException exception) {
+                public void response(Request request, final Response response,
+                                     BridgeException exception) {
                     if (exception == null) {
                         Thread parseThread = new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 try {
-                                    final T result = parse(response.asJsonObject());
+                                    if (response == null) {
+                                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                callback.onError(new ProxerException(UNKNOWN));
+                                            }
+                                        });
+                                    } else {
+                                        final T result = parse(response.asJsonObject());
 
-                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            callback.onResult(result);
-                                        }
-                                    });
+                                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                callback.onResult(result);
+                                            }
+                                        });
+                                    }
                                 } catch (final JSONException e) {
                                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                                         @Override
