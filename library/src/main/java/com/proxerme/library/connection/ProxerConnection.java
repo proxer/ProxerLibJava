@@ -256,6 +256,8 @@ public class ProxerConnection {
                                         }
                                     });
                                 }
+
+                                parseThreads.remove(this);
                             }
                         });
 
