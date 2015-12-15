@@ -24,9 +24,9 @@ import com.proxerme.library.entity.News;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.LinkedList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static com.proxerme.library.connection.ProxerException.ErrorCodes.PROXER;
 import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNKNOWN;
@@ -75,7 +75,8 @@ public class ProxerConnection {
         }
     };
 
-    private static LinkedList<ParseThread> parseThreads = new LinkedList<>();
+    private static Handler handler = new Handler(Looper.getMainLooper());
+    private static ConcurrentLinkedQueue<ParseThread> parseThreads = new ConcurrentLinkedQueue<>();
 
     /**
      * Entry point to load News of a specified page.
@@ -131,7 +132,7 @@ public class ProxerConnection {
      * @see ProxerTag
      */
     public static void cancel(@ConnectionTag int tag) {
-        ListIterator<ParseThread> iterator = parseThreads.listIterator();
+        Iterator<ParseThread> iterator = parseThreads.iterator();
 
         while (iterator.hasNext()) {
             ParseThread current = iterator.next();
@@ -220,21 +221,23 @@ public class ProxerConnection {
                 public void response(Request request, final Response response,
                                      BridgeException exception) {
                     if (exception == null) {
-                        ParseThread parseThread = new ParseThread(getTag(), new Runnable() {
+                        ParseThread parseThread = new ParseThread(getTag(), new ThreadedRunnable() {
                             @Override
                             public void run() {
                                 try {
-                                    if (response == null) {
-                                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                    JSONObject json = response.asJsonObject();
+
+                                    if (json == null) {
+                                        handler.post(new Runnable() {
                                             @Override
                                             public void run() {
                                                 callback.onError(new ProxerException(UNKNOWN));
                                             }
                                         });
                                     } else {
-                                        final T result = parse(response.asJsonObject());
+                                        final T result = parse(json);
 
-                                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        handler.post(new Runnable() {
                                             @Override
                                             public void run() {
                                                 callback.onResult(result);
@@ -242,14 +245,14 @@ public class ProxerConnection {
                                         });
                                     }
                                 } catch (final JSONException e) {
-                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                    handler.post(new Runnable() {
                                         @Override
                                         public void run() {
                                             callback.onError(ErrorHandler.handleException(e));
                                         }
                                     });
                                 } catch (final BridgeException e) {
-                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                    handler.post(new Runnable() {
                                         @Override
                                         public void run() {
                                             callback.onError(ErrorHandler.handleException(e));
@@ -257,7 +260,7 @@ public class ProxerConnection {
                                     });
                                 }
 
-                                parseThreads.remove(this);
+                                parseThreads.remove(getThread());
                             }
                         });
 
@@ -285,7 +288,11 @@ public class ProxerConnection {
             try {
                 JSONObject result = buildRequest().tag(getTag() + 1).asJsonObject();
 
-                return parse(result);
+                if (result == null) {
+                    throw new ProxerException(UNKNOWN);
+                } else {
+                    return parse(result);
+                }
             } catch (JSONException e) {
                 throw ErrorHandler.handleException(e);
             } catch (BridgeException e) {
@@ -424,15 +431,28 @@ public class ProxerConnection {
         @ConnectionTag
         private int tag;
 
-        public ParseThread(@ConnectionTag int tag, Runnable runnable) {
+        public ParseThread(@ConnectionTag int tag, ThreadedRunnable runnable) {
             super(runnable);
 
             this.tag = tag;
+            runnable.setThread(this);
         }
 
         @ConnectionTag
         public int getTag() {
             return tag;
+        }
+    }
+
+    private abstract static class ThreadedRunnable implements Runnable {
+        private ParseThread thread;
+
+        public ParseThread getThread() {
+            return thread;
+        }
+
+        public void setThread(ParseThread thread) {
+            this.thread = thread;
         }
     }
 }
