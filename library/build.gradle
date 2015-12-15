@@ -21,10 +21,16 @@ android {
     }
 }
 
+configurations {
+    javadocDeps
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-annotations:23.1.1'
     compile 'com.github.afollestad:bridge:3.0.0@aar'
+
+    javadocDeps 'com.android.support:support-annotations:23.1.1'
 }
 
 // build a jar with source files
@@ -37,6 +43,7 @@ task javadoc(type: Javadoc) {
     failOnError false
     source = android.sourceSets.main.java.sourceFiles
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.javadocDeps
 }
 
 // build a jar with javadoc
