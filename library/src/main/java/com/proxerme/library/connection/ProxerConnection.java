@@ -75,8 +75,8 @@ public class ProxerConnection {
         }
     };
 
-    private static Handler handler = new Handler(Looper.getMainLooper());
-    private static ConcurrentLinkedQueue<ParseThread> parseThreads = new ConcurrentLinkedQueue<>();
+    private static final Handler handler = new Handler(Looper.getMainLooper());
+    private static final ConcurrentLinkedQueue<ParseThread> parseThreads = new ConcurrentLinkedQueue<>();
 
     /**
      * Entry point to load News of a specified page.
@@ -132,18 +132,20 @@ public class ProxerConnection {
      * @see ProxerTag
      */
     public static void cancel(@ConnectionTag int tag) {
-        Iterator<ParseThread> iterator = parseThreads.iterator();
+        synchronized (parseThreads) {
+            Iterator<ParseThread> iterator = parseThreads.iterator();
 
-        while (iterator.hasNext()) {
-            ParseThread current = iterator.next();
+            while (iterator.hasNext()) {
+                ParseThread current = iterator.next();
 
-            if (current.getTag() == tag) {
-                current.interrupt();
-                iterator.remove();
+                if (current.getTag() == tag) {
+                    current.interrupt();
+                    iterator.remove();
+                }
             }
-        }
 
-        Bridge.cancelAll().tag(String.valueOf(tag)).commit();
+            Bridge.cancelAll().tag(String.valueOf(tag)).commit();
+        }
     }
 
     /**
