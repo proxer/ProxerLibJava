@@ -6,13 +6,15 @@ This is a library, providing some core functionality for an Android App aiming t
 
 ### Include in your project:
 
-Add this to your build.gradle:
+Add this to your project build.gradle:
 
 ```groovy
 repositories {
     maven { url "https://jitpack.io" }
 }
 ```
+
+And this to your module build.gradle:
 
 ```groovy
 dependencies {
