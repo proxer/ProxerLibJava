@@ -1,4 +1,4 @@
-# ProxerLibAndroid
+# ProxerLibAndroid [![Release](https://jitpack.io/v/proxer/ProxerLibAndroid.svg)](https://jitpack.io/#proxer/ProxerLibAndroid)
 
 ### What is this?
 
