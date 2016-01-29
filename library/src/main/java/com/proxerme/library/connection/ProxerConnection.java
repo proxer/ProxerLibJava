@@ -20,6 +20,11 @@ import com.proxerme.library.entity.Conference;
 import com.proxerme.library.entity.LoginData;
 import com.proxerme.library.entity.LoginUser;
 import com.proxerme.library.entity.News;
+import com.proxerme.library.event.ConferencesEvent;
+import com.proxerme.library.event.IEvent;
+import com.proxerme.library.event.LoginEvent;
+import com.proxerme.library.event.LogoutEvent;
+import com.proxerme.library.event.NewsEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -165,34 +170,11 @@ public class ProxerConnection {
     }
 
     /**
-     * An abstract representation of a callback, passed to the
-     * {@link ProxerRequest#execute()} method.
-     *
-     * @param <T> The generic parameter.
-     */
-    public interface ResultCallback<T> {
-        /**
-         * A callback method, called if the request was successful.
-         *
-         * @param result The result of the specific request.
-         */
-        void onResult(T result);
-
-        /**
-         * A callback method, called if an error occurred during the request.
-         *
-         * @param exception The Exception that occurred.
-         * @see ProxerException
-         */
-        void onError(@NonNull ProxerException exception);
-    }
-
-    /**
      * An abstract representation of a request. All requests to the API are made through this class.
      *
      * @param <T> The type of result, the inheriting request will return.
      */
-    public static abstract class ProxerRequest<T> {
+    public static abstract class ProxerRequest<T, E extends IEvent> {
 
         /**
          * Builds the request, to be used in the
@@ -213,7 +195,8 @@ public class ProxerConnection {
         protected abstract int getTag();
 
         /**
-         * Asynchronously executes this request.
+         * Asynchronously executes this request. The result will be delivered on the event bus
+         * method.
          *
          * @see #executeSynchronized()
          */
@@ -233,7 +216,7 @@ public class ProxerConnection {
                                     if (json == null) {
                                         EventBus.getDefault().post(new ProxerException(UNKNOWN));
                                     } else {
-                                        final T result = parse(json);
+                                        final E result = createEvent(parse(json));
 
                                         EventBus.getDefault().post(result);
                                     }
@@ -291,12 +274,14 @@ public class ProxerConnection {
          * @throws JSONException An Exception, which might occur while parsing.
          */
         protected abstract T parse(@NonNull JSONObject response) throws JSONException;
+
+        protected abstract E createEvent(@NonNull T result);
     }
 
     /**
      * A request, returning a List of {@link News}.
      */
-    public static class NewsRequest extends ProxerRequest<List<News>> {
+    public static class NewsRequest extends ProxerRequest<List<News>, NewsEvent> {
 
         private int page;
 
@@ -320,12 +305,17 @@ public class ProxerConnection {
         protected List<News> parse(@NonNull JSONObject response) throws JSONException {
             return ProxerParser.parseNewsJSON(response);
         }
+
+        @Override
+        protected NewsEvent createEvent(@NonNull List<News> result) {
+            return new NewsEvent(result);
+        }
     }
 
     /**
      * A request for the login, returning a {@link LoginUser} on success.
      */
-    public static class LoginRequest extends ProxerRequest<LoginUser> {
+    public static class LoginRequest extends ProxerRequest<LoginUser, LoginEvent> {
 
         private LoginUser user;
 
@@ -356,12 +346,17 @@ public class ProxerConnection {
             return new LoginUser(user.getUsername(), user.getPassword(), data.getId(),
                     data.getImageId());
         }
+
+        @Override
+        protected LoginEvent createEvent(@NonNull LoginUser result) {
+            return new LoginEvent(result);
+        }
     }
 
     /**
      * A request for the logout.
      */
-    public static class LogoutRequest extends ProxerRequest<Void> {
+    public static class LogoutRequest extends ProxerRequest<Void, LogoutEvent> {
 
         @NonNull
         @Override
@@ -379,12 +374,17 @@ public class ProxerConnection {
         protected Void parse(@NonNull JSONObject response) throws JSONException {
             return null;
         }
+
+        @Override
+        protected LogoutEvent createEvent(@NonNull Void result) {
+            return new LogoutEvent();
+        }
     }
 
     /**
      * A request for retrieval of the {@link Conference}s of a user.
      */
-    public static class ConferencesRequest extends ProxerRequest<List<Conference>> {
+    public static class ConferencesRequest extends ProxerRequest<List<Conference>, ConferencesEvent> {
 
         private int page;
 
@@ -406,6 +406,11 @@ public class ProxerConnection {
         @Override
         protected List<Conference> parse(@NonNull JSONObject response) throws JSONException {
             return ProxerParser.parseConferencesJSON(response);
+        }
+
+        @Override
+        protected ConferencesEvent createEvent(@NonNull List<Conference> result) {
+            return new ConferencesEvent(result);
         }
     }
 
