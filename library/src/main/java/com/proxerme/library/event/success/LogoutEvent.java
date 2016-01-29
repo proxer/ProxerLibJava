@@ -1,6 +1,8 @@
-package com.proxerme.library.event;
+package com.proxerme.library.event.success;
 
 import android.support.annotation.NonNull;
+
+import com.proxerme.library.event.IEvent;
 
 /**
  * TODO: Describe Class
