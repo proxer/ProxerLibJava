@@ -219,16 +219,16 @@ public class ProxerConnection {
                                     JSONObject json = response.asJsonObject();
 
                                     if (json == null) {
-                                        EventBus.getDefault().post(createErrorEvent(new ProxerException(UNKNOWN)));
+                                        EventBus.getDefault().postSticky(createErrorEvent(new ProxerException(UNKNOWN)));
                                     } else {
                                         final E result = createEvent(parse(json));
 
-                                        EventBus.getDefault().post(result);
+                                        EventBus.getDefault().postSticky(result);
                                     }
                                 } catch (final JSONException e) {
-                                    EventBus.getDefault().post(createErrorEvent(ErrorHandler.handleException(e)));
+                                    EventBus.getDefault().postSticky(createErrorEvent(ErrorHandler.handleException(e)));
                                 } catch (final BridgeException e) {
-                                    EventBus.getDefault().post(createErrorEvent(ErrorHandler.handleException(e)));
+                                    EventBus.getDefault().postSticky(createErrorEvent(ErrorHandler.handleException(e)));
                                 }
 
                                 parseThreads.remove(getThread());
@@ -239,7 +239,7 @@ public class ProxerConnection {
                         parseThread.start();
                     } else {
                         if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
-                            EventBus.getDefault().post(createErrorEvent(ErrorHandler.handleException(exception)));
+                            EventBus.getDefault().postSticky(createErrorEvent(ErrorHandler.handleException(exception)));
                         }
                     }
                 }
