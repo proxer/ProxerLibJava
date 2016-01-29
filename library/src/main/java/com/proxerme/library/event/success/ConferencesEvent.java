@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Ruben Gees
  */
-public class ConferencesEvent implements IEvent {
+public class ConferencesEvent implements IEvent<List<Conference>> {
 
     private List<Conference> conferences;
 
@@ -22,7 +22,7 @@ public class ConferencesEvent implements IEvent {
 
     @NonNull
     @Override
-    public Object getItem() {
+    public List<Conference> getItem() {
         return conferences;
     }
 }
