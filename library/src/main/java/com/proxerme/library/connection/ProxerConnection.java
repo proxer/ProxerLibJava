@@ -28,6 +28,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import de.greenrobot.event.EventBus;
+
 import static com.proxerme.library.connection.ProxerException.ErrorCodes.PROXER;
 import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNKNOWN;
 import static com.proxerme.library.connection.ProxerTag.CONFERENCES;
@@ -164,7 +166,7 @@ public class ProxerConnection {
 
     /**
      * An abstract representation of a callback, passed to the
-     * {@link ProxerRequest#execute(ResultCallback)} method.
+     * {@link ProxerRequest#execute()} method.
      *
      * @param <T> The generic parameter.
      */
@@ -194,7 +196,7 @@ public class ProxerConnection {
 
         /**
          * Builds the request, to be used in the
-         * {@link #execute(ResultCallback)} or
+         * {@link #execute()} or
          * {@link #executeSynchronized()} method.
          *
          * @return The {@link RequestBuilder} to use for further invocations.
@@ -213,11 +215,10 @@ public class ProxerConnection {
         /**
          * Asynchronously executes this request.
          *
-         * @param callback The callback for notifications about the Result.
          * @see #executeSynchronized()
          */
         @RequiresPermission(android.Manifest.permission.INTERNET)
-        public final void execute(@NonNull final ResultCallback<T> callback) {
+        public final void execute() {
             buildRequest().throwIfNotSuccess().tag(String.valueOf(getTag())).request(new Callback() {
                 @Override
                 public void response(Request request, final Response response,
@@ -230,36 +231,16 @@ public class ProxerConnection {
                                     JSONObject json = response.asJsonObject();
 
                                     if (json == null) {
-                                        handler.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                callback.onError(new ProxerException(UNKNOWN));
-                                            }
-                                        });
+                                        EventBus.getDefault().post(new ProxerException(UNKNOWN));
                                     } else {
                                         final T result = parse(json);
 
-                                        handler.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                callback.onResult(result);
-                                            }
-                                        });
+                                        EventBus.getDefault().post(result);
                                     }
                                 } catch (final JSONException e) {
-                                    handler.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            callback.onError(ErrorHandler.handleException(e));
-                                        }
-                                    });
+                                    EventBus.getDefault().post(ErrorHandler.handleException(e));
                                 } catch (final BridgeException e) {
-                                    handler.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            callback.onError(ErrorHandler.handleException(e));
-                                        }
-                                    });
+                                    EventBus.getDefault().post(ErrorHandler.handleException(e));
                                 }
 
                                 parseThreads.remove(getThread());
@@ -270,7 +251,7 @@ public class ProxerConnection {
                         parseThread.start();
                     } else {
                         if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
-                            callback.onError(ErrorHandler.handleException(exception));
+                            EventBus.getDefault().post(ErrorHandler.handleException(exception));
                         }
                     }
                 }
@@ -282,7 +263,7 @@ public class ProxerConnection {
          *
          * @return The result, specified by this class.
          * @throws ProxerException An Exception, which might occur, while executing the request.
-         * @see #execute(ResultCallback)
+         * @see #execute()
          */
         @WorkerThread
         @RequiresPermission(android.Manifest.permission.INTERNET)
