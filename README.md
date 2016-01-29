@@ -30,7 +30,7 @@ The `ProxerConnection` class provides static methods to retrieve Java representa
 
 #### The `execute()` method
 
-The request will automatically happen on a worker thread, thus not blocking the UI. You will mostly use this. The result is delivered through the [EventBus library] (https://github.com/greenrobot/EventBus). Each type of a result has an event, either a normal `IEvent` or an `ErrorEvent`. Note: All events are postet sticky to make it possible to cache them also in the gab between `onStop()` and `onStart()` in which your class is not registred. You are responsible for cleaning sticky events once you don't need them anymore
+The request will automatically happen on a worker thread, thus not blocking the UI. You will mostly use this. The result is delivered through the [EventBus library] (https://github.com/greenrobot/EventBus). Each type of a result has an event, either a normal `IEvent` or an `ErrorEvent`. Note: All events are postet sticky to make it possible to cache them also in the gab between `onStop()` and `onStart()` in which your class is not registred. You are responsible for cleaning sticky events once you don't need them anymore.  
 A simple query for the news might look like this:
 
 ```java
