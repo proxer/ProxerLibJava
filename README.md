@@ -34,6 +34,20 @@ The request will automatically happen on a worker thread, thus not blocking the 
 A simple query for the news might look like this:
 
 ```java
+@Override
+public void onStart() {
+    super.onStart();
+
+    EventBus.getDefault().register(this);
+}
+
+@Override
+public void onStop() {
+    EventBus.getDefault().unregister(this);
+
+    super.onStop();
+}
+
 public void loadNews(int page){
     ProxerConnection.loadNews(page).execute();
 }
