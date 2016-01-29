@@ -30,7 +30,19 @@ The `ProxerConnection` class provides static methods to retrieve Java representa
 
 #### The `execute()` method
 
-The request will automatically happen on a worker thread, thus not blocking the UI. You will mostly use this. To get the result, you pass a `ConnectionCallback`, whose methods will be called, when the request is done. 
+The request will automatically happen on a worker thread, thus not blocking the UI. You will mostly use this. The result is delivered through the [EventBus library] (https://github.com/greenrobot/EventBus). Each type of a result has an event, either a normal `IEvent` or an `ErrorEvent`.
+A simple query for the news might look like this:
+
+```java
+public void loadNews(int page){
+    ProxerConnection.loadNews(page).execute();
+}
+
+@Override
+    public void onEventMainThread(NewsEvent result) {
+        //Update UI
+    }
+```
 
 #### The `executeSynchronized()` method
 
@@ -60,4 +72,4 @@ CookieHandler.setDefault(cookieManager);
 ### Dependencies
 
 This library highly relies on [Bridge](https://github.com/afollestad/bridge) by [Aidan Follestad](https://github.com/afollestad) for the network communication.  
-Moreover it uses the [Android Support Annotations](http://tools.android.com/tech-docs/support-annotations) to improve the code style.
+Moreover it uses [EventBus] (https://github.com/greenrobot/EventBus) to deliver results and the [Android Support Annotations](http://tools.android.com/tech-docs/support-annotations) to improve the code style.
