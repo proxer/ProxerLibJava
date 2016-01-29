@@ -38,7 +38,6 @@ public void loadNews(int page){
     ProxerConnection.loadNews(page).execute();
 }
 
-@Override
 public void onEventMainThread(NewsEvent result) {
     //Update UI
 }
