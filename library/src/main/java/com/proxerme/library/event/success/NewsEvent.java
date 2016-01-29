@@ -3,7 +3,7 @@ package com.proxerme.library.event.success;
 import android.support.annotation.NonNull;
 
 import com.proxerme.library.entity.News;
-import com.proxerme.library.event.IEvent;
+import com.proxerme.library.event.IListEvent;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Ruben Gees
  */
-public class NewsEvent implements IEvent<List<News>> {
+public class NewsEvent implements IListEvent<News> {
 
     private List<News> item;
 
