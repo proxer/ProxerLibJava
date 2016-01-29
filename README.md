@@ -39,9 +39,9 @@ public void loadNews(int page){
 }
 
 @Override
-    public void onEventMainThread(NewsEvent result) {
-        //Update UI
-    }
+public void onEventMainThread(NewsEvent result) {
+    //Update UI
+}
 ```
 
 #### The `executeSynchronized()` method
