@@ -31,14 +31,13 @@ import com.proxerme.library.event.success.LoginEvent;
 import com.proxerme.library.event.success.LogoutEvent;
 import com.proxerme.library.event.success.NewsEvent;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
-import de.greenrobot.event.EventBus;
 
 import static com.proxerme.library.connection.ProxerException.ErrorCodes.PROXER;
 import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNKNOWN;
