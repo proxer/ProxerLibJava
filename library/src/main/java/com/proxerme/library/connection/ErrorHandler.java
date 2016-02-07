@@ -70,6 +70,12 @@ class ErrorHandler {
             case BridgeException.REASON_RESPONSE_VALIDATOR_ERROR:
                 exception = new ProxerException(PROXER, bridgeException.getMessage());
                 break;
+            case BridgeException.REASON_REQUEST_CANCELLED:
+                exception = new ProxerException(UNKNOWN);
+                break;
+            case BridgeException.REASON_REQUEST_FAILED:
+                exception = new ProxerException(UNKNOWN);
+                break;
             default:
                 exception = new ProxerException(UNKNOWN);
                 break;
