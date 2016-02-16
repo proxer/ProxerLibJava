@@ -44,7 +44,7 @@ public class PersistentCookieStore implements CookieStore {
      */
     public PersistentCookieStore(Context context) {
         cookiePrefs = context.getSharedPreferences(COOKIE_PREFS, 0);
-        cookies = new HashMap<String, ConcurrentHashMap<String, HttpCookie>>();
+        cookies = new HashMap<>();
 
         // Load any previously stored cookies into the store
         Map<String, ?> prefsMap = cookiePrefs.getAll();
@@ -132,7 +132,7 @@ public class PersistentCookieStore implements CookieStore {
 
     @Override
     public List<HttpCookie> getCookies() {
-        ArrayList<HttpCookie> ret = new ArrayList<HttpCookie>();
+        ArrayList<HttpCookie> ret = new ArrayList<>();
         for (String key : cookies.keySet())
             ret.addAll(cookies.get(key).values());
 
@@ -141,7 +141,7 @@ public class PersistentCookieStore implements CookieStore {
 
     @Override
     public List<URI> getURIs() {
-        ArrayList<URI> ret = new ArrayList<URI>();
+        ArrayList<URI> ret = new ArrayList<>();
         for (String key : cookies.keySet())
             try {
                 ret.add(new URI(key));
