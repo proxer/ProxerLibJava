@@ -80,7 +80,7 @@ public class ProxerException extends Exception {
         public static final int IO = 3;
 
         /**
-         * The connection timed out, due to and connectivity or server problems.
+         * The connection timed out due to connectivity or server problems.
          */
         public static final int TIMEOUT = 4;
 

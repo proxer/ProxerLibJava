@@ -5,7 +5,7 @@ group = 'com.github.proxer'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         minSdkVersion 15
@@ -16,8 +16,8 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-annotations:23.2.0'
-    compile 'com.github.afollestad:bridge:3.1.1'
+    compile 'com.android.support:support-annotations:23.2.1'
+    compile 'com.github.afollestad:bridge:3.2.0'
     compile 'org.greenrobot:eventbus:3.0.0'
 }
 

@@ -19,16 +19,19 @@ import com.afollestad.bridge.ResponseValidator;
 import com.proxerme.library.entity.Conference;
 import com.proxerme.library.entity.LoginData;
 import com.proxerme.library.entity.LoginUser;
+import com.proxerme.library.entity.Message;
 import com.proxerme.library.entity.News;
 import com.proxerme.library.event.IEvent;
 import com.proxerme.library.event.error.ConferencesErrorEvent;
 import com.proxerme.library.event.error.ErrorEvent;
 import com.proxerme.library.event.error.LoginErrorEvent;
 import com.proxerme.library.event.error.LogoutErrorEvent;
+import com.proxerme.library.event.error.MessagesErrorEvent;
 import com.proxerme.library.event.error.NewsErrorEvent;
 import com.proxerme.library.event.success.ConferencesEvent;
 import com.proxerme.library.event.success.LoginEvent;
 import com.proxerme.library.event.success.LogoutEvent;
+import com.proxerme.library.event.success.MessagesEvent;
 import com.proxerme.library.event.success.NewsEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -45,6 +48,7 @@ import static com.proxerme.library.connection.ProxerTag.CONFERENCES;
 import static com.proxerme.library.connection.ProxerTag.ConnectionTag;
 import static com.proxerme.library.connection.ProxerTag.LOGIN;
 import static com.proxerme.library.connection.ProxerTag.LOGOUT;
+import static com.proxerme.library.connection.ProxerTag.MESSAGES;
 import static com.proxerme.library.connection.ProxerTag.NEWS;
 
 /**
@@ -438,6 +442,44 @@ public class ProxerConnection {
         @Override
         protected ConferencesErrorEvent createErrorEvent(@NonNull ProxerException exception) {
             return new ConferencesErrorEvent(exception);
+        }
+    }
+
+    public static class MessagesRequest extends ProxerRequest<List<Message>, MessagesEvent,
+            MessagesErrorEvent> {
+
+        private String conferenceId;
+        private int page;
+
+        public MessagesRequest(@NonNull String conferenceId, @IntRange(from = 1) int page) {
+            this.conferenceId = conferenceId;
+            this.page = page;
+        }
+
+        @NonNull
+        @Override
+        protected RequestBuilder buildRequest() {
+            return Bridge.get(UrlHolder.getMessagesUrl(conferenceId, page));
+        }
+
+        @Override
+        protected int getTag() {
+            return MESSAGES;
+        }
+
+        @Override
+        protected List<Message> parse(@NonNull JSONObject response) throws JSONException {
+            return ProxerParser.parseMessagesJSON(response);
+        }
+
+        @Override
+        protected MessagesEvent createEvent(@NonNull List<Message> result) {
+            return new MessagesEvent(result);
+        }
+
+        @Override
+        protected MessagesErrorEvent createErrorEvent(@NonNull ProxerException exception) {
+            return new MessagesErrorEvent(exception);
         }
     }
 

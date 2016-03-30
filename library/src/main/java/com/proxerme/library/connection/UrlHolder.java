@@ -11,13 +11,14 @@ import android.support.annotation.NonNull;
 public class UrlHolder {
 
     private static final String LOGOUT = "/login?format=json&action=logout";
-    private static final String HOST = "http://proxer.me";
+    private static final String HOST = "https://proxer.me";
     private static final String NEWS = "/notifications?format=json&s=news&p=";
     private static final String NEWS_IMAGE = "http://cdn.proxer.me/news/tmp/";
     private static final String LOGIN = "/login?format=json&action=login";
     private static final String USER_IMAGE = "http://cdn.proxer.me/avatar/";
     private static final String CONFERENCES = "/messages?format=json&json=conferences&p=";
     private static final String CONFERENCE = "/messages?id=";
+    private static final String MESSAGES = "/messages?format=json&json=messages&id=";
 
     /**
      * Returns the host of the API.
@@ -31,6 +32,7 @@ public class UrlHolder {
 
     /**
      * Returns the url for news retrieval.
+     *
      * @param page The page to retrieve news from
      * @return The url.
      */
@@ -41,7 +43,8 @@ public class UrlHolder {
 
     /**
      * Returns the url for a single image of a news.
-     * @param newsId The id of the news.
+     *
+     * @param newsId  The id of the news.
      * @param imageId The id of the image.
      * @return The url.
      */
@@ -53,27 +56,30 @@ public class UrlHolder {
     /**
      * Returns the url to a single newspage. This is not part of the REST-Api, but the link to the
      * webpage.
+     *
      * @param categoryId The id of the category of the news.
-     * @param threadId The id of the thred.
+     * @param threadId   The id of the thred.
      * @return The url.
      */
     @NonNull
-    public static String getNewsPageUrl(@NonNull String categoryId, @NonNull String threadId) {
+    public static String getSingleNewsUrlWeb(@NonNull String categoryId, @NonNull String threadId) {
         return getHost() + "/forum/" + categoryId + "/" + threadId + "#top";
     }
 
     /**
      * Returns the url to a single image of a user.
+     *
      * @param imageLink The link to the image.
      * @return The url.
      */
     @NonNull
-    public static String getUserImage(@NonNull String imageLink) {
+    public static String getUserImageUrl(@NonNull String imageLink) {
         return USER_IMAGE + imageLink;
     }
 
     /**
      * Returns the url for the donation page.
+     *
      * @return The url.
      */
     @NonNull
@@ -83,6 +89,7 @@ public class UrlHolder {
 
     /**
      * Returns the url for a login.
+     *
      * @return The url.
      */
     @NonNull
@@ -92,6 +99,7 @@ public class UrlHolder {
 
     /**
      * Returns the url for a logout.
+     *
      * @return The url.
      */
     @NonNull
@@ -101,6 +109,7 @@ public class UrlHolder {
 
     /**
      * Returns the url for retrieval of conferences.
+     *
      * @param page The page to retrieve conferences from.
      * @return The url.
      */
@@ -117,8 +126,23 @@ public class UrlHolder {
      * @return The url.
      */
     @NonNull
-    public static String getConferenceUrl(@NonNull String id) {
+    public static String getConferenceUrlWeb(@NonNull String id) {
         return getHost() + CONFERENCE + id + "#top";
+    }
+
+    /**
+     * Returns the url for retrieval of messages in a single conference.
+     * Note that the Api is not officially released for this, so while being unlikely, the Api might
+     * change.
+     *
+     * @param conferenceId The id of the {@link com.proxerme.library.entity.Conference}.
+     * @param page         The page to retrieve conferences from. The first page of this Api is 0
+     *                     and not 1. This might be an error of the Api.
+     * @return The url.
+     */
+    @NonNull
+    public static String getMessagesUrl(@NonNull String conferenceId, @IntRange(from = 0) int page) {
+        return getHost() + MESSAGES + conferenceId + "&p=" + page;
     }
 
 }

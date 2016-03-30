@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.proxerme.library.entity.Conference;
 import com.proxerme.library.entity.LoginData;
+import com.proxerme.library.entity.Message;
 import com.proxerme.library.entity.News;
 
 import org.json.JSONArray;
@@ -20,6 +21,14 @@ import java.util.List;
  */
 class ProxerParser {
 
+    public static final String MESSAGES_ARRAY = "messages";
+    public static final String MESSAGES_ID = "id";
+    public static final String MESSAGES_FROM_ID = "fromid";
+    public static final String MESSAGES_MESSAGE = "message";
+    public static final String MESSAGES_ACTION = "action";
+    public static final String MESSAGES_TIME = "timestamp";
+    public static final String MESSAGES_DEVICE = "device";
+    public static final String MESSAGES_USERNAME = "username";
     private static final String NEWS_ARRAY = "notifications";
     private static final String NEWS_ID = "nid";
     private static final String NEWS_TIME = "time";
@@ -70,11 +79,25 @@ class ProxerParser {
         return result;
     }
 
+    /**
+     * Parses a raw JSON, received by the server upon login.
+     *
+     * @param object The JSON object.
+     * @return The {@link LoginData} object.
+     * @throws JSONException If the JSON is not formatted as expected.
+     */
     @NonNull
     public static LoginData parseLoginJSON(@NonNull JSONObject object) throws JSONException {
         return new LoginData(object.getString(LOGIN_ID), object.getString(LOGIN_IMAGE));
     }
 
+    /**
+     * Parses a raw JSON, returned by the server and returns a List of {@link Conference}s.
+     *
+     * @param object The JSON object.
+     * @return The List of {@link Conference}s.
+     * @throws JSONException If the JSON is not formatted as expected.
+     */
     @NonNull
     public static List<Conference> parseConferencesJSON(@NonNull JSONObject object) throws JSONException {
         JSONArray conferencesArray = object.getJSONArray(CONFERENCES_ARRAY);
@@ -90,6 +113,32 @@ class ProxerParser {
                     conferenceObject.getLong(CONFERENCES_TIME),
                     conferenceObject.getInt(CONFERENCES_IS_READ) == 1,
                     conferenceObject.getString(CONFERENCES_IMAGE)));
+        }
+
+        return result;
+    }
+
+    /**
+     * Parses a raw JSON, returned by the server and returns a List of {@link Message}s.
+     *
+     * @param object The JSON object.
+     * @return The List of {@link Message}s.
+     * @throws JSONException If the JSON is not formatted as expected.
+     */
+    public static List<Message> parseMessagesJSON(@NonNull JSONObject object) throws JSONException {
+        JSONArray messagesArray = object.getJSONArray(MESSAGES_ARRAY);
+        List<Message> result = new ArrayList<>(messagesArray.length());
+
+        for (int i = 0; i < messagesArray.length(); i++) {
+            JSONObject messageObject = messagesArray.getJSONObject(i);
+
+            result.add(new Message(messageObject.getString(MESSAGES_ID),
+                    messageObject.getString(MESSAGES_FROM_ID),
+                    messageObject.getString(MESSAGES_MESSAGE),
+                    messageObject.getString(MESSAGES_ACTION),
+                    messageObject.getLong(MESSAGES_TIME),
+                    messageObject.getString(MESSAGES_DEVICE),
+                    messageObject.getString(MESSAGES_USERNAME)));
         }
 
         return result;
