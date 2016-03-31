@@ -29,6 +29,7 @@ class ProxerParser {
     public static final String MESSAGES_TIME = "timestamp";
     public static final String MESSAGES_DEVICE = "device";
     public static final String MESSAGES_USERNAME = "username";
+    public static final String MESSAGES_IMAGE = "avatar";
     private static final String NEWS_ARRAY = "notifications";
     private static final String NEWS_ID = "nid";
     private static final String NEWS_TIME = "time";
@@ -138,7 +139,8 @@ class ProxerParser {
                     messageObject.getString(MESSAGES_ACTION),
                     messageObject.getLong(MESSAGES_TIME),
                     messageObject.getString(MESSAGES_DEVICE),
-                    messageObject.getString(MESSAGES_USERNAME)));
+                    messageObject.getString(MESSAGES_USERNAME),
+                    messageObject.getString(MESSAGES_IMAGE)));
         }
 
         return result;
