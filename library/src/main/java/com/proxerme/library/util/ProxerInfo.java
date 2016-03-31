@@ -17,4 +17,9 @@ public class ProxerInfo {
      */
     public static final int CONFERENCES_ON_PAGE = 48;
 
+    /**
+     * The amount of messages on one page.
+     */
+    public static final int MESSAGES_ON_PAGE = 15;
+
 }
