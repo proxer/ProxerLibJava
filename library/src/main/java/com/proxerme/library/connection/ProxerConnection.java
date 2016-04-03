@@ -1,7 +1,5 @@
 package com.proxerme.library.connection;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.CheckResult;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -62,6 +60,7 @@ public class ProxerConnection {
     private static final String RESPONSE_ERROR = "error";
     private static final String RESPONSE_ERROR_MESSAGE = "msg";
     private static final String VALIDATOR_ID = "default-validator";
+
     private static final ResponseValidator defaultValidator = new ResponseValidator() {
         @Override
         public boolean validate(@NonNull Response response) throws Exception {
@@ -90,8 +89,8 @@ public class ProxerConnection {
         }
     };
 
-    private static final Handler handler = new Handler(Looper.getMainLooper());
-    private static final ConcurrentLinkedQueue<ParseThread> parseThreads = new ConcurrentLinkedQueue<>();
+    private static final ConcurrentLinkedQueue<ParseThread> parseThreads =
+            new ConcurrentLinkedQueue<>();
 
     /**
      * Entry point to load News of a specified page.
@@ -138,6 +137,20 @@ public class ProxerConnection {
     @CheckResult
     public static ConferencesRequest loadConferences(@IntRange(from = 1) int page) {
         return new ConferencesRequest(page);
+    }
+
+    /**
+     * Entry point to load the Messages in a {@link Conference}, based on paging.
+     *
+     * @param conferenceId The id of the Conference.
+     * @param page         The page (Note: This Api starts with 0 and not with 1).
+     * @return A {@link MessagesRequest} to work with.
+     */
+    @NonNull
+    @CheckResult
+    public static MessagesRequest loadMessages(@NonNull String conferenceId,
+                                               @IntRange(from = 0) int page) {
+        return new MessagesRequest(conferenceId, page);
     }
 
     /**
@@ -445,13 +458,16 @@ public class ProxerConnection {
         }
     }
 
+    /**
+     * A request for retrieval of the {@link Message}s in a specific {@link Conference}.
+     */
     public static class MessagesRequest extends ProxerRequest<List<Message>, MessagesEvent,
             MessagesErrorEvent> {
 
         private String conferenceId;
         private int page;
 
-        public MessagesRequest(@NonNull String conferenceId, @IntRange(from = 1) int page) {
+        public MessagesRequest(@NonNull String conferenceId, @IntRange(from = 0) int page) {
             this.conferenceId = conferenceId;
             this.page = page;
         }
