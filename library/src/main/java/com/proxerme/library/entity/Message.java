@@ -27,11 +27,14 @@ public class Message implements IdItem, ImageItem, TimeItem, Parcelable {
             return new Message[size];
         }
     };
+
     private String id;
     private String fromId;
     private String message;
+
     @Nullable
     private Integer action;
+
     private long time;
     private String device;
     private String username;
@@ -105,6 +108,8 @@ public class Message implements IdItem, ImageItem, TimeItem, Parcelable {
 
         if (action.equals("addUser")) {
             return ConferenceAction.ADD_USER;
+        } else if (action.equals("removeUser")) {
+            return ConferenceAction.REMOVE_USER;
         }
 
         return null;
@@ -167,6 +172,7 @@ public class Message implements IdItem, ImageItem, TimeItem, Parcelable {
     }
 
     public static class ConferenceAction {
-        public static int ADD_USER = 0;
+        public static final int ADD_USER = 0;
+        public static final int REMOVE_USER = 1;
     }
 }
