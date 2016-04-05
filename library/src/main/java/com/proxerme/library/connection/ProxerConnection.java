@@ -107,7 +107,7 @@ public class ProxerConnection {
     }
 
     /**
-     * Entry point for the Login.
+     * Entry point for the login.
      *
      * @param user The User to login with.
      * @return A {@link LoginRequest} to work with.
@@ -119,7 +119,7 @@ public class ProxerConnection {
     }
 
     /**
-     * Entry point for the logout
+     * Entry point for the logout.
      *
      * @return A {@link LogoutRequest} to work with.
      */
@@ -130,9 +130,9 @@ public class ProxerConnection {
     }
 
     /**
-     * Entry point to load Conferences of the specified page.
+     * Entry point to load {@link Conference}s of the specified page.
      *
-     * @param page The page to load the Conferences
+     * @param page The page to load the {@link Conference}s
      * @return A {@link ConferencesRequest} to work with.
      */
     @NonNull
@@ -144,7 +144,7 @@ public class ProxerConnection {
     /**
      * Entry point to load the Messages in a {@link Conference}, based on paging.
      *
-     * @param conferenceId The id of the Conference.
+     * @param conferenceId The id of the {@link Conference}.
      * @param page         The page (Note: This Api starts with 0 and not with 1).
      * @return A {@link MessagesRequest} to work with.
      */
@@ -210,7 +210,7 @@ public class ProxerConnection {
     /**
      * An abstract representation of a request. All requests to the API are made through this class.
      *
-     * @param <T> The type of result, the inheriting request will return.
+     * @param <T> The type of result the inheriting request will return.
      */
     public static abstract class ProxerRequest<T, E extends IEvent, EE extends ErrorEvent> {
 
