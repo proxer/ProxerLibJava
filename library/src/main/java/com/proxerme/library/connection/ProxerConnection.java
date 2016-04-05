@@ -26,11 +26,13 @@ import com.proxerme.library.event.error.LoginErrorEvent;
 import com.proxerme.library.event.error.LogoutErrorEvent;
 import com.proxerme.library.event.error.MessagesErrorEvent;
 import com.proxerme.library.event.error.NewsErrorEvent;
+import com.proxerme.library.event.error.SendMessageErrorEvent;
 import com.proxerme.library.event.success.ConferencesEvent;
 import com.proxerme.library.event.success.LoginEvent;
 import com.proxerme.library.event.success.LogoutEvent;
 import com.proxerme.library.event.success.MessagesEvent;
 import com.proxerme.library.event.success.NewsEvent;
+import com.proxerme.library.event.success.SendMessageEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -151,6 +153,21 @@ public class ProxerConnection {
     public static MessagesRequest loadMessages(@NonNull String conferenceId,
                                                @IntRange(from = 0) int page) {
         return new MessagesRequest(conferenceId, page);
+    }
+
+    /**
+     * Entry point for sending a single message to a {@link Conference}.
+     * Note that this Api is not official and might change at any time.
+     *
+     * @param conferenceId The id of the {@link Conference}.
+     * @param message      The message to send
+     * @return A {@link SendMessageRequest} to work with.
+     */
+    @NonNull
+    @CheckResult
+    public static SendMessageRequest sendMessage(@NonNull String conferenceId,
+                                                 @NonNull String message) {
+        return new SendMessageRequest(conferenceId, message);
     }
 
     /**
@@ -496,6 +513,47 @@ public class ProxerConnection {
         @Override
         protected MessagesErrorEvent createErrorEvent(@NonNull ProxerException exception) {
             return new MessagesErrorEvent(exception);
+        }
+    }
+
+    /**
+     * A request for sending a message to a specific {@link Conference}.
+     */
+    public static class SendMessageRequest extends ProxerRequest<Void, SendMessageEvent,
+            SendMessageErrorEvent> {
+
+        private String conferenceId;
+        private String message;
+
+        public SendMessageRequest(@NonNull String conferenceId, @NonNull String message) {
+            this.conferenceId = conferenceId;
+            this.message = message;
+        }
+
+        @NonNull
+        @Override
+        protected RequestBuilder buildRequest() {
+            return Bridge.post(UrlHolder.getSendMessageUrl(conferenceId)).body(message);
+        }
+
+        @Override
+        protected int getTag() {
+            return ProxerTag.SEND_MESSAGE;
+        }
+
+        @Override
+        protected Void parse(@NonNull JSONObject response) throws JSONException {
+            return null;
+        }
+
+        @Override
+        protected SendMessageEvent createEvent(@NonNull Void result) {
+            return new SendMessageEvent();
+        }
+
+        @Override
+        protected SendMessageErrorEvent createErrorEvent(@NonNull ProxerException exception) {
+            return new SendMessageErrorEvent(exception);
         }
     }
 

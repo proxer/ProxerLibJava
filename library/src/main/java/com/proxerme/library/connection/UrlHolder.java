@@ -3,6 +3,8 @@ package com.proxerme.library.connection;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
+import com.proxerme.library.entity.Conference;
+
 /**
  * Helper class, containing all the different Urls for accessing the API.
  *
@@ -19,6 +21,7 @@ public class UrlHolder {
     private static final String CONFERENCES = "/messages?format=json&json=conferences&p=";
     private static final String CONFERENCE = "/messages?id=";
     private static final String MESSAGES = "/messages?format=json&json=messages&id=";
+    private static final String SEND_MESSAGE = "/messages/?format=json&json=answer&id=";
 
     /**
      * Returns the host of the API.
@@ -135,7 +138,7 @@ public class UrlHolder {
      * Note that the Api is not officially released for this, so while being unlikely, the Api might
      * change.
      *
-     * @param conferenceId The id of the {@link com.proxerme.library.entity.Conference}.
+     * @param conferenceId The id of the {@link Conference}.
      * @param page         The page to retrieve conferences from. The first page of this Api is 0
      *                     and not 1. This might be an error of the Api.
      * @return The url.
@@ -143,6 +146,18 @@ public class UrlHolder {
     @NonNull
     public static String getMessagesUrl(@NonNull String conferenceId, @IntRange(from = 0) int page) {
         return getHost() + MESSAGES + conferenceId + "&p=" + page;
+    }
+
+    /**
+     * Returns the url for sending a single message. The message itself is send using POST.
+     * Note that this Api is not official and might change at any time.
+     *
+     * @param conferenceId The id of the {@link Conference}.
+     * @return The url.
+     */
+    @NonNull
+    public static String getSendMessageUrl(@NonNull String conferenceId) {
+        return getHost() + SEND_MESSAGE + conferenceId;
     }
 
 }

@@ -3,6 +3,7 @@ package com.proxerme.library.connection;
 import android.support.annotation.IntDef;
 
 import com.proxerme.library.connection.ProxerConnection.MessagesRequest;
+import com.proxerme.library.connection.ProxerConnection.SendMessageRequest;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -74,10 +75,20 @@ public class ProxerTag {
     public static final int MESSAGES_SYNC = 7;
 
     /**
+     * Tag for the asynchronous {@link SendMessageRequest}.
+     */
+    public static final int SEND_MESSAGE = 8;
+
+    /**
+     * Tag for the synchronous {@link SendMessageRequest}.
+     */
+    public static final int SEND_MESSAGE_SYNC = 9;
+
+    /**
      * An annotation, specifying the different tags of a request.
      */
     @IntDef({LOGIN, LOGIN_SYNC, NEWS, NEWS_SYNC, LOGOUT, LOGOUT_SYNC, CONFERENCES,
-            CONFERENCES_SYNC, MESSAGES, MESSAGES_SYNC})
+            CONFERENCES_SYNC, MESSAGES, MESSAGES_SYNC, SEND_MESSAGE, SEND_MESSAGE_SYNC})
     @Retention(value = RetentionPolicy.SOURCE)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
     public @interface ConnectionTag {
