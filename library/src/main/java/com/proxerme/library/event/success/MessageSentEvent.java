@@ -9,7 +9,7 @@ import com.proxerme.library.event.IEvent;
  *
  * @author Ruben Gees
  */
-public class SendMessageEvent implements IEvent {
+public class MessageSentEvent implements IEvent {
 
     @NonNull
     @Override

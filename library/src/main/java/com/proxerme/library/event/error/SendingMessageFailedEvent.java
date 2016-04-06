@@ -9,8 +9,8 @@ import com.proxerme.library.connection.ProxerException;
  *
  * @author Ruben Gees
  */
-public class SendMessageErrorEvent extends ErrorEvent {
-    public SendMessageErrorEvent(@NonNull ProxerException exception) {
+public class SendingMessageFailedEvent extends ErrorEvent {
+    public SendingMessageFailedEvent(@NonNull ProxerException exception) {
         super(exception);
     }
 }

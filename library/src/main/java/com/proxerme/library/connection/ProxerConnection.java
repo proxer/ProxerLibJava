@@ -26,13 +26,13 @@ import com.proxerme.library.event.error.LoginErrorEvent;
 import com.proxerme.library.event.error.LogoutErrorEvent;
 import com.proxerme.library.event.error.MessagesErrorEvent;
 import com.proxerme.library.event.error.NewsErrorEvent;
-import com.proxerme.library.event.error.SendMessageErrorEvent;
+import com.proxerme.library.event.error.SendingMessageFailedEvent;
 import com.proxerme.library.event.success.ConferencesEvent;
 import com.proxerme.library.event.success.LoginEvent;
 import com.proxerme.library.event.success.LogoutEvent;
+import com.proxerme.library.event.success.MessageSentEvent;
 import com.proxerme.library.event.success.MessagesEvent;
 import com.proxerme.library.event.success.NewsEvent;
-import com.proxerme.library.event.success.SendMessageEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -524,8 +524,8 @@ public class ProxerConnection {
     /**
      * A request for sending a message to a specific {@link Conference}.
      */
-    public static class SendMessageRequest extends ProxerRequest<Void, SendMessageEvent,
-            SendMessageErrorEvent> {
+    public static class SendMessageRequest extends ProxerRequest<Void, MessageSentEvent,
+            SendingMessageFailedEvent> {
 
         private String conferenceId;
         private String message;
@@ -552,13 +552,13 @@ public class ProxerConnection {
         }
 
         @Override
-        protected SendMessageEvent createEvent(@NonNull Void result) {
-            return new SendMessageEvent();
+        protected MessageSentEvent createEvent(@NonNull Void result) {
+            return new MessageSentEvent();
         }
 
         @Override
-        protected SendMessageErrorEvent createErrorEvent(@NonNull ProxerException exception) {
-            return new SendMessageErrorEvent(exception);
+        protected SendingMessageFailedEvent createErrorEvent(@NonNull ProxerException exception) {
+            return new SendingMessageFailedEvent(exception);
         }
     }
 
