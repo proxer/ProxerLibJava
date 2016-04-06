@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import com.proxerme.library.connection.ProxerException;
 
 /**
- * Created by ruben on 30.03.16.
+ * TODO: Describe class
+ *
+ * @author Ruben Gees
  */
 public class MessagesErrorEvent extends ErrorEvent {
 

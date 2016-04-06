@@ -8,7 +8,9 @@ import com.proxerme.library.event.IListEvent;
 import java.util.List;
 
 /**
- * Created by ruben on 30.03.16.
+ * TODO: Describe class
+ *
+ * @author Ruben Gees
  */
 public class MessagesEvent implements IListEvent<Message> {
 

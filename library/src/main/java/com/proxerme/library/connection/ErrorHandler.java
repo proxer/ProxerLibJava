@@ -4,16 +4,16 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.BridgeException;
+import com.proxerme.library.connection.ProxerException.ErrorCode;
 
 import org.json.JSONException;
 
-import static com.proxerme.library.connection.ProxerException.ErrorCode;
-import static com.proxerme.library.connection.ProxerException.ErrorCodes.IO;
-import static com.proxerme.library.connection.ProxerException.ErrorCodes.NETWORK;
-import static com.proxerme.library.connection.ProxerException.ErrorCodes.PROXER;
-import static com.proxerme.library.connection.ProxerException.ErrorCodes.TIMEOUT;
-import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNKNOWN;
-import static com.proxerme.library.connection.ProxerException.ErrorCodes.UNPARSEABLE;
+import static com.proxerme.library.connection.ProxerException.ERROR_IO;
+import static com.proxerme.library.connection.ProxerException.ERROR_NETWORK;
+import static com.proxerme.library.connection.ProxerException.ERROR_PROXER;
+import static com.proxerme.library.connection.ProxerException.ERROR_TIMEOUT;
+import static com.proxerme.library.connection.ProxerException.ERROR_UNKNOWN;
+import static com.proxerme.library.connection.ProxerException.ERROR_UNPARSEABLE;
 
 /**
  * A Helper class, which converts an Exception to a Integer, represented through the
@@ -34,7 +34,7 @@ class ErrorHandler {
     @NonNull
     @CheckResult
     public static ProxerException handleException(@NonNull JSONException jsonException) {
-        return new ProxerException(UNPARSEABLE);
+        return new ProxerException(ERROR_UNPARSEABLE);
     }
 
     /**
@@ -49,35 +49,36 @@ class ErrorHandler {
 
         switch (bridgeException.reason()) {
             case BridgeException.REASON_REQUEST_TIMEOUT: {
-                exception = new ProxerException(TIMEOUT);
+                exception = new ProxerException(ERROR_TIMEOUT);
                 break;
             }
             case BridgeException.REASON_RESPONSE_UNSUCCESSFUL: {
-                exception = new ProxerException(NETWORK);
+                exception = new ProxerException(ERROR_NETWORK);
                 break;
             }
             case BridgeException.REASON_RESPONSE_UNPARSEABLE: {
-                exception = new ProxerException(UNPARSEABLE);
+                exception = new ProxerException(ERROR_UNPARSEABLE);
                 break;
             }
             case BridgeException.REASON_RESPONSE_IOERROR: {
-                exception = new ProxerException(IO);
+                exception = new ProxerException(ERROR_IO);
                 break;
             }
             case BridgeException.REASON_RESPONSE_VALIDATOR_FALSE:
-                exception = new ProxerException(UNKNOWN);
+                exception = new ProxerException(ERROR_UNKNOWN);
                 break;
             case BridgeException.REASON_RESPONSE_VALIDATOR_ERROR:
-                exception = new ProxerException(PROXER, bridgeException.getMessage());
+                exception = new ProxerException(ERROR_PROXER,
+                        bridgeException.getMessage());
                 break;
             case BridgeException.REASON_REQUEST_CANCELLED:
-                exception = new ProxerException(UNKNOWN);
+                exception = new ProxerException(ERROR_UNKNOWN);
                 break;
             case BridgeException.REASON_REQUEST_FAILED:
-                exception = new ProxerException(UNKNOWN);
+                exception = new ProxerException(ERROR_UNKNOWN);
                 break;
             default:
-                exception = new ProxerException(UNKNOWN);
+                exception = new ProxerException(ERROR_UNKNOWN);
                 break;
         }
 
