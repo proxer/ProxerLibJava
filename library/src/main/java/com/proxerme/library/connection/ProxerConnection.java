@@ -539,15 +539,11 @@ public class ProxerConnection {
         @NonNull
         @Override
         protected RequestBuilder buildRequest() {
-            JSONObject messageObject = new JSONObject();
+            Form messageForm = new Form();
 
-            try {
-                messageObject.put("message", message);
-            } catch (JSONException ignored) {
+            messageForm.add("message", message);
 
-            }
-
-            return Bridge.post(UrlHolder.getSendMessageUrl(conferenceId)).body(messageObject)
+            return Bridge.post(UrlHolder.getSendMessageUrl(conferenceId)).body(messageForm)
                     .validators(defaultValidator);
         }
 
