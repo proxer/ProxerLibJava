@@ -497,7 +497,8 @@ public class ProxerConnection {
         @NonNull
         @Override
         protected RequestBuilder buildRequest() {
-            return Bridge.get(UrlHolder.getMessagesUrl(conferenceId, page));
+            return Bridge.get(UrlHolder.getMessagesUrl(conferenceId, page))
+                    .validators(defaultValidator);
         }
 
         @Override
@@ -538,7 +539,16 @@ public class ProxerConnection {
         @NonNull
         @Override
         protected RequestBuilder buildRequest() {
-            return Bridge.post(UrlHolder.getSendMessageUrl(conferenceId)).body(message);
+            JSONObject messageObject = new JSONObject();
+
+            try {
+                messageObject.put("message", message);
+            } catch (JSONException ignored) {
+
+            }
+
+            return Bridge.post(UrlHolder.getSendMessageUrl(conferenceId)).body(messageObject)
+                    .validators(defaultValidator);
         }
 
         @Override
