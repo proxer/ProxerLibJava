@@ -61,7 +61,9 @@ public class ProxerConnection {
     private static final String FORM_PASSWORD = "password";
     private static final String RESPONSE_ERROR = "error";
     private static final String RESPONSE_ERROR_MESSAGE = "msg";
+    private static final String RESPONSE_ERROR_MESSAGE_LOGIN_LOGOUT = "message";
     private static final String VALIDATOR_ID = "default-validator";
+    private static final String LOGIN_LOGOUT_VALIDATOR_ID = "login-logout-validator";
 
     private static final ResponseValidator defaultValidator = new ResponseValidator() {
         @Override
@@ -88,6 +90,34 @@ public class ProxerConnection {
         @Override
         public String id() {
             return VALIDATOR_ID;
+        }
+    };
+
+    private static final ResponseValidator loginLogoutValidator = new ResponseValidator() {
+        @Override
+        public boolean validate(@NonNull Response response) throws Exception {
+            JSONObject json = response.asJsonObject();
+
+            if (json != null && json.has(RESPONSE_ERROR)) {
+                if (json.getInt(RESPONSE_ERROR) == 0) {
+                    return true;
+                } else {
+                    if (json.has(RESPONSE_ERROR_MESSAGE_LOGIN_LOGOUT)) {
+                        throw new ProxerException(ERROR_PROXER,
+                                json.getString(RESPONSE_ERROR_MESSAGE_LOGIN_LOGOUT));
+                    } else {
+                        throw new ProxerException(ERROR_UNKNOWN);
+                    }
+                }
+            } else {
+                return false;
+            }
+        }
+
+        @NonNull
+        @Override
+        public String id() {
+            return LOGIN_LOGOUT_VALIDATOR_ID;
         }
     };
 
@@ -380,7 +410,7 @@ public class ProxerConnection {
                     .add(FORM_PASSWORD, user.getPassword());
 
             return Bridge.post(UrlHolder.getLoginUrl()).body(loginCredentials)
-                    .validators(defaultValidator);
+                    .validators(loginLogoutValidator);
         }
 
         @ConnectionTag
@@ -416,7 +446,7 @@ public class ProxerConnection {
         @NonNull
         @Override
         protected RequestBuilder buildRequest() {
-            return Bridge.get(UrlHolder.getLogoutUrl()).validators(defaultValidator);
+            return Bridge.get(UrlHolder.getLogoutUrl()).validators(loginLogoutValidator);
         }
 
         @ConnectionTag
