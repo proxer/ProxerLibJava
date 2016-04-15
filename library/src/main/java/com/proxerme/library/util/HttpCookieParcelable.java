@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.net.HttpCookie;
 
-public class HttpCookieParcelable implements Parcelable {
+class HttpCookieParcelable implements Parcelable {
     public static final Parcelable.Creator<HttpCookieParcelable> CREATOR =
             new Creator<HttpCookieParcelable>() {
 
