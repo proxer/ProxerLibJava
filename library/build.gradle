@@ -17,7 +17,7 @@ android {
 
 dependencies {
     compile 'com.android.support:support-annotations:23.3.0'
-    compile 'com.github.afollestad:bridge:3.2.0'
+    compile 'com.github.afollestad:bridge:3.2.1'
     compile 'org.greenrobot:eventbus:3.0.0'
 }
 
