@@ -10,7 +10,7 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 27
+        versionCode 28
         versionName "1.5.1"
     }
 }
