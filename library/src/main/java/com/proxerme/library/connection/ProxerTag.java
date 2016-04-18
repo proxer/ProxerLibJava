@@ -67,22 +67,22 @@ public class ProxerTag {
     /**
      * Tag for the asynchronous {@link MessagesRequest}.
      */
-    public static final int MESSAGES = 6;
+    public static final int MESSAGES = 8;
 
     /**
      * Tag for the synchronous {@link MessagesRequest}.
      */
-    public static final int MESSAGES_SYNC = 7;
+    public static final int MESSAGES_SYNC = 9;
 
     /**
      * Tag for the asynchronous {@link SendMessageRequest}.
      */
-    public static final int SEND_MESSAGE = 8;
+    public static final int SEND_MESSAGE = 10;
 
     /**
      * Tag for the synchronous {@link SendMessageRequest}.
      */
-    public static final int SEND_MESSAGE_SYNC = 9;
+    public static final int SEND_MESSAGE_SYNC = 11;
 
     /**
      * An annotation, specifying the different tags of a request.

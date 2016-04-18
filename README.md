@@ -18,7 +18,7 @@ And this to your module build.gradle:
 
 ```groovy
 dependencies {
-    compile('com.github.proxer:ProxerLibAndroid:1.5.0@aar') {
+    compile('com.github.proxer:ProxerLibAndroid:1.5.1@aar') {
         transitive = true
     }
 }
