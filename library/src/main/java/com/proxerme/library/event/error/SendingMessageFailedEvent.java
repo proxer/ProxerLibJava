@@ -10,7 +10,18 @@ import com.proxerme.library.connection.ProxerException;
  * @author Ruben Gees
  */
 public class SendingMessageFailedEvent extends ErrorEvent {
-    public SendingMessageFailedEvent(@NonNull ProxerException exception) {
+
+    private String conferenceId;
+
+    public SendingMessageFailedEvent(@NonNull String conferenceId,
+                                     @NonNull ProxerException exception) {
         super(exception);
+
+        this.conferenceId = conferenceId;
+    }
+
+    @NonNull
+    public String getConferenceId() {
+        return conferenceId;
     }
 }

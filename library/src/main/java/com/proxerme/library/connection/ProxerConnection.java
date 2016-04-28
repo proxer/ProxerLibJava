@@ -543,12 +543,12 @@ public class ProxerConnection {
 
         @Override
         protected MessagesEvent createEvent(@NonNull List<Message> result) {
-            return new MessagesEvent(result);
+            return new MessagesEvent(conferenceId, result);
         }
 
         @Override
         protected MessagesErrorEvent createErrorEvent(@NonNull ProxerException exception) {
-            return new MessagesErrorEvent(exception);
+            return new MessagesErrorEvent(conferenceId, exception);
         }
     }
 
@@ -589,12 +589,12 @@ public class ProxerConnection {
 
         @Override
         protected MessageSentEvent createEvent(@NonNull Void result) {
-            return new MessageSentEvent();
+            return new MessageSentEvent(conferenceId);
         }
 
         @Override
         protected SendingMessageFailedEvent createErrorEvent(@NonNull ProxerException exception) {
-            return new SendingMessageFailedEvent(exception);
+            return new SendingMessageFailedEvent(conferenceId, exception);
         }
     }
 

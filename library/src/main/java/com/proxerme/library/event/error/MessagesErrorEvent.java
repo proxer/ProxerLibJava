@@ -11,7 +11,16 @@ import com.proxerme.library.connection.ProxerException;
  */
 public class MessagesErrorEvent extends ErrorEvent {
 
-    public MessagesErrorEvent(@NonNull ProxerException exception) {
+    private String conferenceId;
+
+    public MessagesErrorEvent(@NonNull String conferenceId, @NonNull ProxerException exception) {
         super(exception);
+
+        this.conferenceId = conferenceId;
+    }
+
+    @NonNull
+    public String getConferenceId() {
+        return conferenceId;
     }
 }

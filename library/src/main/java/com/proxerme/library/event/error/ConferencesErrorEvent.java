@@ -10,6 +10,7 @@ import com.proxerme.library.connection.ProxerException;
  * @author Ruben Gees
  */
 public class ConferencesErrorEvent extends ErrorEvent {
+
     public ConferencesErrorEvent(@NonNull ProxerException exception) {
         super(exception);
     }

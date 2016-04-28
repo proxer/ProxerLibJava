@@ -14,9 +14,11 @@ import java.util.List;
  */
 public class MessagesEvent implements IListEvent<Message> {
 
+    private String conferenceId;
     private List<Message> messages;
 
-    public MessagesEvent(List<Message> messages) {
+    public MessagesEvent(@NonNull String conferenceId, @NonNull List<Message> messages) {
+        this.conferenceId = conferenceId;
         this.messages = messages;
     }
 
@@ -24,5 +26,10 @@ public class MessagesEvent implements IListEvent<Message> {
     @Override
     public List<Message> getItem() {
         return messages;
+    }
+
+    @NonNull
+    public String getConferenceId() {
+        return conferenceId;
     }
 }
