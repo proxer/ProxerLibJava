@@ -1,5 +1,7 @@
 package com.proxerme.library.connection;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.CheckResult;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -236,6 +238,26 @@ public class ProxerConnection {
         Bridge.destroy();
     }
 
+    private static <R extends ProxerResult, ER extends ProxerErrorResult>
+    void deliverResultOnMainThread(final ProxerCallback<R, ER> callback, final R result) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                callback.onSuccess(result);
+            }
+        });
+    }
+
+    private static <R extends ProxerResult, ER extends ProxerErrorResult>
+    void deliverErrorResultOnMainThread(final ProxerCallback<R, ER> callback, final ER errorResult) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                callback.onError(errorResult);
+            }
+        });
+    }
+
     /**
      * An abstract representation of a request. All requests to the API are made through this class.
      *
@@ -281,17 +303,18 @@ public class ProxerConnection {
                                     JSONObject json = response.asJsonObject();
 
                                     if (json == null) {
-                                        callback.onError(createErrorResult(
+                                        deliverErrorResultOnMainThread(callback, createErrorResult(
                                                 new ProxerException(ERROR_UNKNOWN)));
                                     } else {
-                                        callback.onSuccess(createResult(parse(json)));
+                                        deliverResultOnMainThread(callback,
+                                                createResult(parse(json)));
                                     }
                                 } catch (final JSONException e) {
-                                    callback.onError(createErrorResult(ErrorHandler
-                                            .handleException(e)));
+                                    deliverErrorResultOnMainThread(callback,
+                                            createErrorResult(ErrorHandler.handleException(e)));
                                 } catch (final BridgeException e) {
-                                    callback.onError(createErrorResult(ErrorHandler
-                                            .handleException(e)));
+                                    deliverErrorResultOnMainThread(callback,
+                                            createErrorResult(ErrorHandler.handleException(e)));
                                 }
 
                                 parseThreads.remove(getThread());
@@ -302,8 +325,8 @@ public class ProxerConnection {
                         parseThread.start();
                     } else {
                         if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
-                            callback.onError(createErrorResult(ErrorHandler
-                                    .handleException(exception)));
+                            deliverErrorResultOnMainThread(callback,
+                                    createErrorResult(ErrorHandler.handleException(exception)));
                         }
                     }
                 }
