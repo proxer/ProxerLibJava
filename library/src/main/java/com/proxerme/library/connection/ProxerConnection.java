@@ -281,16 +281,16 @@ public class ProxerConnection {
                                     JSONObject json = response.asJsonObject();
 
                                     if (json == null) {
-                                        callback.onError(createErrorEvent(
+                                        callback.onError(createErrorResult(
                                                 new ProxerException(ERROR_UNKNOWN)));
                                     } else {
-                                        callback.onSuccess(createEvent(parse(json)));
+                                        callback.onSuccess(createResult(parse(json)));
                                     }
                                 } catch (final JSONException e) {
-                                    callback.onError(createErrorEvent(ErrorHandler
+                                    callback.onError(createErrorResult(ErrorHandler
                                             .handleException(e)));
                                 } catch (final BridgeException e) {
-                                    callback.onError(createErrorEvent(ErrorHandler
+                                    callback.onError(createErrorResult(ErrorHandler
                                             .handleException(e)));
                                 }
 
@@ -302,7 +302,7 @@ public class ProxerConnection {
                         parseThread.start();
                     } else {
                         if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
-                            callback.onError(createErrorEvent(ErrorHandler
+                            callback.onError(createErrorResult(ErrorHandler
                                     .handleException(exception)));
                         }
                     }
@@ -344,9 +344,9 @@ public class ProxerConnection {
          */
         protected abstract T parse(@NonNull JSONObject response) throws JSONException;
 
-        protected abstract R createEvent(@NonNull T result);
+        protected abstract R createResult(@NonNull T result);
 
-        protected abstract RE createErrorEvent(@NonNull ProxerException exception);
+        protected abstract RE createErrorResult(@NonNull ProxerException exception);
     }
 
     /**
@@ -378,12 +378,12 @@ public class ProxerConnection {
         }
 
         @Override
-        protected NewsResult createEvent(@NonNull List<News> result) {
+        protected NewsResult createResult(@NonNull List<News> result) {
             return new NewsResult(result);
         }
 
         @Override
-        protected NewsErrorResult createErrorEvent(@NonNull ProxerException exception) {
+        protected NewsErrorResult createErrorResult(@NonNull ProxerException exception) {
             return new NewsErrorResult(exception);
         }
     }
@@ -424,12 +424,12 @@ public class ProxerConnection {
         }
 
         @Override
-        protected LoginResult createEvent(@NonNull LoginUser result) {
+        protected LoginResult createResult(@NonNull LoginUser result) {
             return new LoginResult(result);
         }
 
         @Override
-        protected LoginErrorResult createErrorEvent(@NonNull ProxerException exception) {
+        protected LoginErrorResult createErrorResult(@NonNull ProxerException exception) {
             return new LoginErrorResult(exception);
         }
     }
@@ -457,12 +457,12 @@ public class ProxerConnection {
         }
 
         @Override
-        protected LogoutResult createEvent(@NonNull Void result) {
+        protected LogoutResult createResult(@NonNull Void result) {
             return new LogoutResult();
         }
 
         @Override
-        protected LogoutErrorResult createErrorEvent(@NonNull ProxerException exception) {
+        protected LogoutErrorResult createErrorResult(@NonNull ProxerException exception) {
             return new LogoutErrorResult(exception);
         }
     }
@@ -496,12 +496,12 @@ public class ProxerConnection {
         }
 
         @Override
-        protected ConferencesResult createEvent(@NonNull List<Conference> result) {
+        protected ConferencesResult createResult(@NonNull List<Conference> result) {
             return new ConferencesResult(result);
         }
 
         @Override
-        protected ConferencesErrorResult createErrorEvent(@NonNull ProxerException exception) {
+        protected ConferencesErrorResult createErrorResult(@NonNull ProxerException exception) {
             return new ConferencesErrorResult(exception);
         }
     }
@@ -538,12 +538,12 @@ public class ProxerConnection {
         }
 
         @Override
-        protected MessagesResult createEvent(@NonNull List<Message> result) {
+        protected MessagesResult createResult(@NonNull List<Message> result) {
             return new MessagesResult(conferenceId, result);
         }
 
         @Override
-        protected MessagesErrorResult createErrorEvent(@NonNull ProxerException exception) {
+        protected MessagesErrorResult createErrorResult(@NonNull ProxerException exception) {
             return new MessagesErrorResult(conferenceId, exception);
         }
     }
@@ -584,12 +584,12 @@ public class ProxerConnection {
         }
 
         @Override
-        protected MessageSentResult createEvent(@NonNull Void result) {
+        protected MessageSentResult createResult(@NonNull Void result) {
             return new MessageSentResult(conferenceId);
         }
 
         @Override
-        protected SendingMessageErrorResult createErrorEvent(@NonNull ProxerException exception) {
+        protected SendingMessageErrorResult createErrorResult(@NonNull ProxerException exception) {
             return new SendingMessageErrorResult(conferenceId, exception);
         }
     }
@@ -624,7 +624,8 @@ public class ProxerConnection {
         }
     }
 
-    public abstract class ProxerCallback<R extends ProxerResult, ER extends ProxerErrorResult> {
+    public abstract static class ProxerCallback<R extends ProxerResult,
+            ER extends ProxerErrorResult> {
         public void onSuccess(R result) {
 
         }
