@@ -21,15 +21,15 @@ import java.util.List;
  */
 class ProxerParser {
 
-    public static final String MESSAGES_ARRAY = "messages";
-    public static final String MESSAGES_ID = "id";
-    public static final String MESSAGES_FROM_ID = "fromid";
-    public static final String MESSAGES_MESSAGE = "message";
-    public static final String MESSAGES_ACTION = "action";
-    public static final String MESSAGES_TIME = "timestamp";
-    public static final String MESSAGES_DEVICE = "device";
-    public static final String MESSAGES_USERNAME = "username";
-    public static final String MESSAGES_IMAGE = "avatar";
+    private static final String MESSAGES_ARRAY = "messages";
+    private static final String MESSAGES_ID = "id";
+    private static final String MESSAGES_FROM_ID = "fromid";
+    private static final String MESSAGES_MESSAGE = "message";
+    private static final String MESSAGES_ACTION = "action";
+    private static final String MESSAGES_TIME = "timestamp";
+    private static final String MESSAGES_DEVICE = "device";
+    private static final String MESSAGES_USERNAME = "username";
+    private static final String MESSAGES_IMAGE = "avatar";
     private static final String NEWS_ARRAY = "notifications";
     private static final String NEWS_ID = "nid";
     private static final String NEWS_TIME = "time";

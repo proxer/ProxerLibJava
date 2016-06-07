@@ -1,15 +1,15 @@
-package com.proxerme.library.event.success;
+package com.proxerme.library.result.success;
 
 import android.support.annotation.NonNull;
 
-import com.proxerme.library.event.IEvent;
+import com.proxerme.library.result.ProxerResult;
 
 /**
  * TODO: Describe Class
  *
  * @author Ruben Gees
  */
-public class LogoutEvent implements IEvent {
+public class LogoutResult implements ProxerResult {
 
     @NonNull
     @Override

@@ -1,4 +1,4 @@
-package com.proxerme.library.event;
+package com.proxerme.library.result;
 
 import android.support.annotation.NonNull;
 
@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
  *
  * @author Ruben Gees
  */
-public interface IEvent<T> {
+public interface ProxerResult<T> {
 
     @NonNull
     T getItem();

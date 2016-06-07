@@ -19,22 +19,21 @@ import com.proxerme.library.entity.LoginData;
 import com.proxerme.library.entity.LoginUser;
 import com.proxerme.library.entity.Message;
 import com.proxerme.library.entity.News;
-import com.proxerme.library.event.IEvent;
-import com.proxerme.library.event.error.ConferencesErrorEvent;
-import com.proxerme.library.event.error.ErrorEvent;
-import com.proxerme.library.event.error.LoginErrorEvent;
-import com.proxerme.library.event.error.LogoutErrorEvent;
-import com.proxerme.library.event.error.MessagesErrorEvent;
-import com.proxerme.library.event.error.NewsErrorEvent;
-import com.proxerme.library.event.error.SendingMessageFailedEvent;
-import com.proxerme.library.event.success.ConferencesEvent;
-import com.proxerme.library.event.success.LoginEvent;
-import com.proxerme.library.event.success.LogoutEvent;
-import com.proxerme.library.event.success.MessageSentEvent;
-import com.proxerme.library.event.success.MessagesEvent;
-import com.proxerme.library.event.success.NewsEvent;
+import com.proxerme.library.result.ProxerResult;
+import com.proxerme.library.result.error.ConferencesErrorResult;
+import com.proxerme.library.result.error.LoginErrorResult;
+import com.proxerme.library.result.error.LogoutErrorResult;
+import com.proxerme.library.result.error.MessagesErrorResult;
+import com.proxerme.library.result.error.NewsErrorResult;
+import com.proxerme.library.result.error.ProxerErrorResult;
+import com.proxerme.library.result.error.SendingMessageErrorResult;
+import com.proxerme.library.result.success.ConferencesResult;
+import com.proxerme.library.result.success.LoginResult;
+import com.proxerme.library.result.success.LogoutResult;
+import com.proxerme.library.result.success.MessageSentResult;
+import com.proxerme.library.result.success.MessagesResult;
+import com.proxerme.library.result.success.NewsResult;
 
-import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -242,11 +241,11 @@ public class ProxerConnection {
      *
      * @param <T> The type of result the inheriting request will return.
      */
-    public static abstract class ProxerRequest<T, E extends IEvent, EE extends ErrorEvent> {
+    public static abstract class ProxerRequest<T, R extends ProxerResult, RE extends ProxerErrorResult> {
 
         /**
          * Builds the request, to be used in the
-         * {@link #execute()} or
+         * {@link #execute(ProxerCallback)} or
          * {@link #executeSynchronized()} method.
          *
          * @return The {@link RequestBuilder} to use for further invocations.
@@ -269,7 +268,7 @@ public class ProxerConnection {
          * @see #executeSynchronized()
          */
         @RequiresPermission(android.Manifest.permission.INTERNET)
-        public final void execute() {
+        public final void execute(final ProxerCallback<R, RE> callback) {
             buildRequest().throwIfNotSuccess().tag(String.valueOf(getTag())).request(new Callback() {
                 @Override
                 public void response(Request request, final Response response,
@@ -282,19 +281,16 @@ public class ProxerConnection {
                                     JSONObject json = response.asJsonObject();
 
                                     if (json == null) {
-                                        EventBus.getDefault()
-                                                .post(createErrorEvent(
-                                                        new ProxerException(ERROR_UNKNOWN)));
+                                        callback.onError(createErrorEvent(
+                                                new ProxerException(ERROR_UNKNOWN)));
                                     } else {
-                                        final E result = createEvent(parse(json));
-
-                                        EventBus.getDefault().post(result);
+                                        callback.onSuccess(createEvent(parse(json)));
                                     }
                                 } catch (final JSONException e) {
-                                    EventBus.getDefault().post(createErrorEvent(ErrorHandler
+                                    callback.onError(createErrorEvent(ErrorHandler
                                             .handleException(e)));
                                 } catch (final BridgeException e) {
-                                    EventBus.getDefault().post(createErrorEvent(ErrorHandler
+                                    callback.onError(createErrorEvent(ErrorHandler
                                             .handleException(e)));
                                 }
 
@@ -306,7 +302,7 @@ public class ProxerConnection {
                         parseThread.start();
                     } else {
                         if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
-                            EventBus.getDefault().post(createErrorEvent(ErrorHandler
+                            callback.onError(createErrorEvent(ErrorHandler
                                     .handleException(exception)));
                         }
                     }
@@ -319,7 +315,7 @@ public class ProxerConnection {
          *
          * @return The result, specified by this class.
          * @throws ProxerException An Exception, which might occur, while executing the request.
-         * @see #execute()
+         * @see #execute(ProxerCallback)
          */
         @WorkerThread
         @RequiresPermission(android.Manifest.permission.INTERNET)
@@ -348,15 +344,15 @@ public class ProxerConnection {
          */
         protected abstract T parse(@NonNull JSONObject response) throws JSONException;
 
-        protected abstract E createEvent(@NonNull T result);
+        protected abstract R createEvent(@NonNull T result);
 
-        protected abstract EE createErrorEvent(@NonNull ProxerException exception);
+        protected abstract RE createErrorEvent(@NonNull ProxerException exception);
     }
 
     /**
      * A request, returning a List of {@link News}.
      */
-    public static class NewsRequest extends ProxerRequest<List<News>, NewsEvent, NewsErrorEvent> {
+    public static class NewsRequest extends ProxerRequest<List<News>, NewsResult, NewsErrorResult> {
 
         private int page;
 
@@ -382,20 +378,20 @@ public class ProxerConnection {
         }
 
         @Override
-        protected NewsEvent createEvent(@NonNull List<News> result) {
-            return new NewsEvent(result);
+        protected NewsResult createEvent(@NonNull List<News> result) {
+            return new NewsResult(result);
         }
 
         @Override
-        protected NewsErrorEvent createErrorEvent(@NonNull ProxerException exception) {
-            return new NewsErrorEvent(exception);
+        protected NewsErrorResult createErrorEvent(@NonNull ProxerException exception) {
+            return new NewsErrorResult(exception);
         }
     }
 
     /**
      * A request for the login, returning a {@link LoginUser} on success.
      */
-    public static class LoginRequest extends ProxerRequest<LoginUser, LoginEvent, LoginErrorEvent> {
+    public static class LoginRequest extends ProxerRequest<LoginUser, LoginResult, LoginErrorResult> {
 
         private LoginUser user;
 
@@ -428,20 +424,20 @@ public class ProxerConnection {
         }
 
         @Override
-        protected LoginEvent createEvent(@NonNull LoginUser result) {
-            return new LoginEvent(result);
+        protected LoginResult createEvent(@NonNull LoginUser result) {
+            return new LoginResult(result);
         }
 
         @Override
-        protected LoginErrorEvent createErrorEvent(@NonNull ProxerException exception) {
-            return new LoginErrorEvent(exception);
+        protected LoginErrorResult createErrorEvent(@NonNull ProxerException exception) {
+            return new LoginErrorResult(exception);
         }
     }
 
     /**
      * A request for the logout.
      */
-    public static class LogoutRequest extends ProxerRequest<Void, LogoutEvent, LogoutErrorEvent> {
+    public static class LogoutRequest extends ProxerRequest<Void, LogoutResult, LogoutErrorResult> {
 
         @NonNull
         @Override
@@ -461,13 +457,13 @@ public class ProxerConnection {
         }
 
         @Override
-        protected LogoutEvent createEvent(@NonNull Void result) {
-            return new LogoutEvent();
+        protected LogoutResult createEvent(@NonNull Void result) {
+            return new LogoutResult();
         }
 
         @Override
-        protected LogoutErrorEvent createErrorEvent(@NonNull ProxerException exception) {
-            return new LogoutErrorEvent(exception);
+        protected LogoutErrorResult createErrorEvent(@NonNull ProxerException exception) {
+            return new LogoutErrorResult(exception);
         }
     }
 
@@ -475,7 +471,7 @@ public class ProxerConnection {
      * A request for retrieval of the {@link Conference}s of a user.
      */
     public static class ConferencesRequest extends ProxerRequest<List<Conference>,
-            ConferencesEvent, ConferencesErrorEvent> {
+            ConferencesResult, ConferencesErrorResult> {
 
         private int page;
 
@@ -500,21 +496,21 @@ public class ProxerConnection {
         }
 
         @Override
-        protected ConferencesEvent createEvent(@NonNull List<Conference> result) {
-            return new ConferencesEvent(result);
+        protected ConferencesResult createEvent(@NonNull List<Conference> result) {
+            return new ConferencesResult(result);
         }
 
         @Override
-        protected ConferencesErrorEvent createErrorEvent(@NonNull ProxerException exception) {
-            return new ConferencesErrorEvent(exception);
+        protected ConferencesErrorResult createErrorEvent(@NonNull ProxerException exception) {
+            return new ConferencesErrorResult(exception);
         }
     }
 
     /**
      * A request for retrieval of the {@link Message}s in a specific {@link Conference}.
      */
-    public static class MessagesRequest extends ProxerRequest<List<Message>, MessagesEvent,
-            MessagesErrorEvent> {
+    public static class MessagesRequest extends ProxerRequest<List<Message>, MessagesResult,
+            MessagesErrorResult> {
 
         private String conferenceId;
         private int page;
@@ -542,21 +538,21 @@ public class ProxerConnection {
         }
 
         @Override
-        protected MessagesEvent createEvent(@NonNull List<Message> result) {
-            return new MessagesEvent(conferenceId, result);
+        protected MessagesResult createEvent(@NonNull List<Message> result) {
+            return new MessagesResult(conferenceId, result);
         }
 
         @Override
-        protected MessagesErrorEvent createErrorEvent(@NonNull ProxerException exception) {
-            return new MessagesErrorEvent(conferenceId, exception);
+        protected MessagesErrorResult createErrorEvent(@NonNull ProxerException exception) {
+            return new MessagesErrorResult(conferenceId, exception);
         }
     }
 
     /**
      * A request for sending a message to a specific {@link Conference}.
      */
-    public static class SendMessageRequest extends ProxerRequest<Void, MessageSentEvent,
-            SendingMessageFailedEvent> {
+    public static class SendMessageRequest extends ProxerRequest<Void, MessageSentResult,
+            SendingMessageErrorResult> {
 
         private String conferenceId;
         private String message;
@@ -588,13 +584,13 @@ public class ProxerConnection {
         }
 
         @Override
-        protected MessageSentEvent createEvent(@NonNull Void result) {
-            return new MessageSentEvent(conferenceId);
+        protected MessageSentResult createEvent(@NonNull Void result) {
+            return new MessageSentResult(conferenceId);
         }
 
         @Override
-        protected SendingMessageFailedEvent createErrorEvent(@NonNull ProxerException exception) {
-            return new SendingMessageFailedEvent(conferenceId, exception);
+        protected SendingMessageErrorResult createErrorEvent(@NonNull ProxerException exception) {
+            return new SendingMessageErrorResult(conferenceId, exception);
         }
     }
 
@@ -625,6 +621,16 @@ public class ProxerConnection {
 
         public void setThread(ParseThread thread) {
             this.thread = thread;
+        }
+    }
+
+    public abstract class ProxerCallback<R extends ProxerResult, ER extends ProxerErrorResult> {
+        public void onSuccess(R result) {
+
+        }
+
+        public void onError(ER result) {
+
         }
     }
 }

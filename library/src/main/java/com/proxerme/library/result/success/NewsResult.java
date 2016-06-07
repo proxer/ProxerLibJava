@@ -1,9 +1,9 @@
-package com.proxerme.library.event.success;
+package com.proxerme.library.result.success;
 
 import android.support.annotation.NonNull;
 
 import com.proxerme.library.entity.News;
-import com.proxerme.library.event.IListEvent;
+import com.proxerme.library.result.ProxerListResult;
 
 import java.util.List;
 
@@ -12,11 +12,11 @@ import java.util.List;
  *
  * @author Ruben Gees
  */
-public class NewsEvent implements IListEvent<News> {
+public class NewsResult implements ProxerListResult<News> {
 
     private List<News> item;
 
-    public NewsEvent(@NonNull List<News> item) {
+    public NewsResult(@NonNull List<News> item) {
         this.item = item;
     }
 

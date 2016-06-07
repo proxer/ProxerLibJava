@@ -1,20 +1,20 @@
-package com.proxerme.library.event.success;
+package com.proxerme.library.result.success;
 
 import android.support.annotation.NonNull;
 
 import com.proxerme.library.entity.LoginUser;
-import com.proxerme.library.event.IEvent;
+import com.proxerme.library.result.ProxerResult;
 
 /**
  * TODO: Describe Class
  *
  * @author Ruben Gees
  */
-public class LoginEvent implements IEvent<LoginUser> {
+public class LoginResult implements ProxerResult<LoginUser> {
 
     private LoginUser loginUser;
 
-    public LoginEvent(@NonNull LoginUser loginUser) {
+    public LoginResult(@NonNull LoginUser loginUser) {
         this.loginUser = loginUser;
     }
 

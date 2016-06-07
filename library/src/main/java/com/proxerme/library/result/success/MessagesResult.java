@@ -1,9 +1,9 @@
-package com.proxerme.library.event.success;
+package com.proxerme.library.result.success;
 
 import android.support.annotation.NonNull;
 
 import com.proxerme.library.entity.Message;
-import com.proxerme.library.event.IListEvent;
+import com.proxerme.library.result.ProxerListResult;
 
 import java.util.List;
 
@@ -12,12 +12,12 @@ import java.util.List;
  *
  * @author Ruben Gees
  */
-public class MessagesEvent implements IListEvent<Message> {
+public class MessagesResult implements ProxerListResult<Message> {
 
     private String conferenceId;
     private List<Message> messages;
 
-    public MessagesEvent(@NonNull String conferenceId, @NonNull List<Message> messages) {
+    public MessagesResult(@NonNull String conferenceId, @NonNull List<Message> messages) {
         this.conferenceId = conferenceId;
         this.messages = messages;
     }

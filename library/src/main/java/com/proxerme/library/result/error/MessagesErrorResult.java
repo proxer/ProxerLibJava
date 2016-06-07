@@ -1,4 +1,4 @@
-package com.proxerme.library.event.error;
+package com.proxerme.library.result.error;
 
 import android.support.annotation.NonNull;
 
@@ -9,11 +9,11 @@ import com.proxerme.library.connection.ProxerException;
  *
  * @author Ruben Gees
  */
-public class MessagesErrorEvent extends ErrorEvent {
+public class MessagesErrorResult extends ProxerErrorResult {
 
     private String conferenceId;
 
-    public MessagesErrorEvent(@NonNull String conferenceId, @NonNull ProxerException exception) {
+    public MessagesErrorResult(@NonNull String conferenceId, @NonNull ProxerException exception) {
         super(exception);
 
         this.conferenceId = conferenceId;

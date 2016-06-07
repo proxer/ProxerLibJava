@@ -1,4 +1,4 @@
-package com.proxerme.library.event.error;
+package com.proxerme.library.result.error;
 
 import android.support.annotation.NonNull;
 
@@ -9,8 +9,8 @@ import com.proxerme.library.connection.ProxerException;
  *
  * @author Ruben Gees
  */
-public class LoginErrorEvent extends ErrorEvent {
-    public LoginErrorEvent(@NonNull ProxerException exception) {
+public class LogoutErrorResult extends ProxerErrorResult {
+    public LogoutErrorResult(@NonNull ProxerException exception) {
         super(exception);
     }
 }

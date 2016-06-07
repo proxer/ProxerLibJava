@@ -1,19 +1,19 @@
-package com.proxerme.library.event.success;
+package com.proxerme.library.result.success;
 
 import android.support.annotation.NonNull;
 
-import com.proxerme.library.event.IEvent;
+import com.proxerme.library.result.ProxerResult;
 
 /**
  * TODO: Describe class
  *
  * @author Ruben Gees
  */
-public class MessageSentEvent implements IEvent {
+public class MessageSentResult implements ProxerResult {
 
     private String conferenceId;
 
-    public MessageSentEvent(@NonNull String conferenceId) {
+    public MessageSentResult(@NonNull String conferenceId) {
         this.conferenceId = conferenceId;
     }
 
