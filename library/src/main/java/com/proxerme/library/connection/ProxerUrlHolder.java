@@ -10,7 +10,7 @@ import com.proxerme.library.entity.Conference;
  *
  * @author Ruben Gees
  */
-public class UrlHolder {
+public class ProxerUrlHolder {
 
     private static final String LOGOUT = "/login?format=json&action=logout";
     private static final String HOST = "https://proxer.me";

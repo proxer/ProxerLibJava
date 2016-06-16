@@ -22,7 +22,7 @@ import static com.proxerme.library.connection.ProxerException.ERROR_UNPARSEABLE;
  *
  * @author Ruben Gees
  */
-class ErrorHandler {
+class ProxerErrorHandler {
 
     /**
      * Handles a JSONException and returns the appropriate {@link ProxerException}.
@@ -75,7 +75,7 @@ class ErrorHandler {
                 exception = new ProxerException(ERROR_UNKNOWN);
                 break;
             case BridgeException.REASON_REQUEST_FAILED:
-                exception = new ProxerException(ERROR_UNKNOWN);
+                exception = new ProxerException(ERROR_NETWORK);
                 break;
             default:
                 exception = new ProxerException(ERROR_UNKNOWN);

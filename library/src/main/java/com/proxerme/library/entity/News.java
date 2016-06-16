@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
+import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.ImageItem;
 import com.proxerme.library.interfaces.TimeItem;
@@ -26,17 +27,29 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
         }
     };
 
+    @Body(name = "nid")
     private String id;
+    @Body(name = "time")
     private long time;
+    @Body(name = "description")
     private String description;
+    @Body(name = "image_id")
     private String imageId;
+    @Body(name = "subject")
     private String subject;
+    @Body(name = "hits")
     private int hits;
+    @Body(name = "thread")
     private String threadId;
+    @Body(name = "uid")
     private String authorId;
+    @Body(name = "uname")
     private String author;
+    @Body(name = "posts")
     private int posts;
+    @Body(name = "catid")
     private String categoryId;
+    @Body(name = "carname")
     private String categoryTitle;
 
     /**

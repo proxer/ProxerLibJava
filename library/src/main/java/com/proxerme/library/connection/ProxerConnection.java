@@ -5,19 +5,18 @@ import android.os.Looper;
 import android.support.annotation.CheckResult;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.support.annotation.WorkerThread;
 
 import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
-import com.afollestad.bridge.Callback;
 import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Request;
 import com.afollestad.bridge.RequestBuilder;
 import com.afollestad.bridge.Response;
+import com.afollestad.bridge.ResponseConvertCallback;
 import com.afollestad.bridge.ResponseValidator;
 import com.proxerme.library.entity.Conference;
-import com.proxerme.library.entity.LoginData;
 import com.proxerme.library.entity.LoginUser;
 import com.proxerme.library.entity.Message;
 import com.proxerme.library.entity.News;
@@ -36,11 +35,9 @@ import com.proxerme.library.result.success.MessageSentResult;
 import com.proxerme.library.result.success.MessagesResult;
 import com.proxerme.library.result.success.NewsResult;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static com.proxerme.library.connection.ProxerException.ERROR_PROXER;
@@ -291,42 +288,23 @@ public class ProxerConnection {
          */
         @RequiresPermission(android.Manifest.permission.INTERNET)
         public final void execute(final ProxerCallback<R, RE> callback) {
-            buildRequest().throwIfNotSuccess().tag(String.valueOf(getTag())).request(new Callback() {
+            buildRequest().throwIfNotSuccess().tag(String.valueOf(getTag()))
+                    .asClass(getResultClass(), new ResponseConvertCallback<T>() {
                 @Override
-                public void response(Request request, final Response response,
-                                     BridgeException exception) {
+                public void onResponse(@NonNull Response response, @Nullable T result,
+                                       @Nullable BridgeException exception) {
                     if (exception == null) {
-                        ParseThread parseThread = new ParseThread(getTag(), new ThreadedRunnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    JSONObject json = response.asJsonObject();
-
-                                    if (json == null) {
-                                        deliverErrorResultOnMainThread(callback, createErrorResult(
-                                                new ProxerException(ERROR_UNKNOWN)));
-                                    } else {
-                                        deliverResultOnMainThread(callback,
-                                                createResult(parse(json)));
-                                    }
-                                } catch (final JSONException e) {
-                                    deliverErrorResultOnMainThread(callback,
-                                            createErrorResult(ErrorHandler.handleException(e)));
-                                } catch (final BridgeException e) {
-                                    deliverErrorResultOnMainThread(callback,
-                                            createErrorResult(ErrorHandler.handleException(e)));
-                                }
-
-                                parseThreads.remove(getThread());
-                            }
-                        });
-
-                        parseThreads.add(parseThread);
-                        parseThread.start();
+                        if (result != null) {
+                            deliverResultOnMainThread(callback,
+                                    createResult(result));
+                        } else {
+                            deliverErrorResultOnMainThread(callback,
+                                    createErrorResult(new ProxerException(ERROR_UNKNOWN)));
+                        }
                     } else {
                         if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
                             deliverErrorResultOnMainThread(callback,
-                                    createErrorResult(ErrorHandler.handleException(exception)));
+                                    createErrorResult(ProxerErrorHandler.handleException(exception)));
                         }
                     }
                 }
@@ -344,38 +322,29 @@ public class ProxerConnection {
         @RequiresPermission(android.Manifest.permission.INTERNET)
         public final T executeSynchronized() throws ProxerException {
             try {
-                JSONObject result = buildRequest().tag(getTag() + 1).asJsonObject();
+                T result = buildRequest().tag(getTag() + 1).asClass(getResultClass());
 
                 if (result == null) {
                     throw new ProxerException(ERROR_UNKNOWN);
                 } else {
-                    return parse(result);
+                    return result;
                 }
-            } catch (JSONException e) {
-                throw ErrorHandler.handleException(e);
             } catch (BridgeException e) {
-                throw ErrorHandler.handleException(e);
+                throw ProxerErrorHandler.handleException(e);
             }
         }
-
-        /**
-         * Parses the raw response of the server.
-         *
-         * @param response The response in JSON format.
-         * @return The specific type of result of this class.
-         * @throws JSONException An Exception, which might occur while parsing.
-         */
-        protected abstract T parse(@NonNull JSONObject response) throws JSONException;
 
         protected abstract R createResult(@NonNull T result);
 
         protected abstract RE createErrorResult(@NonNull ProxerException exception);
+
+        protected abstract Class<T> getResultClass();
     }
 
     /**
      * A request, returning a List of {@link News}.
      */
-    public static class NewsRequest extends ProxerRequest<List<News>, NewsResult, NewsErrorResult> {
+    public static class NewsRequest extends ProxerRequest<News[], NewsResult, NewsErrorResult> {
 
         private int page;
 
@@ -386,7 +355,7 @@ public class ProxerConnection {
         @NonNull
         @Override
         protected RequestBuilder buildRequest() {
-            return Bridge.get(UrlHolder.getNewsUrl(page)).validators(defaultValidator);
+            return Bridge.get(ProxerUrlHolder.getNewsUrl(page)).validators(defaultValidator);
         }
 
         @ConnectionTag
@@ -396,18 +365,18 @@ public class ProxerConnection {
         }
 
         @Override
-        protected List<News> parse(@NonNull JSONObject response) throws JSONException {
-            return ProxerParser.parseNewsJSON(response);
-        }
-
-        @Override
-        protected NewsResult createResult(@NonNull List<News> result) {
+        protected NewsResult createResult(@NonNull News[] result) {
             return new NewsResult(result);
         }
 
         @Override
         protected NewsErrorResult createErrorResult(@NonNull ProxerException exception) {
             return new NewsErrorResult(exception);
+        }
+
+        @Override
+        protected Class<News[]> getResultClass() {
+            return News[].class;
         }
     }
 
@@ -428,7 +397,7 @@ public class ProxerConnection {
             Form loginCredentials = new Form().add(FORM_USERNAME, user.getUsername())
                     .add(FORM_PASSWORD, user.getPassword());
 
-            return Bridge.post(UrlHolder.getLoginUrl()).body(loginCredentials)
+            return Bridge.post(ProxerUrlHolder.getLoginUrl()).body(loginCredentials)
                     .validators(loginLogoutValidator);
         }
 
@@ -436,14 +405,6 @@ public class ProxerConnection {
         @Override
         protected int getTag() {
             return LOGIN;
-        }
-
-        @Override
-        protected LoginUser parse(@NonNull JSONObject response) throws JSONException {
-            LoginData data = ProxerParser.parseLoginJSON(response);
-
-            return new LoginUser(user.getUsername(), user.getPassword(), data.getId(),
-                    data.getImageId());
         }
 
         @Override
@@ -455,6 +416,11 @@ public class ProxerConnection {
         protected LoginErrorResult createErrorResult(@NonNull ProxerException exception) {
             return new LoginErrorResult(exception);
         }
+
+        @Override
+        protected Class<LoginUser> getResultClass() {
+            return LoginUser.class;
+        }
     }
 
     /**
@@ -465,18 +431,13 @@ public class ProxerConnection {
         @NonNull
         @Override
         protected RequestBuilder buildRequest() {
-            return Bridge.get(UrlHolder.getLogoutUrl()).validators(loginLogoutValidator);
+            return Bridge.get(ProxerUrlHolder.getLogoutUrl()).validators(loginLogoutValidator);
         }
 
         @ConnectionTag
         @Override
         protected int getTag() {
             return LOGOUT;
-        }
-
-        @Override
-        protected Void parse(@NonNull JSONObject response) throws JSONException {
-            return null;
         }
 
         @Override
@@ -488,12 +449,17 @@ public class ProxerConnection {
         protected LogoutErrorResult createErrorResult(@NonNull ProxerException exception) {
             return new LogoutErrorResult(exception);
         }
+
+        @Override
+        protected Class<Void> getResultClass() {
+            return Void.class;
+        }
     }
 
     /**
      * A request for retrieval of the {@link Conference}s of a user.
      */
-    public static class ConferencesRequest extends ProxerRequest<List<Conference>,
+    public static class ConferencesRequest extends ProxerRequest<Conference[],
             ConferencesResult, ConferencesErrorResult> {
 
         private int page;
@@ -505,7 +471,7 @@ public class ProxerConnection {
         @NonNull
         @Override
         protected RequestBuilder buildRequest() {
-            return Bridge.get(UrlHolder.getConferencesUrl(page)).validators(defaultValidator);
+            return Bridge.get(ProxerUrlHolder.getConferencesUrl(page)).validators(defaultValidator);
         }
 
         @Override
@@ -514,12 +480,7 @@ public class ProxerConnection {
         }
 
         @Override
-        protected List<Conference> parse(@NonNull JSONObject response) throws JSONException {
-            return ProxerParser.parseConferencesJSON(response);
-        }
-
-        @Override
-        protected ConferencesResult createResult(@NonNull List<Conference> result) {
+        protected ConferencesResult createResult(@NonNull Conference[] result) {
             return new ConferencesResult(result);
         }
 
@@ -527,12 +488,17 @@ public class ProxerConnection {
         protected ConferencesErrorResult createErrorResult(@NonNull ProxerException exception) {
             return new ConferencesErrorResult(exception);
         }
+
+        @Override
+        protected Class<Conference[]> getResultClass() {
+            return Conference[].class;
+        }
     }
 
     /**
      * A request for retrieval of the {@link Message}s in a specific {@link Conference}.
      */
-    public static class MessagesRequest extends ProxerRequest<List<Message>, MessagesResult,
+    public static class MessagesRequest extends ProxerRequest<Message[], MessagesResult,
             MessagesErrorResult> {
 
         private String conferenceId;
@@ -546,7 +512,7 @@ public class ProxerConnection {
         @NonNull
         @Override
         protected RequestBuilder buildRequest() {
-            return Bridge.get(UrlHolder.getMessagesUrl(conferenceId, page))
+            return Bridge.get(ProxerUrlHolder.getMessagesUrl(conferenceId, page))
                     .validators(defaultValidator);
         }
 
@@ -556,18 +522,18 @@ public class ProxerConnection {
         }
 
         @Override
-        protected List<Message> parse(@NonNull JSONObject response) throws JSONException {
-            return ProxerParser.parseMessagesJSON(response);
-        }
-
-        @Override
-        protected MessagesResult createResult(@NonNull List<Message> result) {
+        protected MessagesResult createResult(@NonNull Message[] result) {
             return new MessagesResult(conferenceId, result);
         }
 
         @Override
         protected MessagesErrorResult createErrorResult(@NonNull ProxerException exception) {
             return new MessagesErrorResult(conferenceId, exception);
+        }
+
+        @Override
+        protected Class<Message[]> getResultClass() {
+            return Message[].class;
         }
     }
 
@@ -592,18 +558,13 @@ public class ProxerConnection {
 
             messageForm.add("message", message);
 
-            return Bridge.post(UrlHolder.getSendMessageUrl(conferenceId)).body(messageForm)
+            return Bridge.post(ProxerUrlHolder.getSendMessageUrl(conferenceId)).body(messageForm)
                     .validators(defaultValidator);
         }
 
         @Override
         protected int getTag() {
             return ProxerTag.SEND_MESSAGE;
-        }
-
-        @Override
-        protected Void parse(@NonNull JSONObject response) throws JSONException {
-            return null;
         }
 
         @Override
@@ -614,6 +575,11 @@ public class ProxerConnection {
         @Override
         protected SendingMessageErrorResult createErrorResult(@NonNull ProxerException exception) {
             return new SendingMessageErrorResult(conferenceId, exception);
+        }
+
+        @Override
+        protected Class<Void> getResultClass() {
+            return Void.class;
         }
     }
 
