@@ -2,6 +2,7 @@ package com.proxerme.library.result.success;
 
 import android.support.annotation.NonNull;
 
+import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.entity.News;
 import com.proxerme.library.result.ProxerResult;
 
@@ -12,7 +13,11 @@ import com.proxerme.library.result.ProxerResult;
  */
 public class NewsResult implements ProxerResult<News[]> {
 
-    private News[] item;
+    @Body(name = "notifications")
+    public News[] item;
+
+    public NewsResult() {
+    }
 
     public NewsResult(@NonNull News[] item) {
         this.item = item;

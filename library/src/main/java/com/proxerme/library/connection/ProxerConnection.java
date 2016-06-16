@@ -341,7 +341,7 @@ public class ProxerConnection {
     /**
      * A request, returning a List of {@link News}.
      */
-    public static class NewsRequest extends ProxerRequest<News[], NewsResult, NewsErrorResult> {
+    public static class NewsRequest extends ProxerRequest<NewsResult, NewsResult, NewsErrorResult> {
 
         private int page;
 
@@ -362,8 +362,8 @@ public class ProxerConnection {
         }
 
         @Override
-        protected NewsResult createResult(@NonNull News[] result) {
-            return new NewsResult(result);
+        protected NewsResult createResult(@NonNull NewsResult result) {
+            return result;
         }
 
         @Override
@@ -372,14 +372,14 @@ public class ProxerConnection {
         }
 
         @Override
-        protected News[] makeRequest(@NonNull RequestBuilder builder) throws BridgeException {
-            return builder.asClassArray(News.class);
+        protected NewsResult makeRequest(@NonNull RequestBuilder builder) throws BridgeException {
+            return builder.asClass(NewsResult.class);
         }
 
         @Override
         protected void makeRequest(@NonNull RequestBuilder builder,
-                                   ResponseConvertCallback<News[]> callback) {
-            builder.asClassArray(News.class, callback);
+                                   ResponseConvertCallback<NewsResult> callback) {
+            builder.asClass(NewsResult.class, callback);
         }
     }
 
