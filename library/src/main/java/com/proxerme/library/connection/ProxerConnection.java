@@ -288,27 +288,27 @@ public class ProxerConnection {
          */
         @RequiresPermission(android.Manifest.permission.INTERNET)
         public final void execute(final ProxerCallback<R, RE> callback) {
-            buildRequest().throwIfNotSuccess().tag(String.valueOf(getTag()))
-                    .asClass(getResultClass(), new ResponseConvertCallback<T>() {
-                @Override
-                public void onResponse(@NonNull Response response, @Nullable T result,
-                                       @Nullable BridgeException exception) {
-                    if (exception == null) {
-                        if (result != null) {
-                            deliverResultOnMainThread(callback,
-                                    createResult(result));
-                        } else {
-                            deliverErrorResultOnMainThread(callback,
-                                    createErrorResult(new ProxerException(ERROR_UNKNOWN)));
+            makeRequest(buildRequest().throwIfNotSuccess().tag(String.valueOf(getTag())),
+                    new ResponseConvertCallback<T>() {
+                        @Override
+                        public void onResponse(@NonNull Response response, @Nullable T result,
+                                               @Nullable BridgeException exception) {
+                            if (exception == null) {
+                                if (result != null) {
+                                    deliverResultOnMainThread(callback,
+                                            createResult(result));
+                                } else {
+                                    deliverErrorResultOnMainThread(callback,
+                                            createErrorResult(new ProxerException(ERROR_UNKNOWN)));
+                                }
+                            } else {
+                                if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
+                                    deliverErrorResultOnMainThread(callback,
+                                            createErrorResult(ProxerErrorHandler.handleException(exception)));
+                                }
+                            }
                         }
-                    } else {
-                        if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
-                            deliverErrorResultOnMainThread(callback,
-                                    createErrorResult(ProxerErrorHandler.handleException(exception)));
-                        }
-                    }
-                }
-            });
+                    });
         }
 
         /**
@@ -322,13 +322,7 @@ public class ProxerConnection {
         @RequiresPermission(android.Manifest.permission.INTERNET)
         public final T executeSynchronized() throws ProxerException {
             try {
-                T result = buildRequest().tag(getTag() + 1).asClass(getResultClass());
-
-                if (result == null) {
-                    throw new ProxerException(ERROR_UNKNOWN);
-                } else {
-                    return result;
-                }
+                return makeRequest(buildRequest().throwIfNotSuccess().tag(getTag() + 1));
             } catch (BridgeException e) {
                 throw ProxerErrorHandler.handleException(e);
             }
@@ -338,7 +332,10 @@ public class ProxerConnection {
 
         protected abstract RE createErrorResult(@NonNull ProxerException exception);
 
-        protected abstract Class<T> getResultClass();
+        protected abstract T makeRequest(@NonNull RequestBuilder builder) throws BridgeException;
+
+        protected abstract void makeRequest(@NonNull RequestBuilder builder,
+                                            ResponseConvertCallback<T> callback);
     }
 
     /**
@@ -375,8 +372,14 @@ public class ProxerConnection {
         }
 
         @Override
-        protected Class<News[]> getResultClass() {
-            return News[].class;
+        protected News[] makeRequest(@NonNull RequestBuilder builder) throws BridgeException {
+            return builder.asClassArray(News.class);
+        }
+
+        @Override
+        protected void makeRequest(@NonNull RequestBuilder builder,
+                                   ResponseConvertCallback<News[]> callback) {
+            builder.asClassArray(News.class, callback);
         }
     }
 
@@ -418,15 +421,21 @@ public class ProxerConnection {
         }
 
         @Override
-        protected Class<LoginUser> getResultClass() {
-            return LoginUser.class;
+        protected LoginUser makeRequest(@NonNull RequestBuilder builder) throws BridgeException {
+            return builder.asClass(LoginUser.class);
+        }
+
+        @Override
+        protected void makeRequest(@NonNull RequestBuilder builder,
+                                   ResponseConvertCallback<LoginUser> callback) {
+            builder.asClass(LoginUser.class, callback);
         }
     }
 
     /**
      * A request for the logout.
      */
-    public static class LogoutRequest extends ProxerRequest<Void, LogoutResult, LogoutErrorResult> {
+    public static class LogoutRequest extends ProxerRequest<String, LogoutResult, LogoutErrorResult> {
 
         @NonNull
         @Override
@@ -441,7 +450,7 @@ public class ProxerConnection {
         }
 
         @Override
-        protected LogoutResult createResult(@NonNull Void result) {
+        protected LogoutResult createResult(@NonNull String result) {
             return new LogoutResult();
         }
 
@@ -451,8 +460,14 @@ public class ProxerConnection {
         }
 
         @Override
-        protected Class<Void> getResultClass() {
-            return Void.class;
+        protected String makeRequest(@NonNull RequestBuilder builder) throws BridgeException {
+            return builder.asString();
+        }
+
+        @Override
+        protected void makeRequest(@NonNull RequestBuilder builder,
+                                   ResponseConvertCallback<String> callback) {
+            builder.asString(callback);
         }
     }
 
@@ -490,8 +505,13 @@ public class ProxerConnection {
         }
 
         @Override
-        protected Class<Conference[]> getResultClass() {
-            return Conference[].class;
+        protected Conference[] makeRequest(@NonNull RequestBuilder builder) throws BridgeException {
+            return builder.asClassArray(Conference.class);
+        }
+
+        @Override
+        protected void makeRequest(@NonNull RequestBuilder builder, ResponseConvertCallback<Conference[]> callback) {
+            builder.asClassArray(Conference.class, callback);
         }
     }
 
@@ -532,15 +552,21 @@ public class ProxerConnection {
         }
 
         @Override
-        protected Class<Message[]> getResultClass() {
-            return Message[].class;
+        protected Message[] makeRequest(@NonNull RequestBuilder builder) throws BridgeException {
+            return builder.asClassArray(Message.class);
+        }
+
+        @Override
+        protected void makeRequest(@NonNull RequestBuilder builder,
+                                   ResponseConvertCallback<Message[]> callback) {
+            builder.asClassArray(Message.class, callback);
         }
     }
 
     /**
      * A request for sending a message to a specific {@link Conference}.
      */
-    public static class SendMessageRequest extends ProxerRequest<Void, MessageSentResult,
+    public static class SendMessageRequest extends ProxerRequest<String, MessageSentResult,
             SendingMessageErrorResult> {
 
         private String conferenceId;
@@ -568,7 +594,7 @@ public class ProxerConnection {
         }
 
         @Override
-        protected MessageSentResult createResult(@NonNull Void result) {
+        protected MessageSentResult createResult(@NonNull String result) {
             return new MessageSentResult(conferenceId);
         }
 
@@ -578,8 +604,14 @@ public class ProxerConnection {
         }
 
         @Override
-        protected Class<Void> getResultClass() {
-            return Void.class;
+        protected String makeRequest(@NonNull RequestBuilder builder) throws BridgeException {
+            return builder.asString();
+        }
+
+        @Override
+        protected void makeRequest(@NonNull RequestBuilder builder,
+                                   ResponseConvertCallback<String> callback) {
+            builder.asString(callback);
         }
     }
 
