@@ -28,29 +28,36 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     };
 
     @Body(name = "nid")
-    private String id;
+    public String id;
     @Body(name = "time")
-    private long time;
+    public long time;
     @Body(name = "description")
-    private String description;
+    public String description;
     @Body(name = "image_id")
-    private String imageId;
+    public String imageId;
     @Body(name = "subject")
-    private String subject;
+    public String subject;
     @Body(name = "hits")
-    private int hits;
+    public int hits;
     @Body(name = "thread")
-    private String threadId;
+    public String threadId;
     @Body(name = "uid")
-    private String authorId;
+    public String authorId;
     @Body(name = "uname")
-    private String author;
+    public String author;
     @Body(name = "posts")
-    private int posts;
+    public int posts;
     @Body(name = "catid")
-    private String categoryId;
+    public String categoryId;
     @Body(name = "carname")
-    private String categoryTitle;
+    public String categoryTitle;
+
+    /**
+     * Only for automatic conversion, don't use
+     */
+    public News() {
+
+    }
 
     /**
      * @param id            The id of the News.
