@@ -16,7 +16,8 @@ public class NewsResult implements ProxerResult<News[]> {
     @Body(name = "notifications")
     public News[] item;
 
-    public NewsResult() {
+    NewsResult() {
+
     }
 
     public NewsResult(@NonNull News[] item) {
