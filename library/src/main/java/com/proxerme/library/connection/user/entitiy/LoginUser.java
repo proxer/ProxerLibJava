@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.ImageItem;
 
@@ -25,7 +26,9 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
 
     String username;
     String password;
+    @Body(name = "uid")
     String id;
+    @Body(name = "avatar")
     String imageId;
 
     LoginUser() {
