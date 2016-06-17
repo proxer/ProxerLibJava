@@ -28,6 +28,10 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
     String id;
     String imageId;
 
+    LoginUser() {
+
+    }
+
     /**
      * Constructor for a user before a login.
      *

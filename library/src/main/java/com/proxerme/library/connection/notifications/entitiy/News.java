@@ -55,7 +55,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     /**
      * Only for automatic conversion, don't use
      */
-    public News() {
+    News() {
 
     }
 

@@ -42,7 +42,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     @Body(name = "image")
     String imageId;
 
-    public Conference() {
+    Conference() {
 
     }
 

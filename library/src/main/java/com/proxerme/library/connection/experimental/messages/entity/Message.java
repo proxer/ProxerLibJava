@@ -47,6 +47,9 @@ public class Message implements IdItem, ImageItem, TimeItem, Parcelable {
     @Body(name = "image_id")
     String imageId;
 
+    Message() {
+    }
+
     public Message(@NonNull String id, @NonNull String fromId, @NonNull String message,
                    @NonNull String action, long time, @NonNull String device,
                    @NonNull String username, @NonNull String imageId) {
