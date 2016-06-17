@@ -3,6 +3,7 @@ package com.proxerme.library.connection;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.support.annotation.WorkerThread;
 
@@ -17,28 +18,12 @@ import com.proxerme.library.interfaces.ProxerErrorResult;
 import com.proxerme.library.interfaces.ProxerResult;
 
 
-public abstract class ProxerRequest<R extends ProxerResult, RE extends ProxerErrorResult> {
+public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErrorResult> {
 
-    private static <R extends ProxerResult, ER extends ProxerErrorResult>
-    void deliverResultOnMainThread(final ProxerCallback<R, ER> callback,
-                                   final R result) {
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                callback.onSuccess(result);
-            }
-        });
-    }
+    private Handler handler;
 
-    private static <R extends ProxerResult, ER extends ProxerErrorResult>
-    void deliverErrorResultOnMainThread(final ProxerCallback<R, ER> callback,
-                                        final ER errorResult) {
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                callback.onError(errorResult);
-            }
-        });
+    public ProxerRequest() {
+        handler = new Handler(Looper.getMainLooper());
     }
 
     /**
@@ -53,7 +38,7 @@ public abstract class ProxerRequest<R extends ProxerResult, RE extends ProxerErr
 
     protected abstract R parse(Response response) throws BridgeException;
 
-    protected abstract RE createErrorResult(@NonNull ProxerException exception);
+    protected abstract ER createErrorResult(@NonNull ProxerException exception);
 
     /**
      * Asynchronously executes this request. The result will be delivered on the event bus
@@ -62,7 +47,8 @@ public abstract class ProxerRequest<R extends ProxerResult, RE extends ProxerErr
      * @see #executeSynchronized()
      */
     @RequiresPermission(android.Manifest.permission.INTERNET)
-    public final Request execute(final ProxerCallback<R, RE> callback) {
+    public final Request execute(@Nullable final ProxerCallback<R> callback,
+                                 @Nullable final ProxerErrorCallback<ER> errorCallback) {
         return beginRequest().throwIfNotSuccess().tag(getTag()).validators(getValidator())
                 .request(new Callback() {
                     @Override
@@ -72,12 +58,12 @@ public abstract class ProxerRequest<R extends ProxerResult, RE extends ProxerErr
                             try {
                                 deliverResultOnMainThread(callback, parse(response));
                             } catch (BridgeException e) {
-                                deliverErrorResultOnMainThread(callback, createErrorResult(
+                                deliverErrorResultOnMainThread(errorCallback, createErrorResult(
                                         ProxerErrorHandler.handleException(e)));
                             }
                         } else {
                             if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
-                                deliverErrorResultOnMainThread(callback, createErrorResult(
+                                deliverErrorResultOnMainThread(errorCallback, createErrorResult(
                                         ProxerErrorHandler.handleException(exception)));
                             }
                         }
@@ -108,14 +94,35 @@ public abstract class ProxerRequest<R extends ProxerResult, RE extends ProxerErr
         return new DefaultValidator();
     }
 
-    public abstract static class ProxerCallback<R extends ProxerResult,
-            ER extends ProxerErrorResult> {
-        public void onSuccess(R result) {
-
+    private void deliverResultOnMainThread(@Nullable final ProxerCallback<R> callback,
+                                           final R result) {
+        if (callback != null) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onSuccess(result);
+                }
+            });
         }
+    }
 
-        public void onError(ER result) {
-
+    private void deliverErrorResultOnMainThread(@Nullable final ProxerErrorCallback<ER> callback,
+                                                final ER errorResult) {
+        if (callback != null) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onError(errorResult);
+                }
+            });
         }
+    }
+
+    public interface ProxerCallback<R extends ProxerResult> {
+        void onSuccess(R result);
+    }
+
+    public interface ProxerErrorCallback<ER extends ProxerErrorResult> {
+        void onError(ER result);
     }
 }
