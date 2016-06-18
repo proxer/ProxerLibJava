@@ -2,10 +2,9 @@ package com.proxerme.library.connection.notifications.request;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
-import com.afollestad.bridge.RequestBuilder;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.ProxerRequest;
@@ -22,7 +21,7 @@ import com.proxerme.library.info.ProxerUrlHolder;
 
 public class NewsRequest extends ProxerRequest<NewsResult, NewsErrorResult> {
 
-    private static final String NEWS_URL = "/notifications?format=json&s=news&p=%s";
+    private static final String NEWS_URL = "api/v1/notifications/news&p=%s";
 
     private int page;
 
@@ -36,11 +35,6 @@ public class NewsRequest extends ProxerRequest<NewsResult, NewsErrorResult> {
     }
 
     @Override
-    protected RequestBuilder beginRequest() {
-        return Bridge.get(ProxerUrlHolder.getHost() + NEWS_URL, page);
-    }
-
-    @Override
     protected NewsResult parse(Response response) throws BridgeException {
         return response.asClass(NewsResult.class);
     }
@@ -48,5 +42,17 @@ public class NewsRequest extends ProxerRequest<NewsResult, NewsErrorResult> {
     @Override
     protected NewsErrorResult createErrorResult(@NonNull ProxerException exception) {
         return new NewsErrorResult(exception);
+    }
+
+    @NonNull
+    @Override
+    protected String getURL() {
+        return ProxerUrlHolder.getHost() + NEWS_URL;
+    }
+
+    @Nullable
+    @Override
+    protected String[] getParameters() {
+        return new String[]{String.valueOf(page)};
     }
 }

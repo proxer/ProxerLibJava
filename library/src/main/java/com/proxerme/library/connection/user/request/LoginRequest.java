@@ -2,10 +2,8 @@ package com.proxerme.library.connection.user.request;
 
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Form;
-import com.afollestad.bridge.RequestBuilder;
 import com.afollestad.bridge.Response;
 import com.afollestad.bridge.ResponseValidator;
 import com.proxerme.library.connection.ProxerException;
@@ -34,15 +32,6 @@ public class LoginRequest extends ProxerRequest<LoginResult, LoginErrorResult> {
         this.user = user;
     }
 
-    @NonNull
-    @Override
-    protected RequestBuilder beginRequest() {
-        Form loginCredentials = new Form().add(USERNAME_FORM, user.getUsername())
-                .add(PASSWORD_FORM, user.getPassword());
-
-        return Bridge.post(ProxerUrlHolder.getHost() + LOGIN_URL).body(loginCredentials);
-    }
-
     @Override
     protected LoginResult parse(Response response) throws BridgeException {
         LoginUser result = response.asClass(LoginUser.class);
@@ -54,6 +43,18 @@ public class LoginRequest extends ProxerRequest<LoginResult, LoginErrorResult> {
     @Override
     protected LoginErrorResult createErrorResult(@NonNull ProxerException exception) {
         return new LoginErrorResult(exception);
+    }
+
+    @NonNull
+    @Override
+    protected String getURL() {
+        return ProxerUrlHolder.getHost() + LOGIN_URL;
+    }
+
+    @Override
+    protected void appendToBody(@NonNull Form form) {
+        form.add(USERNAME_FORM, user.getUsername())
+                .add(PASSWORD_FORM, user.getPassword());
     }
 
     @ProxerTag.ConnectionTag
