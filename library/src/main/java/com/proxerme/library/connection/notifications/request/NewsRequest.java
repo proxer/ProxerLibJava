@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 
 import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerConnection;
 import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.ProxerRequest;
 import com.proxerme.library.connection.notifications.result.NewsErrorResult;
@@ -54,6 +53,6 @@ public class NewsRequest extends ProxerRequest<NewsResult, NewsErrorResult> {
     @Nullable
     @Override
     protected String[] getParameters() {
-        return new String[]{String.valueOf(page), ProxerConnection.getKey()};
+        return new String[]{String.valueOf(page)};
     }
 }
