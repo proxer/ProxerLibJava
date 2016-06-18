@@ -51,7 +51,7 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
     @RequiresPermission(android.Manifest.permission.INTERNET)
     public final Request execute(@Nullable final ProxerCallback<R> callback,
                                  @Nullable final ProxerErrorCallback<ER> errorCallback) {
-        return Bridge.post(getURL() + "&api_key=%s", getParameters(), ProxerConnection.getKey()).body(buildBody())
+        return Bridge.post(getURL(), (Object[]) getParameters()).body(buildBody())
                 .throwIfNotSuccess().tag(getTag()).validators(getValidator())
                 .request(new Callback() {
                     @Override
@@ -104,6 +104,7 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
     private Form buildBody() {
         Form body = new Form();
 
+        body.add("api_key", ProxerConnection.getKey());
         appendToBody(body);
 
         return body;
