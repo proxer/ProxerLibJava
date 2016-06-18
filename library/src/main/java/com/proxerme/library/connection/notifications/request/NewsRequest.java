@@ -21,7 +21,7 @@ import com.proxerme.library.info.ProxerUrlHolder;
 
 public class NewsRequest extends ProxerRequest<NewsResult, NewsErrorResult> {
 
-    private static final String NEWS_URL = "api/v1/notifications/news&p=%s";
+    private static final String NEWS_URL = "/api/v1/notifications/news&p=%s";
 
     private int page;
 
