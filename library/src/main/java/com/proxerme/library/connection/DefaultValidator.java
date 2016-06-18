@@ -19,7 +19,7 @@ import static com.proxerme.library.connection.ProxerException.ERROR_UNKNOWN;
 class DefaultValidator extends ResponseValidator {
 
     private static final String RESPONSE_ERROR = "error";
-    private static final String RESPONSE_ERROR_MESSAGE = "msg";
+    private static final String RESPONSE_ERROR_MESSAGE = "message";
     private static final String VALIDATOR_ID = "default-validator";
 
     @Override

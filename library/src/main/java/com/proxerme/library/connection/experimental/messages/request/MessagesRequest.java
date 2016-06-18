@@ -2,16 +2,16 @@ package com.proxerme.library.connection.experimental.messages.request;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
-import com.afollestad.bridge.RequestBuilder;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.ProxerRequest;
 import com.proxerme.library.connection.experimental.messages.result.MessagesErrorResult;
 import com.proxerme.library.connection.experimental.messages.result.MessagesResult;
 import com.proxerme.library.info.ProxerTag;
+import com.proxerme.library.info.ProxerUrlHolder;
 import com.proxerme.library.interfaces.ProxerResult;
 
 /**
@@ -32,12 +32,6 @@ public class MessagesRequest extends ProxerRequest {
         this.page = page;
     }
 
-    @NonNull
-    @Override
-    protected RequestBuilder beginRequest() {
-        return Bridge.get(MESSAGES_URL, conferenceId, page);
-    }
-
     @Override
     protected ProxerResult parse(Response response) throws BridgeException {
         return response.asClass(MessagesResult.class);
@@ -53,4 +47,15 @@ public class MessagesRequest extends ProxerRequest {
         return new MessagesErrorResult(conferenceId, exception);
     }
 
+    @NonNull
+    @Override
+    protected String getURL() {
+        return ProxerUrlHolder.getHost() + MESSAGES_URL;
+    }
+
+    @Nullable
+    @Override
+    protected String[] getParameters() {
+        return new String[]{conferenceId, String.valueOf(page)};
+    }
 }

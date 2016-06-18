@@ -2,10 +2,9 @@ package com.proxerme.library.connection.experimental.messages.request;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
-import com.afollestad.bridge.RequestBuilder;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.ProxerRequest;
@@ -31,12 +30,6 @@ public class ConferencesRequest extends ProxerRequest<ConferencesResult, Confere
         this.page = page;
     }
 
-    @NonNull
-    @Override
-    protected RequestBuilder beginRequest() {
-        return Bridge.get(ProxerUrlHolder.getHost() + CONFERENCES_URL, page);
-    }
-
     @Override
     protected ConferencesResult parse(Response response) throws BridgeException {
         return response.asClass(ConferencesResult.class);
@@ -50,5 +43,17 @@ public class ConferencesRequest extends ProxerRequest<ConferencesResult, Confere
     @Override
     protected ConferencesErrorResult createErrorResult(@NonNull ProxerException exception) {
         return new ConferencesErrorResult(exception);
+    }
+
+    @NonNull
+    @Override
+    protected String getURL() {
+        return ProxerUrlHolder.getHost() + CONFERENCES_URL;
+    }
+
+    @Nullable
+    @Override
+    protected String[] getParameters() {
+        return new String[]{String.valueOf(page)};
     }
 }

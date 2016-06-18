@@ -7,10 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.support.annotation.WorkerThread;
 
+import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Callback;
+import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Request;
-import com.afollestad.bridge.RequestBuilder;
 import com.afollestad.bridge.Response;
 import com.afollestad.bridge.ResponseValidator;
 import com.proxerme.library.info.ProxerTag;
@@ -34,11 +35,12 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
     @ProxerTag.ConnectionTag
     protected abstract int getTag();
 
-    protected abstract RequestBuilder beginRequest();
-
     protected abstract R parse(Response response) throws BridgeException;
 
     protected abstract ER createErrorResult(@NonNull ProxerException exception);
+
+    @NonNull
+    protected abstract String getURL();
 
     /**
      * Asynchronously executes this request. The result will be delivered on the event bus
@@ -49,7 +51,8 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
     @RequiresPermission(android.Manifest.permission.INTERNET)
     public final Request execute(@Nullable final ProxerCallback<R> callback,
                                  @Nullable final ProxerErrorCallback<ER> errorCallback) {
-        return beginRequest().throwIfNotSuccess().tag(getTag()).validators(getValidator())
+        return Bridge.post(getURL(), (Object[]) getParameters()).body(buildBody())
+                .throwIfNotSuccess().tag(getTag()).validators(getValidator())
                 .request(new Callback() {
                     @Override
                     public void response(Request request, Response response,
@@ -71,27 +74,40 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
                 });
     }
 
-    /**
-     * Synchronously executes this request.
-     *
-     * @return The result, specified by this class.
-     * @throws ProxerException An Exception, which might occur, while executing the request.
-     * @see #execute(ProxerCallback)
-     */
     @WorkerThread
     @RequiresPermission(android.Manifest.permission.INTERNET)
     public final R executeSynchronized() throws ProxerException {
         try {
-            return parse(beginRequest().throwIfNotSuccess().tag(getTag()).request()
+            return parse(Bridge.post(getURL(), (Object[]) getParameters()).body(buildBody())
+                    .throwIfNotSuccess().tag(getTag()).validators(getValidator()).request()
                     .response());
         } catch (BridgeException e) {
             throw ProxerErrorHandler.handleException(e);
         }
     }
 
+    @Nullable
+    protected String[] getParameters() {
+        return null;
+    }
+
+    protected void appendToBody(@NonNull Form form) {
+
+    }
+
     @NonNull
     protected ResponseValidator getValidator() {
         return new DefaultValidator();
+    }
+
+    @NonNull
+    private Form buildBody() {
+        Form body = new Form();
+
+        body.add("api_key", ProxerConnection.getKey());
+        appendToBody(body);
+
+        return body;
     }
 
     private void deliverResultOnMainThread(@Nullable final ProxerCallback<R> callback,

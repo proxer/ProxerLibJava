@@ -1,5 +1,7 @@
 package com.proxerme.library.connection;
 
+import android.support.annotation.NonNull;
+
 import com.afollestad.bridge.Bridge;
 import com.proxerme.library.info.ProxerTag;
 
@@ -9,6 +11,12 @@ import com.proxerme.library.info.ProxerTag;
  * @author Ruben Gees
  */
 public class ProxerConnection {
+
+    private static String key;
+
+    public static void init(@NonNull String apiKey) {
+        key = apiKey;
+    }
 
     /**
      * Cancels all started requests of the specified tag.
@@ -27,5 +35,14 @@ public class ProxerConnection {
      */
     public static void cleanup() {
         Bridge.destroy();
+    }
+
+    @NonNull
+    public static String getKey() {
+        if (key == null) {
+            throw new RuntimeException("Please set your api key through the init method.");
+        }
+
+        return key;
     }
 }

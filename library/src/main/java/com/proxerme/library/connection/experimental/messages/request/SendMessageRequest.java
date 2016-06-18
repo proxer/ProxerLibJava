@@ -1,11 +1,10 @@
 package com.proxerme.library.connection.experimental.messages.request;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Form;
-import com.afollestad.bridge.RequestBuilder;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.ProxerRequest;
@@ -32,23 +31,9 @@ public class SendMessageRequest extends ProxerRequest<SendMessageResult, SendMes
         this.message = message;
     }
 
-    @NonNull
-    @Override
-    protected RequestBuilder beginRequest() {
-        Form messageParameters = new Form().add("message", message);
-
-        return Bridge.post(ProxerUrlHolder.getHost() + SEND_MESSAGE_URL, conferenceId)
-                .body(messageParameters);
-    }
-
     @Override
     protected SendMessageResult parse(Response response) throws BridgeException {
         return new SendMessageResult(conferenceId);
-    }
-
-    @Override
-    protected int getTag() {
-        return ProxerTag.SEND_MESSAGE;
     }
 
     @Override
@@ -56,4 +41,26 @@ public class SendMessageRequest extends ProxerRequest<SendMessageResult, SendMes
         return new SendMessageErrorResult(conferenceId, exception);
     }
 
+
+    @Override
+    protected int getTag() {
+        return ProxerTag.SEND_MESSAGE;
+    }
+
+    @NonNull
+    @Override
+    protected String getURL() {
+        return ProxerUrlHolder.getHost() + SEND_MESSAGE_URL;
+    }
+
+    @Nullable
+    @Override
+    protected String[] getParameters() {
+        return new String[]{conferenceId};
+    }
+
+    @Override
+    protected void appendToBody(@NonNull Form form) {
+        form.add("message", message);
+    }
 }
