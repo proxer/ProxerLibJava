@@ -49,7 +49,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     public int posts;
     @Body(name = "catid")
     public String categoryId;
-    @Body(name = "carname")
+    @Body(name = "catname")
     public String categoryTitle;
 
     /**
