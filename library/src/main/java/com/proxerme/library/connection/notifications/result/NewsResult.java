@@ -13,7 +13,7 @@ import com.proxerme.library.interfaces.ProxerResult;
  */
 public class NewsResult implements ProxerResult<News[]> {
 
-    @Body(name = "notifications")
+    @Body(name = "data")
     News[] item;
 
     NewsResult() {

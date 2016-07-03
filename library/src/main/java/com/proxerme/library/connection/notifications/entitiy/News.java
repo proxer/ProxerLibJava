@@ -28,29 +28,29 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     };
 
     @Body(name = "nid")
-    public String id;
+    String id;
     @Body(name = "time")
-    public long time;
+    long time;
     @Body(name = "description")
-    public String description;
+    String description;
     @Body(name = "image_id")
-    public String imageId;
+    String imageId;
     @Body(name = "subject")
-    public String subject;
+    String subject;
     @Body(name = "hits")
-    public int hits;
+    int hits;
     @Body(name = "thread")
-    public String threadId;
+    String threadId;
     @Body(name = "uid")
-    public String authorId;
+    String authorId;
     @Body(name = "uname")
-    public String author;
+    String author;
     @Body(name = "posts")
-    public int posts;
+    int posts;
     @Body(name = "catid")
-    public String categoryId;
+    String categoryId;
     @Body(name = "catname")
-    public String categoryTitle;
+    String categoryTitle;
 
     /**
      * Only for automatic conversion, don't use
