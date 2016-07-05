@@ -13,14 +13,14 @@ import com.proxerme.library.interfaces.ImageItem;
  *
  * @author Ruben Gees
  */
-public class LoginUser implements Parcelable, IdItem, ImageItem {
-    public static final Creator<LoginUser> CREATOR = new Creator<LoginUser>() {
-        public LoginUser createFromParcel(Parcel source) {
-            return new LoginUser(source);
+public class User implements Parcelable, IdItem, ImageItem {
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        public User createFromParcel(Parcel source) {
+            return new User(source);
         }
 
-        public LoginUser[] newArray(int size) {
-            return new LoginUser[size];
+        public User[] newArray(int size) {
+            return new User[size];
         }
     };
 
@@ -31,7 +31,7 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
     @Body(name = "avatar")
     String imageId;
 
-    LoginUser() {
+    User() {
 
     }
 
@@ -41,7 +41,7 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
      * @param username The username of user.
      * @param password The password of the user.
      */
-    public LoginUser(@NonNull String username, @NonNull String password) {
+    public User(@NonNull String username, @NonNull String password) {
         this.username = username;
         this.password = password;
     }
@@ -54,15 +54,15 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
      * @param id       The id of the user.
      * @param image    The profile picture of the user.
      */
-    public LoginUser(@NonNull String username, @NonNull String password, @NonNull String id,
-                     @NonNull String image) {
+    public User(@NonNull String username, @NonNull String password, @NonNull String id,
+                @NonNull String image) {
         this.username = username;
         this.password = password;
         this.id = id;
         this.imageId = image;
     }
 
-    protected LoginUser(Parcel in) {
+    protected User(Parcel in) {
         this.username = in.readString();
         this.password = in.readString();
         this.id = in.readString();
@@ -79,6 +79,10 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
         return username;
     }
 
+    public void setUsername(@NonNull String username) {
+        this.username = username;
+    }
+
     /**
      * Return the password of the user.
      *
@@ -87,6 +91,10 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
     @NonNull
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(@NonNull String password) {
+        this.password = password;
     }
 
     /**
@@ -145,13 +153,13 @@ public class LoginUser implements Parcelable, IdItem, ImageItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        LoginUser loginUser = (LoginUser) o;
+        User user = (User) o;
 
-        if (!username.equals(loginUser.username)) return false;
-        if (!password.equals(loginUser.password)) return false;
-        if (id != null ? !id.equals(loginUser.id) : loginUser.id != null)
+        if (!username.equals(user.username)) return false;
+        if (!password.equals(user.password)) return false;
+        if (id != null ? !id.equals(user.id) : user.id != null)
             return false;
-        return !(imageId != null ? !imageId.equals(loginUser.imageId) : loginUser.imageId != null);
+        return !(imageId != null ? !imageId.equals(user.imageId) : user.imageId != null);
 
     }
 

@@ -2,7 +2,8 @@ package com.proxerme.library.connection.user.result;
 
 import android.support.annotation.NonNull;
 
-import com.proxerme.library.connection.user.entitiy.LoginUser;
+import com.afollestad.bridge.annotations.Body;
+import com.proxerme.library.connection.user.entitiy.User;
 import com.proxerme.library.interfaces.ProxerResult;
 
 /**
@@ -10,17 +11,21 @@ import com.proxerme.library.interfaces.ProxerResult;
  *
  * @author Ruben Gees
  */
-public class LoginResult implements ProxerResult<LoginUser> {
+public class LoginResult implements ProxerResult<User> {
 
-    LoginUser loginUser;
+    @Body(name = "data")
+    User user;
 
-    public LoginResult(@NonNull LoginUser loginUser) {
-        this.loginUser = loginUser;
+    public LoginResult(@NonNull User user) {
+        this.user = user;
+    }
+
+    public LoginResult() {
     }
 
     @NonNull
     @Override
-    public LoginUser getItem() {
-        return loginUser;
+    public User getItem() {
+        return user;
     }
 }

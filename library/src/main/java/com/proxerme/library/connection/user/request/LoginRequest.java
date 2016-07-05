@@ -7,7 +7,7 @@ import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.ProxerRequest;
-import com.proxerme.library.connection.user.entitiy.LoginUser;
+import com.proxerme.library.connection.user.entitiy.User;
 import com.proxerme.library.connection.user.result.LoginErrorResult;
 import com.proxerme.library.connection.user.result.LoginResult;
 import com.proxerme.library.info.ProxerTag;
@@ -25,18 +25,20 @@ public class LoginRequest extends ProxerRequest<LoginResult, LoginErrorResult> {
     private static final String USERNAME_FORM = "username";
     private static final String PASSWORD_FORM = "password";
 
-    private LoginUser user;
+    private User user;
 
-    public LoginRequest(@NonNull LoginUser user) {
+    public LoginRequest(@NonNull User user) {
         this.user = user;
     }
 
     @Override
     protected LoginResult parse(Response response) throws BridgeException {
-        LoginUser result = response.asClass(LoginUser.class);
+        LoginResult result = response.asClass(LoginResult.class);
 
-        return new LoginResult(new LoginUser(user.getUsername(), user.getPassword(), result.getId(),
-                result.getImageId()));
+        result.getItem().setUsername(user.getUsername());
+        result.getItem().setPassword(user.getPassword());
+
+        return result;
     }
 
     @Override
