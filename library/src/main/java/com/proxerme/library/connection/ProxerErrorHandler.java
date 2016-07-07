@@ -39,6 +39,7 @@ class ProxerErrorHandler {
 
     /**
      * Handles a BridgeException and returns the appropriate {@link ProxerException}.
+     *
      * @param bridgeException The Exception.
      * @return The appropriate {@link ProxerException}.
      */
@@ -50,36 +51,58 @@ class ProxerErrorHandler {
         switch (bridgeException.reason()) {
             case BridgeException.REASON_REQUEST_TIMEOUT: {
                 exception = new ProxerException(ERROR_TIMEOUT);
+
                 break;
             }
+
             case BridgeException.REASON_RESPONSE_UNSUCCESSFUL: {
                 exception = new ProxerException(ERROR_NETWORK);
+
                 break;
             }
+
             case BridgeException.REASON_RESPONSE_UNPARSEABLE: {
                 exception = new ProxerException(ERROR_UNPARSEABLE);
+
                 break;
             }
+
             case BridgeException.REASON_RESPONSE_IOERROR: {
                 exception = new ProxerException(ERROR_IO);
+
                 break;
             }
-            case BridgeException.REASON_RESPONSE_VALIDATOR_FALSE:
+
+            case BridgeException.REASON_RESPONSE_VALIDATOR_FALSE: {
                 exception = new ProxerException(ERROR_UNKNOWN);
+
                 break;
-            case BridgeException.REASON_RESPONSE_VALIDATOR_ERROR:
+            }
+
+            case BridgeException.REASON_RESPONSE_VALIDATOR_ERROR: {
                 exception = new ProxerException(ERROR_PROXER,
                         bridgeException.getMessage());
+
                 break;
-            case BridgeException.REASON_REQUEST_CANCELLED:
+            }
+
+            case BridgeException.REASON_REQUEST_CANCELLED: {
                 exception = new ProxerException(ERROR_UNKNOWN);
+
                 break;
-            case BridgeException.REASON_REQUEST_FAILED:
+            }
+
+            case BridgeException.REASON_REQUEST_FAILED: {
                 exception = new ProxerException(ERROR_NETWORK);
+
                 break;
-            default:
+            }
+
+            default: {
                 exception = new ProxerException(ERROR_UNKNOWN);
+
                 break;
+            }
         }
 
         return exception;

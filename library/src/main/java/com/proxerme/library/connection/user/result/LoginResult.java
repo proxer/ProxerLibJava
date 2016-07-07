@@ -20,7 +20,8 @@ public class LoginResult implements ProxerResult<User> {
         this.user = user;
     }
 
-    public LoginResult() {
+    LoginResult() {
+
     }
 
     @NonNull
