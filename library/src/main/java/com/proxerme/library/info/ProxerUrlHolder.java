@@ -49,7 +49,7 @@ public class ProxerUrlHolder {
     public static String getNewsUrl(@NonNull String categoryId, @NonNull String threadId,
                                     boolean mobileVersion) {
         return String.format(getHost() + NEWS, categoryId, threadId,
-                mobileVersion ? "device=mobile" : "");
+                mobileVersion ? "?device=mobile" : "");
     }
 
     /**
