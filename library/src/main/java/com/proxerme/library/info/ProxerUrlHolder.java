@@ -1,6 +1,7 @@
 package com.proxerme.library.info;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * Helper class, containing all the different Urls for accessing the API.
@@ -11,7 +12,7 @@ public class ProxerUrlHolder {
 
     private static final String HOST = "https://proxer.me";
     private static final String NEWS = "/forum/%s/%s%s#top";
-    private static final String DONATE = "/donate";
+    private static final String DONATE = "/donate%s";
     private static final String NEWS_IMAGE = "http://cdn.proxer.me/news/tmp/%s_%s.png";
     private static final String USER_IMAGE = "http://cdn.proxer.me/avatar/%s";
 
@@ -47,9 +48,9 @@ public class ProxerUrlHolder {
      */
     @NonNull
     public static String getNewsUrl(@NonNull String categoryId, @NonNull String threadId,
-                                    boolean mobileVersion) {
+                                    @Nullable String device) {
         return String.format(getHost() + NEWS, categoryId, threadId,
-                mobileVersion ? "?device=mobile" : "");
+                device == null ? "?device=default" : "?device=" + device);
     }
 
     /**
@@ -69,8 +70,9 @@ public class ProxerUrlHolder {
      * @return The url.
      */
     @NonNull
-    public static String getDonateUrl() {
-        return getHost() + DONATE;
+    public static String getDonateUrl(@Nullable String device) {
+        return String.format(getHost() + DONATE,
+                device == null ? "?device=default" : "?device=" + device);
     }
 
 
