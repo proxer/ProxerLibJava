@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
 public class ProxerUrlHolder {
 
     private static final String HOST = "https://proxer.me";
-    private static final String NEWS = "/forum/%s/%s#top";
+    private static final String NEWS = "/forum/%s/%s%s#top";
     private static final String DONATE = "/donate";
     private static final String NEWS_IMAGE = "http://cdn.proxer.me/news/tmp/%s_%s.png";
     private static final String USER_IMAGE = "http://cdn.proxer.me/avatar/%s";
@@ -46,8 +46,10 @@ public class ProxerUrlHolder {
      * @return The url.
      */
     @NonNull
-    public static String getNewsUrl(@NonNull String categoryId, @NonNull String threadId) {
-        return String.format(getHost() + NEWS, categoryId, threadId);
+    public static String getNewsUrl(@NonNull String categoryId, @NonNull String threadId,
+                                    boolean mobileVersion) {
+        return String.format(getHost() + NEWS, categoryId, threadId,
+                mobileVersion ? "device=mobile" : "");
     }
 
     /**
