@@ -49,6 +49,10 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
     @Body(name = "points_misc")
     int miscPoints;
 
+    UserInfo() {
+
+    }
+
     public UserInfo(@NonNull String id, @NonNull String username, @NonNull String imageId,
                     @NonNull String status, long lastStatusChange,
                     @IntRange(from = 0) int uploadPoints, @IntRange(from = 0) int animePoints,
