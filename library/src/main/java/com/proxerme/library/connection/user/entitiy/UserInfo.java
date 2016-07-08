@@ -6,6 +6,8 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.annotations.Body;
+import com.proxerme.library.interfaces.IdItem;
+import com.proxerme.library.interfaces.ImageItem;
 
 /**
  * TODO: Describe class
@@ -13,7 +15,7 @@ import com.afollestad.bridge.annotations.Body;
  * @author Ruben Gees
  */
 
-public class UserInfo implements Parcelable {
+public class UserInfo implements Parcelable, IdItem, ImageItem {
 
     public static final Parcelable.Creator<UserInfo> CREATOR = new Parcelable.Creator<UserInfo>() {
         @Override
@@ -78,6 +80,7 @@ public class UserInfo implements Parcelable {
     }
 
     @NonNull
+    @Override
     public String getId() {
         return id;
     }
@@ -88,6 +91,7 @@ public class UserInfo implements Parcelable {
     }
 
     @NonNull
+    @Override
     public String getImageId() {
         return imageId;
     }
