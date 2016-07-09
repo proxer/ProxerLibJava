@@ -112,7 +112,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
     public long getLastStatusChange() {
         try {
             return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
-                    .parse(lastStatusChange).getTime();
+                    .parse(lastStatusChange).getTime() / 1000L;
         } catch (ParseException e) {
             throw new RuntimeException("Incorrectly formatted time");
         }
