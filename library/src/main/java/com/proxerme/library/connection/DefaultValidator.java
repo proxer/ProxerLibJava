@@ -7,8 +7,7 @@ import com.afollestad.bridge.ResponseValidator;
 
 import org.json.JSONObject;
 
-import static com.proxerme.library.connection.ProxerException.ERROR_PROXER;
-import static com.proxerme.library.connection.ProxerException.ERROR_UNKNOWN;
+import static com.proxerme.library.connection.ProxerException.PROXER;
 
 /**
  * TODO: Describe class
@@ -20,6 +19,7 @@ class DefaultValidator extends ResponseValidator {
 
     private static final String RESPONSE_ERROR = "error";
     private static final String RESPONSE_ERROR_MESSAGE = "message";
+    private static final String RESPONSE_ERROR_CODE = "code";
     private static final String VALIDATOR_ID = "default-validator";
 
     @Override
@@ -30,11 +30,11 @@ class DefaultValidator extends ResponseValidator {
             if (json.getInt(RESPONSE_ERROR) == 0) {
                 return true;
             } else {
-                if (json.has(RESPONSE_ERROR_MESSAGE)) {
-                    throw new ProxerException(ERROR_PROXER,
+                if (json.has(RESPONSE_ERROR_MESSAGE) && json.has(RESPONSE_ERROR_CODE)) {
+                    throw new ProxerException(PROXER,
                             json.getString(RESPONSE_ERROR_MESSAGE));
                 } else {
-                    throw new ProxerException(ERROR_UNKNOWN);
+                    throw new ProxerException(ProxerException.UNKNOWN);
                 }
             }
         } else {
