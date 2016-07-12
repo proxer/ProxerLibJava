@@ -35,7 +35,7 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
     @ProxerTag.ConnectionTag
     protected abstract int getTag();
 
-    protected abstract R parse(Response response) throws BridgeException;
+    protected abstract R parse(Response response) throws Exception;
 
     protected abstract ER createErrorResult(@NonNull ProxerException exception);
 
@@ -55,7 +55,7 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
                 .throwIfNotSuccess().tag(getTag()).validators(getValidator())
                 .request(new Callback() {
                     @Override
-                    public void response(Request request, Response response,
+                    public void response(@NonNull Request request, Response response,
                                          BridgeException exception) {
                         if (exception == null) {
                             try {
@@ -63,6 +63,10 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
                             } catch (BridgeException e) {
                                 deliverErrorResultOnMainThread(errorCallback, createErrorResult(
                                         ProxerErrorHandler.handleException(e)));
+                            } catch (Exception e) {
+                                deliverErrorResultOnMainThread(errorCallback,
+                                        createErrorResult(
+                                                new ProxerException(ProxerException.UNPARSEABLE)));
                             }
                         } else {
                             if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
@@ -83,6 +87,8 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
                     .response());
         } catch (BridgeException e) {
             throw ProxerErrorHandler.handleException(e);
+        } catch (Exception e) {
+            throw new ProxerException(ProxerException.UNPARSEABLE);
         }
     }
 

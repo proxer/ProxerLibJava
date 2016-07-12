@@ -2,7 +2,6 @@ package com.proxerme.library.connection.user.request;
 
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerException;
@@ -32,7 +31,7 @@ public class LoginRequest extends ProxerRequest<LoginResult, LoginErrorResult> {
     }
 
     @Override
-    protected LoginResult parse(Response response) throws BridgeException {
+    protected LoginResult parse(Response response) throws Exception {
         LoginResult result = response.asClass(LoginResult.class);
 
         result.getItem().setUsername(user.getUsername());

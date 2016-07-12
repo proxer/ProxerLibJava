@@ -3,7 +3,6 @@ package com.proxerme.library.connection.user.request;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerException;
@@ -42,7 +41,7 @@ public class UserInfoRequest extends ProxerRequest<UserInfoResult, UserInfoError
     }
 
     @Override
-    protected UserInfoResult parse(Response response) throws BridgeException {
+    protected UserInfoResult parse(Response response) throws Exception {
         return response.asClass(UserInfoResult.class);
     }
 

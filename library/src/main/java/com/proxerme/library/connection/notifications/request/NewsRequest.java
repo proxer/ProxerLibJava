@@ -4,7 +4,6 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.ProxerRequest;
@@ -35,7 +34,7 @@ public class NewsRequest extends ProxerRequest<NewsResult, NewsErrorResult> {
     }
 
     @Override
-    protected NewsResult parse(Response response) throws BridgeException {
+    protected NewsResult parse(Response response) throws Exception {
         return response.asClass(NewsResult.class);
     }
 

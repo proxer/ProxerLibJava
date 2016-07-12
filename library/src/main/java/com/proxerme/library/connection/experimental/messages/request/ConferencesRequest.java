@@ -4,7 +4,6 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.ProxerRequest;
@@ -31,7 +30,7 @@ public class ConferencesRequest extends ProxerRequest<ConferencesResult, Confere
     }
 
     @Override
-    protected ConferencesResult parse(Response response) throws BridgeException {
+    protected ConferencesResult parse(Response response) throws Exception {
         return response.asClass(ConferencesResult.class);
     }
 

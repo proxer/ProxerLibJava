@@ -2,7 +2,6 @@ package com.proxerme.library.connection.user.request;
 
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.ProxerRequest;
@@ -22,7 +21,7 @@ public class LogoutRequest extends ProxerRequest<LogoutResult, LogoutErrorResult
     private static final String LOGOUT_URL = "/api/v1/user/logout";
 
     @Override
-    protected LogoutResult parse(Response response) throws BridgeException {
+    protected LogoutResult parse(Response response) throws Exception {
         return new LogoutResult();
     }
 
