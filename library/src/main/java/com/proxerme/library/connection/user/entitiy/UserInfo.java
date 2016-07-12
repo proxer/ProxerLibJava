@@ -9,10 +9,6 @@ import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.ImageItem;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 /**
  * TODO: Describe class
  *
@@ -41,7 +37,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
     @Body(name = "status")
     String status;
     @Body(name = "status_time")
-    String lastStatusChange;
+    long lastStatusChange;
     @Body(name = "points_uploads")
     int uploadPoints;
     @Body(name = "points_anime")
@@ -58,7 +54,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
     }
 
     public UserInfo(@NonNull String id, @NonNull String username, @NonNull String imageId,
-                    @NonNull String status, @NonNull String lastStatusChange,
+                    @NonNull String status, long lastStatusChange,
                     @IntRange(from = 0) int uploadPoints, @IntRange(from = 0) int animePoints,
                     @IntRange(from = 0) int mangaPoints, @IntRange(from = 0) int infoPoints,
                     @IntRange(from = 0) int miscPoints) {
@@ -79,7 +75,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
         this.username = in.readString();
         this.imageId = in.readString();
         this.status = in.readString();
-        this.lastStatusChange = in.readString();
+        this.lastStatusChange = in.readLong();
         this.uploadPoints = in.readInt();
         this.animePoints = in.readInt();
         this.mangaPoints = in.readInt();
@@ -110,12 +106,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
     }
 
     public long getLastStatusChange() {
-        try {
-            return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
-                    .parse(lastStatusChange).getTime() / 1000L;
-        } catch (ParseException e) {
-            throw new RuntimeException("Incorrectly formatted time");
-        }
+        return lastStatusChange;
     }
 
     @IntRange(from = 0)
@@ -150,7 +141,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
 
         UserInfo userInfo = (UserInfo) o;
 
-        if (!lastStatusChange.equals(userInfo.lastStatusChange)) return false;
+        if (lastStatusChange != userInfo.lastStatusChange) return false;
         if (uploadPoints != userInfo.uploadPoints) return false;
         if (animePoints != userInfo.animePoints) return false;
         if (mangaPoints != userInfo.mangaPoints) return false;
@@ -169,7 +160,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
         result = 31 * result + username.hashCode();
         result = 31 * result + imageId.hashCode();
         result = 31 * result + status.hashCode();
-        result = 31 * result + lastStatusChange.hashCode();
+        result = 31 * result + (int) (lastStatusChange ^ (lastStatusChange >>> 32));
         result = 31 * result + uploadPoints;
         result = 31 * result + animePoints;
         result = 31 * result + mangaPoints;
@@ -189,7 +180,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
         dest.writeString(this.username);
         dest.writeString(this.imageId);
         dest.writeString(this.status);
-        dest.writeString(this.lastStatusChange);
+        dest.writeLong(this.lastStatusChange);
         dest.writeInt(this.uploadPoints);
         dest.writeInt(this.animePoints);
         dest.writeInt(this.mangaPoints);
