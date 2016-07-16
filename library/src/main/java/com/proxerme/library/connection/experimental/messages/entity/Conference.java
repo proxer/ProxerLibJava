@@ -38,7 +38,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     @Body(name = "timestamp_end")
     long time;
     @Body(name = "read")
-    boolean isRead;
+    byte isRead;
     @Body(name = "image")
     String imageId;
 
@@ -63,7 +63,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         this.participantAmount = participantAmount;
         this.isConference = isConference;
         this.time = time;
-        this.isRead = isRead;
+        this.isRead = (byte) (isRead ? 1 : 0);
         this.imageId = imageId;
     }
 
@@ -73,7 +73,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         this.participantAmount = in.readInt();
         this.isConference = in.readByte() != 0;
         this.time = in.readLong();
-        this.isRead = in.readByte() != 0;
+        this.isRead = in.readByte();
         this.imageId = in.readString();
     }
 
@@ -127,7 +127,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
      * @return True if the user has isRead the last message.
      */
     public boolean isRead() {
-        return isRead;
+        return isRead == 1;
     }
 
     /**
@@ -141,7 +141,6 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         return imageId;
     }
 
-    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -166,7 +165,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         result = 31 * result + participantAmount;
         result = 31 * result + (isConference ? 1 : 0);
         result = 31 * result + (int) (time ^ (time >>> 32));
-        result = 31 * result + (isRead ? 1 : 0);
+        result = 31 * result + (int) isRead;
         result = 31 * result + imageId.hashCode();
         return result;
     }
@@ -183,7 +182,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         dest.writeInt(this.participantAmount);
         dest.writeByte(isConference ? (byte) 1 : (byte) 0);
         dest.writeLong(this.time);
-        dest.writeByte(isRead ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isRead);
         dest.writeString(this.imageId);
     }
 }
