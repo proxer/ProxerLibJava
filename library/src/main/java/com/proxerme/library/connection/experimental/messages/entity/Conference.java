@@ -34,11 +34,11 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     @Body(name = "count")
     int participantAmount;
     @Body(name = "conference")
-    byte isConference;
+    String isConference;
     @Body(name = "timestamp_end")
     long time;
     @Body(name = "read")
-    byte isRead;
+    String isRead;
     @Body(name = "image")
     String imageId;
 
@@ -61,9 +61,9 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         this.id = id;
         this.topic = topic;
         this.participantAmount = participantAmount;
-        this.isConference = (byte) (isConference ? 1 : 0);
+        this.isConference = isConference ? "1" : "0";
         this.time = time;
-        this.isRead = (byte) (isRead ? 1 : 0);
+        this.isRead = isRead ? "1" : "0";
         this.imageId = imageId;
     }
 
@@ -71,9 +71,9 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         this.id = in.readString();
         this.topic = in.readString();
         this.participantAmount = in.readInt();
-        this.isConference = in.readByte();
+        this.isConference = in.readString();
         this.time = in.readLong();
-        this.isRead = in.readByte();
+        this.isRead = in.readString();
         this.imageId = in.readString();
     }
 
@@ -110,7 +110,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
      * @return Returns true if this isConference has more than 2 participants.
      */
     public boolean isConference() {
-        return isConference == 1;
+        return isConference.equals("1");
     }
 
     /**
@@ -127,7 +127,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
      * @return True if the user has isRead the last message.
      */
     public boolean isRead() {
-        return isRead == 1;
+        return isRead.equals("1");
     }
 
     /**
@@ -149,11 +149,11 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         Conference that = (Conference) o;
 
         if (participantAmount != that.participantAmount) return false;
-        if (isConference != that.isConference) return false;
         if (time != that.time) return false;
-        if (isRead != that.isRead) return false;
         if (!id.equals(that.id)) return false;
         if (!topic.equals(that.topic)) return false;
+        if (!isConference.equals(that.isConference)) return false;
+        if (!isRead.equals(that.isRead)) return false;
         return imageId.equals(that.imageId);
 
     }
@@ -163,9 +163,9 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         int result = id.hashCode();
         result = 31 * result + topic.hashCode();
         result = 31 * result + participantAmount;
-        result = 31 * result + (int) isConference;
+        result = 31 * result + isConference.hashCode();
         result = 31 * result + (int) (time ^ (time >>> 32));
-        result = 31 * result + (int) isRead;
+        result = 31 * result + isRead.hashCode();
         result = 31 * result + imageId.hashCode();
         return result;
     }
@@ -180,9 +180,9 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         dest.writeString(this.id);
         dest.writeString(this.topic);
         dest.writeInt(this.participantAmount);
-        dest.writeByte(this.isConference);
+        dest.writeString(this.isConference);
         dest.writeLong(this.time);
-        dest.writeByte(this.isRead);
+        dest.writeString(this.isRead);
         dest.writeString(this.imageId);
     }
 }
