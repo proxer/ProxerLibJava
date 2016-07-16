@@ -63,7 +63,7 @@ public class ProxerException extends Exception {
     }
 
     public ProxerException(@ErrorCode int errorCode, @Nullable String detailMessage,
-                           @ProxerErrorCode @Nullable Integer proxerErrorCode) {
+                           @Nullable Integer proxerErrorCode) {
         super(detailMessage);
 
         this.errorCode = errorCode;

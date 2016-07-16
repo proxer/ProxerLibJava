@@ -32,7 +32,8 @@ class DefaultValidator extends ResponseValidator {
             } else {
                 if (json.has(RESPONSE_ERROR_MESSAGE) && json.has(RESPONSE_ERROR_CODE)) {
                     throw new ProxerException(PROXER,
-                            json.getString(RESPONSE_ERROR_MESSAGE));
+                            json.getString(RESPONSE_ERROR_MESSAGE),
+                            json.getInt(RESPONSE_ERROR_CODE));
                 } else {
                     throw new ProxerException(ProxerException.UNKNOWN);
                 }
