@@ -34,7 +34,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     @Body(name = "count")
     int participantAmount;
     @Body(name = "conference")
-    boolean isConference;
+    byte isConference;
     @Body(name = "timestamp_end")
     long time;
     @Body(name = "read")
@@ -61,7 +61,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         this.id = id;
         this.topic = topic;
         this.participantAmount = participantAmount;
-        this.isConference = isConference;
+        this.isConference = (byte) (isConference ? 1 : 0);
         this.time = time;
         this.isRead = (byte) (isRead ? 1 : 0);
         this.imageId = imageId;
@@ -71,7 +71,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         this.id = in.readString();
         this.topic = in.readString();
         this.participantAmount = in.readInt();
-        this.isConference = in.readByte() != 0;
+        this.isConference = in.readByte();
         this.time = in.readLong();
         this.isRead = in.readByte();
         this.imageId = in.readString();
@@ -110,7 +110,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
      * @return Returns true if this isConference has more than 2 participants.
      */
     public boolean isConference() {
-        return isConference;
+        return isConference == 1;
     }
 
     /**
@@ -163,7 +163,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         int result = id.hashCode();
         result = 31 * result + topic.hashCode();
         result = 31 * result + participantAmount;
-        result = 31 * result + (isConference ? 1 : 0);
+        result = 31 * result + (int) isConference;
         result = 31 * result + (int) (time ^ (time >>> 32));
         result = 31 * result + (int) isRead;
         result = 31 * result + imageId.hashCode();
@@ -180,7 +180,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         dest.writeString(this.id);
         dest.writeString(this.topic);
         dest.writeInt(this.participantAmount);
-        dest.writeByte(isConference ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isConference);
         dest.writeLong(this.time);
         dest.writeByte(this.isRead);
         dest.writeString(this.imageId);
