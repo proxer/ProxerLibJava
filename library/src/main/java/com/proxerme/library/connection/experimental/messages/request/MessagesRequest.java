@@ -11,7 +11,6 @@ import com.proxerme.library.connection.experimental.messages.result.MessagesErro
 import com.proxerme.library.connection.experimental.messages.result.MessagesResult;
 import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
-import com.proxerme.library.interfaces.ProxerResult;
 
 /**
  * TODO: Describe class
@@ -19,7 +18,7 @@ import com.proxerme.library.interfaces.ProxerResult;
  * @author Ruben Gees
  */
 
-public class MessagesRequest extends ProxerRequest {
+public class MessagesRequest extends ProxerRequest<MessagesResult, MessagesErrorResult> {
 
     private static final String MESSAGES_URL = "/messages?format=json&json=messages&id=%s&p=%s";
 
@@ -32,7 +31,7 @@ public class MessagesRequest extends ProxerRequest {
     }
 
     @Override
-    protected ProxerResult parse(Response response) throws Exception {
+    protected MessagesResult parse(Response response) throws Exception {
         return response.asClass(MessagesResult.class);
     }
 
