@@ -17,6 +17,10 @@ public class MessagesResult implements ProxerResult<Message[]> {
     @Body(name = "messages")
     Message[] messages;
 
+    MessagesResult() {
+
+    }
+
     public MessagesResult(@NonNull String conferenceId, @NonNull Message[] messages) {
         this.conferenceId = conferenceId;
         this.messages = messages;
