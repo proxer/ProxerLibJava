@@ -40,6 +40,8 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
     long lastStatusChange;
     @Body(name = "points_uploads")
     int uploadPoints;
+    @Body(name = "points_forum")
+    int forumPoints;
     @Body(name = "points_anime")
     int animePoints;
     @Body(name = "points_manga")
@@ -55,15 +57,16 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
 
     public UserInfo(@NonNull String id, @NonNull String username, @NonNull String imageId,
                     @NonNull String status, long lastStatusChange,
-                    @IntRange(from = 0) int uploadPoints, @IntRange(from = 0) int animePoints,
-                    @IntRange(from = 0) int mangaPoints, @IntRange(from = 0) int infoPoints,
-                    @IntRange(from = 0) int miscPoints) {
+                    @IntRange(from = 0) int uploadPoints, @IntRange(from = 0) int forumPoints,
+                    @IntRange(from = 0) int animePoints, @IntRange(from = 0) int mangaPoints,
+                    @IntRange(from = 0) int infoPoints, @IntRange(from = 0) int miscPoints) {
         this.id = id;
         this.username = username;
         this.imageId = imageId;
         this.status = status;
         this.lastStatusChange = lastStatusChange;
         this.uploadPoints = uploadPoints;
+        this.forumPoints = forumPoints;
         this.animePoints = animePoints;
         this.mangaPoints = mangaPoints;
         this.infoPoints = infoPoints;
@@ -77,6 +80,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
         this.status = in.readString();
         this.lastStatusChange = in.readLong();
         this.uploadPoints = in.readInt();
+        this.forumPoints = in.readInt();
         this.animePoints = in.readInt();
         this.mangaPoints = in.readInt();
         this.infoPoints = in.readInt();
@@ -115,6 +119,11 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
     }
 
     @IntRange(from = 0)
+    public int getForumPoints() {
+        return forumPoints;
+    }
+
+    @IntRange(from = 0)
     public int getAnimePoints() {
         return animePoints;
     }
@@ -143,6 +152,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
 
         if (lastStatusChange != userInfo.lastStatusChange) return false;
         if (uploadPoints != userInfo.uploadPoints) return false;
+        if (forumPoints != userInfo.forumPoints) return false;
         if (animePoints != userInfo.animePoints) return false;
         if (mangaPoints != userInfo.mangaPoints) return false;
         if (infoPoints != userInfo.infoPoints) return false;
@@ -162,6 +172,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
         result = 31 * result + status.hashCode();
         result = 31 * result + (int) (lastStatusChange ^ (lastStatusChange >>> 32));
         result = 31 * result + uploadPoints;
+        result = 31 * result + forumPoints;
         result = 31 * result + animePoints;
         result = 31 * result + mangaPoints;
         result = 31 * result + infoPoints;
@@ -182,6 +193,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
         dest.writeString(this.status);
         dest.writeLong(this.lastStatusChange);
         dest.writeInt(this.uploadPoints);
+        dest.writeInt(this.forumPoints);
         dest.writeInt(this.animePoints);
         dest.writeInt(this.mangaPoints);
         dest.writeInt(this.infoPoints);
