@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.annotations.Body;
+import com.proxerme.library.interfaces.IdItem;
 
 /**
  * TODO: Describe class
@@ -12,7 +13,7 @@ import com.afollestad.bridge.annotations.Body;
  * @author Ruben Gees
  */
 
-public class ToptenEntry implements Parcelable {
+public class ToptenEntry implements Parcelable, IdItem {
 
     public static final Parcelable.Creator<ToptenEntry> CREATOR = new Parcelable.Creator<ToptenEntry>() {
         @Override
@@ -25,6 +26,7 @@ public class ToptenEntry implements Parcelable {
             return new ToptenEntry[size];
         }
     };
+
     @Body(name = "eid")
     String id;
     @Body(name = "name")
@@ -53,6 +55,7 @@ public class ToptenEntry implements Parcelable {
         this.medium = in.readString();
     }
 
+    @Override
     @NonNull
     public String getId() {
         return id;
@@ -84,7 +87,6 @@ public class ToptenEntry implements Parcelable {
         if (!name.equals(that.name)) return false;
         if (!category.equals(that.category)) return false;
         return medium.equals(that.medium);
-
     }
 
     @Override

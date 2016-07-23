@@ -22,7 +22,7 @@ public class NewsRequest extends ProxerRequest<NewsResult> {
 
     private int page;
 
-    public NewsRequest(@IntRange(from = 1) int page) {
+    public NewsRequest(@IntRange(from = 0) int page) {
         this.page = page;
     }
 

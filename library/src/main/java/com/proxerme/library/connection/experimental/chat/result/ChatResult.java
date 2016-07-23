@@ -11,17 +11,17 @@ import com.proxerme.library.interfaces.ProxerResult;
  *
  * @author Ruben Gees
  */
-public class MessagesResult implements ProxerResult<Message[]> {
+public class ChatResult implements ProxerResult<Message[]> {
 
     String conferenceId;
     @Body(name = "messages")
     Message[] messages;
 
-    MessagesResult() {
+    ChatResult() {
 
     }
 
-    public MessagesResult(@NonNull String conferenceId, @NonNull Message[] messages) {
+    public ChatResult(@NonNull String conferenceId, @NonNull Message[] messages) {
         this.conferenceId = conferenceId;
         this.messages = messages;
     }
