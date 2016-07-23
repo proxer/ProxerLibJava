@@ -6,9 +6,9 @@ import android.support.annotation.Nullable;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerRequest;
-import com.proxerme.library.connection.user.result.UserInfoResult;
+import com.proxerme.library.connection.parameters.CategoryParameter.Category;
+import com.proxerme.library.connection.user.result.ToptenResult;
 import com.proxerme.library.info.ProxerTag;
-import com.proxerme.library.info.ProxerUrlHolder;
 
 /**
  * TODO: Describe class
@@ -16,37 +16,47 @@ import com.proxerme.library.info.ProxerUrlHolder;
  * @author Ruben Gees
  */
 
-public class UserInfoRequest extends ProxerRequest<UserInfoResult> {
+public class ToptenRequest extends ProxerRequest<ToptenResult> {
 
-    private static final String USERINFO_URL = "/api/v1/user/userinfo";
+    private static final String TOPTEN_URL = "/api/v1/user/topten";
 
     private static final String USERID_FORM = "uid";
     private static final String USERNAME_FORM = "username";
+    private static final String CATEGORY_FORM = "kat";
 
     @Nullable
     private String userId;
     @Nullable
     private String username;
+    @Nullable
+    private String category;
 
-    public UserInfoRequest(@Nullable String userId, @Nullable String username) {
+    public ToptenRequest(@Nullable String userId, @Nullable String username) {
         this.userId = userId;
         this.username = username;
     }
 
-    @Override
-    protected int getTag() {
-        return ProxerTag.USERINFO;
+    public ToptenRequest(@Nullable String userId, @Nullable String username,
+                         @Nullable @Category String category) {
+        this.userId = userId;
+        this.username = username;
+        this.category = category;
     }
 
     @Override
-    protected UserInfoResult parse(Response response) throws Exception {
-        return response.asClass(UserInfoResult.class);
+    protected int getTag() {
+        return ProxerTag.TOPTEN;
+    }
+
+    @Override
+    protected ToptenResult parse(Response response) throws Exception {
+        return response.asClass(ToptenResult.class);
     }
 
     @NonNull
     @Override
     protected String getURL() {
-        return ProxerUrlHolder.getHost() + USERINFO_URL;
+        return TOPTEN_URL;
     }
 
     @Override
@@ -57,6 +67,10 @@ public class UserInfoRequest extends ProxerRequest<UserInfoResult> {
 
         if (username != null) {
             form.add(USERNAME_FORM, username);
+        }
+
+        if (category != null) {
+            form.add(CATEGORY_FORM, category);
         }
     }
 }

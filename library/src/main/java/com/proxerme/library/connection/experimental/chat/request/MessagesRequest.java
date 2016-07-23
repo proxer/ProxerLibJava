@@ -1,14 +1,12 @@
-package com.proxerme.library.connection.experimental.messages.request;
+package com.proxerme.library.connection.experimental.chat.request;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.ProxerRequest;
-import com.proxerme.library.connection.experimental.messages.result.MessagesErrorResult;
-import com.proxerme.library.connection.experimental.messages.result.MessagesResult;
+import com.proxerme.library.connection.experimental.chat.result.MessagesResult;
 import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 
@@ -18,7 +16,7 @@ import com.proxerme.library.info.ProxerUrlHolder;
  * @author Ruben Gees
  */
 
-public class MessagesRequest extends ProxerRequest<MessagesResult, MessagesErrorResult> {
+public class MessagesRequest extends ProxerRequest<MessagesResult> {
 
     private static final String MESSAGES_URL = "/messages?format=json&json=messages&id=%s&p=%s";
 
@@ -38,11 +36,6 @@ public class MessagesRequest extends ProxerRequest<MessagesResult, MessagesError
     @Override
     protected int getTag() {
         return ProxerTag.MESSAGES;
-    }
-
-    @Override
-    protected MessagesErrorResult createErrorResult(@NonNull ProxerException exception) {
-        return new MessagesErrorResult(conferenceId, exception);
     }
 
     @NonNull

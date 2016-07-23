@@ -1,4 +1,4 @@
-package com.proxerme.library.connection.experimental.messages.entity;
+package com.proxerme.library.connection.experimental.chat.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;

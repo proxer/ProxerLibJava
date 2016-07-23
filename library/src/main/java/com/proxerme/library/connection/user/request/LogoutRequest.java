@@ -3,9 +3,7 @@ package com.proxerme.library.connection.user.request;
 import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.ProxerRequest;
-import com.proxerme.library.connection.user.result.LogoutErrorResult;
 import com.proxerme.library.connection.user.result.LogoutResult;
 import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
@@ -16,7 +14,7 @@ import com.proxerme.library.info.ProxerUrlHolder;
  * @author Ruben Gees
  */
 
-public class LogoutRequest extends ProxerRequest<LogoutResult, LogoutErrorResult> {
+public class LogoutRequest extends ProxerRequest<LogoutResult> {
 
     private static final String LOGOUT_URL = "/api/v1/user/logout";
 
@@ -29,11 +27,6 @@ public class LogoutRequest extends ProxerRequest<LogoutResult, LogoutErrorResult
     @Override
     protected int getTag() {
         return ProxerTag.LOGOUT;
-    }
-
-    @Override
-    protected LogoutErrorResult createErrorResult(@NonNull ProxerException exception) {
-        return new LogoutErrorResult(exception);
     }
 
     @NonNull

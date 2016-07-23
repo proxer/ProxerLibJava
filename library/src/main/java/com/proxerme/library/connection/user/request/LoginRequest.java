@@ -4,10 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.ProxerRequest;
 import com.proxerme.library.connection.user.entitiy.User;
-import com.proxerme.library.connection.user.result.LoginErrorResult;
 import com.proxerme.library.connection.user.result.LoginResult;
 import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
@@ -17,7 +15,7 @@ import com.proxerme.library.info.ProxerUrlHolder;
  *
  * @author Ruben Gees
  */
-public class LoginRequest extends ProxerRequest<LoginResult, LoginErrorResult> {
+public class LoginRequest extends ProxerRequest<LoginResult> {
 
     private static final String LOGIN_URL = "/api/v1/user/login";
 
@@ -38,11 +36,6 @@ public class LoginRequest extends ProxerRequest<LoginResult, LoginErrorResult> {
         result.getItem().setPassword(user.getPassword());
 
         return result;
-    }
-
-    @Override
-    protected LoginErrorResult createErrorResult(@NonNull ProxerException exception) {
-        return new LoginErrorResult(exception);
     }
 
     @NonNull

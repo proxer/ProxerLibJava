@@ -13,12 +13,13 @@ public class ProxerTag {
     public static final int LOGIN = 1;
     public static final int LOGOUT = 2;
     public static final int USERINFO = 3;
+    public static final int TOPTEN = 4;
 
     public static final int CONFERENCES = 100;
     public static final int MESSAGES = 101;
     public static final int SEND_MESSAGE = 102;
 
-    @IntDef({LOGIN, NEWS, LOGOUT, USERINFO, CONFERENCES, MESSAGES, SEND_MESSAGE})
+    @IntDef({LOGIN, NEWS, LOGOUT, USERINFO, TOPTEN, CONFERENCES, MESSAGES, SEND_MESSAGE})
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
     public @interface ConnectionTag {

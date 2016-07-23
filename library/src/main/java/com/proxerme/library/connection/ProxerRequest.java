@@ -19,7 +19,7 @@ import com.proxerme.library.interfaces.ProxerErrorResult;
 import com.proxerme.library.interfaces.ProxerResult;
 
 
-public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErrorResult> {
+public abstract class ProxerRequest<R extends ProxerResult> {
 
     private Handler handler;
 
@@ -37,8 +37,6 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
 
     protected abstract R parse(Response response) throws Exception;
 
-    protected abstract ER createErrorResult(@NonNull ProxerException exception);
-
     @NonNull
     protected abstract String getURL();
 
@@ -50,7 +48,7 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
      */
     @RequiresPermission(android.Manifest.permission.INTERNET)
     public final Request execute(@Nullable final ProxerCallback<R> callback,
-                                 @Nullable final ProxerErrorCallback<ER> errorCallback) {
+                                 @Nullable final ProxerErrorCallback errorCallback) {
         return Bridge.post(getURL(), (Object[]) getParameters()).body(buildBody())
                 .throwIfNotSuccess().tag(String.valueOf(getTag())).validators(getValidator())
                 .request(new Callback() {
@@ -61,17 +59,19 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
                             try {
                                 deliverResultOnMainThread(callback, parse(response));
                             } catch (BridgeException e) {
-                                deliverErrorResultOnMainThread(errorCallback, createErrorResult(
-                                        ProxerErrorHandler.handleException(e)));
+                                deliverErrorResultOnMainThread(errorCallback,
+                                        new ProxerErrorResult(ProxerErrorHandler
+                                                .handleException(e)));
                             } catch (Exception e) {
                                 deliverErrorResultOnMainThread(errorCallback,
-                                        createErrorResult(
+                                        new ProxerErrorResult(
                                                 new ProxerException(ProxerException.UNPARSEABLE)));
                             }
                         } else {
                             if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
-                                deliverErrorResultOnMainThread(errorCallback, createErrorResult(
-                                        ProxerErrorHandler.handleException(exception)));
+                                deliverErrorResultOnMainThread(errorCallback,
+                                        new ProxerErrorResult(ProxerErrorHandler
+                                                .handleException(exception)));
                             }
                         }
                     }
@@ -128,8 +128,8 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
         }
     }
 
-    private void deliverErrorResultOnMainThread(@Nullable final ProxerErrorCallback<ER> callback,
-                                                final ER errorResult) {
+    private void deliverErrorResultOnMainThread(@Nullable final ProxerErrorCallback callback,
+                                                final ProxerErrorResult errorResult) {
         if (callback != null) {
             handler.post(new Runnable() {
                 @Override
@@ -144,7 +144,7 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
         void onSuccess(R result);
     }
 
-    public interface ProxerErrorCallback<ER extends ProxerErrorResult> {
-        void onError(ER result);
+    public interface ProxerErrorCallback {
+        void onError(ProxerErrorResult result);
     }
 }

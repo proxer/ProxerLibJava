@@ -90,7 +90,7 @@ public class ProxerException extends Exception {
      * An annotation, representing the different error codes, which might occur.
      */
     @IntDef({PROXER, NETWORK, UNPARSEABLE, IO, TIMEOUT, UNKNOWN})
-    @Retention(value = RetentionPolicy.SOURCE)
+    @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface ErrorCode {
     }

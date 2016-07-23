@@ -1,4 +1,4 @@
-package com.proxerme.library.connection.experimental.messages.result;
+package com.proxerme.library.connection.experimental.chat.result;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

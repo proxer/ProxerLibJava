@@ -1,9 +1,9 @@
-package com.proxerme.library.connection.experimental.messages.result;
+package com.proxerme.library.connection.experimental.chat.result;
 
 import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.annotations.Body;
-import com.proxerme.library.connection.experimental.messages.entity.Conference;
+import com.proxerme.library.connection.experimental.chat.entity.Conference;
 import com.proxerme.library.interfaces.ProxerResult;
 
 /**

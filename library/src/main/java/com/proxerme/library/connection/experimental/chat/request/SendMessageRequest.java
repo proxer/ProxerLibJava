@@ -1,14 +1,12 @@
-package com.proxerme.library.connection.experimental.messages.request;
+package com.proxerme.library.connection.experimental.chat.request;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.ProxerRequest;
-import com.proxerme.library.connection.experimental.messages.result.SendMessageErrorResult;
-import com.proxerme.library.connection.experimental.messages.result.SendMessageResult;
+import com.proxerme.library.connection.experimental.chat.result.SendMessageResult;
 import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 
@@ -18,7 +16,7 @@ import com.proxerme.library.info.ProxerUrlHolder;
  * @author Ruben Gees
  */
 
-public class SendMessageRequest extends ProxerRequest<SendMessageResult, SendMessageErrorResult> {
+public class SendMessageRequest extends ProxerRequest<SendMessageResult> {
 
     private static final String SEND_MESSAGE_URL = "/messages/?format=json&json=answer&id=%s";
 
@@ -34,12 +32,6 @@ public class SendMessageRequest extends ProxerRequest<SendMessageResult, SendMes
     protected SendMessageResult parse(Response response) throws Exception {
         return new SendMessageResult(conferenceId);
     }
-
-    @Override
-    protected SendMessageErrorResult createErrorResult(@NonNull ProxerException exception) {
-        return new SendMessageErrorResult(conferenceId, exception);
-    }
-
 
     @Override
     protected int getTag() {

@@ -9,7 +9,7 @@ import com.proxerme.library.connection.ProxerException;
  *
  * @author Ruben Gees
  */
-public abstract class ProxerErrorResult implements ProxerResult<ProxerException> {
+public class ProxerErrorResult implements ProxerResult<ProxerException> {
 
     private ProxerException exception;
 
