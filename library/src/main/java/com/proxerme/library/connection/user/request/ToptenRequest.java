@@ -9,6 +9,7 @@ import com.proxerme.library.connection.ProxerRequest;
 import com.proxerme.library.connection.parameters.CategoryParameter.Category;
 import com.proxerme.library.connection.user.result.ToptenResult;
 import com.proxerme.library.info.ProxerTag;
+import com.proxerme.library.info.ProxerUrlHolder;
 
 /**
  * TODO: Describe class
@@ -56,7 +57,7 @@ public class ToptenRequest extends ProxerRequest<ToptenResult> {
     @NonNull
     @Override
     protected String getURL() {
-        return TOPTEN_URL;
+        return ProxerUrlHolder.getHost() + TOPTEN_URL;
     }
 
     @Override
