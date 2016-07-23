@@ -7,9 +7,8 @@ import android.support.annotation.Nullable;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerRequest;
 import com.proxerme.library.connection.experimental.chat.result.ConferencesResult;
+import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
-
-import static com.proxerme.library.info.ProxerTag.CONFERENCES;
 
 /**
  * TODO: Describe class
@@ -34,7 +33,7 @@ public class ConferencesRequest extends ProxerRequest<ConferencesResult> {
 
     @Override
     protected int getTag() {
-        return CONFERENCES;
+        return ProxerTag.CONFERENCES;
     }
 
     @NonNull

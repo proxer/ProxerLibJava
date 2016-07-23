@@ -14,7 +14,7 @@ import com.proxerme.library.interfaces.ProxerResult;
 
 public class ToptenResult implements ProxerResult<ToptenEntry[]> {
 
-    @Body(name = "body")
+    @Body(name = "data")
     ToptenEntry[] item;
 
     public ToptenResult(@NonNull ToptenEntry[] item) {
