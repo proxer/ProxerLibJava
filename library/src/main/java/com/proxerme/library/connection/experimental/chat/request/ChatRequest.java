@@ -18,7 +18,7 @@ import com.proxerme.library.info.ProxerUrlHolder;
 
 public class ChatRequest extends ProxerRequest<ChatResult> {
 
-    private static final String MESSAGES_URL = "/messages?format=json&json=messages&id=%s&p=%s";
+    private static final String CHAT_URL = "/messages?format=json&json=messages&id=%s&p=%s";
 
     private String conferenceId;
     private int page;
@@ -35,13 +35,13 @@ public class ChatRequest extends ProxerRequest<ChatResult> {
 
     @Override
     protected int getTag() {
-        return ProxerTag.MESSAGES;
+        return ProxerTag.CHAT;
     }
 
     @NonNull
     @Override
     protected String getURL() {
-        return ProxerUrlHolder.getHost() + MESSAGES_URL;
+        return ProxerUrlHolder.getHost() + CHAT_URL;
     }
 
     @Nullable
