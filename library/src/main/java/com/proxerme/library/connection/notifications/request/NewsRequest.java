@@ -5,9 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.ProxerRequest;
-import com.proxerme.library.connection.notifications.result.NewsErrorResult;
 import com.proxerme.library.connection.notifications.result.NewsResult;
 import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
@@ -18,7 +16,7 @@ import com.proxerme.library.info.ProxerUrlHolder;
  * @author Ruben Gees
  */
 
-public class NewsRequest extends ProxerRequest<NewsResult, NewsErrorResult> {
+public class NewsRequest extends ProxerRequest<NewsResult> {
 
     private static final String NEWS_URL = "/api/v1/notifications/news?p=%s";
 
@@ -36,11 +34,6 @@ public class NewsRequest extends ProxerRequest<NewsResult, NewsErrorResult> {
     @Override
     protected NewsResult parse(Response response) throws Exception {
         return response.asClass(NewsResult.class);
-    }
-
-    @Override
-    protected NewsErrorResult createErrorResult(@NonNull ProxerException exception) {
-        return new NewsErrorResult(exception);
     }
 
     @NonNull
