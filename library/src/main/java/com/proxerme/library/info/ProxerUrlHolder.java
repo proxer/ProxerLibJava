@@ -13,8 +13,9 @@ public class ProxerUrlHolder {
     private static final String HOST = "https://proxer.me";
     private static final String NEWS = "/forum/%s/%s%s#top";
     private static final String DONATE = "/donate%s";
-    private static final String NEWS_IMAGE = "http://cdn.proxer.me/news/tmp/%s_%s.png";
-    private static final String USER_IMAGE = "http://cdn.proxer.me/avatar/%s";
+    private static final String NEWS_IMAGE = "https://cdn.proxer.me/news/tmp/%s_%s.png";
+    private static final String USER_IMAGE = "https://cdn.proxer.me/avatar/%s";
+    private static final String COVER_IMAGE = "https://cdn.proxer.me/cover/%s.jpg";
 
     /**
      * Returns the host of the API.
@@ -62,6 +63,11 @@ public class ProxerUrlHolder {
     @NonNull
     public static String getUserImageUrl(@NonNull String imageLink) {
         return String.format(USER_IMAGE, imageLink);
+    }
+
+    @NonNull
+    public static String getCoverImageUrl(@NonNull String entryId) {
+        return String.format(COVER_IMAGE, entryId);
     }
 
     /**
