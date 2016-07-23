@@ -12,12 +12,12 @@ import com.proxerme.library.interfaces.ProxerResult;
  * @author Ruben Gees
  */
 
-public class ToptenResult implements ProxerResult<ToptenEntry> {
+public class ToptenResult implements ProxerResult<ToptenEntry[]> {
 
     @Body(name = "body")
-    ToptenEntry item;
+    ToptenEntry[] item;
 
-    public ToptenResult(@NonNull ToptenEntry item) {
+    public ToptenResult(@NonNull ToptenEntry[] item) {
         this.item = item;
     }
 
@@ -27,7 +27,7 @@ public class ToptenResult implements ProxerResult<ToptenEntry> {
 
     @Override
     @NonNull
-    public ToptenEntry getItem() {
+    public ToptenEntry[] getItem() {
         return item;
     }
 }
