@@ -52,7 +52,7 @@ public abstract class ProxerRequest<R extends ProxerResult, ER extends ProxerErr
     public final Request execute(@Nullable final ProxerCallback<R> callback,
                                  @Nullable final ProxerErrorCallback<ER> errorCallback) {
         return Bridge.post(getURL(), (Object[]) getParameters()).body(buildBody())
-                .throwIfNotSuccess().tag(getTag()).validators(getValidator())
+                .throwIfNotSuccess().tag(String.valueOf(getTag())).validators(getValidator())
                 .request(new Callback() {
                     @Override
                     public void response(@NonNull Request request, Response response,
