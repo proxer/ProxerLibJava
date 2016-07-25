@@ -41,6 +41,8 @@ public class ProxerConnection {
      * Activity.
      */
     public static void cleanup() {
+        key = null;
+
         Bridge.destroy();
     }
 
