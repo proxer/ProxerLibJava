@@ -9,17 +9,40 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * A subclass of {@link Exception}, representing all possible connection problems.
+ * An Exception for representation of all possible connection and server errors.
  *
  * @author Ruben Gees
  */
 public class ProxerException extends Exception {
 
+    /**
+     * An error occurred on the server (Wrong user input, blocked IP, ...).
+     */
     public static final int PROXER = 0;
+
+    /**
+     * The network is not available.
+     */
     public static final int NETWORK = 1;
+
+    /**
+     * The result was not parseable (The server sent bad data).
+     */
     public static final int UNPARSEABLE = 2;
+
+    /**
+     * A read or write command failed.
+     */
     public static final int IO = 3;
+
+    /**
+     * The connection timed out (bad network conditions, server offline).
+     */
     public static final int TIMEOUT = 4;
+
+    /**
+     * An unknown error occurred.
+     */
     public static final int UNKNOWN = 5;
 
     public static final int UNKNOWN_API = 1000;
@@ -52,16 +75,32 @@ public class ProxerException extends Exception {
     @ProxerErrorCode
     private Integer proxerErrorCode;
 
+    /**
+     * @param errorCode The errorCode. This is one of the through {@link ErrorCode} specified codes.
+     */
     public ProxerException(@ErrorCode int errorCode) {
         this.errorCode = errorCode;
     }
 
+    /**
+     *
+     * @param errorCode The errorCode. This is one of the through {@link ErrorCode} specified codes.
+     * @param detailMessage A message containing additional info.
+     */
     public ProxerException(@ErrorCode int errorCode, @Nullable String detailMessage) {
         super(detailMessage);
 
         this.errorCode = errorCode;
     }
 
+    /**
+     *
+     * @param errorCode The error code. If a code is passed to the proxerErrorCode parameter, this
+     *                  has to be {@link ProxerException#PROXER}.
+     * @param detailMessage A message containing additional info.
+     * @param proxerErrorCode The proxer error code. If the error was a server error, one of the
+     *                        {@link ProxerErrorCode} should be passed.
+     */
     public ProxerException(@ErrorCode int errorCode, @Nullable String detailMessage,
                            @Nullable Integer proxerErrorCode) {
         super(detailMessage);
@@ -80,6 +119,11 @@ public class ProxerException extends Exception {
         return errorCode;
     }
 
+    /**
+     * Returns the {@link ProxerErrorCode} of this Exception, if it is a server error.
+     *
+     * @return The code.
+     */
     @Nullable
     @ProxerErrorCode
     public Integer getProxerErrorCode() {
@@ -87,7 +131,7 @@ public class ProxerException extends Exception {
     }
 
     /**
-     * An annotation, representing the different error codes, which might occur.
+     * An annotation representing the different error codes which might occur.
      */
     @IntDef({PROXER, NETWORK, UNPARSEABLE, IO, TIMEOUT, UNKNOWN})
     @Retention(RetentionPolicy.SOURCE)
@@ -95,6 +139,9 @@ public class ProxerException extends Exception {
     public @interface ErrorCode {
     }
 
+    /**
+     * An annotation representing the different server error codes which might occur.
+     */
     @IntDef({UNKNOWN_API, API_REMOVED, UNKNOWN_API_CLASS, UNKNOWN_API_FUNCTION, INSUFFICIENT_RIGHTS,
             INVALID_TOKEN, IP_BLOCKED, NEWS, LOGIN_MISSING_CREDENTIALS, LOGIN_INVALID_CREDENTIALS,
             NOTIFICATIONS_USER_NOT_LOGGED_IN, USERINFO_INVALID_ID, UCP_USER_NOT_LOGGED_IN,

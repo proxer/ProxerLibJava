@@ -9,7 +9,8 @@ import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 
 /**
- * TODO: Describe class
+ * Request for logging the user out. No checks need to be done here, this even works if no user was
+ * logged in before.
  *
  * @author Ruben Gees
  */

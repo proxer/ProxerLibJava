@@ -47,13 +47,13 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * @param id                The id of the Conference.
+     * @param id                The id of this conference.
      * @param topic             The topic.
      * @param participantAmount The amount of participants.
-     * @param isConference        Indicator, if this Conference has more than 2 participants.
+     * @param isConference      Indicator, if this conference has more than 2 participants.
      *                          (group conversation)
      * @param time              The time of the last message.
-     * @param isRead              Indicator, if the user has isRead the last message in this Conference.
+     * @param isRead            Flag if the user has read the last message in this conference.
      * @param imageId           The id of the image.
      */
     public Conference(@NonNull String id, @NonNull String topic, int participantAmount,
@@ -78,7 +78,8 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the id of this Conference.
+     * Returns the id of this conference.
+     *
      * @return The id.
      */
     @NonNull
@@ -88,7 +89,8 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the topic of this Conference.
+     * Returns the topic of this conference.
+     *
      * @return The topic.
      */
     @NonNull
@@ -97,7 +99,8 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the amount of participants in this Conference.
+     * Returns the amount of participants in this conference.
+     *
      * @return The amount of participants.
      */
     @IntRange(from = 2)
@@ -106,8 +109,9 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns if this Conference is a group conversation.
-     * @return Returns true if this isConference has more than 2 participants.
+     * Returns if this conference is a group conversation.
+     *
+     * @return Returns true if this conference has more than 2 participants.
      */
     public boolean isConference() {
         return isConference.equals("1");
@@ -115,6 +119,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
 
     /**
      * Returns the time of the last message.
+     *
      * @return The time.
      */
     @Override
@@ -123,16 +128,18 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns if the user has isRead the last message in this isConference.
-     * @return True if the user has isRead the last message.
+     * Returns if the user has isRead the last message in this conference.
+     *
+     * @return True if the user has read the last message.
      */
     public boolean isRead() {
         return isRead.equals("1");
     }
 
     /**
-     * Returns the id of this image of the Conference. May be and empty string, if this isConference
+     * Returns the id of this image of the conference. May be and empty string, if this conference
      * has no image. (Users without a profile image and group conversation)
+     *
      * @return The id.
      */
     @NonNull

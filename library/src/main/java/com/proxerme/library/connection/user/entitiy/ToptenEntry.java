@@ -8,7 +8,7 @@ import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.interfaces.IdItem;
 
 /**
- * TODO: Describe class
+ * Entitiy representing a single Topten entry.
  *
  * @author Ruben Gees
  */
@@ -40,6 +40,14 @@ public class ToptenEntry implements Parcelable, IdItem {
 
     }
 
+    /**
+     * The constructor,
+     *
+     * @param id       The id of the entry.
+     * @param name     The name of the entry.
+     * @param category The category.
+     * @param medium   The medium.
+     */
     public ToptenEntry(@NonNull String id, @NonNull String name, @NonNull String category,
                        @NonNull String medium) {
         this.id = id;
@@ -55,22 +63,42 @@ public class ToptenEntry implements Parcelable, IdItem {
         this.medium = in.readString();
     }
 
+    /**
+     * Returns the id of this entry.
+     *
+     * @return The id.
+     */
     @Override
     @NonNull
     public String getId() {
         return id;
     }
 
+    /**
+     * Returns the name of this entry.
+     *
+     * @return The name.
+     */
     @NonNull
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the category of this entry.
+     *
+     * @return The category.
+     */
     @NonNull
     public String getCategory() {
         return category;
     }
 
+    /**
+     * Returns the medium of this entry.
+     *
+     * @return The medium.
+     */
     @NonNull
     public String getMedium() {
         return medium;

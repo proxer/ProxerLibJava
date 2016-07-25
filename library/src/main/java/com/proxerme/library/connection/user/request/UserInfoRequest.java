@@ -11,7 +11,8 @@ import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 
 /**
- * TODO: Describe class
+ * Request for the basic info of a User. Those are always public. Included are the rank points, the
+ * status and the avatar image.
  *
  * @author Ruben Gees
  */
@@ -28,6 +29,13 @@ public class UserInfoRequest extends ProxerRequest<UserInfoResult> {
     @Nullable
     private String username;
 
+    /**
+     * The constructor. You can choose if you want to pass the id or the name of the user, but must
+     * pass at least one. If you pass both, the username is discarded by the API.
+     *
+     * @param userId   The id of the user.
+     * @param username The name of the user.
+     */
     public UserInfoRequest(@Nullable String userId, @Nullable String username) {
         this.userId = userId;
         this.username = username;

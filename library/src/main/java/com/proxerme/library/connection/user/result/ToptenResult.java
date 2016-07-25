@@ -7,7 +7,7 @@ import com.proxerme.library.connection.user.entitiy.ToptenEntry;
 import com.proxerme.library.interfaces.ProxerResult;
 
 /**
- * TODO: Describe class
+ * The Result of a {@link com.proxerme.library.connection.user.request.ToptenRequest}.
  *
  * @author Ruben Gees
  */
@@ -17,6 +17,11 @@ public class ToptenResult implements ProxerResult<ToptenEntry[]> {
     @Body(name = "data")
     ToptenEntry[] item;
 
+    /**
+     * The constructor.
+     *
+     * @param item The array of entries.
+     */
     public ToptenResult(@NonNull ToptenEntry[] item) {
         this.item = item;
     }
@@ -25,6 +30,11 @@ public class ToptenResult implements ProxerResult<ToptenEntry[]> {
 
     }
 
+    /**
+     * Returns the array of entries.
+     *
+     * @return The array of entries.
+     */
     @Override
     @NonNull
     public ToptenEntry[] getItem() {

@@ -15,6 +15,17 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * A persistent CookieStore. The cookies are saved in shared preferences. You can use it like this:
+ * <p>
+ * <pre>
+ * <code>
+ * CookieHandler.setDefault(new CookieManager(new PersistentCookieStore(getContext()),
+ * CookiePolicy.ACCEPT_ALL));
+ * </code>
+ * </pre>
+ * </p>
+ */
 public class PersistentCookieStore implements CookieStore {
     private static final String COOKIE_PREFS = "CookiePrefsFile";
     private static final String COOKIE_NAME_PREFIX = "cookie_";

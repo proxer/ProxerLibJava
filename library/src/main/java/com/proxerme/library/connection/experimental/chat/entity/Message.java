@@ -10,7 +10,7 @@ import com.proxerme.library.interfaces.ImageItem;
 import com.proxerme.library.interfaces.TimeItem;
 
 /**
- * TODO: Describe Class
+ * Entity representing a single message.
  *
  * @author Ruben Gees
  */
@@ -50,6 +50,20 @@ public class Message implements IdItem, ImageItem, TimeItem, Parcelable {
     Message() {
     }
 
+    /**
+     * The constructor.
+     *
+     * @param id       The id of this message.
+     * @param fromId   The id of the user, which sent this message.
+     * @param message  The content of the message.
+     * @param action   The action of the message. This might be something like "removeUser" in a
+     *                 conference.
+     * @param time     The time this message was sent as an unix timestamp.
+     * @param device   The device this message was sent from.
+     * @param username The username of the sender.
+     * @param imageId  The id of the image of the User. This can be retrieved by using
+     *                 {@link com.proxerme.library.info.ProxerUrlHolder#getUserImageUrl(String)}.
+     */
     public Message(@NonNull String id, @NonNull String fromId, @NonNull String message,
                    @NonNull String action, long time, @NonNull String device,
                    @NonNull String username, @NonNull String imageId) {
@@ -74,42 +88,82 @@ public class Message implements IdItem, ImageItem, TimeItem, Parcelable {
         this.imageId = in.readString();
     }
 
+    /**
+     * Returns the id of this message.
+     *
+     * @return The id.
+     */
     @NonNull
     @Override
     public String getId() {
         return id;
     }
 
+    /**
+     * Returns the id of the User.
+     *
+     * @return The id.
+     */
     @NonNull
     public String getFromId() {
         return fromId;
     }
 
+    /**
+     * Returns the content of the message.
+     *
+     * @return The message.
+     */
     @NonNull
     public String getMessage() {
         return message;
     }
 
+    /**
+     * Returns the action of this message. Might be blank.
+     *
+     * @return The action.
+     */
     @NonNull
     public String getAction() {
         return action;
     }
 
+    /**
+     * Returns the time this message was sent.
+     *
+     * @return The time as an unix timestamp.
+     */
     @Override
     public long getTime() {
         return time;
     }
 
+    /**
+     * Returns the devices this message was sent from.
+     *
+     * @return The device.
+     */
     @NonNull
     public String getDevice() {
         return device;
     }
 
+    /**
+     * Returns the username of the sender.
+     *
+     * @return The username.
+     */
     @NonNull
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Returns the id of the image.
+     *
+     * @return The id.
+     */
     @NonNull
     @Override
     public String getImageId() {

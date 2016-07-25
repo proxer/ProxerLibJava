@@ -10,7 +10,8 @@ import org.json.JSONObject;
 import static com.proxerme.library.connection.ProxerException.PROXER;
 
 /**
- * TODO: Describe class
+ * A validator for a result from a {@link ProxerRequest}. If an error is found, the correct
+ * {@link ProxerException} is determined (if the error is known) and returned.
  *
  * @author Ruben Gees
  */

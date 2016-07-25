@@ -18,11 +18,67 @@ import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.interfaces.ProxerErrorResult;
 import com.proxerme.library.interfaces.ProxerResult;
 
-
+/**
+ * The base class for all requests. This class handles the call to the Bridge and delivers the
+ * result on the main thread. All inheriting requests need to implement a method for parsing the
+ * result, a method which returns the Url and a method which returns a tag, found in the
+ * {@link ProxerTag} class.
+ * Moreover inheritors can override more methods to allow configuration of the request. This
+ * includes the following methods:
+ * <p>
+ * <ul>
+ * <li>
+ * {@link #getParameters()} allows to return an array of parameter values to the request.
+ * The order of the values is important, as you have to specify placeholders for them in the
+ * Url you pass in {@link #getURL()}. This might look like this:
+ * https://example.com?param=%s
+ * </li>
+ * <li>
+ * {@link #appendToBody(Form)} allows to append parameters to the body of the request. This
+ * might like like this: <code>form.add("param", "value");</code>
+ * </li>
+ * <li>
+ * {@link #getValidator()} allows the use of a custom Validator if the
+ * {@link DefaultValidator} does not work for a specific API.
+ * </li>
+ * </ul>
+ * <p>
+ * After constructing the class, the user can either call the
+ * {@link #execute(ProxerCallback, ProxerErrorCallback)} or the {@link #executeSynchronized()}
+ * method. The difference is, that the first is executed asynchronously while the second is executed
+ * synchronous. The result of {@link #execute(ProxerCallback, ProxerErrorCallback)} is always
+ * delivered on the main thread.
+ * <p>
+ * A typical usage might look like this:
+ * <p>
+ * <pre>
+ * <code>
+ * new ProxerRequest().execute(new ProxerCallback() {
+ *     {@literal @}Override
+ *     public void onSuccess(ProxerResult result) {
+ *         //Do something with the result
+ *     }
+ * }, new ProxerErrorCallback() {
+ *     {@literal @}Override
+ *     public void onError(ProxerErrorResult result) {
+ *         //Do something with the result
+ *     }
+ * });
+ * </code>
+ * </pre>
+ *
+ * @param <R> The type of result.
+ * @author Ruben Gees
+ */
 public abstract class ProxerRequest<R extends ProxerResult> {
+
+    private static final String FORM_API_KEY = "api_key";
 
     private Handler handler;
 
+    /**
+     * Default constructor.
+     */
     public ProxerRequest() {
         handler = new Handler(Looper.getMainLooper());
     }
@@ -35,15 +91,32 @@ public abstract class ProxerRequest<R extends ProxerResult> {
     @ProxerTag.ConnectionTag
     protected abstract int getTag();
 
+    /**
+     * Parses the response and returns a subclass of {@link ProxerResult}, specified by the
+     * type parameter.
+     *
+     * @param response The response.
+     * @return The parsed {@link ProxerResult}.
+     * @throws Exception If the parsing failed.
+     */
     protected abstract R parse(Response response) throws Exception;
 
+    /**
+     * Returns the Url for this request. Query parameters might be used in conjunction with the
+     * {@link #getParameters()} method.
+     *
+     * @return The Url.
+     */
     @NonNull
     protected abstract String getURL();
 
+
     /**
-     * Asynchronously executes this request. The result will be delivered on the event bus
-     * method.
+     * Asynchronously executes this request. The result will be delivered on the main thread.
      *
+     * @param callback The callback for a successful request.
+     * @param errorCallback The callback for a unsuccessful request.
+     * @return The Request for further use.
      * @see #executeSynchronized()
      */
     @RequiresPermission(android.Manifest.permission.INTERNET)
@@ -78,6 +151,12 @@ public abstract class ProxerRequest<R extends ProxerResult> {
                 });
     }
 
+    /**
+     * Executes the request and returns the result immediately.
+     *
+     * @return The Result, if no error occurred.
+     * @throws ProxerException If an error occurred.
+     */
     @WorkerThread
     @RequiresPermission(android.Manifest.permission.INTERNET)
     public final R executeSynchronized() throws ProxerException {
@@ -92,15 +171,30 @@ public abstract class ProxerRequest<R extends ProxerResult> {
         }
     }
 
+    /**
+     * Can be overridden to return parameters, encoded in the Url.
+     *
+     * @return An array of parameters. The order matters.
+     */
     @Nullable
     protected String[] getParameters() {
         return null;
     }
 
+    /**
+     * Can be overridden to append parameters to the body.
+     *
+     * @param form The form to append to.
+     */
     protected void appendToBody(@NonNull Form form) {
 
     }
 
+    /**
+     * Can be overridden to return a different Validator from the {@link DefaultValidator}.
+     *
+     * @return The Validator.
+     */
     @NonNull
     protected ResponseValidator getValidator() {
         return new DefaultValidator();
@@ -110,7 +204,7 @@ public abstract class ProxerRequest<R extends ProxerResult> {
     private Form buildBody() {
         Form body = new Form();
 
-        body.add("api_key", ProxerConnection.getKey());
+        body.add(FORM_API_KEY, ProxerConnection.getKey());
         appendToBody(body);
 
         return body;
@@ -140,10 +234,18 @@ public abstract class ProxerRequest<R extends ProxerResult> {
         }
     }
 
+    /**
+     * A callback for a successful request.
+     *
+     * @param <R> The type of the Result.
+     */
     public interface ProxerCallback<R extends ProxerResult> {
         void onSuccess(R result);
     }
 
+    /**
+     * A callback for a unsuccessful request.
+     */
     public interface ProxerErrorCallback {
         void onError(ProxerErrorResult result);
     }

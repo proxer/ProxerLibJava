@@ -11,17 +11,22 @@ import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 
 /**
- * TODO: Describe class
+ * The Request for obtaining the latest News. This API uses pagination.
  *
  * @author Ruben Gees
  */
-
 public class NewsRequest extends ProxerRequest<NewsResult> {
 
     private static final String NEWS_URL = "/api/v1/notifications/news?p=%s";
 
     private int page;
 
+    /**
+     * The constructor.
+     *
+     * @param page The page to load. The first page is 0. If the page is greater than the available
+     *             pages, the API will return an empty answer.
+     */
     public NewsRequest(@IntRange(from = 0) int page) {
         this.page = page;
     }

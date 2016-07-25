@@ -12,7 +12,8 @@ import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 
 /**
- * TODO: Describe class
+ * Request for retrieving the Topten of the passed user. This API honors the visibility settings and
+ * might return an error if the user does not allow access.
  *
  * @author Ruben Gees
  */
@@ -32,11 +33,27 @@ public class ToptenRequest extends ProxerRequest<ToptenResult> {
     @Nullable
     private String category;
 
+    /**
+     * One of the available constructors. You can choose if you want to pass the id or the name of
+     * the user, but must pass at least one. If you pass both, the username is discarded by the API.
+     *
+     * @param userId   The id of the user.
+     * @param username The name of the user.
+     */
     public ToptenRequest(@Nullable String userId, @Nullable String username) {
         this.userId = userId;
         this.username = username;
     }
 
+    /**
+     * One of the available constructors. You can choose if you want to pass the id or the name of
+     * the user, but must pass at least one. If you pass both, the username is discarded by the API.
+     *
+     * @param userId   The id of the user.
+     * @param username The name of the user.
+     * @param category One of the categories available in the
+     *                 {@link com.proxerme.library.connection.parameters.CategoryParameter} class.
+     */
     public ToptenRequest(@Nullable String userId, @Nullable String username,
                          @Nullable @Category String category) {
         this.userId = userId;

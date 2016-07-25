@@ -11,7 +11,7 @@ import com.proxerme.library.interfaces.ImageItem;
 import com.proxerme.library.interfaces.TimeItem;
 
 /**
- * A entity holding all relevant info of a single news.
+ * A entity holding all relevant info of a single News.
  *
  * @author Ruben Gees
  */
@@ -120,7 +120,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     /**
      * returns the time this News has been published.
      *
-     * @return The time as a unix-timestamp.
+     * @return The time as a unix timestamp.
      */
     @Override
     public long getTime() {
@@ -248,7 +248,6 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
         if (!author.equals(news.author)) return false;
         if (!categoryId.equals(news.categoryId)) return false;
         return categoryTitle.equals(news.categoryTitle);
-
     }
 
     @Override

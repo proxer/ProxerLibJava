@@ -6,7 +6,8 @@ import com.afollestad.bridge.Bridge;
 import com.proxerme.library.info.ProxerTag;
 
 /**
- * Main class to start all requests and manage the networking library.
+ * Singleton for accessing and configuring the API. Before using the API you must provide an API key
+ * to the {@link #init(String)} method.
  *
  * @author Ruben Gees
  */
@@ -14,6 +15,12 @@ public class ProxerConnection {
 
     private static String key;
 
+    /**
+     * Sets the API key to be used. You must call this method before using the API. The onCreate
+     * method in a Application subclass might be a good place.
+     *
+     * @param apiKey The API key.
+     */
     public static void init(@NonNull String apiKey) {
         key = apiKey;
     }
@@ -21,7 +28,7 @@ public class ProxerConnection {
     /**
      * Cancels all started requests of the specified tag.
      *
-     * @param tag The {@link ProxerTag} to cancel
+     * @param tag The {@link ProxerTag} to cancel.
      * @see ProxerTag
      */
     public static void cancel(@ProxerTag.ConnectionTag int tag) {
@@ -37,6 +44,12 @@ public class ProxerConnection {
         Bridge.destroy();
     }
 
+    /**
+     * Returns the API key passed through the {@link #init(String)} method. An Exception is thrown
+     * if no API key has been passed.
+     *
+     * @return The API key.
+     */
     @NonNull
     public static String getKey() {
         if (key == null) {

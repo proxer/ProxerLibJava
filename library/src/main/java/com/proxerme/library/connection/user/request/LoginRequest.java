@@ -11,7 +11,10 @@ import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 
 /**
- * TODO: Describe class
+ * Request for logging the user in. If the passed user or another user is logged in already, the API
+ * will return an error. In this case you have to log out with the {@link LogoutRequest}. Moreover
+ * you need to save Cookies for other Requests depending on a logged in user to work. You can use
+ * the {@link com.proxerme.library.util.PersistentCookieStore}.
  *
  * @author Ruben Gees
  */
@@ -24,6 +27,11 @@ public class LoginRequest extends ProxerRequest<LoginResult> {
 
     private User user;
 
+    /**
+     * The constructor.
+     *
+     * @param user The user to log in.
+     */
     public LoginRequest(@NonNull User user) {
         this.user = user;
     }
@@ -32,6 +40,7 @@ public class LoginRequest extends ProxerRequest<LoginResult> {
     protected LoginResult parse(Response response) throws Exception {
         LoginResult result = response.asClass(LoginResult.class);
 
+        //noinspection ConstantConditions
         result.getItem().setUsername(user.getUsername());
         result.getItem().setPassword(user.getPassword());
 

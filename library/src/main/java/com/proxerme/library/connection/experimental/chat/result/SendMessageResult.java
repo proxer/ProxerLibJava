@@ -1,31 +1,26 @@
 package com.proxerme.library.connection.experimental.chat.result;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.proxerme.library.interfaces.ProxerResult;
 
 /**
- * TODO: Describe class
+ * The result of a
+ * {@link com.proxerme.library.connection.experimental.chat.request.SendMessageRequest}. This Result
+ * does not have any data and is only there to mark the Request as successful.
  *
  * @author Ruben Gees
  */
 public class SendMessageResult implements ProxerResult {
 
-    private String conferenceId;
-
-    public SendMessageResult(@NonNull String conferenceId) {
-        this.conferenceId = conferenceId;
-    }
-
+    /**
+     * Returns null.
+     *
+     * @return Always null.
+     */
     @Nullable
     @Override
     public Object getItem() {
         return null;
-    }
-
-    @NonNull
-    public String getConferenceId() {
-        return conferenceId;
     }
 }

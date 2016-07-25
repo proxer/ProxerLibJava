@@ -11,7 +11,8 @@ import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 
 /**
- * TODO: Describe class
+ * Request for retrieving the conferences the User is part of. The Request requires the User to be
+ * logged in. This API uses pagination.
  *
  * @author Ruben Gees
  */
@@ -22,6 +23,12 @@ public class ConferencesRequest extends ProxerRequest<ConferencesResult> {
 
     private int page;
 
+    /**
+     * The constructor.
+     *
+     * @param page The page to load from. The first page is 1(!). If a page greater than the amount
+     *             of pages is passed, an empty result is returned.
+     */
     public ConferencesRequest(@IntRange(from = 1) int page) {
         this.page = page;
     }

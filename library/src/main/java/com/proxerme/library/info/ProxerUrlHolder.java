@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
- * Helper class, containing all the different Urls for accessing the API.
+ * Helper class, containing various Urls for accessing the API.
  *
  * @author Ruben Gees
  */
@@ -20,19 +20,19 @@ public class ProxerUrlHolder {
     /**
      * Returns the host of the API.
      *
-     * @return The url.
+     * @return The Url.
      */
     @NonNull
     public static String getHost() {
         return HOST;
     }
 
-    /**
-     * Returns the url for a single image of a news.
+    /*
+     * Returns the Url for a single image of a news.
      *
      * @param newsId  The id of the news.
      * @param imageId The id of the image.
-     * @return The url.
+     * @return The Url.
      */
     @NonNull
     public static String getNewsImageUrl(@NonNull String newsId, @NonNull String imageId) {
@@ -40,12 +40,14 @@ public class ProxerUrlHolder {
     }
 
     /**
-     * Returns the url to a single newspage. This is not part of the REST-Api, but the link to the
+     * Returns the url for a single newspage. This is not part of the REST-Api, but the link to the
      * webpage.
      *
      * @param categoryId The id of the category of the news.
-     * @param threadId   The id of the thred.
-     * @return The url.
+     * @param threadId   The id of the thread
+     * @param device     An optional query parameter to specify the device. This is useful if you
+     *                   want to show the mobile site. In that case you could pass "mobile".
+     * @return The Url.
      */
     @NonNull
     public static String getNewsUrl(@NonNull String categoryId, @NonNull String threadId,
@@ -55,23 +57,29 @@ public class ProxerUrlHolder {
     }
 
     /**
-     * Returns the url to a single image of a user.
+     * Returns the Url to a single image of a user.
      *
      * @param imageLink The link to the image.
-     * @return The url.
+     * @return The Url
      */
     @NonNull
     public static String getUserImageUrl(@NonNull String imageLink) {
         return String.format(USER_IMAGE, imageLink);
     }
 
+    /**
+     * Returns the Url to the cover of an entry (Anime, Manga, ...).
+     *
+     * @param entryId The id of the entry.
+     * @return The Url.
+     */
     @NonNull
     public static String getCoverImageUrl(@NonNull String entryId) {
         return String.format(COVER_IMAGE, entryId);
     }
 
     /**
-     * Returns the url for the donation page.
+     * Returns the Url for the donation page.
      *
      * @return The url.
      */
@@ -80,6 +88,5 @@ public class ProxerUrlHolder {
         return String.format(getHost() + DONATE,
                 device == null ? "?device=default" : "?device=" + device);
     }
-
 
 }

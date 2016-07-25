@@ -8,7 +8,7 @@ package com.proxerme.library.interfaces;
 public interface TimeItem {
 
     /**
-     * Returns the time of the inheriting entity as a unix-timestamp
+     * Returns the time of the inheriting entity as a unix timestamp.
      *
      * @return The time.
      */

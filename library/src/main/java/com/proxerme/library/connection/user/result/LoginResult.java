@@ -7,7 +7,7 @@ import com.proxerme.library.connection.user.entitiy.User;
 import com.proxerme.library.interfaces.ProxerResult;
 
 /**
- * TODO: Describe Class
+ * The result of a {@link com.proxerme.library.connection.user.request.LoginRequest}.
  *
  * @author Ruben Gees
  */
@@ -16,6 +16,11 @@ public class LoginResult implements ProxerResult<User> {
     @Body(name = "data")
     User user;
 
+    /**
+     * The constructor.
+     *
+     * @param user The now logged in user.
+     */
     public LoginResult(@NonNull User user) {
         this.user = user;
     }
@@ -24,6 +29,11 @@ public class LoginResult implements ProxerResult<User> {
 
     }
 
+    /**
+     * Returns the logged in User.
+     *
+     * @return The User.
+     */
     @NonNull
     @Override
     public User getItem() {

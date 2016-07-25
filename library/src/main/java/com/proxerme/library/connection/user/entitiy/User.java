@@ -9,7 +9,7 @@ import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.ImageItem;
 
 /**
- * Entity holding information for the login and about the user after the login.
+ * Entity holding information for the login and about the User after the login.
  *
  * @author Ruben Gees
  */

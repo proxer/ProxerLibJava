@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * TODO: Describe class
+ * Class containing the available categories for some APIs.
  *
  * @author Ruben Gees
  */
@@ -18,6 +18,9 @@ public class CategoryParameter {
     public static final String ANIME = "anime";
     public static final String MANGA = "manga";
 
+    /**
+     * An annotation representing the available categories.
+     */
     @StringDef({ANIME, MANGA})
     @Retention(value = RetentionPolicy.SOURCE)
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
