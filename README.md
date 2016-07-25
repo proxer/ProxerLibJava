@@ -4,7 +4,7 @@
 
 This is a library, providing some core functionality for an Android App aiming to implement the API of the [Proxer.me](https://proxer.me/) website. 
 
-### Include in your project:
+### Including in your project
 
 Add this to your project build.gradle:
 
@@ -18,7 +18,7 @@ And this to your module build.gradle:
 
 ```groovy
 dependencies {
-    compile('com.github.proxer:ProxerLibAndroid:2.0.0@aar') {
+    compile('com.github.proxer:ProxerLibAndroid:1.9.0@aar') {
         transitive = true
     }
 }
