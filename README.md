@@ -47,7 +47,7 @@ public void onCreate() {
 ##### Making a request
 
 You can make requests through one of the `ProxerRequest` subclasses. Read the
-![Architecture](#architecture) paragraph for info on how those are organized.
+[Architecture](#architecture) paragraph for info on how those are organized.
 
 A query for the latest News looks like this:
 
@@ -218,7 +218,7 @@ CookieHandler.setDefault(cookieManager);
 ##### More
 
 You can find detailed JavaDoc
-![here](https://jitpack.io/com/github/proxer/ProxerLibAndroid/1.9.0/javadoc/).
+[here](https://jitpack.io/com/github/proxer/ProxerLibAndroid/1.9.0/javadoc/).
 
 ### Architecture
 
@@ -229,7 +229,7 @@ as closely as possible. For each class there is a package with all requests in
 the `connection` package. The NewsRequest for example is in the `notification`
 package just as in the REST API.
 
-![This page](https://proxer.me/wiki/Proxer_API/v1) contains more information
+[This page](https://proxer.me/wiki/Proxer_API/v1) contains more information
 about the REST API.
 
 ##### Experimental APIs
