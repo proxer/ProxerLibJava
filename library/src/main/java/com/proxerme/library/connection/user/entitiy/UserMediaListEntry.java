@@ -199,6 +199,7 @@ public class UserMediaListEntry implements Parcelable {
         return commentRating;
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

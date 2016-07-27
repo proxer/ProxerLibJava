@@ -148,6 +148,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         return imageId;
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

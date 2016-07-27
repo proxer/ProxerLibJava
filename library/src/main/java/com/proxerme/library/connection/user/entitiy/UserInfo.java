@@ -216,6 +216,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
         return miscPoints;
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

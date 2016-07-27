@@ -170,6 +170,7 @@ public class Message implements IdItem, ImageItem, TimeItem, Parcelable {
         return imageId;
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
