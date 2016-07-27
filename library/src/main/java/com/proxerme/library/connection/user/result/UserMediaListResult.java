@@ -17,6 +17,10 @@ public class UserMediaListResult implements ProxerResult<UserMediaListEntry[]> {
     @Body(name = "data")
     UserMediaListEntry[] item;
 
+    UserMediaListResult() {
+
+    }
+
     /**
      * The constructor.
      *
