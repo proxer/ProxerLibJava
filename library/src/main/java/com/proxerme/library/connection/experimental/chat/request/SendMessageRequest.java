@@ -36,7 +36,7 @@ public class SendMessageRequest extends ProxerRequest<SendMessageResult> {
     }
 
     @Override
-    protected SendMessageResult parse(Response response) throws Exception {
+    protected SendMessageResult parse(@NonNull Response response) throws Exception {
         return new SendMessageResult();
     }
 

@@ -2,8 +2,8 @@ package com.proxerme.library.connection.notifications.request;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
+import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerRequest;
 import com.proxerme.library.connection.notifications.result.NewsResult;
@@ -17,7 +17,9 @@ import com.proxerme.library.info.ProxerUrlHolder;
  */
 public class NewsRequest extends ProxerRequest<NewsResult> {
 
-    private static final String NEWS_URL = "/api/v1/notifications/news?p=%s";
+    private static final String NEWS_URL = "/api/v1/notifications/news";
+
+    private static final String PAGE_FORM = "p";
 
     private int page;
 
@@ -37,7 +39,7 @@ public class NewsRequest extends ProxerRequest<NewsResult> {
     }
 
     @Override
-    protected NewsResult parse(Response response) throws Exception {
+    protected NewsResult parse(@NonNull Response response) throws Exception {
         return response.asClass(NewsResult.class);
     }
 
@@ -47,9 +49,8 @@ public class NewsRequest extends ProxerRequest<NewsResult> {
         return ProxerUrlHolder.getHost() + NEWS_URL;
     }
 
-    @Nullable
     @Override
-    protected String[] getParameters() {
-        return new String[]{String.valueOf(page)};
+    protected void appendToBody(@NonNull Form form) {
+        form.add(PAGE_FORM, page);
     }
 }

@@ -47,7 +47,7 @@ public class UserInfoRequest extends ProxerRequest<UserInfoResult> {
     }
 
     @Override
-    protected UserInfoResult parse(Response response) throws Exception {
+    protected UserInfoResult parse(@NonNull Response response) throws Exception {
         return response.asClass(UserInfoResult.class);
     }
 

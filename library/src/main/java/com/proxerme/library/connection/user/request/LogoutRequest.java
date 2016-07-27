@@ -20,7 +20,7 @@ public class LogoutRequest extends ProxerRequest<LogoutResult> {
     private static final String LOGOUT_URL = "/api/v1/user/logout";
 
     @Override
-    protected LogoutResult parse(Response response) throws Exception {
+    protected LogoutResult parse(@NonNull Response response) throws Exception {
         return new LogoutResult();
     }
 

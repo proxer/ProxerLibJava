@@ -37,7 +37,7 @@ public class ChatRequest extends ProxerRequest<ChatResult> {
     }
 
     @Override
-    protected ChatResult parse(Response response) throws Exception {
+    protected ChatResult parse(@NonNull Response response) throws Exception {
         return response.asClass(ChatResult.class);
     }
 

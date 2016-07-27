@@ -37,7 +37,7 @@ public class LoginRequest extends ProxerRequest<LoginResult> {
     }
 
     @Override
-    protected LoginResult parse(Response response) throws Exception {
+    protected LoginResult parse(@NonNull Response response) throws Exception {
         LoginResult result = response.asClass(LoginResult.class);
 
         //noinspection ConstantConditions

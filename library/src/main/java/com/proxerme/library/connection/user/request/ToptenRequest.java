@@ -67,7 +67,7 @@ public class ToptenRequest extends ProxerRequest<ToptenResult> {
     }
 
     @Override
-    protected ToptenResult parse(Response response) throws Exception {
+    protected ToptenResult parse(@NonNull Response response) throws Exception {
         return response.asClass(ToptenResult.class);
     }
 

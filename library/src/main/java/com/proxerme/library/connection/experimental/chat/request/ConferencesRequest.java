@@ -34,7 +34,7 @@ public class ConferencesRequest extends ProxerRequest<ConferencesResult> {
     }
 
     @Override
-    protected ConferencesResult parse(Response response) throws Exception {
+    protected ConferencesResult parse(@NonNull Response response) throws Exception {
         return response.asClass(ConferencesResult.class);
     }
 

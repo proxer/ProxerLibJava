@@ -99,7 +99,7 @@ public abstract class ProxerRequest<R extends ProxerResult> {
      * @return The parsed {@link ProxerResult}.
      * @throws Exception If the parsing failed.
      */
-    protected abstract R parse(Response response) throws Exception;
+    protected abstract R parse(@NonNull Response response) throws Exception;
 
     /**
      * Returns the Url for this request. Query parameters might be used in conjunction with the
