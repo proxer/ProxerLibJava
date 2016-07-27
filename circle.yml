@@ -1,5 +1,6 @@
-java:
-version: openjdk8
+machine:
+  java:
+    version: openjdk8
 
 dependencies:
   pre:
@@ -8,5 +9,5 @@ dependencies:
 
 test:
   override:
-    ./gradlew check
+    - ./gradlew check
     - cp -r app/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
