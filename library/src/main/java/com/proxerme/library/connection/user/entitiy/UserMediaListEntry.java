@@ -36,13 +36,13 @@ public class UserMediaListEntry implements Parcelable {
     @Body(name = "medium")
     String medium;
     @Body(name = "estate")
-    String state;
+    int state;
     @Body(name = "cid")
     String commentId;
     @Body(name = "comment")
     String comment;
     @Body(name = "state")
-    String commentState;
+    int commentState;
     @Body(name = "episode")
     int commentEpisode;
     @Body(name = "rating")
@@ -70,9 +70,8 @@ public class UserMediaListEntry implements Parcelable {
      */
     public UserMediaListEntry(@NonNull String id, @NonNull String name,
                               @IntRange(from = 0) int episodeCount, @NonNull String medium,
-                              @NonNull String state, @NonNull String commentId,
-                              @NonNull String comment, @NonNull String commentState,
-                              @IntRange(from = 0) int commentEpisode,
+                              int state, @NonNull String commentId, @NonNull String comment,
+                              int commentState, @IntRange(from = 0) int commentEpisode,
                               @IntRange(from = 0, to = 10) int commentRating) {
         this.id = id;
         this.name = name;
@@ -91,10 +90,10 @@ public class UserMediaListEntry implements Parcelable {
         this.name = in.readString();
         this.episodeCount = in.readInt();
         this.medium = in.readString();
-        this.state = in.readString();
+        this.state = in.readInt();
         this.commentId = in.readString();
         this.comment = in.readString();
-        this.commentState = in.readString();
+        this.commentState = in.readInt();
         this.commentEpisode = in.readInt();
         this.commentRating = in.readInt();
     }
@@ -144,8 +143,7 @@ public class UserMediaListEntry implements Parcelable {
      *
      * @return The state.
      */
-    @NonNull
-    public String getState() {
+    public int getState() {
         return state;
     }
 
@@ -174,8 +172,7 @@ public class UserMediaListEntry implements Parcelable {
      *
      * @return The state.
      */
-    @NonNull
-    public String getCommentState() {
+    public int getCommentState() {
         return commentState;
     }
 
@@ -213,10 +210,10 @@ public class UserMediaListEntry implements Parcelable {
         if (!id.equals(that.id)) return false;
         if (!name.equals(that.name)) return false;
         if (!medium.equals(that.medium)) return false;
-        if (!state.equals(that.state)) return false;
+        if (state != that.state) return false;
         if (!commentId.equals(that.commentId)) return false;
         if (!comment.equals(that.comment)) return false;
-        return commentState.equals(that.commentState);
+        return commentState != that.commentState;
 
     }
 
@@ -226,10 +223,10 @@ public class UserMediaListEntry implements Parcelable {
         result = 31 * result + name.hashCode();
         result = 31 * result + episodeCount;
         result = 31 * result + medium.hashCode();
-        result = 31 * result + state.hashCode();
+        result = 31 * result + state;
         result = 31 * result + commentId.hashCode();
         result = 31 * result + comment.hashCode();
-        result = 31 * result + commentState.hashCode();
+        result = 31 * result + commentState;
         result = 31 * result + commentEpisode;
         result = 31 * result + commentRating;
         return result;
@@ -246,10 +243,10 @@ public class UserMediaListEntry implements Parcelable {
         dest.writeString(this.name);
         dest.writeInt(this.episodeCount);
         dest.writeString(this.medium);
-        dest.writeString(this.state);
+        dest.writeInt(this.state);
         dest.writeString(this.commentId);
         dest.writeString(this.comment);
-        dest.writeString(this.commentState);
+        dest.writeInt(this.commentState);
         dest.writeInt(this.commentEpisode);
         dest.writeInt(this.commentRating);
     }
