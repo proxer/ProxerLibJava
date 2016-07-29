@@ -17,8 +17,8 @@ public class SortParameter {
 
     public static final String NAME_ASCENDING = "nameASC";
     public static final String NAME_DESCENDING = "nameDESC";
-    public static final String STATE_NAME_ASCENDING = "nameASC";
-    public static final String STATE_NAME_DESCENDING = "nameDESC";
+    public static final String STATE_NAME_ASCENDING = "stateNameASC";
+    public static final String STATE_NAME_DESCENDING = "stateNameDESC";
     public static final String CHANGE_DATE_ASCENDING = "changeDateASC";
     public static final String CHANGE_DATE_DESCENDING = "changeDateDESC";
     public static final String STATE_CHANGE_DATE_ASCENDING = "stateChangeDateASC";
