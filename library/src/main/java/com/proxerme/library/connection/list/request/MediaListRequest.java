@@ -25,7 +25,7 @@ public class MediaListRequest extends ProxerRequest<MediaListResult> {
 
     private static final String MEDIA_LIST_URL = "/api/v1/list/entrylist";
 
-    private static final String CATEGORY_FORM = "category";
+    private static final String CATEGORY_FORM = "kat";
     private static final String MEDIUM_FORM = "medium";
     private static final String SHOW_HENTAI_FORM = "isH";
     private static final String SEARCH_START_FORM = "start";
