@@ -6,6 +6,7 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.annotations.Body;
+import com.proxerme.library.connection.parameters.MediumParameter.Medium;
 
 /**
  * Entity holding all relevant information of an entry in the User's media list (Watched, watching).
@@ -69,7 +70,7 @@ public class UserMediaListEntry implements Parcelable {
      *                       the user haven't rated the media yet.
      */
     public UserMediaListEntry(@NonNull String id, @NonNull String name,
-                              @IntRange(from = 0) int episodeCount, @NonNull String medium,
+                              @IntRange(from = 0) int episodeCount, @NonNull @Medium String medium,
                               int state, @NonNull String commentId, @NonNull String comment,
                               int commentState, @IntRange(from = 0) int commentEpisode,
                               @IntRange(from = 0, to = 10) int commentRating) {
@@ -134,6 +135,7 @@ public class UserMediaListEntry implements Parcelable {
      * @return The medium.
      */
     @NonNull
+    @Medium
     public String getMedium() {
         return medium;
     }

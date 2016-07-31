@@ -24,7 +24,7 @@ public class UserMediaListResult implements ProxerResult<UserMediaListEntry[]> {
     /**
      * The constructor.
      *
-     * @param item The array of entries..
+     * @param item The array of entries.
      */
     public UserMediaListResult(@NonNull UserMediaListEntry[] item) {
         this.item = item;
