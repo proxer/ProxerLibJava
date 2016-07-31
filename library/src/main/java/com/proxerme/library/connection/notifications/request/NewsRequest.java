@@ -2,6 +2,7 @@ package com.proxerme.library.connection.notifications.request;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
@@ -20,8 +21,11 @@ public class NewsRequest extends ProxerRequest<NewsResult> {
     private static final String NEWS_URL = "/api/v1/notifications/news";
 
     private static final String PAGE_FORM = "p";
+    private static final String LIMIT_FORM = "limit";
 
     private int page;
+    @Nullable
+    private Integer limit;
 
     /**
      * The constructor.
@@ -31,6 +35,18 @@ public class NewsRequest extends ProxerRequest<NewsResult> {
      */
     public NewsRequest(@IntRange(from = 0) int page) {
         this.page = page;
+    }
+
+    /**
+     * Builder method for setting the maximum amount of entries retrieved.
+     *
+     * @param limit The limit.
+     * @return This request.
+     */
+    public NewsRequest withLimit(@IntRange(from = 1) @Nullable Integer limit) {
+        this.limit = limit;
+
+        return this;
     }
 
     @Override
@@ -52,5 +68,9 @@ public class NewsRequest extends ProxerRequest<NewsResult> {
     @Override
     protected void appendToBody(@NonNull Form form) {
         form.add(PAGE_FORM, page);
+
+        if (limit != null) {
+            form.add(LIMIT_FORM, limit);
+        }
     }
 }
