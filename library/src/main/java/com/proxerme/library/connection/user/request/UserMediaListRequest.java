@@ -144,7 +144,9 @@ public class UserMediaListRequest extends ProxerRequest<UserMediaListResult> {
     }
 
     @Override
-    protected void appendToBody(@NonNull Form form) {
+    protected Form getBody() {
+        Form form = new Form();
+
         if (userId != null) {
             form.add(USERID_FORM, userId);
         }
@@ -174,5 +176,7 @@ public class UserMediaListRequest extends ProxerRequest<UserMediaListResult> {
         if (sortCriteria != null) {
             form.add(SORT_FORM, sortCriteria);
         }
+
+        return form;
     }
 }

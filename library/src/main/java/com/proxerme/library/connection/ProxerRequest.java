@@ -34,8 +34,8 @@ import com.proxerme.library.interfaces.ProxerResult;
  * https://example.com?param=%s
  * </li>
  * <li>
- * {@link #appendToBody(Form)} allows to append parameters to the body of the request. This
- * might like like this: <code>form.add("param", "value");</code>
+ * {@link #getBody()} allows to return parameters for the body of the request. This
+ * might looke like this: <code>return new Form().add("param", "value");</code>
  * </li>
  * <li>
  * {@link #getValidator()} allows the use of a custom Validator if the
@@ -72,7 +72,7 @@ import com.proxerme.library.interfaces.ProxerResult;
  */
 public abstract class ProxerRequest<R extends ProxerResult> {
 
-    private static final String FORM_API_KEY = "api_key";
+    private static final String HEADER_API_KEY = "proxer-api-key";
 
     private Handler handler;
 
@@ -114,7 +114,7 @@ public abstract class ProxerRequest<R extends ProxerResult> {
     /**
      * Asynchronously executes this request. The result will be delivered on the main thread.
      *
-     * @param callback The callback for a successful request.
+     * @param callback      The callback for a successful request.
      * @param errorCallback The callback for a unsuccessful request.
      * @return The Request for further use.
      * @see #executeSynchronized()
@@ -122,8 +122,12 @@ public abstract class ProxerRequest<R extends ProxerResult> {
     @RequiresPermission(android.Manifest.permission.INTERNET)
     public final Request execute(@Nullable final ProxerCallback<R> callback,
                                  @Nullable final ProxerErrorCallback errorCallback) {
-        return Bridge.post(getURL(), (Object[]) getParameters()).body(buildBody())
-                .throwIfNotSuccess().tag(String.valueOf(getTag())).validators(getValidator())
+        return Bridge.post(getURL(), (Object[]) getParameters())
+                .body(getBody())
+                .throwIfNotSuccess()
+                .tag(String.valueOf(getTag()))
+                .header(HEADER_API_KEY, ProxerConnection.getKey())
+                .validators(getValidator())
                 .request(new Callback() {
                     @Override
                     public void response(@NonNull Request request, Response response,
@@ -161,8 +165,12 @@ public abstract class ProxerRequest<R extends ProxerResult> {
     @RequiresPermission(android.Manifest.permission.INTERNET)
     public final R executeSynchronized() throws ProxerException {
         try {
-            return parse(Bridge.post(getURL(), (Object[]) getParameters()).body(buildBody())
-                    .throwIfNotSuccess().tag(getTag()).validators(getValidator()).request()
+            return parse(Bridge.post(getURL(), (Object[]) getParameters())
+                    .body(getBody())
+                    .throwIfNotSuccess()
+                    .tag(getTag())
+                    .validators(getValidator())
+                    .request()
                     .response());
         } catch (BridgeException e) {
             throw ProxerErrorHandler.handleException(e);
@@ -182,12 +190,13 @@ public abstract class ProxerRequest<R extends ProxerResult> {
     }
 
     /**
-     * Can be overridden to append parameters to the body.
+     * Can be overridden to return a body for the request.
      *
-     * @param form The form to append to.
+     * @return The body.
      */
-    protected void appendToBody(@NonNull Form form) {
-
+    @Nullable
+    protected Form getBody() {
+        return null;
     }
 
     /**
@@ -198,16 +207,6 @@ public abstract class ProxerRequest<R extends ProxerResult> {
     @NonNull
     protected ResponseValidator getValidator() {
         return new DefaultValidator();
-    }
-
-    @NonNull
-    private Form buildBody() {
-        Form body = new Form();
-
-        body.add(FORM_API_KEY, ProxerConnection.getKey());
-        appendToBody(body);
-
-        return body;
     }
 
     private void deliverResultOnMainThread(@Nullable final ProxerCallback<R> callback,

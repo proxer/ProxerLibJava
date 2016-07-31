@@ -66,11 +66,15 @@ public class NewsRequest extends ProxerRequest<NewsResult> {
     }
 
     @Override
-    protected void appendToBody(@NonNull Form form) {
+    protected Form getBody() {
+        Form form = new Form();
+
         form.add(PAGE_FORM, page);
 
         if (limit != null) {
             form.add(LIMIT_FORM, limit);
         }
+
+        return form;
     }
 }

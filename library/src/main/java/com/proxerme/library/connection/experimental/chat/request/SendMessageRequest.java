@@ -58,7 +58,7 @@ public class SendMessageRequest extends ProxerRequest<SendMessageResult> {
     }
 
     @Override
-    protected void appendToBody(@NonNull Form form) {
-        form.add("message", message);
+    protected Form getBody() {
+        return new Form().add("message", message);
     }
 }

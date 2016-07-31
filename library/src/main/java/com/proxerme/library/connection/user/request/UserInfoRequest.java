@@ -58,7 +58,9 @@ public class UserInfoRequest extends ProxerRequest<UserInfoResult> {
     }
 
     @Override
-    protected void appendToBody(@NonNull Form form) {
+    protected Form getBody() {
+        Form form = new Form();
+
         if (userId != null) {
             form.add(USERID_FORM, userId);
         }
@@ -66,5 +68,7 @@ public class UserInfoRequest extends ProxerRequest<UserInfoResult> {
         if (username != null) {
             form.add(USERNAME_FORM, username);
         }
+
+        return form;
     }
 }

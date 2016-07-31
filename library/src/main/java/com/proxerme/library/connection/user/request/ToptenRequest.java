@@ -78,7 +78,9 @@ public class ToptenRequest extends ProxerRequest<ToptenResult> {
     }
 
     @Override
-    protected void appendToBody(@NonNull Form form) {
+    protected Form getBody() {
+        Form form = new Form();
+
         if (userId != null) {
             form.add(USERID_FORM, userId);
         }
@@ -90,5 +92,7 @@ public class ToptenRequest extends ProxerRequest<ToptenResult> {
         if (category != null) {
             form.add(CATEGORY_FORM, category);
         }
+
+        return form;
     }
 }

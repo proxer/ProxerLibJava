@@ -54,8 +54,8 @@ public class LoginRequest extends ProxerRequest<LoginResult> {
     }
 
     @Override
-    protected void appendToBody(@NonNull Form form) {
-        form.add(USERNAME_FORM, user.getUsername())
+    protected Form getBody() {
+        return new Form().add(USERNAME_FORM, user.getUsername())
                 .add(PASSWORD_FORM, user.getPassword());
     }
 
