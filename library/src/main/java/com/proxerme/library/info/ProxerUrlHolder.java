@@ -68,7 +68,7 @@ public class ProxerUrlHolder {
     }
 
     /**
-     * Returns the Url to the cover of an entry (Anime, Manga, ...).
+     * Returns the Url to the cover of an entry (AnimeInfos, AnimeInfo, ...).
      *
      * @param entryId The id of the entry.
      * @return The Url.
