@@ -9,6 +9,7 @@ import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerRequest;
 import com.proxerme.library.connection.list.result.MediaSearchResult;
+import com.proxerme.library.info.ProxerUrlHolder;
 import com.proxerme.library.parameters.FskParameter.FskConstraint;
 import com.proxerme.library.parameters.GenreParameter.Genre;
 import com.proxerme.library.parameters.LanguageParameter.Language;
@@ -211,9 +212,9 @@ public class MediaSearchRequest extends ProxerRequest<MediaSearchResult> {
      * Sets the criteria the list should be sorted by.
      *
      * @param sortCriteria The criteria.
-     * @return This reqest.
+     * @return This request.
      */
-    public MediaSearchRequest setSortCriteria(@Nullable @MediaSortCriteria String sortCriteria) {
+    public MediaSearchRequest withSortCriteria(@Nullable @MediaSortCriteria String sortCriteria) {
         this.sortCriteria = sortCriteria;
 
         return this;
@@ -356,7 +357,7 @@ public class MediaSearchRequest extends ProxerRequest<MediaSearchResult> {
     @NonNull
     @Override
     protected String getURL() {
-        return MEDIA_SEARCH_URL;
+        return ProxerUrlHolder.getHost() + MEDIA_SEARCH_URL;
     }
 
     @Override
