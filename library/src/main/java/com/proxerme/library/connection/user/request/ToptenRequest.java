@@ -6,10 +6,10 @@ import android.support.annotation.Nullable;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerRequest;
-import com.proxerme.library.connection.parameters.CategoryParameter.Category;
 import com.proxerme.library.connection.user.result.ToptenResult;
 import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
+import com.proxerme.library.parameters.CategoryParameter.Category;
 
 /**
  * Request for retrieving the Topten of the passed user. This API honors the visibility settings and
@@ -52,7 +52,7 @@ public class ToptenRequest extends ProxerRequest<ToptenResult> {
      * @param userId   The id of the user.
      * @param username The name of the user.
      * @param category One of the categories available in the
-     *                 {@link com.proxerme.library.connection.parameters.CategoryParameter} class.
+     *                 {@link com.proxerme.library.parameters.CategoryParameter} class.
      */
     public ToptenRequest(@Nullable String userId, @Nullable String username,
                          @Nullable @Category String category) {

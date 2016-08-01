@@ -8,10 +8,10 @@ import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerRequest;
 import com.proxerme.library.connection.list.result.MediaListResult;
-import com.proxerme.library.connection.parameters.CategoryParameter.Category;
-import com.proxerme.library.connection.parameters.MediumParameter.Medium;
 import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
+import com.proxerme.library.parameters.CategoryParameter.Category;
+import com.proxerme.library.parameters.MediumParameter.Medium;
 
 /**
  * Request for all available Media, featuring options for categories and other restrictions. (Use

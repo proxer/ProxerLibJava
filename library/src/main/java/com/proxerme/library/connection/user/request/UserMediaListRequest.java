@@ -7,11 +7,11 @@ import android.support.annotation.Nullable;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerRequest;
-import com.proxerme.library.connection.parameters.CategoryParameter.Category;
-import com.proxerme.library.connection.parameters.SortParameter.SortCriteria;
 import com.proxerme.library.connection.user.result.UserMediaListResult;
 import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
+import com.proxerme.library.parameters.CategoryParameter.Category;
+import com.proxerme.library.parameters.SortParameter.SortCriteria;
 
 /**
  * Request for the watched/read media of the user. This includes Anime series, OVAs, Manga, etc.

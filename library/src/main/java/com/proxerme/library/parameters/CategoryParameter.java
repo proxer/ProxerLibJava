@@ -1,4 +1,4 @@
-package com.proxerme.library.connection.parameters;
+package com.proxerme.library.parameters;
 
 import android.support.annotation.StringDef;
 

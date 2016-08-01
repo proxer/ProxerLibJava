@@ -6,7 +6,7 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.annotations.Body;
-import com.proxerme.library.connection.parameters.MediumParameter.Medium;
+import com.proxerme.library.parameters.MediumParameter.Medium;
 
 /**
  * Entity holding all relevant info about a single entry in the media list (Anime, Manga)
