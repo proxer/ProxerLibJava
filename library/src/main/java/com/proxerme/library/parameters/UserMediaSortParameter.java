@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  * @author Ruben Gees
  */
 
-public class SortParameter {
+public class UserMediaSortParameter {
 
     public static final String NAME_ASCENDING = "nameASC";
     public static final String NAME_DESCENDING = "nameDESC";
@@ -25,14 +25,14 @@ public class SortParameter {
     public static final String STATE_CHANGE_DATE_DESCENDING = "stateChangeDateDESC";
 
     /**
-     * An annotation representing the available sort criteria.
+     * An annotation representing the available sort criteria for user media lists.
      */
     @StringDef({NAME_ASCENDING, NAME_DESCENDING, STATE_NAME_ASCENDING, STATE_NAME_DESCENDING,
             CHANGE_DATE_ASCENDING, CHANGE_DATE_DESCENDING, STATE_CHANGE_DATE_ASCENDING,
             STATE_CHANGE_DATE_DESCENDING})
     @Retention(value = RetentionPolicy.SOURCE)
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
-    public @interface SortCriteria {
+    public @interface UserMediaSortCriteria {
     }
 
 }

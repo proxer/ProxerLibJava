@@ -11,7 +11,7 @@ import com.proxerme.library.connection.user.result.UserMediaListResult;
 import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 import com.proxerme.library.parameters.CategoryParameter.Category;
-import com.proxerme.library.parameters.SortParameter.SortCriteria;
+import com.proxerme.library.parameters.UserMediaSortParameter.UserMediaSortCriteria;
 
 /**
  * Request for the watched/read media of the user. This includes Anime series, OVAs, Manga, etc.
@@ -116,12 +116,13 @@ public class UserMediaListRequest extends ProxerRequest<UserMediaListResult> {
     }
 
     /**
-     * Builder method for setting {@link SortCriteria}.
+     * Builder method for setting the sort criteria.
      *
      * @param sortCriteria The sort criteria.
      * @return This request.
      */
-    public UserMediaListRequest withSortCriteria(@Nullable @SortCriteria String sortCriteria) {
+    public UserMediaListRequest withSortCriteria(@Nullable @UserMediaSortCriteria String
+                                                         sortCriteria) {
         this.sortCriteria = sortCriteria;
 
         return this;

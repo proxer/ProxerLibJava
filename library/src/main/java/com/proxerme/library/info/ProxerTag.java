@@ -19,6 +19,7 @@ public class ProxerTag {
     public static final int TOPTEN = 4;
     public static final int USER_MEDIA_LIST = 5;
     public static final int MEDIA_LIST = 6;
+    public static final int MEDIA_SEARCH = 7;
 
     public static final int CONFERENCES = 100;
     public static final int CHAT = 101;
@@ -28,7 +29,7 @@ public class ProxerTag {
      * An annotation representing all the different tags.
      */
     @IntDef({LOGIN, NEWS, LOGOUT, USERINFO, TOPTEN, CONFERENCES, CHAT, SEND_MESSAGE,
-            USER_MEDIA_LIST, MEDIA_LIST})
+            USER_MEDIA_LIST, MEDIA_LIST, MEDIA_SEARCH})
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
     public @interface ConnectionTag {
