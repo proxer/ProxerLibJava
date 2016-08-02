@@ -1,6 +1,5 @@
 package com.proxerme.library.connection.info.request;
 
-import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -22,14 +21,14 @@ public class SynonymRequest extends ProxerRequest<SynonymResult> {
 
     private static final String ENTRY_NAMES_ID = "id";
 
-    private int id;
+    private String id;
 
     /**
      * Create a request object for the alternative names of an entry by its id.
      *
      * @param id the id of the entry (Anime/Manga) to request the name for.
      */
-    public SynonymRequest(@IntRange(from = 0) int id) {
+    public SynonymRequest(String id) {
         this.id = id;
     }
 

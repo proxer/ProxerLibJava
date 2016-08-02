@@ -1,6 +1,5 @@
 package com.proxerme.library.connection.info.request;
 
-import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -22,14 +21,14 @@ public class EntryCoreRequest extends ProxerRequest<EntryCoreResult> {
 
     private static final String ENTRY_CORE_ID = "id";
 
-    private int id;
+    private String id;
 
     /**
      * Create a request object of an specific entry
      *
      * @param id the id of the entry to request.
      */
-    public EntryCoreRequest(@IntRange(from = 0) int id) {
+    public EntryCoreRequest(@NonNull String id) {
         this.id = id;
     }
 

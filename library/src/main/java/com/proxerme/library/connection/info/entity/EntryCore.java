@@ -2,11 +2,13 @@ package com.proxerme.library.connection.info.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.parameters.CategoryParameter;
+import com.proxerme.library.parameters.FskParameter;
 import com.proxerme.library.parameters.GenreParameter;
 import com.proxerme.library.parameters.LicenseParameter;
 import com.proxerme.library.parameters.MediumParameter;
@@ -58,6 +60,51 @@ public class EntryCore implements Parcelable {
     int license;
 
     /**
+     * Private empty Constructor.
+     */
+    EntryCore() {
+    }
+
+    /**
+     * Constructor of the entrycore data.
+     *
+     * @param id          The entry id.
+     * @param name        The entry name.
+     * @param genre       The genre.
+     * @param fsk         The fsk ratings.
+     * @param description The description.
+     * @param medium      The medium.
+     * @param count       The number of episodes.
+     * @param state       The user view state.
+     * @param rateSum     The sum of all ratings.
+     * @param rateCount   The amount of ratings.
+     * @param clicks      The amount of clicks.
+     * @param category    The category name.
+     * @param license     The license id.
+     */
+    public EntryCore(@NonNull String id, @NonNull String name, @NonNull @GenreParameter.Genre String genre,
+                     @NonNull String fsk, @NonNull String description,
+                     @NonNull @MediumParameter.Medium String medium,
+                     @IntRange(from = 1) int count, @IntRange(from = 0) int state,
+                     @IntRange(from = 0) int rateSum, @IntRange(from = 0) int rateCount,
+                     @IntRange(from = 0) int clicks, @NonNull @CategoryParameter.Category String category,
+                     @IntRange(from = 0) @LicenseParameter.License int license) {
+        this.id = id;
+        this.name = name;
+        this.genre = genre;
+        this.fsk = fsk;
+        this.description = description;
+        this.medium = medium;
+        this.count = count;
+        this.state = state;
+        this.rateSum = rateSum;
+        this.rateCount = rateCount;
+        this.clicks = clicks;
+        this.category = category;
+        this.license = license;
+    }
+
+    /**
      * Parser to retain the instance back from the parcel.
      *
      * @param in the parcel to parse.
@@ -92,6 +139,7 @@ public class EntryCore implements Parcelable {
      *
      * @return the name.
      */
+    @NonNull
     public String getName() {
         return name;
     }
@@ -112,7 +160,9 @@ public class EntryCore implements Parcelable {
      *
      * @return An array of fsk names.
      */
+    @SuppressWarnings("WrongConstant")
     @NonNull
+    @FskParameter.FskConstraint
     public String[] getFsk() {
         return fsk.split(" ");
     }
@@ -183,7 +233,8 @@ public class EntryCore implements Parcelable {
      *
      * @return The sum of all ratings.
      */
-    public int getRating() {
+    @FloatRange(from = -1.0f)
+    public float getRating() {
         if (rateCount <= 0) {
             return -1;
         } else {

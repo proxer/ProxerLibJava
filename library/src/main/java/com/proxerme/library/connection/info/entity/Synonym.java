@@ -35,6 +35,27 @@ public class Synonym implements Parcelable {
     String name;
 
     /**
+     * Private Constructor.
+     */
+    Synonym() {
+    }
+
+    /**
+     * The Constructor.
+     *
+     * @param id      The id.
+     * @param entryId The id of the entry.
+     * @param type    The type of the Synonym.
+     * @param name    The name.
+     */
+    public Synonym(@NonNull String id, @NonNull String entryId, @NonNull String type, @NonNull String name) {
+        this.id = id;
+        this.entryId = entryId;
+        this.type = type;
+        this.name = name;
+    }
+
+    /**
      * Constructor to parse parcel.
      *
      * @param in The parcel to parse.
