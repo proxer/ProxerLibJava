@@ -21,15 +21,18 @@ public class ProxerTag {
     public static final int MEDIA_LIST = 6;
     public static final int MEDIA_SEARCH = 7;
 
+    public static final int INFO_ENTRY_CORE = 20;
+
     public static final int CONFERENCES = 100;
     public static final int CHAT = 101;
     public static final int SEND_MESSAGE = 102;
+
 
     /**
      * An annotation representing all the different tags.
      */
     @IntDef({LOGIN, NEWS, LOGOUT, USERINFO, TOPTEN, CONFERENCES, CHAT, SEND_MESSAGE,
-            USER_MEDIA_LIST, MEDIA_LIST, MEDIA_SEARCH})
+            USER_MEDIA_LIST, MEDIA_LIST, MEDIA_SEARCH, INFO_ENTRY_CORE})
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
     public @interface ConnectionTag {
