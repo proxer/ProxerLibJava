@@ -8,8 +8,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Enum Containing the licensing parameter.
- * Created by Desnoo on 01.08.16.
+ * Class containing the licensing parameter.
+ *
+ * @author Desnoo
  */
 public class LicenseParameter {
 
