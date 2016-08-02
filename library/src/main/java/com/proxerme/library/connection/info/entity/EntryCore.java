@@ -2,11 +2,17 @@ package com.proxerme.library.connection.info.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.annotations.Body;
+import com.proxerme.library.parameters.CategoryParameter;
+import com.proxerme.library.parameters.GenreParameter;
+import com.proxerme.library.parameters.LicenseParameter;
+import com.proxerme.library.parameters.MediumParameter;
 
 /**
- * Represents the core data of an Entry.
+ * Represents the core data of an Entry (Anime, Manga)
  *
  * @author Desnoo
  */
@@ -25,56 +31,29 @@ public class EntryCore implements Parcelable {
     };
 
     @Body(name = "id")
-    int id;
-
+    String id;
     @Body(name = "name")
     String name;
-
     @Body(name = "genre")
     String genre;
-
     @Body(name = "fsk")
     String fsk;
-
     @Body(name = "description")
     String description;
-
     @Body(name = "medium")
-    String type;
-
-    /**
-     * The overall number of episodes/chapters. It does not include not available episodes.
-     */
+    String medium;
     @Body(name = "count")
     int count;
-
     @Body(name = "state")
     int state;
-
-    /**
-     * The sum of all ratings.
-     */
     @Body(name = "rate_sum")
     int rateSum;
-
-    /**
-     * The number of ratings.
-     */
     @Body(name = "rate_count")
     int rateCount;
-
-    /**
-     * The number of views of this entry.
-     */
     @Body(name = "clicks")
     int clicks;
-
-    /**
-     * The Category of this entry.
-     */
     @Body(name = "category")
     String category;
-
     @Body(name = "license")
     int license;
 
@@ -84,12 +63,12 @@ public class EntryCore implements Parcelable {
      * @param in the parcel to parse.
      */
     protected EntryCore(Parcel in) {
-        id = in.readInt();
+        id = in.readString();
         name = in.readString();
         genre = in.readString();
         fsk = in.readString();
         description = in.readString();
-        type = in.readString();
+        medium = in.readString();
         count = in.readInt();
         state = in.readInt();
         rateSum = in.readInt();
@@ -98,14 +77,159 @@ public class EntryCore implements Parcelable {
         category = in.readString();
     }
 
+    /**
+     * Returns the id of this entry.
+     *
+     * @return The id.
+     */
+    @NonNull
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Returns the name of this entry.
+     *
+     * @return the name.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Returns the genre of this entry.
+     *
+     * @return The genre.
+     */
+    @NonNull
+    @GenreParameter.Genre
+    public String getGenre() {
+        return genre;
+    }
+
+    /**
+     * Returns an array of fsk names of this entry.
+     *
+     * @return An array of fsk names.
+     */
+    @NonNull
+    public String[] getFsk() {
+        return fsk.split(" ");
+    }
+
+    /**
+     * Returns the description of this entry.
+     *
+     * @return The description.
+     */
+    @NonNull
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Returns the medium of this entry.
+     *
+     * @return The medium.
+     */
+    @NonNull
+    @MediumParameter.Medium
+    public String getMedium() {
+        return medium;
+    }
+
+    /**
+     * Get the overall amount of episodes/chapters of this entry. It does include not available episodes.
+     *
+     * @return The amount of episodes/chapters.
+     */
+    @IntRange(from = 0)
+    public int getCount() {
+        return count;
+    }
+
+    /**
+     * Returns the view state for the current user of this entry. If no user is set then this is 0.
+     *
+     * @return The view state for the current user.
+     */
+    @IntRange(from = 0)
+    public int getState() {
+        return state;
+    }
+
+    /**
+     * Returns the sum of all ratings of this entry.
+     *
+     * @return The sum of ratings.
+     */
+    @IntRange(from = 0)
+    public int getRateSum() {
+        return rateSum;
+    }
+
+    /**
+     * Returns the amount of ratings of this entry.
+     *
+     * @return The amount of ratings.
+     */
+    @IntRange(from = 0)
+    public int getRateCount() {
+        return rateCount;
+    }
+
+    /**
+     * Returns the sum of all ratings of this entry.
+     *
+     * @return The sum of all ratings.
+     */
+    public int getRating() {
+        if (rateCount <= 0) {
+            return -1;
+        } else {
+            return rateSum / rateCount;
+        }
+    }
+
+    /**
+     * Returns the number of views of this entry. Will be deleted every 3 months.
+     *
+     * @return The number of views.
+     */
+    public int getClicks() {
+        return clicks;
+    }
+
+    /**
+     * Returns the name of the category of this entry.
+     *
+     * @return The name of the category.
+     */
+    @NonNull
+    @CategoryParameter.Category
+    public String getCategory() {
+        return category;
+    }
+
+    /**
+     * Returns the license state of this entry.
+     *
+     * @return The license state.
+     */
+    @IntRange(from = 0)
+    @LicenseParameter.License
+    public int getLicense() {
+        return license;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeString(id);
         dest.writeString(name);
         dest.writeString(genre);
         dest.writeString(fsk);
         dest.writeString(description);
-        dest.writeString(type);
+        dest.writeString(medium);
         dest.writeInt(count);
         dest.writeInt(state);
         dest.writeInt(rateSum);
@@ -127,7 +251,7 @@ public class EntryCore implements Parcelable {
 
         EntryCore entryCore = (EntryCore) o;
 
-        if (id != entryCore.id) return false;
+        if (!id.equals(entryCore.id)) return false;
         if (count != entryCore.count) return false;
         if (state != entryCore.state) return false;
         if (rateSum != entryCore.rateSum) return false;
@@ -137,7 +261,7 @@ public class EntryCore implements Parcelable {
         if (!genre.equals(entryCore.genre)) return false;
         if (!fsk.equals(entryCore.fsk)) return false;
         if (!description.equals(entryCore.description)) return false;
-        if (!type.equals(entryCore.type)) return false;
+        if (!medium.equals(entryCore.medium)) return false;
         if (!category.equals(entryCore.category)) return false;
         return license == entryCore.license;
 
@@ -145,19 +269,18 @@ public class EntryCore implements Parcelable {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id.hashCode();
         result = 31 * result + name.hashCode();
         result = 31 * result + genre.hashCode();
         result = 31 * result + fsk.hashCode();
         result = 31 * result + description.hashCode();
-        result = 31 * result + type.hashCode();
+        result = 31 * result + medium.hashCode();
         result = 31 * result + count;
         result = 31 * result + state;
         result = 31 * result + rateSum;
         result = 31 * result + rateCount;
         result = 31 * result + clicks;
         result = 31 * result + category.hashCode();
-        // uses the object reference, enums are special in this case
         result = 31 * result + license;
         return result;
     }

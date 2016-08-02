@@ -22,9 +22,6 @@ public class EntryCoreRequest extends ProxerRequest<EntryCoreResult> {
 
     private static final String ENTRY_CORE_ID = "id";
 
-    /**
-     * The entry id to request.
-     */
     private int id;
 
     /**
