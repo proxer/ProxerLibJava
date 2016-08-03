@@ -55,7 +55,6 @@ public class ConferencesRequest extends ProxerRequest<ConferencesResult> {
         return ProxerUrlHolder.getHost() + CONFERENCES_URL;
     }
 
-    @Nullable
     @Override
     protected Form getBody() {
         Form form = new Form();
