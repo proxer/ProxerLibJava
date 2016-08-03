@@ -247,6 +247,7 @@ public class EntryCore implements Parcelable {
      *
      * @return The number of views.
      */
+    @IntRange(from = 0)
     public int getClicks() {
         return clicks;
     }
@@ -256,7 +257,6 @@ public class EntryCore implements Parcelable {
      *
      * @return The name of the category.
      */
-    @NonNull
     @CategoryParameter.Category
     public String getCategory() {
         return category;
@@ -267,7 +267,6 @@ public class EntryCore implements Parcelable {
      *
      * @return The license state.
      */
-    @IntRange(from = 0)
     @LicenseParameter.License
     public int getLicense() {
         return license;
