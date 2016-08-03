@@ -37,7 +37,7 @@ public class Season implements Parcelable {
     @Body(name = "year")
     int year;
     @Body(name = "season")
-    String season;
+    int season;
 
     /**
      * The private constructor.
@@ -53,10 +53,10 @@ public class Season implements Parcelable {
      * @param entryId The id of an entry.(Anime, Manga)
      * @param type    The type of the entry.
      * @param year    The year when the entry was released.
-     * @param season  The season in whcih the entry was released.
+     * @param season  The season in which the entry was released.
      */
     public Season(@NonNull String id, @NonNull String entryId, @TypeParameter.Type String type,
-                  @IntRange(from = 1900) int year, @SeasonParameter.SeasonConstraint String season) {
+                  @IntRange(from = 1900) int year, @SeasonParameter.SeasonConstraint int season) {
         this.id = id;
         this.entryId = entryId;
         this.type = type;
@@ -74,7 +74,7 @@ public class Season implements Parcelable {
         entryId = in.readString();
         type = in.readString();
         year = in.readInt();
-        season = in.readString();
+        season = in.readInt();
     }
 
     /**
@@ -124,7 +124,7 @@ public class Season implements Parcelable {
      * @return The season. (Spring, Summer, Autumn, Winter)
      */
     @SeasonParameter.SeasonConstraint
-    public String getSeason() {
+    public int getSeason() {
         return season;
     }
 
@@ -139,7 +139,7 @@ public class Season implements Parcelable {
         parcel.writeString(entryId);
         parcel.writeString(type);
         parcel.writeInt(year);
-        parcel.writeString(season);
+        parcel.writeInt(season);
     }
 
 }
