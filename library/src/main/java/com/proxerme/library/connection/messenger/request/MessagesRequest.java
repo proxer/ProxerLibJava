@@ -1,7 +1,6 @@
 package com.proxerme.library.connection.messenger.request;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
@@ -48,7 +47,6 @@ public class MessagesRequest extends ProxerRequest<MessagesResult> {
         return ProxerUrlHolder.getHost() + MESSENGER_URL;
     }
 
-    @Nullable
     @Override
     protected Form getBody() {
         return new Form()

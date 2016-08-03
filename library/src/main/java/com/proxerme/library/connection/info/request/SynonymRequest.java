@@ -28,7 +28,7 @@ public class SynonymRequest extends ProxerRequest<SynonymResult> {
      *
      * @param id the id of the entry (Anime/Manga) to request the name for.
      */
-    public SynonymRequest(String id) {
+    public SynonymRequest(@NonNull String id) {
         this.id = id;
     }
 

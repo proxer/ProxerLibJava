@@ -48,7 +48,8 @@ public class Synonym implements Parcelable {
      * @param type    The type of the Synonym.
      * @param name    The name.
      */
-    public Synonym(@NonNull String id, @NonNull String entryId, @NonNull String type, @NonNull String name) {
+    public Synonym(@NonNull String id, @NonNull String entryId, @NonNull String type,
+                   @NonNull String name) {
         this.id = id;
         this.entryId = entryId;
         this.type = type;

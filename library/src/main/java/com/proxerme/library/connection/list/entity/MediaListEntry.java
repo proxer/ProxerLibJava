@@ -2,6 +2,7 @@ package com.proxerme.library.connection.list.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
@@ -175,6 +176,7 @@ public class MediaListEntry implements Parcelable {
      *
      * @return The average rating.
      */
+    @FloatRange(from = -1.0f)
     public float getRating() {
         if (rateCount <= 0) {
             return -1;
