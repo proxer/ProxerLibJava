@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Class of the SasonParameter. This includes the possible yearly seasons.
+ * Class of the SeasonParameter. This includes the possible yearly seasons.
  *
  * @author Desnoo
  */
@@ -24,7 +24,7 @@ public class SeasonParameter {
      */
     @IntDef({SPRING, SUMMER, AUTUMN, WINTER})
     @Retention(value = RetentionPolicy.SOURCE)
-    @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER,})
+    @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface SeasonConstraint {
     }
 }
