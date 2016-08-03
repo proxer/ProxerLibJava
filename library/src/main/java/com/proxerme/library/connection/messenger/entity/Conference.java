@@ -6,6 +6,9 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.annotations.Body;
+import com.proxerme.library.interfaces.IdItem;
+import com.proxerme.library.interfaces.ImageItem;
+import com.proxerme.library.interfaces.TimeItem;
 
 /**
  * TODO: Describe class
@@ -13,7 +16,7 @@ import com.afollestad.bridge.annotations.Body;
  * @author Ruben Gees
  */
 
-public class Conference implements Parcelable {
+public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
 
     public static final Parcelable.Creator<Conference> CREATOR = new Parcelable.Creator<Conference>() {
         @Override
@@ -26,6 +29,7 @@ public class Conference implements Parcelable {
             return new Conference[size];
         }
     };
+
     @Body(name = "read_mid")
     private String lastReadMessageId;
     @Body(name = "image")
@@ -83,6 +87,7 @@ public class Conference implements Parcelable {
         return lastReadMessageId;
     }
 
+    @Override
     @NonNull
     public String getImageId() {
         return imageId;
@@ -107,11 +112,13 @@ public class Conference implements Parcelable {
         return topic;
     }
 
+    @Override
     @NonNull
     public String getId() {
         return id;
     }
 
+    @Override
     public long getTime() {
         return time;
     }

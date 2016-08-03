@@ -24,8 +24,8 @@ public class ProxerTag {
     public static final int INFO_ENTRY_CORE = 20;
     public static final int INFO_ENTRY_SYNONYM = 21;
 
-
     public static final int MESSENGER_CONFERENCES = 30;
+    public static final int MESSENGER_MESSAGES = 31;
 
     public static final int CONFERENCES = 100;
     public static final int CHAT = 101;
@@ -35,9 +35,8 @@ public class ProxerTag {
      * An annotation representing all the different tags.
      */
     @IntDef({LOGIN, NEWS, LOGOUT, USERINFO, TOPTEN, CONFERENCES, CHAT, SEND_MESSAGE,
-            USER_MEDIA_LIST, MEDIA_LIST, MEDIA_SEARCH,
-            INFO_ENTRY_CORE, INFO_ENTRY_SYNONYM,
-            MESSENGER_CONFERENCES})
+            USER_MEDIA_LIST, MEDIA_LIST, MEDIA_SEARCH, INFO_ENTRY_CORE, INFO_ENTRY_SYNONYM,
+            MESSENGER_CONFERENCES, MESSENGER_MESSAGES})
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
     public @interface ConnectionTag {
