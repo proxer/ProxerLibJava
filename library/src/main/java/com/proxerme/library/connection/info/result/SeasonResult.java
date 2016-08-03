@@ -3,7 +3,6 @@ package com.proxerme.library.connection.info.result;
 import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.connection.info.entity.Season;
 import com.proxerme.library.interfaces.ProxerResult;
-import com.proxerme.library.parameters.SeasonParameter;
 
 /**
  * Class that represents the result of the {@link com.proxerme.library.connection.info.request.SeasonRequest}.
@@ -26,7 +25,7 @@ public class SeasonResult implements ProxerResult<Season[]> {
      *
      * @param seasons An array of seasons.
      */
-    public SeasonResult(@SeasonParameter.SeasonConstraint Season[] seasons) {
+    public SeasonResult(Season[] seasons) {
         this.seasons = seasons;
     }
 
@@ -36,7 +35,6 @@ public class SeasonResult implements ProxerResult<Season[]> {
      * @return the seasons of an entry.
      */
     @Override
-    @SeasonParameter.SeasonConstraint
     public Season[] getItem() {
         return seasons;
     }

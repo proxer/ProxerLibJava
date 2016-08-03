@@ -42,7 +42,6 @@ public class Season implements Parcelable {
     /**
      * The private constructor.
      */
-    @SuppressWarnings("unused")
     Season() {
     }
 
