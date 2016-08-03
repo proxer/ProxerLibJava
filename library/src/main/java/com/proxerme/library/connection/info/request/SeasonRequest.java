@@ -18,7 +18,7 @@ import com.proxerme.library.info.ProxerUrlHolder;
 public class SeasonRequest extends ProxerRequest<SeasonResult> {
 
     private static final String ENTRY_SEASON_URL = "/api/v1/info/season";
-    private static final String ENTRY_ID = "ENTRY_ID";
+    private static final String ENTRY_ID = "id";
 
     private String id;
 
