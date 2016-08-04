@@ -16,7 +16,7 @@ import com.proxerme.library.interfaces.TimeItem;
 
 public class Message implements IdItem, TimeItem, Parcelable {
 
-    public static final Parcelable.Creator<Message> CREATOR = new Parcelable.Creator<Message>() {
+    public static final Creator<Message> CREATOR = new Creator<Message>() {
         @Override
         public Message createFromParcel(Parcel source) {
             return new Message(source);
@@ -34,38 +34,42 @@ public class Message implements IdItem, TimeItem, Parcelable {
     String conferenceId;
     @Body(name = "user_id")
     String userId;
+    @Body(name = "username")
+    String username;
     @Body(name = "message")
     String message;
     @Body(name = "action")
     String action;
     @Body(name = "timestamp")
     long time;
-    @Body(name = "username")
-    String username;
+    @Body(name = "device")
+    String device;
 
     Message() {
     }
 
     public Message(@NonNull String id, @NonNull String conferenceId, @NonNull String userId,
-                   @NonNull String message, @NonNull String action, long time,
-                   @NonNull String username) {
+                   @NonNull String username, @NonNull String message, @NonNull String action,
+                   long time, @NonNull String device) {
         this.id = id;
         this.conferenceId = conferenceId;
         this.userId = userId;
+        this.username = username;
         this.message = message;
         this.action = action;
         this.time = time;
-        this.username = username;
+        this.device = device;
     }
 
     protected Message(Parcel in) {
         this.id = in.readString();
         this.conferenceId = in.readString();
         this.userId = in.readString();
+        this.username = in.readString();
         this.message = in.readString();
         this.action = in.readString();
         this.time = in.readLong();
-        this.username = in.readString();
+        this.device = in.readString();
     }
 
     @NonNull
@@ -85,6 +89,11 @@ public class Message implements IdItem, TimeItem, Parcelable {
     }
 
     @NonNull
+    public String getUsername() {
+        return username;
+    }
+
+    @NonNull
     public String getMessage() {
         return message;
     }
@@ -100,8 +109,8 @@ public class Message implements IdItem, TimeItem, Parcelable {
     }
 
     @NonNull
-    public String getUsername() {
-        return username;
+    public String getDevice() {
+        return device;
     }
 
     @Override
@@ -115,9 +124,10 @@ public class Message implements IdItem, TimeItem, Parcelable {
         if (!id.equals(message1.id)) return false;
         if (!conferenceId.equals(message1.conferenceId)) return false;
         if (!userId.equals(message1.userId)) return false;
+        if (!username.equals(message1.username)) return false;
         if (!message.equals(message1.message)) return false;
         if (!action.equals(message1.action)) return false;
-        return username.equals(message1.username);
+        return device.equals(message1.device);
 
     }
 
@@ -126,10 +136,11 @@ public class Message implements IdItem, TimeItem, Parcelable {
         int result = id.hashCode();
         result = 31 * result + conferenceId.hashCode();
         result = 31 * result + userId.hashCode();
+        result = 31 * result + username.hashCode();
         result = 31 * result + message.hashCode();
         result = 31 * result + action.hashCode();
         result = 31 * result + (int) (time ^ (time >>> 32));
-        result = 31 * result + username.hashCode();
+        result = 31 * result + device.hashCode();
         return result;
     }
 
@@ -143,9 +154,10 @@ public class Message implements IdItem, TimeItem, Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.conferenceId);
         dest.writeString(this.userId);
+        dest.writeString(this.username);
         dest.writeString(this.message);
         dest.writeString(this.action);
         dest.writeLong(this.time);
-        dest.writeString(this.username);
+        dest.writeString(this.device);
     }
 }

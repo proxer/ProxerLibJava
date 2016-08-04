@@ -30,43 +30,28 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         }
     };
 
-    @Body(name = "read_mid")
-    private String lastReadMessageId;
-    @Body(name = "image")
-    private String imageId;
-    @Body(name = "read")
-    private boolean isRead;
+    @Body(name = "id")
+    private String id;
+    @Body(name = "topic")
+    private String topic;
     @Body(name = "topic_custom")
     private String customTopic;
     @Body(name = "count")
     private int participantAmount;
-    @Body(name = "topic")
-    private String topic;
-    @Body(name = "id")
-    private String id;
-    @Body(name = "timestamp_end")
-    private long time;
+    @Body(name = "image")
+    private String imageId;
     @Body(name = "group")
     private boolean isGroup;
+    @Body(name = "read")
+    private boolean isRead;
+    @Body(name = "timestamp_end")
+    private long time;
     @Body(name = "read_count")
     private int unreadMessageAmount;
+    @Body(name = "read_mid")
+    private String lastReadMessageId;
 
     Conference() {
-    }
-
-    public Conference(@NonNull String lastReadMessageId, @NonNull String imageId, boolean isRead,
-                      @NonNull String customTopic, int participantAmount, @NonNull String topic,
-                      @NonNull String id, long time, boolean isGroup, int unreadMessageAmount) {
-        this.lastReadMessageId = lastReadMessageId;
-        this.imageId = imageId;
-        this.isRead = isRead;
-        this.customTopic = customTopic;
-        this.participantAmount = participantAmount;
-        this.topic = topic;
-        this.id = id;
-        this.time = time;
-        this.isGroup = isGroup;
-        this.unreadMessageAmount = unreadMessageAmount;
     }
 
     protected Conference(Parcel in) {
@@ -87,10 +72,27 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         return lastReadMessageId;
     }
 
+    @NonNull
+    public String getImageType() {
+        String[] split = imageId.split(":");
+
+        if (split.length == 2) {
+            return split[0];
+        } else {
+            return "";
+        }
+    }
+
     @Override
     @NonNull
     public String getImageId() {
-        return imageId;
+        String[] split = imageId.split(":");
+
+        if (split.length == 2) {
+            return split[1];
+        } else {
+            return "";
+        }
     }
 
     public boolean isRead() {
