@@ -54,6 +54,23 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     Conference() {
     }
 
+    public Conference(@NonNull String id, @NonNull String topic, @NonNull String customTopic,
+                      @IntRange(from = 2) int participantAmount, @NonNull String imageId,
+                      boolean isGroup, boolean isRead, long time,
+                      @IntRange(from = 0) int unreadMessageAmount,
+                      @NonNull String lastReadMessageId) {
+        this.id = id;
+        this.topic = topic;
+        this.customTopic = customTopic;
+        this.participantAmount = participantAmount;
+        this.imageId = imageId;
+        this.isGroup = isGroup;
+        this.isRead = isRead;
+        this.time = time;
+        this.unreadMessageAmount = unreadMessageAmount;
+        this.lastReadMessageId = lastReadMessageId;
+    }
+
     protected Conference(Parcel in) {
         this.lastReadMessageId = in.readString();
         this.imageId = in.readString();
