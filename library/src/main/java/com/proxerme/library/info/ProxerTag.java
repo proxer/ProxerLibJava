@@ -25,9 +25,9 @@ public class ProxerTag {
     public static final int INFO_ENTRY_SYNONYM = 21;
     public static final int INFO_ENTRY_SEASON = 22;
 
-
     public static final int MESSENGER_CONFERENCES = 30;
     public static final int MESSENGER_MESSAGES = 31;
+    public static final int MESSENGER_SEND_MESSAGE = 32;
 
     public static final int CONFERENCES = 100;
     public static final int CHAT = 101;
@@ -39,7 +39,7 @@ public class ProxerTag {
     @IntDef({LOGIN, NEWS, LOGOUT, USERINFO, TOPTEN, CONFERENCES, CHAT, SEND_MESSAGE,
             USER_MEDIA_LIST, MEDIA_LIST, MEDIA_SEARCH,
             INFO_ENTRY_CORE, INFO_ENTRY_SYNONYM, INFO_ENTRY_SEASON,
-            MESSENGER_CONFERENCES, MESSENGER_MESSAGES})
+            MESSENGER_CONFERENCES, MESSENGER_MESSAGES, MESSENGER_SEND_MESSAGE})
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
     public @interface ConnectionTag {
