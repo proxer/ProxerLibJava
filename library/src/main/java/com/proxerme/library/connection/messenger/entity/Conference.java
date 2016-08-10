@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.interfaces.IdItem;
@@ -55,20 +56,25 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     public Conference(@NonNull String id, @NonNull String topic, @NonNull String customTopic,
-                      @IntRange(from = 2) int participantAmount, @NonNull String imageType,
-                      @NonNull String imageId, boolean isGroup, boolean isRead, long time,
+                      @IntRange(from = 2) int participantAmount, @Nullable String imageType,
+                      @Nullable String imageId, boolean isGroup, boolean isRead, long time,
                       @IntRange(from = 0) int unreadMessageAmount,
                       @NonNull String lastReadMessageId) {
         this.id = id;
         this.topic = topic;
         this.customTopic = customTopic;
         this.participantAmount = participantAmount;
-        this.image = imageType + ":" + imageId;
         this.isGroup = isGroup;
         this.isRead = isRead;
         this.time = time;
         this.unreadMessageAmount = unreadMessageAmount;
         this.lastReadMessageId = lastReadMessageId;
+
+        if (imageType == null || imageType.isEmpty() || imageId == null || imageType.isEmpty()) {
+            this.image = "";
+        } else {
+            this.image = imageType + ":" + imageId;
+        }
     }
 
     protected Conference(Parcel in) {
