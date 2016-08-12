@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.interfaces.IdItem;
@@ -39,7 +40,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     @Body(name = "count")
     private int participantAmount;
     @Body(name = "image")
-    private String imageId;
+    private String image;
     @Body(name = "group")
     private boolean isGroup;
     @Body(name = "read")
@@ -55,25 +56,30 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     public Conference(@NonNull String id, @NonNull String topic, @NonNull String customTopic,
-                      @IntRange(from = 2) int participantAmount, @NonNull String imageId,
-                      boolean isGroup, boolean isRead, long time,
+                      @IntRange(from = 2) int participantAmount, @Nullable String imageType,
+                      @Nullable String imageId, boolean isGroup, boolean isRead, long time,
                       @IntRange(from = 0) int unreadMessageAmount,
                       @NonNull String lastReadMessageId) {
         this.id = id;
         this.topic = topic;
         this.customTopic = customTopic;
         this.participantAmount = participantAmount;
-        this.imageId = imageId;
         this.isGroup = isGroup;
         this.isRead = isRead;
         this.time = time;
         this.unreadMessageAmount = unreadMessageAmount;
         this.lastReadMessageId = lastReadMessageId;
+
+        if (imageType == null || imageType.isEmpty() || imageId == null || imageType.isEmpty()) {
+            this.image = "";
+        } else {
+            this.image = imageType + ":" + imageId;
+        }
     }
 
     protected Conference(Parcel in) {
         this.lastReadMessageId = in.readString();
-        this.imageId = in.readString();
+        this.image = in.readString();
         this.isRead = in.readByte() != 0;
         this.customTopic = in.readString();
         this.participantAmount = in.readInt();
@@ -91,7 +97,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
 
     @NonNull
     public String getImageType() {
-        String[] split = imageId.split(":");
+        String[] split = image.split(":");
 
         if (split.length == 2) {
             return split[0];
@@ -103,7 +109,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     @Override
     @NonNull
     public String getImageId() {
-        String[] split = imageId.split(":");
+        String[] split = image.split(":");
 
         if (split.length == 2) {
             return split[1];
@@ -164,7 +170,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         if (isGroup != that.isGroup) return false;
         if (unreadMessageAmount != that.unreadMessageAmount) return false;
         if (!lastReadMessageId.equals(that.lastReadMessageId)) return false;
-        if (!imageId.equals(that.imageId)) return false;
+        if (!image.equals(that.image)) return false;
         if (!customTopic.equals(that.customTopic)) return false;
         if (!topic.equals(that.topic)) return false;
         return id.equals(that.id);
@@ -174,7 +180,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     @Override
     public int hashCode() {
         int result = lastReadMessageId.hashCode();
-        result = 31 * result + imageId.hashCode();
+        result = 31 * result + image.hashCode();
         result = 31 * result + (isRead ? 1 : 0);
         result = 31 * result + customTopic.hashCode();
         result = 31 * result + participantAmount;
@@ -194,7 +200,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.lastReadMessageId);
-        dest.writeString(this.imageId);
+        dest.writeString(this.image);
         dest.writeByte(this.isRead ? (byte) 1 : (byte) 0);
         dest.writeString(this.customTopic);
         dest.writeInt(this.participantAmount);

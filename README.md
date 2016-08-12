@@ -2,7 +2,7 @@
 
 ### What is this?
 
-This is a library, prviding some core functionality for an Android App aiming
+This is a library, providing some core functionality for an Android App aiming
 to implement the API of the [Proxer.me](https://proxer.me/) website.
 
 ### Including in your project
