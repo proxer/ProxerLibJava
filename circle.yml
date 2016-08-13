@@ -11,5 +11,4 @@ test:
   override:
     - ./gradlew clean check -PdisablePreDex
     - mkdir $CIRCLE_TEST_REPORTS/lint
-    - mv library/build/outputs/lint-results-debug_files $CIRCLE_TEST_REPORTS/lint
-    - mv library/build/outputs/lint-results-debug.html $CIRCLE_TEST_REPORTS/lint/lint-library-results.html
+    - mv library/build/outputs/lint-results-debug.* $CIRCLE_TEST_REPORTS/lint
