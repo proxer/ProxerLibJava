@@ -63,7 +63,7 @@ public class ToptenRequest extends ProxerRequest<ToptenResult> {
 
     @Override
     protected int getTag() {
-        return ProxerTag.TOPTEN;
+        return ProxerTag.USER_TOPTEN;
     }
 
     @Override

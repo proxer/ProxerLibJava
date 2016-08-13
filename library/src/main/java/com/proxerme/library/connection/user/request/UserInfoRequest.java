@@ -43,7 +43,7 @@ public class UserInfoRequest extends ProxerRequest<UserInfoResult> {
 
     @Override
     protected int getTag() {
-        return ProxerTag.USERINFO;
+        return ProxerTag.USER_INFO;
     }
 
     @Override
