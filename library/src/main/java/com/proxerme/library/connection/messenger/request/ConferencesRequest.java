@@ -14,7 +14,8 @@ import com.proxerme.library.parameters.ConferenceTypeParameter.ConferenceType;
 import static com.proxerme.library.info.ProxerTag.MESSENGER_CONFERENCES;
 
 /**
- * TODO: Describe class
+ * Request for the conferences of the user. The user must be logged in for this API to return data.
+ * This API uses pagination.
  *
  * @author Ruben Gees
  */
@@ -29,10 +30,21 @@ public class ConferencesRequest extends ProxerRequest<ConferencesResult> {
     private int page;
     private String type;
 
+    /**
+     * The constructor.
+     *
+     * @param page The page to load.
+     */
     public ConferencesRequest(@IntRange(from = 0) int page) {
         this.page = page;
     }
 
+    /**
+     * The type to load.
+     *
+     * @param type The type.
+     * @return This Request.
+     */
     public ConferencesRequest withType(@Nullable @ConferenceType String type) {
         this.type = type;
 

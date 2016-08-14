@@ -9,7 +9,7 @@ import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.TimeItem;
 
 /**
- * TODO: Describe class
+ * Class that represents a single message.
  *
  * @author Ruben Gees
  */
@@ -48,6 +48,19 @@ public class Message implements IdItem, TimeItem, Parcelable {
     Message() {
     }
 
+    /**
+     * The constructor.
+     *
+     * @param id           The id of this message.
+     * @param conferenceId The id of the conference this message belongs to.
+     * @param userId       The id of the user, who sent this message.
+     * @param username     The username of the user, who sent this message.
+     * @param message      The contents of the message.
+     * @param action       The action of this message. This might be something like "addUser". Might be
+     *                     empty if there is no action.
+     * @param time         The time this message was sent.
+     * @param device       The device this message was sent from. In most cases "default".
+     */
     public Message(@NonNull String id, @NonNull String conferenceId, @NonNull String userId,
                    @NonNull String username, @NonNull String message, @NonNull String action,
                    long time, @NonNull String device) {
@@ -72,42 +85,74 @@ public class Message implements IdItem, TimeItem, Parcelable {
         this.device = in.readString();
     }
 
+    /**
+     * Returns the id of this message.
+     * @return The id.
+     */
     @NonNull
     @Override
     public String getId() {
         return id;
     }
 
+    /**
+     * Returns the id of the conference this message belongs to.
+     * @return The id.
+     */
     @NonNull
     public String getConferenceId() {
         return conferenceId;
     }
 
+    /**
+     * Returns the id of the user.
+     * @return The id.
+     */
     @NonNull
     public String getUserId() {
         return userId;
     }
 
+    /**
+     * Returns the username of the user.
+     * @return The username.
+     */
     @NonNull
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Returns the actual contents of this message.
+     * @return The contents of this message.
+     */
     @NonNull
     public String getMessage() {
         return message;
     }
 
+    /**
+     * Returns the action of this message. Might be empty.
+     * @return The action.
+     */
     @NonNull
     public String getAction() {
         return action;
     }
 
+    /**
+     * Returns the time of this message.
+     * @return The time.
+     */
     @Override
     public long getTime() {
         return time;
     }
 
+    /**
+     * Returns the device this message was sent from.
+     * @return The device.
+     */
     @NonNull
     public String getDevice() {
         return device;

@@ -10,7 +10,7 @@ import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 
 /**
- * TODO: Describe class
+ * Request for sending a single message. This API requires the user to be logged in.
  *
  * @author Ruben Gees
  */
@@ -25,6 +25,12 @@ public class SendMessageRequest extends ProxerRequest<SendMessageResult> {
     private String conferenceId;
     private String text;
 
+    /**
+     * The constructor.
+     *
+     * @param conferenceId The conference to send the message to.
+     * @param text         The contents of the message.
+     */
     public SendMessageRequest(@NonNull String conferenceId, @NonNull String text) {
         this.conferenceId = conferenceId;
         this.text = text;
