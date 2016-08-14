@@ -8,22 +8,22 @@ import android.support.annotation.NonNull;
 import com.afollestad.bridge.annotations.Body;
 
 /**
- * The class that represents the ConferenceInfo Conference entity.
+ * The class that represents the ConferenceInfo ConferenceInfo entity.
  * This class is different to the {@link com.proxerme.library.connection.messenger.entity.Conference}
  *
  * @author Desnoo
  */
-public class Conference implements Parcelable {
+public class ConferenceInfo implements Parcelable {
 
-    public static final Creator<Conference> CREATOR = new Creator<Conference>() {
+    public static final Creator<ConferenceInfo> CREATOR = new Creator<ConferenceInfo>() {
         @Override
-        public Conference createFromParcel(Parcel in) {
-            return new Conference(in);
+        public ConferenceInfo createFromParcel(Parcel in) {
+            return new ConferenceInfo(in);
         }
 
         @Override
-        public Conference[] newArray(int size) {
-            return new Conference[size];
+        public ConferenceInfo[] newArray(int size) {
+            return new ConferenceInfo[size];
         }
     };
 
@@ -41,7 +41,7 @@ public class Conference implements Parcelable {
     /**
      * Private Constructor.
      */
-    Conference() {
+    ConferenceInfo() {
     }
 
     /**
@@ -53,9 +53,9 @@ public class Conference implements Parcelable {
      * @param timestampEnd   The timestamp when the last message of the conference was sent.
      * @param leaderId       The user id of the conference leader.
      */
-    public Conference(@NonNull String topic, @IntRange(from = 1) int participants,
-                      @IntRange(from = 0) long timestampStart, @IntRange(from = 0) long timestampEnd,
-                      @NonNull String leaderId) {
+    public ConferenceInfo(@NonNull String topic, @IntRange(from = 2) int participants,
+                          @IntRange(from = 0) long timestampStart, @IntRange(from = 0) long timestampEnd,
+                          @NonNull String leaderId) {
         this.topic = topic;
         this.participants = participants;
         this.timestampStart = timestampStart;
@@ -68,7 +68,7 @@ public class Conference implements Parcelable {
      *
      * @param in The parcel to parse.
      */
-    protected Conference(Parcel in) {
+    protected ConferenceInfo(Parcel in) {
         topic = in.readString();
         participants = in.readInt();
         timestampStart = in.readLong();
@@ -107,7 +107,7 @@ public class Conference implements Parcelable {
      *
      * @return The Count.
      **/
-    @IntRange(from = 1)
+    @IntRange(from = 2)
     public int getParticipants() {
         return participants;
     }
@@ -148,7 +148,7 @@ public class Conference implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Conference that = (Conference) o;
+        ConferenceInfo that = (ConferenceInfo) o;
 
         if (participants != that.participants) return false;
         if (timestampStart != that.timestampStart) return false;

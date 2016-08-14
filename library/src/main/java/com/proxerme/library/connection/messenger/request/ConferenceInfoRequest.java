@@ -28,7 +28,7 @@ public class ConferenceInfoRequest extends ProxerRequest<ConferenceInfoResult> {
      *
      * @param conferenceId The id of the conference to request.
      */
-    public ConferenceInfoRequest(String conferenceId) {
+    public ConferenceInfoRequest(@NonNull String conferenceId) {
         this.conferenceId = conferenceId;
     }
 

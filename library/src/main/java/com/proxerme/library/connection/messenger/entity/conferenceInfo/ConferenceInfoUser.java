@@ -5,30 +5,32 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.annotations.Body;
+import com.proxerme.library.interfaces.IdItem;
+import com.proxerme.library.interfaces.ImageItem;
 
 /**
  * The class that represents a user.
  *
  * @author Desnoo
  */
-public class User implements Parcelable {
+public class ConferenceInfoUser implements Parcelable, IdItem, ImageItem {
 
-    public static final Creator<User> CREATOR = new Creator<User>() {
+    public static final Creator<ConferenceInfoUser> CREATOR = new Creator<ConferenceInfoUser>() {
         @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
+        public ConferenceInfoUser createFromParcel(Parcel in) {
+            return new ConferenceInfoUser(in);
         }
 
         @Override
-        public User[] newArray(int size) {
-            return new User[size];
+        public ConferenceInfoUser[] newArray(int size) {
+            return new ConferenceInfoUser[size];
         }
     };
 
     @Body(name = "uid")
-    String uid;
+    String id;
     @Body(name = "avatar")
-    String avatarId;
+    String imageId;
     @Body(name = "username")
     String username;
     @Body(name = "status")
@@ -37,20 +39,20 @@ public class User implements Parcelable {
     /**
      * Private Constructor.
      */
-    User() {
+    ConferenceInfoUser() {
     }
 
     /**
      * The Constructor.
      *
-     * @param uid      The user id.
+     * @param id      The user id.
      * @param avatar   The avatar id.
      * @param username The user's name.
      * @param status   The current status message.
      */
-    public User(@NonNull String uid, @NonNull String avatar, @NonNull String username, @NonNull String status) {
-        this.uid = uid;
-        this.avatarId = avatar;
+    public ConferenceInfoUser(@NonNull String id, @NonNull String avatar, @NonNull String username, @NonNull String status) {
+        this.id = id;
+        this.imageId = avatar;
         this.username = username;
         this.status = status;
     }
@@ -60,31 +62,11 @@ public class User implements Parcelable {
      *
      * @param in The parcel to parse.
      */
-    protected User(Parcel in) {
-        uid = in.readString();
-        avatarId = in.readString();
+    protected ConferenceInfoUser(Parcel in) {
+        id = in.readString();
+        imageId = in.readString();
         username = in.readString();
         status = in.readString();
-    }
-
-    /**
-     * Returns the Uid.
-     *
-     * @return The Uid.
-     **/
-    @NonNull
-    public String getUid() {
-        return uid;
-    }
-
-    /**
-     * Returns the Avatar.
-     *
-     * @return The Avatar.
-     **/
-    @NonNull
-    public String getAvatar() {
-        return avatarId;
     }
 
     /**
@@ -107,6 +89,19 @@ public class User implements Parcelable {
         return status;
     }
 
+
+    @NonNull
+    @Override
+    public String getId() {
+        return this.id;
+    }
+
+    @NonNull
+    @Override
+    public String getImageId() {
+        return imageId;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -114,8 +109,8 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(uid);
-        parcel.writeString(avatarId);
+        parcel.writeString(id);
+        parcel.writeString(imageId);
         parcel.writeString(username);
         parcel.writeString(status);
     }
@@ -126,21 +121,23 @@ public class User implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        ConferenceInfoUser conferenceInfoUser = (ConferenceInfoUser) o;
 
-        if (!uid.equals(user.uid)) return false;
-        if (!avatarId.equals(user.avatarId)) return false;
-        if (!username.equals(user.username)) return false;
-        return status.equals(user.status);
+        if (!id.equals(conferenceInfoUser.id)) return false;
+        if (!imageId.equals(conferenceInfoUser.imageId)) return false;
+        if (!username.equals(conferenceInfoUser.username)) return false;
+        return status.equals(conferenceInfoUser.status);
 
     }
 
     @Override
     public int hashCode() {
-        int result = uid.hashCode();
-        result = 31 * result + avatarId.hashCode();
+        int result = id.hashCode();
+        result = 31 * result + imageId.hashCode();
         result = 31 * result + username.hashCode();
         result = 31 * result + status.hashCode();
         return result;
     }
+
+
 }

@@ -1,7 +1,9 @@
 package com.proxerme.library.connection.messenger.result;
 
+import android.support.annotation.NonNull;
+
 import com.afollestad.bridge.annotations.Body;
-import com.proxerme.library.connection.messenger.entity.ConferenceInfo;
+import com.proxerme.library.connection.messenger.entity.ConferenceInfoContainer;
 import com.proxerme.library.interfaces.ProxerResult;
 
 /**
@@ -9,10 +11,10 @@ import com.proxerme.library.interfaces.ProxerResult;
  *
  * @author Desnoo
  */
-public class ConferenceInfoResult implements ProxerResult<ConferenceInfo> {
+public class ConferenceInfoResult implements ProxerResult<ConferenceInfoContainer> {
 
     @Body(name = "data")
-    ConferenceInfo conferenceInfo;
+    ConferenceInfoContainer conferenceInfoContainer;
 
     /**
      * Private constructor.
@@ -23,15 +25,15 @@ public class ConferenceInfoResult implements ProxerResult<ConferenceInfo> {
     /**
      * The constructor.
      *
-     * @param conferenceInfo The result of the request.
+     * @param conferenceInfoContainer The result of the request.
      */
-    public ConferenceInfoResult(ConferenceInfo conferenceInfo) {
-        this.conferenceInfo = conferenceInfo;
+    public ConferenceInfoResult(@NonNull ConferenceInfoContainer conferenceInfoContainer) {
+        this.conferenceInfoContainer = conferenceInfoContainer;
     }
 
     @Override
-    public ConferenceInfo getItem() {
-        return this.conferenceInfo;
+    public ConferenceInfoContainer getItem() {
+        return this.conferenceInfoContainer;
     }
 
 }

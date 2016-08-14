@@ -1,5 +1,7 @@
 package com.proxerme.library.connection.messenger.result;
 
+import android.support.annotation.NonNull;
+
 import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.connection.messenger.entity.Constants;
 import com.proxerme.library.interfaces.ProxerResult;
@@ -25,7 +27,7 @@ public class ConstantsResult implements ProxerResult<Constants> {
      *
      * @param constants The constants retrieved by the request.
      **/
-    public ConstantsResult(Constants constants) {
+    public ConstantsResult(@NonNull Constants constants) {
         this.constants = constants;
     }
 

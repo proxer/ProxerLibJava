@@ -2,9 +2,10 @@ package com.proxerme.library.connection.messenger.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.annotations.Body;
-import com.proxerme.library.connection.messenger.entity.conferenceInfo.User;
+import com.proxerme.library.connection.messenger.entity.conferenceInfo.ConferenceInfoUser;
 
 import java.util.Arrays;
 
@@ -13,40 +14,40 @@ import java.util.Arrays;
  *
  * @author Desnoo
  */
-public class ConferenceInfo implements Parcelable {
+public class ConferenceInfoContainer implements Parcelable {
 
-    public static final Creator<ConferenceInfo> CREATOR = new Creator<ConferenceInfo>() {
+    public static final Creator<ConferenceInfoContainer> CREATOR = new Creator<ConferenceInfoContainer>() {
         @Override
-        public ConferenceInfo createFromParcel(Parcel in) {
-            return new ConferenceInfo(in);
+        public ConferenceInfoContainer createFromParcel(Parcel in) {
+            return new ConferenceInfoContainer(in);
         }
 
         @Override
-        public ConferenceInfo[] newArray(int size) {
-            return new ConferenceInfo[size];
+        public ConferenceInfoContainer[] newArray(int size) {
+            return new ConferenceInfoContainer[size];
         }
     };
 
     @Body(name = "conference")
     Conference conference;
     @Body(name = "users")
-    User[] user;
+    ConferenceInfoUser[] conferenceInfoUser;
 
     /**
      * Private Constructor.
      */
-    ConferenceInfo() {
+    ConferenceInfoContainer() {
     }
 
     /**
      * The Constructor.
      *
      * @param conference The conference object.
-     * @param user       The user object.
+     * @param conferenceInfoUser       The user object.
      */
-    public ConferenceInfo(Conference conference, User[] user) {
+    public ConferenceInfoContainer(@NonNull Conference conference, @NonNull ConferenceInfoUser[] conferenceInfoUser) {
         this.conference = conference;
-        this.user = user;
+        this.conferenceInfoUser = conferenceInfoUser;
     }
 
     /**
@@ -54,9 +55,9 @@ public class ConferenceInfo implements Parcelable {
      *
      * @param in The parcel to parse.
      */
-    protected ConferenceInfo(Parcel in) {
+    protected ConferenceInfoContainer(Parcel in) {
         conference = in.readParcelable(Conference.class.getClassLoader());
-        user = in.createTypedArray(User.CREATOR);
+        conferenceInfoUser = in.createTypedArray(ConferenceInfoUser.CREATOR);
     }
 
     @Override
@@ -67,14 +68,15 @@ public class ConferenceInfo implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeParcelable(conference, i);
-        parcel.writeTypedArray(user, i);
+        parcel.writeTypedArray(conferenceInfoUser, i);
     }
 
     /**
-     * Returns the Conference.
+     * Returns the ConferenceInfo.
      *
-     * @return The Conference.‚
+     * @return The ConferenceInfo.‚
      **/
+    @NonNull
     public Conference getConference() {
         return conference;
     }
@@ -84,8 +86,9 @@ public class ConferenceInfo implements Parcelable {
      *
      * @return The User.
      **/
-    public User[] getUser() {
-        return user;
+    @NonNull
+    public ConferenceInfoUser[] getConferenceInfoUser() {
+        return conferenceInfoUser;
     }
 
     @Override
@@ -93,18 +96,18 @@ public class ConferenceInfo implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ConferenceInfo that = (ConferenceInfo) o;
+        ConferenceInfoContainer that = (ConferenceInfoContainer) o;
 
         if (!conference.equals(that.conference)) return false;
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(user, that.user);
+        return Arrays.equals(conferenceInfoUser, that.conferenceInfoUser);
 
     }
 
     @Override
     public int hashCode() {
         int result = conference.hashCode();
-        result = 31 * result + Arrays.hashCode(user);
+        result = 31 * result + Arrays.hashCode(conferenceInfoUser);
         return result;
     }
 }
