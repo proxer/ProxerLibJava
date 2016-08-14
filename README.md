@@ -5,6 +5,23 @@
 This is a library, providing some core functionality for an Android App aiming
 to implement the API of the [Proxer.me](https://proxer.me/) website.
 
+### Table of contents
+
+- [Including in your project](#including-in-your-project)
+- [Usage](#usage)
+    - [Initialization](#initialization)
+	- [Making a request](#making-a-request)
+  	- [Cancelling a request](#cancelling-a-request)
+	- [Error handling](#error-handling)
+	- [UrlHolder](#urlholder)
+	- [Cleanup](#cleanup)
+	- [Managing Cookies](#managing-cookies)
+	- [More](#more)
+- [Architecture](#architecture)
+	- [Organisation](#organisation)
+	- [Experimental APIs](#experimental-apis)
+- [Dependencies](#dependencies)
+
 ### Including in your project
 
 Add this to your project build.gradle:
