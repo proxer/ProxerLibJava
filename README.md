@@ -107,6 +107,26 @@ ProxerConnection.cancel(ProxerTag.NEWS);
 ```
 
 `ProxerTag` contains tags for all requests.
+
+You can also cancel individual asynchronous requests. Cancelling a single request for the latest
+News might look like this:
+
+```java
+Request request = new NewsRequest(0).execute(new ProxerRequest.ProxerCallback<NewsResult>() {
+    @Override
+    public void onSuccess(NewsResult result) {
+
+    }
+}, new ProxerRequest.ProxerErrorCallback() {
+    @Override
+    public void onError(ProxerErrorResult result) {
+
+    }
+});
+
+request.cancel();
+```
+
 Note: You won't get a result in your request callbacks if you cancel it.
 
 ##### Error handling
