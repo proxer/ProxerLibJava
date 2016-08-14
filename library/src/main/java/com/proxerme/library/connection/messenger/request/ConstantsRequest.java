@@ -9,12 +9,13 @@ import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 
 /**
+ * Request for the constants of the messenger API.
+ *
  * @author Desnoo
  */
 public class ConstantsRequest extends ProxerRequest<ConstantsResult> {
 
     private static final String CONFERENCE_CONSTANTS_URL = "/api/v1/messenger/constants";
-
 
     @Override
     protected int getTag() {

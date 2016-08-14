@@ -1,4 +1,4 @@
-package com.proxerme.library.connection.messenger.entity.conferenceInfo;
+package com.proxerme.library.connection.messenger.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,7 +9,7 @@ import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.ImageItem;
 
 /**
- * The class that represents a user.
+ * The class that represents a participant in a conferenceInfo.
  *
  * @author Desnoo
  */
@@ -45,12 +45,13 @@ public class ConferenceInfoUser implements Parcelable, IdItem, ImageItem {
     /**
      * The Constructor.
      *
-     * @param id      The user id.
+     * @param id       The user id.
      * @param avatar   The avatar id.
      * @param username The user's name.
      * @param status   The current status message.
      */
-    public ConferenceInfoUser(@NonNull String id, @NonNull String avatar, @NonNull String username, @NonNull String status) {
+    public ConferenceInfoUser(@NonNull String id, @NonNull String avatar, @NonNull String username,
+                              @NonNull String status) {
         this.id = id;
         this.imageId = avatar;
         this.username = username;
@@ -89,13 +90,22 @@ public class ConferenceInfoUser implements Parcelable, IdItem, ImageItem {
         return status;
     }
 
-
+    /**
+     * Returns the id of the user.
+     *
+     * @return The id.
+     */
     @NonNull
     @Override
     public String getId() {
         return this.id;
     }
 
+    /**
+     * Returns the id of the users image.
+     *
+     * @return The id.
+     */
     @NonNull
     @Override
     public String getImageId() {

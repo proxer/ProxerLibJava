@@ -7,8 +7,8 @@ import android.support.annotation.IntRange;
 import com.afollestad.bridge.annotations.Body;
 
 /**
- * Class that represents the constants of the messaging module. Such as max text length, request limits,
- * e.g. how many conferences at once could be requested.
+ * Class that represents the constants of the messaging module. Such as max text length,
+ * request limits, e.g. how many conferences at once could be requested.
  *
  * @author Desnoo
  */
@@ -47,9 +47,10 @@ public class Constants implements Parcelable {
      *
      * @param textCount       The max length of a message.
      * @param conferenceLimit The max number of conferences to request with one request.
-     * @param messagesLimit   The max number of messages of a conference to request with one request.
-     * @param userLimit       The max count of users of an conference.
-     * @param topicCount      The max length of a conference topic.
+     * @param messagesLimit   The max number of messages of a conferenceInfo to request with one
+     *                        request.
+     * @param userLimit       The max count of users of an conferenceInfo.
+     * @param topicCount      The max length of a conferenceInfo topic.
      */
     public Constants(@IntRange(from = 0) int textCount, @IntRange(from = 0) int conferenceLimit,
                      @IntRange(from = 0) int messagesLimit, @IntRange(from = 0) int userLimit,
@@ -85,8 +86,9 @@ public class Constants implements Parcelable {
     }
 
     /**
-     * Returns the max number of conferences that can be requested by {@link com.proxerme.library.connection.messenger.request.ConferencesRequest}
-     * with one request to the API.
+     * Returns the max number of conferences that can be requested by
+     * {@link com.proxerme.library.connection.messenger.request.ConferencesRequest} with one request
+     * to the API.
      *
      * @return The max number of conferences to request with one request.
      */
@@ -96,10 +98,11 @@ public class Constants implements Parcelable {
     }
 
     /**
-     * Returns the max number of messages of an conference that can be requested by {@link com.proxerme.library.connection.messenger.request.MessagesRequest}
-     * one request to the API.
+     * Returns the max number of messages of an conferenceInfo that can be requested by
+     * {@link com.proxerme.library.connection.messenger.request.MessagesRequest} one request to the
+     * API.
      *
-     * @return The max number of messages that can be requested for an conference.
+     * @return The max number of messages that can be requested for an conferenceInfo.
      */
     @IntRange(from = 0)
     public int getMessagesLimit() {
@@ -107,9 +110,9 @@ public class Constants implements Parcelable {
     }
 
     /**
-     * Returns the max count of users that can be part of an conference.
+     * Returns the max count of users that can be part of an conferenceInfo.
      *
-     * @return The max count of users of a conference.
+     * @return The max count of users of a conferenceInfo.
      */
     @IntRange(from = 0)
     public int getUserLimit() {
@@ -117,9 +120,9 @@ public class Constants implements Parcelable {
     }
 
     /**
-     * Returns the max length of the conference topic.
+     * Returns the max length of the conferenceInfo topic.
      *
-     * @return The max length of the conference topic.
+     * @return The max length of the conferenceInfo topic.
      */
     @IntRange(from = 0)
     public int getTopicCount() {

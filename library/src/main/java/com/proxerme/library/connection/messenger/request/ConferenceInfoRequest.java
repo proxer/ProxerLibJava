@@ -51,7 +51,6 @@ public class ConferenceInfoRequest extends ProxerRequest<ConferenceInfoResult> {
     @Nullable
     @Override
     protected Form getBody() {
-        return new Form()
-                .add(CONFERENCE_ID, conferenceId);
+        return new Form().add(CONFERENCE_ID, conferenceId);
     }
 }

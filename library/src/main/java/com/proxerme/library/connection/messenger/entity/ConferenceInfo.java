@@ -1,4 +1,4 @@
-package com.proxerme.library.connection.messenger.entity.conferenceInfo;
+package com.proxerme.library.connection.messenger.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -32,9 +32,9 @@ public class ConferenceInfo implements Parcelable {
     @Body(name = "count")
     int participants;
     @Body(name = "timestampStart")
-    long timestampStart;
+    long firstMessageTime;
     @Body(name = "timestampEnd")
-    long timestampEnd;
+    long lastMessageTime;
     @Body(name = "leader")
     String leaderId;
 
@@ -47,19 +47,19 @@ public class ConferenceInfo implements Parcelable {
     /**
      * The Constructor.
      *
-     * @param topic          The topic.
-     * @param participants   The participants of this conference.
-     * @param timestampStart The timestamp when the conference started.
-     * @param timestampEnd   The timestamp when the last message of the conference was sent.
-     * @param leaderId       The user id of the conference leader.
+     * @param topic            The topic.
+     * @param participants     The amount of participants in this conferenceInfo.
+     * @param firstMessageTime The time when the conferenceInfo started.
+     * @param lastMessageTime  The time when the last message of the conferenceInfo was sent.
+     * @param leaderId         The user id of the conferenceInfo leader.
      */
     public ConferenceInfo(@NonNull String topic, @IntRange(from = 2) int participants,
-                          @IntRange(from = 0) long timestampStart, @IntRange(from = 0) long timestampEnd,
-                          @NonNull String leaderId) {
+                          @IntRange(from = 0) long firstMessageTime,
+                          @IntRange(from = 0) long lastMessageTime, @NonNull String leaderId) {
         this.topic = topic;
         this.participants = participants;
-        this.timestampStart = timestampStart;
-        this.timestampEnd = timestampEnd;
+        this.firstMessageTime = firstMessageTime;
+        this.lastMessageTime = lastMessageTime;
         this.leaderId = leaderId;
     }
 
@@ -71,26 +71,10 @@ public class ConferenceInfo implements Parcelable {
     protected ConferenceInfo(Parcel in) {
         topic = in.readString();
         participants = in.readInt();
-        timestampStart = in.readLong();
-        timestampEnd = in.readLong();
+        firstMessageTime = in.readLong();
+        lastMessageTime = in.readLong();
         leaderId = in.readString();
     }
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(topic);
-        parcel.writeInt(participants);
-        parcel.writeLong(timestampStart);
-        parcel.writeLong(timestampEnd);
-        parcel.writeString(leaderId);
-    }
-
 
     /**
      * Returns the Topic.
@@ -113,29 +97,29 @@ public class ConferenceInfo implements Parcelable {
     }
 
     /**
-     * Returns the TimestampStart.
+     * Returns the time of the first message.
      *
-     * @return The TimestampStart.
+     * @return The time.
      **/
     @IntRange(from = 0)
-    public long getTimestampStart() {
-        return timestampStart;
+    public long getFirstMessageTime() {
+        return firstMessageTime;
     }
 
     /**
-     * Returns the TimestampEnd.
+     * Returns the time of the last message.
      *
-     * @return The TimestampEnd.
+     * @return The time.
      **/
     @IntRange(from = 0)
-    public long getTimestampEnd() {
-        return timestampEnd;
+    public long getLastMessageTime() {
+        return lastMessageTime;
     }
 
     /**
-     * Returns the Leader.
+     * Returns the id of the conferenceInfo leader.
      *
-     * @return The Leader.
+     * @return The id.
      **/
     @NonNull
     public String getLeaderId() {
@@ -151,8 +135,8 @@ public class ConferenceInfo implements Parcelable {
         ConferenceInfo that = (ConferenceInfo) o;
 
         if (participants != that.participants) return false;
-        if (timestampStart != that.timestampStart) return false;
-        if (timestampEnd != that.timestampEnd) return false;
+        if (firstMessageTime != that.firstMessageTime) return false;
+        if (lastMessageTime != that.lastMessageTime) return false;
         if (!topic.equals(that.topic)) return false;
         return leaderId.equals(that.leaderId);
 
@@ -162,9 +146,23 @@ public class ConferenceInfo implements Parcelable {
     public int hashCode() {
         int result = topic.hashCode();
         result = 31 * result + participants;
-        result = 31 * result + (int) (timestampStart ^ (timestampStart >>> 32));
-        result = 31 * result + (int) (timestampEnd ^ (timestampEnd >>> 32));
+        result = 31 * result + (int) (firstMessageTime ^ (firstMessageTime >>> 32));
+        result = 31 * result + (int) (lastMessageTime ^ (lastMessageTime >>> 32));
         result = 31 * result + leaderId.hashCode();
         return result;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(topic);
+        parcel.writeInt(participants);
+        parcel.writeLong(firstMessageTime);
+        parcel.writeLong(lastMessageTime);
+        parcel.writeString(leaderId);
     }
 }

@@ -12,7 +12,7 @@ import com.proxerme.library.interfaces.ImageItem;
 import com.proxerme.library.interfaces.TimeItem;
 
 /**
- * Class representing a single conference. This might be a group chat or a conversation with a
+ * Class representing a single conferenceInfo. This might be a group chat or a conversation with a
  * single user (indicated by {@link #isGroup()}.
  *
  * @author Ruben Gees
@@ -59,15 +59,15 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     /**
      * The constructor.
      *
-     * @param id                  The id of this conference.
+     * @param id                  The id of this conferenceInfo.
      * @param topic               The topic.
      * @param customTopic         A custom topic set by a user.
-     * @param participantAmount   The amount of participants in this conference.
+     * @param participantAmount   The amount of participants in this conferenceInfo.
      * @param imageType           The type of the image. This is "avatar" in most cases.
      * @param imageId             The id of the image.
      * @param isGroup             Indicator if this is a group chat.
-     * @param isRead              Indicator if this conference has been read by the current user.
-     * @param time                The time of the last message in this conference.
+     * @param isRead              Indicator if this conferenceInfo has been read by the current user.
+     * @param time                The time of the last message in this conferenceInfo.
      * @param unreadMessageAmount The amount of unread messages for the current user.
      * @param lastReadMessageId   The id of the last read message of the current user.
      */
@@ -159,7 +159,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the custom topic for this conference. Might be empty.
+     * Returns the custom topic for this conferenceInfo. Might be empty.
      *
      * @return The custom topic.
      */
@@ -169,7 +169,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the amount of participants in this conference.
+     * Returns the amount of participants in this conferenceInfo.
      *
      * @return The amount.
      */
@@ -179,7 +179,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the topic of this conference.
+     * Returns the topic of this conferenceInfo.
      *
      * @return The topic.
      */
@@ -189,7 +189,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the id of this conference.
+     * Returns the id of this conferenceInfo.
      *
      * @return The id.
      */
@@ -200,7 +200,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the time of the last message in this conference.
+     * Returns the time of the last message in this conferenceInfo.
      *
      * @return The time.
      */
@@ -210,7 +210,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns if this conference is a group chat.
+     * Returns if this conferenceInfo is a group chat.
      *
      * @return True, if it is a group chat.
      */

@@ -5,12 +5,11 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.afollestad.bridge.annotations.Body;
-import com.proxerme.library.connection.messenger.entity.conferenceInfo.ConferenceInfoUser;
 
 import java.util.Arrays;
 
 /**
- * Class that represents the infos of a conference such as the participating users.
+ * Class that represents the info of a conference such as the participating users.
  *
  * @author Desnoo
  */
@@ -28,10 +27,10 @@ public class ConferenceInfoContainer implements Parcelable {
         }
     };
 
-    @Body(name = "conference")
-    Conference conference;
+    @Body(name = "conferenceInfo")
+    ConferenceInfo conferenceInfo;
     @Body(name = "users")
-    ConferenceInfoUser[] conferenceInfoUser;
+    ConferenceInfoUser[] participants;
 
     /**
      * Private Constructor.
@@ -42,12 +41,13 @@ public class ConferenceInfoContainer implements Parcelable {
     /**
      * The Constructor.
      *
-     * @param conference The conference object.
-     * @param conferenceInfoUser       The user object.
+     * @param conferenceInfo The conferenceInfo object.
+     * @param participants   The participants of the conference.
      */
-    public ConferenceInfoContainer(@NonNull Conference conference, @NonNull ConferenceInfoUser[] conferenceInfoUser) {
-        this.conference = conference;
-        this.conferenceInfoUser = conferenceInfoUser;
+    public ConferenceInfoContainer(@NonNull ConferenceInfo conferenceInfo,
+                                   @NonNull ConferenceInfoUser[] participants) {
+        this.conferenceInfo = conferenceInfo;
+        this.participants = participants;
     }
 
     /**
@@ -56,8 +56,8 @@ public class ConferenceInfoContainer implements Parcelable {
      * @param in The parcel to parse.
      */
     protected ConferenceInfoContainer(Parcel in) {
-        conference = in.readParcelable(Conference.class.getClassLoader());
-        conferenceInfoUser = in.createTypedArray(ConferenceInfoUser.CREATOR);
+        conferenceInfo = in.readParcelable(Conference.class.getClassLoader());
+        participants = in.createTypedArray(ConferenceInfoUser.CREATOR);
     }
 
     @Override
@@ -67,28 +67,28 @@ public class ConferenceInfoContainer implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeParcelable(conference, i);
-        parcel.writeTypedArray(conferenceInfoUser, i);
+        parcel.writeParcelable(conferenceInfo, i);
+        parcel.writeTypedArray(participants, i);
     }
 
     /**
      * Returns the ConferenceInfo.
      *
-     * @return The ConferenceInfo.‚
+     * @return The ConferenceInfo.
      **/
     @NonNull
-    public Conference getConference() {
-        return conference;
+    public ConferenceInfo getConferenceInfo() {
+        return conferenceInfo;
     }
 
     /**
-     * Returns the User.
+     * Returns the participants.
      *
-     * @return The User.
+     * @return The participants.
      **/
     @NonNull
-    public ConferenceInfoUser[] getConferenceInfoUser() {
-        return conferenceInfoUser;
+    public ConferenceInfoUser[] getParticipants() {
+        return participants;
     }
 
     @Override
@@ -98,16 +98,15 @@ public class ConferenceInfoContainer implements Parcelable {
 
         ConferenceInfoContainer that = (ConferenceInfoContainer) o;
 
-        if (!conference.equals(that.conference)) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(conferenceInfoUser, that.conferenceInfoUser);
+        if (!conferenceInfo.equals(that.conferenceInfo)) return false;
+        return Arrays.equals(participants, that.participants);
 
     }
 
     @Override
     public int hashCode() {
-        int result = conference.hashCode();
-        result = 31 * result + Arrays.hashCode(conferenceInfoUser);
+        int result = conferenceInfo.hashCode();
+        result = 31 * result + Arrays.hashCode(participants);
         return result;
     }
 }

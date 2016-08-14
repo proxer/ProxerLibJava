@@ -52,7 +52,7 @@ public class Message implements IdItem, TimeItem, Parcelable {
      * The constructor.
      *
      * @param id           The id of this message.
-     * @param conferenceId The id of the conference this message belongs to.
+     * @param conferenceId The id of the conferenceInfo this message belongs to.
      * @param userId       The id of the user, who sent this message.
      * @param username     The username of the user, who sent this message.
      * @param message      The contents of the message.
@@ -96,7 +96,7 @@ public class Message implements IdItem, TimeItem, Parcelable {
     }
 
     /**
-     * Returns the id of the conference this message belongs to.
+     * Returns the id of the conferenceInfo this message belongs to.
      * @return The id.
      */
     @NonNull
