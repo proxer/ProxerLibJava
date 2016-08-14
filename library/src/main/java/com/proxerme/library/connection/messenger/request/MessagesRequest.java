@@ -11,7 +11,17 @@ import com.proxerme.library.info.ProxerUrlHolder;
 import static com.proxerme.library.info.ProxerTag.MESSENGER_MESSAGES;
 
 /**
- * TODO: Describe class
+ * Request for loading messages. There are 4 different cases associated with the conferenceId and
+ * messageId:
+ * <p>
+ * 1) conferenceId = "0" and messageId = "0". The latest messages of the user are loaded.
+ * 2) conferenceId = "0" and messageId = X. The messages before the specified id are loaded.
+ * 3) conferenceId = X and messageId = "0". The latest messages in the specified conference are
+ * loaded.
+ * 4) conferenceId = X and messageId = X. The messages before the specified messageId in the
+ * specified conference are loaded.
+ * <p>
+ * This API requires the user to be logged in.
  *
  * @author Ruben Gees
  */
@@ -26,6 +36,12 @@ public class MessagesRequest extends ProxerRequest<MessagesResult> {
     private String conferenceId;
     private String messageId;
 
+    /**
+     * The constructor.
+     *
+     * @param conferenceId The id of the conference to load from.
+     * @param messageId    The id of the message to load previous messages from.
+     */
     public MessagesRequest(@NonNull String conferenceId, @NonNull String messageId) {
         this.conferenceId = conferenceId;
         this.messageId = messageId;

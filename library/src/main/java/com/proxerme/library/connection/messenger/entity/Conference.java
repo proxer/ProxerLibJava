@@ -12,7 +12,8 @@ import com.proxerme.library.interfaces.ImageItem;
 import com.proxerme.library.interfaces.TimeItem;
 
 /**
- * TODO: Describe class
+ * Class representing a single conference. This might be a group chat or a conversation with a
+ * single user (indicated by {@link #isGroup()}.
  *
  * @author Ruben Gees
  */
@@ -55,6 +56,21 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     Conference() {
     }
 
+    /**
+     * The constructor.
+     *
+     * @param id                  The id of this conference.
+     * @param topic               The topic.
+     * @param customTopic         A custom topic set by a user.
+     * @param participantAmount   The amount of participants in this conference.
+     * @param imageType           The type of the image. This is "avatar" in most cases.
+     * @param imageId             The id of the image.
+     * @param isGroup             Indicator if this is a group chat.
+     * @param isRead              Indicator if this conference has been read by the current user.
+     * @param time                The time of the last message in this conference.
+     * @param unreadMessageAmount The amount of unread messages for the current user.
+     * @param lastReadMessageId   The id of the last read message of the current user.
+     */
     public Conference(@NonNull String id, @NonNull String topic, @NonNull String customTopic,
                       @IntRange(from = 2) int participantAmount, @Nullable String imageType,
                       @Nullable String imageId, boolean isGroup, boolean isRead, long time,
@@ -90,11 +106,21 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         this.unreadMessageAmount = in.readInt();
     }
 
+    /**
+     * Returns the id of the last read message.
+     *
+     * @return The id.
+     */
     @NonNull
     public String getLastReadMessageId() {
         return lastReadMessageId;
     }
 
+    /**
+     * Returns the type of the image. Might be empty if there is no image.
+     *
+     * @return The image type.
+     */
     @NonNull
     public String getImageType() {
         String[] split = image.split(":");
@@ -106,6 +132,11 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         }
     }
 
+    /**
+     * Returns the id of the image. Might be empty if there is no image.
+     *
+     * @return The id.
+     */
     @Override
     @NonNull
     public String getImageId() {
@@ -118,40 +149,80 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         }
     }
 
+    /**
+     * Returns if this message has been read.
+     *
+     * @return True, if read.
+     */
     public boolean isRead() {
         return isRead;
     }
 
+    /**
+     * Returns the custom topic for this conference. Might be empty.
+     *
+     * @return The custom topic.
+     */
     @NonNull
     public String getCustomTopic() {
         return customTopic;
     }
 
+    /**
+     * Returns the amount of participants in this conference.
+     *
+     * @return The amount.
+     */
     @IntRange(from = 2)
     public int getParticipantAmount() {
         return participantAmount;
     }
 
+    /**
+     * Returns the topic of this conference.
+     *
+     * @return The topic.
+     */
     @NonNull
     public String getTopic() {
         return topic;
     }
 
+    /**
+     * Returns the id of this conference.
+     *
+     * @return The id.
+     */
     @Override
     @NonNull
     public String getId() {
         return id;
     }
 
+    /**
+     * Returns the time of the last message in this conference.
+     *
+     * @return The time.
+     */
     @Override
     public long getTime() {
         return time;
     }
 
+    /**
+     * Returns if this conference is a group chat.
+     *
+     * @return True, if it is a group chat.
+     */
     public boolean isGroup() {
         return isGroup;
     }
 
+    /**
+     * Returns the amount of unread messages.
+     *
+     * @return The amount of unread messages.
+     */
     @IntRange(from = 0)
     public int getUnreadMessageAmount() {
         return unreadMessageAmount;
