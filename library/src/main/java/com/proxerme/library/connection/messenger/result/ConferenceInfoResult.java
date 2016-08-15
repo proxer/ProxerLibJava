@@ -7,7 +7,8 @@ import com.proxerme.library.connection.messenger.entity.ConferenceInfoContainer;
 import com.proxerme.library.interfaces.ProxerResult;
 
 /**
- * The class that represents the result of the {@link com.proxerme.library.connection.messenger.request.ConferenceInfoRequest}.
+ * The class that represents the result of the
+ * {@link com.proxerme.library.connection.messenger.request.ConferenceInfoRequest}.
  *
  * @author Desnoo
  */

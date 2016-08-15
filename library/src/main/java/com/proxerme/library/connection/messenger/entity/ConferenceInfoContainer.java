@@ -27,7 +27,7 @@ public class ConferenceInfoContainer implements Parcelable {
         }
     };
 
-    @Body(name = "conferenceInfo")
+    @Body(name = "conference")
     ConferenceInfo conferenceInfo;
     @Body(name = "users")
     ConferenceInfoUser[] participants;

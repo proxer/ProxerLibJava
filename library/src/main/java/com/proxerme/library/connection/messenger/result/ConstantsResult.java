@@ -7,7 +7,8 @@ import com.proxerme.library.connection.messenger.entity.Constants;
 import com.proxerme.library.interfaces.ProxerResult;
 
 /**
- * The class that represents the result of the {@link com.proxerme.library.connection.messenger.request.ConstantsRequest}.
+ * The class that represents the result of the
+ * {@link com.proxerme.library.connection.messenger.request.ConstantsRequest}.
  *
  * @author Desnoo
  */

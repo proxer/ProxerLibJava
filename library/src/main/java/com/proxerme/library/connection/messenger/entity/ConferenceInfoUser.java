@@ -71,9 +71,9 @@ public class ConferenceInfoUser implements Parcelable, IdItem, ImageItem {
     }
 
     /**
-     * Returns the Username.
+     * Returns the username.
      *
-     * @return The Username.
+     * @return The username.
      **/
     @NonNull
     public String getUsername() {
@@ -81,9 +81,9 @@ public class ConferenceInfoUser implements Parcelable, IdItem, ImageItem {
     }
 
     /**
-     * Returns the Status.
+     * Returns the status.
      *
-     * @return The Status.
+     * @return The status.
      **/
     @NonNull
     public String getStatus() {

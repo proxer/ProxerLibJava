@@ -8,8 +8,7 @@ import android.support.annotation.NonNull;
 import com.afollestad.bridge.annotations.Body;
 
 /**
- * The class that represents the ConferenceInfo ConferenceInfo entity.
- * This class is different to the {@link com.proxerme.library.connection.messenger.entity.Conference}
+ * The class that represents the ConferenceInfo entity.
  *
  * @author Desnoo
  */
@@ -48,10 +47,10 @@ public class ConferenceInfo implements Parcelable {
      * The Constructor.
      *
      * @param topic            The topic.
-     * @param participants     The amount of participants in this conferenceInfo.
-     * @param firstMessageTime The time when the conferenceInfo started.
-     * @param lastMessageTime  The time when the last message of the conferenceInfo was sent.
-     * @param leaderId         The user id of the conferenceInfo leader.
+     * @param participants     The amount of participants in this conference.
+     * @param firstMessageTime The time when the conference started.
+     * @param lastMessageTime  The time when the last message of the conference was sent.
+     * @param leaderId         The user id of the conference leader.
      */
     public ConferenceInfo(@NonNull String topic, @IntRange(from = 2) int participants,
                           @IntRange(from = 0) long firstMessageTime,
@@ -64,7 +63,7 @@ public class ConferenceInfo implements Parcelable {
     }
 
     /**
-     * The Constructor parses the parcel.
+     * The Constructor that parses the parcel.
      *
      * @param in The parcel to parse.
      */
@@ -77,9 +76,9 @@ public class ConferenceInfo implements Parcelable {
     }
 
     /**
-     * Returns the Topic.
+     * Returns the topic.
      *
-     * @return The Topic.
+     * @return The topic.
      **/
     @NonNull
     public String getTopic() {
@@ -87,9 +86,9 @@ public class ConferenceInfo implements Parcelable {
     }
 
     /**
-     * Returns the Count.
+     * Returns the amount of participants in this conference.
      *
-     * @return The Count.
+     * @return The amount.
      **/
     @IntRange(from = 2)
     public int getParticipants() {
