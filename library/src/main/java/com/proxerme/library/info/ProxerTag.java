@@ -33,6 +33,8 @@ public class ProxerTag {
     public static final int MESSENGER_SEND_MESSAGE = 52;
     public static final int MESSENGER_CONFERENCE_CONSTANTS = 53;
     public static final int MESSENGER_CONFERENCE_INFO = 54;
+    public static final int MESSENGER_SET_FAVOUR = 55;
+    public static final int MESSENGER_SET_UNFAVOUR = 56;
 
     /**
      * An annotation representing all the different tags.
@@ -40,7 +42,7 @@ public class ProxerTag {
     @IntDef({LOGIN, NEWS, LOGOUT, USER_INFO, USER_TOPTEN, USER_MEDIA_LIST, MEDIA_LIST, MEDIA_SEARCH,
             INFO_ENTRY_CORE, INFO_ENTRY_SYNONYM, INFO_ENTRY_SEASON, MESSENGER_CONFERENCES,
             MESSENGER_MESSAGES, MESSENGER_SEND_MESSAGE, MESSENGER_CONFERENCE_CONSTANTS,
-            MESSENGER_CONFERENCE_INFO})
+            MESSENGER_CONFERENCE_INFO, MESSENGER_SET_FAVOUR, MESSENGER_SET_UNFAVOUR})
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
     public @interface ConnectionTag {
