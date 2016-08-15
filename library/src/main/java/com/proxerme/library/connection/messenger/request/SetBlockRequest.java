@@ -50,7 +50,7 @@ public class SetBlockRequest extends ProxerRequest<SetActionResult> {
 
     @Override
     protected int getTag() {
-        return ProxerTag.MESSENGER_SET_UNFAVOUR;
+        return ProxerTag.MESSENGER_SET_BLOCK;
     }
 
     @Override

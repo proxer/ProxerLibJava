@@ -11,31 +11,34 @@ import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 
 /**
- * The class that represents the SetUnreadRequest. Use this to mark a conference as not read.
+ * The class that represents the SetReportRequest. Use this to report a conference with a reason.
  *
  * @author Desnoo
  */
-public class SetUnreadRequest extends ProxerRequest<SetActionResult> {
+public class SetReportRequest extends ProxerRequest<SetActionResult> {
 
-    private static final String SET_UNREAD_URL = "/api/v1/messenger/setunread";
+    private static final String SET_REPORT_URL = "/api/v1/messenger/report";
     private static final String CONFERENCE_ID = "conference_id";
+    private static final String REASON = "text";
 
     private String conferenceId;
-
+    private String reason;
 
     /**
      * Package constructor.
      */
-    SetUnreadRequest() {
+    SetReportRequest() {
     }
 
     /**
      * The constructor.
      *
      * @param conferenceId The conference id of the conference to mark as unread.
+     * @param reason       The reason for the report.
      */
-    public SetUnreadRequest(@NonNull String conferenceId) {
+    public SetReportRequest(@NonNull String conferenceId, @NonNull String reason) {
         this.conferenceId = conferenceId;
+        this.reason = reason;
     }
 
     /**
@@ -48,9 +51,19 @@ public class SetUnreadRequest extends ProxerRequest<SetActionResult> {
         return conferenceId;
     }
 
+    /**
+     * Returns the Reason.
+     *
+     * @return The Reason.
+     **/
+    @NonNull
+    public String getReason() {
+        return reason;
+    }
+
     @Override
     protected int getTag() {
-        return ProxerTag.MESSENGER_SET_UNREAD;
+        return ProxerTag.MESSENGER_SET_REPORT;
     }
 
     @Override
@@ -61,13 +74,14 @@ public class SetUnreadRequest extends ProxerRequest<SetActionResult> {
     @NonNull
     @Override
     protected String getURL() {
-        return ProxerUrlHolder.getHost() + SET_UNREAD_URL;
+        return ProxerUrlHolder.getHost() + SET_REPORT_URL;
     }
 
     @Nullable
     @Override
     protected Form getBody() {
         return new Form()
-                .add(CONFERENCE_ID, conferenceId);
+                .add(CONFERENCE_ID, conferenceId)
+                .add(REASON, reason);
     }
 }

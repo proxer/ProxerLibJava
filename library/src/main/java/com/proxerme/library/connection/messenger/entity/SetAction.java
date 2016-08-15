@@ -10,8 +10,9 @@ import android.support.annotation.NonNull;
  * Use the this class with {@link com.proxerme.library.connection.messenger.request.SetFavourRequest},
  * {@link com.proxerme.library.connection.messenger.request.SetUnfavourRequest},
  * {@link com.proxerme.library.connection.messenger.request.SetBlockRequest},
- * {@link com.proxerme.library.connection.messenger.request.SetUnblockRequest} or
- * {@link com.proxerme.library.connection.messenger.request.SetUnreadRequest}.
+ * {@link com.proxerme.library.connection.messenger.request.SetUnblockRequest},
+ * {@link com.proxerme.library.connection.messenger.request.SetUnreadRequest} or
+ * {@link com.proxerme.library.connection.messenger.request.SetReportRequest}.
  *
  *
  * @author Desnoo
