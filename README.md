@@ -36,7 +36,7 @@ And this to your module build.gradle:
 
 ```groovy
 dependencies {
-    compile('com.github.proxer:ProxerLibAndroid:1.9.4@aar') {
+    compile('com.github.proxer:ProxerLibAndroid:1.9.4.1@aar') {
         transitive = true
     }
 }
@@ -255,7 +255,7 @@ CookieHandler.setDefault(cookieManager);
 ##### More
 
 You can find detailed JavaDoc
-[here](https://jitpack.io/com/github/proxer/ProxerLibAndroid/1.9.4/javadoc/).
+[here](https://jitpack.io/com/github/proxer/ProxerLibAndroid/1.9.4.1/javadoc/).
 
 ### Architecture
 
