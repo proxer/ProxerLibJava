@@ -5,22 +5,28 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 /**
- * The respone class used by {@link com.proxerme.library.connection.messenger.request.SetFavourRequest}
- * and GetFavour
+ * This class is general class to match a simple request with an id.
+ *
+ * Use the this class with {@link com.proxerme.library.connection.messenger.request.SetFavourRequest},
+ * {@link com.proxerme.library.connection.messenger.request.SetUnfavourRequest},
+ * {@link com.proxerme.library.connection.messenger.request.SetBlockRequest},
+ * {@link com.proxerme.library.connection.messenger.request.SetUnblockRequest} or
+ * {@link com.proxerme.library.connection.messenger.request.SetUnreadRequest}.
+ *
  *
  * @author Desnoo
  */
-public class Favour implements Parcelable {
+public class SetAction implements Parcelable {
 
-    public static final Creator<Favour> CREATOR = new Creator<Favour>() {
+    public static final Creator<SetAction> CREATOR = new Creator<SetAction>() {
         @Override
-        public Favour createFromParcel(Parcel in) {
-            return new Favour(in);
+        public SetAction createFromParcel(Parcel in) {
+            return new SetAction(in);
         }
 
         @Override
-        public Favour[] newArray(int size) {
-            return new Favour[size];
+        public SetAction[] newArray(int size) {
+            return new SetAction[size];
         }
     };
 
@@ -31,7 +37,7 @@ public class Favour implements Parcelable {
      *
      * @param status The status of the response of the request.
      */
-    public Favour(@NonNull String status) {
+    public SetAction(@NonNull String status) {
         this.status = status;
     }
 
@@ -40,7 +46,7 @@ public class Favour implements Parcelable {
      *
      * @param in The parcel to parse.
      */
-    protected Favour(Parcel in) {
+    protected SetAction(Parcel in) {
         status = in.readString();
     }
 
@@ -48,7 +54,7 @@ public class Favour implements Parcelable {
     /**
      * Get the status of the {@link com.proxerme.library.connection.messenger.request.SetFavourRequest}.
      *
-     * @return A string containing the status of the favor request.
+     * @return A string containing the status of a set request.
      */
     @NonNull
     public String getStatus() {
@@ -71,9 +77,9 @@ public class Favour implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Favour favour = (Favour) o;
+        SetAction setAction = (SetAction) o;
 
-        return status.equals(favour.status);
+        return status.equals(setAction.status);
 
     }
 

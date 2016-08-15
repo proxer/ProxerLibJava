@@ -11,13 +11,13 @@ import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 
 /**
- * The class that represents the SetFavourRequest. Use this to favour an conference.
+ * The class that represents the SetUnblockRequest. Use this to unblock a conference.
  *
  * @author Desnoo
  */
-public class SetFavourRequest extends ProxerRequest<SetActionResult> {
+public class SetUnblockRequest extends ProxerRequest<SetActionResult> {
 
-    private static final String SET_FAVOUR_URL = "/api/v1/messenger/setfavour";
+    private static final String SET_UNBLOCK_URL = "/api/v1/messenger/setunblock";
     private static final String CONFERENCE_ID = "conference_id";
 
     private String conferenceId;
@@ -26,15 +26,15 @@ public class SetFavourRequest extends ProxerRequest<SetActionResult> {
     /**
      * Package constructor.
      */
-    SetFavourRequest() {
+    SetUnblockRequest() {
     }
 
     /**
      * The constructor.
      *
-     * @param conferenceId The conference id of the conference to favour.
+     * @param conferenceId The conference id of the conference to unblock.
      */
-    public SetFavourRequest(@NonNull String conferenceId) {
+    public SetUnblockRequest(@NonNull String conferenceId) {
         this.conferenceId = conferenceId;
     }
 
@@ -61,7 +61,7 @@ public class SetFavourRequest extends ProxerRequest<SetActionResult> {
     @NonNull
     @Override
     protected String getURL() {
-        return ProxerUrlHolder.getHost() + SET_FAVOUR_URL;
+        return ProxerUrlHolder.getHost() + SET_UNBLOCK_URL;
     }
 
     @Nullable
