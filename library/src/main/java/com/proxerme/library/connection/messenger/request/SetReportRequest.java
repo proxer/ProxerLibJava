@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerRequest;
-import com.proxerme.library.connection.messenger.result.SetActionResult;
+import com.proxerme.library.connection.messenger.result.VoidResult;
 import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 
@@ -15,7 +15,7 @@ import com.proxerme.library.info.ProxerUrlHolder;
  *
  * @author Desnoo
  */
-public class SetReportRequest extends ProxerRequest<SetActionResult> {
+public class SetReportRequest extends ProxerRequest<VoidResult> {
 
     private static final String SET_REPORT_URL = "/api/v1/messenger/report";
     private static final String CONFERENCE_ID = "conference_id";
@@ -67,8 +67,8 @@ public class SetReportRequest extends ProxerRequest<SetActionResult> {
     }
 
     @Override
-    protected SetActionResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(SetActionResult.class);
+    protected VoidResult parse(@NonNull Response response) throws Exception {
+        return response.asClass(VoidResult.class);
     }
 
     @NonNull

@@ -1,9 +1,5 @@
 package com.proxerme.library.connection.messenger.result;
 
-import android.support.annotation.NonNull;
-
-import com.afollestad.bridge.annotations.Body;
-import com.proxerme.library.connection.messenger.entity.SetAction;
 import com.proxerme.library.interfaces.ProxerResult;
 
 /**
@@ -16,26 +12,13 @@ import com.proxerme.library.interfaces.ProxerResult;
  *
  * @author Desnoo
  */
-public class SetActionResult implements ProxerResult<SetAction> {
+public class VoidResult implements ProxerResult<Void> {
 
-    @Body(name = "message")
-    SetAction setAction;
-
-    SetActionResult() {
+    VoidResult() {
     }
 
-    /**
-     * The Constructor.
-     *
-     * @param setAction The favour response message.
-     */
-    public SetActionResult(@NonNull SetAction setAction) {
-        this.setAction = setAction;
-    }
-
-    @NonNull
     @Override
-    public SetAction getItem() {
-        return setAction;
+    public Void getItem() {
+        return null;
     }
 }

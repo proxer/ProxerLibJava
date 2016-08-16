@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.Response;
 import com.proxerme.library.connection.ProxerRequest;
-import com.proxerme.library.connection.messenger.result.SetActionResult;
+import com.proxerme.library.connection.messenger.result.VoidResult;
 import com.proxerme.library.info.ProxerTag;
 import com.proxerme.library.info.ProxerUrlHolder;
 
@@ -16,7 +16,7 @@ import com.proxerme.library.info.ProxerUrlHolder;
  *
  * @author Desnoo
  */
-public class SetUnfavourRequest extends ProxerRequest<SetActionResult> {
+public class SetUnfavourRequest extends ProxerRequest<VoidResult> {
 
     private static final String SET_UNFAVOUR_URL = "/api/v1/messenger/setunfavour";
     private static final String CONFERENCE_ID = "conference_id";
@@ -54,8 +54,8 @@ public class SetUnfavourRequest extends ProxerRequest<SetActionResult> {
     }
 
     @Override
-    protected SetActionResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(SetActionResult.class);
+    protected VoidResult parse(@NonNull Response response) throws Exception {
+        return response.asClass(VoidResult.class);
     }
 
     @NonNull
