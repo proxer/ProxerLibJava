@@ -22,13 +22,6 @@ public class SetBlockRequest extends ProxerRequest<VoidResult> {
 
     private String conferenceId;
 
-
-    /**
-     * Package constructor.
-     */
-    SetBlockRequest() {
-    }
-
     /**
      * The constructor.
      *
@@ -38,16 +31,6 @@ public class SetBlockRequest extends ProxerRequest<VoidResult> {
         this.conferenceId = conferenceId;
     }
 
-    /**
-     * Returns the id of the conference.
-     *
-     * @return The conference id.
-     */
-    @NonNull
-    public String getConferenceId() {
-        return conferenceId;
-    }
-
     @Override
     protected int getTag() {
         return ProxerTag.MESSENGER_SET_BLOCK;
@@ -55,7 +38,7 @@ public class SetBlockRequest extends ProxerRequest<VoidResult> {
 
     @Override
     protected VoidResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(VoidResult.class);
+        return new VoidResult();
     }
 
     @NonNull

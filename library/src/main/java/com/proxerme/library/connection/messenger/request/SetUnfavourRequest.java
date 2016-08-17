@@ -24,28 +24,12 @@ public class SetUnfavourRequest extends ProxerRequest<VoidResult> {
     private String conferenceId;
 
     /**
-     * Package constructor.
-     */
-    SetUnfavourRequest() {
-    }
-
-    /**
      * The constructor.
      *
      * @param conferenceId The conference id of the conference to remove favourite status.
      */
     public SetUnfavourRequest(@NonNull String conferenceId) {
         this.conferenceId = conferenceId;
-    }
-
-    /**
-     * Returns the id of the conference.
-     *
-     * @return The conference id.
-     */
-    @NonNull
-    public String getConferenceId() {
-        return conferenceId;
     }
 
     @Override
@@ -55,7 +39,7 @@ public class SetUnfavourRequest extends ProxerRequest<VoidResult> {
 
     @Override
     protected VoidResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(VoidResult.class);
+        return new VoidResult();
     }
 
     @NonNull

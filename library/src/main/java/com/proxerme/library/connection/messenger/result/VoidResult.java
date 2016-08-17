@@ -14,7 +14,7 @@ import com.proxerme.library.interfaces.ProxerResult;
  */
 public class VoidResult implements ProxerResult<Void> {
 
-    VoidResult() {
+    public VoidResult() {
     }
 
     @Override

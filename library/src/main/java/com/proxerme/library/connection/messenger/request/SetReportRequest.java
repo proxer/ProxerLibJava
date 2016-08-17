@@ -25,12 +25,6 @@ public class SetReportRequest extends ProxerRequest<VoidResult> {
     private String reason;
 
     /**
-     * Package constructor.
-     */
-    SetReportRequest() {
-    }
-
-    /**
      * The constructor.
      *
      * @param conferenceId The conference id of the conference to mark as unread.
@@ -41,26 +35,6 @@ public class SetReportRequest extends ProxerRequest<VoidResult> {
         this.reason = reason;
     }
 
-    /**
-     * Returns the id of the conference.
-     *
-     * @return The conference id.
-     */
-    @NonNull
-    public String getConferenceId() {
-        return conferenceId;
-    }
-
-    /**
-     * Returns the Reason.
-     *
-     * @return The Reason.
-     **/
-    @NonNull
-    public String getReason() {
-        return reason;
-    }
-
     @Override
     protected int getTag() {
         return ProxerTag.MESSENGER_SET_REPORT;
@@ -68,7 +42,7 @@ public class SetReportRequest extends ProxerRequest<VoidResult> {
 
     @Override
     protected VoidResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(VoidResult.class);
+        return new VoidResult();
     }
 
     @NonNull
