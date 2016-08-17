@@ -1,5 +1,7 @@
 package com.proxerme.library.connection.messenger.result;
 
+import android.support.annotation.Nullable;
+
 import com.proxerme.library.interfaces.ProxerResult;
 
 /**
@@ -10,6 +12,8 @@ import com.proxerme.library.interfaces.ProxerResult;
  * {@link com.proxerme.library.connection.messenger.request.SetUnreadRequest} or
  * {@link com.proxerme.library.connection.messenger.request.SetReportRequest}.
  *
+ * This class is just a placeholder for the specified Requests and will never hold any information.
+ *
  * @author Desnoo
  */
 public class VoidResult implements ProxerResult<Void> {
@@ -18,6 +22,7 @@ public class VoidResult implements ProxerResult<Void> {
     }
 
     @Override
+    @Nullable
     public Void getItem() {
         return null;
     }
