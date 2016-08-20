@@ -239,6 +239,12 @@ public abstract class ProxerRequest<R extends ProxerResult> {
      * @param <R> The type of the Result.
      */
     public interface ProxerCallback<R extends ProxerResult> {
+
+        /**
+         * Called upon success for each Request with the result.
+         *
+         * @param result The result specified through the type parameter.
+         */
         void onSuccess(R result);
     }
 
@@ -246,6 +252,12 @@ public abstract class ProxerRequest<R extends ProxerResult> {
      * A callback for a unsuccessful request.
      */
     public interface ProxerErrorCallback {
+
+        /**
+         * Called upon an error for each Request with the ErrorResult.
+         *
+         * @param result The ErrorResult.
+         */
         void onError(ProxerErrorResult result);
     }
 }
