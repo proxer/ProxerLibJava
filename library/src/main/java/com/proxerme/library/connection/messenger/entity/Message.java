@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.TimeItem;
+import com.proxerme.library.parameters.ActionParameter.Action;
 
 /**
  * Class that represents a single message.
@@ -62,8 +63,8 @@ public class Message implements IdItem, TimeItem, Parcelable {
      * @param device       The device this message was sent from. In most cases "default".
      */
     public Message(@NonNull String id, @NonNull String conferenceId, @NonNull String userId,
-                   @NonNull String username, @NonNull String message, @NonNull String action,
-                   long time, @NonNull String device) {
+                   @NonNull String username, @NonNull String message,
+                   @NonNull @Action String action, long time, @NonNull String device) {
         this.id = id;
         this.conferenceId = conferenceId;
         this.userId = userId;
@@ -87,6 +88,7 @@ public class Message implements IdItem, TimeItem, Parcelable {
 
     /**
      * Returns the id of this message.
+     *
      * @return The id.
      */
     @NonNull
@@ -97,6 +99,7 @@ public class Message implements IdItem, TimeItem, Parcelable {
 
     /**
      * Returns the id of the conferenceInfo this message belongs to.
+     *
      * @return The id.
      */
     @NonNull
@@ -106,6 +109,7 @@ public class Message implements IdItem, TimeItem, Parcelable {
 
     /**
      * Returns the id of the user.
+     *
      * @return The id.
      */
     @NonNull
@@ -115,6 +119,7 @@ public class Message implements IdItem, TimeItem, Parcelable {
 
     /**
      * Returns the username of the user.
+     *
      * @return The username.
      */
     @NonNull
@@ -124,6 +129,7 @@ public class Message implements IdItem, TimeItem, Parcelable {
 
     /**
      * Returns the actual contents of this message.
+     *
      * @return The contents of this message.
      */
     @NonNull
@@ -133,15 +139,18 @@ public class Message implements IdItem, TimeItem, Parcelable {
 
     /**
      * Returns the action of this message. Might be empty.
+     *
      * @return The action.
      */
     @NonNull
+    @Action
     public String getAction() {
         return action;
     }
 
     /**
      * Returns the time of this message.
+     *
      * @return The time.
      */
     @Override
@@ -151,6 +160,7 @@ public class Message implements IdItem, TimeItem, Parcelable {
 
     /**
      * Returns the device this message was sent from.
+     *
      * @return The device.
      */
     @NonNull
