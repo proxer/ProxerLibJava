@@ -46,10 +46,10 @@ dependencies {
 
 ##### Initialization
 
-Before using the API, you have to set your API apiKey. This is required for all
-requests and an Exception is thrown if no apiKey is set.
+Before using the API, you have to set your API key. This is required for all
+requests and an Exception is thrown if no key is set.
 
-It is recommended that you set your apiKey in the `onCreate` method of your
+It is recommended that you set your key in the `onCreate` method of your
 `Application` like this:
 
 ```java
@@ -57,7 +57,7 @@ It is recommended that you set your apiKey in the `onCreate` method of your
 public void onCreate() {
     super.onCreate();
 
-    ProxerConnection.init("Your API apiKey");
+    ProxerConnection.init("Your API key");
 }
 ```
 
