@@ -30,7 +30,7 @@ public class NewsRequest extends ProxerRequest<News[]> {
         this.page = page;
     }
 
-    public NewsRequest withLimit(@IntRange(from = 0) int limit) {
+    public NewsRequest withLimit(@IntRange(from = 1) int limit) {
         this.limit = limit;
 
         return this;
