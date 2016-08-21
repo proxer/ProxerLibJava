@@ -12,6 +12,7 @@ android {
         targetSdkVersion 24
         versionCode 36
         versionName "1.9.5"
+        consumerProguardFiles 'proguard-file.pro'
     }
 }
 
