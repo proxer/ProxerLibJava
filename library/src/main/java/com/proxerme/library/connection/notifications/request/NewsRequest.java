@@ -1,12 +1,12 @@
 package com.proxerme.library.connection.notifications.request;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import com.proxerme.library.connection.ProxerRequest;
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.notifications.entitiy.News;
 import com.proxerme.library.connection.notifications.result.NewsResult;
-import com.proxerme.library.parameters.TypeParameter;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
@@ -24,14 +24,14 @@ import okhttp3.ResponseBody;
 public class NewsRequest extends ProxerRequest<News[]> {
 
     private int page;
-    private String type;
+    private Integer limit;
 
     public NewsRequest(int page) {
         this.page = page;
     }
 
-    public NewsRequest withType(@TypeParameter.Type String type) {
-        this.type = type;
+    public NewsRequest withLimit(@IntRange(from = 0) int limit) {
+        this.limit = limit;
 
         return this;
     }
@@ -55,8 +55,8 @@ public class NewsRequest extends ProxerRequest<News[]> {
 
         result.put("p", String.valueOf(page));
 
-        if (type != null) {
-            result.put("type", type);
+        if (limit != null) {
+            result.put("limit", String.valueOf(limit));
         }
 
         return result;
