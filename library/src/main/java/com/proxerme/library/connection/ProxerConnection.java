@@ -124,7 +124,7 @@ public class ProxerConnection {
         }
     }
 
-    public class Builder {
+    public static class Builder {
 
         private Context context;
         private String apiKey;
