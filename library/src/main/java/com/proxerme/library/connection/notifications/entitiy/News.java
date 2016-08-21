@@ -28,34 +28,32 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     };
 
     @Json(name = "nid")
-    String id;
+    private String id;
     @Json(name = "time")
-    long time;
+    private long time;
     @Json(name = "description")
-    String description;
+    private String description;
     @Json(name = "image_id")
-    String imageId;
+    private String imageId;
     @Json(name = "subject")
-    String subject;
+    private String subject;
     @Json(name = "hits")
-    int hits;
+    private int hits;
     @Json(name = "thread")
-    String threadId;
+    private String threadId;
     @Json(name = "uid")
-    String authorId;
+    private String authorId;
     @Json(name = "uname")
-    String author;
+    private String author;
     @Json(name = "posts")
-    int posts;
+    private int posts;
     @Json(name = "catid")
-    String categoryId;
+    private String categoryId;
+    private
     @Json(name = "catname")
     String categoryTitle;
 
-    /**
-     * Only for automatic conversion, don't use
-     */
-    News() {
+    private News() {
 
     }
 
