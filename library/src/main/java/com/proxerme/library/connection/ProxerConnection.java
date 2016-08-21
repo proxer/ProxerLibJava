@@ -83,17 +83,17 @@ public class ProxerConnection {
     private <T> T processResponse(ProxerRequest<T> request, Response response)
             throws ProxerException {
         try {
-            if (response.isSuccessful()) {
-                ProxerResult<T> result = request.parse(moshi, response.body());
-
-                if (result.isSuccess()) {
-                    return result.getData();
-                } else {
-                    throw new ProxerException(ProxerException.PROXER, result.getMessage(),
-                            result.getCode());
-                }
-            } else {
+            if (!response.isSuccessful()) {
                 throw new ProxerException(ProxerException.NETWORK);
+            }
+
+            ProxerResult<T> result = request.parse(moshi, response.body());
+
+            if (result.isSuccess()) {
+                return result.getData();
+            } else {
+                throw new ProxerException(ProxerException.PROXER, result.getMessage(),
+                        result.getCode());
             }
         } catch (JsonDataException | IOException exception) {
             throw new ProxerException(ProxerException.UNPARSABLE);
