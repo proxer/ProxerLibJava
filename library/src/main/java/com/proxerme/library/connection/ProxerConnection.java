@@ -1,63 +1,188 @@
 package com.proxerme.library.connection;
 
+import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import com.afollestad.bridge.Bridge;
-import com.proxerme.library.info.ProxerTag;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.squareup.moshi.JsonDataException;
+import com.squareup.moshi.Moshi;
 
-/**
- * Singleton for accessing and configuring the API. Before using the API you must provide an API key
- * to the {@link #init(String)} method.
- *
- * @author Ruben Gees
- */
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
+
 public class ProxerConnection {
 
-    private static String key;
+    private String apiKey;
+    private Moshi moshi;
+    private OkHttpClient httpClient;
 
-    /**
-     * Sets the API key to be used. You must call this method before using the API. The onCreate
-     * method in a Application subclass might be a good place.
-     *
-     * @param apiKey The API key.
-     */
-    public static void init(@NonNull String apiKey) {
-        key = apiKey;
+    private Handler handler = new Handler(Looper.getMainLooper());
+
+    private ProxerConnection(@NonNull String apiKey, Moshi moshi, OkHttpClient httpClient) {
+        this.apiKey = apiKey;
+        this.moshi = moshi;
+        this.httpClient = httpClient;
     }
 
-    /**
-     * Cancels all started requests of the specified tag.
-     *
-     * @param tag The {@link ProxerTag} to cancel.
-     * @see ProxerTag
-     */
-    public static void cancel(@ProxerTag.ConnectionTag int tag) {
-        Bridge.cancelAll().tag(String.valueOf(tag)).commit();
+    public <T> ProxerCall execute(@NonNull final ProxerRequest<T> request,
+                                  @Nullable final ProxerCallback<T> callback,
+                                  @Nullable final ProxerErrorCallback errorCallback) {
+        Call call = httpClient.newCall(request.build());
+
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    deliverResultOnMainThread(callback, processResponse(request, response));
+                } catch (ProxerException exception) {
+                    deliverErrorResultOnMainThread(errorCallback, exception);
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException exception) {
+                deliverErrorResultOnMainThread(errorCallback,
+                        new ProxerException(ProxerException.NETWORK));
+            }
+        });
+
+        return new ProxerCall(call);
     }
 
-    /**
-     * Cleans up references and left open connections. You should call this method somewhere in the
-     * lifecycle, but don't have to. A good place might be the onDestroy method of your main
-     * Activity.
-     */
-    public static void cleanup() {
-        key = null;
-
-        Bridge.destroy();
+    public <T> T executeSynchronized(@NonNull final ProxerRequest<T> request)
+            throws ProxerException {
+        try {
+            return processResponse(request, httpClient.newCall(request.build()).execute());
+        } catch (IOException exception) {
+            throw new ProxerException(ProxerException.NETWORK);
+        }
     }
 
-    /**
-     * Returns the API key passed through the {@link #init(String)} method. An Exception is thrown
-     * if no API key has been passed.
-     *
-     * @return The API key.
-     */
-    @NonNull
-    public static String getKey() {
-        if (key == null) {
-            throw new RuntimeException("Please set your api key through the init method.");
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public Moshi getMoshi() {
+        return moshi;
+    }
+
+    public OkHttpClient getHttpClient() {
+        return httpClient;
+    }
+
+    private <T> T processResponse(ProxerRequest<T> request, Response response)
+            throws ProxerException {
+        try {
+            if (response.isSuccessful()) {
+                ProxerResult<T> result = request.parse(moshi, response.body());
+
+                if (result.isSuccess()) {
+                    return result.getData();
+                } else {
+                    throw new ProxerException(ProxerException.PROXER, result.getMessage(),
+                            result.getCode());
+                }
+            } else {
+                throw new ProxerException(ProxerException.NETWORK);
+            }
+        } catch (JsonDataException | IOException exception) {
+            throw new ProxerException(ProxerException.UNPARSABLE);
+        }
+    }
+
+    private <T> void deliverResultOnMainThread(@Nullable final ProxerCallback<T> callback,
+                                               final T result) {
+        if (callback != null) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onSuccess(result);
+                }
+            });
+        }
+    }
+
+    private void deliverErrorResultOnMainThread(@Nullable final ProxerErrorCallback callback,
+                                                final ProxerException exception) {
+        if (callback != null) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onError(exception);
+                }
+            });
+        }
+    }
+
+    public class Builder {
+
+        private Context context;
+        private String apiKey;
+        private Moshi moshi;
+        private OkHttpClient httpClient;
+
+        public Builder(@NonNull Context context, @NonNull String apiKey) {
+            this.context = context;
+            this.apiKey = apiKey;
         }
 
-        return key;
+        public ProxerConnection build() {
+            configureMoshi();
+            configureOkHttp();
+
+            return new ProxerConnection(apiKey, moshi, httpClient);
+        }
+
+        public Builder moshi(Moshi moshi) {
+            this.moshi = moshi;
+
+            return this;
+        }
+
+        public Builder okHttp(OkHttpClient httpClient) {
+            this.httpClient = httpClient;
+
+            return this;
+        }
+
+        private void configureMoshi() {
+            if (moshi == null) {
+                moshi = new Moshi.Builder()
+                        .build();
+            }
+        }
+
+        private void configureOkHttp() {
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+
+            if (httpClient == null) {
+                httpClient = new OkHttpClient.Builder()
+                        .build();
+            } else {
+                builder = httpClient.newBuilder();
+            }
+
+            httpClient = builder.cookieJar(new PersistentCookieJar(new SetCookieCache(),
+                    new SharedPrefsCookiePersistor(context)))
+                    .addInterceptor(new Interceptor() {
+                        @Override
+                        public Response intercept(Chain chain) throws IOException {
+                            return chain.proceed(chain.request().newBuilder()
+                                    .addHeader("proxer-api-key", apiKey)
+                                    .build());
+                        }
+                    })
+                    .build();
+        }
     }
 }

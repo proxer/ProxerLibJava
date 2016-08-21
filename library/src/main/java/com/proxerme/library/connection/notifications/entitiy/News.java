@@ -5,7 +5,6 @@ import android.os.Parcelable;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.ImageItem;
 import com.proxerme.library.interfaces.TimeItem;
@@ -27,30 +26,18 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
         }
     };
 
-    @Body(name = "nid")
-    String id;
-    @Body(name = "time")
+    String nid;
     long time;
-    @Body(name = "description")
     String description;
-    @Body(name = "image_id")
-    String imageId;
-    @Body(name = "subject")
+    String image_id;
     String subject;
-    @Body(name = "hits")
     int hits;
-    @Body(name = "thread")
-    String threadId;
-    @Body(name = "uid")
-    String authorId;
-    @Body(name = "uname")
-    String author;
-    @Body(name = "posts")
+    String thread;
+    String uid;
+    String uname;
     int posts;
-    @Body(name = "catid")
-    String categoryId;
-    @Body(name = "catname")
-    String categoryTitle;
+    String catid;
+    String catname;
 
     /**
      * Only for automatic conversion, don't use
@@ -60,61 +47,61 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * @param id            The id of the News.
+     * @param id            The nid of the News.
      * @param time          The time the News was published.
      * @param description   A description.
      * @param imageId       The image.
      * @param subject       The subject of the News.
      * @param hits          The amount of views.
-     * @param threadId      The id of the thread.
-     * @param authorId      The user id of the author.
-     * @param author        The name of the author.
+     * @param threadId      The nid of the thread.
+     * @param authorId      The user nid of the uname.
+     * @param author        The name of the uname.
      * @param posts         The amount of comments on the News.
-     * @param categoryId    The id of the category this News is in.
+     * @param categoryId    The nid of the category this News is in.
      * @param categoryTitle The title of the category.
      */
     public News(@NonNull String id, long time, @NonNull String description, @NonNull String imageId,
                 @NonNull String subject, @IntRange(from = 0) int hits, @NonNull String threadId,
                 @NonNull String authorId, @NonNull String author, @IntRange(from = 0) int posts,
                 @NonNull String categoryId, @NonNull String categoryTitle) {
-        this.id = id;
+        this.nid = id;
         this.time = time;
         this.description = description;
-        this.imageId = imageId;
+        this.image_id = imageId;
         this.subject = subject;
         this.hits = hits;
-        this.threadId = threadId;
-        this.authorId = authorId;
-        this.author = author;
+        this.thread = threadId;
+        this.uid = authorId;
+        this.uname = author;
         this.posts = posts;
-        this.categoryId = categoryId;
-        this.categoryTitle = categoryTitle;
+        this.catid = categoryId;
+        this.catname = categoryTitle;
     }
 
     protected News(Parcel in) {
-        this.id = in.readString();
+        this.nid = in.readString();
         this.time = in.readLong();
         this.description = in.readString();
-        this.imageId = in.readString();
+        this.image_id = in.readString();
         this.subject = in.readString();
         this.hits = in.readInt();
-        this.threadId = in.readString();
-        this.authorId = in.readString();
-        this.author = in.readString();
+        this.thread = in.readString();
+        this.uid = in.readString();
+        this.uname = in.readString();
         this.posts = in.readInt();
-        this.categoryId = in.readString();
-        this.categoryTitle = in.readString();
+        this.catid = in.readString();
+        this.catname = in.readString();
     }
 
     /**
-     * Returns the id of this News.
+     * Returns the nid of this News.
      *
-     * @return The id.
+     * @return The nid.
      */
     @NonNull
     @Override
     public String getId() {
-        return id;
+        return nid;
     }
 
     /**
@@ -145,7 +132,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     @NonNull
     @Override
     public String getImageId() {
-        return imageId;
+        return image_id;
     }
 
     /**
@@ -169,33 +156,33 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the id of the thread.
+     * Returns the nid of the thread.
      *
-     * @return The id of the thread.
+     * @return The nid of the thread.
      */
     @NonNull
     public String getThreadId() {
-        return threadId;
+        return thread;
     }
 
     /**
-     * Returns the user id of the author.
+     * Returns the user nid of the uname.
      *
-     * @return The id.
+     * @return The nid.
      */
     @NonNull
     public String getAuthorId() {
-        return authorId;
+        return uid;
     }
 
     /**
-     * Returns the username of the author.
+     * Returns the username of the uname.
      *
      * @return The username.
      */
     @NonNull
     public String getAuthor() {
-        return author;
+        return uname;
     }
 
     /**
@@ -209,13 +196,13 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the id of the category of this News.
+     * Returns the nid of the category of this News.
      *
-     * @return The id.
+     * @return The nid.
      */
     @NonNull
     public String getCategoryId() {
-        return categoryId;
+        return catid;
     }
 
     /**
@@ -225,7 +212,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
      */
     @NonNull
     public String getCategoryTitle() {
-        return categoryTitle;
+        return catname;
     }
 
     @SuppressWarnings("SimplifiableIfStatement")
@@ -239,31 +226,31 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
         if (time != news.time) return false;
         if (hits != news.hits) return false;
         if (posts != news.posts) return false;
-        if (!id.equals(news.id)) return false;
+        if (!nid.equals(news.nid)) return false;
         if (!description.equals(news.description)) return false;
-        if (!imageId.equals(news.imageId)) return false;
+        if (!image_id.equals(news.image_id)) return false;
         if (!subject.equals(news.subject)) return false;
-        if (!threadId.equals(news.threadId)) return false;
-        if (!authorId.equals(news.authorId)) return false;
-        if (!author.equals(news.author)) return false;
-        if (!categoryId.equals(news.categoryId)) return false;
-        return categoryTitle.equals(news.categoryTitle);
+        if (!thread.equals(news.thread)) return false;
+        if (!uid.equals(news.uid)) return false;
+        if (!uname.equals(news.uname)) return false;
+        if (!catid.equals(news.catid)) return false;
+        return catname.equals(news.catname);
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
+        int result = nid.hashCode();
         result = 31 * result + (int) (time ^ (time >>> 32));
         result = 31 * result + description.hashCode();
-        result = 31 * result + imageId.hashCode();
+        result = 31 * result + image_id.hashCode();
         result = 31 * result + subject.hashCode();
         result = 31 * result + hits;
-        result = 31 * result + threadId.hashCode();
-        result = 31 * result + authorId.hashCode();
-        result = 31 * result + author.hashCode();
+        result = 31 * result + thread.hashCode();
+        result = 31 * result + uid.hashCode();
+        result = 31 * result + uname.hashCode();
         result = 31 * result + posts;
-        result = 31 * result + categoryId.hashCode();
-        result = 31 * result + categoryTitle.hashCode();
+        result = 31 * result + catid.hashCode();
+        result = 31 * result + catname.hashCode();
         return result;
     }
 
@@ -274,17 +261,17 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
+        dest.writeString(this.nid);
         dest.writeLong(this.time);
         dest.writeString(this.description);
-        dest.writeString(this.imageId);
+        dest.writeString(this.image_id);
         dest.writeString(this.subject);
         dest.writeInt(this.hits);
-        dest.writeString(this.threadId);
-        dest.writeString(this.authorId);
-        dest.writeString(this.author);
+        dest.writeString(this.thread);
+        dest.writeString(this.uid);
+        dest.writeString(this.uname);
         dest.writeInt(this.posts);
-        dest.writeString(this.categoryId);
-        dest.writeString(this.categoryTitle);
+        dest.writeString(this.catid);
+        dest.writeString(this.catname);
     }
 }
