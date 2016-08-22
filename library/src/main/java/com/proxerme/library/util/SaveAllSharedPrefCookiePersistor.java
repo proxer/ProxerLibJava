@@ -31,7 +31,7 @@ import okhttp3.Cookie;
 
 /**
  * Hack for cookies which incorrectly do not have an "max-age" or "expires" property. This custom
- * implementation ignores this values and just save every incoming cookie.
+ * implementation ignores these values and just saves every incoming cookie.
  *
  * @author Ruben Gees
  */
