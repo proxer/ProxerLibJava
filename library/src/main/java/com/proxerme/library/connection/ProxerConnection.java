@@ -26,14 +26,17 @@ import okhttp3.Response;
 /**
  * Entry point for all interaction with the API. Before using, the user has to build an instance
  * with the {@link Builder}.
+ * <br>
  * This class features two important methods:
  * <p>
- * 1) {@link #execute(ProxerRequest, ProxerCallback, ProxerErrorCallback)} executes a passed
- * {@link ProxerRequest} on a background thread. The results are returned to the specified
- * callbacks.
- * 2) {@link #executeSynchronized(ProxerRequest)} executes a passed {@link ProxerRequest} on the
- * same thread the method was invoked. This is useful if the user wants to handle threading itself
- * or is running code in a background thread already (AsyncTask, IntentService, ...)
+ * 1) {@link #execute(ProxerRequest, ProxerCallback, ProxerErrorCallback)}
+ * executes a passed {@link ProxerRequest} on a background thread. The results are returned to the
+ * specified callbacks.
+ * <p>
+ * 2) {@link #executeSynchronized(ProxerRequest)}
+ * executes a passed {@link ProxerRequest} on the same thread the method was invoked. This is useful
+ * if the user wants to handle threading itself or is running code in a background thread already
+ * (AsyncTask, IntentService, ...)
  * <p>
  * Both methods return their results on the main thread to make it possible to update views
  * directly.
@@ -41,21 +44,21 @@ import okhttp3.Response;
  * The usage of this class might look like this:
  * <p>
  * <pre>
- * {@code
+ * <code>
  * ProxerConnection connection = new ProxerConnection.Builder(context, "apiKey").build();
  *
- * connection.execute(new NewsRequest(0), new ProxerCallback<News[]>() {
- *   @Override
+ * connection.execute(new NewsRequest(0), new ProxerCallback<{@literal News[]}>() {
+ *  {@literal @}Override
  *   public void onSuccess(News[] result) {
  *     //Do something with the result
  *   }
  * }, new ProxerErrorCallback() {
- *   @Override
+ *  {@literal @}Override
  *   public void onError(ProxerException exception) {
  *     //Handle the error
  *   }
  * });
- * }
+ * </code>
  * </pre>
  *
  * @author Ruben Gees
@@ -230,8 +233,8 @@ public class ProxerConnection {
         }
 
         /**
-         * Builds the connection with all specified options. If for one option nothing was passed,
-         * the default configuration will be used.
+         * Builds the connection with all specified options.
+         * If for one option nothing was passed, the default configuration will be used.
          *
          * @return The new connection.
          */
@@ -257,7 +260,8 @@ public class ProxerConnection {
         }
 
         /**
-         * Allows to set a custom CookieJar. This might be useful if the Cookies should not be
+         * Allows to set a custom CookieJar.
+         * This might be useful if the Cookies should not be
          * persisted.
          *
          * @param cookieJar The custom CookieJar.
@@ -271,9 +275,10 @@ public class ProxerConnection {
         }
 
         /**
-         * Allows to set a custom OkHttpClient. Note that in all cases an Interceptor for the API
+         * Allows to set a custom OkHttpClient.
+         * Note that in all cases an Interceptor for the API
          * key and an CookieJar (You can specify your own with the
-         * {@link #withCustomCookieJar(CookieJar)}) will be added.
+         * {@link #withCustomCookieJar(CookieJar)} method) will be added.
          *
          * @param httpClient The custom OkHttpClient.
          * @return This builder.

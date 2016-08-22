@@ -36,7 +36,6 @@ task javadoc(type: Javadoc) {
     classpath += configurations.compile
 }
 
-// build a jar with javadoc
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.getDestinationDir()
