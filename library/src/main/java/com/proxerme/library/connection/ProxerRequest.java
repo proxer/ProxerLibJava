@@ -29,12 +29,12 @@ import okhttp3.ResponseBody;
 
 public abstract class ProxerRequest<T> {
 
-    private static final String GET = "GET";
-    private static final String HEAD = "HEAD";
-    private static final String POST = "POST";
-    private static final String DELETE = "DELETE";
-    private static final String PUT = "PUT";
-    private static final String PATCH = "PATCH";
+    protected static final String GET = "GET";
+    protected static final String HEAD = "HEAD";
+    protected static final String POST = "POST";
+    protected static final String DELETE = "DELETE";
+    protected static final String PUT = "PUT";
+    protected static final String PATCH = "PATCH";
 
     public Request build() {
         return new Request.Builder()
