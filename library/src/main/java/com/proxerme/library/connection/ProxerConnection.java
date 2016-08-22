@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.proxerme.library.util.SaveAllSharedPrefCookiePersistor;
 import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.Moshi;
 
@@ -172,8 +172,9 @@ public class ProxerConnection {
                 builder = httpClient.newBuilder();
             }
 
-            httpClient = builder.cookieJar(new PersistentCookieJar(new SetCookieCache(),
-                    new SharedPrefsCookiePersistor(context)))
+            httpClient = builder
+                    .cookieJar(new PersistentCookieJar(new SetCookieCache(),
+                            new SaveAllSharedPrefCookiePersistor(context)))
                     .addInterceptor(new Interceptor() {
                         @Override
                         public Response intercept(Chain chain) throws IOException {
