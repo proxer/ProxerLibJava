@@ -2,13 +2,12 @@ package com.proxerme.library.connection.user.request;
 
 import android.support.annotation.NonNull;
 
-import com.proxerme.library.connection.ProxerRequest;
 import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.user.UserRequest;
 import com.proxerme.library.connection.user.result.LogoutResult;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import okhttp3.ResponseBody;
 
@@ -20,9 +19,8 @@ import okhttp3.ResponseBody;
  *
  * @author Ruben Gees
  */
-public class LogoutRequest extends ProxerRequest<Void> {
+public class LogoutRequest extends UserRequest<Void> {
 
-    private static final String CLASS = "user";
     private static final String ENDPOINT = "logout";
 
     @Override
@@ -33,7 +31,7 @@ public class LogoutRequest extends ProxerRequest<Void> {
 
     @NonNull
     @Override
-    protected Iterable<String> getEndpointPathSegments() {
-        return Arrays.asList(CLASS, ENDPOINT);
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 }

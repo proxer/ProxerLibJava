@@ -3,14 +3,13 @@ package com.proxerme.library.connection.user.request;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.proxerme.library.connection.ProxerRequest;
 import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.user.UserRequest;
 import com.proxerme.library.connection.user.entitiy.User;
 import com.proxerme.library.connection.user.result.LoginResult;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
@@ -22,9 +21,8 @@ import okhttp3.ResponseBody;
  *
  * @author Ruben Gees
  */
-public class LoginRequest extends ProxerRequest<User> {
+public class LoginRequest extends UserRequest<User> {
 
-    private static final String CLASS = "user";
     private static final String ENDPOINT = "login";
 
     private static final String USERNAME_PARAMETER = "username";
@@ -59,8 +57,8 @@ public class LoginRequest extends ProxerRequest<User> {
 
     @NonNull
     @Override
-    protected Iterable<String> getEndpointPathSegments() {
-        return Arrays.asList(CLASS, ENDPOINT);
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
     @Override

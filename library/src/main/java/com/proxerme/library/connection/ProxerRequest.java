@@ -2,7 +2,6 @@ package com.proxerme.library.connection;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.Size;
 import android.support.annotation.StringDef;
 
 import com.proxerme.library.info.ProxerUrlHolder;
@@ -22,8 +21,8 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 /**
- * Base class for all requests. A subclass has to implement the {@link #parse(Moshi, ResponseBody)}
- * and {@link #getEndpointPathSegments()} segments. Moreover it can implement the
+ * Base class for all requests. A subclass has to implement the {@link #parse(Moshi, ResponseBody)},
+ * {@link #getApiClass()} and {@link #getApiEndpoint()} methods. Moreover it can implement the
  * {@link #getMethod()} method to specify the {@link ProxerRequest.HttpMethod} the request is going
  * to use.
  * To specify arguments, the methods {@link #getQueryParameters()} and {@link #getRequestBody()} can
@@ -53,16 +52,24 @@ public abstract class ProxerRequest<T> {
             throws IOException;
 
     /**
-     * Returns the segments to the specific endpoint of the request subclass. Note that this does
-     * not include the host. For a
+     * Returns the class the request residents in. For a
      * {@link com.proxerme.library.connection.notifications.request.NewsRequest} this would be
-     * "notifications" and "news".
+     * "notifications".
      *
-     * @return The path segments.
+     * @return The API class.
      */
     @NonNull
-    @Size(min = 1)
-    protected abstract Iterable<String> getEndpointPathSegments();
+    protected abstract String getApiClass();
+
+    /**
+     * Returns the endpoint of the request. For a
+     * {@link com.proxerme.library.connection.notifications.request.NewsRequest} this would be
+     * "news".
+     *
+     * @return The API endpoint.
+     */
+    @NonNull
+    protected abstract String getApiEndpoint();
 
     /**
      * Returns the http method. Allows a subclass to specify another method than GET.
@@ -99,9 +106,8 @@ public abstract class ProxerRequest<T> {
     private HttpUrl buildUrl() {
         HttpUrl.Builder builder = ProxerUrlHolder.getApiHost().newBuilder();
 
-        for (String pathSegment : getEndpointPathSegments()) {
-            builder.addPathSegment(pathSegment);
-        }
+        builder.addPathSegment(getApiClass());
+        builder.addPathSegment(getApiEndpoint());
 
         for (Map.Entry<String, String> queryParameter : getQueryParameters().entrySet()) {
             builder.addQueryParameter(queryParameter.getKey(), queryParameter.getValue());

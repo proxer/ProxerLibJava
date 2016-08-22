@@ -4,8 +4,8 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.proxerme.library.connection.ProxerRequest;
 import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.user.UserRequest;
 import com.proxerme.library.connection.user.entitiy.UserMediaListEntry;
 import com.proxerme.library.connection.user.result.UserMediaListResult;
 import com.proxerme.library.parameters.CategoryParameter.Category;
@@ -13,7 +13,6 @@ import com.proxerme.library.parameters.UserMediaSortParameter.UserMediaSortCrite
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,9 +25,8 @@ import okhttp3.ResponseBody;
  *
  * @author Ruben Gees
  */
-public class UserMediaListRequest extends ProxerRequest<UserMediaListEntry[]> {
+public class UserMediaListRequest extends UserRequest<UserMediaListEntry[]> {
 
-    private static final String CLASS = "user";
     private static final String ENDPOINT = "list";
 
     private static final String USER_ID_PARAMETER = "uid";
@@ -143,8 +141,8 @@ public class UserMediaListRequest extends ProxerRequest<UserMediaListEntry[]> {
 
     @NonNull
     @Override
-    protected Iterable<String> getEndpointPathSegments() {
-        return Arrays.asList(CLASS, ENDPOINT);
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
     @NonNull

@@ -3,14 +3,13 @@ package com.proxerme.library.connection.notifications.request;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
-import com.proxerme.library.connection.ProxerRequest;
 import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.notifications.NotificationsRequest;
 import com.proxerme.library.connection.notifications.entitiy.News;
 import com.proxerme.library.connection.notifications.result.NewsResult;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,9 +20,8 @@ import okhttp3.ResponseBody;
  *
  * @author Ruben Gees
  */
-public class NewsRequest extends ProxerRequest<News[]> {
+public class NewsRequest extends NotificationsRequest<News[]> {
 
-    private static final String CLASS = "notifications";
     private static final String ENDPOINT = "news";
 
     private static final String PAGE_PARAMETER = "p";
@@ -61,8 +59,8 @@ public class NewsRequest extends ProxerRequest<News[]> {
 
     @NonNull
     @Override
-    protected Iterable<String> getEndpointPathSegments() {
-        return Arrays.asList(CLASS, ENDPOINT);
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
     @NonNull
