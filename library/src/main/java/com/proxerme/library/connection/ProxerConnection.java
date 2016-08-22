@@ -47,7 +47,7 @@ import okhttp3.Response;
  * <code>
  * ProxerConnection connection = new ProxerConnection.Builder(context, "apiKey").build();
  *
- * connection.execute(new NewsRequest(0), new ProxerCallback<{@literal News[]}>() {
+ * connection.execute(new NewsRequest(0),{@code new ProxerCallback<News[]>}() {
  *  {@literal @}Override
  *   public void onSuccess(News[] result) {
  *     //Do something with the result
