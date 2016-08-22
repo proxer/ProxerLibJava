@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.CookieJar;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
@@ -127,8 +128,11 @@ public class ProxerConnection {
     public static class Builder {
 
         private Context context;
+
         private String apiKey;
+
         private Moshi moshi;
+        private CookieJar cookieJar;
         private OkHttpClient httpClient;
 
         public Builder(@NonNull Context context, @NonNull String apiKey) {
@@ -138,18 +142,25 @@ public class ProxerConnection {
 
         public ProxerConnection build() {
             configureMoshi();
+            configureCookieJar();
             configureOkHttp();
 
             return new ProxerConnection(apiKey, moshi, httpClient);
         }
 
-        public Builder moshi(Moshi moshi) {
+        public Builder withCustomMoshi(Moshi moshi) {
             this.moshi = moshi;
 
             return this;
         }
 
-        public Builder okHttp(OkHttpClient httpClient) {
+        public Builder withCustomCookieJar(CookieJar cookieJar) {
+            this.cookieJar = cookieJar;
+
+            return this;
+        }
+
+        public Builder withCustomOkHttp(OkHttpClient httpClient) {
             this.httpClient = httpClient;
 
             return this;
@@ -162,19 +173,23 @@ public class ProxerConnection {
             }
         }
 
+        private void configureCookieJar() {
+            if (cookieJar == null) {
+                cookieJar = new PersistentCookieJar(new SetCookieCache(),
+                        new SaveAllSharedPrefCookiePersistor(context));
+            }
+        }
+
         private void configureOkHttp() {
-            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            OkHttpClient.Builder builder;
 
             if (httpClient == null) {
-                httpClient = new OkHttpClient.Builder()
-                        .build();
+                builder = new OkHttpClient.Builder();
             } else {
                 builder = httpClient.newBuilder();
             }
 
-            httpClient = builder
-                    .cookieJar(new PersistentCookieJar(new SetCookieCache(),
-                            new SaveAllSharedPrefCookiePersistor(context)))
+            httpClient = builder.cookieJar(cookieJar)
                     .addInterceptor(new Interceptor() {
                         @Override
                         public Response intercept(Chain chain) throws IOException {
