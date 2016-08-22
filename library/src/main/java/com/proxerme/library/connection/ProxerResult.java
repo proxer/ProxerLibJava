@@ -1,5 +1,7 @@
 package com.proxerme.library.connection;
 
+import com.squareup.moshi.Json;
+
 /**
  * TODO: Describe class
  *
@@ -8,8 +10,11 @@ package com.proxerme.library.connection;
 
 public abstract class ProxerResult<T> {
 
+    @Json(name = "error")
     private int error;
+    @Json(name = "message")
     private String message;
+    @Json(name = "code")
     private int code;
 
     boolean isSuccess() {
