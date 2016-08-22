@@ -23,6 +23,12 @@ import okhttp3.ResponseBody;
  */
 public class NewsRequest extends ProxerRequest<News[]> {
 
+    private static final String CLASS = "notifications";
+    private static final String ENDPOINT = "news";
+
+    private static final String PAGE_PARAMETER = "p";
+    private static final String LIMIT_PARAMETER = "limit";
+
     private int page;
     private Integer limit;
 
@@ -45,7 +51,7 @@ public class NewsRequest extends ProxerRequest<News[]> {
     @NonNull
     @Override
     protected Iterable<String> getEndpointPathSegments() {
-        return Arrays.asList("notifications", "news");
+        return Arrays.asList(CLASS, ENDPOINT);
     }
 
     @NonNull
@@ -53,10 +59,10 @@ public class NewsRequest extends ProxerRequest<News[]> {
     protected Map<String, String> getQueryParameters() {
         HashMap<String, String> result = new HashMap<>();
 
-        result.put("p", String.valueOf(page));
+        result.put(PAGE_PARAMETER, String.valueOf(page));
 
         if (limit != null) {
-            result.put("limit", String.valueOf(limit));
+            result.put(LIMIT_PARAMETER, String.valueOf(limit));
         }
 
         return result;

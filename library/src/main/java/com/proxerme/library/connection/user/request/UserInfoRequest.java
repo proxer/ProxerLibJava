@@ -24,6 +24,12 @@ import okhttp3.ResponseBody;
  */
 public class UserInfoRequest extends ProxerRequest<UserInfo> {
 
+    private static final String CLASS = "user";
+    private static final String ENDPOINT = "userinfo";
+
+    private static final String USER_ID_PARAMETER = "uid";
+    private static final String USERNAME_PARAMETER = "username";
+
     @Nullable
     private String userId;
     @Nullable
@@ -52,7 +58,7 @@ public class UserInfoRequest extends ProxerRequest<UserInfo> {
     @NonNull
     @Override
     protected Iterable<String> getEndpointPathSegments() {
-        return Arrays.asList("user", "userinfo");
+        return Arrays.asList(CLASS, ENDPOINT);
     }
 
     @NonNull
@@ -61,11 +67,11 @@ public class UserInfoRequest extends ProxerRequest<UserInfo> {
         HashMap<String, String> result = new HashMap<>();
 
         if (userId != null) {
-            result.put("uid", userId);
+            result.put(USER_ID_PARAMETER, userId);
         }
 
         if (username != null) {
-            result.put("username", username);
+            result.put(USERNAME_PARAMETER, username);
         }
 
         return result;

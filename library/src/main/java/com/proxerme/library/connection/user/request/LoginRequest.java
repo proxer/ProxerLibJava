@@ -23,6 +23,12 @@ import okhttp3.ResponseBody;
  */
 public class LoginRequest extends ProxerRequest<User> {
 
+    private static final String CLASS = "user";
+    private static final String ENDPOINT = "login";
+
+    private static final String USERNAME_PARAMETER = "username";
+    private static final String PASSWORD_PARAMETER = "password";
+
     private String username;
     private String password;
 
@@ -47,7 +53,7 @@ public class LoginRequest extends ProxerRequest<User> {
     @NonNull
     @Override
     protected Iterable<String> getEndpointPathSegments() {
-        return Arrays.asList("user", "login");
+        return Arrays.asList(CLASS, ENDPOINT);
     }
 
     @Override
@@ -59,8 +65,8 @@ public class LoginRequest extends ProxerRequest<User> {
     @Override
     protected RequestBody getRequestBody() {
         return new FormBody.Builder()
-                .add("username", username)
-                .add("password", password)
+                .add(USERNAME_PARAMETER, username)
+                .add(PASSWORD_PARAMETER, password)
                 .build();
     }
 }
