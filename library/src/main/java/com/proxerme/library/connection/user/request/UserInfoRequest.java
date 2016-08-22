@@ -58,7 +58,7 @@ public class UserInfoRequest extends ProxerRequest<UserInfo> {
     @NonNull
     @Override
     protected Map<String, String> getQueryParameters() {
-        HashMap<String, String> result = new HashMap<>(2);
+        HashMap<String, String> result = new HashMap<>();
 
         if (userId != null) {
             result.put("uid", userId);
