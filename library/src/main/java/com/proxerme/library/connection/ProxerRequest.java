@@ -36,14 +36,14 @@ public abstract class ProxerRequest<T> {
     protected static final String PUT = "PUT";
     protected static final String PATCH = "PATCH";
 
-    public Request build() {
+    Request build() {
         return new Request.Builder()
                 .url(buildUrl())
                 .method(getMethod(), getRequestBody())
                 .build();
     }
 
-    public abstract ProxerResult<T> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+    protected abstract ProxerResult<T> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException;
 
     @NonNull

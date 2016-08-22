@@ -38,7 +38,7 @@ public class LoginRequest extends ProxerRequest<User> {
     }
 
     @Override
-    public ProxerResult<User> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+    protected ProxerResult<User> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
         LoginResult result = moshi.adapter(LoginResult.class).fromJson(body.source());
 

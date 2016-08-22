@@ -43,7 +43,7 @@ public class NewsRequest extends ProxerRequest<News[]> {
     }
 
     @Override
-    public ProxerResult<News[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+    protected ProxerResult<News[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
         return moshi.adapter(NewsResult.class).fromJson(body.source());
     }

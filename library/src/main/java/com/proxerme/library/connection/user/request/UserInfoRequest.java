@@ -50,7 +50,7 @@ public class UserInfoRequest extends ProxerRequest<UserInfo> {
     }
 
     @Override
-    public ProxerResult<UserInfo> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+    protected ProxerResult<UserInfo> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
         return moshi.adapter(UserInfoResult.class).fromJson(body.source());
     }
