@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
+import android.support.annotation.WorkerThread;
 
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
@@ -82,6 +84,7 @@ public class ProxerConnection {
      * @param <T>           The type of the result. This is not a {@link ProxerResult} subclass.
      * @return A call object to allow cancellation of the request.
      */
+    @RequiresPermission(android.Manifest.permission.INTERNET)
     public <T> ProxerCall execute(@NonNull final ProxerRequest<T> request,
                                   @Nullable final ProxerCallback<T> callback,
                                   @Nullable final ProxerErrorCallback errorCallback) {
@@ -115,6 +118,8 @@ public class ProxerConnection {
      * @return The results.
      * @throws ProxerException The exception in case of an error.
      */
+    @WorkerThread
+    @RequiresPermission(android.Manifest.permission.INTERNET)
     public <T> T executeSynchronized(@NonNull final ProxerRequest<T> request)
             throws ProxerException {
         try {
@@ -129,6 +134,7 @@ public class ProxerConnection {
      *
      * @return The API key.
      */
+    @NonNull
     public String getApiKey() {
         return apiKey;
     }
@@ -138,6 +144,7 @@ public class ProxerConnection {
      *
      * @return The Moshi instance.
      */
+    @NonNull
     public Moshi getMoshi() {
         return moshi;
     }
@@ -147,6 +154,7 @@ public class ProxerConnection {
      *
      * @return THe OkHttpClient instance.
      */
+    @NonNull
     public OkHttpClient getHttpClient() {
         return httpClient;
     }
@@ -241,6 +249,7 @@ public class ProxerConnection {
          * @param moshi The custom instance.
          * @return This builder.
          */
+        @NonNull
         public Builder withCustomMoshi(Moshi moshi) {
             this.moshi = moshi;
 
@@ -254,6 +263,7 @@ public class ProxerConnection {
          * @param cookieJar The custom CookieJar.
          * @return This builder.
          */
+        @NonNull
         public Builder withCustomCookieJar(CookieJar cookieJar) {
             this.cookieJar = cookieJar;
 
@@ -268,6 +278,7 @@ public class ProxerConnection {
          * @param httpClient The custom OkHttpClient.
          * @return This builder.
          */
+        @NonNull
         public Builder withCustomOkHttp(OkHttpClient httpClient) {
             this.httpClient = httpClient;
 
