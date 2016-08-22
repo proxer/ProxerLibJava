@@ -261,6 +261,7 @@ public class ProxerConnection {
 
         /**
          * Allows to set a custom CookieJar.
+         * <br>
          * This might be useful if the Cookies should not be
          * persisted.
          *
@@ -276,6 +277,7 @@ public class ProxerConnection {
 
         /**
          * Allows to set a custom OkHttpClient.
+         * <br>
          * Note that in all cases an Interceptor for the API
          * key and an CookieJar (You can specify your own with the
          * {@link #withCustomCookieJar(CookieJar)} method) will be added.
