@@ -21,6 +21,43 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
+/**
+ * Entry point for all interaction with the API. Before using, the user has to build an instance
+ * with the {@link Builder}.
+ * This class features two important methods:
+ * <p>
+ * 1) {@link #execute(ProxerRequest, ProxerCallback, ProxerErrorCallback)} executes a passed
+ * {@link ProxerRequest} on a background thread. The results are returned to the specified
+ * callbacks.
+ * 2) {@link #executeSynchronized(ProxerRequest)} executes a passed {@link ProxerRequest} on the
+ * same thread the method was invoked. This is useful if the user wants to handle threading itself
+ * or is running code in a background thread already (AsyncTask, IntentService, ...)
+ * <p>
+ * Both methods return their results on the main thread to make it possible to update views
+ * directly.
+ * <p>
+ * The usage of this class might look like this:
+ * <p>
+ * <pre>
+ * {@code
+ * ProxerConnection connection = new ProxerConnection.Builder(context, "apiKey").build();
+ *
+ * connection.execute(new NewsRequest(0), new ProxerCallback<News[]>() {
+ *   @Override
+ *   public void onSuccess(News[] result) {
+ *     //Do something with the result
+ *   }
+ * }, new ProxerErrorCallback() {
+ *   @Override
+ *   public void onError(ProxerException exception) {
+ *     //Handle the error
+ *   }
+ * });
+ * }
+ * </pre>
+ *
+ * @author Ruben Gees
+ */
 public class ProxerConnection {
 
     private String apiKey;
@@ -35,6 +72,16 @@ public class ProxerConnection {
         this.httpClient = httpClient;
     }
 
+    /**
+     * Executes the passed request on a background thread and returns the results on the callbacks
+     * if passed. The callbacks are always called on the main thread.
+     *
+     * @param request       The request subclass.
+     * @param callback      The callback for success.
+     * @param errorCallback The callback in case of an error.
+     * @param <T>           The type of the result. This is not a {@link ProxerResult} subclass.
+     * @return A call object to allow cancellation of the request.
+     */
     public <T> ProxerCall execute(@NonNull final ProxerRequest<T> request,
                                   @Nullable final ProxerCallback<T> callback,
                                   @Nullable final ProxerErrorCallback errorCallback) {
@@ -60,6 +107,14 @@ public class ProxerConnection {
         return new ProxerCall(call);
     }
 
+    /**
+     * Executes the passed request and returns the results immediately.
+     *
+     * @param request The request subclass.
+     * @param <T>     The type of the result. This is not a {@link ProxerResult} subclass.
+     * @return The results.
+     * @throws ProxerException The exception in case of an error.
+     */
     public <T> T executeSynchronized(@NonNull final ProxerRequest<T> request)
             throws ProxerException {
         try {
@@ -69,14 +124,29 @@ public class ProxerConnection {
         }
     }
 
+    /**
+     * Returns the API key the user passed.
+     *
+     * @return The API key.
+     */
     public String getApiKey() {
         return apiKey;
     }
 
+    /**
+     * Returns the Moshi instance for usage at other parts in the application.
+     *
+     * @return The Moshi instance.
+     */
     public Moshi getMoshi() {
         return moshi;
     }
 
+    /**
+     * Returns the OkHttpClient instance for usage at other parts in the application.
+     *
+     * @return THe OkHttpClient instance.
+     */
     public OkHttpClient getHttpClient() {
         return httpClient;
     }
@@ -125,6 +195,9 @@ public class ProxerConnection {
         }
     }
 
+    /**
+     * Builder for the {@link ProxerConnection} class. This allows for customization.
+     */
     public static class Builder {
 
         private static final String API_KEY_HEADER = "proxer-api-key";
@@ -137,11 +210,23 @@ public class ProxerConnection {
         private CookieJar cookieJar;
         private OkHttpClient httpClient;
 
+        /**
+         * The constructor.
+         *
+         * @param context The context. This should be the application context.
+         * @param apiKey  The API key to use.
+         */
         public Builder(@NonNull Context context, @NonNull String apiKey) {
             this.context = context;
             this.apiKey = apiKey;
         }
 
+        /**
+         * Builds the connection with all specified options. If for one option nothing was passed,
+         * the default configuration will be used.
+         *
+         * @return The new connection.
+         */
         public ProxerConnection build() {
             configureMoshi();
             configureCookieJar();
@@ -150,18 +235,39 @@ public class ProxerConnection {
             return new ProxerConnection(apiKey, moshi, httpClient);
         }
 
+        /**
+         * Allows to set a custom Moshi instance.
+         *
+         * @param moshi The custom instance.
+         * @return This builder.
+         */
         public Builder withCustomMoshi(Moshi moshi) {
             this.moshi = moshi;
 
             return this;
         }
 
+        /**
+         * Allows to set a custom CookieJar. This might be useful if the Cookies should not be
+         * persisted.
+         *
+         * @param cookieJar The custom CookieJar.
+         * @return This builder.
+         */
         public Builder withCustomCookieJar(CookieJar cookieJar) {
             this.cookieJar = cookieJar;
 
             return this;
         }
 
+        /**
+         * Allows to set a custom OkHttpClient. Note that in all cases an Interceptor for the API
+         * key and an CookieJar (You can specify your own with the
+         * {@link #withCustomCookieJar(CookieJar)}) will be added.
+         *
+         * @param httpClient The custom OkHttpClient.
+         * @return This builder.
+         */
         public Builder withCustomOkHttp(OkHttpClient httpClient) {
             this.httpClient = httpClient;
 

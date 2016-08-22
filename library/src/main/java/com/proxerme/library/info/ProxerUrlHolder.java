@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 
 import okhttp3.HttpUrl;
 
+/**
+ * Class which holds various often needed urls.
+ */
 public class ProxerUrlHolder {
 
     private static final String SCHEME = "https";
@@ -30,6 +33,11 @@ public class ProxerUrlHolder {
     private static final String DEVICE_QUERY_PARAMETER = "device";
     private static final String DEVICE_QUERY_PARAMETER_DEFAULT = "mobile";
 
+    /**
+     * Returns the host.
+     *
+     * @return The host.
+     */
     @NonNull
     public static HttpUrl getBaseApiHost() {
         return new HttpUrl.Builder()
@@ -38,6 +46,11 @@ public class ProxerUrlHolder {
                 .build();
     }
 
+    /**
+     * Returns the host of the api with the version extension.
+     *
+     * @return The host.
+     */
     @NonNull
     public static HttpUrl getApiHost() {
         return getBaseApiHost().newBuilder()
@@ -46,6 +59,11 @@ public class ProxerUrlHolder {
                 .build();
     }
 
+    /**
+     * Returns the host of the image network.
+     *
+     * @return The host.
+     */
     @NonNull
     public static HttpUrl getImageHost() {
         return new HttpUrl.Builder()
@@ -54,6 +72,14 @@ public class ProxerUrlHolder {
                 .build();
     }
 
+    /**
+     * Returns the url for the image of a
+     * {@link com.proxerme.library.connection.notifications.entitiy.News}.
+     *
+     * @param newsId  The id of the News.
+     * @param imageId The id of the image.
+     * @return The url.
+     */
     @NonNull
     public static HttpUrl getNewsImageUrl(@NonNull String newsId, @NonNull String imageId) {
         return getImageHost().newBuilder()
@@ -63,6 +89,12 @@ public class ProxerUrlHolder {
                 .build();
     }
 
+    /**
+     * Returns the url for the image of a {@link com.proxerme.library.connection.user.entitiy.User}.
+     *
+     * @param imageLink The link.
+     * @return The url.
+     */
     @NonNull
     public static HttpUrl getUserImageUrl(@NonNull String imageLink) {
         return getImageHost().newBuilder()
@@ -71,6 +103,12 @@ public class ProxerUrlHolder {
                 .build();
     }
 
+    /**
+     * Returns the url for the cover image of a media entry.
+     *
+     * @param entryId The id of the entry.
+     * @return The url.
+     */
     @NonNull
     public static HttpUrl getCoverImageUrl(@NonNull String entryId) {
         return getImageHost().newBuilder()
@@ -79,6 +117,16 @@ public class ProxerUrlHolder {
                 .build();
     }
 
+    /**
+     * Returns the url for the forum thread of a
+     * {@link com.proxerme.library.connection.notifications.entitiy.News}.
+     *
+     * @param categoryId The id of the category.
+     * @param threadId   The id of the thread.
+     * @param device     Optional parameter to specify the device. Possible are "mobile" and
+     *                   "default. "mobile" is the default value.
+     * @return The url.
+     */
     @NonNull
     public static HttpUrl getNewsUrl(@NonNull String categoryId, @NonNull String threadId,
                                      @Nullable String device) {
@@ -90,6 +138,13 @@ public class ProxerUrlHolder {
                 .build();
     }
 
+    /**
+     * Returns the url for the donate page.
+     *
+     * @param device Optional parameter to specify the device. Possible are "mobile" and
+     *               "default. "mobile" is the default value.
+     * @return The url.
+     */
     @NonNull
     public static HttpUrl getDonateUrl(@Nullable String device) {
         return getBaseApiHost().newBuilder()

@@ -3,7 +3,10 @@ package com.proxerme.library.connection;
 import okhttp3.Call;
 
 /**
- * TODO: Describe class
+ * Class which allows cancellation of a {@link ProxerRequest}. The {@link ProxerConnection} returns
+ * an instance of this class if the
+ * {@link ProxerConnection#execute(ProxerRequest, ProxerCallback, ProxerErrorCallback)} method is
+ * called.
  *
  * @author Ruben Gees
  */

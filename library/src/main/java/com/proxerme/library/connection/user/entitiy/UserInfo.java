@@ -10,11 +10,10 @@ import com.proxerme.library.interfaces.ImageItem;
 import com.squareup.moshi.Json;
 
 /**
- * Entity holding all basic info of a User.
+ * Entity holding all basic info of a {@link User}.
  *
  * @author Ruben Gees
  */
-
 public class UserInfo implements Parcelable, IdItem, ImageItem {
 
     public static final Parcelable.Creator<UserInfo> CREATOR = new Parcelable.Creator<UserInfo>() {
@@ -138,7 +137,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
     }
 
     /**
-     * Returns the status of the user. Might be empty if the User did not set a status.
+     * Returns the status of the user. Might be empty if the user did not set a status.
      *
      * @return The status.
      */
@@ -148,7 +147,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
     }
 
     /**
-     * Returns the date of the last status change. This is 0 if the User has no status.
+     * Returns the date of the last status change. This is 0 if the < has no status.
      *
      * @return The date as an unix timestamp.
      */

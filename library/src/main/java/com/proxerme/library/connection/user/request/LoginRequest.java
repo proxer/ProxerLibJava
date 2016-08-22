@@ -17,7 +17,8 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 /**
- * TODO: Describe class
+ * Request for logging the user in. If the passed user or another user is logged in already, the API
+ * will return an error. In this case you have to log out with the {@link LogoutRequest}.
  *
  * @author Ruben Gees
  */
@@ -32,6 +33,12 @@ public class LoginRequest extends ProxerRequest<User> {
     private String username;
     private String password;
 
+    /**
+     * The constructor.
+     *
+     * @param username The username.
+     * @param password The password.
+     */
     public LoginRequest(@NonNull String username, @NonNull String password) {
         this.username = username;
         this.password = password;

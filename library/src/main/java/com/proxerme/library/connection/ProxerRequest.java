@@ -22,11 +22,17 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 /**
- * TODO: Describe class
+ * Base class for all requests. A subclass has to implement the {@link #parse(Moshi, ResponseBody)}
+ * and {@link #getEndpointPathSegments()} segments. Moreover it can implement the
+ * {@link #getMethod()} method to specify the {@link ProxerRequest.HttpMethod} the request is going
+ * to use.
+ * To specify arguments, the methods {@link #getQueryParameters()} and {@link #getRequestBody()} can
+ * be overridden.
  *
+ * @param <T> The type of the result. This is not the {@link ProxerResult} subclass, but the entity
+ *            type this request will return.
  * @author Ruben Gees
  */
-
 public abstract class ProxerRequest<T> {
 
     protected static final String GET = "GET";
@@ -46,20 +52,45 @@ public abstract class ProxerRequest<T> {
     protected abstract ProxerResult<T> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException;
 
+    /**
+     * Returns the segments to the specific endpoint of the request subclass. Note that this does
+     * not include the host. For a
+     * {@link com.proxerme.library.connection.notifications.request.NewsRequest} this would be
+     * "notifications" and "news".
+     *
+     * @return The path segments.
+     */
     @NonNull
     @Size(min = 1)
     protected abstract Iterable<String> getEndpointPathSegments();
 
+    /**
+     * Returns the http method. Allows a subclass to specify another method than GET.
+     *
+     * @return The http method.
+     */
     @HttpMethod
     protected String getMethod() {
         return GET;
     }
 
+    /**
+     * Returns the request body for this request. This allows a subclass to add POST parameters for
+     * example.
+     *
+     * @return The request body.
+     */
     @Nullable
     protected RequestBody getRequestBody() {
         return null;
     }
 
+    /**
+     * Returns the query parameters. Each map entry must have the name of the parameter as key and
+     * the value of the parameter as value.
+     *
+     * @return The map of parameters.
+     */
     @NonNull
     protected Map<String, String> getQueryParameters() {
         return new HashMap<>(0);
@@ -79,6 +110,9 @@ public abstract class ProxerRequest<T> {
         return builder.build();
     }
 
+    /**
+     * Annotation representing the valid http methods.
+     */
     @StringDef({GET, HEAD, POST, DELETE, PUT, PATCH})
     @Retention(value = RetentionPolicy.SOURCE)
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})

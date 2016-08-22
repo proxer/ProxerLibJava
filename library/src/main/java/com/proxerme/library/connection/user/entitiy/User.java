@@ -9,7 +9,7 @@ import com.proxerme.library.interfaces.ImageItem;
 import com.squareup.moshi.Json;
 
 /**
- * Entity holding information for the login and about the User after the login.
+ * Entity holding information for the login and about the user after the login.
  *
  * @author Ruben Gees
  */
@@ -39,7 +39,7 @@ public class User implements Parcelable, IdItem, ImageItem {
     /**
      * Constructor for a user before a login.
      *
-     * @param username The username of user.
+     * @param username The username of the user.
      * @param password The password of the user.
      */
     public User(@NonNull String username, @NonNull String password) {
@@ -50,7 +50,7 @@ public class User implements Parcelable, IdItem, ImageItem {
     /**
      * Constructor for a user after the login.
      *
-     * @param username The username of user.
+     * @param username The username of the user.
      * @param password The password of the user.
      * @param id       The id of the user.
      * @param image    The profile picture of the user.
@@ -80,6 +80,11 @@ public class User implements Parcelable, IdItem, ImageItem {
         return username;
     }
 
+    /**
+     * Sets the username.
+     *
+     * @param username The new username.
+     */
     public void setUsername(@NonNull String username) {
         this.username = username;
     }
@@ -94,6 +99,11 @@ public class User implements Parcelable, IdItem, ImageItem {
         return password;
     }
 
+    /**
+     * Sets the password.
+     *
+     * @param password The new password.
+     */
     public void setPassword(@NonNull String password) {
         this.password = password;
     }
@@ -115,15 +125,6 @@ public class User implements Parcelable, IdItem, ImageItem {
     }
 
     /**
-     * Sets the id of the user.
-     *
-     * @param id The id.
-     */
-    public void setId(@NonNull String id) {
-        this.id = id;
-    }
-
-    /**
      * Returns the profile picture of the user.
      *
      * @return The image.
@@ -137,15 +138,6 @@ public class User implements Parcelable, IdItem, ImageItem {
         }
 
         return imageId;
-    }
-
-    /**
-     * Sets the image of the user.
-     *
-     * @param imageId The image.
-     */
-    public void setImageId(@NonNull String imageId) {
-        this.imageId = imageId;
     }
 
     @SuppressWarnings("SimplifiableIfStatement")

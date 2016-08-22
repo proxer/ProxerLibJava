@@ -32,10 +32,21 @@ public class NewsRequest extends ProxerRequest<News[]> {
     private int page;
     private Integer limit;
 
+    /**
+     * The constructor.
+     *
+     * @param page The page to load.
+     */
     public NewsRequest(int page) {
         this.page = page;
     }
 
+    /**
+     * Builder method for setting the limit of the returned array size.
+     *
+     * @param limit The limit.
+     * @return This request.
+     */
     public NewsRequest withLimit(@IntRange(from = 1) int limit) {
         this.limit = limit;
 

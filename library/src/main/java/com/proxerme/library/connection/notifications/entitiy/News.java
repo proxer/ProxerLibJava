@@ -11,7 +11,7 @@ import com.proxerme.library.interfaces.TimeItem;
 import com.squareup.moshi.Json;
 
 /**
- * A entity holding all relevant info of a single News.
+ * Entity holding all relevant info of a single news.
  *
  * @author Ruben Gees
  */
@@ -58,17 +58,17 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * @param id            The id of the News.
-     * @param time          The time the News was published.
+     * @param id            The id of the news.
+     * @param time          The time the news was published.
      * @param description   A description.
      * @param imageId       The image.
-     * @param subject       The subject of the News.
+     * @param subject       The subject of the news.
      * @param hits          The amount of views.
      * @param threadId      The id of the thread.
      * @param authorId      The user id of the author.
      * @param author        The name of the author.
-     * @param posts         The amount of comments on the News.
-     * @param categoryId    The id of the category this News is in.
+     * @param posts         The amount of comments on the news.
+     * @param categoryId    The id of the category this news is in.
      * @param categoryTitle The title of the category.
      */
     public News(@NonNull String id, long time, @NonNull String description, @NonNull String imageId,
@@ -105,7 +105,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the id of this News.
+     * Returns the id of this news.
      *
      * @return The id.
      */
@@ -116,7 +116,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * returns the time this News has been published.
+     * returns the time this news has been published.
      *
      * @return The time as a unix timestamp.
      */
@@ -126,7 +126,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the description of this News.
+     * Returns the description of this news.
      *
      * @return The description.
      */
@@ -136,7 +136,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the image of this News.
+     * Returns the image of this news.
      *
      * @return The image.
      */
@@ -147,7 +147,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Return the subject of this News.
+     * Return the subject of this news.
      *
      * @return The subject.
      */
@@ -197,7 +197,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the amount of comments on this News.
+     * Returns the amount of comments on this news.
      *
      * @return the amount of comments.
      */
@@ -207,7 +207,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the id of the category of this News.
+     * Returns the id of the category of this news.
      *
      * @return The id.
      */
@@ -217,7 +217,7 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the title of the category of this News.
+     * Returns the title of the category of this news.
      *
      * @return The title of the category.
      */
