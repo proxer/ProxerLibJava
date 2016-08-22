@@ -127,6 +127,8 @@ public class ProxerConnection {
 
     public static class Builder {
 
+        private static final String API_KEY_HEADER = "proxer-api-key";
+
         private Context context;
 
         private String apiKey;
@@ -194,7 +196,7 @@ public class ProxerConnection {
                         @Override
                         public Response intercept(Chain chain) throws IOException {
                             return chain.proceed(chain.request().newBuilder()
-                                    .addHeader("proxer-api-key", apiKey)
+                                    .addHeader(API_KEY_HEADER, apiKey)
                                     .build());
                         }
                     })
