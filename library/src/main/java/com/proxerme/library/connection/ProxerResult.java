@@ -17,15 +17,15 @@ public abstract class ProxerResult<T> {
     @Json(name = "code")
     private int code;
 
-    boolean isSuccess() {
+    public boolean isSuccess() {
         return error == 0;
     }
 
-    String getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    int getCode() {
+    public int getCode() {
         return code;
     }
 
