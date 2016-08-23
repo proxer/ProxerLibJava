@@ -68,12 +68,16 @@ public class ProxerConnection {
     private Moshi moshi;
     private OkHttpClient httpClient;
 
+    private boolean deliverCancelledRequests;
+
     private Handler handler = new Handler(Looper.getMainLooper());
 
-    private ProxerConnection(@NonNull String apiKey, Moshi moshi, OkHttpClient httpClient) {
+    private ProxerConnection(@NonNull String apiKey, Moshi moshi, OkHttpClient httpClient,
+                             boolean deliverCancelledRequests) {
         this.apiKey = apiKey;
         this.moshi = moshi;
         this.httpClient = httpClient;
+        this.deliverCancelledRequests = deliverCancelledRequests;
     }
 
     /**
@@ -104,8 +108,15 @@ public class ProxerConnection {
 
             @Override
             public void onFailure(Call call, IOException exception) {
-                deliverErrorResultOnMainThread(errorCallback,
-                        new ProxerException(ProxerException.NETWORK));
+                if (call.isCanceled()) {
+                    if (deliverCancelledRequests) {
+                        deliverErrorResultOnMainThread(errorCallback,
+                                new ProxerException(ProxerException.CANCELLED));
+                    }
+                } else {
+                    deliverErrorResultOnMainThread(errorCallback,
+                            new ProxerException(ProxerException.NETWORK));
+                }
             }
         });
 
@@ -124,10 +135,16 @@ public class ProxerConnection {
     @RequiresPermission(android.Manifest.permission.INTERNET)
     public <T> T executeSynchronized(@NonNull final ProxerRequest<T> request)
             throws ProxerException {
+        final Call call = httpClient.newCall(request.build());
+
         try {
-            return processResponse(request, httpClient.newCall(request.build()).execute());
+            return processResponse(request, call.execute());
         } catch (IOException exception) {
-            throw new ProxerException(ProxerException.NETWORK);
+            if (call.isCanceled()) {
+                throw new ProxerException(ProxerException.CANCELLED);
+            } else {
+                throw new ProxerException(ProxerException.NETWORK);
+            }
         }
     }
 
@@ -212,9 +229,9 @@ public class ProxerConnection {
 
         private static final String API_KEY_HEADER = "proxer-api-key";
 
-        private Context context;
-
         private String apiKey;
+        private Context context;
+        private boolean deliverCancelledRequests = false;
 
         private Moshi moshi;
         private CookieJar cookieJar;
@@ -226,8 +243,20 @@ public class ProxerConnection {
          * @param context The context. This should be the application context.
          * @param apiKey  The API key to use.
          */
-        public Builder(@NonNull Context context, @NonNull String apiKey) {
+        public Builder(@NonNull String apiKey, @NonNull Context context) {
             this.context = context;
+            this.apiKey = apiKey;
+        }
+
+        /**
+         * The constructor. This differs from the other constructor by the ability to pass a custom
+         * CookieJar instead of the one provided by the library.
+         *
+         * @param cookieJar The CookieJar to use.
+         * @param apiKey    The API key to use.
+         */
+        public Builder(@NonNull String apiKey, @NonNull CookieJar cookieJar) {
+            this.cookieJar = cookieJar;
             this.apiKey = apiKey;
         }
 
@@ -242,7 +271,7 @@ public class ProxerConnection {
             configureCookieJar();
             configureOkHttp();
 
-            return new ProxerConnection(apiKey, moshi, httpClient);
+            return new ProxerConnection(apiKey, moshi, httpClient, deliverCancelledRequests);
         }
 
         /**
@@ -259,27 +288,11 @@ public class ProxerConnection {
         }
 
         /**
-         * Allows to set a custom CookieJar.
-         * <br>
-         * This might be useful if the Cookies should not be
-         * persisted.
-         *
-         * @param cookieJar The custom CookieJar.
-         * @return This builder.
-         */
-        @NonNull
-        public Builder withCustomCookieJar(CookieJar cookieJar) {
-            this.cookieJar = cookieJar;
-
-            return this;
-        }
-
-        /**
          * Allows to set a custom OkHttpClient.
          * <br>
          * Note that in all cases an Interceptor for the API
          * key and an CookieJar (You can specify your own with the
-         * {@link #withCustomCookieJar(CookieJar)} method) will be added.
+         * {@link #Builder(String, CookieJar)} constructor) will be added.
          *
          * @param httpClient The custom OkHttpClient.
          * @return This builder.
@@ -287,6 +300,19 @@ public class ProxerConnection {
         @NonNull
         public Builder withCustomOkHttp(OkHttpClient httpClient) {
             this.httpClient = httpClient;
+
+            return this;
+        }
+
+        /**
+         * Allows to set if requests should be delivered on the errorCallback if they have been
+         * cancelled.
+         *
+         * @param enable True, if the result should be delivered.
+         * @return This builder.
+         */
+        public Builder withDeliverCancelledRequests(boolean enable) {
+            this.deliverCancelledRequests = enable;
 
             return this;
         }

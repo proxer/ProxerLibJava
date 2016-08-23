@@ -30,6 +30,11 @@ public class ProxerException extends Exception {
      */
     public static final int UNPARSABLE = 2;
 
+    /**
+     * The request has been cancelled.
+     */
+    public static final int CANCELLED = 4;
+
     public static final int UNKNOWN_API = 1000;
     public static final int API_REMOVED = 1001;
     public static final int UNKNOWN_API_CLASS = 1002;
@@ -68,8 +73,7 @@ public class ProxerException extends Exception {
     }
 
     /**
-     *
-     * @param errorCode The errorCode. This is one of the through {@link ErrorCode} specified codes.
+     * @param errorCode     The errorCode. This is one of the through {@link ErrorCode} specified codes.
      * @param detailMessage A message containing additional info.
      */
     public ProxerException(@ErrorCode int errorCode, @Nullable String detailMessage) {
@@ -79,10 +83,9 @@ public class ProxerException extends Exception {
     }
 
     /**
-     *
-     * @param errorCode The error code. If a code is passed to the proxerErrorCode parameter, this
-     *                  has to be {@link ProxerException#PROXER}.
-     * @param detailMessage A message containing additional info.
+     * @param errorCode       The error code. If a code is passed to the proxerErrorCode parameter,
+     *                        this has to be {@link ProxerException#PROXER}.
+     * @param detailMessage   A message containing additional info.
      * @param proxerErrorCode The proxer error code. If the error was a server error, one of the
      *                        {@link ProxerErrorCode} should be passed.
      */
@@ -118,7 +121,7 @@ public class ProxerException extends Exception {
     /**
      * An annotation representing the different error codes which might occur.
      */
-    @IntDef({PROXER, NETWORK, UNPARSABLE})
+    @IntDef({PROXER, NETWORK, UNPARSABLE, CANCELLED})
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface ErrorCode {
