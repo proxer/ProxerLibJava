@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-
 public class MediaSortParameter {
 
     public static final String RELEVANCE = "relevance";

@@ -35,7 +35,6 @@ import okhttp3.Cookie;
  *
  * @author Ruben Gees
  */
-
 public class SaveAllSharedPrefCookiePersistor implements CookiePersistor {
 
     private final SharedPreferences sharedPreferences;

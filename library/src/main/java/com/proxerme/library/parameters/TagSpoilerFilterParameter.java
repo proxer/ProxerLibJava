@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-
 public class TagSpoilerFilterParameter {
 
     public static final String NO_SPOILERS = "spoiler_0";

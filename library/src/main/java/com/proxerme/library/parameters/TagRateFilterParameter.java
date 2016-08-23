@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-
 public class TagRateFilterParameter {
 
     public static final String REGISTERED = "rate_1";

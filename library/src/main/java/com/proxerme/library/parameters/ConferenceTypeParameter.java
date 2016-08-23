@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-
 public class ConferenceTypeParameter {
 
     public static final String FAVORITE = "favour";
