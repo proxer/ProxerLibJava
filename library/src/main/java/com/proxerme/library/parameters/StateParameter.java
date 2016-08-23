@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * TODO: Describe class
+ * Class containing the available states of a media entry.
  *
  * @author Ruben Gees
  */

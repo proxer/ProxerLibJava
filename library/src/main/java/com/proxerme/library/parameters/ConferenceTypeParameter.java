@@ -8,7 +8,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * TODO: Describe class
+ * Class containing the available types of a
+ * {@link com.proxerme.library.connection.messenger.entity.Conference}.
  *
  * @author Ruben Gees
  */
