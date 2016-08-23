@@ -1,4 +1,4 @@
-# ProxerLibAndroid [![Release](https://jitpack.io/v/proxer/ProxerLibAndroid.svg)](https://jitpack.io/#proxer/ProxerLibAndroid) [![Release](https://circleci.com/gh/proxer/ProxerLibAndroid.svg?style=shield)](https://circleci.com/gh/proxer/ProxerLibAndroid)
+# ProxerLibAndroid [![Release](https://jitpack.io/v/proxer/ProxerLibAndroid.svg)](https://jitpack.io/#proxer/ProxerLibAndroid) [![Release](https://circleci.com/gh/proxer/ProxerLibAndroid.svg?style=shield)](https://circleci.com/gh/proxer/ProxerLibAndroid) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4f6582ef2fd4edba232387fcd17b3f2)](https://www.codacy.com/app/geesruben/ProxerLibAndroid?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=proxer/ProxerLibAndroid&amp;utm_campaign=Badge_Grade)
 
 ### What is this?
 
