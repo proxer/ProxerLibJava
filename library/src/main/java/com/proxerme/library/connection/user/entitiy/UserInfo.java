@@ -147,7 +147,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
     }
 
     /**
-     * Returns the date of the last status change. This is 0 if the < has no status.
+     * Returns the date of the last status change. This is 0 if the user has no status.
      *
      * @return The date as an unix timestamp.
      */
