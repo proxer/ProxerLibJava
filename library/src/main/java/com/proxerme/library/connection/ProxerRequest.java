@@ -111,8 +111,7 @@ public abstract class ProxerRequest<T> {
 
         for (Pair<String, ?> queryParameter : getQueryParameters()) {
             if (queryParameter.second != null) {
-                builder.addQueryParameter(queryParameter.first,
-                        String.valueOf(queryParameter.second));
+                builder.addQueryParameter(queryParameter.first, queryParameter.second.toString());
             }
         }
 
