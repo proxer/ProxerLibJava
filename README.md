@@ -2,7 +2,7 @@
 
 ### What is this?
 
-This is a library, implementing the API of the
+This is an Android library, implementing the API of the
 [Proxer.me](https://proxer.me/) website.
 
 ### Table of contents
@@ -52,8 +52,7 @@ initialize it with the `ProxerConnection.Builder` before using.
 The construction looks like this:
 
 ```java
-ProxerConnection proxerConnection = new ProxerConnection
-        .Builder("yourApiKey", this).build();
+ProxerConnection proxerConnection = new ProxerConnection.Builder("yourApiKey", this).build();
 ```
 
 You can customize the connection which will be covered later.
@@ -132,7 +131,7 @@ NewsRequest request = new NewsRequest(0).withLimit(30);
 As you have seen, you use the `execute` method for asynchronous requests with
 callbacks. If you want to execute the request synchronous, you can use the
 `executeSynchronized` method. This is useful if you want to manage the threading
-yourself or if you are on an background thread already (e.g. `AsyncTask`,
+yourself or if you are on a background thread already (e.g. `AsyncTask`,
 `IntentService`).
 
 A synchronous query for the latest News looks like this:
@@ -281,7 +280,7 @@ obtain various often needed Urls.
 One example is the Url of the image of a News:
 
 ```java
-private String getUrlToNewsImage(News news){
+private String getUrlToNewsImage(News news) {
     return ProxerUrlHolder.getNewsImageUrl(news.getId(), news.getImageId())
             .toString();
 }
@@ -290,13 +289,13 @@ private String getUrlToNewsImage(News news){
 ##### Configuration
 
 The `ProxerConnection` allows for customization. The internally used libs are
-plugable and you can specify some other arguments.  
+pluggable and you can specify some other arguments.  
 Here is an example with all available customizations:
 
 ```java
-CookieJar cookieJar =...;
-OkHttpClient httpClient =...;
-Moshi moshi =...;
+CookieJar cookieJar = ...;
+OkHttpClient httpClient = ...;
+Moshi moshi = ...;
 
 ProxerConnection proxerConnection = new ProxerConnection.Builder("yourApiKey", cookieJar)
         .withCustomOkHttp(httpClient)
@@ -345,7 +344,7 @@ get removed without further notice.
 
 You can easily write your own requests if this library does not provide a
 request yet. To do so, have a look at the `entity`, `result` and `request`
-packages for each class. You have to define a `Entity`, a `ProxerResult`
+packages for each API class. You have to define a `Entity`, a `ProxerResult`
 subclass and a `ProxerRequest` subclass, each with an easy to implement
 interface.  
 Don't forget to do a Pull Request!
