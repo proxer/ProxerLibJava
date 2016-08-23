@@ -5,16 +5,17 @@ import android.os.Parcelable;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.annotations.Body;
+import com.proxerme.library.parameters.CommentStateParameter.CommentState;
 import com.proxerme.library.parameters.MediumParameter.Medium;
+import com.proxerme.library.parameters.StateParameter.State;
+import com.squareup.moshi.Json;
 
 /**
- * Entity holding all relevant information of an entry in the User's media list (Watched, watching).
- * This also includes comments by the User.
+ * Entity holding all relevant information of an entry in the user's media list (Watched, watching).
+ * This also includes comments by the user.
  *
  * @author Ruben Gees
  */
-
 public class UserMediaListEntry implements Parcelable {
 
     public static final Parcelable.Creator<UserMediaListEntry> CREATOR = new Parcelable.Creator<UserMediaListEntry>() {
@@ -28,25 +29,26 @@ public class UserMediaListEntry implements Parcelable {
             return new UserMediaListEntry[size];
         }
     };
-    @Body(name = "id")
+
+    @Json(name = "id")
     String id;
-    @Body(name = "name")
+    @Json(name = "name")
     String name;
-    @Body(name = "count")
+    @Json(name = "count")
     int episodeCount;
-    @Body(name = "medium")
+    @Json(name = "medium")
     String medium;
-    @Body(name = "estate")
+    @Json(name = "estate")
     int state;
-    @Body(name = "cid")
+    @Json(name = "cid")
     String commentId;
-    @Body(name = "comment")
+    @Json(name = "comment")
     String comment;
-    @Body(name = "state")
+    @Json(name = "state")
     int commentState;
-    @Body(name = "episode")
+    @Json(name = "episode")
     int commentEpisode;
-    @Body(name = "rating")
+    @Json(name = "rating")
     int commentRating;
 
     UserMediaListEntry() {
@@ -63,16 +65,18 @@ public class UserMediaListEntry implements Parcelable {
      * @param state          The state.
      * @param commentId      The id of the comment.
      * @param comment        The content of the comment.
-     * @param commentState   The state of the comment.
-     * @param commentEpisode The episode the User is at currently. The User does not have to have a
+     * @param commentState   The state of the comment. The user does not have to have a comment for
+     *                       this field to be set.
+     * @param commentEpisode The episode the user is at currently. The user does not have to have a
      *                       comment for this field to be set.
      * @param commentRating  The rating of the media. This ranges from 1 to 10. If the value is 0,
      *                       the user haven't rated the media yet.
      */
     public UserMediaListEntry(@NonNull String id, @NonNull String name,
                               @IntRange(from = 0) int episodeCount, @NonNull @Medium String medium,
-                              int state, @NonNull String commentId, @NonNull String comment,
-                              int commentState, @IntRange(from = 0) int commentEpisode,
+                              @State int state, @NonNull String commentId, @NonNull String comment,
+                              @CommentState int commentState,
+                              @IntRange(from = 0) int commentEpisode,
                               @IntRange(from = 0, to = 10) int commentRating) {
         this.id = id;
         this.name = name;
@@ -102,7 +106,7 @@ public class UserMediaListEntry implements Parcelable {
     /**
      * Returns the id of the entry.
      *
-     * @return The enty.
+     * @return The id.
      */
     @NonNull
     public String getId() {
@@ -145,6 +149,7 @@ public class UserMediaListEntry implements Parcelable {
      *
      * @return The state.
      */
+    @State
     public int getState() {
         return state;
     }
@@ -174,12 +179,13 @@ public class UserMediaListEntry implements Parcelable {
      *
      * @return The state.
      */
+    @CommentState
     public int getCommentState() {
         return commentState;
     }
 
     /**
-     * Returns the last episode, the user has watched.
+     * Returns the last episode the user has watched.
      *
      * @return The episode.
      */
@@ -189,9 +195,9 @@ public class UserMediaListEntry implements Parcelable {
     }
 
     /**
-     * Returns the rating of the User's comment. If the user has no comment this equals to 0.
+     * Returns the rating of the user's comment. If the user has no comment this equals to 0.
      *
-     * @return THe rating.
+     * @return The rating.
      */
     @IntRange(from = 0, to = 10)
     public int getCommentRating() {
@@ -216,7 +222,6 @@ public class UserMediaListEntry implements Parcelable {
         if (!commentId.equals(that.commentId)) return false;
         if (!comment.equals(that.comment)) return false;
         return commentState != that.commentState;
-
     }
 
     @Override

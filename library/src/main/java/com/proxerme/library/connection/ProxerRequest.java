@@ -1,263 +1,130 @@
 package com.proxerme.library.connection;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresPermission;
-import android.support.annotation.WorkerThread;
+import android.support.annotation.StringDef;
+import android.util.Pair;
 
-import com.afollestad.bridge.Bridge;
-import com.afollestad.bridge.BridgeException;
-import com.afollestad.bridge.Callback;
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Request;
-import com.afollestad.bridge.Response;
-import com.afollestad.bridge.ResponseValidator;
-import com.proxerme.library.info.ProxerTag;
-import com.proxerme.library.interfaces.ProxerErrorResult;
-import com.proxerme.library.interfaces.ProxerResult;
+import com.proxerme.library.info.ProxerUrlHolder;
+import com.squareup.moshi.Moshi;
+
+import java.io.IOException;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.util.ArrayList;
+
+import okhttp3.HttpUrl;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 /**
- * The base class for all requests. This class handles the call to the Bridge and delivers the
- * result on the main thread. All inheriting requests need to implement a method for parsing the
- * result, a method which returns the Url and a method which returns a tag, found in the
- * {@link ProxerTag} class.
- * Moreover inheritors can override more methods to allow configuration of the request. This
- * includes the following methods:
- * <p>
- * <ul>
- * <li>
- * {@link #getParameters()} allows to return an array of parameter values to the request.
- * The order of the values is important, as you have to specify placeholders for them in the
- * Url you pass in {@link #getURL()}. This might look like this:
- * https://example.com?param=%s
- * </li>
- * <li>
- * {@link #getBody()} allows to return parameters for the body of the request. This
- * might looke like this: <code>return new Form().add("param", "value");</code>
- * </li>
- * <li>
- * {@link #getValidator()} allows the use of a custom Validator if the
- * {@link DefaultValidator} does not work for a specific API.
- * </li>
- * </ul>
- * <p>
- * After constructing the class, the user can either call the
- * {@link #execute(ProxerCallback, ProxerErrorCallback)} or the {@link #executeSynchronized()}
- * method. The difference is, that the first is executed asynchronously while the second is executed
- * synchronous. The result of {@link #execute(ProxerCallback, ProxerErrorCallback)} is always
- * delivered on the main thread.
- * <p>
- * A typical usage might look like this:
- * <p>
- * <pre>
- * <code>
- * new ProxerRequest().execute(new ProxerCallback() {
- *     {@literal @}Override
- *     public void onSuccess(ProxerResult result) {
- *         //Do something with the result
- *     }
- * }, new ProxerErrorCallback() {
- *     {@literal @}Override
- *     public void onError(ProxerErrorResult result) {
- *         //Do something with the result
- *     }
- * });
- * </code>
- * </pre>
+ * Base class for all requests. A subclass has to implement the {@link #parse(Moshi, ResponseBody)},
+ * {@link #getApiClass()} and {@link #getApiEndpoint()} methods. Moreover it can implement the
+ * {@link #getMethod()} method to specify the {@link ProxerRequest.HttpMethod} the request is going
+ * to use.
+ * To specify arguments, the methods {@link #getQueryParameters()} and {@link #getRequestBody()} can
+ * be overridden.
  *
- * @param <R> The type of result.
+ * @param <T> The type of the result. This is not the {@link ProxerResult} subclass, but the entity
+ *            type this request will return.
  * @author Ruben Gees
  */
-public abstract class ProxerRequest<R extends ProxerResult> {
+public abstract class ProxerRequest<T> {
 
-    private static final String HEADER_API_KEY = "proxer-api-key";
+    protected static final String GET = "GET";
+    protected static final String HEAD = "HEAD";
+    protected static final String POST = "POST";
+    protected static final String DELETE = "DELETE";
+    protected static final String PUT = "PUT";
+    protected static final String PATCH = "PATCH";
 
-    private Handler handler;
-
-    /**
-     * Default constructor.
-     */
-    public ProxerRequest() {
-        handler = new Handler(Looper.getMainLooper());
+    Request build() {
+        return new Request.Builder()
+                .url(buildUrl())
+                .method(getMethod(), getRequestBody())
+                .build();
     }
 
-    /**
-     * Returns the {@link ProxerTag} of this request.
-     *
-     * @return The {@link ProxerTag}.
-     */
-    @ProxerTag.ConnectionTag
-    protected abstract int getTag();
+    protected abstract ProxerResult<T> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException;
 
     /**
-     * Parses the response and returns a subclass of {@link ProxerResult}, specified by the
-     * type parameter.
+     * Returns the class the request residents in. For a
+     * {@link com.proxerme.library.connection.notifications.request.NewsRequest} this would be
+     * "notifications".
      *
-     * @param response The response.
-     * @return The parsed {@link ProxerResult}.
-     * @throws Exception If the parsing failed.
-     */
-    protected abstract R parse(@NonNull Response response) throws Exception;
-
-    /**
-     * Returns the Url for this request. Query parameters might be used in conjunction with the
-     * {@link #getParameters()} method.
-     *
-     * @return The Url.
+     * @return The API class.
      */
     @NonNull
-    protected abstract String getURL();
-
+    protected abstract String getApiClass();
 
     /**
-     * Asynchronously executes this request. The result will be delivered on the main thread.
+     * Returns the endpoint of the request. For a
+     * {@link com.proxerme.library.connection.notifications.request.NewsRequest} this would be
+     * "news".
      *
-     * @param callback      The callback for a successful request.
-     * @param errorCallback The callback for a unsuccessful request.
-     * @return The Request for further use.
-     * @see #executeSynchronized()
+     * @return The API endpoint.
      */
-    @RequiresPermission(android.Manifest.permission.INTERNET)
-    public final Request execute(@Nullable final ProxerCallback<R> callback,
-                                 @Nullable final ProxerErrorCallback errorCallback) {
-        return Bridge.post(getURL(), (Object[]) getParameters())
-                .body(getBody())
-                .throwIfNotSuccess()
-                .tag(String.valueOf(getTag()))
-                .header(HEADER_API_KEY, ProxerConnection.getKey())
-                .validators(getValidator())
-                .request(new Callback() {
-                    @Override
-                    public void response(@NonNull Request request, Response response,
-                                         BridgeException exception) {
-                        if (exception == null) {
-                            try {
-                                deliverResultOnMainThread(callback, parse(response));
-                            } catch (BridgeException e) {
-                                deliverErrorResultOnMainThread(errorCallback,
-                                        new ProxerErrorResult(ProxerErrorHandler
-                                                .handleException(e)));
-                            } catch (Exception e) {
-                                deliverErrorResultOnMainThread(errorCallback,
-                                        new ProxerErrorResult(
-                                                new ProxerException(ProxerException.UNPARSEABLE)));
-                            }
-                        } else {
-                            if (exception.reason() != BridgeException.REASON_REQUEST_CANCELLED) {
-                                deliverErrorResultOnMainThread(errorCallback,
-                                        new ProxerErrorResult(ProxerErrorHandler
-                                                .handleException(exception)));
-                            }
-                        }
-                    }
-                });
+    @NonNull
+    protected abstract String getApiEndpoint();
+
+    /**
+     * Returns the http method. Allows a subclass to specify another method than GET.
+     *
+     * @return The http method.
+     */
+    @HttpMethod
+    protected String getMethod() {
+        return GET;
     }
 
     /**
-     * Executes the request and returns the result immediately.
+     * Returns the request body for this request. This allows a subclass to add POST parameters for
+     * example.
      *
-     * @return The Result, if no error occurred.
-     * @throws ProxerException If an error occurred.
-     */
-    @WorkerThread
-    @RequiresPermission(android.Manifest.permission.INTERNET)
-    public final R executeSynchronized() throws ProxerException {
-        try {
-            return parse(Bridge.post(getURL(), (Object[]) getParameters())
-                    .body(getBody())
-                    .throwIfNotSuccess()
-                    .tag(getTag())
-                    .validators(getValidator())
-                    .request()
-                    .response());
-        } catch (BridgeException e) {
-            throw ProxerErrorHandler.handleException(e);
-        } catch (Exception e) {
-            throw new ProxerException(ProxerException.UNPARSEABLE);
-        }
-    }
-
-    /**
-     * Can be overridden to return parameters, encoded in the Url.
-     *
-     * @return An array of parameters. The order matters.
+     * @return The request body.
      */
     @Nullable
-    protected String[] getParameters() {
+    protected RequestBody getRequestBody() {
         return null;
     }
 
     /**
-     * Can be overridden to return a body for the request.
+     * Returns the query parameters. Each map entry must have the name of the parameter as key and
+     * the value of the parameter as value.
      *
-     * @return The body.
-     */
-    @Nullable
-    protected Form getBody() {
-        return null;
-    }
-
-    /**
-     * Can be overridden to return a different Validator from the {@link DefaultValidator}.
-     *
-     * @return The Validator.
+     * @return The map of parameters.
      */
     @NonNull
-    protected ResponseValidator getValidator() {
-        return new DefaultValidator();
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return new ArrayList<>(0);
     }
 
-    private void deliverResultOnMainThread(@Nullable final ProxerCallback<R> callback,
-                                           final R result) {
-        if (callback != null) {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    callback.onSuccess(result);
-                }
-            });
-        }
-    }
+    private HttpUrl buildUrl() {
+        HttpUrl.Builder builder = ProxerUrlHolder.getApiHost().newBuilder();
 
-    private void deliverErrorResultOnMainThread(@Nullable final ProxerErrorCallback callback,
-                                                final ProxerErrorResult errorResult) {
-        if (callback != null) {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    callback.onError(errorResult);
-                }
-            });
+        builder.addPathSegment(getApiClass());
+        builder.addPathSegment(getApiEndpoint());
+
+        for (Pair<String, ?> queryParameter : getQueryParameters()) {
+            if (queryParameter.second != null) {
+                builder.addQueryParameter(queryParameter.first, queryParameter.second.toString());
+            }
         }
+
+        return builder.build();
     }
 
     /**
-     * A callback for a successful request.
-     *
-     * @param <R> The type of the Result.
+     * Annotation representing the valid http methods.
      */
-    public interface ProxerCallback<R extends ProxerResult> {
-
-        /**
-         * Called upon success for each Request with the result.
-         *
-         * @param result The result specified through the type parameter.
-         */
-        void onSuccess(R result);
+    @StringDef({GET, HEAD, POST, DELETE, PUT, PATCH})
+    @Retention(value = RetentionPolicy.SOURCE)
+    @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
+    protected @interface HttpMethod {
     }
 
-    /**
-     * A callback for a unsuccessful request.
-     */
-    public interface ProxerErrorCallback {
-
-        /**
-         * Called upon an error for each Request with the ErrorResult.
-         *
-         * @param result The ErrorResult.
-         */
-        void onError(ProxerErrorResult result);
-    }
 }

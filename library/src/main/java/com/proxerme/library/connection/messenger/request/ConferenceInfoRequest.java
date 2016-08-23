@@ -1,25 +1,30 @@
 package com.proxerme.library.connection.messenger.request;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.util.Pair;
 
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.messenger.MessengerRequest;
+import com.proxerme.library.connection.messenger.entity.ConferenceInfoContainer;
 import com.proxerme.library.connection.messenger.result.ConferenceInfoResult;
-import com.proxerme.library.info.ProxerTag;
-import com.proxerme.library.info.ProxerUrlHolder;
+import com.squareup.moshi.Moshi;
+
+import java.io.IOException;
+import java.util.Collections;
+
+import okhttp3.ResponseBody;
 
 /**
- * The class that represents the request to get the conference info.
+ * Request for information about a
+ * {@link com.proxerme.library.connection.messenger.entity.Conference}.
  *
  * @author Desnoo
  */
-public class ConferenceInfoRequest extends ProxerRequest<ConferenceInfoResult> {
+public class ConferenceInfoRequest extends MessengerRequest<ConferenceInfoContainer> {
 
-    private static final String CONFERENCE_INFO_URL = "/api/v1/messenger/conferenceinfo";
+    private static final String ENDPOINT = "conferenceinfo";
 
-    private static final String CONFERENCE_ID = "conference_id";
+    private static final String CONFERENCE_ID_PARAMETER = "conference_id";
 
     private String conferenceId;
 
@@ -33,24 +38,23 @@ public class ConferenceInfoRequest extends ProxerRequest<ConferenceInfoResult> {
     }
 
     @Override
-    protected int getTag() {
-        return ProxerTag.MESSENGER_CONFERENCE_INFO;
-    }
-
-    @Override
-    protected ConferenceInfoResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(ConferenceInfoResult.class);
+    protected ProxerResult<ConferenceInfoContainer> parse(@NonNull Moshi moshi,
+                                                          @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(ConferenceInfoResult.class).fromJson(body.source());
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + CONFERENCE_INFO_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
-    @Nullable
+    @NonNull
     @Override
-    protected Form getBody() {
-        return new Form().add(CONFERENCE_ID, conferenceId);
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Collections.<Pair<String, ?>>singletonList(
+                new Pair<>(CONFERENCE_ID_PARAMETER, conferenceId)
+        );
     }
 }

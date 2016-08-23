@@ -5,12 +5,12 @@ import android.os.Parcelable;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.parameters.SeasonParameter;
 import com.proxerme.library.parameters.TypeParameter;
+import com.squareup.moshi.Json;
 
 /**
- * Class of the season entity of an entry.
+ * Entity holding the seasons of a entry.
  *
  * @author Desnoo
  */
@@ -28,21 +28,21 @@ public class Season implements Parcelable {
         }
     };
 
-    @Body(name = "id")
-    String id;
-    @Body(name = "eid")
-    String entryId;
-    @Body(name = "type")
-    String type;
-    @Body(name = "year")
-    int year;
-    @Body(name = "season")
-    int season;
+    @Json(name = "id")
+    private String id;
+    @Json(name = "eid")
+    private String entryId;
+    @Json(name = "type")
+    private String type;
+    @Json(name = "year")
+    private int year;
+    @Json(name = "season")
+    private int season;
 
     /**
      * The private constructor.
      */
-    Season() {
+    private Season() {
     }
 
     /**

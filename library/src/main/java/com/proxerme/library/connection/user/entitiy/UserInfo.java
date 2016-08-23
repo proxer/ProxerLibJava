@@ -5,16 +5,15 @@ import android.os.Parcelable;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.ImageItem;
+import com.squareup.moshi.Json;
 
 /**
- * Entity holding all basic info of a User.
+ * Entity holding all basic info of a {@link User}.
  *
  * @author Ruben Gees
  */
-
 public class UserInfo implements Parcelable, IdItem, ImageItem {
 
     public static final Parcelable.Creator<UserInfo> CREATOR = new Parcelable.Creator<UserInfo>() {
@@ -29,30 +28,30 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
         }
     };
 
-    @Body(name = "uid")
-    String id;
-    @Body(name = "username")
-    String username;
-    @Body(name = "avatar")
-    String imageId;
-    @Body(name = "status")
-    String status;
-    @Body(name = "status_time")
-    long lastStatusChange;
-    @Body(name = "points_uploads")
-    int uploadPoints;
-    @Body(name = "points_forum")
-    int forumPoints;
-    @Body(name = "points_anime")
-    int animePoints;
-    @Body(name = "points_manga")
-    int mangaPoints;
-    @Body(name = "points_info")
-    int infoPoints;
-    @Body(name = "points_misc")
-    int miscPoints;
+    @Json(name = "uid")
+    private String id;
+    @Json(name = "username")
+    private String username;
+    @Json(name = "avatar")
+    private String imageId;
+    @Json(name = "status")
+    private String status;
+    @Json(name = "status_time")
+    private long lastStatusChange;
+    @Json(name = "points_uploads")
+    private int uploadPoints;
+    @Json(name = "points_forum")
+    private int forumPoints;
+    @Json(name = "points_anime")
+    private int animePoints;
+    @Json(name = "points_manga")
+    private int mangaPoints;
+    @Json(name = "points_info")
+    private int infoPoints;
+    @Json(name = "points_misc")
+    private int miscPoints;
 
-    UserInfo() {
+    private UserInfo() {
 
     }
 
@@ -138,7 +137,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
     }
 
     /**
-     * Returns the status of the user. Might be empty if the User did not set a status.
+     * Returns the status of the user. Might be empty if the user did not set a status.
      *
      * @return The status.
      */
@@ -148,7 +147,7 @@ public class UserInfo implements Parcelable, IdItem, ImageItem {
     }
 
     /**
-     * Returns the date of the last status change. This is 0 if the User has no status.
+     * Returns the date of the last status change. This is 0 if the user has no status.
      *
      * @return The date as an unix timestamp.
      */

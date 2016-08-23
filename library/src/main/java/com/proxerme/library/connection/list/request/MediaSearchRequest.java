@@ -4,12 +4,12 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Pair;
 
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
-import com.proxerme.library.connection.list.result.MediaSearchResult;
-import com.proxerme.library.info.ProxerUrlHolder;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.list.ListRequest;
+import com.proxerme.library.connection.list.entity.MediaListEntry;
+import com.proxerme.library.connection.list.result.MediaListResult;
 import com.proxerme.library.parameters.FskParameter.FskConstraint;
 import com.proxerme.library.parameters.GenreParameter.Genre;
 import com.proxerme.library.parameters.LanguageParameter.Language;
@@ -18,8 +18,12 @@ import com.proxerme.library.parameters.MediaSortParameter.MediaSortCriteria;
 import com.proxerme.library.parameters.TagRateFilterParameter.TagRateFilter;
 import com.proxerme.library.parameters.TagSpoilerFilterParameter.TagSpoilerFilter;
 import com.proxerme.library.parameters.TypeParameter.Type;
+import com.squareup.moshi.Moshi;
 
-import static com.proxerme.library.info.ProxerTag.MEDIA_SEARCH;
+import java.io.IOException;
+import java.util.Arrays;
+
+import okhttp3.ResponseBody;
 
 /**
  * Request for all available media. Features various filter and sort options (Use the withParameter
@@ -27,26 +31,25 @@ import static com.proxerme.library.info.ProxerTag.MEDIA_SEARCH;
  *
  * @author Ruben Gees
  */
+public class MediaSearchRequest extends ListRequest<MediaListEntry[]> {
 
-public class MediaSearchRequest extends ProxerRequest<MediaSearchResult> {
+    private static final String ENDPOINT = "entrysearch";
 
-    private static final String MEDIA_SEARCH_URL = "/api/v1/list/entrysearch";
-
-    private static final String NAME_FORM = "name";
-    private static final String LANGUAGE_FORM = "language";
-    private static final String TYPE_FORM = "type";
-    private static final String GENRES_FORM = "genre";
-    private static final String EXCLUDED_GENRES_FORM = "nogenre";
-    private static final String FSK_FORM = "fsk";
-    private static final String SORT_FORM = "sort";
-    private static final String LENGTH_FORM = "length";
-    private static final String LENGTH_BOUND_FORM = "length-limit";
-    private static final String TAGS_FORM = "tags";
-    private static final String EXCLUDED_TAGS_FORM = "notags";
-    private static final String TAG_RATE_FILTER_FORM = "tagratefilter";
-    private static final String TAG_SPOILER_FILTER_FORM = "tagspoilerfilter";
-    private static final String PAGE_FORM = "p";
-    private static final String LIMIT_FORM = "limit";
+    private static final String NAME_PARAMETER = "name";
+    private static final String LANGUAGE_PARAMETER = "language";
+    private static final String TYPE_PARAMETER = "type";
+    private static final String GENRES_PARAMETER = "genre";
+    private static final String EXCLUDED_GENRES_PARAMETER = "nogenre";
+    private static final String FSK_PARAMETER = "fsk";
+    private static final String SORT_PARAMETER = "sort";
+    private static final String LENGTH_PARAMETER = "length";
+    private static final String LENGTH_BOUND_PARAMETER = "length-limit";
+    private static final String TAGS_PARAMETER = "tags";
+    private static final String EXCLUDED_TAGS_PARAMETER = "notags";
+    private static final String TAG_RATE_FILTER_PARAMETER = "tagratefilter";
+    private static final String TAG_SPOILER_FILTER_PARAMETER = "tagspoilerfilter";
+    private static final String PAGE_PARAMETER = "p";
+    private static final String LIMIT_PARAMETER = "limit";
 
     @Nullable
     private String name;
@@ -345,83 +348,36 @@ public class MediaSearchRequest extends ProxerRequest<MediaSearchResult> {
     }
 
     @Override
-    protected int getTag() {
-        return MEDIA_SEARCH;
-    }
-
-    @Override
-    protected MediaSearchResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(MediaSearchResult.class);
+    protected ProxerResult<MediaListEntry[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(MediaListResult.class).fromJson(body.source());
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + MEDIA_SEARCH_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
+    @NonNull
     @Override
-    protected Form getBody() {
-        Form form = new Form();
-
-        if (name != null) {
-            form.add(NAME_FORM, name);
-        }
-
-        if (language != null) {
-            form.add(LANGUAGE_FORM, language);
-        }
-
-        if (type != null) {
-            form.add(TYPE_FORM, type);
-        }
-
-        if (genres != null) {
-            form.add(GENRES_FORM, genres);
-        }
-
-        if (excludedGenres != null) {
-            form.add(EXCLUDED_GENRES_FORM, excludedGenres);
-        }
-
-        if (fskConstraints != null) {
-            form.add(FSK_FORM, fskConstraints);
-        }
-
-        if (sortCriteria != null) {
-            form.add(SORT_FORM, sortCriteria);
-        }
-
-        if (length != null) {
-            form.add(LENGTH_FORM, length);
-        }
-
-        if (lengthBound != null) {
-            form.add(LENGTH_BOUND_FORM, lengthBound);
-        }
-
-        if (tags != null) {
-            form.add(TAGS_FORM, tags);
-        }
-
-        if (excludedTags != null) {
-            form.add(EXCLUDED_TAGS_FORM, excludedTags);
-        }
-
-        if (tagRateFilter != null) {
-            form.add(TAG_RATE_FILTER_FORM, tagRateFilter);
-        }
-
-        if (tagSpoilerFilter != null) {
-            form.add(TAG_SPOILER_FILTER_FORM, tagSpoilerFilter);
-        }
-
-        form.add(PAGE_FORM, page);
-
-        if (limit != null) {
-            form.add(LIMIT_FORM, limit);
-        }
-
-        return form;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Arrays.<Pair<String, ?>>asList(
+                new Pair<>(NAME_PARAMETER, name),
+                new Pair<>(LANGUAGE_PARAMETER, language),
+                new Pair<>(TYPE_PARAMETER, type),
+                new Pair<>(GENRES_PARAMETER, genres),
+                new Pair<>(EXCLUDED_GENRES_PARAMETER, excludedGenres),
+                new Pair<>(FSK_PARAMETER, fskConstraints),
+                new Pair<>(SORT_PARAMETER, sortCriteria),
+                new Pair<>(LENGTH_PARAMETER, length),
+                new Pair<>(LENGTH_BOUND_PARAMETER, lengthBound),
+                new Pair<>(TAGS_PARAMETER, tags),
+                new Pair<>(EXCLUDED_TAGS_PARAMETER, excludedTags),
+                new Pair<>(TAG_RATE_FILTER_PARAMETER, tagRateFilter),
+                new Pair<>(TAG_SPOILER_FILTER_PARAMETER, tagSpoilerFilter),
+                new Pair<>(PAGE_PARAMETER, page),
+                new Pair<>(LIMIT_PARAMETER, limit)
+        );
     }
 }

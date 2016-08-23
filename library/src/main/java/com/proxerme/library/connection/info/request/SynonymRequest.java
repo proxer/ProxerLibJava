@@ -1,25 +1,29 @@
 package com.proxerme.library.connection.info.request;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.util.Pair;
 
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.info.InfoRequest;
+import com.proxerme.library.connection.info.entity.Synonym;
 import com.proxerme.library.connection.info.result.SynonymResult;
-import com.proxerme.library.info.ProxerTag;
-import com.proxerme.library.info.ProxerUrlHolder;
+import com.squareup.moshi.Moshi;
+
+import java.io.IOException;
+import java.util.Collections;
+
+import okhttp3.ResponseBody;
 
 /**
  * Class to create a object to request the Synonyms of a specified entry.
  *
  * @author Desnoo
  */
-public class SynonymRequest extends ProxerRequest<SynonymResult> {
+public class SynonymRequest extends InfoRequest<Synonym[]> {
 
-    private static final String ENTRY_NAMES_URL = "/api/v1/info/names";
+    private static final String ENDPOINT = "names";
 
-    private static final String ENTRY_NAMES_ID = "id";
+    private static final String ID_PARAMETER = "id";
 
     private String id;
 
@@ -33,26 +37,22 @@ public class SynonymRequest extends ProxerRequest<SynonymResult> {
     }
 
     @Override
-    protected int getTag() {
-        return ProxerTag.INFO_ENTRY_SYNONYM;
-    }
-
-    @Override
-    protected SynonymResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(SynonymResult.class);
+    protected ProxerResult<Synonym[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(SynonymResult.class).fromJson(body.source());
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + ENTRY_NAMES_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
-    @Nullable
+    @NonNull
     @Override
-    protected Form getBody() {
-        Form form = new Form();
-        form.add(ENTRY_NAMES_ID, this.id);
-        return form;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Collections.<Pair<String, ?>>singletonList(
+                new Pair<>(ID_PARAMETER, id)
+        );
     }
 }

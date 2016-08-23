@@ -4,12 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.annotations.Body;
+import com.squareup.moshi.Json;
 
 import java.util.Arrays;
 
 /**
- * Class that represents the info of a conference such as the participating users.
+ * Entity that represents the info of a {@link Conference} such as the participating users.
  *
  * @author Desnoo
  */
@@ -27,15 +27,12 @@ public class ConferenceInfoContainer implements Parcelable {
         }
     };
 
-    @Body(name = "conference")
-    ConferenceInfo conferenceInfo;
-    @Body(name = "users")
-    ConferenceInfoUser[] participants;
+    @Json(name = "conference")
+    private ConferenceInfo conferenceInfo;
+    @Json(name = "users")
+    private ConferenceInfoUser[] participants;
 
-    /**
-     * Private Constructor.
-     */
-    ConferenceInfoContainer() {
+    private ConferenceInfoContainer() {
     }
 
     /**
@@ -50,11 +47,6 @@ public class ConferenceInfoContainer implements Parcelable {
         this.participants = participants;
     }
 
-    /**
-     * The Constructor to parse a parcel.
-     *
-     * @param in The parcel to parse.
-     */
     protected ConferenceInfoContainer(Parcel in) {
         conferenceInfo = in.readParcelable(Conference.class.getClassLoader());
         participants = in.createTypedArray(ConferenceInfoUser.CREATOR);
@@ -72,9 +64,9 @@ public class ConferenceInfoContainer implements Parcelable {
     }
 
     /**
-     * Returns the ConferenceInfo.
+     * Returns info about the conference.
      *
-     * @return The ConferenceInfo.
+     * @return Info about the conference.
      **/
     @NonNull
     public ConferenceInfo getConferenceInfo() {
@@ -91,6 +83,7 @@ public class ConferenceInfoContainer implements Parcelable {
         return participants;
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -100,7 +93,6 @@ public class ConferenceInfoContainer implements Parcelable {
 
         if (!conferenceInfo.equals(that.conferenceInfo)) return false;
         return Arrays.equals(participants, that.participants);
-
     }
 
     @Override

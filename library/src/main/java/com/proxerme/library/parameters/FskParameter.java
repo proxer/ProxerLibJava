@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-
 public class FskParameter {
 
     public static final String FSK_0 = "fsk0";

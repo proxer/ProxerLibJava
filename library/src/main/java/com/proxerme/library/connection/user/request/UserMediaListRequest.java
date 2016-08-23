@@ -3,36 +3,40 @@ package com.proxerme.library.connection.user.request;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Pair;
 
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.user.UserRequest;
+import com.proxerme.library.connection.user.entitiy.UserMediaListEntry;
 import com.proxerme.library.connection.user.result.UserMediaListResult;
-import com.proxerme.library.info.ProxerTag;
-import com.proxerme.library.info.ProxerUrlHolder;
 import com.proxerme.library.parameters.CategoryParameter.Category;
 import com.proxerme.library.parameters.UserMediaSortParameter.UserMediaSortCriteria;
+import com.squareup.moshi.Moshi;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+import okhttp3.ResponseBody;
 
 /**
  * Request for the watched/read media of the user. This includes Anime series, OVAs, Manga, etc.
- * This API uses pagination, honors the visibility settings of the User and features sorting and
+ * This API uses pagination, honors the visibility settings of the user and features sorting and
  * searching (Use the withParameter builders).
  *
  * @author Ruben Gees
  */
+public class UserMediaListRequest extends UserRequest<UserMediaListEntry[]> {
 
-public class UserMediaListRequest extends ProxerRequest<UserMediaListResult> {
+    private static final String ENDPOINT = "list";
 
-    private static final String USER_MEDIA_LIST_URL = "/api/v1/user/list";
-
-    private static final String USERID_FORM = "uid";
-    private static final String USERNAME_FORM = "username";
-    private static final String CATEGORY_FORM = "kat";
-    private static final String PAGE_FORM = "p";
-    private static final String LIMIT_FORM = "limit";
-    private static final String SEARCH_FORM = "search";
-    private static final String SEARCH_START_FORM = "search_start";
-    private static final String SORT_FORM = "sort";
+    private static final String USER_ID_PARAMETER = "uid";
+    private static final String USERNAME_PARAMETER = "username";
+    private static final String CATEGORY_PARAMETER = "kat";
+    private static final String PAGE_PARAMETER = "p";
+    private static final String LIMIT_PARAMETER = "limit";
+    private static final String SEARCH_PARAMETER = "search";
+    private static final String SEARCH_START_PARAMETER = "search_start";
+    private static final String SORT_PARAMETER = "sort";
 
     @Nullable
     private String userId;
@@ -66,7 +70,7 @@ public class UserMediaListRequest extends ProxerRequest<UserMediaListResult> {
     }
 
     /**
-     * Builder method for setting the {@link Category}.
+     * Builder method for setting the category.
      *
      * @param category The category to load.
      * @return This request.
@@ -129,55 +133,30 @@ public class UserMediaListRequest extends ProxerRequest<UserMediaListResult> {
     }
 
     @Override
-    protected int getTag() {
-        return ProxerTag.USER_MEDIA_LIST;
-    }
-
-    @Override
-    protected UserMediaListResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(UserMediaListResult.class);
+    protected ProxerResult<UserMediaListEntry[]> parse(@NonNull Moshi moshi,
+                                                       @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(UserMediaListResult.class).fromJson(body.source());
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + USER_MEDIA_LIST_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
+    @NonNull
     @Override
-    protected Form getBody() {
-        Form form = new Form();
-
-        if (userId != null) {
-            form.add(USERID_FORM, userId);
-        }
-
-        if (username != null) {
-            form.add(USERNAME_FORM, username);
-        }
-
-        if (category != null) {
-            form.add(CATEGORY_FORM, category);
-        }
-
-        form.add(PAGE_FORM, page);
-
-        if (limit != null) {
-            form.add(LIMIT_FORM, limit);
-        }
-
-        if (searchString != null) {
-            form.add(SEARCH_FORM, searchString);
-        }
-
-        if (searchStartString != null) {
-            form.add(SEARCH_START_FORM, searchStartString);
-        }
-
-        if (sortCriteria != null) {
-            form.add(SORT_FORM, sortCriteria);
-        }
-
-        return form;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Arrays.<Pair<String, ?>>asList(
+                new Pair<>(USER_ID_PARAMETER, userId),
+                new Pair<>(USERNAME_PARAMETER, username),
+                new Pair<>(CATEGORY_PARAMETER, category),
+                new Pair<>(PAGE_PARAMETER, page),
+                new Pair<>(LIMIT_PARAMETER, limit),
+                new Pair<>(SEARCH_PARAMETER, searchString),
+                new Pair<>(SEARCH_START_PARAMETER, searchStartString),
+                new Pair<>(SORT_PARAMETER, sortCriteria)
+        );
     }
 }

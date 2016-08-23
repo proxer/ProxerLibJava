@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-
 public class MediumParameter {
 
     public static final String ANIMESERIES = "animeseries";

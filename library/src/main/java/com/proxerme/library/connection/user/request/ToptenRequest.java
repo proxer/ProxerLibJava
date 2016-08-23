@@ -2,14 +2,19 @@ package com.proxerme.library.connection.user.request;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Pair;
 
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.user.UserRequest;
+import com.proxerme.library.connection.user.entitiy.ToptenEntry;
 import com.proxerme.library.connection.user.result.ToptenResult;
-import com.proxerme.library.info.ProxerTag;
-import com.proxerme.library.info.ProxerUrlHolder;
 import com.proxerme.library.parameters.CategoryParameter.Category;
+import com.squareup.moshi.Moshi;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+import okhttp3.ResponseBody;
 
 /**
  * Request for retrieving the Topten of the passed user. This API honors the visibility settings and
@@ -17,14 +22,13 @@ import com.proxerme.library.parameters.CategoryParameter.Category;
  *
  * @author Ruben Gees
  */
+public class ToptenRequest extends UserRequest<ToptenEntry[]> {
 
-public class ToptenRequest extends ProxerRequest<ToptenResult> {
+    private static final String ENDPOINT = "topten";
 
-    private static final String TOPTEN_URL = "/api/v1/user/topten";
-
-    private static final String USERID_FORM = "uid";
-    private static final String USERNAME_FORM = "username";
-    private static final String CATEGORY_FORM = "kat";
+    private static final String USER_ID_PARAMETER = "uid";
+    private static final String USERNAME_PARAMETER = "username";
+    private static final String CATEGORY_PARAMETER = "kat";
 
     @Nullable
     private String userId;
@@ -51,8 +55,8 @@ public class ToptenRequest extends ProxerRequest<ToptenResult> {
      *
      * @param userId   The id of the user.
      * @param username The name of the user.
-     * @param category One of the categories available in the
-     *                 {@link com.proxerme.library.parameters.CategoryParameter} class.
+     * @param category The category to load.
+     *                 {@link com.proxerme.library.parameters.CategoryParameter#ANIME} is default.
      */
     public ToptenRequest(@Nullable String userId, @Nullable String username,
                          @Nullable @Category String category) {
@@ -62,37 +66,24 @@ public class ToptenRequest extends ProxerRequest<ToptenResult> {
     }
 
     @Override
-    protected int getTag() {
-        return ProxerTag.USER_TOPTEN;
-    }
-
-    @Override
-    protected ToptenResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(ToptenResult.class);
+    protected ProxerResult<ToptenEntry[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(ToptenResult.class).fromJson(body.source());
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + TOPTEN_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
+    @NonNull
     @Override
-    protected Form getBody() {
-        Form form = new Form();
-
-        if (userId != null) {
-            form.add(USERID_FORM, userId);
-        }
-
-        if (username != null) {
-            form.add(USERNAME_FORM, username);
-        }
-
-        if (category != null) {
-            form.add(CATEGORY_FORM, category);
-        }
-
-        return form;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Arrays.<Pair<String, ?>>asList(
+                new Pair<>(USER_ID_PARAMETER, userId),
+                new Pair<>(USERNAME_PARAMETER, username),
+                new Pair<>(CATEGORY_PARAMETER, category)
+        );
     }
 }

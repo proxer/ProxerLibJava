@@ -1,67 +1,77 @@
 package com.proxerme.library.connection.user.request;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.user.UserRequest;
 import com.proxerme.library.connection.user.entitiy.User;
 import com.proxerme.library.connection.user.result.LoginResult;
-import com.proxerme.library.info.ProxerTag;
-import com.proxerme.library.info.ProxerUrlHolder;
+import com.squareup.moshi.Moshi;
+
+import java.io.IOException;
+
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 /**
  * Request for logging the user in. If the passed user or another user is logged in already, the API
- * will return an error. In this case you have to log out with the {@link LogoutRequest}. Moreover
- * you need to save Cookies for other Requests depending on a logged in user to work. You can use
- * the {@link com.proxerme.library.util.PersistentCookieStore}.
+ * will return an error. In this case you have to log out with the {@link LogoutRequest}.
  *
  * @author Ruben Gees
  */
-public class LoginRequest extends ProxerRequest<LoginResult> {
+public class LoginRequest extends UserRequest<User> {
 
-    private static final String LOGIN_URL = "/api/v1/user/login";
+    private static final String ENDPOINT = "login";
 
-    private static final String USERNAME_FORM = "username";
-    private static final String PASSWORD_FORM = "password";
+    private static final String USERNAME_PARAMETER = "username";
+    private static final String PASSWORD_PARAMETER = "password";
 
-    private User user;
+    private String username;
+    private String password;
 
     /**
      * The constructor.
      *
-     * @param user The user to log in.
+     * @param username The username.
+     * @param password The password.
      */
-    public LoginRequest(@NonNull User user) {
-        this.user = user;
+    public LoginRequest(@NonNull String username, @NonNull String password) {
+        this.username = username;
+        this.password = password;
     }
 
     @Override
-    protected LoginResult parse(@NonNull Response response) throws Exception {
-        LoginResult result = response.asClass(LoginResult.class);
+    protected ProxerResult<User> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
+        LoginResult result = moshi.adapter(LoginResult.class).fromJson(body.source());
 
-        //noinspection ConstantConditions
-        result.getItem().setUsername(user.getUsername());
-        result.getItem().setPassword(user.getPassword());
+        if (result.getData() != null) {
+            result.getData().setUsername(username);
+            result.getData().setPassword(password);
+        }
 
         return result;
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + LOGIN_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
     @Override
-    protected Form getBody() {
-        return new Form().add(USERNAME_FORM, user.getUsername())
-                .add(PASSWORD_FORM, user.getPassword());
+    protected String getMethod() {
+        return POST;
     }
 
-    @ProxerTag.ConnectionTag
+    @Nullable
     @Override
-    protected int getTag() {
-        return ProxerTag.LOGIN;
+    protected RequestBody getRequestBody() {
+        return new FormBody.Builder()
+                .add(USERNAME_PARAMETER, username)
+                .add(PASSWORD_PARAMETER, password)
+                .build();
     }
 }

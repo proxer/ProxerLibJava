@@ -13,7 +13,6 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-
 public class TypeParameter {
 
     public static final String ANIMESERIES = "animeseries";

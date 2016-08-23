@@ -1,43 +1,19 @@
 package com.proxerme.library.connection.user.result;
 
-import android.support.annotation.NonNull;
-
-import com.afollestad.bridge.annotations.Body;
+import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.user.entitiy.ToptenEntry;
-import com.proxerme.library.interfaces.ProxerResult;
+import com.squareup.moshi.Json;
 
-/**
- * The Result of a {@link com.proxerme.library.connection.user.request.ToptenRequest}.
- *
- * @author Ruben Gees
- */
+public class ToptenResult extends ProxerResult<ToptenEntry[]> {
 
-public class ToptenResult implements ProxerResult<ToptenEntry[]> {
+    @Json(name = "data")
+    private ToptenEntry[] entries;
 
-    @Body(name = "data")
-    ToptenEntry[] item;
-
-    /**
-     * The constructor.
-     *
-     * @param item The array of entries.
-     */
-    public ToptenResult(@NonNull ToptenEntry[] item) {
-        this.item = item;
+    private ToptenResult() {
     }
 
-    ToptenResult() {
-
-    }
-
-    /**
-     * Returns the array of entries.
-     *
-     * @return The array of entries.
-     */
     @Override
-    @NonNull
-    public ToptenEntry[] getItem() {
-        return item;
+    public ToptenEntry[] getData() {
+        return entries;
     }
 }

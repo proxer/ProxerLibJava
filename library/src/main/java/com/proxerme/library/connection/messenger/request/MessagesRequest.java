@@ -1,14 +1,18 @@
 package com.proxerme.library.connection.messenger.request;
 
 import android.support.annotation.NonNull;
+import android.util.Pair;
 
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.messenger.MessengerRequest;
+import com.proxerme.library.connection.messenger.entity.Message;
 import com.proxerme.library.connection.messenger.result.MessagesResult;
-import com.proxerme.library.info.ProxerUrlHolder;
+import com.squareup.moshi.Moshi;
 
-import static com.proxerme.library.info.ProxerTag.MESSENGER_MESSAGES;
+import java.io.IOException;
+import java.util.Arrays;
+
+import okhttp3.ResponseBody;
 
 /**
  * Request for loading messages. There are 4 different cases associated with the conferenceId and
@@ -26,12 +30,12 @@ import static com.proxerme.library.info.ProxerTag.MESSENGER_MESSAGES;
  * @author Ruben Gees
  */
 
-public class MessagesRequest extends ProxerRequest<MessagesResult> {
+public class MessagesRequest extends MessengerRequest<Message[]> {
 
-    private static final String MESSENGER_URL = "/api/v1/messenger/messages";
+    public static final String ENDPOINT = "messages";
 
-    private static final String CONFERENCE_ID_FORM = "conference_id";
-    private static final String MESSAGE_ID_FORM = "message_id";
+    private static final String CONFERENCE_ID_PARAMETER = "conference_id";
+    private static final String MESSAGE_ID_PARAMETER = "message_id";
 
     private String conferenceId;
     private String messageId;
@@ -48,25 +52,23 @@ public class MessagesRequest extends ProxerRequest<MessagesResult> {
     }
 
     @Override
-    protected int getTag() {
-        return MESSENGER_MESSAGES;
-    }
-
-    @Override
-    protected MessagesResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(MessagesResult.class);
+    protected ProxerResult<Message[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(MessagesResult.class).fromJson(body.source());
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + MESSENGER_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
+    @NonNull
     @Override
-    protected Form getBody() {
-        return new Form()
-                .add(CONFERENCE_ID_FORM, conferenceId)
-                .add(MESSAGE_ID_FORM, messageId);
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Arrays.<Pair<String, ?>>asList(
+                new Pair<>(CONFERENCE_ID_PARAMETER, conferenceId),
+                new Pair<>(MESSAGE_ID_PARAMETER, messageId)
+        );
     }
 }

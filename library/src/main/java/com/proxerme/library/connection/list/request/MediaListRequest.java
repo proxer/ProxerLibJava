@@ -3,34 +3,38 @@ package com.proxerme.library.connection.list.request;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Pair;
 
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.list.ListRequest;
+import com.proxerme.library.connection.list.entity.MediaListEntry;
 import com.proxerme.library.connection.list.result.MediaListResult;
-import com.proxerme.library.info.ProxerTag;
-import com.proxerme.library.info.ProxerUrlHolder;
 import com.proxerme.library.parameters.CategoryParameter.Category;
 import com.proxerme.library.parameters.MediumParameter.Medium;
+import com.squareup.moshi.Moshi;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+import okhttp3.ResponseBody;
 
 /**
- * Request for all available Media, featuring options for categories and other restrictions. (Use
+ * Request for all available media, featuring options for categories and other restrictions. (Use
  * the withParameter builders)
  * This API uses pagination.
  *
  * @author Ruben Gees
  */
+public class MediaListRequest extends ListRequest<MediaListEntry[]> {
 
-public class MediaListRequest extends ProxerRequest<MediaListResult> {
+    private static final String ENDPOINT = "entrylist";
 
-    private static final String MEDIA_LIST_URL = "/api/v1/list/entrylist";
-
-    private static final String CATEGORY_FORM = "kat";
-    private static final String MEDIUM_FORM = "medium";
-    private static final String SHOW_HENTAI_FORM = "isH";
-    private static final String SEARCH_START_FORM = "start";
-    private static final String PAGE_FORM = "p";
-    private static final String LIMIT_FORM = "limit";
+    private static final String CATEGORY_PARAMETER = "kat";
+    private static final String MEDIUM_PARAMETER = "medium";
+    private static final String SHOW_HENTAI_PARAMETER = "isH";
+    private static final String SEARCH_START_PARAMETER = "start";
+    private static final String PAGE_PARAMETER = "p";
+    private static final String LIMIT_PARAMETER = "limit";
 
     @Nullable
     private String category;
@@ -115,48 +119,27 @@ public class MediaListRequest extends ProxerRequest<MediaListResult> {
     }
 
     @Override
-    protected int getTag() {
-        return ProxerTag.MEDIA_LIST;
-    }
-
-    @Override
-    protected MediaListResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(MediaListResult.class);
+    protected ProxerResult<MediaListEntry[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(MediaListResult.class).fromJson(body.source());
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + MEDIA_LIST_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
-    @Nullable
+    @NonNull
     @Override
-    protected Form getBody() {
-        Form form = new Form();
-
-        if (category != null) {
-            form.add(CATEGORY_FORM, category);
-        }
-
-        if (medium != null) {
-            form.add(MEDIUM_FORM, medium);
-        }
-
-        if (showHentai != null) {
-            form.add(SHOW_HENTAI_FORM, showHentai);
-        }
-
-        if (searchStartString != null) {
-            form.add(SEARCH_START_FORM, searchStartString);
-        }
-
-        form.add(PAGE_FORM, page);
-
-        if (limit != null) {
-            form.add(LIMIT_FORM, limit);
-        }
-
-        return form;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Arrays.<Pair<String, ?>>asList(
+                new Pair<>(CATEGORY_PARAMETER, category),
+                new Pair<>(MEDIUM_PARAMETER, medium),
+                new Pair<>(SHOW_HENTAI_PARAMETER, showHentai),
+                new Pair<>(SEARCH_START_PARAMETER, searchStartString),
+                new Pair<>(PAGE_PARAMETER, page),
+                new Pair<>(LIMIT_PARAMETER, limit)
+        );
     }
 }

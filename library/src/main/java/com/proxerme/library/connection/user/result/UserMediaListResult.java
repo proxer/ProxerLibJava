@@ -1,43 +1,19 @@
 package com.proxerme.library.connection.user.result;
 
-import android.support.annotation.NonNull;
-
-import com.afollestad.bridge.annotations.Body;
+import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.user.entitiy.UserMediaListEntry;
-import com.proxerme.library.interfaces.ProxerResult;
+import com.squareup.moshi.Json;
 
-/**
- * Result of a {@link com.proxerme.library.connection.user.request.UserMediaListRequest}.
- *
- * @author Ruben Gees
- */
+public class UserMediaListResult extends ProxerResult<UserMediaListEntry[]> {
 
-public class UserMediaListResult implements ProxerResult<UserMediaListEntry[]> {
+    @Json(name = "data")
+    private UserMediaListEntry[] entries;
 
-    @Body(name = "data")
-    UserMediaListEntry[] item;
-
-    UserMediaListResult() {
-
+    private UserMediaListResult() {
     }
 
-    /**
-     * The constructor.
-     *
-     * @param item The array of entries.
-     */
-    public UserMediaListResult(@NonNull UserMediaListEntry[] item) {
-        this.item = item;
-    }
-
-    /**
-     * Returns the array of entries.
-     *
-     * @return The array of entries.
-     */
-    @NonNull
     @Override
-    public UserMediaListEntry[] getItem() {
-        return item;
+    public UserMediaListEntry[] getData() {
+        return entries;
     }
 }

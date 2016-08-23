@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-
 public class UserMediaSortParameter {
 
     public static final String NAME_ASCENDING = "nameASC";

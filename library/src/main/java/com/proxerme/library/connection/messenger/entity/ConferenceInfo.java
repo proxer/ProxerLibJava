@@ -5,10 +5,10 @@ import android.os.Parcelable;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.annotations.Body;
+import com.squareup.moshi.Json;
 
 /**
- * The class that represents the ConferenceInfo entity.
+ * Entity that holds various info of a {@link Conference}.
  *
  * @author Desnoo
  */
@@ -26,21 +26,18 @@ public class ConferenceInfo implements Parcelable {
         }
     };
 
-    @Body(name = "topic")
-    String topic;
-    @Body(name = "count")
-    int participants;
-    @Body(name = "timestampStart")
-    long firstMessageTime;
-    @Body(name = "timestampEnd")
-    long lastMessageTime;
-    @Body(name = "leader")
-    String leaderId;
+    @Json(name = "topic")
+    private String topic;
+    @Json(name = "count")
+    private int participants;
+    @Json(name = "timestampStart")
+    private long firstMessageTime;
+    @Json(name = "timestampEnd")
+    private long lastMessageTime;
+    @Json(name = "leader")
+    private String leaderId;
 
-    /**
-     * Private Constructor.
-     */
-    ConferenceInfo() {
+    private ConferenceInfo() {
     }
 
     /**
@@ -62,11 +59,6 @@ public class ConferenceInfo implements Parcelable {
         this.leaderId = leaderId;
     }
 
-    /**
-     * The Constructor that parses the parcel.
-     *
-     * @param in The parcel to parse.
-     */
     protected ConferenceInfo(Parcel in) {
         topic = in.readString();
         participants = in.readInt();

@@ -1,26 +1,32 @@
 package com.proxerme.library.connection.messenger.request;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Pair;
 
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.messenger.MessengerRequest;
 import com.proxerme.library.connection.messenger.result.SendMessageResult;
-import com.proxerme.library.info.ProxerTag;
-import com.proxerme.library.info.ProxerUrlHolder;
+import com.squareup.moshi.Moshi;
+
+import java.io.IOException;
+import java.util.Collections;
+
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 /**
  * Request for sending a single message. This API requires the user to be logged in.
  *
  * @author Ruben Gees
  */
+public class SendMessageRequest extends MessengerRequest<String> {
 
-public class SendMessageRequest extends ProxerRequest<SendMessageResult> {
+    private static final String ENDPOINT = "setmessage";
 
-    private static final String SEND_MESSAGE_URL = "/api/v1/messenger/setmessage";
-
-    private static final String CONFERENCE_ID_FORM = "conference_id";
-    private static final String TEXT_FORM = "text";
+    private static final String CONFERENCE_ID_PARAMETER = "conference_id";
+    private static final String TEXT_PARAMETER = "text";
 
     private String conferenceId;
     private String text;
@@ -37,24 +43,35 @@ public class SendMessageRequest extends ProxerRequest<SendMessageResult> {
     }
 
     @Override
-    protected int getTag() {
-        return ProxerTag.MESSENGER_SEND_MESSAGE;
-    }
-
-    @Override
-    protected SendMessageResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(SendMessageResult.class);
+    protected ProxerResult<String> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(SendMessageResult.class).fromJson(body.source());
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + SEND_MESSAGE_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
     @Override
-    protected Form getBody() {
-        return new Form().add(CONFERENCE_ID_FORM, conferenceId)
-                .add(TEXT_FORM, text);
+    protected String getMethod() {
+        return POST;
+    }
+
+    @Nullable
+    @Override
+    protected RequestBody getRequestBody() {
+        return new FormBody.Builder()
+                .add(TEXT_PARAMETER, text)
+                .build();
+    }
+
+    @NonNull
+    @Override
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Collections.<Pair<String, ?>>singletonList(
+                new Pair<>(CONFERENCE_ID_PARAMETER, conferenceId)
+        );
     }
 }

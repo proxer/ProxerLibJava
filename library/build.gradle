@@ -12,12 +12,15 @@ android {
         targetSdkVersion 24
         versionCode 36
         versionName "1.9.5"
+        consumerProguardFiles 'proguard-rules.pro'
     }
 }
 
 dependencies {
     compile "com.android.support:support-annotations:$support_version"
-    compile 'com.github.afollestad:bridge:3.2.4'
+    compile 'com.squareup.moshi:moshi:1.2.0'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.github.franmontiel:PersistentCookieJar:v1.0.0'
 }
 
 task sourcesJar(type: Jar) {
@@ -33,7 +36,6 @@ task javadoc(type: Javadoc) {
     classpath += configurations.compile
 }
 
-// build a jar with javadoc
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.getDestinationDir()

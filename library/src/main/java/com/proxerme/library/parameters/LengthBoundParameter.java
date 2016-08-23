@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-
 public class LengthBoundParameter {
 
     public static final String UP = "up";

@@ -9,6 +9,8 @@ dependencies:
 
 test:
   override:
-    - ./gradlew clean check -PdisablePreDex -Dorg.gradle.daemon=false
+    - ./gradlew clean lint install -PdisablePreDex -Dorg.gradle.daemon=false
     - mkdir $CIRCLE_TEST_REPORTS/lint
+    - mkdir $CIRCLE_ARTIFACTS/javadoc
     - mv library/build/outputs/lint-results-debug.* $CIRCLE_TEST_REPORTS/lint
+    - mv library/build/docs/javadoc/* $CIRCLE_ARTIFACTS/javadoc

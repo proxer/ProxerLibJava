@@ -2,79 +2,73 @@ package com.proxerme.library.connection.notifications.request;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.util.Pair;
 
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.notifications.NotificationsRequest;
+import com.proxerme.library.connection.notifications.entitiy.News;
 import com.proxerme.library.connection.notifications.result.NewsResult;
-import com.proxerme.library.info.ProxerTag;
-import com.proxerme.library.info.ProxerUrlHolder;
+import com.squareup.moshi.Moshi;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+import okhttp3.ResponseBody;
 
 /**
  * The Request for obtaining the latest News. This API uses pagination.
  *
  * @author Ruben Gees
  */
-public class NewsRequest extends ProxerRequest<NewsResult> {
+public class NewsRequest extends NotificationsRequest<News[]> {
 
-    private static final String NEWS_URL = "/api/v1/notifications/news";
+    private static final String ENDPOINT = "news";
 
-    private static final String PAGE_FORM = "p";
-    private static final String LIMIT_FORM = "limit";
+    private static final String PAGE_PARAMETER = "p";
+    private static final String LIMIT_PARAMETER = "limit";
 
     private int page;
-    @Nullable
     private Integer limit;
 
     /**
      * The constructor.
      *
-     * @param page The page to load. The first page is 0. If the page is greater than the available
-     *             pages, the API will return an empty answer.
+     * @param page The page to load.
      */
-    public NewsRequest(@IntRange(from = 0) int page) {
+    public NewsRequest(int page) {
         this.page = page;
     }
 
     /**
-     * Builder method for setting the maximum amount of entries retrieved.
+     * Builder method for setting the limit of the returned array size.
      *
      * @param limit The limit.
      * @return This request.
      */
-    public NewsRequest withLimit(@IntRange(from = 1) @Nullable Integer limit) {
+    public NewsRequest withLimit(@IntRange(from = 1) int limit) {
         this.limit = limit;
 
         return this;
     }
 
     @Override
-    protected int getTag() {
-        return ProxerTag.NEWS;
-    }
-
-    @Override
-    protected NewsResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(NewsResult.class);
+    protected ProxerResult<News[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(NewsResult.class).fromJson(body.source());
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + NEWS_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
+    @NonNull
     @Override
-    protected Form getBody() {
-        Form form = new Form();
-
-        form.add(PAGE_FORM, page);
-
-        if (limit != null) {
-            form.add(LIMIT_FORM, limit);
-        }
-
-        return form;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Arrays.<Pair<String, ?>>asList(
+                new Pair<String, Object>(PAGE_PARAMETER, page),
+                new Pair<String, Object>(LIMIT_PARAMETER, limit)
+        );
     }
 }

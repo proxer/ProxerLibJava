@@ -2,13 +2,18 @@ package com.proxerme.library.connection.user.request;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Pair;
 
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.user.UserRequest;
+import com.proxerme.library.connection.user.entitiy.UserInfo;
 import com.proxerme.library.connection.user.result.UserInfoResult;
-import com.proxerme.library.info.ProxerTag;
-import com.proxerme.library.info.ProxerUrlHolder;
+import com.squareup.moshi.Moshi;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+import okhttp3.ResponseBody;
 
 /**
  * Request for the basic info of a User. Those are always public. Included are the rank points, the
@@ -16,13 +21,12 @@ import com.proxerme.library.info.ProxerUrlHolder;
  *
  * @author Ruben Gees
  */
+public class UserInfoRequest extends UserRequest<UserInfo> {
 
-public class UserInfoRequest extends ProxerRequest<UserInfoResult> {
+    private static final String ENDPOINT = "userinfo";
 
-    private static final String USERINFO_URL = "/api/v1/user/userinfo";
-
-    private static final String USERID_FORM = "uid";
-    private static final String USERNAME_FORM = "username";
+    private static final String USER_ID_PARAMETER = "uid";
+    private static final String USERNAME_PARAMETER = "username";
 
     @Nullable
     private String userId;
@@ -30,8 +34,10 @@ public class UserInfoRequest extends ProxerRequest<UserInfoResult> {
     private String username;
 
     /**
-     * The constructor. You can choose if you want to pass the id or the name of the user, but must
-     * pass at least one. If you pass both, the username is discarded by the API.
+     * The constructor. You can either pass the id of the user, the name of the user or none of
+     * both.
+     * If you pass none, the logged in user will be returned. If you pass both id and name, the name
+     * will be ignored.
      *
      * @param userId   The id of the user.
      * @param username The name of the user.
@@ -42,33 +48,23 @@ public class UserInfoRequest extends ProxerRequest<UserInfoResult> {
     }
 
     @Override
-    protected int getTag() {
-        return ProxerTag.USER_INFO;
-    }
-
-    @Override
-    protected UserInfoResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(UserInfoResult.class);
+    protected ProxerResult<UserInfo> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(UserInfoResult.class).fromJson(body.source());
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + USERINFO_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
+    @NonNull
     @Override
-    protected Form getBody() {
-        Form form = new Form();
-
-        if (userId != null) {
-            form.add(USERID_FORM, userId);
-        }
-
-        if (username != null) {
-            form.add(USERNAME_FORM, username);
-        }
-
-        return form;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Arrays.<Pair<String, ?>>asList(
+                new Pair<>(USER_ID_PARAMETER, userId),
+                new Pair<>(USERNAME_PARAMETER, username)
+        );
     }
 }

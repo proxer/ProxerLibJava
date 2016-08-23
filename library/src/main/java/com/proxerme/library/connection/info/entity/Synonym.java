@@ -4,10 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.annotations.Body;
+import com.squareup.moshi.Json;
 
 /**
- * An entity holding the synonyms of an entry name (Anime, Manga).
+ * Entity holding the synonyms of an entry name (Anime, Manga).
  *
  * @author Desnoo
  */
@@ -25,19 +25,19 @@ public class Synonym implements Parcelable {
         }
     };
 
-    @Body(name = "id")
-    String id;
-    @Body(name = "eid")
-    String entryId;
-    @Body(name = "type")
-    String type;
-    @Body(name = "name")
-    String name;
+    @Json(name = "id")
+    private String id;
+    @Json(name = "eid")
+    private String entryId;
+    @Json(name = "type")
+    private String type;
+    @Json(name = "name")
+    private String name;
 
     /**
      * Private Constructor.
      */
-    Synonym() {
+    private Synonym() {
     }
 
     /**

@@ -3,90 +3,158 @@ package com.proxerme.library.info;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import okhttp3.HttpUrl;
+
 /**
- * Helper class, containing various Urls for accessing the API.
- *
- * @author Ruben Gees
+ * Class which holds various often needed urls.
  */
 public class ProxerUrlHolder {
 
-    private static final String HOST = "https://proxer.me";
-    private static final String NEWS = "/forum/%s/%s%s#top";
-    private static final String DONATE = "/donate%s";
-    private static final String NEWS_IMAGE = "https://cdn.proxer.me/news/tmp/%s_%s.png";
-    private static final String USER_IMAGE = "https://cdn.proxer.me/avatar/%s";
-    private static final String COVER_IMAGE = "https://cdn.proxer.me/cover/%s.jpg";
+    private static final String SCHEME = "https";
+    private static final String API_HOST = "proxer.me";
+    private static final String IMAGE_HOST = "cdn.proxer.me";
+
+    private static final String API_SEGMENT = "api";
+    private static final String VERSION_SEGMENT = "v1";
+
+    private static final String NEWS_SEGMENT = "news";
+    private static final String TEMPORARY_SEGMENT = "tmp";
+    private static final String NEWS_IMAGE_SEGMENT = "%s_%s.png";
+
+    private static final String AVATAR_SEGMENT = "avatar";
+
+    private static final String COVER_SEGMENT = "cover";
+    private static final String COVER_IMAGE_SEGMENT = "%s.jpg";
+
+    private static final String FORUM_SEGMENT = "forum";
+
+    private static final String DONATE_SEGMENT = "donate";
+
+    private static final String DEVICE_QUERY_PARAMETER = "device";
+    private static final String DEVICE_QUERY_PARAMETER_DEFAULT = "mobile";
 
     /**
-     * Returns the host of the API.
+     * Returns the host.
      *
-     * @return The Url.
+     * @return The host.
      */
     @NonNull
-    public static String getHost() {
-        return HOST;
+    public static HttpUrl getBaseApiHost() {
+        return new HttpUrl.Builder()
+                .scheme(SCHEME)
+                .host(API_HOST)
+                .build();
     }
 
-    /*
-     * Returns the Url for a single image of a news.
+    /**
+     * Returns the host of the api with the version extension.
      *
-     * @param newsId  The id of the news.
+     * @return The host.
+     */
+    @NonNull
+    public static HttpUrl getApiHost() {
+        return getBaseApiHost().newBuilder()
+                .addPathSegment(API_SEGMENT)
+                .addPathSegment(VERSION_SEGMENT)
+                .build();
+    }
+
+    /**
+     * Returns the host of the image network.
+     *
+     * @return The host.
+     */
+    @NonNull
+    public static HttpUrl getImageHost() {
+        return new HttpUrl.Builder()
+                .scheme(SCHEME)
+                .host(IMAGE_HOST)
+                .build();
+    }
+
+    /**
+     * Returns the url for the image of a
+     * {@link com.proxerme.library.connection.notifications.entitiy.News}.
+     *
+     * @param newsId  The id of the News.
      * @param imageId The id of the image.
-     * @return The Url.
-     */
-    @NonNull
-    public static String getNewsImageUrl(@NonNull String newsId, @NonNull String imageId) {
-        return String.format(NEWS_IMAGE, newsId, imageId);
-    }
-
-    /**
-     * Returns the url for a single newspage. This is not part of the REST-Api, but the link to the
-     * webpage.
-     *
-     * @param categoryId The id of the category of the news.
-     * @param threadId   The id of the thread
-     * @param device     An optional query parameter to specify the device. This is useful if you
-     *                   want to show the mobile site. In that case you could pass "mobile".
-     * @return The Url.
-     */
-    @NonNull
-    public static String getNewsUrl(@NonNull String categoryId, @NonNull String threadId,
-                                    @Nullable String device) {
-        return String.format(getHost() + NEWS, categoryId, threadId,
-                device == null ? "?device=default" : "?device=" + device);
-    }
-
-    /**
-     * Returns the Url to a single image of a user.
-     *
-     * @param imageLink The link to the image.
-     * @return The Url
-     */
-    @NonNull
-    public static String getUserImageUrl(@NonNull String imageLink) {
-        return String.format(USER_IMAGE, imageLink);
-    }
-
-    /**
-     * Returns the Url to the cover of an entry (Anime, Manga, ...).
-     *
-     * @param entryId The id of the entry.
-     * @return The Url.
-     */
-    @NonNull
-    public static String getCoverImageUrl(@NonNull String entryId) {
-        return String.format(COVER_IMAGE, entryId);
-    }
-
-    /**
-     * Returns the Url for the donation page.
-     *
      * @return The url.
      */
     @NonNull
-    public static String getDonateUrl(@Nullable String device) {
-        return String.format(getHost() + DONATE,
-                device == null ? "?device=default" : "?device=" + device);
+    public static HttpUrl getNewsImageUrl(@NonNull String newsId, @NonNull String imageId) {
+        return getImageHost().newBuilder()
+                .addPathSegment(NEWS_SEGMENT)
+                .addPathSegment(TEMPORARY_SEGMENT)
+                .addPathSegment(String.format(NEWS_IMAGE_SEGMENT, newsId, imageId))
+                .build();
+    }
+
+    /**
+     * Returns the url for the image of a {@link com.proxerme.library.connection.user.entitiy.User}.
+     *
+     * @param imageLink The link.
+     * @return The url.
+     */
+    @NonNull
+    public static HttpUrl getUserImageUrl(@NonNull String imageLink) {
+        return getImageHost().newBuilder()
+                .addPathSegment(AVATAR_SEGMENT)
+                .addPathSegment(imageLink)
+                .build();
+    }
+
+    /**
+     * Returns the url for the cover image of a media entry.
+     *
+     * @param entryId The id of the entry.
+     * @return The url.
+     */
+    @NonNull
+    public static HttpUrl getCoverImageUrl(@NonNull String entryId) {
+        return getImageHost().newBuilder()
+                .addPathSegment(COVER_SEGMENT)
+                .addPathSegment(String.format(COVER_IMAGE_SEGMENT, entryId))
+                .build();
+    }
+
+    /**
+     * Returns the url for the forum thread of a
+     * {@link com.proxerme.library.connection.notifications.entitiy.News}.
+     *
+     * @param categoryId The id of the category.
+     * @param threadId   The id of the thread.
+     * @param device     Optional parameter to specify the device. Possible are "mobile" and
+     *                   "default. "mobile" is the default value.
+     * @return The url.
+     */
+    @NonNull
+    public static HttpUrl getNewsUrl(@NonNull String categoryId, @NonNull String threadId,
+                                     @Nullable String device) {
+        return getBaseApiHost().newBuilder()
+                .addPathSegment(FORUM_SEGMENT)
+                .addPathSegment(categoryId)
+                .addPathSegment(threadId)
+                .addQueryParameter(DEVICE_QUERY_PARAMETER, buildDeviceQueryParameter(device))
+                .build();
+    }
+
+    /**
+     * Returns the url for the donate page.
+     *
+     * @param device Optional parameter to specify the device. Possible are "mobile" and
+     *               "default. "mobile" is the default value.
+     * @return The url.
+     */
+    @NonNull
+    public static HttpUrl getDonateUrl(@Nullable String device) {
+        return getBaseApiHost().newBuilder()
+                .addPathSegment(DONATE_SEGMENT)
+                .addQueryParameter(DEVICE_QUERY_PARAMETER, buildDeviceQueryParameter(device))
+                .build();
+    }
+
+    private static String buildDeviceQueryParameter(@Nullable String parameter) {
+        return parameter == null ? DEVICE_QUERY_PARAMETER_DEFAULT : parameter;
     }
 
 }

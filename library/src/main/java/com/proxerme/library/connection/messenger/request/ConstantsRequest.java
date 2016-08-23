@@ -2,34 +2,34 @@ package com.proxerme.library.connection.messenger.request;
 
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.messenger.MessengerRequest;
+import com.proxerme.library.connection.messenger.entity.Constants;
 import com.proxerme.library.connection.messenger.result.ConstantsResult;
-import com.proxerme.library.info.ProxerTag;
-import com.proxerme.library.info.ProxerUrlHolder;
+import com.squareup.moshi.Moshi;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
 
 /**
  * Request for the constants of the messenger API.
  *
  * @author Desnoo
  */
-public class ConstantsRequest extends ProxerRequest<ConstantsResult> {
+public class ConstantsRequest extends MessengerRequest<Constants> {
 
-    private static final String CONFERENCE_CONSTANTS_URL = "/api/v1/messenger/constants";
-
-    @Override
-    protected int getTag() {
-        return ProxerTag.MESSENGER_CONFERENCE_CONSTANTS;
-    }
+    private static final String ENDPOINT = "constants";
 
     @Override
-    protected ConstantsResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(ConstantsResult.class);
+    protected ProxerResult<Constants> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(ConstantsResult.class).fromJson(body.source());
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + CONFERENCE_CONSTANTS_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 }

@@ -13,7 +13,6 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-
 public class ActionParameter {
 
     public static final String NONE = "";

@@ -1,42 +1,19 @@
 package com.proxerme.library.connection.user.result;
 
-import android.support.annotation.NonNull;
-
-import com.afollestad.bridge.annotations.Body;
+import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.user.entitiy.User;
-import com.proxerme.library.interfaces.ProxerResult;
+import com.squareup.moshi.Json;
 
-/**
- * The result of a {@link com.proxerme.library.connection.user.request.LoginRequest}.
- *
- * @author Ruben Gees
- */
-public class LoginResult implements ProxerResult<User> {
+public class LoginResult extends ProxerResult<User> {
 
-    @Body(name = "data")
+    @Json(name = "data")
     User user;
 
-    /**
-     * The constructor.
-     *
-     * @param user The now logged in user.
-     */
-    public LoginResult(@NonNull User user) {
-        this.user = user;
+    private LoginResult() {
     }
 
-    LoginResult() {
-
-    }
-
-    /**
-     * Returns the logged in User.
-     *
-     * @return The User.
-     */
-    @NonNull
     @Override
-    public User getItem() {
+    public User getData() {
         return user;
     }
 }

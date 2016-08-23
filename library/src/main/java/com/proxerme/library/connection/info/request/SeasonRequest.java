@@ -1,24 +1,28 @@
 package com.proxerme.library.connection.info.request;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.util.Pair;
 
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.info.InfoRequest;
+import com.proxerme.library.connection.info.entity.Season;
 import com.proxerme.library.connection.info.result.SeasonResult;
-import com.proxerme.library.info.ProxerTag;
-import com.proxerme.library.info.ProxerUrlHolder;
+import com.squareup.moshi.Moshi;
+
+import java.io.IOException;
+import java.util.Collections;
+
+import okhttp3.ResponseBody;
 
 /**
  * Class that represents the request of a season request.
  *
  * @author Desnoo
  */
-public class SeasonRequest extends ProxerRequest<SeasonResult> {
+public class SeasonRequest extends InfoRequest<Season[]> {
 
-    private static final String ENTRY_SEASON_URL = "/api/v1/info/season";
-    private static final String ENTRY_ID = "id";
+    private static final String ENDPOINT = "season";
+    private static final String ID_PARAMETER = "id";
 
     private String id;
 
@@ -32,26 +36,22 @@ public class SeasonRequest extends ProxerRequest<SeasonResult> {
     }
 
     @Override
-    protected int getTag() {
-        return ProxerTag.INFO_ENTRY_SEASON;
-    }
-
-    @Override
-    protected SeasonResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(SeasonResult.class);
+    protected ProxerResult<Season[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(SeasonResult.class).fromJson(body.source());
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + ENTRY_SEASON_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
-    @Nullable
+    @NonNull
     @Override
-    protected Form getBody() {
-        Form form = new Form();
-        form.add(ENTRY_ID, this.id);
-        return form;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Collections.<Pair<String, ?>>singletonList(
+                new Pair<>(ID_PARAMETER, id)
+        );
     }
 }

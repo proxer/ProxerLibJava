@@ -4,15 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.interfaces.IdItem;
+import com.proxerme.library.parameters.CategoryParameter;
+import com.proxerme.library.parameters.MediumParameter;
+import com.squareup.moshi.Json;
 
 /**
- * Entitiy representing a single Topten entry.
+ * Entity representing a single Topten entry.
  *
  * @author Ruben Gees
  */
-
 public class ToptenEntry implements Parcelable, IdItem {
 
     public static final Parcelable.Creator<ToptenEntry> CREATOR = new Parcelable.Creator<ToptenEntry>() {
@@ -27,21 +28,21 @@ public class ToptenEntry implements Parcelable, IdItem {
         }
     };
 
-    @Body(name = "eid")
-    String id;
-    @Body(name = "name")
-    String name;
-    @Body(name = "kat")
-    String category;
-    @Body(name = "medium")
-    String medium;
+    @Json(name = "eid")
+    private String id;
+    @Json(name = "name")
+    private String name;
+    @Json(name = "kat")
+    private String category;
+    @Json(name = "medium")
+    private String medium;
 
-    ToptenEntry() {
+    private ToptenEntry() {
 
     }
 
     /**
-     * The constructor,
+     * The constructor.
      *
      * @param id       The id of the entry.
      * @param name     The name of the entry.
@@ -90,6 +91,7 @@ public class ToptenEntry implements Parcelable, IdItem {
      * @return The category.
      */
     @NonNull
+    @CategoryParameter.Category
     public String getCategory() {
         return category;
     }
@@ -100,6 +102,7 @@ public class ToptenEntry implements Parcelable, IdItem {
      * @return The medium.
      */
     @NonNull
+    @MediumParameter.Medium
     public String getMedium() {
         return medium;
     }

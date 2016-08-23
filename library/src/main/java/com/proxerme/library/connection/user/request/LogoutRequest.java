@@ -2,37 +2,36 @@ package com.proxerme.library.connection.user.request;
 
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.user.UserRequest;
 import com.proxerme.library.connection.user.result.LogoutResult;
-import com.proxerme.library.info.ProxerTag;
-import com.proxerme.library.info.ProxerUrlHolder;
+import com.squareup.moshi.Moshi;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
 
 /**
  * Request for logging the user out. No checks need to be done here, this even works if no user was
- * logged in before.
+ * logged in before. Upon success, null is returned int the
+ * {@link com.proxerme.library.connection.ProxerCallback}. Otherwise the
+ * {@link com.proxerme.library.connection.ProxerErrorCallback} is invoked.
  *
  * @author Ruben Gees
  */
+public class LogoutRequest extends UserRequest<Void> {
 
-public class LogoutRequest extends ProxerRequest<LogoutResult> {
-
-    private static final String LOGOUT_URL = "/api/v1/user/logout";
+    private static final String ENDPOINT = "logout";
 
     @Override
-    protected LogoutResult parse(@NonNull Response response) throws Exception {
-        return new LogoutResult();
-    }
-
-    @ProxerTag.ConnectionTag
-    @Override
-    protected int getTag() {
-        return ProxerTag.LOGOUT;
+    protected ProxerResult<Void> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(LogoutResult.class).fromJson(body.source());
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + LOGOUT_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 }

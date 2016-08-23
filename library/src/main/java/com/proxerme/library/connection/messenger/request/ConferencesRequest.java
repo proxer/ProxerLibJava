@@ -3,15 +3,19 @@ package com.proxerme.library.connection.messenger.request;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Pair;
 
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.Response;
-import com.proxerme.library.connection.ProxerRequest;
+import com.proxerme.library.connection.ProxerResult;
+import com.proxerme.library.connection.messenger.MessengerRequest;
+import com.proxerme.library.connection.messenger.entity.Conference;
 import com.proxerme.library.connection.messenger.result.ConferencesResult;
-import com.proxerme.library.info.ProxerUrlHolder;
 import com.proxerme.library.parameters.ConferenceTypeParameter.ConferenceType;
+import com.squareup.moshi.Moshi;
 
-import static com.proxerme.library.info.ProxerTag.MESSENGER_CONFERENCES;
+import java.io.IOException;
+import java.util.Arrays;
+
+import okhttp3.ResponseBody;
 
 /**
  * Request for the conferences of the user. The user must be logged in for this API to return data.
@@ -19,13 +23,12 @@ import static com.proxerme.library.info.ProxerTag.MESSENGER_CONFERENCES;
  *
  * @author Ruben Gees
  */
+public class ConferencesRequest extends MessengerRequest<Conference[]> {
 
-public class ConferencesRequest extends ProxerRequest<ConferencesResult> {
+    private static final String ENDPOINT = "conferences";
 
-    private static final String CONFERENCES_URL = "/api/v1/messenger/conferences";
-
-    private static final String PAGE_FORM = "p";
-    private static final String TYPE_FORM = "type";
+    private static final String PAGE_PARAMETER = "p";
+    private static final String TYPE_PARAMETER = "type";
 
     private int page;
     private String type;
@@ -43,7 +46,7 @@ public class ConferencesRequest extends ProxerRequest<ConferencesResult> {
      * The type to load.
      *
      * @param type The type.
-     * @return This Request.
+     * @return This request.
      */
     public ConferencesRequest withType(@Nullable @ConferenceType String type) {
         this.type = type;
@@ -52,31 +55,24 @@ public class ConferencesRequest extends ProxerRequest<ConferencesResult> {
     }
 
     @Override
-    protected int getTag() {
-        return MESSENGER_CONFERENCES;
-    }
-
-    @Override
-    protected ConferencesResult parse(@NonNull Response response) throws Exception {
-        return response.asClass(ConferencesResult.class);
+    protected ProxerResult<Conference[]> parse(@NonNull Moshi moshi,
+                                               @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(ConferencesResult.class).fromJson(body.source());
     }
 
     @NonNull
     @Override
-    protected String getURL() {
-        return ProxerUrlHolder.getHost() + CONFERENCES_URL;
+    protected String getApiEndpoint() {
+        return ENDPOINT;
     }
 
+    @NonNull
     @Override
-    protected Form getBody() {
-        Form form = new Form();
-
-        form.add(PAGE_FORM, page);
-
-        if (type != null) {
-            form.add(TYPE_FORM, type);
-        }
-
-        return form;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Arrays.<Pair<String, ?>>asList(
+                new Pair<>(PAGE_PARAMETER, page),
+                new Pair<>(TYPE_PARAMETER, type)
+        );
     }
 }

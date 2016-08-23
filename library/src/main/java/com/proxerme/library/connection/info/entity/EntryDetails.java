@@ -6,63 +6,63 @@ import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.parameters.CategoryParameter;
 import com.proxerme.library.parameters.FskParameter;
 import com.proxerme.library.parameters.GenreParameter;
 import com.proxerme.library.parameters.LicenseParameter;
 import com.proxerme.library.parameters.MediumParameter;
+import com.squareup.moshi.Json;
 
 /**
- * Represents the core data of an Entry (Anime, Manga)
+ * Entity holding the detail data of an Entry (Anime, Manga)
  *
  * @author Desnoo
  */
-public class EntryCore implements Parcelable {
+public class EntryDetails implements Parcelable {
 
-    public static final Creator<EntryCore> CREATOR = new Creator<EntryCore>() {
+    public static final Creator<EntryDetails> CREATOR = new Creator<EntryDetails>() {
         @Override
-        public EntryCore createFromParcel(Parcel in) {
-            return new EntryCore(in);
+        public EntryDetails createFromParcel(Parcel in) {
+            return new EntryDetails(in);
         }
 
         @Override
-        public EntryCore[] newArray(int size) {
-            return new EntryCore[size];
+        public EntryDetails[] newArray(int size) {
+            return new EntryDetails[size];
         }
     };
 
-    @Body(name = "id")
-    String id;
-    @Body(name = "name")
-    String name;
-    @Body(name = "genre")
-    String genre;
-    @Body(name = "fsk")
-    String fsk;
-    @Body(name = "description")
-    String description;
-    @Body(name = "medium")
-    String medium;
-    @Body(name = "count")
-    int count;
-    @Body(name = "state")
-    int state;
-    @Body(name = "rate_sum")
-    int rateSum;
-    @Body(name = "rate_count")
-    int rateCount;
-    @Body(name = "clicks")
-    int clicks;
-    @Body(name = "category")
-    String category;
-    @Body(name = "license")
-    int license;
+    @Json(name = "id")
+    private String id;
+    @Json(name = "name")
+    private String name;
+    @Json(name = "genre")
+    private String genre;
+    @Json(name = "fsk")
+    private String fsk;
+    @Json(name = "description")
+    private String description;
+    @Json(name = "medium")
+    private String medium;
+    @Json(name = "count")
+    private int count;
+    @Json(name = "state")
+    private int state;
+    @Json(name = "rate_sum")
+    private int rateSum;
+    @Json(name = "rate_count")
+    private int rateCount;
+    @Json(name = "clicks")
+    private int clicks;
+    @Json(name = "category")
+    private String category;
+    @Json(name = "license")
+    private int license;
 
     /**
      * Private empty Constructor.
      */
-    EntryCore() {
+    private EntryDetails() {
     }
 
     /**
@@ -82,13 +82,13 @@ public class EntryCore implements Parcelable {
      * @param category    The category name.
      * @param license     The license id.
      */
-    public EntryCore(@NonNull String id, @NonNull String name, @NonNull @GenreParameter.Genre String genre,
-                     @NonNull String fsk, @NonNull String description,
-                     @NonNull @MediumParameter.Medium String medium,
-                     @IntRange(from = 1) int count, @IntRange(from = 0) int state,
-                     @IntRange(from = 0) int rateSum, @IntRange(from = 0) int rateCount,
-                     @IntRange(from = 0) int clicks, @NonNull @CategoryParameter.Category String category,
-                     @IntRange(from = 0) @LicenseParameter.License int license) {
+    public EntryDetails(@NonNull String id, @NonNull String name, @NonNull @GenreParameter.Genre String genre,
+                        @NonNull String fsk, @NonNull String description,
+                        @NonNull @MediumParameter.Medium String medium,
+                        @IntRange(from = 1) int count, @IntRange(from = 0) int state,
+                        @IntRange(from = 0) int rateSum, @IntRange(from = 0) int rateCount,
+                        @IntRange(from = 0) int clicks, @NonNull @CategoryParameter.Category String category,
+                        @IntRange(from = 0) @LicenseParameter.License int license) {
         this.id = id;
         this.name = name;
         this.genre = genre;
@@ -109,7 +109,7 @@ public class EntryCore implements Parcelable {
      *
      * @param in the parcel to parse.
      */
-    protected EntryCore(Parcel in) {
+    protected EntryDetails(Parcel in) {
         id = in.readString();
         name = in.readString();
         genre = in.readString();
@@ -299,21 +299,21 @@ public class EntryCore implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EntryCore entryCore = (EntryCore) o;
+        EntryDetails entryDetails = (EntryDetails) o;
 
-        if (!id.equals(entryCore.id)) return false;
-        if (count != entryCore.count) return false;
-        if (state != entryCore.state) return false;
-        if (rateSum != entryCore.rateSum) return false;
-        if (rateCount != entryCore.rateCount) return false;
-        if (clicks != entryCore.clicks) return false;
-        if (!name.equals(entryCore.name)) return false;
-        if (!genre.equals(entryCore.genre)) return false;
-        if (!fsk.equals(entryCore.fsk)) return false;
-        if (!description.equals(entryCore.description)) return false;
-        if (!medium.equals(entryCore.medium)) return false;
-        if (!category.equals(entryCore.category)) return false;
-        return license == entryCore.license;
+        if (!id.equals(entryDetails.id)) return false;
+        if (count != entryDetails.count) return false;
+        if (state != entryDetails.state) return false;
+        if (rateSum != entryDetails.rateSum) return false;
+        if (rateCount != entryDetails.rateCount) return false;
+        if (clicks != entryDetails.clicks) return false;
+        if (!name.equals(entryDetails.name)) return false;
+        if (!genre.equals(entryDetails.genre)) return false;
+        if (!fsk.equals(entryDetails.fsk)) return false;
+        if (!description.equals(entryDetails.description)) return false;
+        if (!medium.equals(entryDetails.medium)) return false;
+        if (!category.equals(entryDetails.category)) return false;
+        return license == entryDetails.license;
 
     }
 

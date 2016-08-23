@@ -6,18 +6,17 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.ImageItem;
 import com.proxerme.library.interfaces.TimeItem;
+import com.squareup.moshi.Json;
 
 /**
- * Class representing a single conferenceInfo. This might be a group chat or a conversation with a
+ * Entity representing a single conference. This might be a group chat or a conversation with a
  * single user (indicated by {@link #isGroup()}.
  *
  * @author Ruben Gees
  */
-
 public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
 
     public static final Parcelable.Creator<Conference> CREATOR = new Parcelable.Creator<Conference>() {
@@ -32,42 +31,42 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         }
     };
 
-    @Body(name = "id")
+    @Json(name = "id")
     private String id;
-    @Body(name = "topic")
+    @Json(name = "topic")
     private String topic;
-    @Body(name = "topic_custom")
+    @Json(name = "topic_custom")
     private String customTopic;
-    @Body(name = "count")
+    @Json(name = "count")
     private int participantAmount;
-    @Body(name = "image")
+    @Json(name = "image")
     private String image;
-    @Body(name = "group")
+    @Json(name = "group")
     private boolean isGroup;
-    @Body(name = "read")
+    @Json(name = "read")
     private boolean isRead;
-    @Body(name = "timestamp_end")
+    @Json(name = "timestamp_end")
     private long time;
-    @Body(name = "read_count")
+    @Json(name = "read_count")
     private int unreadMessageAmount;
-    @Body(name = "read_mid")
+    @Json(name = "read_mid")
     private String lastReadMessageId;
 
-    Conference() {
+    private Conference() {
     }
 
     /**
      * The constructor.
      *
-     * @param id                  The id of this conferenceInfo.
+     * @param id                  The id of this conference.
      * @param topic               The topic.
      * @param customTopic         A custom topic set by a user.
-     * @param participantAmount   The amount of participants in this conferenceInfo.
+     * @param participantAmount   The amount of participants in this conference.
      * @param imageType           The type of the image. This is "avatar" in most cases.
      * @param imageId             The id of the image.
      * @param isGroup             Indicator if this is a group chat.
-     * @param isRead              Indicator if this conferenceInfo has been read by the current user.
-     * @param time                The time of the last message in this conferenceInfo.
+     * @param isRead              Indicator if this conference has been read by the current user.
+     * @param time                The time of the last message in this conference.
      * @param unreadMessageAmount The amount of unread messages for the current user.
      * @param lastReadMessageId   The id of the last read message of the current user.
      */
@@ -159,7 +158,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the custom topic for this conferenceInfo. Might be empty.
+     * Returns the custom topic for this conference. Might be empty.
      *
      * @return The custom topic.
      */
@@ -169,7 +168,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the amount of participants in this conferenceInfo.
+     * Returns the amount of participants in this conference.
      *
      * @return The amount.
      */
@@ -179,7 +178,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the topic of this conferenceInfo.
+     * Returns the topic of this conference.
      *
      * @return The topic.
      */
@@ -189,7 +188,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the id of this conferenceInfo.
+     * Returns the id of this conference.
      *
      * @return The id.
      */
@@ -200,7 +199,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the time of the last message in this conferenceInfo.
+     * Returns the time of the last message in this conference.
      *
      * @return The time.
      */
@@ -210,7 +209,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns if this conferenceInfo is a group chat.
+     * Returns if this conference is a group chat.
      *
      * @return True, if it is a group chat.
      */
@@ -228,6 +227,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         return unreadMessageAmount;
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -245,7 +245,6 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         if (!customTopic.equals(that.customTopic)) return false;
         if (!topic.equals(that.topic)) return false;
         return id.equals(that.id);
-
     }
 
     @Override

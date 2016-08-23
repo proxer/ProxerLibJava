@@ -6,16 +6,17 @@ import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.annotations.Body;
+import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.parameters.MediumParameter.Medium;
+import com.proxerme.library.parameters.StateParameter.State;
+import com.squareup.moshi.Json;
 
 /**
  * Entity holding all relevant info about a single entry in the media list (Anime, Manga)
  *
  * @author Ruben Gees
  */
-
-public class MediaListEntry implements Parcelable {
+public class MediaListEntry implements Parcelable, IdItem {
 
     public static final Parcelable.Creator<MediaListEntry> CREATOR = new Parcelable.Creator<MediaListEntry>() {
         @Override
@@ -28,26 +29,27 @@ public class MediaListEntry implements Parcelable {
             return new MediaListEntry[size];
         }
     };
-    @Body(name = "id")
-    String id;
-    @Body(name = "name")
-    String name;
-    @Body(name = "genre")
-    String genres;
-    @Body(name = "medium")
-    String medium;
-    @Body(name = "count")
-    int episodeCount;
-    @Body(name = "state")
-    int state;
-    @Body(name = "rate_sum")
-    int rateSum;
-    @Body(name = "rate_count")
-    int rateCount;
-    @Body(name = "language")
-    String languages;
 
-    MediaListEntry() {
+    @Json(name = "id")
+    private String id;
+    @Json(name = "name")
+    private String name;
+    @Json(name = "genre")
+    private String genres;
+    @Json(name = "medium")
+    private String medium;
+    @Json(name = "count")
+    private int episodeCount;
+    @Json(name = "state")
+    private int state;
+    @Json(name = "rate_sum")
+    private int rateSum;
+    @Json(name = "rate_count")
+    private int rateCount;
+    @Json(name = "language")
+    private String languages;
+
+    private MediaListEntry() {
 
     }
 
@@ -65,9 +67,9 @@ public class MediaListEntry implements Parcelable {
      * @param languages    The languages, separated by a ','.
      */
     public MediaListEntry(@NonNull String id, @NonNull String name, @NonNull String genres,
-                          @NonNull @Medium String medium, @IntRange(from = 1) int episodeCount, int state,
-                          @IntRange(from = 0) int rateSum, @IntRange(from = 0) int rateCount,
-                          @NonNull String languages) {
+                          @NonNull @Medium String medium, @IntRange(from = 1) int episodeCount,
+                          @State int state, @IntRange(from = 0) int rateSum,
+                          @IntRange(from = 0) int rateCount, @NonNull String languages) {
         this.id = id;
         this.name = name;
         this.genres = genres;
@@ -97,6 +99,7 @@ public class MediaListEntry implements Parcelable {
      * @return The id.
      */
     @NonNull
+    @Override
     public String getId() {
         return id;
     }
@@ -147,6 +150,7 @@ public class MediaListEntry implements Parcelable {
      *
      * @return The state.
      */
+    @State
     public int getState() {
         return state;
     }
@@ -195,6 +199,7 @@ public class MediaListEntry implements Parcelable {
         return languages.split(",");
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -211,7 +216,6 @@ public class MediaListEntry implements Parcelable {
         if (!genres.equals(that.genres)) return false;
         if (!medium.equals(that.medium)) return false;
         return languages.equals(that.languages);
-
     }
 
     @Override

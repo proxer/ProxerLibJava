@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-
 public class CategoryParameter {
 
     public static final String ANIME = "anime";

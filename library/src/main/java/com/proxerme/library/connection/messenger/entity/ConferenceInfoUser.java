@@ -4,12 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.ImageItem;
+import com.squareup.moshi.Json;
 
 /**
- * The class that represents a participant in a conferenceInfo.
+ * Entity that represents a participant in a {@link Conference}.
  *
  * @author Desnoo
  */
@@ -27,19 +27,16 @@ public class ConferenceInfoUser implements Parcelable, IdItem, ImageItem {
         }
     };
 
-    @Body(name = "uid")
-    String id;
-    @Body(name = "avatar")
-    String imageId;
-    @Body(name = "username")
-    String username;
-    @Body(name = "status")
-    String status;
+    @Json(name = "uid")
+    private String id;
+    @Json(name = "avatar")
+    private String imageId;
+    @Json(name = "username")
+    private String username;
+    @Json(name = "status")
+    private String status;
 
-    /**
-     * Private Constructor.
-     */
-    ConferenceInfoUser() {
+    private ConferenceInfoUser() {
     }
 
     /**
@@ -58,11 +55,6 @@ public class ConferenceInfoUser implements Parcelable, IdItem, ImageItem {
         this.status = status;
     }
 
-    /**
-     * The Constructor to parse the parcel.
-     *
-     * @param in The parcel to parse.
-     */
     protected ConferenceInfoUser(Parcel in) {
         id = in.readString();
         imageId = in.readString();

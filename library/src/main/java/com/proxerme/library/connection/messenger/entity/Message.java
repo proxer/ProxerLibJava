@@ -4,17 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import com.afollestad.bridge.annotations.Body;
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.TimeItem;
 import com.proxerme.library.parameters.ActionParameter.Action;
+import com.squareup.moshi.Json;
 
 /**
- * Class that represents a single message.
+ * Entity that represents a single message.
  *
  * @author Ruben Gees
  */
-
 public class Message implements IdItem, TimeItem, Parcelable {
 
     public static final Creator<Message> CREATOR = new Creator<Message>() {
@@ -29,24 +28,24 @@ public class Message implements IdItem, TimeItem, Parcelable {
         }
     };
 
-    @Body(name = "message_id")
-    String id;
-    @Body(name = "conference_id")
-    String conferenceId;
-    @Body(name = "user_id")
-    String userId;
-    @Body(name = "username")
-    String username;
-    @Body(name = "message")
-    String message;
-    @Body(name = "action")
-    String action;
-    @Body(name = "timestamp")
-    long time;
-    @Body(name = "device")
-    String device;
+    @Json(name = "message_id")
+    private String id;
+    @Json(name = "conference_id")
+    private String conferenceId;
+    @Json(name = "user_id")
+    private String userId;
+    @Json(name = "username")
+    private String username;
+    @Json(name = "message")
+    private String message;
+    @Json(name = "action")
+    private String action;
+    @Json(name = "timestamp")
+    private long time;
+    @Json(name = "device")
+    private String device;
 
-    Message() {
+    private Message() {
     }
 
     /**
@@ -57,8 +56,8 @@ public class Message implements IdItem, TimeItem, Parcelable {
      * @param userId       The id of the user, who sent this message.
      * @param username     The username of the user, who sent this message.
      * @param message      The contents of the message.
-     * @param action       The action of this message. This might be something like "addUser". Might be
-     *                     empty if there is no action.
+     * @param action       The action of this message. This might be something like "addUser".
+     *                     Might be empty if there is no action.
      * @param time         The time this message was sent.
      * @param device       The device this message was sent from. In most cases "default".
      */
@@ -98,7 +97,7 @@ public class Message implements IdItem, TimeItem, Parcelable {
     }
 
     /**
-     * Returns the id of the conferenceInfo this message belongs to.
+     * Returns the id of the conference this message belongs to.
      *
      * @return The id.
      */
@@ -168,6 +167,7 @@ public class Message implements IdItem, TimeItem, Parcelable {
         return device;
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
