@@ -3,7 +3,7 @@
 ### What is this?
 
 This is an Android library, implementing the API of the
-[Proxer.me](https://proxer.me/) website.
+[Proxer.me](https://proxer.me/) website. This is currently `v1`.
 
 ### Table of contents
 
