@@ -73,7 +73,8 @@ public class ProxerException extends Exception {
     }
 
     /**
-     * @param errorCode     The errorCode. This is one of the through {@link ErrorCode} specified codes.
+     * @param errorCode     The errorCode. This is one of the through {@link ErrorCode} specified
+     *                      codes.
      * @param detailMessage A message containing additional info.
      */
     public ProxerException(@ErrorCode int errorCode, @Nullable String detailMessage) {

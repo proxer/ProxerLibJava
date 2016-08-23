@@ -16,7 +16,6 @@ import com.squareup.moshi.Json;
  *
  * @author Ruben Gees
  */
-
 public class MediaListEntry implements Parcelable, IdItem {
 
     public static final Parcelable.Creator<MediaListEntry> CREATOR = new Parcelable.Creator<MediaListEntry>() {
