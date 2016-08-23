@@ -116,9 +116,9 @@ public class User implements Parcelable, IdItem, ImageItem {
      */
     @NonNull
     @Override
-    public String getId() throws RuntimeException {
+    public String getId() throws UserInitializationException {
         if (id == null) {
-            throw new RuntimeException("User has no id yet.");
+            throw new UserInitializationException("User has no id yet.");
         }
 
         return id;
@@ -132,9 +132,9 @@ public class User implements Parcelable, IdItem, ImageItem {
      */
     @NonNull
     @Override
-    public String getImageId() throws RuntimeException {
+    public String getImageId() throws UserInitializationException {
         if (imageId == null) {
-            throw new RuntimeException("User has no image yet.");
+            throw new UserInitializationException("User has no image yet.");
         }
 
         return imageId;
@@ -176,5 +176,12 @@ public class User implements Parcelable, IdItem, ImageItem {
         dest.writeString(this.password);
         dest.writeString(this.id);
         dest.writeString(this.imageId);
+    }
+
+    public static class UserInitializationException extends RuntimeException {
+
+        public UserInitializationException(String message) {
+            super(message);
+        }
     }
 }
