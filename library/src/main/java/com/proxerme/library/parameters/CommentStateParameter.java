@@ -8,7 +8,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Class containing the available states of a comment associated with a media entry.
+ * Class containing the available states of a comment associated with a
+ * {@link com.proxerme.library.connection.user.entitiy.UserMediaListEntry}.
  *
  * @author Ruben Gees
  */

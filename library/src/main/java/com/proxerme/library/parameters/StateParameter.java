@@ -8,7 +8,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Class containing the available states of a media entry.
+ * Class containing the available states of a
+ * {@link com.proxerme.library.connection.list.entity.MediaListEntry}.
  *
  * @author Ruben Gees
  */
