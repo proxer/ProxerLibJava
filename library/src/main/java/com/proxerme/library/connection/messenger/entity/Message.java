@@ -167,6 +167,7 @@ public class Message implements IdItem, TimeItem, Parcelable {
         return device;
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
