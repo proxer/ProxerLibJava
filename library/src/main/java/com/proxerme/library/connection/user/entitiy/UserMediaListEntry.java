@@ -31,27 +31,27 @@ public class UserMediaListEntry implements Parcelable {
     };
 
     @Json(name = "id")
-    String id;
+    private String id;
     @Json(name = "name")
-    String name;
+    private String name;
     @Json(name = "count")
-    int episodeCount;
+    private int episodeCount;
     @Json(name = "medium")
-    String medium;
+    private String medium;
     @Json(name = "estate")
-    int state;
+    private int state;
     @Json(name = "cid")
-    String commentId;
+    private String commentId;
     @Json(name = "comment")
-    String comment;
+    private String comment;
     @Json(name = "state")
-    int commentState;
+    private int commentState;
     @Json(name = "episode")
-    int commentEpisode;
+    private int commentEpisode;
     @Json(name = "rating")
-    int commentRating;
+    private int commentRating;
 
-    UserMediaListEntry() {
+    private UserMediaListEntry() {
 
     }
 

@@ -9,7 +9,7 @@ public class SendMessageResult extends ProxerResult<String> {
 
     @Nullable
     @Json(name = "data")
-    String errorMessage;
+    private String errorMessage;
 
     private SendMessageResult() {
     }

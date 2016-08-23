@@ -7,7 +7,7 @@ import com.squareup.moshi.Json;
 public class LoginResult extends ProxerResult<User> {
 
     @Json(name = "data")
-    User user;
+    private User user;
 
     private LoginResult() {
     }
