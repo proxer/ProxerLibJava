@@ -2,6 +2,7 @@ package com.proxerme.library.connection.notifications.request;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.util.Pair;
 
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.notifications.NotificationsRequest;
@@ -10,8 +11,7 @@ import com.proxerme.library.connection.notifications.result.NewsResult;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 import okhttp3.ResponseBody;
 
@@ -65,15 +65,10 @@ public class NewsRequest extends NotificationsRequest<News[]> {
 
     @NonNull
     @Override
-    protected Map<String, String> getQueryParameters() {
-        HashMap<String, String> result = new HashMap<>();
-
-        result.put(PAGE_PARAMETER, String.valueOf(page));
-
-        if (limit != null) {
-            result.put(LIMIT_PARAMETER, String.valueOf(limit));
-        }
-
-        return result;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Arrays.<Pair<String, ?>>asList(
+                new Pair<String, Object>(PAGE_PARAMETER, page),
+                new Pair<String, Object>(LIMIT_PARAMETER, limit)
+        );
     }
 }

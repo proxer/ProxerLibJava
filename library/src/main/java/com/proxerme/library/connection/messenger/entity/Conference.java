@@ -244,7 +244,6 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         if (!customTopic.equals(that.customTopic)) return false;
         if (!topic.equals(that.topic)) return false;
         return id.equals(that.id);
-
     }
 
     @Override

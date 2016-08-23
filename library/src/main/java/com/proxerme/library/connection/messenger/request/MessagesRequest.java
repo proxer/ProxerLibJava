@@ -1,6 +1,7 @@
 package com.proxerme.library.connection.messenger.request;
 
 import android.support.annotation.NonNull;
+import android.util.Pair;
 
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.messenger.MessengerRequest;
@@ -9,8 +10,7 @@ import com.proxerme.library.connection.messenger.result.MessagesResult;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 import okhttp3.ResponseBody;
 
@@ -65,12 +65,10 @@ public class MessagesRequest extends MessengerRequest<Message[]> {
 
     @NonNull
     @Override
-    protected Map<String, String> getQueryParameters() {
-        HashMap<String, String> result = new HashMap<>();
-
-        result.put(CONFERENCE_ID_PARAMETER, conferenceId);
-        result.put(MESSAGE_ID_PARAMETER, messageId);
-
-        return result;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Arrays.<Pair<String, ?>>asList(
+                new Pair<>(CONFERENCE_ID_PARAMETER, conferenceId),
+                new Pair<>(MESSAGE_ID_PARAMETER, messageId)
+        );
     }
 }

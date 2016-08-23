@@ -2,6 +2,7 @@ package com.proxerme.library.connection.messenger.request;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
+import android.util.Pair;
 
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.messenger.MessengerRequest;
@@ -13,8 +14,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collections;
 
 import okhttp3.ResponseBody;
 
@@ -86,12 +86,10 @@ public class ModifyConferenceRequest extends MessengerRequest<Void> {
 
     @NonNull
     @Override
-    protected Map<String, String> getQueryParameters() {
-        Map<String, String> result = new HashMap<>();
-
-        result.put(CONFERENCE_ID_PARAMETER, conferenceId);
-
-        return result;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Collections.<Pair<String, ?>>singletonList(
+                new Pair<>(CONFERENCE_ID_PARAMETER, conferenceId)
+        );
     }
 
     @StringDef({UNREAD, BLOCK, UNBLOCK, FAVOUR, UNFAVOUR})

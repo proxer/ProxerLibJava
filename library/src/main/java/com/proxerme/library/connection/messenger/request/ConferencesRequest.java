@@ -3,6 +3,7 @@ package com.proxerme.library.connection.messenger.request;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Pair;
 
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.messenger.MessengerRequest;
@@ -12,8 +13,7 @@ import com.proxerme.library.parameters.ConferenceTypeParameter.ConferenceType;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 import okhttp3.ResponseBody;
 
@@ -69,15 +69,10 @@ public class ConferencesRequest extends MessengerRequest<Conference[]> {
 
     @NonNull
     @Override
-    protected Map<String, String> getQueryParameters() {
-        Map<String, String> result = new HashMap<>();
-
-        result.put(PAGE_PARAMETER, String.valueOf(page));
-
-        if (type != null) {
-            result.put(TYPE_PARAMETER, type);
-        }
-
-        return result;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Arrays.<Pair<String, ?>>asList(
+                new Pair<>(PAGE_PARAMETER, page),
+                new Pair<>(TYPE_PARAMETER, type)
+        );
     }
 }

@@ -2,6 +2,7 @@ package com.proxerme.library.connection.messenger.request;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Pair;
 
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.messenger.MessengerRequest;
@@ -9,8 +10,7 @@ import com.proxerme.library.connection.messenger.result.SendMessageResult;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collections;
 
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
@@ -69,11 +69,9 @@ public class SendMessageRequest extends MessengerRequest<String> {
 
     @NonNull
     @Override
-    protected Map<String, String> getQueryParameters() {
-        Map<String, String> result = new HashMap<>();
-
-        result.put(CONFERENCE_ID_PARAMETER, conferenceId);
-
-        return result;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Collections.<Pair<String, ?>>singletonList(
+                new Pair<>(CONFERENCE_ID_PARAMETER, conferenceId)
+        );
     }
 }

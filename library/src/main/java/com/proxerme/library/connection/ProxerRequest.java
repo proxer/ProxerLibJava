@@ -3,6 +3,7 @@ package com.proxerme.library.connection;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
+import android.util.Pair;
 
 import com.proxerme.library.info.ProxerUrlHolder;
 import com.squareup.moshi.Moshi;
@@ -12,8 +13,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 import okhttp3.HttpUrl;
 import okhttp3.Request;
@@ -99,8 +99,8 @@ public abstract class ProxerRequest<T> {
      * @return The map of parameters.
      */
     @NonNull
-    protected Map<String, String> getQueryParameters() {
-        return new HashMap<>(0);
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return new ArrayList<>(0);
     }
 
     private HttpUrl buildUrl() {
@@ -109,8 +109,11 @@ public abstract class ProxerRequest<T> {
         builder.addPathSegment(getApiClass());
         builder.addPathSegment(getApiEndpoint());
 
-        for (Map.Entry<String, String> queryParameter : getQueryParameters().entrySet()) {
-            builder.addQueryParameter(queryParameter.getKey(), queryParameter.getValue());
+        for (Pair<String, ?> queryParameter : getQueryParameters()) {
+            if (queryParameter.second != null) {
+                builder.addQueryParameter(queryParameter.first,
+                        String.valueOf(queryParameter.second));
+            }
         }
 
         return builder.build();

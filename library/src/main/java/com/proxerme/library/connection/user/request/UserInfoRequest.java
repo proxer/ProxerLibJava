@@ -2,6 +2,7 @@ package com.proxerme.library.connection.user.request;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Pair;
 
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.user.UserRequest;
@@ -10,8 +11,7 @@ import com.proxerme.library.connection.user.result.UserInfoResult;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 import okhttp3.ResponseBody;
 
@@ -61,17 +61,10 @@ public class UserInfoRequest extends UserRequest<UserInfo> {
 
     @NonNull
     @Override
-    protected Map<String, String> getQueryParameters() {
-        HashMap<String, String> result = new HashMap<>();
-
-        if (userId != null) {
-            result.put(USER_ID_PARAMETER, userId);
-        }
-
-        if (username != null) {
-            result.put(USERNAME_PARAMETER, username);
-        }
-
-        return result;
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Arrays.<Pair<String, ?>>asList(
+                new Pair<>(USER_ID_PARAMETER, userId),
+                new Pair<>(USERNAME_PARAMETER, username)
+        );
     }
 }
