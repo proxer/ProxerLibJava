@@ -43,25 +43,25 @@ public class SaveAllSharedPrefCookiePersistor implements CookiePersistor {
         this(context.getSharedPreferences("CookiePersistence", Context.MODE_PRIVATE));
     }
 
-    private SaveAllSharedPrefCookiePersistor(SharedPreferences sharedPreferences) {
+    public SaveAllSharedPrefCookiePersistor(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
     }
 
     private static String createCookieKey(Cookie cookie) {
-        return (cookie.secure() ? "https" : "http") + "://" + cookie.domain() + cookie.path() +
-                "|" + cookie.name();
+        return (cookie.secure() ? "https" : "http") + "://" + cookie.domain() + cookie.path()
+                + "|" + cookie.name();
     }
 
     @Override
     public List<Cookie> loadAll() {
-        List<Cookie> cookies = new ArrayList<>();
+        List<Cookie> cookies = new ArrayList<>(sharedPreferences.getAll().size());
 
         for (Map.Entry<String, ?> entry : sharedPreferences.getAll().entrySet()) {
             String serializedCookie = (String) entry.getValue();
             Cookie cookie = new SerializableCookie().decode(serializedCookie);
+
             cookies.add(cookie);
         }
-
         return cookies;
     }
 
