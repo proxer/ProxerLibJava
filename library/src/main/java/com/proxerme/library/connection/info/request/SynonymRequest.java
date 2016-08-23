@@ -10,7 +10,7 @@ import com.proxerme.library.connection.info.result.SynonymResult;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Collections;
 
 import okhttp3.ResponseBody;
 
@@ -37,7 +37,8 @@ public class SynonymRequest extends InfoRequest<Synonym[]> {
     }
 
     @Override
-    protected ProxerResult<Synonym[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body) throws IOException {
+    protected ProxerResult<Synonym[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
         return moshi.adapter(SynonymResult.class).fromJson(body.source());
     }
 
@@ -50,7 +51,7 @@ public class SynonymRequest extends InfoRequest<Synonym[]> {
     @NonNull
     @Override
     protected Iterable<Pair<String, ?>> getQueryParameters() {
-        return Arrays.<Pair<String, ?>>asList(
+        return Collections.<Pair<String, ?>>singletonList(
                 new Pair<>(ID_PARAMETER, id)
         );
     }

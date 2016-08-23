@@ -1,13 +1,12 @@
 package com.proxerme.library.connection.info.result;
 
-import android.support.annotation.NonNull;
-
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.info.entity.Synonym;
 import com.squareup.moshi.Json;
 
 /**
- * Class that represents the results of the {@link com.proxerme.library.connection.info.request.SynonymRequest}.
+ * Class that represents the results of the
+ * {@link com.proxerme.library.connection.info.request.SynonymRequest}.
  *
  * @author Desnoo
  */

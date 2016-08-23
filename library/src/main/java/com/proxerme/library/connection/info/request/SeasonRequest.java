@@ -10,7 +10,7 @@ import com.proxerme.library.connection.info.result.SeasonResult;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Collections;
 
 import okhttp3.ResponseBody;
 
@@ -36,7 +36,8 @@ public class SeasonRequest extends InfoRequest<Season[]> {
     }
 
     @Override
-    protected ProxerResult<Season[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body) throws IOException {
+    protected ProxerResult<Season[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
         return moshi.adapter(SeasonResult.class).fromJson(body.source());
     }
 
@@ -49,7 +50,7 @@ public class SeasonRequest extends InfoRequest<Season[]> {
     @NonNull
     @Override
     protected Iterable<Pair<String, ?>> getQueryParameters() {
-        return Arrays.<Pair<String, ?>>asList(
+        return Collections.<Pair<String, ?>>singletonList(
                 new Pair<>(ID_PARAMETER, id)
         );
     }

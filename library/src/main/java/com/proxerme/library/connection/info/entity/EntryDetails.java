@@ -14,7 +14,7 @@ import com.proxerme.library.parameters.MediumParameter;
 import com.squareup.moshi.Json;
 
 /**
- * Represents the detail data of an Entry (Anime, Manga)
+ * Entity holding the detail data of an Entry (Anime, Manga)
  *
  * @author Desnoo
  */

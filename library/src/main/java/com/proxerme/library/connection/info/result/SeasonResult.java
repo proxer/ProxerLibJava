@@ -5,7 +5,8 @@ import com.proxerme.library.connection.info.entity.Season;
 import com.squareup.moshi.Json;
 
 /**
- * Class that represents the result of the {@link com.proxerme.library.connection.info.request.SeasonRequest}.
+ * Class that represents the result of the
+ * {@link com.proxerme.library.connection.info.request.SeasonRequest}.
  *
  * @author Desnoo
  */

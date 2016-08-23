@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import com.squareup.moshi.Json;
 
 /**
- * An entity holding the synonyms of an entry name (Anime, Manga).
+ * Entity holding the synonyms of an entry name (Anime, Manga).
  *
  * @author Desnoo
  */

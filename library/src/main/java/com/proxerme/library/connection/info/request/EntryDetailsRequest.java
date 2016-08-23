@@ -10,7 +10,7 @@ import com.proxerme.library.connection.info.result.EntryDetailsResult;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Collections;
 
 import okhttp3.ResponseBody;
 
@@ -37,7 +37,8 @@ public class EntryDetailsRequest extends InfoRequest<EntryDetails> {
     }
 
     @Override
-    protected ProxerResult<EntryDetails> parse(@NonNull Moshi moshi, @NonNull ResponseBody body) throws IOException {
+    protected ProxerResult<EntryDetails> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
         return moshi.adapter(EntryDetailsResult.class).fromJson(body.source());
     }
 
@@ -50,7 +51,7 @@ public class EntryDetailsRequest extends InfoRequest<EntryDetails> {
     @NonNull
     @Override
     protected Iterable<Pair<String, ?>> getQueryParameters() {
-        return Arrays.<Pair<String,?>>asList(
+        return Collections.<Pair<String, ?>>singletonList(
                 new Pair<>(ID_PARAMETER, id)
         );
     }

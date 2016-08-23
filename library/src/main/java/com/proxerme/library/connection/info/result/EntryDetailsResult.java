@@ -6,7 +6,8 @@ import com.proxerme.library.connection.info.request.EntryDetailsRequest;
 import com.squareup.moshi.Json;
 
 /**
- * Holds the result of the {@link EntryDetailsRequest}.
+ * Holds the result of the
+ * {@link EntryDetailsRequest}.
  *
  * @author Desnoo
  */

@@ -10,7 +10,7 @@ import com.proxerme.library.parameters.TypeParameter;
 import com.squareup.moshi.Json;
 
 /**
- * Class of the season entity of an entry.
+ * Entity holding the seasons of a entry.
  *
  * @author Desnoo
  */
