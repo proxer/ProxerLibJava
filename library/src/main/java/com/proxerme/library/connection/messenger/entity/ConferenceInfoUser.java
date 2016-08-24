@@ -140,6 +140,4 @@ public class ConferenceInfoUser implements Parcelable, IdItem, ImageItem {
         result = 31 * result + status.hashCode();
         return result;
     }
-
-
 }

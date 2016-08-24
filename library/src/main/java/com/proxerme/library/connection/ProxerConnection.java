@@ -63,7 +63,7 @@ import okhttp3.Response;
  *
  * @author Ruben Gees
  */
-public class ProxerConnection {
+public final class ProxerConnection {
 
     private String apiKey;
     private Moshi moshi;

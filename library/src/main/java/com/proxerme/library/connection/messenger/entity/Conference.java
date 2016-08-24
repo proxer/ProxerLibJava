@@ -42,9 +42,9 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     @Json(name = "image")
     private String image;
     @Json(name = "group")
-    private boolean isGroup;
+    private boolean group;
     @Json(name = "read")
-    private boolean isRead;
+    private boolean read;
     @Json(name = "timestamp_end")
     private long time;
     @Json(name = "read_count")
@@ -64,23 +64,23 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
      * @param participantAmount   The amount of participants in this conference.
      * @param imageType           The type of the image. This is "avatar" in most cases.
      * @param imageId             The id of the image.
-     * @param isGroup             Indicator if this is a group chat.
-     * @param isRead              Indicator if this conference has been read by the current user.
+     * @param group               Indicator if this is a group chat.
+     * @param read                Indicator if this conference has been read by the current user.
      * @param time                The time of the last message in this conference.
      * @param unreadMessageAmount The amount of unread messages for the current user.
      * @param lastReadMessageId   The id of the last read message of the current user.
      */
     public Conference(@NonNull String id, @NonNull String topic, @NonNull String customTopic,
                       @IntRange(from = 2) int participantAmount, @Nullable String imageType,
-                      @Nullable String imageId, boolean isGroup, boolean isRead, long time,
+                      @Nullable String imageId, boolean group, boolean read, long time,
                       @IntRange(from = 0) int unreadMessageAmount,
                       @NonNull String lastReadMessageId) {
         this.id = id;
         this.topic = topic;
         this.customTopic = customTopic;
         this.participantAmount = participantAmount;
-        this.isGroup = isGroup;
-        this.isRead = isRead;
+        this.group = group;
+        this.read = read;
         this.time = time;
         this.unreadMessageAmount = unreadMessageAmount;
         this.lastReadMessageId = lastReadMessageId;
@@ -95,13 +95,13 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     protected Conference(Parcel in) {
         this.lastReadMessageId = in.readString();
         this.image = in.readString();
-        this.isRead = in.readByte() != 0;
+        this.read = in.readByte() != 0;
         this.customTopic = in.readString();
         this.participantAmount = in.readInt();
         this.topic = in.readString();
         this.id = in.readString();
         this.time = in.readLong();
-        this.isGroup = in.readByte() != 0;
+        this.group = in.readByte() != 0;
         this.unreadMessageAmount = in.readInt();
     }
 
@@ -154,7 +154,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
      * @return True, if read.
      */
     public boolean isRead() {
-        return isRead;
+        return read;
     }
 
     /**
@@ -214,7 +214,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
      * @return True, if it is a group chat.
      */
     public boolean isGroup() {
-        return isGroup;
+        return group;
     }
 
     /**
@@ -235,10 +235,10 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
 
         Conference that = (Conference) o;
 
-        if (isRead != that.isRead) return false;
+        if (read != that.read) return false;
         if (participantAmount != that.participantAmount) return false;
         if (time != that.time) return false;
-        if (isGroup != that.isGroup) return false;
+        if (group != that.group) return false;
         if (unreadMessageAmount != that.unreadMessageAmount) return false;
         if (!lastReadMessageId.equals(that.lastReadMessageId)) return false;
         if (!image.equals(that.image)) return false;
@@ -251,13 +251,13 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     public int hashCode() {
         int result = lastReadMessageId.hashCode();
         result = 31 * result + image.hashCode();
-        result = 31 * result + (isRead ? 1 : 0);
+        result = 31 * result + (read ? 1 : 0);
         result = 31 * result + customTopic.hashCode();
         result = 31 * result + participantAmount;
         result = 31 * result + topic.hashCode();
         result = 31 * result + id.hashCode();
         result = 31 * result + (int) (time ^ (time >>> 32));
-        result = 31 * result + (isGroup ? 1 : 0);
+        result = 31 * result + (group ? 1 : 0);
         result = 31 * result + unreadMessageAmount;
         return result;
     }
@@ -271,13 +271,13 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.lastReadMessageId);
         dest.writeString(this.image);
-        dest.writeByte(this.isRead ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.read ? (byte) 1 : (byte) 0);
         dest.writeString(this.customTopic);
         dest.writeInt(this.participantAmount);
         dest.writeString(this.topic);
         dest.writeString(this.id);
         dest.writeLong(this.time);
-        dest.writeByte(this.isGroup ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.group ? (byte) 1 : (byte) 0);
         dest.writeInt(this.unreadMessageAmount);
     }
 }

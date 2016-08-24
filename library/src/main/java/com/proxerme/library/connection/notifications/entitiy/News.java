@@ -49,9 +49,8 @@ public class News implements Parcelable, IdItem, TimeItem, ImageItem {
     private int posts;
     @Json(name = "catid")
     private String categoryId;
-    private
     @Json(name = "catname")
-    String categoryTitle;
+    private String categoryTitle;
 
     private News() {
 

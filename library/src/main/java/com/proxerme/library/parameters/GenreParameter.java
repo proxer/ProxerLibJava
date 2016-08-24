@@ -57,7 +57,7 @@ public class GenreParameter {
             ECCHI, FANTASY, HAREM, HISTORICAL, HORROR, JOSEI, MAGIC, MARTIAL_ART, MECHA, MILITARY,
             MUSIC, MYSTERY, PSYCHOLOGICAL, ROMANCE, SCHOOL, SCI_FI, SEINEN, SHOUJOU, SHOUJOU_AI,
             SHOUNEN, SHOUNEN_AI, SLICE_OF_LIFE, SPLATTER, SPORT, SUPERPOWER, VAMPIRE, VIOLENCE,
-            YAOI, YURI};
+            YAOI, YURI,};
 
     /**
      * An annotation representing the available languages.
