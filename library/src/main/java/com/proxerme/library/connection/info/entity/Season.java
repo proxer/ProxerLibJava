@@ -5,8 +5,9 @@ import android.os.Parcelable;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
-import com.proxerme.library.parameters.SeasonParameter;
-import com.proxerme.library.parameters.TypeParameter;
+import com.proxerme.library.interfaces.IdItem;
+import com.proxerme.library.parameters.SeasonParameter.SeasonConstraint;
+import com.proxerme.library.parameters.TypeParameter.Type;
 import com.squareup.moshi.Json;
 
 /**
@@ -14,7 +15,7 @@ import com.squareup.moshi.Json;
  *
  * @author Desnoo
  */
-public class Season implements Parcelable {
+public class Season implements Parcelable, IdItem {
 
     public static final Creator<Season> CREATOR = new Creator<Season>() {
         @Override
@@ -39,9 +40,6 @@ public class Season implements Parcelable {
     @Json(name = "season")
     private int season;
 
-    /**
-     * The private constructor.
-     */
     private Season() {
     }
 
@@ -54,8 +52,8 @@ public class Season implements Parcelable {
      * @param year    The year when the entry was released.
      * @param season  The season in which the entry was released.
      */
-    public Season(@NonNull String id, @NonNull String entryId, @TypeParameter.Type String type,
-                  @IntRange(from = 1900) int year, @SeasonParameter.SeasonConstraint int season) {
+    public Season(@NonNull String id, @NonNull String entryId, @Type String type,
+                  @IntRange(from = 1900) int year, @SeasonConstraint int season) {
         this.id = id;
         this.entryId = entryId;
         this.type = type;
@@ -63,11 +61,6 @@ public class Season implements Parcelable {
         this.season = season;
     }
 
-    /**
-     * Constructor to recreate season from parcel.
-     *
-     * @param in the parcel to parse.
-     */
     protected Season(Parcel in) {
         id = in.readString();
         entryId = in.readString();
@@ -82,6 +75,7 @@ public class Season implements Parcelable {
      * @return The id.
      */
     @NonNull
+    @Override
     public String getId() {
         return id;
     }
@@ -102,7 +96,7 @@ public class Season implements Parcelable {
      * @return The type.
      */
     @NonNull
-    @TypeParameter.Type
+    @Type
     public String getType() {
         return type;
     }
@@ -122,7 +116,7 @@ public class Season implements Parcelable {
      *
      * @return The season. (Spring, Summer, Autumn, Winter)
      */
-    @SeasonParameter.SeasonConstraint
+    @SeasonConstraint
     public int getSeason() {
         return season;
     }

@@ -6,11 +6,12 @@ import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
-import com.proxerme.library.parameters.CategoryParameter;
+import com.proxerme.library.interfaces.IdItem;
+import com.proxerme.library.parameters.CategoryParameter.Category;
 import com.proxerme.library.parameters.FskParameter;
-import com.proxerme.library.parameters.GenreParameter;
-import com.proxerme.library.parameters.LicenseParameter;
-import com.proxerme.library.parameters.MediumParameter;
+import com.proxerme.library.parameters.GenreParameter.Genre;
+import com.proxerme.library.parameters.LicenseParameter.License;
+import com.proxerme.library.parameters.MediumParameter.Medium;
 import com.squareup.moshi.Json;
 
 /**
@@ -18,26 +19,28 @@ import com.squareup.moshi.Json;
  *
  * @author Desnoo
  */
-public class EntryDetails implements Parcelable {
+public class EntryCore implements Parcelable, IdItem {
 
-    public static final Creator<EntryDetails> CREATOR = new Creator<EntryDetails>() {
+    public static final Creator<EntryCore> CREATOR = new Creator<EntryCore>() {
         @Override
-        public EntryDetails createFromParcel(Parcel in) {
-            return new EntryDetails(in);
+        public EntryCore createFromParcel(Parcel in) {
+            return new EntryCore(in);
         }
 
         @Override
-        public EntryDetails[] newArray(int size) {
-            return new EntryDetails[size];
+        public EntryCore[] newArray(int size) {
+            return new EntryCore[size];
         }
     };
+
+    private static final String DELIMITER = " ";
 
     @Json(name = "id")
     private String id;
     @Json(name = "name")
     private String name;
     @Json(name = "genre")
-    private String genre;
+    private String genres;
     @Json(name = "fsk")
     private String fsk;
     @Json(name = "description")
@@ -45,7 +48,7 @@ public class EntryDetails implements Parcelable {
     @Json(name = "medium")
     private String medium;
     @Json(name = "count")
-    private int count;
+    private int episodeAmount;
     @Json(name = "state")
     private int state;
     @Json(name = "rate_sum")
@@ -59,10 +62,7 @@ public class EntryDetails implements Parcelable {
     @Json(name = "license")
     private int license;
 
-    /**
-     * Private empty Constructor.
-     */
-    private EntryDetails() {
+    private EntryCore() {
     }
 
     /**
@@ -70,11 +70,11 @@ public class EntryDetails implements Parcelable {
      *
      * @param id          The entry id.
      * @param name        The entry name.
-     * @param genre       The genre.
+     * @param genres       The genres.
      * @param fsk         The fsk ratings.
      * @param description The description.
      * @param medium      The medium.
-     * @param count       The number of episodes.
+     * @param episodeAmount       The number of episodes.
      * @param state       The user view state.
      * @param rateSum     The sum of all ratings.
      * @param rateCount   The amount of ratings.
@@ -82,20 +82,20 @@ public class EntryDetails implements Parcelable {
      * @param category    The category name.
      * @param license     The license id.
      */
-    public EntryDetails(@NonNull String id, @NonNull String name, @NonNull @GenreParameter.Genre String genre,
-                        @NonNull String fsk, @NonNull String description,
-                        @NonNull @MediumParameter.Medium String medium,
-                        @IntRange(from = 1) int count, @IntRange(from = 0) int state,
-                        @IntRange(from = 0) int rateSum, @IntRange(from = 0) int rateCount,
-                        @IntRange(from = 0) int clicks, @NonNull @CategoryParameter.Category String category,
-                        @IntRange(from = 0) @LicenseParameter.License int license) {
+    public EntryCore(@NonNull String id, @NonNull String name,
+                     @NonNull @Genre String genres, @NonNull String fsk,
+                     @NonNull String description, @NonNull @Medium String medium,
+                     @IntRange(from = 1) int episodeAmount, @IntRange(from = 0) int state,
+                     @IntRange(from = 0) int rateSum, @IntRange(from = 0) int rateCount,
+                     @IntRange(from = 0) int clicks, @NonNull @Category String category,
+                     @License int license) {
         this.id = id;
         this.name = name;
-        this.genre = genre;
+        this.genres = genres;
         this.fsk = fsk;
         this.description = description;
         this.medium = medium;
-        this.count = count;
+        this.episodeAmount = episodeAmount;
         this.state = state;
         this.rateSum = rateSum;
         this.rateCount = rateCount;
@@ -104,19 +104,14 @@ public class EntryDetails implements Parcelable {
         this.license = license;
     }
 
-    /**
-     * Parser to retain the instance back from the parcel.
-     *
-     * @param in the parcel to parse.
-     */
-    protected EntryDetails(Parcel in) {
+    protected EntryCore(Parcel in) {
         id = in.readString();
         name = in.readString();
-        genre = in.readString();
+        genres = in.readString();
         fsk = in.readString();
         description = in.readString();
         medium = in.readString();
-        count = in.readInt();
+        episodeAmount = in.readInt();
         state = in.readInt();
         rateSum = in.readInt();
         rateCount = in.readInt();
@@ -130,6 +125,7 @@ public class EntryDetails implements Parcelable {
      * @return The id.
      */
     @NonNull
+    @Override
     public String getId() {
         return id;
     }
@@ -145,14 +141,15 @@ public class EntryDetails implements Parcelable {
     }
 
     /**
-     * Returns the genre of this entry.
+     * Returns the genres of this entry.
      *
-     * @return The genre.
+     * @return The genres.
      */
     @NonNull
-    @GenreParameter.Genre
-    public String getGenre() {
-        return genre;
+    @Genre
+    public String[] getGenres() {
+        //noinspection ResourceType
+        return genres.split(DELIMITER);
     }
 
     /**
@@ -160,11 +157,11 @@ public class EntryDetails implements Parcelable {
      *
      * @return An array of fsk names.
      */
-    @SuppressWarnings("WrongConstant")
     @NonNull
     @FskParameter.FskConstraint
     public String[] getFsk() {
-        return fsk.split(" ");
+        //noinspection WrongConstant
+        return fsk.split(DELIMITER);
     }
 
     /**
@@ -183,19 +180,20 @@ public class EntryDetails implements Parcelable {
      * @return The medium.
      */
     @NonNull
-    @MediumParameter.Medium
+    @Medium
     public String getMedium() {
         return medium;
     }
 
     /**
-     * Get the overall amount of episodes/chapters of this entry. It does include not available episodes.
+     * Get the overall amount of episodes/chapters of this entry. It does include not available
+     * episodes.
      *
      * @return The amount of episodes/chapters.
      */
     @IntRange(from = 0)
-    public int getCount() {
-        return count;
+    public int getEpisodeAmount() {
+        return episodeAmount;
     }
 
     /**
@@ -257,7 +255,8 @@ public class EntryDetails implements Parcelable {
      *
      * @return The name of the category.
      */
-    @CategoryParameter.Category
+    @NonNull
+    @Category
     public String getCategory() {
         return category;
     }
@@ -267,7 +266,7 @@ public class EntryDetails implements Parcelable {
      *
      * @return The license state.
      */
-    @LicenseParameter.License
+    @License
     public int getLicense() {
         return license;
     }
@@ -276,11 +275,11 @@ public class EntryDetails implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(name);
-        dest.writeString(genre);
+        dest.writeString(genres);
         dest.writeString(fsk);
         dest.writeString(description);
         dest.writeString(medium);
-        dest.writeInt(count);
+        dest.writeInt(episodeAmount);
         dest.writeInt(state);
         dest.writeInt(rateSum);
         dest.writeInt(rateCount);
@@ -299,21 +298,21 @@ public class EntryDetails implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EntryDetails entryDetails = (EntryDetails) o;
+        EntryCore entryCore = (EntryCore) o;
 
-        if (!id.equals(entryDetails.id)) return false;
-        if (count != entryDetails.count) return false;
-        if (state != entryDetails.state) return false;
-        if (rateSum != entryDetails.rateSum) return false;
-        if (rateCount != entryDetails.rateCount) return false;
-        if (clicks != entryDetails.clicks) return false;
-        if (!name.equals(entryDetails.name)) return false;
-        if (!genre.equals(entryDetails.genre)) return false;
-        if (!fsk.equals(entryDetails.fsk)) return false;
-        if (!description.equals(entryDetails.description)) return false;
-        if (!medium.equals(entryDetails.medium)) return false;
-        if (!category.equals(entryDetails.category)) return false;
-        return license == entryDetails.license;
+        if (!id.equals(entryCore.id)) return false;
+        if (episodeAmount != entryCore.episodeAmount) return false;
+        if (state != entryCore.state) return false;
+        if (rateSum != entryCore.rateSum) return false;
+        if (rateCount != entryCore.rateCount) return false;
+        if (clicks != entryCore.clicks) return false;
+        if (!name.equals(entryCore.name)) return false;
+        if (!genres.equals(entryCore.genres)) return false;
+        if (!fsk.equals(entryCore.fsk)) return false;
+        if (!description.equals(entryCore.description)) return false;
+        if (!medium.equals(entryCore.medium)) return false;
+        if (!category.equals(entryCore.category)) return false;
+        return license == entryCore.license;
 
     }
 
@@ -321,11 +320,11 @@ public class EntryDetails implements Parcelable {
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + name.hashCode();
-        result = 31 * result + genre.hashCode();
+        result = 31 * result + genres.hashCode();
         result = 31 * result + fsk.hashCode();
         result = 31 * result + description.hashCode();
         result = 31 * result + medium.hashCode();
-        result = 31 * result + count;
+        result = 31 * result + episodeAmount;
         result = 31 * result + state;
         result = 31 * result + rateSum;
         result = 31 * result + rateCount;

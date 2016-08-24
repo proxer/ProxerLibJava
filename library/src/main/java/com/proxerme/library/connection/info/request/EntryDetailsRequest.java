@@ -5,8 +5,8 @@ import android.util.Pair;
 
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.info.InfoRequest;
-import com.proxerme.library.connection.info.entity.EntryDetails;
-import com.proxerme.library.connection.info.result.EntryDetailsResult;
+import com.proxerme.library.connection.info.entity.EntryCore;
+import com.proxerme.library.connection.info.result.EntryCoreResult;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ import okhttp3.ResponseBody;
  *
  * @author Desnoo
  */
-public class EntryDetailsRequest extends InfoRequest<EntryDetails> {
+public class EntryDetailsRequest extends InfoRequest<EntryCore> {
 
     private static final String ENDPOINT = "entry";
 
@@ -37,9 +37,9 @@ public class EntryDetailsRequest extends InfoRequest<EntryDetails> {
     }
 
     @Override
-    protected ProxerResult<EntryDetails> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+    protected ProxerResult<EntryCore> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(EntryDetailsResult.class).fromJson(body.source());
+        return moshi.adapter(EntryCoreResult.class).fromJson(body.source());
     }
 
     @NonNull

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.proxerme.library.interfaces.IdItem;
 import com.squareup.moshi.Json;
 
 /**
@@ -11,7 +12,7 @@ import com.squareup.moshi.Json;
  *
  * @author Desnoo
  */
-public class Synonym implements Parcelable {
+public class Synonym implements Parcelable, IdItem {
 
     public static final Creator<Synonym> CREATOR = new Creator<Synonym>() {
         @Override
@@ -34,9 +35,6 @@ public class Synonym implements Parcelable {
     @Json(name = "name")
     private String name;
 
-    /**
-     * Private Constructor.
-     */
     private Synonym() {
     }
 
@@ -56,11 +54,6 @@ public class Synonym implements Parcelable {
         this.name = name;
     }
 
-    /**
-     * Constructor to parse parcel.
-     *
-     * @param in The parcel to parse.
-     */
     protected Synonym(Parcel in) {
         id = in.readString();
         entryId = in.readString();
@@ -68,13 +61,13 @@ public class Synonym implements Parcelable {
         name = in.readString();
     }
 
-
     /**
      * Returns the id of this name.
      *
      * @return The id.
      */
     @NonNull
+    @Override
     public String getId() {
         return id;
     }

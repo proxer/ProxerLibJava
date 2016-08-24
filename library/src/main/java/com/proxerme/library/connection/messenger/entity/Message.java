@@ -14,7 +14,7 @@ import com.squareup.moshi.Json;
  *
  * @author Ruben Gees
  */
-public class Message implements IdItem, TimeItem, Parcelable {
+public class Message implements Parcelable, IdItem, TimeItem {
 
     public static final Creator<Message> CREATOR = new Creator<Message>() {
         @Override

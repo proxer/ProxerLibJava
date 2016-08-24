@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
+import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.parameters.CommentStateParameter.CommentState;
 import com.proxerme.library.parameters.MediumParameter.Medium;
 import com.proxerme.library.parameters.StateParameter.State;
@@ -16,7 +17,7 @@ import com.squareup.moshi.Json;
  *
  * @author Ruben Gees
  */
-public class UserMediaListEntry implements Parcelable {
+public class UserMediaListEntry implements Parcelable, IdItem {
 
     public static final Parcelable.Creator<UserMediaListEntry> CREATOR = new Parcelable.Creator<UserMediaListEntry>() {
         @Override
@@ -109,6 +110,7 @@ public class UserMediaListEntry implements Parcelable {
      * @return The id.
      */
     @NonNull
+    @Override
     public String getId() {
         return id;
     }
