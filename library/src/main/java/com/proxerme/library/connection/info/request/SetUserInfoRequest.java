@@ -1,6 +1,7 @@
 package com.proxerme.library.connection.info.request;
 
 import android.support.annotation.NonNull;
+import android.util.Pair;
 
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.info.InfoRequest;
@@ -9,6 +10,7 @@ import com.proxerme.library.parameters.ViewStateParameter;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import okhttp3.ResponseBody;
 
@@ -20,6 +22,9 @@ import okhttp3.ResponseBody;
 public class SetUserInfoRequest extends InfoRequest<Void> {
 
     private static final String ENDPOINT = "setuserinfo";
+
+    private static final String ID_PARAMETER = "id";
+    private static final String TYPE_PARAMETER = "type";
 
     private String id;
     private String type;
@@ -45,5 +50,14 @@ public class SetUserInfoRequest extends InfoRequest<Void> {
     @Override
     protected String getApiEndpoint() {
         return ENDPOINT;
+    }
+
+    @NonNull
+    @Override
+    protected Iterable<Pair<String, ?>> getQueryParameters() {
+        return Arrays.<Pair<String, ?>>asList(
+                new Pair<>(ID_PARAMETER, id),
+                new Pair<>(TYPE_PARAMETER, type)
+        );
     }
 }
