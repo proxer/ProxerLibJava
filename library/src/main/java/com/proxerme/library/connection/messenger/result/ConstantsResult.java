@@ -12,7 +12,7 @@ public final class ConstantsResult extends ProxerResult<Constants> {
     @Json(name = "data")
     private Constants constants;
 
-    private ConstantsResult() {
+    protected ConstantsResult() {
     }
 
     @Override

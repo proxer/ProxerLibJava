@@ -12,7 +12,7 @@ public final class ConferencesResult extends ProxerResult<Conference[]> {
     @Json(name = "data")
     private Conference[] conferences;
 
-    private ConferencesResult() {
+    protected ConferencesResult() {
     }
 
     @Override

@@ -12,10 +12,7 @@ public final class EntryDetailsResult extends ProxerResult<EntryDetails> {
     @Json(name = "data")
     private EntryDetails details;
 
-    /**
-     * Private constructor.
-     */
-    private EntryDetailsResult() {
+    protected EntryDetailsResult() {
     }
 
     @Override

@@ -9,6 +9,9 @@ import com.proxerme.library.connection.ProxerResult;
  */
 public final class LogoutResult extends ProxerResult<Void> {
 
+    protected LogoutResult() {
+    }
+
     @Override
     @Nullable
     public Void getData() {

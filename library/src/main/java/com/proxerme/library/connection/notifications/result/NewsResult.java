@@ -12,7 +12,7 @@ public final class NewsResult extends ProxerResult<News[]> {
     @Json(name = "data")
     private News[] data;
 
-    private NewsResult() {
+    protected NewsResult() {
 
     }
 

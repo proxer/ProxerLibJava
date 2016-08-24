@@ -12,7 +12,7 @@ public final class MessagesResult extends ProxerResult<Message[]> {
     @Json(name = "data")
     private Message[] messages;
 
-    private MessagesResult() {
+    protected MessagesResult() {
     }
 
     @Override

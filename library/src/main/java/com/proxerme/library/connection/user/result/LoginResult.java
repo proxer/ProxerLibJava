@@ -12,7 +12,7 @@ public final class LoginResult extends ProxerResult<User> {
     @Json(name = "data")
     private User user;
 
-    private LoginResult() {
+    protected LoginResult() {
     }
 
     @Override

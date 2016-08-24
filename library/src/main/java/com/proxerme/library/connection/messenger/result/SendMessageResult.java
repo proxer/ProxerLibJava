@@ -14,7 +14,7 @@ public final class SendMessageResult extends ProxerResult<String> {
     @Json(name = "data")
     private String errorMessage;
 
-    private SendMessageResult() {
+    protected SendMessageResult() {
     }
 
     @Override

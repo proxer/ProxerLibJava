@@ -12,7 +12,7 @@ public final class MediaListResult extends ProxerResult<MediaListEntry[]> {
     @Json(name = "data")
     private MediaListEntry[] entries;
 
-    private MediaListResult() {
+    protected MediaListResult() {
     }
 
     @Override

@@ -12,7 +12,8 @@ public final class UserInfoResult extends ProxerResult<UserInfo> {
     @Json(name = "data")
     private UserInfo userInfo;
 
-    private UserInfoResult() {
+    protected UserInfoResult() {
+
     }
 
     @Override

@@ -12,7 +12,7 @@ public final class ToptenResult extends ProxerResult<ToptenEntry[]> {
     @Json(name = "data")
     private ToptenEntry[] entries;
 
-    private ToptenResult() {
+    protected ToptenResult() {
     }
 
     @Override

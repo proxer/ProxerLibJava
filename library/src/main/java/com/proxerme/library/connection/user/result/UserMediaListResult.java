@@ -12,7 +12,7 @@ public final class UserMediaListResult extends ProxerResult<UserMediaListEntry[]
     @Json(name = "data")
     private UserMediaListEntry[] entries;
 
-    private UserMediaListResult() {
+    protected UserMediaListResult() {
     }
 
     @Override

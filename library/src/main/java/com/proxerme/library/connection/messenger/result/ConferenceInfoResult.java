@@ -12,7 +12,7 @@ public final class ConferenceInfoResult extends ProxerResult<ConferenceInfoConta
     @Json(name = "data")
     private ConferenceInfoContainer conferenceInfoContainer;
 
-    private ConferenceInfoResult() {
+    protected ConferenceInfoResult() {
     }
 
     @Override

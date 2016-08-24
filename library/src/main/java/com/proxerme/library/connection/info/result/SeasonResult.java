@@ -12,10 +12,7 @@ public final class SeasonResult extends ProxerResult<Season[]> {
     @Json(name = "data")
     private Season[] seasons;
 
-    /**
-     * Private Constructor.
-     */
-    private SeasonResult() {
+    protected SeasonResult() {
     }
 
     @Override

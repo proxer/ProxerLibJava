@@ -12,10 +12,7 @@ public final class SynonymResult extends ProxerResult<Synonym[]> {
     @Json(name = "data")
     private Synonym[] synonyms;
 
-    /**
-     * Private constructor.
-     */
-    private SynonymResult() {
+    protected SynonymResult() {
     }
 
     @Override

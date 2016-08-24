@@ -9,6 +9,9 @@ import com.proxerme.library.connection.ProxerResult;
  */
 public final class ModifyConferenceResult extends ProxerResult<Void> {
 
+    protected ModifyConferenceResult() {
+    }
+
     @Override
     @Nullable
     public Void getData() {
