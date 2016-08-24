@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import com.proxerme.library.connection.ProxerResult;
 import com.squareup.moshi.Json;
 
-public class SendMessageResult extends ProxerResult<String> {
+public final class SendMessageResult extends ProxerResult<String> {
 
     @Nullable
     @Json(name = "data")

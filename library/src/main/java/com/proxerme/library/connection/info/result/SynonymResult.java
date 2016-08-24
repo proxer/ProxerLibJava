@@ -10,7 +10,7 @@ import com.squareup.moshi.Json;
  *
  * @author Desnoo
  */
-public class SynonymResult extends ProxerResult<Synonym[]> {
+public final class SynonymResult extends ProxerResult<Synonym[]> {
 
     @Json(name = "data")
     private Synonym[] synonyms;

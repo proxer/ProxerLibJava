@@ -3,7 +3,7 @@ package com.proxerme.library.connection.messenger.result;
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.messenger.entity.Message;
 
-public class MessagesResult extends ProxerResult<Message[]> {
+public final class MessagesResult extends ProxerResult<Message[]> {
 
     private Message[] messages;
 

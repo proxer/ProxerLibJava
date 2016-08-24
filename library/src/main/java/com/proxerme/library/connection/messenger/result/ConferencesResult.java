@@ -4,7 +4,7 @@ import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.messenger.entity.Conference;
 import com.squareup.moshi.Json;
 
-public class ConferencesResult extends ProxerResult<Conference[]> {
+public final class ConferencesResult extends ProxerResult<Conference[]> {
 
     @Json(name = "data")
     private Conference[] conferences;

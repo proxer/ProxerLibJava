@@ -4,7 +4,7 @@ import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.list.entity.MediaListEntry;
 import com.squareup.moshi.Json;
 
-public class MediaListResult extends ProxerResult<MediaListEntry[]> {
+public final class MediaListResult extends ProxerResult<MediaListEntry[]> {
 
     @Json(name = "data")
     private MediaListEntry[] entries;

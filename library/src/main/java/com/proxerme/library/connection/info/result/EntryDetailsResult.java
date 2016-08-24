@@ -11,7 +11,7 @@ import com.squareup.moshi.Json;
  *
  * @author Desnoo
  */
-public class EntryDetailsResult extends ProxerResult<EntryDetails> {
+public final class EntryDetailsResult extends ProxerResult<EntryDetails> {
 
     @Json(name = "data")
     private EntryDetails details;

@@ -10,7 +10,7 @@ import com.squareup.moshi.Json;
  *
  * @author Desnoo
  */
-public class SeasonResult extends ProxerResult<Season[]> {
+public final class SeasonResult extends ProxerResult<Season[]> {
 
     @Json(name = "data")
     private Season[] seasons;

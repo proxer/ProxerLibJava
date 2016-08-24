@@ -4,7 +4,7 @@ import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.user.entitiy.User;
 import com.squareup.moshi.Json;
 
-public class LoginResult extends ProxerResult<User> {
+public final class LoginResult extends ProxerResult<User> {
 
     @Json(name = "data")
     private User user;
