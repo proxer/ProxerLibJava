@@ -231,7 +231,7 @@ public class ProxerConnection {
 
         private String apiKey;
         private Context context;
-        private boolean deliverCancelledRequests = false;
+        private boolean deliverCancelledRequests;
 
         private Moshi moshi;
         private CookieJar cookieJar;
