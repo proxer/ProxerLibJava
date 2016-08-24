@@ -51,6 +51,8 @@ public class MediaSearchRequest extends ListRequest<MediaListEntry[]> {
     private static final String PAGE_PARAMETER = "p";
     private static final String LIMIT_PARAMETER = "limit";
 
+    private static final String DELIMITER = " ";
+
     @Nullable
     private String name;
     @Nullable
@@ -129,7 +131,7 @@ public class MediaSearchRequest extends ListRequest<MediaListEntry[]> {
      */
     public MediaSearchRequest withGenres(@Nullable @Genre String... genres) {
         if (genres != null) {
-            this.genres = TextUtils.join(" ", genres);
+            this.genres = TextUtils.join(DELIMITER, genres);
         }
 
         return this;
@@ -144,7 +146,7 @@ public class MediaSearchRequest extends ListRequest<MediaListEntry[]> {
      */
     public MediaSearchRequest withGenres(@Nullable @Genre Iterable<String> genres) {
         if (genres != null) {
-            this.genres = TextUtils.join(" ", genres);
+            this.genres = TextUtils.join(DELIMITER, genres);
         }
 
         return this;
@@ -159,7 +161,7 @@ public class MediaSearchRequest extends ListRequest<MediaListEntry[]> {
      */
     public MediaSearchRequest withExcludedGenres(@Nullable @Genre String... excludedGenres) {
         if (excludedGenres != null) {
-            this.excludedGenres = TextUtils.join(" ", excludedGenres);
+            this.excludedGenres = TextUtils.join(DELIMITER, excludedGenres);
         }
 
         return this;
@@ -174,7 +176,7 @@ public class MediaSearchRequest extends ListRequest<MediaListEntry[]> {
      */
     public MediaSearchRequest withExcludedGenres(@Nullable @Genre Iterable<String> excludedGenres) {
         if (excludedGenres != null) {
-            this.excludedGenres = TextUtils.join(" ", excludedGenres);
+            this.excludedGenres = TextUtils.join(DELIMITER, excludedGenres);
         }
 
         return this;
@@ -189,7 +191,7 @@ public class MediaSearchRequest extends ListRequest<MediaListEntry[]> {
      */
     public MediaSearchRequest withFskConstraints(@Nullable @FskConstraint String... fskConstraints) {
         if (fskConstraints != null) {
-            this.fskConstraints = TextUtils.join(" ", fskConstraints);
+            this.fskConstraints = TextUtils.join(DELIMITER, fskConstraints);
         }
 
         return this;
@@ -205,7 +207,7 @@ public class MediaSearchRequest extends ListRequest<MediaListEntry[]> {
     public MediaSearchRequest withFskConstraints(@Nullable @FskConstraint Iterable<String>
                                                          fskConstraints) {
         if (fskConstraints != null) {
-            this.fskConstraints = TextUtils.join(" ", fskConstraints);
+            this.fskConstraints = TextUtils.join(DELIMITER, fskConstraints);
         }
 
         return this;
@@ -259,7 +261,7 @@ public class MediaSearchRequest extends ListRequest<MediaListEntry[]> {
      */
     public MediaSearchRequest withTags(@Nullable String... tags) {
         if (tags != null) {
-            this.tags = TextUtils.join(" ", tags);
+            this.tags = TextUtils.join(DELIMITER, tags);
         }
 
         return this;
@@ -274,7 +276,7 @@ public class MediaSearchRequest extends ListRequest<MediaListEntry[]> {
      */
     public MediaSearchRequest withTags(@Nullable Iterable<String> tags) {
         if (tags != null) {
-            this.tags = TextUtils.join(" ", tags);
+            this.tags = TextUtils.join(DELIMITER, tags);
         }
 
         return this;
@@ -289,7 +291,7 @@ public class MediaSearchRequest extends ListRequest<MediaListEntry[]> {
      */
     public MediaSearchRequest withExcludedTags(@Nullable String... excludedTags) {
         if (excludedTags != null) {
-            this.excludedTags = TextUtils.join(" ", excludedTags);
+            this.excludedTags = TextUtils.join(DELIMITER, excludedTags);
         }
 
         return this;
@@ -304,7 +306,7 @@ public class MediaSearchRequest extends ListRequest<MediaListEntry[]> {
      */
     public MediaSearchRequest withExcludedTags(@Nullable Iterable<String> excludedTags) {
         if (excludedTags != null) {
-            this.excludedTags = TextUtils.join(" ", excludedTags);
+            this.excludedTags = TextUtils.join(DELIMITER, excludedTags);
         }
 
         return this;

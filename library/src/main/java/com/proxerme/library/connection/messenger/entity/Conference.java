@@ -31,6 +31,8 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         }
     };
 
+    private static final String IMAGE_DELIMITER = ":";
+
     @Json(name = "id")
     private String id;
     @Json(name = "topic")
@@ -88,7 +90,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         if (imageType == null || imageType.isEmpty() || imageId == null || imageType.isEmpty()) {
             this.image = "";
         } else {
-            this.image = imageType + ":" + imageId;
+            this.image = imageType + IMAGE_DELIMITER + imageId;
         }
     }
 
@@ -122,7 +124,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
      */
     @NonNull
     public String getImageType() {
-        String[] split = image.split(":");
+        String[] split = image.split(IMAGE_DELIMITER);
 
         if (split.length == 2) {
             return split[0];
@@ -139,7 +141,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
     @Override
     @NonNull
     public String getImageId() {
-        String[] split = image.split(":");
+        String[] split = image.split(IMAGE_DELIMITER);
 
         if (split.length == 2) {
             return split[1];
