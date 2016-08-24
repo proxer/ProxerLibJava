@@ -4,6 +4,9 @@ import android.support.annotation.Nullable;
 
 import com.proxerme.library.connection.ProxerResult;
 
+/**
+ * {@inheritDoc}
+ */
 public final class LogoutResult extends ProxerResult<Void> {
 
     @Override

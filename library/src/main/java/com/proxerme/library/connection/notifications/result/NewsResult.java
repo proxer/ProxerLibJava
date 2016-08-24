@@ -4,6 +4,9 @@ import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.notifications.entitiy.News;
 import com.squareup.moshi.Json;
 
+/**
+ * {@inheritDoc}
+ */
 public final class NewsResult extends ProxerResult<News[]> {
 
     @Json(name = "data")

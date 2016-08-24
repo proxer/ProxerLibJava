@@ -4,6 +4,9 @@ import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.messenger.entity.Message;
 import com.squareup.moshi.Json;
 
+/**
+ * {@inheritDoc}
+ */
 public final class MessagesResult extends ProxerResult<Message[]> {
 
     @Json(name = "data")

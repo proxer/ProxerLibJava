@@ -5,10 +5,7 @@ import com.proxerme.library.connection.info.entity.Synonym;
 import com.squareup.moshi.Json;
 
 /**
- * Class that represents the results of the
- * {@link com.proxerme.library.connection.info.request.SynonymRequest}.
- *
- * @author Desnoo
+ * {@inheritDoc}
  */
 public final class SynonymResult extends ProxerResult<Synonym[]> {
 

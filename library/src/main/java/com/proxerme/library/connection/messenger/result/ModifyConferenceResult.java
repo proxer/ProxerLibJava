@@ -4,6 +4,9 @@ import android.support.annotation.Nullable;
 
 import com.proxerme.library.connection.ProxerResult;
 
+/**
+ * {@inheritDoc}
+ */
 public final class ModifyConferenceResult extends ProxerResult<Void> {
 
     @Override

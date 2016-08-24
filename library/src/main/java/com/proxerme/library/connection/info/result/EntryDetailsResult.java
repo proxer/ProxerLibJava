@@ -2,14 +2,10 @@ package com.proxerme.library.connection.info.result;
 
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.info.entity.EntryDetails;
-import com.proxerme.library.connection.info.request.EntryDetailsRequest;
 import com.squareup.moshi.Json;
 
 /**
- * Holds the result of the
- * {@link EntryDetailsRequest}.
- *
- * @author Desnoo
+ * {@inheritDoc}
  */
 public final class EntryDetailsResult extends ProxerResult<EntryDetails> {
 

@@ -5,10 +5,7 @@ import com.proxerme.library.connection.info.entity.Season;
 import com.squareup.moshi.Json;
 
 /**
- * Class that represents the result of the
- * {@link com.proxerme.library.connection.info.request.SeasonRequest}.
- *
- * @author Desnoo
+ * {@inheritDoc}
  */
 public final class SeasonResult extends ProxerResult<Season[]> {
 

@@ -4,6 +4,9 @@ import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.user.entitiy.UserMediaListEntry;
 import com.squareup.moshi.Json;
 
+/**
+ * {@inheritDoc}
+ */
 public final class UserMediaListResult extends ProxerResult<UserMediaListEntry[]> {
 
     @Json(name = "data")
