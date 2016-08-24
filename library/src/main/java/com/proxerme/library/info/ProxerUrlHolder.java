@@ -8,7 +8,7 @@ import okhttp3.HttpUrl;
 /**
  * Class which holds various often needed urls.
  */
-public class ProxerUrlHolder {
+public final class ProxerUrlHolder {
 
     private static final String SCHEME = "https";
     private static final String API_HOST = "proxer.me";
@@ -32,6 +32,9 @@ public class ProxerUrlHolder {
 
     private static final String DEVICE_QUERY_PARAMETER = "device";
     private static final String DEVICE_QUERY_PARAMETER_DEFAULT = "mobile";
+
+    private ProxerUrlHolder() {
+    }
 
     /**
      * Returns the host.
