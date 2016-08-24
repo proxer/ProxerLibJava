@@ -19,7 +19,7 @@ import okhttp3.ResponseBody;
  *
  * @author Desnoo
  */
-public class EntryDetailsRequest extends InfoRequest<EntryCore> {
+public class EntryCoreRequest extends InfoRequest<EntryCore> {
 
     private static final String ENDPOINT = "entry";
 
@@ -32,7 +32,7 @@ public class EntryDetailsRequest extends InfoRequest<EntryCore> {
      *
      * @param id the id of the entry to request.
      */
-    public EntryDetailsRequest(@NonNull String id) {
+    public EntryCoreRequest(@NonNull String id) {
         this.id = id;
     }
 
