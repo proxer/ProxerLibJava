@@ -26,23 +26,22 @@ import okhttp3.Response;
 /**
  * Entry point for all interaction with the API. Before using, the user has to build an instance
  * with the {@link Builder}.
- *
- * <br>This class features two important methods:
- *
- * <p>1) {@link #execute(ProxerRequest, ProxerCallback, ProxerErrorCallback)}
+ * <br>
+ * This class features two important methods:
+ * <p>
+ * 1) {@link #execute(ProxerRequest, ProxerCallback, ProxerErrorCallback)}
  * executes a passed {@link ProxerRequest} on a background thread. The results are returned to the
  * specified callbacks.
- *
- * <p>2) {@link #executeSynchronized(ProxerRequest)}
+ * <p>
+ * 2) {@link #executeSynchronized(ProxerRequest)}
  * executes a passed {@link ProxerRequest} on the same thread the method was invoked. This is useful
  * if the user wants to handle threading itself or is running code in a background thread already
  * (AsyncTask, IntentService, ...)
- *
- * <p>Both methods return their results on the main thread to make it possible to update views
+ * <p>
+ * Both methods return their results on the main thread to make it possible to update views
  * directly.
- *
- * <p>The usage of this class might look like this:
- *
+ * <p>
+ * The usage of this class might look like this:
  * <pre>
  * <code>
  * ProxerConnection connection = new ProxerConnection.Builder(context, "apiKey").build();
