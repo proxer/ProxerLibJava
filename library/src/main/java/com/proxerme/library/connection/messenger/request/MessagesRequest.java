@@ -17,19 +17,16 @@ import okhttp3.ResponseBody;
 /**
  * Request for loading messages. There are 4 different cases associated with the conferenceId and
  * messageId:
- * <p>
- * 1) conferenceId = "0" and messageId = "0". The latest messages of the user are loaded.
- * 2) conferenceId = "0" and messageId = X. The messages before the specified id are loaded.
- * 3) conferenceId = X and messageId = "0". The latest messages in the specified conference are
+ * <p>1) conferenceId = "0" and messageId = "0". The latest messages of the user are loaded.
+ * <br>2) conferenceId = "0" and messageId = X. The messages before the specified id are loaded.
+ * <br>3) conferenceId = X and messageId = "0". The latest messages in the specified conference are
  * loaded.
- * 4) conferenceId = X and messageId = X. The messages before the specified messageId in the
+ * <br>4) conferenceId = X and messageId = X. The messages before the specified messageId in the
  * specified conference are loaded.
- * <p>
- * This API requires the user to be logged in.
+ * <p>This API requires the user to be logged in.
  *
  * @author Ruben Gees
  */
-
 public class MessagesRequest extends MessengerRequest<Message[]> {
 
     public static final String ENDPOINT = "messages";
