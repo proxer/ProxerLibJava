@@ -103,6 +103,8 @@ public final class ProxerConnection {
                     deliverResultOnMainThread(callback, processResponse(request, response));
                 } catch (ProxerException exception) {
                     deliverErrorResultOnMainThread(errorCallback, exception);
+                } finally {
+                    response.close();
                 }
             }
 
@@ -136,14 +138,21 @@ public final class ProxerConnection {
     public <T> T executeSynchronized(@NonNull final ProxerRequest<T> request)
             throws ProxerException {
         final Call call = httpClient.newCall(request.build());
+        Response response = null;
 
         try {
-            return processResponse(request, call.execute());
+            response = call.execute();
+
+            return processResponse(request, response);
         } catch (IOException exception) {
             if (call.isCanceled()) {
                 throw new ProxerException(ProxerException.CANCELLED);
             } else {
                 throw new ProxerException(ProxerException.NETWORK);
+            }
+        } finally {
+            if (response != null) {
+                response.close();
             }
         }
     }
