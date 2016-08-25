@@ -264,7 +264,7 @@ public class Comment implements Parcelable, IdItem, ImageItem {
     }
 
 
-    @SuppressWarnings("RedundantIfStatement")
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -284,9 +284,8 @@ public class Comment implements Parcelable, IdItem, ImageItem {
         if (!ratingDetails.equals(comment1.ratingDetails)) return false;
         if (!comment.equals(comment1.comment)) return false;
         if (!username.equals(comment1.username)) return false;
-        if (!imageId.equals(comment1.imageId)) return false;
+        return imageId.equals(comment1.imageId);
 
-        return true;
     }
 
     @Override
