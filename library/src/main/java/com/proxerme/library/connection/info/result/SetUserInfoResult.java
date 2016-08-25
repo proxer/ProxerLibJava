@@ -3,14 +3,11 @@ package com.proxerme.library.connection.info.result;
 import android.support.annotation.Nullable;
 
 import com.proxerme.library.connection.ProxerResult;
-import com.proxerme.library.connection.info.request.SetUserInfoRequest;
 
 /**
- * The class that represents the result of {@link com.proxerme.library.connection.info.request.SetUserInfoRequest}.
- *
- * @author Desnoo
+ * {@inheritDoc}
  */
-public class SetUserInfoResult extends ProxerResult<Void> {
+public final class SetUserInfoResult extends ProxerResult<Void> {
 
     protected SetUserInfoResult(){
     }

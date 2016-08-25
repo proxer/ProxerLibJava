@@ -15,7 +15,8 @@ import java.util.Arrays;
 import okhttp3.ResponseBody;
 
 /**
- * Request to set the user view state of an anime or manga. See the list of possible user view states.
+ * Request to set the user view state of an anime or manga. See the list of possible user view
+ * states.
  *
  * @author Desnoo
  */
@@ -34,7 +35,8 @@ public class SetUserInfoRequest extends InfoRequest<Void> {
      *
      * @param id   The id of the anime/manga.
      * @param type The list type where the anime/manga should be add to.
-     *             See {@link com.proxerme.library.parameters.ViewStateParameter.ViewState} for parameters.
+     *             See {@link com.proxerme.library.parameters.ViewStateParameter.ViewState} for
+     *             parameters.
      */
     public SetUserInfoRequest(@NonNull String id, @ViewStateParameter.ViewState String type) {
         this.id = id;
@@ -42,7 +44,8 @@ public class SetUserInfoRequest extends InfoRequest<Void> {
     }
 
     @Override
-    protected ProxerResult<Void> parse(@NonNull Moshi moshi, @NonNull ResponseBody body) throws IOException {
+    protected ProxerResult<Void> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
         return moshi.adapter(SetUserInfoResult.class).fromJson(body.source());
     }
 
