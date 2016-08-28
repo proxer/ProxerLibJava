@@ -23,12 +23,15 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class NewsRequestTest extends RequestTest {
 
+    private static final String URL = "/v1/notifications/news?p=0";
+    private static final String URL_LIMIT = "/v1/notifications/news?p=0&limit=7";
+
     @Test
     public void testDefault() throws Exception {
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news)));
 
         News[] result = connection.executeSynchronized(new NewsRequest(0)
-                .withCustomHost(buildHostUrl(server.url("/v1/notifications/news?p=0"))));
+                .withCustomHost(buildHostUrl(server.url(URL))));
 
         assertEquals(generateTestNews(), result[0]);
     }
@@ -38,7 +41,7 @@ public class NewsRequestTest extends RequestTest {
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_limit)));
 
         News[] result = connection.executeSynchronized(new NewsRequest(0).withLimit(7)
-                .withCustomHost(buildHostUrl(server.url("/v1/notifications/news?p=0&limit=7"))));
+                .withCustomHost(buildHostUrl(server.url(URL_LIMIT))));
 
         assertEquals(7, result.length);
     }
