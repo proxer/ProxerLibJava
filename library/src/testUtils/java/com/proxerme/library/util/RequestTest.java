@@ -16,7 +16,7 @@ import okhttp3.mockwebserver.MockWebServer;
  *
  * @author Ruben Gees
  */
-public class RequestTest {
+public abstract class RequestTest {
 
     protected static MockWebServer server = new MockWebServer();
     protected static ProxerConnection connection = new ProxerConnection.Builder("test",
