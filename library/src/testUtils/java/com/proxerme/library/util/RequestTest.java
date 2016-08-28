@@ -16,11 +16,15 @@ import okhttp3.mockwebserver.MockWebServer;
  *
  * @author Ruben Gees
  */
-public abstract class RequestTest {
+public class RequestTest {
 
     protected static MockWebServer server = new MockWebServer();
     protected static ProxerConnection connection = new ProxerConnection.Builder("test",
             InstrumentationRegistry.getContext()).build();
+
+    protected RequestTest() {
+
+    }
 
     @BeforeClass
     public static void setUpServer() throws IOException {
