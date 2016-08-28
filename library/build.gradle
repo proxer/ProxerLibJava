@@ -5,7 +5,7 @@ group = 'com.github.proxer'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "$build_tools_version"
+    buildToolsVersion '24.0.2'
 
     defaultConfig {
         minSdkVersion 14
@@ -13,14 +13,25 @@ android {
         versionCode 39
         versionName "2.0.2"
         consumerProguardFiles 'proguard-rules.pro'
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    sourceSets {
+        androidTest.java.srcDirs += 'src/testUtils/java'
+        androidTest.resources.srcDirs += 'src/androidTest/res'
     }
 }
 
 dependencies {
     compile "com.android.support:support-annotations:$support_version"
     compile 'com.squareup.moshi:moshi:1.2.0'
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile "com.squareup.okhttp3:okhttp:$okhttp_version"
     compile 'com.github.franmontiel:PersistentCookieJar:v1.0.0'
+
+    androidTestCompile "com.android.support:support-annotations:$support_version"
+    androidTestCompile "com.squareup.okhttp3:mockwebserver:$okhttp_version"
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
 }
 
 task sourcesJar(type: Jar) {

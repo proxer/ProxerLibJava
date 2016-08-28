@@ -8,9 +8,15 @@ dependencies:
     - echo y | android update sdk --no-ui --all --filter "build-tools-24.0.2"
 
 test:
+  pre:
+    - emulator -avd circleci-android22 -no-audio -no-window:
+        background: true
+        parallel: true
+    - circle-android wait-for-boot
   override:
-    - ./gradlew clean lint install -PdisablePreDex -Dorg.gradle.daemon=false
+    - ./gradlew clean lint connectedAndroidTest install -PdisablePreDex -Dorg.gradle.daemon=false
     - mkdir $CIRCLE_TEST_REPORTS/lint
     - mkdir $CIRCLE_ARTIFACTS/javadoc
-    - mv library/build/outputs/lint-results-debug.* $CIRCLE_TEST_REPORTS/lint
-    - mv library/build/docs/javadoc/* $CIRCLE_ARTIFACTS/javadoc
+    - cp library/build/outputs/lint-results-debug.* $CIRCLE_TEST_REPORTS/lint
+    - cp library/build/docs/javadoc/* $CIRCLE_ARTIFACTS/javadoc
+    - cp -r my-project/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS

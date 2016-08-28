@@ -3,6 +3,7 @@ package com.proxerme.library.connection;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
+import android.support.annotation.VisibleForTesting;
 import android.util.Pair;
 
 import com.proxerme.library.info.ProxerUrlHolder;
@@ -40,6 +41,10 @@ public abstract class ProxerRequest<T> {
     protected static final String DELETE = "DELETE";
     protected static final String PUT = "PUT";
     protected static final String PATCH = "PATCH";
+
+    private static final String SCHEME = "https";
+
+    private HttpUrl customHost;
 
     Request build() {
         return new Request.Builder()
@@ -104,7 +109,13 @@ public abstract class ProxerRequest<T> {
     }
 
     private HttpUrl buildUrl() {
-        HttpUrl.Builder builder = ProxerUrlHolder.getApiHost().newBuilder();
+        HttpUrl.Builder builder;
+
+        if (customHost != null) {
+            builder = customHost.newBuilder();
+        } else {
+            builder = ProxerUrlHolder.getApiHost().newBuilder();
+        }
 
         builder.addPathSegment(getApiClass());
         builder.addPathSegment(getApiEndpoint());
@@ -116,6 +127,14 @@ public abstract class ProxerRequest<T> {
         }
 
         return builder.build();
+    }
+
+    @VisibleForTesting
+    @NonNull
+    public ProxerRequest<T> withCustomHost(@Nullable HttpUrl customHost) {
+        this.customHost = customHost;
+
+        return this;
     }
 
     /**
