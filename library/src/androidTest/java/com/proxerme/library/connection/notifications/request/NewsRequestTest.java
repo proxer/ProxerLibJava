@@ -23,8 +23,8 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class NewsRequestTest extends RequestTest {
 
-    private static final String URL = "/v1/notifications/news?p=0";
-    private static final String URL_LIMIT = "/v1/notifications/news?p=0&limit=7";
+    private static final String URL = "api/v1/notifications/news?p=0";
+    private static final String URL_LIMIT = "api/v1/notifications/news?p=0&limit=7";
 
     @Test
     public void testDefault() throws Exception {
