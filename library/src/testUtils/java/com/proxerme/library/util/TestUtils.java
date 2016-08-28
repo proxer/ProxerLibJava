@@ -10,7 +10,16 @@ import java.nio.charset.Charset;
 import okhttp3.HttpUrl;
 import okio.Okio;
 
-public class TestUtils {
+/**
+ * Utility class with methods used in tests.
+ *
+ * @author Ruben Gees
+ */
+public final class TestUtils {
+
+    private TestUtils() {
+
+    }
 
     public static String loadResponse(@RawRes int resource) throws IOException {
         return Okio.buffer(Okio.source(InstrumentationRegistry.getContext().getResources()

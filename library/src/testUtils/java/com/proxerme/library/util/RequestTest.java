@@ -12,7 +12,7 @@ import java.io.IOException;
 import okhttp3.mockwebserver.MockWebServer;
 
 /**
- * TODO: Describe class
+ * Base class for all {@link com.proxerme.library.connection.ProxerRequest} subclass tests.
  *
  * @author Ruben Gees
  */

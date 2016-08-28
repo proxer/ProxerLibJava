@@ -16,7 +16,7 @@ import static com.proxerme.library.util.TestUtils.loadResponse;
 import static org.junit.Assert.assertEquals;
 
 /**
- * TODO: Describe class
+ * Test for {@link NewsRequest}.
  *
  * @author Ruben Gees
  */

@@ -42,8 +42,6 @@ public abstract class ProxerRequest<T> {
     protected static final String PUT = "PUT";
     protected static final String PATCH = "PATCH";
 
-    private static final String SCHEME = "https";
-
     private HttpUrl customHost;
 
     Request build() {
