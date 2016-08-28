@@ -31,8 +31,8 @@ import static com.proxerme.library.util.TestUtils.loadResponse;
 @RunWith(AndroidJUnit4.class)
 public class ProxerConnectionTest {
 
-    protected static MockWebServer server = new MockWebServer();
-    protected static ProxerConnection connection = new ProxerConnection.Builder("test",
+    private static MockWebServer server = new MockWebServer();
+    private static ProxerConnection connection = new ProxerConnection.Builder("test",
             InstrumentationRegistry.getContext()).withDeliverCancelledRequests(true).build();
 
     @BeforeClass
