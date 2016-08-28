@@ -6,6 +6,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.proxerme.library.connection.notifications.entitiy.News;
 import com.proxerme.library.connection.notifications.request.NewsRequest;
 import com.proxerme.library.test.R;
+import com.squareup.moshi.Moshi;
 
 import junit.framework.Assert;
 
@@ -16,9 +17,12 @@ import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 
 import static com.proxerme.library.util.TestUtils.buildHostUrl;
 import static com.proxerme.library.util.TestUtils.loadResponse;
@@ -34,9 +38,12 @@ public class ProxerConnectionTest {
     private static final String URL = "/v1/notifications/news?p=0";
     private static final String ERROR_EXPECTED_EXCEPTION = "Expected Exception was not thrown.";
     private static final String ERROR_EXCEPTION = "An exception was thrown.";
+    private static final String API_KEY_HEADER = "proxer-api-key";
+    private static final String API_KEY = "test";
+    private static final long TIMEOUT = 123456L;
 
     private static MockWebServer server = new MockWebServer();
-    private static ProxerConnection connection = new ProxerConnection.Builder("test",
+    private static ProxerConnection connection = new ProxerConnection.Builder(API_KEY,
             InstrumentationRegistry.getContext()).withDeliverCancelledRequests(true).build();
 
     @BeforeClass
@@ -47,6 +54,52 @@ public class ProxerConnectionTest {
     @AfterClass
     public static void tearDownServer() throws IOException {
         server.shutdown();
+    }
+
+    @Test
+    public void testApiKeyHeader() throws Exception {
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news)));
+
+        News[] news = connection.executeSynchronized(new NewsRequest(0)
+                .withCustomHost(buildHostUrl(server.url(URL))));
+
+        RecordedRequest recordedRequest = server.takeRequest();
+
+        Assert.assertEquals(API_KEY, recordedRequest.getHeader(API_KEY_HEADER));
+    }
+
+    @Test
+    public void testApiKey() throws Exception {
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
+                InstrumentationRegistry.getContext()).build();
+
+        Assert.assertSame(API_KEY, testConnection.getApiKey());
+    }
+
+    @Test
+    public void testCustomMoshi() throws Exception {
+        Moshi moshi = new Moshi.Builder().build();
+
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
+                InstrumentationRegistry.getContext())
+                .withCustomMoshi(moshi)
+                .build();
+
+        Assert.assertSame(moshi, testConnection.getMoshi());
+    }
+
+    @Test
+    public void testCustomOkHttpClient() throws Exception {
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .build();
+
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
+                InstrumentationRegistry.getContext())
+                .withCustomOkHttp(okHttpClient)
+                .build();
+
+        Assert.assertEquals(TIMEOUT, testConnection.getHttpClient().connectTimeoutMillis());
     }
 
     @Test
@@ -65,8 +118,7 @@ public class ProxerConnectionTest {
 
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news)));
 
-        connection.execute(new NewsRequest(0)
-                        .withCustomHost(buildHostUrl(server.url(URL))),
+        connection.execute(new NewsRequest(0).withCustomHost(buildHostUrl(server.url(URL))),
                 new ProxerCallback<News[]>() {
                     @Override
                     public void onSuccess(News[] result) {
