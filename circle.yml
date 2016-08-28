@@ -14,9 +14,9 @@ test:
         parallel: true
     - circle-android wait-for-boot
   override:
-    - ./gradlew clean lint connectedAndroidTest install -PdisablePreDex -Dorg.gradle.daemon=false
+    - ./gradlew clean lint connectedAndroidTest install -PdisablePreDex -Dorg.gradle.daemon=false --console=plain
     - mkdir $CIRCLE_TEST_REPORTS/lint
     - mkdir $CIRCLE_ARTIFACTS/javadoc
-    - cp library/build/outputs/lint-results-debug.* $CIRCLE_TEST_REPORTS/lint
-    - cp library/build/docs/javadoc/* $CIRCLE_ARTIFACTS/javadoc
-    - cp -r my-project/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+    - cp -r library/build/outputs/lint-results-debug.* $CIRCLE_TEST_REPORTS/lint
+    - cp -r library/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+    - cp -r library/build/docs/javadoc/* $CIRCLE_ARTIFACTS/javadoc
