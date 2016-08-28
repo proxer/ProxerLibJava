@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * TODO: Describe class
+ * Tests for {@link User}.
  *
  * @author Ruben Gees
  */
@@ -47,5 +47,4 @@ public class UserTest {
     private User generateUninitializedTestUser() {
         return new User(USERNAME, PASSWORD);
     }
-
 }
