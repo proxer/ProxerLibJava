@@ -112,6 +112,34 @@ public class ProxerConnectionTest {
     }
 
     @Test
+    public void testProxerExceptionMessage() throws Exception {
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_error)));
+
+        try {
+            connection.executeSynchronized(new NewsRequest(0)
+                    .withCustomHost(buildHostUrl(server.url(URL))));
+
+            Assert.fail(ERROR_EXPECTED_EXCEPTION);
+        } catch (ProxerException exception) {
+            Assert.assertEquals(exception.getMessage(), "News konnten nicht abgerufen werden.");
+        }
+    }
+
+    @Test
+    public void testProxerExceptionCode() throws Exception {
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_error)));
+
+        try {
+            connection.executeSynchronized(new NewsRequest(0)
+                    .withCustomHost(buildHostUrl(server.url(URL))));
+
+            Assert.fail(ERROR_EXPECTED_EXCEPTION);
+        } catch (ProxerException exception) {
+            Assert.assertEquals((Integer) ProxerException.NEWS, exception.getProxerErrorCode());
+        }
+    }
+
+    @Test
     public void testUnparsableException() throws Exception {
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_broken)));
 
