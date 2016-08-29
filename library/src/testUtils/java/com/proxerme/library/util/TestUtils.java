@@ -5,7 +5,6 @@ import android.support.annotation.RawRes;
 import android.support.test.InstrumentationRegistry;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 import okhttp3.HttpUrl;
 import okio.Okio;
@@ -23,7 +22,7 @@ public final class TestUtils {
 
     public static String loadResponse(@RawRes int resource) throws IOException {
         return Okio.buffer(Okio.source(InstrumentationRegistry.getContext().getResources()
-                .openRawResource(resource))).readString(Charset.defaultCharset());
+                .openRawResource(resource))).readUtf8();
     }
 
     @NonNull
