@@ -4,8 +4,8 @@ import android.support.test.InstrumentationRegistry;
 
 import com.proxerme.library.connection.ProxerConnection;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 
 import java.io.IOException;
 
@@ -18,21 +18,24 @@ import okhttp3.mockwebserver.MockWebServer;
  */
 public class RequestTest {
 
-    protected static MockWebServer server = new MockWebServer();
-    protected static ProxerConnection connection = new ProxerConnection.Builder("test",
-            InstrumentationRegistry.getContext()).build();
+    protected MockWebServer server;
+    protected ProxerConnection connection;
 
     protected RequestTest() {
 
     }
 
-    @BeforeClass
-    public static void setUpServer() throws IOException {
+    @Before
+    public void setUp() throws IOException {
+        server = new MockWebServer();
+        connection = new ProxerConnection.Builder("test",
+                InstrumentationRegistry.getContext()).build();
+
         server.start();
     }
 
-    @AfterClass
-    public static void tearDownServer() throws IOException {
+    @After
+    public void tearDown() throws IOException {
         server.shutdown();
     }
 }
