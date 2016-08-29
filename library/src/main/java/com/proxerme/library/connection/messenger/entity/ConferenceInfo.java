@@ -30,9 +30,9 @@ public class ConferenceInfo implements Parcelable {
     private String topic;
     @Json(name = "count")
     private int participants;
-    @Json(name = "timestampStart")
+    @Json(name = "timestamp_start")
     private long firstMessageTime;
-    @Json(name = "timestampEnd")
+    @Json(name = "timestamp_end")
     private long lastMessageTime;
     @Json(name = "leader")
     private String leaderId;
