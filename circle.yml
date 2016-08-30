@@ -22,7 +22,7 @@ test:
         background: true
         parallel: true
   override:
-    - ./gradlew lint install -PdisablePreDex -Dorg.gradle.daemon=false --console=plain
+    - ./gradlew lint assembleDebug assembleDebugAndroidTest install -PdisablePreDex -Dorg.gradle.daemon=false --console=plain
     - circle-android wait-for-boot
     - ./gradlew connectedAndroidTest -PdisablePreDex -Dorg.gradle.daemon=false --console=plain
   post:
