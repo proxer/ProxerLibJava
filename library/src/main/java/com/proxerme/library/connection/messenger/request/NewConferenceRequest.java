@@ -30,6 +30,11 @@ public class NewConferenceRequest extends MessengerRequest<String> {
     private static final String ENDPOINT = "newconference";
     private static final String ENDPOINT_GROUP = "newconferencegroup";
 
+    private static final String TOPIC_PARAMETER = "topic";
+    private static final String USERS_PARAMETER = "users[]";
+    private static final String USERNAME_PARAMETER = "username";
+    private static final String TEXT_PARAMETER = "text";
+
     private String topic;
     private String[] users;
     private String user;
@@ -106,18 +111,18 @@ public class NewConferenceRequest extends MessengerRequest<String> {
     @Override
     protected RequestBody getRequestBody() {
         FormBody.Builder builder = new FormBody.Builder()
-                .add("topic", topic);
+                .add(TOPIC_PARAMETER, topic);
 
         if (users != null) {
             for (String user : users) {
-                builder.add("users[]", user);
+                builder.add(USERS_PARAMETER, user);
             }
         } else {
-            builder.add("username", user);
+            builder.add(USERNAME_PARAMETER, user);
         }
 
         if (firstMessage != null) {
-            builder.add("text", firstMessage);
+            builder.add(TEXT_PARAMETER, firstMessage);
         }
 
         return builder.build();
