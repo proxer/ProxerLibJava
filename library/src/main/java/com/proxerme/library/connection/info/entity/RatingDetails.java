@@ -25,10 +25,6 @@ public class RatingDetails implements Parcelable {
         }
     };
 
-    // example data:
-    // "{\"genre\":\"5\",\"story\":\"4\",\"animation\":\"5\",\"characters\":\"4\",\"music\":\"5\"}
-    // "data": "{\"genre\":\"5\",\"story\":\"5\",\"animation\":\"4\",\"characters\":\"5\"}",
-
     @Json(name = "genre")
     private int genre;
     @Json(name = "story")
@@ -37,8 +33,8 @@ public class RatingDetails implements Parcelable {
     private int animation;
     @Json(name = "characters")
     private int characters;
-    // @Json(name = "music") // TODO some strategy to use this for anime and manga.
-    // private int music;
+    @Json(name = "music")
+    private int music;
 
     /**
      * Private constructor used by moshi.
@@ -55,12 +51,13 @@ public class RatingDetails implements Parcelable {
      * @param characters The rating of characters.
      */
     public RatingDetails(@IntRange(from = 0, to = 5) int genre, @IntRange(from = 0, to = 5) int story,
-                         @IntRange(from = 0, to = 5) int animation, @IntRange(from = 0, to = 5) int characters) {
+                         @IntRange(from = 0, to = 5) int animation, @IntRange(from = 0, to = 5) int characters,
+                         @IntRange(from = 0, to = 5) int music) {
         this.genre = genre;
         this.story = story;
         this.animation = animation;
         this.characters = characters;
-        //this.music = music;
+        this.music = music;
     }
 
     /**
@@ -73,6 +70,7 @@ public class RatingDetails implements Parcelable {
         story = in.readInt();
         animation = in.readInt();
         characters = in.readInt();
+        music = in.readInt();
     }
 
     @Override
@@ -81,6 +79,7 @@ public class RatingDetails implements Parcelable {
         dest.writeInt(story);
         dest.writeInt(animation);
         dest.writeInt(characters);
+        dest.writeInt(music);
     }
 
     @Override
@@ -128,6 +127,16 @@ public class RatingDetails implements Parcelable {
         return characters;
     }
 
+    /**
+     * Returns the music rating.
+     *
+     * @return The music rating.
+     **/
+    @IntRange(from = 0, to = 5)
+    public int getMusic() {
+        return music;
+    }
+
     @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
@@ -139,6 +148,7 @@ public class RatingDetails implements Parcelable {
         if (genre != that.genre) return false;
         if (story != that.story) return false;
         if (animation != that.animation) return false;
+        if (music != that.music) return false;
         return characters == that.characters;
 
     }
@@ -149,6 +159,7 @@ public class RatingDetails implements Parcelable {
         result = 31 * result + story;
         result = 31 * result + animation;
         result = 31 * result + characters;
+        result = 31 * result + music;
         return result;
     }
 }

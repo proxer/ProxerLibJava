@@ -49,7 +49,7 @@ public class Relation implements Parcelable, IdItem {
     @Json(name = "medium")
     private String medium;
     @Json(name = "count")
-    private int count;
+    private int episodeCount;
     @Json(name = "state")
     private int state;
     @Json(name = "rate_sum")
@@ -76,28 +76,28 @@ public class Relation implements Parcelable, IdItem {
     }
 
     /**
-     * TODO comment this :(
+     * The constructor.
      *
-     * @param id
-     * @param name
-     * @param genre
-     * @param fsk
-     * @param description
-     * @param medium
-     * @param count
-     * @param state
-     * @param rateSum
-     * @param rateCount
-     * @param clicks
-     * @param category
-     * @param license
-     * @param language
-     * @param year
-     * @param season
+     * @param id The relation id.
+     * @param name The name.
+     * @param genre The genre.
+     * @param fsk The fsk rating.
+     * @param description The description.
+     * @param medium The medium.
+     * @param episodeCount The count of episodes/chapters.
+     * @param state The state of the anime/manga.
+     * @param rateSum The sum of all ratings.
+     * @param rateCount The count of all ratings.
+     * @param clicks The count of clicks on this entry.
+     * @param category The type.
+     * @param license The license state.
+     * @param language The language.
+     * @param year The release year.
+     * @param season The release season.
      */
     public Relation(@NonNull String id, @NonNull String name, @GenreParameter.Genre String genre,
                     @FskParameter.FskConstraint String fsk, @NonNull String description,
-                    @MediumParameter.Medium String medium, @IntRange(from = 0) int count,
+                    @MediumParameter.Medium String medium, @IntRange(from = 0) int episodeCount,
                     @StateParameter.State int state, @IntRange(from = 0) int rateSum, @IntRange(from = 0) int rateCount,
                     @IntRange(from = 0) int clicks, @CategoryParameter.Category String category,
                     @LicenseParameter.License int license,
@@ -109,7 +109,7 @@ public class Relation implements Parcelable, IdItem {
         this.fsk = fsk;
         this.description = description;
         this.medium = medium;
-        this.count = count;
+        this.episodeCount = episodeCount;
         this.state = state;
         this.rateSum = rateSum;
         this.rateCount = rateCount;
@@ -133,7 +133,7 @@ public class Relation implements Parcelable, IdItem {
         fsk = in.readString();
         description = in.readString();
         medium = in.readString();
-        count = in.readInt();
+        episodeCount = in.readInt();
         state = in.readInt();
         rateSum = in.readInt();
         rateCount = in.readInt();
@@ -212,8 +212,8 @@ public class Relation implements Parcelable, IdItem {
      * @return The Count.
      **/
     @IntRange(from = 0)
-    public int getCount() {
-        return count;
+    public int getEpisodeCount() {
+        return episodeCount;
     }
 
     /**
@@ -333,7 +333,7 @@ public class Relation implements Parcelable, IdItem {
         parcel.writeString(fsk);
         parcel.writeString(description);
         parcel.writeString(medium);
-        parcel.writeInt(count);
+        parcel.writeInt(episodeCount);
         parcel.writeInt(state);
         parcel.writeInt(rateSum);
         parcel.writeInt(rateCount);
@@ -354,7 +354,7 @@ public class Relation implements Parcelable, IdItem {
 
         Relation relation = (Relation) o;
 
-        if (count != relation.count) return false;
+        if (episodeCount != relation.episodeCount) return false;
         if (state != relation.state) return false;
         if (rateCount != relation.rateCount) return false;
         if (clicks != relation.clicks) return false;
@@ -380,7 +380,7 @@ public class Relation implements Parcelable, IdItem {
         result = 31 * result + fsk.hashCode();
         result = 31 * result + description.hashCode();
         result = 31 * result + medium.hashCode();
-        result = 31 * result + count;
+        result = 31 * result + episodeCount;
         result = 31 * result + state;
         result = 31 * result + rateSum;
         result = 31 * result + rateCount;
