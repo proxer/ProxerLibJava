@@ -110,10 +110,11 @@ public class NewConferenceRequest extends MessengerRequest<String> {
     @Nullable
     @Override
     protected RequestBody getRequestBody() {
-        FormBody.Builder builder = new FormBody.Builder()
-                .add(TOPIC_PARAMETER, topic);
+        FormBody.Builder builder = new FormBody.Builder();
 
         if (users != null) {
+            builder.add(TOPIC_PARAMETER, topic);
+
             for (String user : users) {
                 builder.add(USERS_PARAMETER, user);
             }
