@@ -4,6 +4,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.info.entity.Comment;
+import com.proxerme.library.test.R;
 import com.proxerme.library.util.RequestTest;
 
 import org.junit.Test;
@@ -30,7 +31,7 @@ public class CommentRequestTest extends RequestTest {
 
     @Test
     public void testAnime() throws ProxerException, IOException {
-        server.enqueue(new MockResponse().setBody(loadResponse(com.proxerme.library.test.R.raw.comment_anime)));
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.comment_anime)));
         Comment[] comments = connection.executeSynchronized(new CommentRequest(PAGE)
                                                                     .withCustomHost(buildHostUrl(server.url(URL))));
         assertEquals(25, comments[0].getEpisode());
@@ -45,8 +46,8 @@ public class CommentRequestTest extends RequestTest {
 
     @Test
     public void testManga() throws ProxerException, IOException {
-        server.enqueue(new MockResponse().setBody(loadResponse(com.proxerme.library.test.R.raw.comment_manga)));
-        Comment[] comments = connection.executeSynchronized(new CommentRequest("0")
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.comment_manga)));
+        Comment[] comments = connection.executeSynchronized(new CommentRequest(PAGE)
                                                                     .withCustomHost(buildHostUrl(server.url(URL))));
         assertEquals(63, comments[0].getEpisode());
 //        RatingDetails details = comments[0].getRatingDetails();
