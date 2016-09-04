@@ -26,11 +26,12 @@ import static org.junit.Assert.assertEquals;
 public class CommentRequestTest extends RequestTest {
 
     private static final String URL = "api/v1/info/comments";
+    private static final String PAGE = "0";
 
     @Test
     public void testAnime() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(loadResponse(com.proxerme.library.test.R.raw.comment_anime)));
-        Comment[] comments = connection.executeSynchronized(new CommentRequest("0")
+        Comment[] comments = connection.executeSynchronized(new CommentRequest(PAGE)
                                                                     .withCustomHost(buildHostUrl(server.url(URL))));
         assertEquals(25, comments[0].getEpisode());
 //        RatingDetails details = comments[0].getRatingDetails();
