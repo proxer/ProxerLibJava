@@ -6,7 +6,6 @@ import com.proxerme.library.connection.user.entitiy.User;
 import com.proxerme.library.test.R;
 import com.proxerme.library.util.RequestTest;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -14,6 +13,7 @@ import okhttp3.mockwebserver.MockResponse;
 
 import static com.proxerme.library.util.TestUtils.buildHostUrl;
 import static com.proxerme.library.util.TestUtils.loadResponse;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for {@link LoginRequest}.
@@ -35,7 +35,7 @@ public class LoginRequestTest extends RequestTest {
         User result = connection.executeSynchronized(new LoginRequest(USERNAME, PASSWORD)
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
-        Assert.assertEquals(generateTestUser(), result);
+        assertEquals(generateTestUser(), result);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class LoginRequestTest extends RequestTest {
         connection.executeSynchronized(new LoginRequest(USERNAME, PASSWORD)
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
-        Assert.assertEquals(URL, server.takeRequest().getPath());
+        assertEquals(URL, server.takeRequest().getPath());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class LoginRequestTest extends RequestTest {
         connection.executeSynchronized(new LoginRequest(USERNAME, PASSWORD)
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
-        Assert.assertEquals(2, server.takeRequest().getBody().readUtf8().split(DELIMITER).length);
+        assertEquals(2, server.takeRequest().getBody().readUtf8().split(DELIMITER).length);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class LoginRequestTest extends RequestTest {
         connection.executeSynchronized(new LoginRequest(USERNAME, PASSWORD)
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
-        Assert.assertEquals("username=" + USERNAME,
+        assertEquals("username=" + USERNAME,
                 server.takeRequest().getBody().readUtf8().split(DELIMITER)[0]);
     }
 
@@ -76,7 +76,7 @@ public class LoginRequestTest extends RequestTest {
         connection.executeSynchronized(new LoginRequest(USERNAME, PASSWORD)
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
-        Assert.assertEquals("password=" + PASSWORD,
+        assertEquals("password=" + PASSWORD,
                 server.takeRequest().getBody().readUtf8().split(DELIMITER)[1]);
     }
 

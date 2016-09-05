@@ -9,8 +9,6 @@ import com.proxerme.library.parameters.CommentStateParameter;
 import com.proxerme.library.test.R;
 import com.proxerme.library.util.RequestTest;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -72,7 +70,7 @@ public class CommentRequestTest extends RequestTest {
         Comment[] comments = connection.executeSynchronized(new CommentRequest(ID)
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
-        Assert.assertEquals(generateTestMangaComment(), comments[0]);
+        assertEquals(generateTestMangaComment(), comments[0]);
     }
 
     @Test
@@ -93,7 +91,7 @@ public class CommentRequestTest extends RequestTest {
                 .withSortType(CommentSortParameter.RATING)
                 .withCustomHost(buildHostUrl(server.url(PARAMETER_URL))));
 
-        Assert.assertEquals(PARAMETER_URL, server.takeRequest().getPath());
+        assertEquals(PARAMETER_URL, server.takeRequest().getPath());
     }
 
     private Comment generateTestComment() {

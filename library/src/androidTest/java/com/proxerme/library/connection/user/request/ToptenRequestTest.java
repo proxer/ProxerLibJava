@@ -8,14 +8,13 @@ import com.proxerme.library.test.R;
 import com.proxerme.library.util.RequestTest;
 import com.proxerme.library.util.TestUtils;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import okhttp3.mockwebserver.MockResponse;
 
 import static com.proxerme.library.util.TestUtils.buildHostUrl;
+import static junit.framework.Assert.assertEquals;
 
 /**
  * Tests for {@link ToptenRequest}.
@@ -37,7 +36,7 @@ public class ToptenRequestTest extends RequestTest {
         ToptenEntry[] result = connection.executeSynchronized(new ToptenRequest(USER_ID, USERNAME)
                 .withCustomHost(buildHostUrl(server.url(ANIME_URL))));
 
-        Assert.assertEquals(buildTestEntry(), result[0]);
+        assertEquals(buildTestEntry(), result[0]);
     }
 
     @Test
@@ -47,7 +46,7 @@ public class ToptenRequestTest extends RequestTest {
         connection.executeSynchronized(new ToptenRequest(USER_ID, USERNAME)
                 .withCustomHost(buildHostUrl(server.url(ANIME_URL))));
 
-        Assert.assertEquals(ANIME_URL, server.takeRequest().getPath());
+        assertEquals(ANIME_URL, server.takeRequest().getPath());
     }
 
     @Test
@@ -57,7 +56,7 @@ public class ToptenRequestTest extends RequestTest {
         ToptenEntry[] result = connection.executeSynchronized(new ToptenRequest(USER_ID, USERNAME)
                 .withCustomHost(buildHostUrl(server.url(ANIME_URL))));
 
-        Assert.assertEquals(10, result.length);
+        assertEquals(10, result.length);
     }
 
     @Test
@@ -67,7 +66,7 @@ public class ToptenRequestTest extends RequestTest {
         ToptenEntry[] result = connection.executeSynchronized(new ToptenRequest(USER_ID, USERNAME,
                 CategoryParameter.MANGA).withCustomHost(buildHostUrl(server.url(MANGA_URL))));
 
-        Assert.assertEquals(buildMangaTestEntry(), result[0]);
+        assertEquals(buildMangaTestEntry(), result[0]);
     }
 
     @Test
@@ -77,17 +76,17 @@ public class ToptenRequestTest extends RequestTest {
         ToptenEntry[] result = connection.executeSynchronized(new ToptenRequest(USER_ID, USERNAME,
                 CategoryParameter.MANGA).withCustomHost(buildHostUrl(server.url(MANGA_URL))));
 
-        Assert.assertEquals(3, result.length);
+        assertEquals(3, result.length);
     }
 
     @Test
     public void testMangaUrl() throws Exception {
         server.enqueue(new MockResponse().setBody(TestUtils.loadResponse(R.raw.topten_manga)));
 
-        ToptenEntry[] result = connection.executeSynchronized(new ToptenRequest(USER_ID, USERNAME,
+        connection.executeSynchronized(new ToptenRequest(USER_ID, USERNAME,
                 CategoryParameter.MANGA).withCustomHost(buildHostUrl(server.url(MANGA_URL))));
 
-        Assert.assertEquals(MANGA_URL, server.takeRequest().getPath());
+        assertEquals(MANGA_URL, server.takeRequest().getPath());
     }
 
     private ToptenEntry buildTestEntry() {
