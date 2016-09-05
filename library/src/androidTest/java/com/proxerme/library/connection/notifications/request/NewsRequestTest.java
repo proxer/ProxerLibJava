@@ -23,8 +23,8 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class NewsRequestTest extends RequestTest {
 
-    private static final String URL = "api/v1/notifications/news?p=0";
-    private static final String URL_LIMIT = "api/v1/notifications/news?p=0&limit=7";
+    private static final String URL = "/api/v1/notifications/news?p=0";
+    private static final String URL_LIMIT = "/api/v1/notifications/news?p=0&limit=7";
 
     @Test
     public void testDefault() throws Exception {
@@ -37,6 +37,16 @@ public class NewsRequestTest extends RequestTest {
     }
 
     @Test
+    public void testDefaultUrl() throws Exception {
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news)));
+
+        connection.executeSynchronized(new NewsRequest(0)
+                .withCustomHost(buildHostUrl(server.url(URL))));
+
+        assertEquals(URL, server.takeRequest().getPath());
+    }
+
+    @Test
     public void testLimit() throws Exception {
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_limit)));
 
@@ -44,6 +54,16 @@ public class NewsRequestTest extends RequestTest {
                 .withCustomHost(buildHostUrl(server.url(URL_LIMIT))));
 
         assertEquals(7, result.length);
+    }
+
+    @Test
+    public void testLimitUrl() throws Exception {
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_limit)));
+
+        connection.executeSynchronized(new NewsRequest(0).withLimit(7)
+                .withCustomHost(buildHostUrl(server.url(URL_LIMIT))));
+
+        assertEquals(URL_LIMIT, server.takeRequest().getPath());
     }
 
     private News generateTestNews() {

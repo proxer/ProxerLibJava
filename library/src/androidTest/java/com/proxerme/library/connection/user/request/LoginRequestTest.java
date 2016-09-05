@@ -39,6 +39,16 @@ public class LoginRequestTest extends RequestTest {
     }
 
     @Test
+    public void testDefaultUrl() throws Exception {
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.login)));
+
+        connection.executeSynchronized(new LoginRequest(USERNAME, PASSWORD)
+                .withCustomHost(buildHostUrl(server.url(URL))));
+
+        Assert.assertEquals(URL, server.takeRequest().getPath());
+    }
+
+    @Test
     public void testPostParameters() throws Exception {
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.login)));
 
