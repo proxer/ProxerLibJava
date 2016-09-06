@@ -11,8 +11,8 @@ public class ListsumResult extends ProxerResult<Integer> {
     @Json(name = "data")
     private Integer sum;
 
-    protected ListsumResult(Integer sum) {
-        this.sum = sum;
+    protected ListsumResult() {
+
     }
 
     @Override
