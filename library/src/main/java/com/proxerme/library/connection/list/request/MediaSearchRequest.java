@@ -11,8 +11,8 @@ import com.proxerme.library.connection.list.ListRequest;
 import com.proxerme.library.connection.list.entity.MediaListEntry;
 import com.proxerme.library.connection.list.result.MediaListResult;
 import com.proxerme.library.parameters.FskParameter.FskConstraint;
+import com.proxerme.library.parameters.GeneralLanguageParameter;
 import com.proxerme.library.parameters.GenreParameter.Genre;
-import com.proxerme.library.parameters.LanguageParameter.Language;
 import com.proxerme.library.parameters.LengthBoundParameter.LengthBound;
 import com.proxerme.library.parameters.MediaSortParameter.MediaSortCriteria;
 import com.proxerme.library.parameters.TagRateFilterParameter.TagRateFilter;
@@ -104,7 +104,7 @@ public class MediaSearchRequest extends ListRequest<MediaListEntry[]> {
      * @param language The language.
      * @return The Request.
      */
-    public MediaSearchRequest withLanguage(@Nullable @Language String language) {
+    public MediaSearchRequest withLanguage(@Nullable @GeneralLanguageParameter.GeneralLanguage String language) {
         this.language = language;
 
         return this;

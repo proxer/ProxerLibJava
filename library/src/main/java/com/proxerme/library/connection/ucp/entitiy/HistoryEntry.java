@@ -7,10 +7,12 @@ import android.support.annotation.NonNull;
 
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.TimeItem;
-import com.proxerme.library.parameters.CategoryParameter;
-import com.proxerme.library.parameters.LanguageParameter;
-import com.proxerme.library.parameters.MediumParameter;
+import com.proxerme.library.parameters.LanguageParameter.Language;
+import com.proxerme.library.util.Utils;
 import com.squareup.moshi.Json;
+
+import static com.proxerme.library.parameters.CategoryParameter.Category;
+import static com.proxerme.library.parameters.MediumParameter.Medium;
 
 /**
  * Entity representing a single entry in the watch/read history of the user.
@@ -39,12 +41,12 @@ public class HistoryEntry implements IdItem, TimeItem, Parcelable {
     private String language;
     @Json(name = "medium")
     private String medium;
-    @Json(name = "category")
+    @Json(name = "kat")
     private String category;
     @Json(name = "episode")
     private int episode;
     @Json(name = "timestamp")
-    private long time;
+    private String time;
 
     /**
      * The constructor.
@@ -55,13 +57,12 @@ public class HistoryEntry implements IdItem, TimeItem, Parcelable {
      * @param medium   The medium.
      * @param category The category.
      * @param episode  The last episode the user has read/watched.
-     * @param time     The last time the user watched/read an episode.
+     * @param time     The last time the user watched/read an episode as ISO timestamp.
      */
     public HistoryEntry(@NonNull String id, @NonNull String name,
-                        @NonNull @LanguageParameter.Language String language,
-                        @NonNull @MediumParameter.Medium String medium,
-                        @NonNull @CategoryParameter.Category String category,
-                        @IntRange(from = 0) int episode, long time) {
+                        @NonNull @Language String language, @NonNull @Medium String medium,
+                        @NonNull @Category String category, @IntRange(from = 0) int episode,
+                        @NonNull String time) {
         this.id = id;
         this.name = name;
         this.language = language;
@@ -78,7 +79,7 @@ public class HistoryEntry implements IdItem, TimeItem, Parcelable {
         this.medium = in.readString();
         this.category = in.readString();
         this.episode = in.readInt();
-        this.time = in.readLong();
+        this.time = in.readString();
     }
 
     /**
@@ -108,7 +109,7 @@ public class HistoryEntry implements IdItem, TimeItem, Parcelable {
      * @return The language.
      */
     @NonNull
-    @LanguageParameter.Language
+    @Language
     public String getLanguage() {
         return language;
     }
@@ -119,7 +120,7 @@ public class HistoryEntry implements IdItem, TimeItem, Parcelable {
      * @return The medium.
      */
     @NonNull
-    @MediumParameter.Medium
+    @Medium
     public String getMedium() {
         return medium;
     }
@@ -130,7 +131,7 @@ public class HistoryEntry implements IdItem, TimeItem, Parcelable {
      * @return The category.
      */
     @NonNull
-    @CategoryParameter.Category
+    @Category
     public String getCategory() {
         return category;
     }
@@ -152,7 +153,7 @@ public class HistoryEntry implements IdItem, TimeItem, Parcelable {
      */
     @Override
     public long getTime() {
-        return time;
+        return Utils.timestampToUnixTime(time);
     }
 
     @Override
@@ -163,7 +164,7 @@ public class HistoryEntry implements IdItem, TimeItem, Parcelable {
         HistoryEntry that = (HistoryEntry) o;
 
         if (episode != that.episode) return false;
-        if (time != that.time) return false;
+        if (!time.equals(that.time)) return false;
         if (!id.equals(that.id)) return false;
         if (!name.equals(that.name)) return false;
         if (!language.equals(that.language)) return false;
@@ -180,7 +181,7 @@ public class HistoryEntry implements IdItem, TimeItem, Parcelable {
         result = 31 * result + medium.hashCode();
         result = 31 * result + category.hashCode();
         result = 31 * result + episode;
-        result = 31 * result + (int) (time ^ (time >>> 32));
+        result = 31 * result + time.hashCode();
         return result;
     }
 
@@ -197,6 +198,6 @@ public class HistoryEntry implements IdItem, TimeItem, Parcelable {
         dest.writeString(this.medium);
         dest.writeString(this.category);
         dest.writeInt(this.episode);
-        dest.writeLong(this.time);
+        dest.writeString(this.time);
     }
 }
