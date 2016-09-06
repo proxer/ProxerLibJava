@@ -44,7 +44,7 @@ public class HistoryRequest extends UcpRequest<HistoryEntry[]> {
      * The maximum amount of entries to load.
      *
      * @param limit The amount.
-     * @return
+     * @return This request.
      */
     public HistoryRequest withLimit(@IntRange(from = 0) int limit) {
         this.limit = limit;
