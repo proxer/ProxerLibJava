@@ -20,7 +20,7 @@ public final class Utils {
     }
 
     public static long timestampToUnixTime(@NonNull String timestamp) {
-        SimpleDateFormat dateParser = new SimpleDateFormat(PATTERN, Locale.getDefault());
+        SimpleDateFormat dateParser = new SimpleDateFormat(PATTERN, Locale.GERMANY);
 
         try {
             return dateParser.parse(timestamp).getTime() / 1000;
