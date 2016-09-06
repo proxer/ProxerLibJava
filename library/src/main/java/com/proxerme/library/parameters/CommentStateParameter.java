@@ -13,12 +13,15 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class CommentStateParameter {
+public final class CommentStateParameter {
 
     public static final int WATCHED = 0;
     public static final int WATCHING = 1;
     public static final int WILL_WATCH = 2;
     public static final int CANCELLED = 3;
+
+    private CommentStateParameter() {
+    }
 
     /**
      * An annotation that represents the possible season.

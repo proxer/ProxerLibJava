@@ -12,10 +12,13 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class TagRateFilterParameter {
+public final class TagRateFilterParameter {
 
     public static final String REGISTERED = "rate_1";
     public static final String UNDEFINED = "rate-10";
+
+    private TagRateFilterParameter() {
+    }
 
     /**
      * An annotation representing the available tag rate filters.

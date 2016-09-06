@@ -12,12 +12,15 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class SubDubLanguageParameter {
+public final class SubDubLanguageParameter {
 
     public static final String GERMAN_SUB = "gersub";
     public static final String GERMAN_DUB = "gerdub";
     public static final String ENGLISH_SUB = "engsub";
     public static final String ENGLISH_DUB = "engdub";
+
+    private SubDubLanguageParameter() {
+    }
 
     /**
      * An annotation representing the available sub/dub languages.

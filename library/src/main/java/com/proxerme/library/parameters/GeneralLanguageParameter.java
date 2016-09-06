@@ -12,10 +12,13 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class GeneralLanguageParameter {
+public final class GeneralLanguageParameter {
 
     public static final String GERMAN = "de";
     public static final String ENGLISH = "en";
+
+    private GeneralLanguageParameter() {
+    }
 
     /**
      * An annotation representing the available general languages.

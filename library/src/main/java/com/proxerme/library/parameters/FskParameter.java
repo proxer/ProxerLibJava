@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class FskParameter {
+public final class FskParameter {
 
     public static final String FSK_0 = "fsk0";
     public static final String FSK_6 = "fsk6";
@@ -23,6 +23,9 @@ public class FskParameter {
     public static final String VIOLENCE = "violence";
     public static final String FEAR = "fear";
     public static final String SEX = "sex";
+
+    private FskParameter() {
+    }
 
     /**
      * An annotation representing the available fsk constraints.

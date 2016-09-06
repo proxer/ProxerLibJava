@@ -12,7 +12,10 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class LanguageParameter {
+public final class LanguageParameter {
+
+    private LanguageParameter() {
+    }
 
     /**
      * An annotation representing the available languages.

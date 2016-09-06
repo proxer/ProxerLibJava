@@ -12,11 +12,14 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class TagSpoilerFilterParameter {
+public final class TagSpoilerFilterParameter {
 
     public static final String NO_SPOILERS = "spoiler_0";
     public static final String ALL = "spoiler_10";
     public static final String SPOILERS = "spoiler_1";
+
+    private TagSpoilerFilterParameter() {
+    }
 
     /**
      * An annotation representing the available tag rate filters.

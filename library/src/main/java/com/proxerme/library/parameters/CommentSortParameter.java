@@ -12,10 +12,13 @@ import java.lang.annotation.Target;
  *
  * @author Desnoo
  */
-public class CommentSortParameter {
+public final class CommentSortParameter {
 
     public static final String RATING = "rating";
     public static final String NEWEST = "";
+
+    private CommentSortParameter() {
+    }
 
     /**
      * An annotation that represents the possible sort options.

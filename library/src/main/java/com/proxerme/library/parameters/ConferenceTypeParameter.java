@@ -13,12 +13,15 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class ConferenceTypeParameter {
+public final class ConferenceTypeParameter {
 
     public static final String FAVORITE = "favour";
     public static final String BLOCKED = "block";
     public static final String GROUP = "group";
     public static final String DEFAULT = "default";
+
+    private ConferenceTypeParameter() {
+    }
 
     /**
      * An annotation representing the available conference types.

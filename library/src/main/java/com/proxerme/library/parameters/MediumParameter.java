@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class MediumParameter {
+public final class MediumParameter {
 
     public static final String ANIMESERIES = "animeseries";
     public static final String MOVIE = "movie";
@@ -22,6 +22,9 @@ public class MediumParameter {
     public static final String ONESHOT = "oneshot";
     public static final String DOUJIN = "doujin";
     public static final String HMANGA = "hmanga";
+
+    private MediumParameter() {
+    }
 
     /**
      * An annotation representing the available mediums.

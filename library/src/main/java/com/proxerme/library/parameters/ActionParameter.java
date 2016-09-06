@@ -13,13 +13,16 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class ActionParameter {
+public final class ActionParameter {
 
     public static final String NONE = "";
     public static final String ADD_USER = "addUser";
     public static final String REMOVE_USER = "removeUser";
     public static final String SET_LEADER = "setLeader";
     public static final String SET_TOPIC = "setTopic";
+
+    private ActionParameter() {
+    }
 
     /**
      * An annotation representing the available actions of a

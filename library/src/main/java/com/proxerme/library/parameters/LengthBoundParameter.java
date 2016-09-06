@@ -12,10 +12,13 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class LengthBoundParameter {
+public final class LengthBoundParameter {
 
     public static final String UP = "up";
     public static final String DOWN = "down";
+
+    private LengthBoundParameter() {
+    }
 
     /**
      * An annotation representing the available length bounds.

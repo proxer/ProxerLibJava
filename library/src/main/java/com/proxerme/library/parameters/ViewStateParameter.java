@@ -12,11 +12,14 @@ import java.lang.annotation.Target;
  *
  * @author Desnoo
  */
-public class ViewStateParameter {
+public final class ViewStateParameter {
 
     public static final String WATCHLIST = "note";
     public static final String FAVOURITE = "favor";
     public static final String FINISHED = "finish";
+
+    private ViewStateParameter() {
+    }
 
     /**
      * An annotation that represents the possible view states.
