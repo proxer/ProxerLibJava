@@ -19,7 +19,7 @@ import static com.proxerme.library.util.TestUtils.loadResponse;
 import static org.junit.Assert.assertEquals;
 
 /**
- * TODO: Describe class
+ * Tests for {@link HistoryRequest}.
  *
  * @author Ruben Gees
  */
