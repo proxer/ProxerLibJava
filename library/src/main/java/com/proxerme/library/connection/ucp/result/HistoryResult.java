@@ -18,6 +18,6 @@ public class HistoryResult extends ProxerResult<HistoryEntry[]> {
 
     @Override
     public HistoryEntry[] getData() {
-        return new HistoryEntry[0];
+        return entries;
     }
 }
