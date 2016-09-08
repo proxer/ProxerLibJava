@@ -10,7 +10,6 @@ import okhttp3.HttpUrl;
  */
 public final class ProxerUrlHolder {
 
-    public static final String USER = "user";
     private static final String SCHEME = "https";
     private static final String API_HOST = "proxer.me";
     private static final String IMAGE_HOST = "cdn.proxer.me";
