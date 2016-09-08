@@ -10,6 +10,7 @@ import okhttp3.HttpUrl;
  */
 public final class ProxerUrlHolder {
 
+    public static final String USER = "user";
     private static final String SCHEME = "https";
     private static final String API_HOST = "proxer.me";
     private static final String IMAGE_HOST = "cdn.proxer.me";
@@ -23,12 +24,16 @@ public final class ProxerUrlHolder {
 
     private static final String AVATAR_SEGMENT = "avatar";
 
+    private static final String USER_SEGMENT = "user";
+
     private static final String COVER_SEGMENT = "cover";
     private static final String COVER_IMAGE_SEGMENT = "%s.jpg";
 
     private static final String FORUM_SEGMENT = "forum";
 
     private static final String DONATE_SEGMENT = "donate";
+
+    private static final String TOP_SEGMENT = "#top";
 
     private static final String DEVICE_QUERY_PARAMETER = "device";
     private static final String DEVICE_QUERY_PARAMETER_DEFAULT = "mobile";
@@ -103,6 +108,24 @@ public final class ProxerUrlHolder {
         return getImageHost().newBuilder()
                 .addPathSegment(AVATAR_SEGMENT)
                 .addPathSegment(imageLink)
+                .build();
+    }
+
+    /**
+     * Returns the url to the user profile.
+     *
+     * @param id     The user id.
+     * @param device Optional parameter to specify the device. Possible are "mobile" and
+     *               "default. "mobile" is the default value.
+     * @return The url.
+     */
+    @NonNull
+    public static HttpUrl getUserUrl(@NonNull String id, @Nullable String device) {
+        return getBaseApiHost().newBuilder()
+                .addPathSegment(USER_SEGMENT)
+                .addPathSegment(id)
+                .addPathSegment(TOP_SEGMENT)
+                .addQueryParameter(DEVICE_QUERY_PARAMETER, buildDeviceQueryParameter(device))
                 .build();
     }
 
