@@ -18,20 +18,31 @@ public final class ProxerUrlHolder {
 
     public static final String DEVICE_QUERY_PARAMETER_DEFAULT = "default";
     public static final String DEVICE_QUERY_PARAMETER_MOBILE = "mobile";
+
     private static final String SCHEME = "https";
     private static final String API_HOST = "proxer.me";
+
     private static final String IMAGE_HOST = "cdn.proxer.me";
+
     private static final String API_SEGMENT = "api";
     private static final String VERSION_SEGMENT = "v1";
+
     private static final String NEWS_SEGMENT = "news";
+
     private static final String TEMPORARY_SEGMENT = "tmp";
     private static final String NEWS_IMAGE_SEGMENT = "%s_%s.png";
+
     private static final String AVATAR_SEGMENT = "avatar";
+
     private static final String USER_SEGMENT = "user";
+
     private static final String COVER_SEGMENT = "cover";
     private static final String COVER_IMAGE_SEGMENT = "%s.jpg";
+
     private static final String FORUM_SEGMENT = "forum";
+
     private static final String DONATE_SEGMENT = "donate";
+
     private static final String DEVICE_QUERY_PARAMETER = "device";
 
     private ProxerUrlHolder() {
