@@ -2,6 +2,12 @@ package com.proxerme.library.info;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 import okhttp3.HttpUrl;
 
@@ -10,32 +16,23 @@ import okhttp3.HttpUrl;
  */
 public final class ProxerUrlHolder {
 
+    public static final String DEVICE_QUERY_PARAMETER_DEFAULT = "default";
+    public static final String DEVICE_QUERY_PARAMETER_MOBILE = "mobile";
     private static final String SCHEME = "https";
     private static final String API_HOST = "proxer.me";
     private static final String IMAGE_HOST = "cdn.proxer.me";
-
     private static final String API_SEGMENT = "api";
     private static final String VERSION_SEGMENT = "v1";
-
     private static final String NEWS_SEGMENT = "news";
     private static final String TEMPORARY_SEGMENT = "tmp";
     private static final String NEWS_IMAGE_SEGMENT = "%s_%s.png";
-
     private static final String AVATAR_SEGMENT = "avatar";
-
     private static final String USER_SEGMENT = "user";
-
     private static final String COVER_SEGMENT = "cover";
     private static final String COVER_IMAGE_SEGMENT = "%s.jpg";
-
     private static final String FORUM_SEGMENT = "forum";
-
     private static final String DONATE_SEGMENT = "donate";
-
-    private static final String TOP_SEGMENT = "#top";
-
     private static final String DEVICE_QUERY_PARAMETER = "device";
-    private static final String DEVICE_QUERY_PARAMETER_DEFAULT = "mobile";
 
     private ProxerUrlHolder() {
     }
@@ -115,17 +112,20 @@ public final class ProxerUrlHolder {
      *
      * @param id     The user id.
      * @param device Optional parameter to specify the device. Possible are "mobile" and
-     *               "default. "mobile" is the default value.
+     *               "default".
      * @return The url.
      */
     @NonNull
-    public static HttpUrl getUserUrl(@NonNull String id, @Nullable String device) {
-        return getBaseApiHost().newBuilder()
+    public static HttpUrl getUserUrl(@NonNull String id, @Nullable @Device String device) {
+        HttpUrl.Builder builder = getBaseApiHost().newBuilder()
                 .addPathSegment(USER_SEGMENT)
-                .addPathSegment(id)
-                .addPathSegment(TOP_SEGMENT)
-                .addQueryParameter(DEVICE_QUERY_PARAMETER, buildDeviceQueryParameter(device))
-                .build();
+                .addPathSegment(id);
+
+        if (device != null) {
+            builder.addQueryParameter(DEVICE_QUERY_PARAMETER, device);
+        }
+
+        return builder.build();
     }
 
     /**
@@ -149,37 +149,49 @@ public final class ProxerUrlHolder {
      * @param categoryId The id of the category.
      * @param threadId   The id of the thread.
      * @param device     Optional parameter to specify the device. Possible are "mobile" and
-     *                   "default. "mobile" is the default value.
+     *                   "default".
      * @return The url.
      */
     @NonNull
     public static HttpUrl getNewsUrl(@NonNull String categoryId, @NonNull String threadId,
-                                     @Nullable String device) {
-        return getBaseApiHost().newBuilder()
+                                     @Nullable @Device String device) {
+        HttpUrl.Builder builder = getBaseApiHost().newBuilder()
                 .addPathSegment(FORUM_SEGMENT)
                 .addPathSegment(categoryId)
-                .addPathSegment(threadId)
-                .addQueryParameter(DEVICE_QUERY_PARAMETER, buildDeviceQueryParameter(device))
-                .build();
+                .addPathSegment(threadId);
+
+        if (device != null) {
+            builder.addQueryParameter(DEVICE_QUERY_PARAMETER, device);
+        }
+
+        return builder.build();
     }
 
     /**
      * Returns the url for the donate page.
      *
      * @param device Optional parameter to specify the device. Possible are "mobile" and
-     *               "default. "mobile" is the default value.
+     *               "default".
      * @return The url.
      */
     @NonNull
-    public static HttpUrl getDonateUrl(@Nullable String device) {
-        return getBaseApiHost().newBuilder()
-                .addPathSegment(DONATE_SEGMENT)
-                .addQueryParameter(DEVICE_QUERY_PARAMETER, buildDeviceQueryParameter(device))
-                .build();
+    public static HttpUrl getDonateUrl(@Nullable @Device String device) {
+        HttpUrl.Builder builder = getBaseApiHost().newBuilder()
+                .addPathSegment(DONATE_SEGMENT);
+
+        if (device != null) {
+            builder.addQueryParameter(DEVICE_QUERY_PARAMETER, device);
+        }
+
+        return builder.build();
     }
 
-    private static String buildDeviceQueryParameter(@Nullable String parameter) {
-        return parameter == null ? DEVICE_QUERY_PARAMETER_DEFAULT : parameter;
+    /**
+     * An annotation representing the available tag rate filters.
+     */
+    @StringDef({DEVICE_QUERY_PARAMETER_DEFAULT, DEVICE_QUERY_PARAMETER_MOBILE})
+    @Retention(value = RetentionPolicy.SOURCE)
+    @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
+    public @interface Device {
     }
-
 }
