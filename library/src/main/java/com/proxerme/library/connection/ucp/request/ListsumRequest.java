@@ -12,7 +12,7 @@ import java.io.IOException;
 import okhttp3.ResponseBody;
 
 /**
- * Request for the amount of watched episodes. The user needs to be logged in for this APO.
+ * Request for the amount of watched episodes. The user needs to be logged in for this API.
  *
  * @author Ruben Gees
  */
