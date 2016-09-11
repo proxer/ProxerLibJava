@@ -4,6 +4,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.proxerme.library.connection.ProxerException;
 import com.proxerme.library.connection.info.entity.Comment;
+import com.proxerme.library.connection.info.entity.RatingDetails;
 import com.proxerme.library.test.R;
 import com.proxerme.library.util.RequestTest;
 
@@ -35,12 +36,12 @@ public class CommentRequestTest extends RequestTest {
         Comment[] comments = connection.executeSynchronized(new CommentRequest(PAGE)
                                                                     .withCustomHost(buildHostUrl(server.url(URL))));
         assertEquals(25, comments[0].getEpisode());
-//        RatingDetails details = comments[0].getRatingDetails();
-//        assertEquals(3, details.getGenre());
-//        assertEquals(3, details.getAnimation());
-//        assertEquals(5, details.getCharacters());
-//        assertEquals(4, details.getStory());
-//        assertEquals(4, details.getMusic());
+        RatingDetails details = comments[0].getRatingDetails();
+        assertEquals(3, details.getGenre());
+        assertEquals(4, details.getStory());
+        assertEquals(3, details.getAnimation());
+        assertEquals(5, details.getCharacters());
+        assertEquals(4, details.getMusic());
 
     }
 
@@ -50,11 +51,11 @@ public class CommentRequestTest extends RequestTest {
         Comment[] comments = connection.executeSynchronized(new CommentRequest(PAGE)
                                                                     .withCustomHost(buildHostUrl(server.url(URL))));
         assertEquals(63, comments[0].getEpisode());
-//        RatingDetails details = comments[0].getRatingDetails();
-//        assertEquals(5, details.getGenre());
-//        assertEquals(4, details.getAnimation());
-//        assertEquals(5, details.getCharacters());
-//        assertEquals(5, details.getStory());
-//        assertEquals(0, details.getMusic());
+        RatingDetails details = comments[0].getRatingDetails();
+        assertEquals(5, details.getGenre());
+        assertEquals(4, details.getAnimation());
+        assertEquals(5, details.getCharacters());
+        assertEquals(5, details.getStory());
+        assertEquals(0, details.getMusic());
     }
 }

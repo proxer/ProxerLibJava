@@ -2,6 +2,7 @@ package com.proxerme.library.connection.info.request;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.util.Pair;
 
 import com.proxerme.library.connection.ProxerResult;
@@ -80,7 +81,21 @@ public class CommentRequest extends InfoRequest<Comment[]> {
 
     @Override
     protected ProxerResult<Comment[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body) throws IOException {
-        return moshi.adapter(CommentResult.class).fromJson(body.source());
+        // remove the quotes from the object.
+        String ret = body.string();
+        // fill all empty rating responses with values that are zero
+        ret = ret.replaceAll("\"data\": \"\\[\\]\"", "\"data\": \"{\\\"genre\\\":\\\"0\\\",\\\"story\\\":\\\"0\\\",\\\"animation\\\":\\\"0\\\",\\\"characters\\\":\\\"0\\\",\\\"music\\\":\\\"0\\\"}\"");
+
+        int startIndex;
+        int endIndex;
+        while (ret.indexOf("\"{") > 0 && ret.indexOf("}\"") > 0) {
+            startIndex = ret.indexOf("\"{");
+            endIndex = ret.indexOf("}\"") + "}\"".length();
+            String str = ret.substring(startIndex, endIndex).replace("\"{", "{").replace("\\", "").replace("}\"", "}");
+            ret = ret.replace(ret.substring(startIndex, endIndex), str);
+        }
+        Log.d("CommentRequest", ret);
+        return moshi.adapter(CommentResult.class).fromJson(ret);
     }
 
 

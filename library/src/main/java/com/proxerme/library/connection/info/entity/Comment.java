@@ -29,7 +29,6 @@ public class Comment implements Parcelable, IdItem, ImageItem {
         }
     };
 
-
     @Json(name = "id")
     private String id;
     @Json(name = "tid")
@@ -40,8 +39,8 @@ public class Comment implements Parcelable, IdItem, ImageItem {
     private String type;
     @Json(name = "state")
     private int state;
-    // @Json(name = "data") // TODO implement custom adapter to parse this, moshi dont know object deserialization in a object.
-    // private RatingDetails ratingDetails;
+    @Json(name = "data")
+    private RatingDetails ratingDetails;
     @Json(name = "comment")
     private String comment;
     @Json(name = "rating")
@@ -71,6 +70,7 @@ public class Comment implements Parcelable, IdItem, ImageItem {
      * @param userId       The user id.
      * @param type         The comment type.
      * @param state        The comment state type {@link com.proxerme.library.parameters.CommentStateParameter.CommentState}
+     * @param ratingDetails The rating details.
      * @param comment      The comment text.
      * @param rating       The rating value.
      * @param episode      The highest episode the user watched.
@@ -80,7 +80,7 @@ public class Comment implements Parcelable, IdItem, ImageItem {
      * @param imageId      The image id.
      */
     public Comment(@NonNull String id, @NonNull String entryId, @NonNull String userId, @NonNull String type,
-                   @CommentStateParameter.CommentState int state,
+                   @CommentStateParameter.CommentState int state, @NonNull RatingDetails ratingDetails,
                    @NonNull String comment, @IntRange(from = 0, to = 10) int rating, @IntRange(from = 0) int episode,
                    @IntRange(from = 0) int helpfulVotes, long time, @NonNull String username,
                    @NonNull String imageId) {
@@ -89,7 +89,7 @@ public class Comment implements Parcelable, IdItem, ImageItem {
         this.userId = userId;
         this.type = type;
         this.state = state;
-        //this.ratingDetails = ratingDetails;
+        this.ratingDetails = ratingDetails;
         this.comment = comment;
         this.rating = rating;
         this.episode = episode;
@@ -110,6 +110,7 @@ public class Comment implements Parcelable, IdItem, ImageItem {
         userId = in.readString();
         type = in.readString();
         state = in.readInt();
+        ratingDetails = in.readParcelable(RatingDetails.class.getClassLoader());
         comment = in.readString();
         rating = in.readInt();
         episode = in.readInt();
@@ -163,6 +164,16 @@ public class Comment implements Parcelable, IdItem, ImageItem {
     @CommentStateParameter.CommentState
     public int getState() {
         return state;
+    }
+
+    /**
+     * Returns the RatingDetails.
+     *
+     * @return The RatingDetails.
+     **/
+    @NonNull
+    public RatingDetails getRatingDetails() {
+        return ratingDetails;
     }
 
     /**
@@ -236,21 +247,21 @@ public class Comment implements Parcelable, IdItem, ImageItem {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(entryId);
-        dest.writeString(userId);
-        dest.writeString(type);
-        dest.writeInt(state);
-        dest.writeString(comment);
-        dest.writeInt(rating);
-        dest.writeInt(episode);
-        dest.writeInt(helpfulVotes);
-        dest.writeLong(time);
-        dest.writeString(username);
-        dest.writeString(imageId);
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(entryId);
+        parcel.writeString(userId);
+        parcel.writeString(type);
+        parcel.writeInt(state);
+        parcel.writeParcelable(ratingDetails, i);
+        parcel.writeString(comment);
+        parcel.writeInt(rating);
+        parcel.writeInt(episode);
+        parcel.writeInt(helpfulVotes);
+        parcel.writeLong(time);
+        parcel.writeString(username);
+        parcel.writeString(imageId);
     }
-
 
     @SuppressWarnings("SimplifiableIfStatement")
     @Override
@@ -269,6 +280,7 @@ public class Comment implements Parcelable, IdItem, ImageItem {
         if (!entryId.equals(comment1.entryId)) return false;
         if (!userId.equals(comment1.userId)) return false;
         if (!type.equals(comment1.type)) return false;
+        if (!ratingDetails.equals(comment1.ratingDetails)) return false;
         if (!comment.equals(comment1.comment)) return false;
         if (!username.equals(comment1.username)) return false;
         return imageId.equals(comment1.imageId);
@@ -282,6 +294,7 @@ public class Comment implements Parcelable, IdItem, ImageItem {
         result = 31 * result + userId.hashCode();
         result = 31 * result + type.hashCode();
         result = 31 * result + state;
+        result = 31 * result + ratingDetails.hashCode();
         result = 31 * result + comment.hashCode();
         result = 31 * result + rating;
         result = 31 * result + episode;
