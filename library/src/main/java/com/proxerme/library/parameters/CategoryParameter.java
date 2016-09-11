@@ -12,10 +12,13 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class CategoryParameter {
+public final class CategoryParameter {
 
     public static final String ANIME = "anime";
     public static final String MANGA = "manga";
+
+    private CategoryParameter() {
+    }
 
     /**
      * An annotation representing the available categories.

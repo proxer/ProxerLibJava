@@ -12,13 +12,16 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class MediaSortParameter {
+public final class MediaSortParameter {
 
     public static final String RELEVANCE = "relevance";
     public static final String CLICKS = "clicks";
     public static final String RATING = "rating";
     public static final String COUNT = "count";
     public static final String NAME = "name";
+
+    private MediaSortParameter() {
+    }
 
     /**
      * An annotation representing the available sort criteria for media lists.

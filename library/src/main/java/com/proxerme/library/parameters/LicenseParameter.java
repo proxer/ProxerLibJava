@@ -12,11 +12,14 @@ import java.lang.annotation.Target;
  *
  * @author Desnoo
  */
-public class LicenseParameter {
+public final class LicenseParameter {
 
     public static final int UNKNOWN = 0;
     public static final int NON_LICENSED = 1;
     public static final int LICENSED = 2;
+
+    private LicenseParameter() {
+    }
 
     /**
      * An annotation representing the license parameters.

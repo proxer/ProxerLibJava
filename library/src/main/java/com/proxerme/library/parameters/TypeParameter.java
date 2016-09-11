@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class TypeParameter {
+public final class TypeParameter {
 
     public static final String ANIMESERIES = "animeseries";
     public static final String MOVIE = "movie";
@@ -27,6 +27,9 @@ public class TypeParameter {
     public static final String ALL_MANGA = "all-manga";
     public static final String ALL = "all";
     public static final String ALL_WITH_HENTAI = "all18";
+
+    private TypeParameter() {
+    }
 
     /**
      * An annotation representing the available mediums.

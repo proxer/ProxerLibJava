@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class GenreParameter {
+public final class GenreParameter {
 
     public static final String ADVENTURE = "Abenteuer";
     public static final String ACTION = "Action";
@@ -49,7 +49,6 @@ public class GenreParameter {
     public static final String VIOLENCE = "Violence";
     public static final String YAOI = "Yaoi";
     public static final String YURI = "Yuri";
-
     /**
      * An array of all available genres for use in a list.
      */
@@ -58,6 +57,9 @@ public class GenreParameter {
             MUSIC, MYSTERY, PSYCHOLOGICAL, ROMANCE, SCHOOL, SCI_FI, SEINEN, SHOUJOU, SHOUJOU_AI,
             SHOUNEN, SHOUNEN_AI, SLICE_OF_LIFE, SPLATTER, SPORT, SUPERPOWER, VAMPIRE, VIOLENCE,
             YAOI, YURI,};
+
+    private GenreParameter() {
+    }
 
     /**
      * An annotation representing the available languages.

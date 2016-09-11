@@ -9,8 +9,8 @@ import android.support.annotation.NonNull;
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.parameters.CategoryParameter;
 import com.proxerme.library.parameters.FskParameter;
+import com.proxerme.library.parameters.GeneralLanguageParameter;
 import com.proxerme.library.parameters.GenreParameter;
-import com.proxerme.library.parameters.LanguageParameter;
 import com.proxerme.library.parameters.LicenseParameter;
 import com.proxerme.library.parameters.MediumParameter;
 import com.proxerme.library.parameters.SeasonParameter;
@@ -101,7 +101,7 @@ public class Relation implements Parcelable, IdItem {
                     @StateParameter.State int state, @IntRange(from = 0) int rateSum, @IntRange(from = 0) int rateCount,
                     @IntRange(from = 0) int clicks, @CategoryParameter.Category String category,
                     @LicenseParameter.License int license,
-                    @LanguageParameter.Language String language, @IntRange(from = 0) int year,
+                    @GeneralLanguageParameter.GeneralLanguage String language, @IntRange(from = 0) int year,
                     @SeasonParameter.SeasonConstraint int season) {
         this.id = id;
         this.name = name;
@@ -281,7 +281,7 @@ public class Relation implements Parcelable, IdItem {
      *
      * @return The Language.
      **/
-    @LanguageParameter.Language
+    @GeneralLanguageParameter.GeneralLanguage
     public String getLanguage() {
         return language;
     }

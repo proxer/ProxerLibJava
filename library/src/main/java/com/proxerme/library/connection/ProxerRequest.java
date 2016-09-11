@@ -42,6 +42,9 @@ public abstract class ProxerRequest<T> {
     protected static final String PUT = "PUT";
     protected static final String PATCH = "PATCH";
 
+    private static final String API_SEGMENT = "api";
+    private static final String VERSION_SEGMENT = "v1";
+
     private HttpUrl customHost;
 
     Request build() {
@@ -110,7 +113,8 @@ public abstract class ProxerRequest<T> {
         HttpUrl.Builder builder;
 
         if (customHost != null) {
-            builder = customHost.newBuilder();
+            builder = customHost.newBuilder().addPathSegment(API_SEGMENT)
+                    .addPathSegment(VERSION_SEGMENT);
         } else {
             builder = ProxerUrlHolder.getApiHost().newBuilder();
         }

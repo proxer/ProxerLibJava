@@ -8,8 +8,6 @@ import com.proxerme.library.connection.notifications.request.NewsRequest;
 import com.proxerme.library.test.R;
 import com.squareup.moshi.Moshi;
 
-import junit.framework.Assert;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -22,10 +20,13 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.RecordedRequest;
 
 import static com.proxerme.library.util.TestUtils.buildHostUrl;
 import static com.proxerme.library.util.TestUtils.loadResponse;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.fail;
 
 /**
  * Tests for {@link ProxerConnection}.
@@ -60,12 +61,10 @@ public class ProxerConnectionTest {
     public void testApiKeyHeader() throws Exception {
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news)));
 
-        News[] news = connection.executeSynchronized(new NewsRequest(0)
+        connection.executeSynchronized(new NewsRequest(0)
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
-        RecordedRequest recordedRequest = server.takeRequest();
-
-        Assert.assertEquals(API_KEY, recordedRequest.getHeader(API_KEY_HEADER));
+        assertEquals(API_KEY, server.takeRequest().getHeader(API_KEY_HEADER));
     }
 
     @Test
@@ -73,7 +72,7 @@ public class ProxerConnectionTest {
         ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
                 InstrumentationRegistry.getContext()).build();
 
-        Assert.assertSame(API_KEY, testConnection.getApiKey());
+        assertSame(API_KEY, testConnection.getApiKey());
     }
 
     @Test
@@ -85,7 +84,7 @@ public class ProxerConnectionTest {
                 .withCustomMoshi(moshi)
                 .build();
 
-        Assert.assertSame(moshi, testConnection.getMoshi());
+        assertSame(moshi, testConnection.getMoshi());
     }
 
     @Test
@@ -99,7 +98,7 @@ public class ProxerConnectionTest {
                 .withCustomOkHttp(okHttpClient)
                 .build();
 
-        Assert.assertEquals(TIMEOUT, testConnection.getHttpClient().connectTimeoutMillis());
+        assertEquals(TIMEOUT, testConnection.getHttpClient().connectTimeoutMillis());
     }
 
     @Test
@@ -109,7 +108,7 @@ public class ProxerConnectionTest {
         News[] news = connection.executeSynchronized(new NewsRequest(0)
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
-        Assert.assertNotNull(news);
+        assertNotNull(news);
     }
 
     @Test(timeout = 3000)
@@ -127,7 +126,7 @@ public class ProxerConnectionTest {
                 }, new ProxerErrorCallback() {
                     @Override
                     public void onError(ProxerException exception) {
-                        Assert.fail(ERROR_EXCEPTION);
+                        fail(ERROR_EXCEPTION);
                     }
                 });
 
@@ -143,9 +142,9 @@ public class ProxerConnectionTest {
                             .port(12345)
                             .build()));
 
-            Assert.fail(ERROR_EXPECTED_EXCEPTION);
+            fail(ERROR_EXPECTED_EXCEPTION);
         } catch (ProxerException exception) {
-            Assert.assertEquals(ProxerException.NETWORK, exception.getErrorCode());
+            assertEquals(ProxerException.NETWORK, exception.getErrorCode());
         }
     }
 
@@ -157,9 +156,9 @@ public class ProxerConnectionTest {
             connection.executeSynchronized(new NewsRequest(0)
                     .withCustomHost(buildHostUrl(server.url(URL))));
 
-            Assert.fail(ERROR_EXPECTED_EXCEPTION);
+            fail(ERROR_EXPECTED_EXCEPTION);
         } catch (ProxerException exception) {
-            Assert.assertEquals(ProxerException.PROXER, exception.getErrorCode());
+            assertEquals(ProxerException.PROXER, exception.getErrorCode());
         }
     }
 
@@ -171,9 +170,9 @@ public class ProxerConnectionTest {
             connection.executeSynchronized(new NewsRequest(0)
                     .withCustomHost(buildHostUrl(server.url(URL))));
 
-            Assert.fail(ERROR_EXPECTED_EXCEPTION);
+            fail(ERROR_EXPECTED_EXCEPTION);
         } catch (ProxerException exception) {
-            Assert.assertEquals(exception.getMessage(), "News konnten nicht abgerufen werden.");
+            assertEquals(exception.getMessage(), "News konnten nicht abgerufen werden.");
         }
     }
 
@@ -185,9 +184,9 @@ public class ProxerConnectionTest {
             connection.executeSynchronized(new NewsRequest(0)
                     .withCustomHost(buildHostUrl(server.url(URL))));
 
-            Assert.fail(ERROR_EXPECTED_EXCEPTION);
+            fail(ERROR_EXPECTED_EXCEPTION);
         } catch (ProxerException exception) {
-            Assert.assertEquals((Integer) ProxerException.NEWS, exception.getProxerErrorCode());
+            assertEquals((Integer) ProxerException.NEWS, exception.getProxerErrorCode());
         }
     }
 
@@ -199,9 +198,9 @@ public class ProxerConnectionTest {
             connection.executeSynchronized(new NewsRequest(0)
                     .withCustomHost(buildHostUrl(server.url(URL))));
 
-            Assert.fail(ERROR_EXPECTED_EXCEPTION);
+            fail(ERROR_EXPECTED_EXCEPTION);
         } catch (ProxerException exception) {
-            Assert.assertEquals(ProxerException.UNPARSABLE, exception.getErrorCode());
+            assertEquals(ProxerException.UNPARSABLE, exception.getErrorCode());
         }
     }
 
@@ -214,7 +213,7 @@ public class ProxerConnectionTest {
                 new ProxerCallback<News[]>() {
                     @Override
                     public void onSuccess(News[] result) {
-                        Assert.fail(ERROR_EXPECTED_EXCEPTION);
+                        fail(ERROR_EXPECTED_EXCEPTION);
                     }
                 }, new ProxerErrorCallback() {
                     @Override
@@ -222,7 +221,7 @@ public class ProxerConnectionTest {
                         if (exception.getErrorCode() == ProxerException.CANCELLED) {
                             lock.countDown();
                         } else {
-                            Assert.fail(ERROR_EXPECTED_EXCEPTION);
+                            fail(ERROR_EXPECTED_EXCEPTION);
                         }
                     }
                 });

@@ -2,10 +2,10 @@ package com.proxerme.library.connection.user.entitiy;
 
 import android.support.test.runner.AndroidJUnit4;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static junit.framework.Assert.assertEquals;
 
 /**
  * Tests for {@link User}.
@@ -22,12 +22,12 @@ public class UserTest {
 
     @Test
     public void testGetId() throws Exception {
-        Assert.assertEquals(ID, generateTestUser().getId());
+        assertEquals(ID, generateTestUser().getId());
     }
 
     @Test
     public void testGetImageId() throws Exception {
-        Assert.assertEquals(IMAGE_ID, generateTestUser().getImageId());
+        assertEquals(IMAGE_ID, generateTestUser().getImageId());
     }
 
     @Test(expected = User.UserInitializationException.class)

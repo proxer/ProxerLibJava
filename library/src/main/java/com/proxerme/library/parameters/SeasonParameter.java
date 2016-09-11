@@ -12,12 +12,15 @@ import java.lang.annotation.Target;
  *
  * @author Desnoo
  */
-public class SeasonParameter {
+public final class SeasonParameter {
 
     public static final int WINTER = 1;
     public static final int SPRING = 2;
     public static final int SUMMER = 3;
     public static final int AUTUMN = 4;
+
+    private SeasonParameter() {
+    }
 
     /**
      * An annotation that represents the possible season.

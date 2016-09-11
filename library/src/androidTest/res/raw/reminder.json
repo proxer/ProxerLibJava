@@ -1,0 +1,876 @@
+{
+  "data": [
+    {
+      "eid": "13975",
+      "name": "Re:Zero kara Hajimeru Isekai Seikatsu",
+      "episode": "1",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "36614132",
+      "state": "2",
+      "kat": "anime"
+    },
+    {
+      "eid": "8256",
+      "name": "Mahouka Koukou no Rettousei",
+      "episode": "5",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "35202162",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "83",
+      "name": "To Aru Majutsu no Index",
+      "episode": "4",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "35188003",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "14338",
+      "name": "Netoge no Yome wa Onnanoko ja Nai to Omotta?",
+      "episode": "8",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "34696186",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "12337",
+      "name": "Hundred",
+      "episode": "5",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "33652306",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "8606",
+      "name": "Ao Haru Ride",
+      "episode": "10",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "30120893",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "16209",
+      "name": "Kono Subarashii Sekai ni Shukufuku wo! Second Season",
+      "episode": "1",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "29512344",
+      "state": "0",
+      "kat": "anime"
+    },
+    {
+      "eid": "14995",
+      "name": "Saijaku Muhai no Bahamut",
+      "episode": "4",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "28267993",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "4865",
+      "name": "Shinsekai yori",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "27658981",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "880",
+      "name": "Rainbow: Nisha Rokubou no Shichinin",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "27658946",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "9248",
+      "name": "Ansatsu Kyoushitsu",
+      "episode": "2",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "27029458",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "7791",
+      "name": "Oppai Infinity!: The Animation",
+      "episode": "1",
+      "language": "engsub",
+      "medium": "hentai",
+      "id": "27028750",
+      "state": "0",
+      "kat": "anime"
+    },
+    {
+      "eid": "8335",
+      "name": "Fairy Tail (2014)",
+      "episode": "71",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "25878798",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "14953",
+      "name": "One Punch Man OAD",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "ova",
+      "id": "22988808",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "13917",
+      "name": "Gakusen Toshi Asterisk",
+      "episode": "3",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "22587889",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "8703",
+      "name": "Gekkan Shoujo Nozaki-kun",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "13451560",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "806",
+      "name": "Kuroshitsuji",
+      "episode": "2",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "13250154",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "537",
+      "name": "Paprika",
+      "episode": "1",
+      "language": "engsub",
+      "medium": "movie",
+      "id": "10312437",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "10737",
+      "name": "Grisaia no Meikyuu",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "ova",
+      "id": "10250069",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "4362",
+      "name": "Prism",
+      "episode": "2",
+      "language": "en",
+      "medium": "mangaseries",
+      "id": "10140806",
+      "state": "1",
+      "kat": "manga"
+    },
+    {
+      "eid": "5195",
+      "name": "Ore no Kanojo to Osananajimi ga Shuraba Sugiru",
+      "episode": "2",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "8002764",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "8472",
+      "name": "Psycho-Pass Re:START",
+      "episode": "5",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "7788305",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "8455",
+      "name": "Zankyou no Terror",
+      "episode": "6",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "7349989",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "6822",
+      "name": "Kyoukai no Kanata",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "6628036",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "8605",
+      "name": "Himegoto",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "6627977",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "5207",
+      "name": "Mondaiji-tachi ga Isekai kara Kuru Sou Desu yo?",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "6627955",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "8738",
+      "name": "Glasslip",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "6209128",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "866",
+      "name": "Trinity Blood",
+      "episode": "1",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "6155490",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "7619",
+      "name": "Gokukoku no Brynhildr",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "5223782",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "102",
+      "name": "Darker than Black: Ryuusei no Gemini",
+      "episode": "4",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "4623835",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "1601",
+      "name": "Dragon Crisis",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "4152978",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "514",
+      "name": "Kurozuka",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "3982660",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "4",
+      "name": "Bakemonogatari",
+      "episode": "5",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "3890563",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "6647",
+      "name": "Golden Time",
+      "episode": "3",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "3831936",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "6513",
+      "name": "Strike the Blood",
+      "episode": "11",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "3583029",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "5848",
+      "name": "Tokyo Ravens",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "3371043",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "2089",
+      "name": "Hunter x Hunter (2011)",
+      "episode": "3",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "2660535",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "370",
+      "name": "Ikkitousen",
+      "episode": "1",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "2651999",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "210",
+      "name": "Bakumatsu Kikansetsu Irohanihoheto",
+      "episode": "3",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "2649422",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "277",
+      "name": "Gintama",
+      "episode": "5",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "2346913",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "692",
+      "name": "07-Ghost",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "2302203",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "908",
+      "name": "Peace Maker Kurogane",
+      "episode": "2",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "2262780",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "6640",
+      "name": "Log Horizon",
+      "episode": "4",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "2260662",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "2079",
+      "name": "Maji de Watashi ni Koi Shinasai!",
+      "episode": "3",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "2209748",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "2366",
+      "name": "Brave 10",
+      "episode": "3",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "2142607",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "28",
+      "name": "Amatsuki",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "2123811",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "1381",
+      "name": "Hyakka Ryouran Samurai Girls",
+      "episode": "1",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "1942764",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "2104",
+      "name": "Ben-To",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "1886245",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "4819",
+      "name": "Zetsuen no Tempest",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "1886239",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "4812",
+      "name": "K",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "1886232",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "6430",
+      "name": "Kami-sama no Inai Nichiyoubi",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "1513163",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "122",
+      "name": "Hellsing",
+      "episode": "1",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "1386060",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "478",
+      "name": "Monster",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "1386059",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "5861",
+      "name": "Dansai Bunri no Crime Edge",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "1335508",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "5120",
+      "name": "Karneval (2013)",
+      "episode": "2",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "1335504",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "5945",
+      "name": "Brothers Conflict",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "1263332",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "5756",
+      "name": "Devil Survivor 2 The Animation",
+      "episode": "2",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "1263321",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "3344",
+      "name": "Haiyore! Nyaruko-san",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "1263317",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "64",
+      "name": "Rosario to Vampire",
+      "episode": "6",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "1261108",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "5825",
+      "name": "Date a Live",
+      "episode": "2",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "1231465",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "63",
+      "name": "Nogizaka Haruka no Himitsu",
+      "episode": "3",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "1164860",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "325",
+      "name": "Higurashi no Naku Koro ni",
+      "episode": "23",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "1160468",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "391",
+      "name": "Kannagi",
+      "episode": "12",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "844301",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "3242",
+      "name": "Hyouka",
+      "episode": "4",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "822478",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "85",
+      "name": "Shakugan no Shana",
+      "episode": "2",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "815790",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "121",
+      "name": "Tokimeki Memorial: Only Love",
+      "episode": "7",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "810020",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "5838",
+      "name": "Aku no Hana",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "730406",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "149",
+      "name": "Baka to Test to Shoukanjuu",
+      "episode": "2",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "634168",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "160",
+      "name": "Higashi no Eden",
+      "episode": "4",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "536044",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "1462",
+      "name": "Yosuga no Sora",
+      "episode": "5",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "535574",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "193",
+      "name": "Blood+",
+      "episode": "1",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "494364",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "422",
+      "name": "Kodomo no Jikan (TV)",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "479034",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "197",
+      "name": "Bokura ga Ita",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "439946",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "1459",
+      "name": "Ore No Imouto ga Konnani Kawaii Wake ga Nai",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "437045",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "111",
+      "name": "Suzumiya Haruhi no Yuuutsu",
+      "episode": "1",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "435391",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "711",
+      "name": "Tonagura!",
+      "episode": "5",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "428793",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "860",
+      "name": "H2O: Footprints in the Sand",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "417902",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "244",
+      "name": "Ef: A Tale of Memories.",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "417897",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "176",
+      "name": "Kanokon",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "408304",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "1901",
+      "name": "Hoshizora e Kakaru Hashi",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "385957",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "831",
+      "name": "Working!!",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "382091",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "168",
+      "name": "True Tears",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "371527",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "134",
+      "name": "Hanbun no Tsuki ga Noboru Sora",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "361810",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "365",
+      "name": "Itazura na Kiss",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "361801",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "870",
+      "name": "B Gata H Kei",
+      "episode": "5",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "307457",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "3248",
+      "name": "Acchi Kocchi",
+      "episode": "2",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "295847",
+      "state": "1",
+      "kat": "anime"
+    },
+    {
+      "eid": "123",
+      "name": "KissXsis",
+      "episode": "1",
+      "language": "gersub",
+      "medium": "animeseries",
+      "id": "293701",
+      "state": "1",
+      "kat": "anime"
+    }
+  ],
+  "error": 0,
+  "message": "Abfrage erfolgreich"
+}

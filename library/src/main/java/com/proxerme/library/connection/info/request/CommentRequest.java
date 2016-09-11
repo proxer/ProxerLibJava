@@ -32,8 +32,8 @@ public class CommentRequest extends InfoRequest<Comment[]> {
     private static final String SORT_PARAMETER = "sort";
 
     private String id;
-    private int page;
-    private int limit;
+    private Integer page;
+    private Integer limit;
     private String sortType;
 
     /**

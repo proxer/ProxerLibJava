@@ -8,25 +8,25 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Class containing the available tag rate filters.
+ * Class containing the general available languages, used in searching.
  *
  * @author Ruben Gees
  */
-public final class TagRateFilterParameter {
+public final class GeneralLanguageParameter {
 
-    public static final String REGISTERED = "rate_1";
-    public static final String UNDEFINED = "rate-10";
+    public static final String GERMAN = "de";
+    public static final String ENGLISH = "en";
 
-    private TagRateFilterParameter() {
+    private GeneralLanguageParameter() {
     }
 
     /**
-     * An annotation representing the available tag rate filters.
+     * An annotation representing the available general languages.
      */
-    @StringDef({REGISTERED, UNDEFINED})
+    @StringDef({GERMAN, ENGLISH})
     @Retention(value = RetentionPolicy.SOURCE)
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
-    public @interface TagRateFilter {
+    public @interface GeneralLanguage {
     }
 
 }

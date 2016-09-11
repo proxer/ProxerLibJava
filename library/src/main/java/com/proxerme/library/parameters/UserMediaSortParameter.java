@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class UserMediaSortParameter {
+public final class UserMediaSortParameter {
 
     public static final String NAME_ASCENDING = "nameASC";
     public static final String NAME_DESCENDING = "nameDESC";
@@ -22,6 +22,9 @@ public class UserMediaSortParameter {
     public static final String CHANGE_DATE_DESCENDING = "changeDateDESC";
     public static final String STATE_CHANGE_DATE_ASCENDING = "stateChangeDateASC";
     public static final String STATE_CHANGE_DATE_DESCENDING = "stateChangeDateDESC";
+
+    private UserMediaSortParameter() {
+    }
 
     /**
      * An annotation representing the available sort criteria for user media lists.
