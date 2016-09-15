@@ -1,5 +1,6 @@
 package com.proxerme.library.connection;
 
+import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -37,10 +38,18 @@ import static junit.framework.Assert.fail;
 public class ProxerConnectionTest {
 
     private static final String URL = "/v1/notifications/news?p=0";
+
     private static final String ERROR_EXPECTED_EXCEPTION = "Expected Exception was not thrown.";
     private static final String ERROR_EXCEPTION = "An exception was thrown.";
+    private static final String ERROR_LISTENER_NOT_CALLED_BEFORE_CALLBACK =
+            "Listener not called before callback.";
+    private static final String ERROR_LISTENER_WAS_NOT_UNREGISTERED =
+            "Listener was not unregistered.";
+    private static final String ERROR_WRONG_LISTENER_CALLED = "Wrong listener called.";
+
     private static final String API_KEY_HEADER = "proxer-api-key";
     private static final String API_KEY = "test";
+
     private static final long TIMEOUT = 123456L;
 
     private static MockWebServer server = new MockWebServer();
@@ -227,6 +236,144 @@ public class ProxerConnectionTest {
                 });
 
         call.cancel();
+        lock.await();
+    }
+
+    @Test(timeout = 3000)
+    public void testErrorListener() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
+                InstrumentationRegistry.getContext())
+                .build();
+
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_broken)));
+        testConnection.registerErrorListener(ProxerException.UNPARSABLE,
+                new ProxerConnection.ErrorListener() {
+                    @Override
+                    public void onError(@NonNull ProxerException exception) {
+                        lock.countDown();
+                    }
+                });
+
+        testConnection.execute(new NewsRequest(0).withCustomHost(buildHostUrl(server.url(URL))),
+                null, null);
+
+        lock.await();
+    }
+
+    @Test(timeout = 3000)
+    public void testMultipleErrorListeners() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
+                InstrumentationRegistry.getContext())
+                .build();
+
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_broken)));
+        testConnection.registerErrorListener(ProxerException.UNPARSABLE,
+                new ProxerConnection.ErrorListener() {
+                    @Override
+                    public void onError(@NonNull ProxerException exception) {
+                        lock.countDown();
+                    }
+                });
+        testConnection.registerErrorListener(ProxerException.NETWORK,
+                new ProxerConnection.ErrorListener() {
+                    @Override
+                    public void onError(@NonNull ProxerException exception) {
+                        fail(ERROR_WRONG_LISTENER_CALLED);
+                    }
+                });
+
+        testConnection.execute(new NewsRequest(0).withCustomHost(buildHostUrl(server.url(URL))),
+                null, null);
+
+        lock.await();
+    }
+
+    @Test(timeout = 3000)
+    public void testUnregisterErrorListener() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
+                InstrumentationRegistry.getContext())
+                .build();
+
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_broken)));
+        testConnection.registerErrorListener(ProxerException.UNPARSABLE,
+                new ProxerConnection.ErrorListener() {
+                    @Override
+                    public void onError(@NonNull ProxerException exception) {
+                        fail(ERROR_LISTENER_WAS_NOT_UNREGISTERED);
+                    }
+                });
+        testConnection.unregisterErrorListener(ProxerException.UNPARSABLE);
+
+        testConnection.execute(new NewsRequest(0).withCustomHost(buildHostUrl(server.url(URL))),
+                null, new ProxerErrorCallback() {
+                    @Override
+                    public void onError(ProxerException exception) {
+                        lock.countDown();
+                    }
+                });
+
+        lock.await();
+    }
+
+    @Test(timeout = 3000)
+    public void testUnregisterAllErrorListeners() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
+                InstrumentationRegistry.getContext())
+                .build();
+
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_broken)));
+        testConnection.registerErrorListener(ProxerException.UNPARSABLE,
+                new ProxerConnection.ErrorListener() {
+                    @Override
+                    public void onError(@NonNull ProxerException exception) {
+                        fail(ERROR_LISTENER_WAS_NOT_UNREGISTERED);
+                    }
+                });
+        testConnection.unregisterAllErrorListeners();
+
+        testConnection.execute(new NewsRequest(0).withCustomHost(buildHostUrl(server.url(URL))),
+                null, new ProxerErrorCallback() {
+                    @Override
+                    public void onError(ProxerException exception) {
+                        lock.countDown();
+                    }
+                });
+
+        lock.await();
+    }
+
+    @Test(timeout = 3000)
+    public void testErrorListenerCalledBeforeCallback() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(2);
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
+                InstrumentationRegistry.getContext())
+                .build();
+
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_broken)));
+        testConnection.registerErrorListener(ProxerException.UNPARSABLE,
+                new ProxerConnection.ErrorListener() {
+                    @Override
+                    public void onError(@NonNull ProxerException exception) {
+                        lock.countDown();
+                    }
+                });
+
+        testConnection.execute(new NewsRequest(0).withCustomHost(buildHostUrl(server.url(URL))),
+                null, new ProxerErrorCallback() {
+                    @Override
+                    public void onError(ProxerException exception) {
+                        if (lock.getCount() > 1) {
+                            fail(ERROR_LISTENER_NOT_CALLED_BEFORE_CALLBACK);
+                        }
+
+                        lock.countDown();
+                    }
+                });
+
         lock.await();
     }
 }

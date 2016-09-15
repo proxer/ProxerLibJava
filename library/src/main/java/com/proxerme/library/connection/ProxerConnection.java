@@ -15,6 +15,7 @@ import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -71,6 +72,7 @@ public final class ProxerConnection {
     private boolean deliverCancelledRequests;
 
     private Handler handler = new Handler(Looper.getMainLooper());
+    private ConcurrentHashMap<Integer, ErrorListener> listenerMap;
 
     private ProxerConnection(@NonNull String apiKey, Moshi moshi, OkHttpClient httpClient,
                              boolean deliverCancelledRequests) {
@@ -78,6 +80,7 @@ public final class ProxerConnection {
         this.moshi = moshi;
         this.httpClient = httpClient;
         this.deliverCancelledRequests = deliverCancelledRequests;
+        this.listenerMap = new ConcurrentHashMap<>();
     }
 
     /**
@@ -102,6 +105,7 @@ public final class ProxerConnection {
                 try {
                     deliverResultOnMainThread(callback, processResponse(request, response));
                 } catch (ProxerException exception) {
+                    notifyListener(exception);
                     deliverErrorResultOnMainThread(errorCallback, exception);
                 } finally {
                     response.close();
@@ -110,15 +114,20 @@ public final class ProxerConnection {
 
             @Override
             public void onFailure(Call call, IOException exception) {
+                ProxerException proxerException;
+
                 if (call.isCanceled()) {
                     if (deliverCancelledRequests) {
-                        deliverErrorResultOnMainThread(errorCallback,
-                                new ProxerException(ProxerException.CANCELLED));
+                        proxerException = new ProxerException(ProxerException.CANCELLED);
+                    } else {
+                        return;
                     }
                 } else {
-                    deliverErrorResultOnMainThread(errorCallback,
-                            new ProxerException(ProxerException.NETWORK));
+                    proxerException = new ProxerException(ProxerException.NETWORK);
                 }
+
+                notifyListener(proxerException);
+                deliverErrorResultOnMainThread(errorCallback, proxerException);
             }
         });
 
@@ -141,20 +150,63 @@ public final class ProxerConnection {
         Response response = null;
 
         try {
-            response = call.execute();
+            try {
+                response = call.execute();
 
-            return processResponse(request, response);
-        } catch (IOException exception) {
-            if (call.isCanceled()) {
-                throw new ProxerException(ProxerException.CANCELLED);
-            } else {
-                throw new ProxerException(ProxerException.NETWORK);
+                return processResponse(request, response);
+            } catch (IOException exception) {
+                if (call.isCanceled()) {
+                    throw new ProxerException(ProxerException.CANCELLED);
+                } else {
+                    throw new ProxerException(ProxerException.NETWORK);
+                }
             }
+        } catch (ProxerException exception) {
+            notifyListener(exception);
+
+            throw exception;
         } finally {
             if (response != null) {
                 response.close();
             }
         }
+    }
+
+    /**
+     * Allows for setting a global error listener. This will be called if the kind of errorCode this
+     * listener has been registered for, was thrown. The listener is always called before the actual
+     * delivery of results by the
+     * {@link #execute(ProxerRequest, ProxerCallback, ProxerErrorCallback)} and
+     * {@link #executeSynchronized(ProxerRequest)} methods.
+     * Note that you should unregister the listener afterwards.
+     *
+     * @param errorCode     The errorCode to register for. For the listener to be called, this
+     *                      should be either an
+     *                      {@link com.proxerme.library.connection.ProxerException.ErrorCode}
+     *                      or a
+     *                      {@link com.proxerme.library.connection.ProxerException.ProxerErrorCode}.
+     * @param errorListener The listener to register.
+     * @see #unregisterAllErrorListeners()
+     * @see #unregisterErrorListener(int)
+     */
+    public void registerErrorListener(int errorCode, @NonNull ErrorListener errorListener) {
+        listenerMap.put(errorCode, errorListener);
+    }
+
+    /**
+     * Unregisters the listener, registered for the passed error code.
+     *
+     * @param errorCode The error code.
+     */
+    public void unregisterErrorListener(int errorCode) {
+        listenerMap.remove(errorCode);
+    }
+
+    /**
+     * Unregisters all listeners. This could be called when you clean up your Application.
+     */
+    public void unregisterAllErrorListeners() {
+        listenerMap.clear();
     }
 
     /**
@@ -229,6 +281,24 @@ public final class ProxerConnection {
                 }
             });
         }
+    }
+
+    private void notifyListener(@NonNull ProxerException exception) {
+        ErrorListener errorListener = listenerMap.get(exception.getErrorCode());
+
+        if (errorListener == null) {
+            if (exception.getProxerErrorCode() != null) {
+                errorListener = listenerMap.get(exception.getProxerErrorCode());
+            }
+        }
+
+        if (errorListener != null) {
+            errorListener.onError(exception);
+        }
+    }
+
+    public interface ErrorListener {
+        void onError(@NonNull ProxerException exception);
     }
 
     /**
