@@ -286,10 +286,8 @@ public final class ProxerConnection {
     private void notifyListener(@NonNull ProxerException exception) {
         ErrorListener errorListener = listenerMap.get(exception.getErrorCode());
 
-        if (errorListener == null) {
-            if (exception.getProxerErrorCode() != null) {
-                errorListener = listenerMap.get(exception.getProxerErrorCode());
-            }
+        if (errorListener == null && exception.getProxerErrorCode() != null) {
+            errorListener = listenerMap.get(exception.getProxerErrorCode());
         }
 
         if (errorListener != null) {

@@ -251,6 +251,8 @@ public class ProxerConnectionTest {
                 new ProxerConnection.ErrorListener() {
                     @Override
                     public void onError(@NonNull ProxerException exception) {
+                        assertEquals(exception.getErrorCode(), ProxerException.UNPARSABLE);
+
                         lock.countDown();
                     }
                 });
