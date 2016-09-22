@@ -363,6 +363,6 @@ to improve the code style and provide IDE support.
 
 ### Contributions and contributors
 
-Guides for contribution can be found [here](.github/CONTRIBUTING.md).
+A guide for contribution can be found [here](.github/CONTRIBUTING.md).
 
 - @Desnoo for implementing several APIs.
