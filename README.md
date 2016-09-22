@@ -21,6 +21,7 @@ This is an Android library, implementing the API of the
   - [Experimental APIs](#experimental-apis)   
 - [Extensions](#extensions)   
 - [Dependencies](#dependencies)
+- [Contributions and contributors](#contributions-and-contributors)
 
 ### Including in your project
 
@@ -359,3 +360,9 @@ Moreover it uses
 Cookie management and
 [Android Support Annotations](http://tools.android.com/tech-docs/support-annotations)
 to improve the code style and provide IDE support.
+
+### Contributions and contributors
+
+Guides for contribution can be found [here](.github/CONTRIBUTING.md).
+
+- @Desnoo for implementing several APIs.
