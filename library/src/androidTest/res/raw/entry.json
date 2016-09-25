@@ -1,0 +1,100 @@
+{
+  "data": {
+    "seasons": [
+      {
+        "year": "2008",
+        "season": "4",
+        "id": "2940"
+      }
+    ],
+    "count": "12",
+    "description": "Yuuhi zieht in eine neue Stadt, doch schon der erste Tag wird ein wahres Desaster. Zuerst wird sie von Schlägern bedroht, jedoch von einem ihrer Klassenkameraden gerettet. Dieser stiehlt ihr wenig später ihren ersten Kuss und anschließend stellt sich heraus, dass er ihr zukünftiger Verlobter ist. Doch Yuuhi gefällt ihr zukünftiger Partner gar nicht und so versucht sie ihre Eltern davon zu überzeugen, dass er doch keine so gute Wahl war...",
+    "groups": [
+      {
+        "country": "de",
+        "name": "Strawhat Subs",
+        "id": "8"
+      },
+      {
+        "country": "de",
+        "name": "Anime-Crystal",
+        "id": "137"
+      }
+    ],
+    "medium": "animeseries",
+    "tags": [
+      {
+        "spoiler_flag": "0",
+        "rate_flag": "0",
+        "description": "Romantische Gefühle und/oder sexuelle Handlungen unter nahen Verwandten.",
+        "id": "2710",
+        "tag": "Incest",
+        "tid": "12",
+        "timestamp": "2016-06-18 18:09:59"
+      },
+      {
+        "spoiler_flag": "0",
+        "rate_flag": "0",
+        "description": "Die Hauptrolle wird von einer männlichen Person besetzt.",
+        "id": "8206",
+        "tag": "Protagonist",
+        "tid": "242",
+        "timestamp": "2016-07-14 14:56:31"
+      },
+      {
+        "spoiler_flag": "0",
+        "rate_flag": "0",
+        "description": "Ein Charakter, der in der Öffentlichkeit vor allem aggressiv gegenüber dem Geliebten eingestellt ist, bei Zweisamkeit mit ihm aber schüchtern und zurückhaltend wird, steht im Fokus.",
+        "id": "8207",
+        "tag": "Tsundere",
+        "tid": "105",
+        "timestamp": "2016-07-14 14:56:39"
+      }
+    ],
+    "license": "1",
+    "rate_count": "2300",
+    "names": [
+      {
+        "eid": "100",
+        "name": "Akane-Iro ni Somaru Saka",
+        "id": "262",
+        "type": "name"
+      },
+      {
+        "eid": "100",
+        "name": "The Hill Dyed Rose Madder",
+        "id": "263",
+        "type": "nameeng"
+      },
+      {
+        "eid": "100",
+        "name": "あかね色に染まる坂",
+        "id": "264",
+        "type": "namejap"
+      }
+    ],
+    "name": "Akane-Iro ni Somaru Saka",
+    "genre": "Comedy Ecchi Romance Harem School",
+    "clicks": "3390",
+    "publisher": [
+      {
+        "country": "jp",
+        "name": "TNK",
+        "id": "101",
+        "type": "studio"
+      }
+    ],
+    "id": "100",
+    "state": "1",
+    "gate": false,
+    "rate_sum": "15998",
+    "lang": [
+      "gersub",
+      "engsub"
+    ],
+    "fsk": "fsk12",
+    "kat": "anime"
+  },
+  "error": 0,
+  "message": "Abfrage erfolgreich."
+}

@@ -68,19 +68,19 @@ public class EntryCore implements Parcelable, IdItem {
     /**
      * Constructor of the entrycore data.
      *
-     * @param id          The entry id.
-     * @param name        The entry name.
-     * @param genres       The genres.
-     * @param fsk         The fsk ratings.
-     * @param description The description.
-     * @param medium      The medium.
-     * @param episodeAmount       The number of episodes.
-     * @param state       The user view state.
-     * @param rateSum     The sum of all ratings.
-     * @param rateCount   The amount of ratings.
-     * @param clicks      The amount of clicks.
-     * @param category    The category name.
-     * @param license     The license id.
+     * @param id            The entry id.
+     * @param name          The entry name.
+     * @param genres        The genres.
+     * @param fsk           The fsk ratings.
+     * @param description   The description.
+     * @param medium        The medium.
+     * @param episodeAmount The number of episodes.
+     * @param state         The user view state.
+     * @param rateSum       The sum of all ratings.
+     * @param rateCount     The amount of ratings.
+     * @param clicks        The amount of clicks.
+     * @param category      The category name.
+     * @param license       The license id.
      */
     public EntryCore(@NonNull String id, @NonNull String name,
                      @NonNull @Genre String genres, @NonNull String fsk,

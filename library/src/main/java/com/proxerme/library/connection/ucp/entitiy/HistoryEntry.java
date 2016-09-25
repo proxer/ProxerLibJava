@@ -156,6 +156,7 @@ public class HistoryEntry implements IdItem, TimeItem, Parcelable {
         return Utils.timestampToUnixTime(time);
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -170,7 +171,6 @@ public class HistoryEntry implements IdItem, TimeItem, Parcelable {
         if (!language.equals(that.language)) return false;
         if (!medium.equals(that.medium)) return false;
         return category.equals(that.category);
-
     }
 
     @Override
