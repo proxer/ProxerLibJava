@@ -43,6 +43,14 @@ public final class ProxerUrlHolder {
 
     private static final String DONATE_SEGMENT = "donate";
 
+    private static final String WIKI_SEGMENT = "wiki";
+
+    private static final String SUBGROUP_SEGMENT = "translatorgroups";
+
+    private static final String INDUSTRY_SEGMENT = "industry";
+
+    private static final String ID_PARAMETER = "id";
+
     private static final String DEVICE_QUERY_PARAMETER = "device";
 
     private ProxerUrlHolder() {
@@ -195,6 +203,48 @@ public final class ProxerUrlHolder {
         }
 
         return builder.build();
+    }
+
+    /**
+     * Returns the url for a wiki page.
+     *
+     * @param topic The topic of the page.
+     * @return The url.
+     */
+    @NonNull
+    public static HttpUrl getWikiUrl(@NonNull String topic) {
+        return getBaseApiHost().newBuilder()
+                .addPathSegment(WIKI_SEGMENT)
+                .addPathSegment(topic)
+                .build();
+    }
+
+    /**
+     * Returns the url for a info subgroup page.
+     *
+     * @param id The id of the subgroup.
+     * @return The url.
+     */
+    @NonNull
+    public static HttpUrl getSubgroupUrl(@NonNull String id) {
+        return getBaseApiHost().newBuilder()
+                .addPathSegment(SUBGROUP_SEGMENT)
+                .addQueryParameter(ID_PARAMETER, id)
+                .build();
+    }
+
+    /**
+     * Returns the url for a industry info page.
+     *
+     * @param id The id of the industry.
+     * @return The url.
+     */
+    @NonNull
+    public static HttpUrl getIndustryUrl(@NonNull String id) {
+        return getBaseApiHost().newBuilder()
+                .addPathSegment(INDUSTRY_SEGMENT)
+                .addQueryParameter(ID_PARAMETER, id)
+                .build();
     }
 
     /**
