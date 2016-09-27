@@ -157,6 +157,7 @@ public final class ProxerUrlHolder {
     public static HttpUrl getCoverImageUrl(@NonNull String entryId) {
         return getImageHost().newBuilder()
                 .addPathSegment(COVER_SEGMENT)
+                .addPathSegment(TEMPORARY_SEGMENT)
                 .addPathSegment(String.format(COVER_IMAGE_SEGMENT, entryId))
                 .build();
     }
