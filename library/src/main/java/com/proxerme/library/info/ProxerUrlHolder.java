@@ -226,11 +226,16 @@ public final class ProxerUrlHolder {
      * @return The url.
      */
     @NonNull
-    public static HttpUrl getSubgroupUrl(@NonNull String id) {
-        return getBaseApiHost().newBuilder()
+    public static HttpUrl getSubgroupUrl(@NonNull String id, @Nullable @Device String device) {
+        HttpUrl.Builder builder = getBaseApiHost().newBuilder()
                 .addPathSegment(SUBGROUP_SEGMENT)
-                .addQueryParameter(ID_PARAMETER, id)
-                .build();
+                .addQueryParameter(ID_PARAMETER, id);
+
+        if (device != null) {
+            builder.addQueryParameter(DEVICE_QUERY_PARAMETER, device);
+        }
+
+        return builder.build();
     }
 
     /**
@@ -240,11 +245,16 @@ public final class ProxerUrlHolder {
      * @return The url.
      */
     @NonNull
-    public static HttpUrl getIndustryUrl(@NonNull String id) {
-        return getBaseApiHost().newBuilder()
+    public static HttpUrl getPublisherUrl(@NonNull String id, @Nullable @Device String device) {
+        HttpUrl.Builder builder = getBaseApiHost().newBuilder()
                 .addPathSegment(INDUSTRY_SEGMENT)
-                .addQueryParameter(ID_PARAMETER, id)
-                .build();
+                .addQueryParameter(ID_PARAMETER, id);
+
+        if (device != null) {
+            builder.addQueryParameter(DEVICE_QUERY_PARAMETER, device);
+        }
+
+        return builder.build();
     }
 
     /**
