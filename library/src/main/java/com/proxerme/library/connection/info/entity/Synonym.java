@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.proxerme.library.interfaces.IdItem;
+import com.proxerme.library.parameters.SynonymTypeParameter.SynonymType;
 import com.squareup.moshi.Json;
 
 /**
@@ -46,7 +47,7 @@ public class Synonym implements Parcelable, IdItem {
      * @param type    The type of the Synonym.
      * @param name    The name.
      */
-    public Synonym(@NonNull String id, @NonNull String entryId, @NonNull String type,
+    public Synonym(@NonNull String id, @NonNull String entryId, @NonNull @SynonymType String type,
                    @NonNull String name) {
         this.id = id;
         this.entryId = entryId;
@@ -88,6 +89,7 @@ public class Synonym implements Parcelable, IdItem {
      * @return The type.
      */
     @NonNull
+    @SynonymType
     public String getType() {
         return type;
     }

@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 public final class TagRateFilterParameter {
 
     public static final String REGISTERED = "rate_1";
-    public static final String UNDEFINED = "rate-10";
+    public static final String UNDEFINED = "rate_10";
 
     private TagRateFilterParameter() {
     }
