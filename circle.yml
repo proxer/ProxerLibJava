@@ -6,12 +6,31 @@ machine:
 
 dependencies:
   pre:
-    - echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"
-    - echo y | android update sdk --no-ui --all --filter "extra-google-m2repository"
-    - echo y | android update sdk --no-ui --all --filter "extra-android-support"
-    - echo y | android update sdk --no-ui --all --filter "android-24"
-    - echo y | android update sdk --no-ui --all --filter "build-tools-24.0.2"
-    - echo y | android update sdk --no-ui --all --filter "platform-tools"
+    - if [ ! $(grep -q "Revision=38.0.0" $ANDROID_HOME/extras/android/m2repository) ] ; then echo y | android update sdk --no-ui --all --filter "extra-android-m2repository" ; fi 
+    - if [ ! $(grep -q "Revision=36" $ANDROID_HOME/extras/google/m2repository) ] ; then echo y | android update sdk --no-ui --all --filter "extra-google-m2repository" ; fi
+    - if [ ! -e $ANDROID_HOME/platforms/android-24 ] ; then echo y | android update sdk --no-ui --all --filter "android-24" ; fi
+    - if [ ! -e $ANDROID_HOME/build-tools/24.0.2 ] ; then echo y | android update sdk --no-ui --all --filter "build-tools-24.0.2" ; fi
+    - if [ ! $(grep -q "Revision=24.0.3" $ANDROID_HOME/platform-tools/source.properties) ] ; then echo y | android update sdk --no-ui --all --filter "platform-tools" ; fi
+  override:
+    - ./gradlew dependencies -Dorg.gradle.daemon=false --console=plain
+
+test:
+  pre:
+    - emulator -avd circleci-android22 -no-audio -no-window:
+        background: true
+        parallel: true
+  override:
+    - ./gradlew lint assembleDebug assembleDebugAndroidTest install -PdisablePreDex -Dorg.gradle.daemon=false --console=plain
+    - circle-android wait-for-boot
+    - ./gradlew connectedAndroidTest -PdisablePreDex -Dorg.gradle.daemon=false --console=plain
+  post:
+    - mkdir $CIRCLE_TEST_REPORTS/lint
+    - mkdir $CIRCLE_ARTIFACTS/javadoc
+    - cp -r library/build/outputs/lint-results-debug.* $CIRCLE_TEST_REPORTS/lint
+    - cp -r library/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+    - cp -r library/build/docs/javadoc/* $CIRCLE_ARTIFACTS/javadoc
+
+    
   override:
     - ./gradlew dependencies -Dorg.gradle.daemon=false --console=plain
 
