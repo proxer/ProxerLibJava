@@ -1,4 +1,4 @@
-- [ ] **I have verified that I am using the latest version and searched for exisiting issues** (If this checkbox is not ticked, the issue might be ignored).
+- [ ] **I have verified that I am using the latest version and searched for existing issues** (If this checkbox is not ticked, the issue might be ignored).
 
 I am using version: X.X  
 My device (if relevant) is: X  

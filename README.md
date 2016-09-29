@@ -290,7 +290,7 @@ private String getUrlToNewsImage(News news) {
 ##### Configuration
 
 The `ProxerConnection` allows for customization. The internally used libs are
-pluggable and you can specify some other arguments.  
+plugable and you can specify some other arguments.  
 Here is an example with all available customizations:
 
 ```java
@@ -310,7 +310,7 @@ The first line uses the alternate constructor, in which you pass a custom
 persistent `CookieJar` internally, based on `SharedPreferences`.
 
 The second line passes a custom `OkHttpClient`. Note that it has no effect to
-set your `CookieJar` to it as that will be overriden.
+set your `CookieJar` to it as that will be overridden.
 
 The third line passes a custom `Moshi` instance.
 

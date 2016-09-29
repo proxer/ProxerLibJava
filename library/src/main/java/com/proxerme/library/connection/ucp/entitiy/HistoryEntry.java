@@ -147,7 +147,7 @@ public class HistoryEntry implements IdItem, TimeItem, Parcelable {
     }
 
     /**
-     * Returns the last time the user has watched/read an epsiode.
+     * Returns the last time the user has watched/read an episode.
      *
      * @return The time.
      */

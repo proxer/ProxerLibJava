@@ -127,7 +127,7 @@ public class Reminder implements IdItem, Parcelable {
     }
 
     /**
-     * Returns the epsiode.
+     * Returns the episode.
      *
      * @return The episode.
      */

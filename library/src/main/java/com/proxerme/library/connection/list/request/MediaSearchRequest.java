@@ -240,7 +240,7 @@ public class MediaSearchRequest extends ListRequest<MediaListEntry[]> {
     }
 
     /**
-     * To be used in conjunction with {@link #withLength(Integer)}. Sets if the epsiode count must
+     * To be used in conjunction with {@link #withLength(Integer)}. Sets if the episode count must
      * be greater or smaller than the specified value.
      *
      * @param lengthBound The bound.
