@@ -2,7 +2,6 @@ package com.proxerme.library.connection.info.request;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.util.Pair;
 
 import com.proxerme.library.connection.ProxerResult;
@@ -39,7 +38,7 @@ public class CommentRequest extends InfoRequest<Comment[]> {
     /**
      * The basic constructor to set the anime/manga id.
      *
-     * @param id The id to request the infos from.
+     * @param id The id to request the info from.
      */
     public CommentRequest(@NonNull String id) {
         this.id = id;
@@ -53,6 +52,7 @@ public class CommentRequest extends InfoRequest<Comment[]> {
      */
     public CommentRequest withPage(@IntRange(from = 0) int page) {
         this.page = page;
+
         return this;
     }
 
@@ -64,40 +64,46 @@ public class CommentRequest extends InfoRequest<Comment[]> {
      */
     public CommentRequest withLimit(@IntRange(from = 0) int limit) {
         this.limit = limit;
+
         return this;
     }
 
     /**
      * Set the sort type of request for the comments. This defaults to return newest first.
      *
-     * @param sortType The sort type to use {@link com.proxerme.library.parameters.CommentSortParameter.CommentSort}.
+     * @param sortType The sort type to use.
      * @return The modified request.
      */
     public CommentRequest withSortType(@CommentSortParameter.CommentSort String sortType) {
         this.sortType = sortType;
+
         return this;
     }
 
-
     @Override
-    protected ProxerResult<Comment[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body) throws IOException {
-        // remove the quotes from the object.
-        String ret = body.string();
-        // fill all empty rating responses with values that are zero
-        ret = ret.replaceAll("\"data\": \"\\[\\]\"", "\"data\": \"{\\\"genre\\\":\\\"0\\\",\\\"story\\\":\\\"0\\\",\\\"animation\\\":\\\"0\\\",\\\"characters\\\":\\\"0\\\",\\\"music\\\":\\\"0\\\"}\"");
-
-        int startIndex;
-        int endIndex;
-        while (ret.indexOf("\"{") > 0 && ret.indexOf("}\"") > 0) {
-            startIndex = ret.indexOf("\"{");
-            endIndex = ret.indexOf("}\"") + "}\"".length();
-            String str = ret.substring(startIndex, endIndex).replace("\"{", "{").replace("\\", "").replace("}\"", "}");
-            ret = ret.replace(ret.substring(startIndex, endIndex), str);
-        }
-        Log.d("CommentRequest", ret);
-        return moshi.adapter(CommentResult.class).fromJson(ret);
+    protected ProxerResult<Comment[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
+            throws IOException {
+        return moshi.adapter(CommentResult.class).fromJson(convertBody(body.string()));
     }
 
+    @NonNull
+    private String convertBody(@NonNull String body) {
+        body = body.replaceAll("\"data\": \"\\[\\]\"", "\"data\": {}");
+
+        int startIndex = 0;
+        int endIndex;
+
+        while (body.indexOf("\"{", startIndex) > 0 && body.indexOf("}\"", startIndex) > 0) {
+            startIndex = body.indexOf("\"{");
+            endIndex = body.indexOf("}\"") + "}\"".length();
+            String convertedSection = body.substring(startIndex, endIndex).replace("\"{", "{")
+                    .replace("\\", "").replace("}\"", "}");
+
+            body = body.replace(body.substring(startIndex, endIndex), convertedSection);
+        }
+
+        return body;
+    }
 
     @NonNull
     @Override

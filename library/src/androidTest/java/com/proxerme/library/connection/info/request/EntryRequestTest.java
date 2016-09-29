@@ -11,6 +11,7 @@ import com.proxerme.library.parameters.LicenseParameter;
 import com.proxerme.library.parameters.MediumParameter;
 import com.proxerme.library.parameters.SeasonParameter;
 import com.proxerme.library.parameters.StateParameter;
+import com.proxerme.library.parameters.SynonymTypeParameter;
 import com.proxerme.library.test.R;
 import com.proxerme.library.util.RequestTest;
 
@@ -65,9 +66,12 @@ public class EntryRequestTest extends RequestTest {
                 MediumParameter.ANIMESERIES, 12, StateParameter.FINISHED, 15998, 2300, 3390,
                 CategoryParameter.ANIME, LicenseParameter.NON_LICENSED, false,
                 new Synonym[]{
-                        new Synonym("262", ID, "name", "Akane-Iro ni Somaru Saka"),
-                        new Synonym("263", ID, "nameeng", "The Hill Dyed Rose Madder"),
-                        new Synonym("264", ID, "namejap", "あかね色に染まる坂"),
+                        new Synonym("262", ID, SynonymTypeParameter.ORIGINAL,
+                                "Akane-Iro ni Somaru Saka"),
+                        new Synonym("263", ID, SynonymTypeParameter.ENGLISH,
+                                "The Hill Dyed Rose Madder"),
+                        new Synonym("264", ID, SynonymTypeParameter.JAPANESE,
+                                "あかね色に染まる坂"),
                 },
                 new String[]{
                         "gersub",

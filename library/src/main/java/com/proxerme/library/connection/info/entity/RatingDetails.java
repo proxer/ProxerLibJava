@@ -43,15 +43,17 @@ public class RatingDetails implements Parcelable {
     }
 
     /**
-     * The construtor.
+     * The constructor.
      *
      * @param genre      The rating of genre.
      * @param story      The rating of story.
      * @param animation  The rating of animation.
      * @param characters The rating of characters.
      */
-    public RatingDetails(@IntRange(from = 0, to = 5) int genre, @IntRange(from = 0, to = 5) int story,
-                         @IntRange(from = 0, to = 5) int animation, @IntRange(from = 0, to = 5) int characters,
+    public RatingDetails(@IntRange(from = 0, to = 5) int genre,
+                         @IntRange(from = 0, to = 5) int story,
+                         @IntRange(from = 0, to = 5) int animation,
+                         @IntRange(from = 0, to = 5) int characters,
                          @IntRange(from = 0, to = 5) int music) {
         this.genre = genre;
         this.story = story;
@@ -150,7 +152,6 @@ public class RatingDetails implements Parcelable {
         if (animation != that.animation) return false;
         if (music != that.music) return false;
         return characters == that.characters;
-
     }
 
     @Override
