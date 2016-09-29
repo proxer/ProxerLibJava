@@ -8,8 +8,8 @@ dependencies:
   cache_directories:
     - /usr/local/android-sdk-linux
   pre:
-    - if ! $(grep -q "Revision=38.0.0" $ANDROID_HOME/extras/android/m2repository); then echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"
-    - if ! $(grep -q "Revision=36" $ANDROID_HOME/extras/google/m2repository); then echo y | android update sdk --no-ui --all --filter "extra-google-m2repository"
+    - if ! $(grep -q "Revision=38.0.0" $ANDROID_HOME/extras/android/m2repository/source.properties); then echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"
+    - if ! $(grep -q "Revision=36" $ANDROID_HOME/extras/google/m2repository/source.properties); then echo y | android update sdk --no-ui --all --filter "extra-google-m2repository"
     - if [ ! -e $ANDROID_HOME/platforms/android-24 ]; then echo y | android update sdk --no-ui --all --filter "android-24"
     - if [ ! -e $ANDROID_HOME/build-tools/24.0.2 ]; then echo y | android update sdk --no-ui --all --filter "build-tools-24.0.2"
     - if ! $(grep -q "Revision=24.0.3" $ANDROID_HOME/platform-tools/source.properties); then echo y | android update sdk --no-ui --all --filter "platform-tools"
