@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class SynonymTypeParameter {
+public final class SynonymTypeParameter {
 
     public static final String ORIGINAL = "name";
     public static final String ENGLISH = "nameeng";
