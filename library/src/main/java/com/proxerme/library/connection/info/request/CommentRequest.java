@@ -30,6 +30,15 @@ public class CommentRequest extends InfoRequest<Comment[]> {
     private static final String LIMIT_PARAMETER = "limit";
     private static final String SORT_PARAMETER = "sort";
 
+    private static final String EMPTY_DATA_PATTERN = "\"data\": \"\\[\\]\"";
+    private static final String EMPTY_DATA_REPLACEMENT = "\"data\": {}";
+    private static final String START_PATTERN = "\"{";
+    private static final String END_PATTERN = "}\"";
+    private static final String START_REPLACEMENT = "{";
+    private static final String END_REPLACEMENT = "}";
+    private static final String ESCAPE_PATTERN = "\\";
+    private static final String ESCAPE_REPLACEMENT = "";
+
     private String id;
     private Integer page;
     private Integer limit;
@@ -88,21 +97,24 @@ public class CommentRequest extends InfoRequest<Comment[]> {
 
     @NonNull
     private String convertBody(@NonNull String body) {
-        body = body.replaceAll("\"data\": \"\\[\\]\"", "\"data\": {}");
+        String result = body.replaceAll(EMPTY_DATA_PATTERN, EMPTY_DATA_REPLACEMENT);
 
-        int startIndex = 0;
-        int endIndex;
+        int startIndex = result.indexOf(START_PATTERN);
+        int endIndex = result.indexOf(END_PATTERN);
 
-        while (body.indexOf("\"{", startIndex) > 0 && body.indexOf("}\"", startIndex) > 0) {
-            startIndex = body.indexOf("\"{");
-            endIndex = body.indexOf("}\"") + "}\"".length();
-            String convertedSection = body.substring(startIndex, endIndex).replace("\"{", "{")
-                    .replace("\\", "").replace("}\"", "}");
+        while (startIndex > 0 && endIndex > 0) {
+            String convertedSection = result.substring(startIndex, endIndex + END_PATTERN.length())
+                    .replace(START_PATTERN, START_REPLACEMENT)
+                    .replace(ESCAPE_PATTERN, ESCAPE_REPLACEMENT)
+                    .replace(END_PATTERN, END_REPLACEMENT);
 
-            body = body.replace(body.substring(startIndex, endIndex), convertedSection);
+            result = result.substring(0, startIndex) + convertedSection +
+                    result.substring(endIndex + END_PATTERN.length());
+            startIndex = result.indexOf(START_PATTERN, startIndex);
+            endIndex = result.indexOf(END_PATTERN, endIndex);
         }
 
-        return body;
+        return result;
     }
 
     @NonNull
