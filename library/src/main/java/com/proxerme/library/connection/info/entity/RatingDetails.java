@@ -7,7 +7,8 @@ import android.support.annotation.IntRange;
 import com.squareup.moshi.Json;
 
 /**
- * The value of the single ratings.
+ * The value of the single ratings. This ranges from 1 to 5 and is 0 if the user has not rated a
+ * specific (or all) section(s).
  *
  * @author Desnoo
  */
@@ -49,6 +50,7 @@ public class RatingDetails implements Parcelable {
      * @param story      The rating of story.
      * @param animation  The rating of animation.
      * @param characters The rating of characters.
+     * @param music      The rating of music (always 0 for Manga).
      */
     public RatingDetails(@IntRange(from = 0, to = 5) int genre,
                          @IntRange(from = 0, to = 5) int story,

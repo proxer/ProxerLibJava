@@ -223,7 +223,9 @@ public final class ProxerUrlHolder {
     /**
      * Returns the url for a info subgroup page.
      *
-     * @param id The id of the subgroup.
+     * @param id     The id of the subgroup.
+     * @param device Optional parameter to specify the device. Possible are "mobile" and
+     *               "default".
      * @return The url.
      */
     @NonNull
@@ -242,7 +244,9 @@ public final class ProxerUrlHolder {
     /**
      * Returns the url for a industry info page.
      *
-     * @param id The id of the industry.
+     * @param id     The id of the industry.
+     * @param device Optional parameter to specify the device. Possible are "mobile" and
+     *               "default".
      * @return The url.
      */
     @NonNull
