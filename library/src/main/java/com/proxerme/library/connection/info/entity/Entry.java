@@ -23,7 +23,7 @@ import java.util.Arrays;
  *
  * @author Ruben Gees
  */
-public class Entry implements IdItem, Parcelable {
+public class Entry implements Parcelable, IdItem {
 
     public static final Parcelable.Creator<Entry> CREATOR = new Parcelable.Creator<Entry>() {
         @Override

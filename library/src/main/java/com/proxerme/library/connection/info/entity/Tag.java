@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.proxerme.library.interfaces.IdItem;
+import com.proxerme.library.interfaces.TimeItem;
 import com.proxerme.library.util.Utils;
 import com.squareup.moshi.Json;
 
@@ -13,7 +14,7 @@ import com.squareup.moshi.Json;
  *
  * @author Ruben Gees
  */
-public class Tag implements IdItem, Parcelable {
+public class Tag implements Parcelable, IdItem, TimeItem {
 
     public static final Parcelable.Creator<Tag> CREATOR = new Parcelable.Creator<Tag>() {
         @Override
@@ -103,6 +104,7 @@ public class Tag implements IdItem, Parcelable {
      *
      * @return The time.
      */
+    @Override
     public long getTime() {
         return Utils.timestampToUnixTime(time);
     }

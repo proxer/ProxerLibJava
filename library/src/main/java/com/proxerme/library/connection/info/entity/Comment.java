@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.ImageItem;
+import com.proxerme.library.interfaces.TimeItem;
 import com.proxerme.library.parameters.CommentStateParameter.CommentState;
 import com.squareup.moshi.Json;
 
@@ -15,7 +16,7 @@ import com.squareup.moshi.Json;
  *
  * @author Desnoo
  */
-public class Comment implements Parcelable, IdItem, ImageItem {
+public class Comment implements Parcelable, IdItem, ImageItem, TimeItem {
 
     public static final Creator<Comment> CREATOR = new Creator<Comment>() {
         @Override
@@ -65,19 +66,19 @@ public class Comment implements Parcelable, IdItem, ImageItem {
     /**
      * The constructor.
      *
-     * @param id           The comment id.
-     * @param entryId      The entry id.
-     * @param userId       The user id.
-     * @param type         The comment type.
-     * @param state        The comment state type {@link CommentState}
+     * @param id            The comment id.
+     * @param entryId       The entry id.
+     * @param userId        The user id.
+     * @param type          The comment type.
+     * @param state         The comment state type {@link CommentState}
      * @param ratingDetails The rating details.
-     * @param comment      The comment text.
-     * @param rating       The rating value.
-     * @param episode      The highest episode the user watched.
-     * @param helpfulVotes The number of users that voted this comment up.
-     * @param time         The comment creation time.
-     * @param username     The name of the user.
-     * @param imageId      The image id.
+     * @param comment       The comment text.
+     * @param rating        The rating value.
+     * @param episode       The highest episode the user watched.
+     * @param helpfulVotes  The number of users that voted this comment up.
+     * @param time          The comment creation time.
+     * @param username      The name of the user.
+     * @param imageId       The image id.
      */
     public Comment(@NonNull String id, @NonNull String entryId, @NonNull String userId,
                    @NonNull String type, @CommentState int state,
@@ -222,6 +223,7 @@ public class Comment implements Parcelable, IdItem, ImageItem {
      *
      * @return The Time.
      **/
+    @Override
     public long getTime() {
         return time;
     }
