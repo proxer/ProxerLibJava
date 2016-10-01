@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.parameters.CategoryParameter.Category;
-import com.proxerme.library.parameters.FskParameter;
+import com.proxerme.library.parameters.FskParameter.FskConstraint;
 import com.proxerme.library.parameters.GenreParameter.Genre;
 import com.proxerme.library.parameters.LicenseParameter.License;
 import com.proxerme.library.parameters.MediumParameter.Medium;
@@ -145,11 +145,15 @@ public class EntryCore implements Parcelable, IdItem {
      *
      * @return The genres.
      */
+    @SuppressWarnings("WrongConstant")
     @NonNull
     @Genre
     public String[] getGenres() {
-        //noinspection ResourceType
-        return genres.split(DELIMITER);
+        if (genres.isEmpty()) {
+            return new String[0];
+        } else {
+            return genres.split(DELIMITER);
+        }
     }
 
     /**
@@ -157,11 +161,15 @@ public class EntryCore implements Parcelable, IdItem {
      *
      * @return An array of fsk names.
      */
+    @SuppressWarnings("WrongConstant")
     @NonNull
-    @FskParameter.FskConstraint
+    @FskConstraint
     public String[] getFsk() {
-        //noinspection WrongConstant
-        return fsk.split(DELIMITER);
+        if (fsk.isEmpty()) {
+            return new String[0];
+        } else {
+            return fsk.split(DELIMITER);
+        }
     }
 
     /**

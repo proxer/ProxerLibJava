@@ -7,8 +7,10 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import com.proxerme.library.interfaces.IdItem;
+import com.proxerme.library.parameters.GenreParameter.Genre;
 import com.proxerme.library.parameters.MediumParameter.Medium;
 import com.proxerme.library.parameters.StateParameter.State;
+import com.proxerme.library.parameters.SubDubLanguageParameter.SubDubLanguage;
 import com.squareup.moshi.Json;
 
 /**
@@ -119,9 +121,15 @@ public class MediaListEntry implements Parcelable, IdItem {
      *
      * @return The array of genres.
      */
+    @SuppressWarnings("WrongConstant")
     @NonNull
+    @Genre
     public String[] getGenres() {
-        return genres.split(" ");
+        if (genres.isEmpty()) {
+            return new String[0];
+        } else {
+            return genres.split(" ");
+        }
     }
 
     /**
@@ -194,9 +202,15 @@ public class MediaListEntry implements Parcelable, IdItem {
      *
      * @return An array with the languages.
      */
+    @SuppressWarnings("WrongConstant")
     @NonNull
+    @SubDubLanguage
     public String[] getLanguages() {
-        return languages.split(",");
+        if (languages.isEmpty()) {
+            return new String[0];
+        } else {
+            return languages.split(",");
+        }
     }
 
     @SuppressWarnings("SimplifiableIfStatement")

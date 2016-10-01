@@ -187,11 +187,15 @@ public class Entry implements Parcelable, IdItem {
      *
      * @return The genres.
      */
+    @SuppressWarnings("WrongConstant")
     @NonNull
     @GenreParameter.Genre
     public String[] getGenres() {
-        //noinspection ResourceType
-        return genres.split(DELIMITER);
+        if (genres.isEmpty()) {
+            return new String[0];
+        } else {
+            return genres.split(DELIMITER);
+        }
     }
 
     /**
@@ -199,11 +203,15 @@ public class Entry implements Parcelable, IdItem {
      *
      * @return An array of fsk names.
      */
+    @SuppressWarnings("WrongConstant")
     @NonNull
     @FskParameter.FskConstraint
     public String[] getFsk() {
-        //noinspection WrongConstant
-        return fsk.split(DELIMITER);
+        if (fsk.isEmpty()) {
+            return new String[0];
+        } else {
+            return fsk.split(DELIMITER);
+        }
     }
 
     /**
