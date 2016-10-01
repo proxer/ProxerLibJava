@@ -41,7 +41,17 @@ public class CommentRequestTest extends RequestTest {
         Comment[] comments = connection.executeSynchronized(new CommentRequest(ID)
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
-        assertEquals(generateTestComment(), comments[0]);
+        assertEquals(generateTestComment(), comments[4]);
+    }
+
+    @Test
+    public void testEmptyRatingDetails() throws ProxerException, IOException {
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.comment_anime)));
+
+        Comment[] comments = connection.executeSynchronized(new CommentRequest(ID)
+                .withCustomHost(buildHostUrl(server.url(URL))));
+
+        assertEquals(generateTestCommentEmptyRatingDetails(), comments[8]);
     }
 
     @Test
@@ -104,25 +114,40 @@ public class CommentRequestTest extends RequestTest {
                         "actionreicher Musik begleitet. Weiterhin sind die Animationen gut " +
                         "gelungen, und die Charaktere ziehen einen mit ihrem Charm in ihren " +
                         "Bann. Daher sollte jeder der auf das Genre steht und, oder sich einen " +
-                        "Otaku nennt diesen Anime gesehen haben.", 8, 25, 0, 1472063559, "Lorak",
-                "583403_pSCA43.jpg");
+                        "Otaku nennt diesen Anime gesehen haben.",
+                8, 25, 0, 1472063559, "Lorak", "583403_pSCA43.jpg");
+    }
+
+    private Comment generateTestCommentEmptyRatingDetails() {
+        return new Comment("17425831", "4167", "529490", "entry", CommentStateParameter.WATCHED,
+                new RatingDetails(0, 0, 0, 0, 0),
+                "Mal wieder ein Anime den die casuals ohne Grund in den Himmel hypen.\nFatale " +
+                        "Plot-Holes, schlecht geschriebene Charaktere und eine teilweise " +
+                        "grauenvolle inszenierung, machen den Anime zu dem haufen schei\u00dfe, " +
+                        "der er nun eben ist.\nIch glaube wohl kaum das ich irgendjemanden die " +
+                        "(Story) von SAO erl\u00e4utern muss.\nDas machen nur die Plebs, " +
+                        "die versuchen ihre schlechten Reviews mit h\u00fclle und f\u00fclle zu " +
+                        "best\u00fccken, um im Endeffekt sowieso nicht ernst genommen zu " +
+                        "werden.\nFuck off, als ob ich mir die m\u00fche mache so ein Trainwreck " +
+                        "auseinander zu nehmen.\nSeht das als Troll an. Aber die wertung ist " +
+                        "ernst gemeint.",
+                1, 25, 31, 1470583028, "DerLetzteElitist", "529490_Uz63db.jpg");
     }
 
     private Comment generateTestMangaComment() {
         return new Comment("7502937", "6195", "293356", "entry", CommentStateParameter.WATCHING,
                 new RatingDetails(5, 5, 4, 5, 0),
-                "Hallo zusammen,\n\nIch wollte nur kurz festhalten, dass dieser Manga einfach " +
-                        "- zumindest in meinen Augen - ein Meisterwerk ist! " +
-                        "\n\nGenres stimmen - 5/5\nStory ist herzerwärmend - " +
-                        "5/5\nZeichenstil ist genial - 5/5\nCharaktere sehr ausgeprägt, " +
-                        "unterschiedlich, erfrischend, aufeinander abgestimmt 6/5 (ich liebe " +
-                        "einfach jeden Charakter)\n\nEcht jetzt, mein Bauch schmerzt schon " +
-                        "fast vom vielen Lachen ^_^\nDieser Manga ist echt und wirklich " +
-                        "lesenswert. Er erzählt vom alltäglichen Leben von Handa Seishuu, " +
-                        "seinem unbewussten Reifen in der Kalligraphie und vielen kleine " +
-                        "Abenteuer, die einfach unbezahlbar und schön mitzuerleben sind " +
-                        "^_^\n\nMeine Empfehlung, einer meiner Top 10 Mangas " +
-                        "<3\n\nEure V.K.C.", 10, 63, 1, 1460844261, "V.K.C.",
-                "293356_5356c84799fed.jpg");
+                "Hallo zusammen,\n\nIch wollte nur kurz festhalten, dass dieser Manga einfach - " +
+                        "zumindest in meinen Augen - ein Meisterwerk ist! \n\nGenres stimmen - " +
+                        "5/5\nStory ist herzerwärmend - 5/5\nZeichenstil ist genial - " +
+                        "5/5\nCharaktere sehr ausgeprägt, unterschiedlich, erfrischend, " +
+                        "aufeinander abgestimmt 6/5 (ich liebe einfach jeden Charakter)\n\nEcht " +
+                        "jetzt, mein Bauch schmerzt schon fast vom vielen Lachen ^_^\nDieser " +
+                        "Manga ist echt und wirklich lesenswert. Er erzählt vom alltäglichen " +
+                        "Leben von Handa Seishuu, seinem unbewussten Reifen in der Kalligraphie " +
+                        "und vielen kleinen Abenteuern, die einfach unbezahlbar und schön " +
+                        "mitzuerleben sind ^_^\n\nMeine Empfehlung, einer meiner Top 10 Mangas <3\n" +
+                        "\nEure V.K.C.",
+                10, 84, 1, 1473258755, "V.K.C.", "293356_5356c84799fed.jpg");
     }
 }
