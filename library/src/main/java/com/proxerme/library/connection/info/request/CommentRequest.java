@@ -30,7 +30,7 @@ public class CommentRequest extends InfoRequest<Comment[]> {
     private static final String LIMIT_PARAMETER = "limit";
     private static final String SORT_PARAMETER = "sort";
 
-    private static final String EMPTY_DATA_PATTERN = "\"data\":\"\\[\\]\"";
+    private static final String EMPTY_DATA_PATTERN = "\"data\":\"(\\[\\])?\"";
     private static final String EMPTY_DATA_REPLACEMENT = "\"data\":{}";
     private static final String START_PATTERN = "\"{";
     private static final String END_PATTERN = "}\"";
