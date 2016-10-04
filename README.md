@@ -37,7 +37,7 @@ And this to your module build.gradle:
 
 ```groovy
 dependencies {
-    compile('com.github.proxer:ProxerLibAndroid:2.1.0') {
+    compile('com.github.proxer:ProxerLibAndroid:2.1.1') {
         transitive = true
     }
 }
@@ -320,7 +320,7 @@ meaning that your callbacks will not be called if an request was cancelled.
 ##### More
 
 You can find detailed JavaDoc
-[here](https://jitpack.io/com/github/proxer/ProxerLibAndroid/2.1.0/javadoc/).
+[here](https://jitpack.io/com/github/proxer/ProxerLibAndroid/2.1.1/javadoc/).
 
 ### Architecture
 
