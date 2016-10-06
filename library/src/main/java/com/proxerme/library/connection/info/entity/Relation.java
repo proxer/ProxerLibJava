@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.parameters.CategoryParameter;
@@ -68,7 +69,7 @@ public class Relation implements Parcelable, IdItem {
     @Json(name = "language")
     private String languages;
     @Json(name = "year")
-    private int year;
+    private Integer year;
     @Json(name = "season")
     private int season;
 
@@ -105,7 +106,8 @@ public class Relation implements Parcelable, IdItem {
                     @IntRange(from = 0) int rateCount, @IntRange(from = 0) int clicks,
                     @NonNull @CategoryParameter.Category String category,
                     @LicenseParameter.License int license, @NonNull String languages,
-                    @IntRange(from = 0) int year, @SeasonParameter.SeasonConstraint int season) {
+                    @IntRange(from = 0) Integer year,
+                    @SeasonParameter.SeasonConstraint int season) {
         this.id = id;
         this.name = name;
         this.genres = genre;
@@ -312,6 +314,7 @@ public class Relation implements Parcelable, IdItem {
      *
      * @return The Year.
      **/
+    @Nullable
     @IntRange(from = 0)
     public int getYear() {
         return year;
@@ -366,7 +369,6 @@ public class Relation implements Parcelable, IdItem {
         parcel.writeInt(season);
     }
 
-
     @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
@@ -377,20 +379,20 @@ public class Relation implements Parcelable, IdItem {
 
         if (episodeCount != relation.episodeCount) return false;
         if (state != relation.state) return false;
+        if (rateSum != relation.rateSum) return false;
         if (rateCount != relation.rateCount) return false;
         if (clicks != relation.clicks) return false;
         if (license != relation.license) return false;
-        if (year != relation.year) return false;
         if (season != relation.season) return false;
-        if (rateSum != relation.rateSum) return false;
         if (!id.equals(relation.id)) return false;
         if (!name.equals(relation.name)) return false;
         if (!genres.equals(relation.genres)) return false;
         if (!fsk.equals(relation.fsk)) return false;
         if (!description.equals(relation.description)) return false;
         if (!medium.equals(relation.medium)) return false;
-        return category.equals(relation.category) && languages.equals(relation.languages);
-
+        if (!category.equals(relation.category)) return false;
+        if (!languages.equals(relation.languages)) return false;
+        return year != null ? year.equals(relation.year) : relation.year == null;
     }
 
     @Override
@@ -409,7 +411,7 @@ public class Relation implements Parcelable, IdItem {
         result = 31 * result + category.hashCode();
         result = 31 * result + license;
         result = 31 * result + languages.hashCode();
-        result = 31 * result + year;
+        result = 31 * result + (year != null ? year.hashCode() : 0);
         result = 31 * result + season;
         return result;
     }
