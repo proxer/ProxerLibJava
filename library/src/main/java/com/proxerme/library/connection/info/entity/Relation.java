@@ -8,14 +8,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.proxerme.library.interfaces.IdItem;
-import com.proxerme.library.parameters.CategoryParameter;
+import com.proxerme.library.parameters.CategoryParameter.Category;
 import com.proxerme.library.parameters.FskParameter;
 import com.proxerme.library.parameters.GeneralLanguageParameter;
 import com.proxerme.library.parameters.GenreParameter;
-import com.proxerme.library.parameters.LicenseParameter;
-import com.proxerme.library.parameters.MediumParameter;
-import com.proxerme.library.parameters.SeasonParameter;
-import com.proxerme.library.parameters.StateParameter;
+import com.proxerme.library.parameters.LicenseParameter.License;
+import com.proxerme.library.parameters.MediumParameter.Medium;
+import com.proxerme.library.parameters.SeasonParameter.SeasonConstraint;
+import com.proxerme.library.parameters.StateParameter.State;
 import com.squareup.moshi.Json;
 
 /**
@@ -71,7 +71,7 @@ public class Relation implements Parcelable, IdItem {
     @Json(name = "year")
     private Integer year;
     @Json(name = "season")
-    private int season;
+    private Integer season;
 
     /**
      * Private constructor used by moshi.
@@ -101,13 +101,12 @@ public class Relation implements Parcelable, IdItem {
      */
     public Relation(@NonNull String id, @NonNull String name, @NonNull String genre,
                     @NonNull String fsk, @NonNull String description,
-                    @MediumParameter.Medium String medium, @IntRange(from = 0) int episodeCount,
-                    @StateParameter.State int state, @IntRange(from = 0) int rateSum,
+                    @Medium String medium, @IntRange(from = 0) int episodeCount,
+                    @State int state, @IntRange(from = 0) int rateSum,
                     @IntRange(from = 0) int rateCount, @IntRange(from = 0) int clicks,
-                    @NonNull @CategoryParameter.Category String category,
-                    @LicenseParameter.License int license, @NonNull String languages,
-                    @IntRange(from = 0) Integer year,
-                    @SeasonParameter.SeasonConstraint int season) {
+                    @NonNull @Category String category, @License int license,
+                    @NonNull String languages, @IntRange(from = 0) @Nullable Integer year,
+                    @SeasonConstraint @Nullable Integer season) {
         this.id = id;
         this.name = name;
         this.genres = genre;
@@ -218,7 +217,7 @@ public class Relation implements Parcelable, IdItem {
      *
      * @return The Medium.
      **/
-    @MediumParameter.Medium
+    @Medium
     public String getMedium() {
         return medium;
     }
@@ -238,7 +237,7 @@ public class Relation implements Parcelable, IdItem {
      *
      * @return The State.
      **/
-    @StateParameter.State
+    @State
     public int getState() {
         return state;
     }
@@ -278,7 +277,7 @@ public class Relation implements Parcelable, IdItem {
      *
      * @return The Kat.
      **/
-    @CategoryParameter.Category
+    @Category
     public String getCategory() {
         return category;
     }
@@ -288,7 +287,7 @@ public class Relation implements Parcelable, IdItem {
      *
      * @return The License.
      **/
-    @LicenseParameter.License
+    @License
     public int getLicense() {
         return license;
     }
@@ -316,7 +315,7 @@ public class Relation implements Parcelable, IdItem {
      **/
     @Nullable
     @IntRange(from = 0)
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
@@ -325,8 +324,9 @@ public class Relation implements Parcelable, IdItem {
      *
      * @return The Season.
      **/
-    @SeasonParameter.SeasonConstraint
-    public int getSeason() {
+    @Nullable
+    @SeasonConstraint
+    public Integer getSeason() {
         return season;
     }
 
@@ -383,7 +383,7 @@ public class Relation implements Parcelable, IdItem {
         if (rateCount != relation.rateCount) return false;
         if (clicks != relation.clicks) return false;
         if (license != relation.license) return false;
-        if (season != relation.season) return false;
+        if (season != null ? season.equals(relation.season) : relation.season == null) return false;
         if (!id.equals(relation.id)) return false;
         if (!name.equals(relation.name)) return false;
         if (!genres.equals(relation.genres)) return false;
@@ -412,7 +412,7 @@ public class Relation implements Parcelable, IdItem {
         result = 31 * result + license;
         result = 31 * result + languages.hashCode();
         result = 31 * result + (year != null ? year.hashCode() : 0);
-        result = 31 * result + season;
+        result = 31 * result + (season != null ? season.hashCode() : 0);
         return result;
     }
 }
