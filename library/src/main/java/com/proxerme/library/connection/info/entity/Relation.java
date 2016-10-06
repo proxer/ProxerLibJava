@@ -23,12 +23,12 @@ import com.squareup.moshi.Json;
  *
  * @author Desnoo
  */
-public class Relation implements Parcelable, IdItem {
+public class Relation implements IdItem, Parcelable {
 
-    public static final Creator<Relation> CREATOR = new Creator<Relation>() {
+    public static final Parcelable.Creator<Relation> CREATOR = new Parcelable.Creator<Relation>() {
         @Override
-        public Relation createFromParcel(Parcel in) {
-            return new Relation(in);
+        public Relation createFromParcel(Parcel source) {
+            return new Relation(source);
         }
 
         @Override
@@ -79,6 +79,7 @@ public class Relation implements Parcelable, IdItem {
     private Relation() {
     }
 
+
     /**
      * The constructor.
      *
@@ -125,28 +126,23 @@ public class Relation implements Parcelable, IdItem {
         this.season = season;
     }
 
-    /**
-     * Parse relation from parcel.
-     *
-     * @param in The parcel to parse.
-     */
     protected Relation(Parcel in) {
-        id = in.readString();
-        name = in.readString();
-        genres = in.readString();
-        fsk = in.readString();
-        description = in.readString();
-        medium = in.readString();
-        episodeCount = in.readInt();
-        state = in.readInt();
-        rateSum = in.readInt();
-        rateCount = in.readInt();
-        clicks = in.readInt();
-        category = in.readString();
-        license = in.readInt();
-        languages = in.readString();
-        year = in.readInt();
-        season = in.readInt();
+        this.id = in.readString();
+        this.name = in.readString();
+        this.genres = in.readString();
+        this.fsk = in.readString();
+        this.description = in.readString();
+        this.medium = in.readString();
+        this.episodeCount = in.readInt();
+        this.state = in.readInt();
+        this.rateSum = in.readInt();
+        this.rateCount = in.readInt();
+        this.clicks = in.readInt();
+        this.category = in.readString();
+        this.license = in.readInt();
+        this.languages = in.readString();
+        this.year = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.season = (Integer) in.readValue(Integer.class.getClassLoader());
     }
 
     /**
@@ -344,31 +340,6 @@ public class Relation implements Parcelable, IdItem {
         }
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
-        parcel.writeString(name);
-        parcel.writeString(genres);
-        parcel.writeString(fsk);
-        parcel.writeString(description);
-        parcel.writeString(medium);
-        parcel.writeInt(episodeCount);
-        parcel.writeInt(state);
-        parcel.writeInt(rateSum);
-        parcel.writeInt(rateCount);
-        parcel.writeInt(clicks);
-        parcel.writeString(category);
-        parcel.writeInt(license);
-        parcel.writeString(languages);
-        parcel.writeInt(year);
-        parcel.writeInt(season);
-    }
-
     @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
@@ -414,5 +385,30 @@ public class Relation implements Parcelable, IdItem {
         result = 31 * result + (year != null ? year.hashCode() : 0);
         result = 31 * result + (season != null ? season.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.genres);
+        dest.writeString(this.fsk);
+        dest.writeString(this.description);
+        dest.writeString(this.medium);
+        dest.writeInt(this.episodeCount);
+        dest.writeInt(this.state);
+        dest.writeInt(this.rateSum);
+        dest.writeInt(this.rateCount);
+        dest.writeInt(this.clicks);
+        dest.writeString(this.category);
+        dest.writeInt(this.license);
+        dest.writeString(this.languages);
+        dest.writeValue(this.year);
+        dest.writeValue(this.season);
     }
 }
