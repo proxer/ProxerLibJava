@@ -36,12 +36,15 @@ public class Relation implements Parcelable, IdItem {
         }
     };
 
+    private static final String LANGUAGE_DELIMITER = ",";
+    private static final String DELIMITER = " ";
+
     @Json(name = "id")
     private String id;
     @Json(name = "name")
     private String name;
     @Json(name = "genre")
-    private String genre;
+    private String genres;
     @Json(name = "fsk")
     private String fsk;
     @Json(name = "description")
@@ -63,7 +66,7 @@ public class Relation implements Parcelable, IdItem {
     @Json(name = "license")
     private int license;
     @Json(name = "language")
-    private String language;
+    private String languages;
     @Json(name = "year")
     private int year;
     @Json(name = "season")
@@ -78,34 +81,34 @@ public class Relation implements Parcelable, IdItem {
     /**
      * The constructor.
      *
-     * @param id The relation id.
-     * @param name The name.
-     * @param genre The genre.
-     * @param fsk The fsk rating.
-     * @param description The description.
-     * @param medium The medium.
+     * @param id           The relation id.
+     * @param name         The name.
+     * @param genre        The genres.
+     * @param fsk          The fsk rating.
+     * @param description  The description.
+     * @param medium       The medium.
      * @param episodeCount The count of episodes/chapters.
-     * @param state The state of the anime/manga.
-     * @param rateSum The sum of all ratings.
-     * @param rateCount The count of all ratings.
-     * @param clicks The count of clicks on this entry.
-     * @param category The type.
-     * @param license The license state.
-     * @param language The language.
-     * @param year The release year.
-     * @param season The release season.
+     * @param state        The state of the anime/manga.
+     * @param rateSum      The sum of all ratings.
+     * @param rateCount    The count of all ratings.
+     * @param clicks       The count of clicks on this entry.
+     * @param category     The type.
+     * @param license      The license state.
+     * @param languages    The languages.
+     * @param year         The release year.
+     * @param season       The release season.
      */
-    public Relation(@NonNull String id, @NonNull String name, @GenreParameter.Genre String genre,
-                    @FskParameter.FskConstraint String fsk, @NonNull String description,
+    public Relation(@NonNull String id, @NonNull String name, @NonNull String genre,
+                    @NonNull String fsk, @NonNull String description,
                     @MediumParameter.Medium String medium, @IntRange(from = 0) int episodeCount,
-                    @StateParameter.State int state, @IntRange(from = 0) int rateSum, @IntRange(from = 0) int rateCount,
-                    @IntRange(from = 0) int clicks, @CategoryParameter.Category String category,
-                    @LicenseParameter.License int license,
-                    @GeneralLanguageParameter.GeneralLanguage String language, @IntRange(from = 0) int year,
-                    @SeasonParameter.SeasonConstraint int season) {
+                    @StateParameter.State int state, @IntRange(from = 0) int rateSum,
+                    @IntRange(from = 0) int rateCount, @IntRange(from = 0) int clicks,
+                    @NonNull @CategoryParameter.Category String category,
+                    @LicenseParameter.License int license, @NonNull String languages,
+                    @IntRange(from = 0) int year, @SeasonParameter.SeasonConstraint int season) {
         this.id = id;
         this.name = name;
-        this.genre = genre;
+        this.genres = genre;
         this.fsk = fsk;
         this.description = description;
         this.medium = medium;
@@ -116,7 +119,7 @@ public class Relation implements Parcelable, IdItem {
         this.clicks = clicks;
         this.category = category;
         this.license = license;
-        this.language = language;
+        this.languages = languages;
         this.year = year;
         this.season = season;
     }
@@ -129,7 +132,7 @@ public class Relation implements Parcelable, IdItem {
     protected Relation(Parcel in) {
         id = in.readString();
         name = in.readString();
-        genre = in.readString();
+        genres = in.readString();
         fsk = in.readString();
         description = in.readString();
         medium = in.readString();
@@ -140,7 +143,7 @@ public class Relation implements Parcelable, IdItem {
         clicks = in.readInt();
         category = in.readString();
         license = in.readInt();
-        language = in.readString();
+        languages = in.readString();
         year = in.readInt();
         season = in.readInt();
     }
@@ -167,13 +170,19 @@ public class Relation implements Parcelable, IdItem {
     }
 
     /**
-     * Returns the Genre.
+     * Returns the genres of this relation.
      *
-     * @return The Genre.
-     **/
+     * @return The genres.
+     */
+    @SuppressWarnings("WrongConstant")
+    @NonNull
     @GenreParameter.Genre
-    public String getGenre() {
-        return genre;
+    public String[] getGenres() {
+        if (genres.isEmpty()) {
+            return new String[0];
+        } else {
+            return genres.split(DELIMITER);
+        }
     }
 
     /**
@@ -181,9 +190,15 @@ public class Relation implements Parcelable, IdItem {
      *
      * @return The Fsk.
      **/
+    @SuppressWarnings("WrongConstant")
+    @NonNull
     @FskParameter.FskConstraint
-    public String getFsk() {
-        return fsk;
+    public String[] getFsk() {
+        if (fsk.isEmpty()) {
+            return new String[0];
+        } else {
+            return fsk.split(DELIMITER);
+        }
     }
 
     /**
@@ -281,9 +296,15 @@ public class Relation implements Parcelable, IdItem {
      *
      * @return The Language.
      **/
+    @SuppressWarnings("WrongConstant")
+    @NonNull
     @GeneralLanguageParameter.GeneralLanguage
-    public String getLanguage() {
-        return language;
+    public String[] getLanguages() {
+        if (languages.isEmpty()) {
+            return new String[0];
+        } else {
+            return languages.split(LANGUAGE_DELIMITER);
+        }
     }
 
     /**
@@ -329,7 +350,7 @@ public class Relation implements Parcelable, IdItem {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(id);
         parcel.writeString(name);
-        parcel.writeString(genre);
+        parcel.writeString(genres);
         parcel.writeString(fsk);
         parcel.writeString(description);
         parcel.writeString(medium);
@@ -340,7 +361,7 @@ public class Relation implements Parcelable, IdItem {
         parcel.writeInt(clicks);
         parcel.writeString(category);
         parcel.writeInt(license);
-        parcel.writeString(language);
+        parcel.writeString(languages);
         parcel.writeInt(year);
         parcel.writeInt(season);
     }
@@ -364,11 +385,11 @@ public class Relation implements Parcelable, IdItem {
         if (rateSum != relation.rateSum) return false;
         if (!id.equals(relation.id)) return false;
         if (!name.equals(relation.name)) return false;
-        if (!genre.equals(relation.genre)) return false;
+        if (!genres.equals(relation.genres)) return false;
         if (!fsk.equals(relation.fsk)) return false;
         if (!description.equals(relation.description)) return false;
         if (!medium.equals(relation.medium)) return false;
-        return category.equals(relation.category) && language.equals(relation.language);
+        return category.equals(relation.category) && languages.equals(relation.languages);
 
     }
 
@@ -376,7 +397,7 @@ public class Relation implements Parcelable, IdItem {
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + name.hashCode();
-        result = 31 * result + genre.hashCode();
+        result = 31 * result + genres.hashCode();
         result = 31 * result + fsk.hashCode();
         result = 31 * result + description.hashCode();
         result = 31 * result + medium.hashCode();
@@ -387,7 +408,7 @@ public class Relation implements Parcelable, IdItem {
         result = 31 * result + clicks;
         result = 31 * result + category.hashCode();
         result = 31 * result + license;
-        result = 31 * result + language.hashCode();
+        result = 31 * result + languages.hashCode();
         result = 31 * result + year;
         result = 31 * result + season;
         return result;

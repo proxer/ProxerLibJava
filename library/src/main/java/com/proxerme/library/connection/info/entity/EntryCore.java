@@ -82,13 +82,12 @@ public class EntryCore implements Parcelable, IdItem {
      * @param category      The category name.
      * @param license       The license id.
      */
-    public EntryCore(@NonNull String id, @NonNull String name,
-                     @NonNull @Genre String genres, @NonNull String fsk,
-                     @NonNull String description, @NonNull @Medium String medium,
-                     @IntRange(from = 1) int episodeAmount, @IntRange(from = 0) int state,
-                     @IntRange(from = 0) int rateSum, @IntRange(from = 0) int rateCount,
-                     @IntRange(from = 0) int clicks, @NonNull @Category String category,
-                     @License int license) {
+    public EntryCore(@NonNull String id, @NonNull String name, @NonNull String genres,
+                     @NonNull String fsk, @NonNull String description,
+                     @NonNull @Medium String medium, @IntRange(from = 1) int episodeAmount,
+                     @IntRange(from = 0) int state, @IntRange(from = 0) int rateSum,
+                     @IntRange(from = 0) int rateCount, @IntRange(from = 0) int clicks,
+                     @NonNull @Category String category, @License int license) {
         this.id = id;
         this.name = name;
         this.genres = genres;
