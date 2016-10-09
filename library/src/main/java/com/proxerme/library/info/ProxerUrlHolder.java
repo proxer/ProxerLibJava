@@ -263,6 +263,21 @@ public final class ProxerUrlHolder {
     }
 
     /**
+     * Returns the url for a hoster image.
+     *
+     * @param imageId The image id.
+     * @return The url.
+     */
+    @NonNull
+    public static HttpUrl getHosterImageUrl(@NonNull String imageId) {
+        return getBaseApiHost().newBuilder()
+                .addPathSegment("images")
+                .addPathSegment("hoster")
+                .addPathSegment(imageId)
+                .build();
+    }
+
+    /**
      * An annotation representing the available tag rate filters.
      */
     @StringDef({DEVICE_QUERY_PARAMETER_DEFAULT, DEVICE_QUERY_PARAMETER_MOBILE})
