@@ -10,7 +10,6 @@ import com.proxerme.library.parameters.SubDubLanguageParameter;
 import com.proxerme.library.test.R;
 import com.proxerme.library.util.RequestTest;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -31,11 +30,13 @@ public class ListInfoRequestTest extends RequestTest {
     private static final String URL = "/api/v1/info/listinfo?id=123&p=0";
     private static final String URL_LIMIT = "/api/v1/info/listinfo?id=123&p=0&limit=10";
 
+    private static final String ID = "123";
+
     @Test
     public void testAnime() throws Exception {
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.listinfo_anime)));
 
-        ListInfo result = connection.executeSynchronized(new ListInfoRequest("123", 0)
+        ListInfo result = connection.executeSynchronized(new ListInfoRequest(ID, 0)
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
         assertEquals(generateTestListInfo(), result);
@@ -45,7 +46,7 @@ public class ListInfoRequestTest extends RequestTest {
     public void testManga() throws Exception {
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.listinfo_manga)));
 
-        ListInfo result = connection.executeSynchronized(new ListInfoRequest("123", 0)
+        ListInfo result = connection.executeSynchronized(new ListInfoRequest(ID, 0)
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
         assertEquals(generateTestListInfoManga(), result);
@@ -55,20 +56,20 @@ public class ListInfoRequestTest extends RequestTest {
     public void testDefaultUrl() throws Exception {
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.listinfo_manga)));
 
-        connection.executeSynchronized(new ListInfoRequest("123", 0)
+        connection.executeSynchronized(new ListInfoRequest(ID, 0)
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
-        Assert.assertEquals(URL, server.takeRequest().getPath());
+        assertEquals(URL, server.takeRequest().getPath());
     }
 
     @Test
     public void testLimitUrl() throws Exception {
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.listinfo_manga)));
 
-        connection.executeSynchronized(new ListInfoRequest("123", 0).withLimit(10)
+        connection.executeSynchronized(new ListInfoRequest(ID, 0).withLimit(10)
                 .withCustomHost(buildHostUrl(server.url(URL_LIMIT))));
 
-        Assert.assertEquals(URL_LIMIT, server.takeRequest().getPath());
+        assertEquals(URL_LIMIT, server.takeRequest().getPath());
     }
 
     private ListInfo generateTestListInfo() {
@@ -93,5 +94,4 @@ public class ListInfoRequestTest extends RequestTest {
                 new Episode(2, GeneralLanguageParameter.ENGLISH, "Chapter 2", null, null),
         });
     }
-
 }

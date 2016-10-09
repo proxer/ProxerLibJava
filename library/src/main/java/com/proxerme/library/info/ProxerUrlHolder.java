@@ -51,6 +51,9 @@ public final class ProxerUrlHolder {
 
     private static final String ID_PARAMETER = "id";
 
+    private static final String IMAGES_SEGMENT = "images";
+    private static final String HOSTER_SEGMENT = "hoster";
+
     private static final String DEVICE_QUERY_PARAMETER = "device";
 
     private ProxerUrlHolder() {
@@ -271,8 +274,8 @@ public final class ProxerUrlHolder {
     @NonNull
     public static HttpUrl getHosterImageUrl(@NonNull String imageId) {
         return getBaseApiHost().newBuilder()
-                .addPathSegment("images")
-                .addPathSegment("hoster")
+                .addPathSegment(IMAGES_SEGMENT)
+                .addPathSegment(HOSTER_SEGMENT)
                 .addPathSegment(imageId)
                 .build();
     }
