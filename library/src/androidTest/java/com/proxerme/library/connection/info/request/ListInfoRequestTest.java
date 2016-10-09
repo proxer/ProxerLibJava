@@ -1,5 +1,7 @@
 package com.proxerme.library.connection.info.request;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.proxerme.library.connection.info.entity.Episode;
 import com.proxerme.library.connection.info.entity.ListInfo;
 import com.proxerme.library.parameters.CategoryParameter;
@@ -10,6 +12,7 @@ import com.proxerme.library.util.RequestTest;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import okhttp3.mockwebserver.MockResponse;
 
@@ -22,6 +25,7 @@ import static junit.framework.Assert.assertEquals;
  *
  * @author Ruben Gees
  */
+@RunWith(AndroidJUnit4.class)
 public class ListInfoRequestTest extends RequestTest {
 
     private static final String URL = "/api/v1/info/listinfo?id=123&p=0";

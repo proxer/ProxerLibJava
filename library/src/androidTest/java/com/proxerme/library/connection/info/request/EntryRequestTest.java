@@ -1,5 +1,7 @@
 package com.proxerme.library.connection.info.request;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.proxerme.library.connection.info.entity.Entry;
 import com.proxerme.library.connection.info.entity.EntrySeason;
 import com.proxerme.library.connection.info.entity.Publisher;
@@ -16,6 +18,7 @@ import com.proxerme.library.test.R;
 import com.proxerme.library.util.RequestTest;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import okhttp3.mockwebserver.MockResponse;
 
@@ -28,6 +31,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @author Ruben Gees
  */
+@RunWith(AndroidJUnit4.class)
 public class EntryRequestTest extends RequestTest {
 
     private static final String URL = "/api/v1/info/fullentry?id=100";
