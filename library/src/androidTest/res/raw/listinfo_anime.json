@@ -1,0 +1,28 @@
+{
+  "data": {
+    "start": 1,
+    "end": "12",
+    "state": 0,
+    "lang": [
+      "gersub",
+      "engsub"
+    ],
+    "episodes": [
+      {
+        "no": "1",
+        "types": "proxer-stream,mp4upload,videoweed,novamov,streamcloud2",
+        "typ": "engsub",
+        "typeimg": "proxer-stream.png,mp4upload.png,videoweed.png,novamov.png,streamcloud.png"
+      },
+      {
+        "no": "1",
+        "types": "streamcloud,novamov,mp4upload,proxer-stream,yourupload",
+        "typ": "gersub",
+        "typeimg": "streamcloud.png,novamov.png,mp4upload.png,proxer-stream.png,yourupload.png"
+      }
+    ],
+    "kat": "anime"
+  },
+  "error": 0,
+  "message": "Abfrage erfolgreich."
+}

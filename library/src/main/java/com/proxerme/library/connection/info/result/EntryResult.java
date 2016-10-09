@@ -7,7 +7,7 @@ import com.squareup.moshi.Json;
 /**
  * {@inheritDoc}
  */
-public class EntryResult extends ProxerResult<Entry> {
+public final class EntryResult extends ProxerResult<Entry> {
 
     @Json(name = "data")
     private Entry entry;
