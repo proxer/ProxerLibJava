@@ -20,6 +20,12 @@ public final class Utils {
 
     }
 
+    /**
+     * Converts an ISO timestamp into an UNIX timestamp.
+     *
+     * @param timestamp The ISO timestamp.
+     * @return The converted UNIX timestamp
+     */
     public static long timestampToUnixTime(@NonNull String timestamp) {
         SimpleDateFormat dateParser = new SimpleDateFormat(PATTERN, Locale.getDefault());
 
@@ -28,6 +34,43 @@ public final class Utils {
         } catch (ParseException e) {
             throw new UncheckedParseException(e);
         }
+    }
+
+    /**
+     * Converts a two dimensional array into a one dimensional (Used for parceling).
+     * Stolen from here: http://stackoverflow.com/a/9562083/4279995
+     *
+     * @param input The array to convert.
+     * @return The newly converted array.
+     */
+    public static String[] toOneDimension(String[][] input) {
+        String[] output = new String[input.length * input[0].length];
+
+        for (int i = 0; i < input.length; i++) {
+            for (int j = 0; j < input[i].length; j++) {
+                output[i * j] = input[i][j];
+            }
+        }
+
+        return output;
+    }
+
+
+    /**
+     * Converts a one dimensional array back into a two dimensional (Used for parceling).
+     * Stolen from here: http://stackoverflow.com/a/9562083/4279995
+     *
+     * @param input The array to convert.
+     * @return The newly converted array.
+     */
+    public static String[][] toTwoDimensions(int dimensions, String[] input) {
+        String[][] output = new String[input.length / dimensions][dimensions];
+
+        for (int i = 0; i < input.length; i++) {
+            output[i / dimensions][i % dimensions] = input[i];
+        }
+
+        return output;
     }
 
     @VisibleForTesting
