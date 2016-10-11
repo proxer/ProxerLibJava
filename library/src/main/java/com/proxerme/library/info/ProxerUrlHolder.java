@@ -54,6 +54,9 @@ public final class ProxerUrlHolder {
     private static final String IMAGES_SEGMENT = "images";
     private static final String HOSTER_SEGMENT = "hoster";
 
+    private static final String F_SEGMENT = "f";
+    private static final String MANGA_SEGMENT = "manga";
+
     private static final String DEVICE_QUERY_PARAMETER = "device";
 
     private ProxerUrlHolder() {
@@ -277,6 +280,27 @@ public final class ProxerUrlHolder {
                 .addPathSegment(IMAGES_SEGMENT)
                 .addPathSegment(HOSTER_SEGMENT)
                 .addPathSegment(imageId)
+                .build();
+    }
+
+    /**
+     * Returns the url for a single page of a manga.
+     *
+     * @param server  The server.
+     * @param entryId The entry id.
+     * @param id      The id of the chapter.
+     * @param name    The filename of the page.
+     * @return The url.
+     */
+    @NonNull
+    public static HttpUrl getMangaPageUrl(@NonNull String server, @NonNull String entryId,
+                                          @NonNull String id, @NonNull String name) {
+        return getBaseApiHost().newBuilder()
+                .addPathSegment(F_SEGMENT)
+                .addPathSegment(MANGA_SEGMENT + server)
+                .addPathSegment(entryId)
+                .addPathSegment(id)
+                .addPathSegment(name)
                 .build();
     }
 
