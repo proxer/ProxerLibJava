@@ -56,6 +56,7 @@ public final class ProxerUrlHolder {
 
     private static final String F_SEGMENT = "f";
     private static final String MANGA_SEGMENT = "manga";
+    private static final String MANGA_SERVER_SEGMENT = ".proxer.me";
 
     private static final String DEVICE_QUERY_PARAMETER = "device";
 
@@ -295,9 +296,10 @@ public final class ProxerUrlHolder {
     @NonNull
     public static HttpUrl getMangaPageUrl(@NonNull String server, @NonNull String entryId,
                                           @NonNull String id, @NonNull String name) {
-        return getBaseApiHost().newBuilder()
+        return new HttpUrl.Builder()
+                .scheme(SCHEME)
+                .host(MANGA_SEGMENT + server + MANGA_SERVER_SEGMENT)
                 .addPathSegment(F_SEGMENT)
-                .addPathSegment(MANGA_SEGMENT + server)
                 .addPathSegment(entryId)
                 .addPathSegment(id)
                 .addPathSegment(name)
