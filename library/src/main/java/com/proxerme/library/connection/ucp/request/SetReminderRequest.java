@@ -56,7 +56,7 @@ public class SetReminderRequest extends UcpRequest<Void> {
     @Override
     protected ProxerResult<Void> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(SetReminderResult.class).fromJson(body.source());
+        return moshi.adapter(SetReminderResult.class).lenient().fromJson(body.source());
     }
 
     @NonNull

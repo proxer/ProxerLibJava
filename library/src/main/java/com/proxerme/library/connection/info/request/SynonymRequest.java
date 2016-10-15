@@ -39,7 +39,7 @@ public class SynonymRequest extends InfoRequest<Synonym[]> {
     @Override
     protected ProxerResult<Synonym[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(SynonymResult.class).fromJson(body.source());
+        return moshi.adapter(SynonymResult.class).lenient().fromJson(body.source());
     }
 
     @NonNull

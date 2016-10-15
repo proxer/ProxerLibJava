@@ -24,7 +24,7 @@ public class ConstantsRequest extends MessengerRequest<Constants> {
     @Override
     protected ProxerResult<Constants> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(ConstantsResult.class).fromJson(body.source());
+        return moshi.adapter(ConstantsResult.class).lenient().fromJson(body.source());
     }
 
     @NonNull

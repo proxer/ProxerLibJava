@@ -45,7 +45,7 @@ public class LoginRequest extends UserRequest<User> {
     @Override
     protected ProxerResult<User> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        LoginResult result = moshi.adapter(LoginResult.class).fromJson(body.source());
+        LoginResult result = moshi.adapter(LoginResult.class).lenient().fromJson(body.source());
 
         if (result.getData() != null) {
             result.getData().setUsername(username);

@@ -25,7 +25,7 @@ public class UcpToptenRequest extends UcpRequest<UcpToptenEntity[]> {
     @Override
     protected ProxerResult<UcpToptenEntity[]> parse(@NonNull Moshi moshi,
                                                     @NonNull ResponseBody body) throws IOException {
-        return moshi.adapter(UcpToptenResult.class).fromJson(body.source());
+        return moshi.adapter(UcpToptenResult.class).lenient().fromJson(body.source());
     }
 
     @NonNull

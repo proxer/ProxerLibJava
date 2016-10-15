@@ -40,7 +40,7 @@ public class DeleteReminderRequest extends UcpRequest<Void> {
     @Override
     protected ProxerResult<Void> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(DeleteReminderResult.class).fromJson(body.source());
+        return moshi.adapter(DeleteReminderResult.class).lenient().fromJson(body.source());
     }
 
     @NonNull

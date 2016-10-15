@@ -92,7 +92,7 @@ public class CommentRequest extends InfoRequest<Comment[]> {
     @Override
     protected ProxerResult<Comment[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(CommentResult.class).fromJson(convertBody(body.string()));
+        return moshi.adapter(CommentResult.class).lenient().fromJson(convertBody(body.string()));
     }
 
     @NonNull

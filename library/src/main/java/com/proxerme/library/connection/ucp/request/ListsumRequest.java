@@ -23,7 +23,7 @@ public class ListsumRequest extends UcpRequest<Integer> {
     @Override
     protected ProxerResult<Integer> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(ListsumResult.class).fromJson(body.source());
+        return moshi.adapter(ListsumResult.class).lenient().fromJson(body.source());
     }
 
     @NonNull

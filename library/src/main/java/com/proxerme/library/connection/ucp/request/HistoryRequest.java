@@ -55,7 +55,7 @@ public class HistoryRequest extends UcpRequest<HistoryEntry[]> {
     @Override
     protected ProxerResult<HistoryEntry[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(HistoryResult.class).fromJson(body.source());
+        return moshi.adapter(HistoryResult.class).lenient().fromJson(body.source());
     }
 
     @NonNull
