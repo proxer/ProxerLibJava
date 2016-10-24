@@ -26,7 +26,7 @@ public class LogoutRequest extends UserRequest<Void> {
     @Override
     protected ProxerResult<Void> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(LogoutResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(LogoutResult.class).fromJson(body.source());
     }
 
     @NonNull

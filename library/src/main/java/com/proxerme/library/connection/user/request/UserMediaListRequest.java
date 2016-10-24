@@ -136,7 +136,7 @@ public class UserMediaListRequest extends UserRequest<UserMediaListEntry[]> {
     protected ProxerResult<UserMediaListEntry[]> parse(@NonNull Moshi moshi,
                                                        @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(UserMediaListResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(UserMediaListResult.class).fromJson(body.source());
     }
 
     @NonNull

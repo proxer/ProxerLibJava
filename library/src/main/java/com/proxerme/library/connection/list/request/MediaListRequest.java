@@ -121,7 +121,7 @@ public class MediaListRequest extends ListRequest<MediaListEntry[]> {
     @Override
     protected ProxerResult<MediaListEntry[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(MediaListResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(MediaListResult.class).fromJson(body.source());
     }
 
     @NonNull

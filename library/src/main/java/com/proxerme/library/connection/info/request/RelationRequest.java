@@ -38,7 +38,7 @@ public class RelationRequest extends InfoRequest<Relation[]> {
     @Override
     protected ProxerResult<Relation[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(RelationResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(RelationResult.class).fromJson(body.source());
     }
 
 

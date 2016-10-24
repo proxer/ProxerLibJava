@@ -56,7 +56,7 @@ public class MessagesRequest extends MessengerRequest<Message[]> {
     @Override
     protected ProxerResult<Message[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(MessagesResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(MessagesResult.class).fromJson(body.source());
     }
 
     @NonNull

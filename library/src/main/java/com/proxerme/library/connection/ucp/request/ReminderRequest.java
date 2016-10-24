@@ -70,7 +70,7 @@ public class ReminderRequest extends UcpRequest<Reminder[]> {
     @Override
     protected ProxerResult<Reminder[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(ReminderResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(ReminderResult.class).fromJson(body.source());
     }
 
     @NonNull

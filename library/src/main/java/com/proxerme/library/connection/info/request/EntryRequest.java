@@ -39,7 +39,7 @@ public class EntryRequest extends InfoRequest<Entry> {
     @Override
     protected ProxerResult<Entry> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(EntryResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(EntryResult.class).fromJson(body.source());
     }
 
     @NonNull

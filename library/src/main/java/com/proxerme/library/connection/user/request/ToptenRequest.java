@@ -68,7 +68,7 @@ public class ToptenRequest extends UserRequest<ToptenEntry[]> {
     @Override
     protected ProxerResult<ToptenEntry[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(ToptenResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(ToptenResult.class).fromJson(body.source());
     }
 
     @NonNull

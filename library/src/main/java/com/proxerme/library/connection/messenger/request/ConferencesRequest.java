@@ -58,7 +58,7 @@ public class ConferencesRequest extends MessengerRequest<Conference[]> {
     protected ProxerResult<Conference[]> parse(@NonNull Moshi moshi,
                                                @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(ConferencesResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(ConferencesResult.class).fromJson(body.source());
     }
 
     @NonNull

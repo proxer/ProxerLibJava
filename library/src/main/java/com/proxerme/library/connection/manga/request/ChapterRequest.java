@@ -43,7 +43,7 @@ public class ChapterRequest extends MangaRequest<Chapter> {
     @Override
     protected ProxerResult<Chapter> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(ChapterResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(ChapterResult.class).fromJson(body.source());
     }
 
     @NonNull

@@ -75,7 +75,7 @@ public class ModifyConferenceRequest extends MessengerRequest<Void> {
     @Override
     protected ProxerResult<Void> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(ModifyConferenceResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(ModifyConferenceResult.class).fromJson(body.source());
     }
 
     @NonNull

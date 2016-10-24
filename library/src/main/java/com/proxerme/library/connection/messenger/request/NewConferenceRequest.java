@@ -89,7 +89,7 @@ public class NewConferenceRequest extends MessengerRequest<String> {
     @Override
     protected ProxerResult<String> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(NewConferenceResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(NewConferenceResult.class).fromJson(body.source());
     }
 
     @NonNull

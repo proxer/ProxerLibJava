@@ -38,7 +38,7 @@ public class SeasonRequest extends InfoRequest<Season[]> {
     @Override
     protected ProxerResult<Season[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(SeasonResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(SeasonResult.class).fromJson(body.source());
     }
 
     @NonNull

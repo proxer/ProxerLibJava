@@ -59,7 +59,7 @@ public class ListInfoRequest extends InfoRequest<ListInfo> {
     @Override
     protected ProxerResult<ListInfo> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(ListInfoResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(ListInfoResult.class).fromJson(body.source());
     }
 
     @NonNull

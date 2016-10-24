@@ -46,7 +46,7 @@ public class SetUserInfoRequest extends InfoRequest<Void> {
     @Override
     protected ProxerResult<Void> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(SetUserInfoResult.class).lenient().fromJson(body.source());
+        return moshi.adapter(SetUserInfoResult.class).fromJson(body.source());
     }
 
     @NonNull
