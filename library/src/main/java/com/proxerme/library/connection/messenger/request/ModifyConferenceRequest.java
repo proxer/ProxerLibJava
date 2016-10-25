@@ -34,6 +34,11 @@ public class ModifyConferenceRequest extends MessengerRequest<Void> {
     public static final String UNREAD = "setunread";
 
     /**
+     * Sets a conference as read.
+     */
+    public static final String READ = "setread";
+
+    /**
      * Blocks a conference.
      */
     public static final String BLOCK = "setblock";
@@ -92,7 +97,7 @@ public class ModifyConferenceRequest extends MessengerRequest<Void> {
         );
     }
 
-    @StringDef({UNREAD, BLOCK, UNBLOCK, FAVOUR, UNFAVOUR})
+    @StringDef({UNREAD, READ, BLOCK, UNBLOCK, FAVOUR, UNFAVOUR})
     @Retention(value = RetentionPolicy.SOURCE)
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface Modification {
