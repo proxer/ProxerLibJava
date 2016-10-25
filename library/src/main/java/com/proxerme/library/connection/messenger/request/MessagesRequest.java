@@ -1,6 +1,7 @@
 package com.proxerme.library.connection.messenger.request;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Pair;
 
 import com.proxerme.library.connection.ProxerResult;
@@ -38,9 +39,11 @@ public class MessagesRequest extends MessengerRequest<Message[]> {
 
     private static final String CONFERENCE_ID_PARAMETER = "conference_id";
     private static final String MESSAGE_ID_PARAMETER = "message_id";
+    private static final String MARK_AS_READ_TYPE = "read";
 
     private String conferenceId;
     private String messageId;
+    private Boolean markAsRead;
 
     /**
      * The constructor.
@@ -51,6 +54,18 @@ public class MessagesRequest extends MessengerRequest<Message[]> {
     public MessagesRequest(@NonNull String conferenceId, @NonNull String messageId) {
         this.conferenceId = conferenceId;
         this.messageId = messageId;
+    }
+
+    /**
+     * Sets if the conference should be marked as read.
+     *
+     * @param markAsRead If the conference should be marked as read.
+     * @return This request.
+     */
+    public MessagesRequest withMarkAsRead(@Nullable Boolean markAsRead) {
+        this.markAsRead = markAsRead;
+
+        return this;
     }
 
     @Override
@@ -70,7 +85,8 @@ public class MessagesRequest extends MessengerRequest<Message[]> {
     protected Iterable<Pair<String, ?>> getQueryParameters() {
         return Arrays.<Pair<String, ?>>asList(
                 new Pair<>(CONFERENCE_ID_PARAMETER, conferenceId),
-                new Pair<>(MESSAGE_ID_PARAMETER, messageId)
+                new Pair<>(MESSAGE_ID_PARAMETER, messageId),
+                new Pair<>(MARK_AS_READ_TYPE, markAsRead)
         );
     }
 }
