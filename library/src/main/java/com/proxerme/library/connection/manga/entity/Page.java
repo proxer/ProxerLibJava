@@ -6,7 +6,7 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 /**
- * TODO: Describe class
+ * Entity representing a single page from a {@link Chapter}.
  *
  * @author Ruben Gees
  */
@@ -28,6 +28,13 @@ public class Page implements Parcelable {
     private int height;
     private int width;
 
+    /**
+     * The constructor.
+     *
+     * @param name   The name of the file.
+     * @param height The height of the image.
+     * @param width  The width of the image.
+     */
     public Page(@NonNull String name, @IntRange(from = 0) int height,
                 @IntRange(from = 0) int width) {
         this.name = name;
@@ -41,16 +48,31 @@ public class Page implements Parcelable {
         this.width = in.readInt();
     }
 
+    /**
+     * Returns the filename.
+     *
+     * @return The filename.
+     */
     @NonNull
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the height.
+     *
+     * @return The height.
+     */
     @IntRange(from = 0)
     public int getHeight() {
         return height;
     }
 
+    /**
+     * Returns the width.
+     *
+     * @return The width.
+     */
     @IntRange(from = 0)
     public int getWidth() {
         return width;

@@ -17,7 +17,8 @@ import java.util.Arrays;
 import okhttp3.ResponseBody;
 
 /**
- * TODO: Describe class
+ * Request for retrieving information on a single chapter of the specified manga. A user must be
+ * logged in to earn points.
  *
  * @author Ruben Gees
  */
@@ -33,6 +34,13 @@ public class ChapterRequest extends MangaRequest<Chapter> {
     private int episode;
     private String language;
 
+    /**
+     * The constructor.
+     *
+     * @param id       The id of the manga.
+     * @param episode  The episode.
+     * @param language The selected language.
+     */
     public ChapterRequest(@NonNull String id, @IntRange(from = 1) int episode,
                           @NonNull @GeneralLanguage String language) {
         this.id = id;

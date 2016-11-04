@@ -13,7 +13,7 @@ import com.squareup.moshi.Json;
 import java.util.Arrays;
 
 /**
- * TODO: Describe class
+ * Entity representing a single chapter of a maga.
  *
  * @author Ruben Gees
  */
@@ -52,6 +52,20 @@ public class Chapter implements IdItem, TimeItem, Parcelable {
     @Json(name = "pages")
     private String[][] pages;
 
+    /**
+     * The constructor.
+     *
+     * @param id          The id.
+     * @param entryId     The id of the associated entry.
+     * @param title       The title.
+     * @param uploaderId  The id of the uploader.
+     * @param uploader    The username of the uploader.
+     * @param time        The time this chapter was uploaded as an unix timestamp.
+     * @param scangroupId The id of the scangroup.
+     * @param scangroup   The name of the scangroup.
+     * @param server      The server this chapter is uploaded to.
+     * @param pages       The pages this chapter has.
+     */
     public Chapter(@NonNull String id, @NonNull String entryId, @NonNull String title,
                    @NonNull String uploaderId, @NonNull String uploader, long time,
                    @Nullable String scangroupId, @Nullable String scangroup, @NonNull String server,
@@ -81,52 +95,102 @@ public class Chapter implements IdItem, TimeItem, Parcelable {
         this.pages = Utils.toTwoDimensions(3, in.createStringArray());
     }
 
+    /**
+     * Returns the id.
+     *
+     * @return The id.
+     */
     @Override
     @NonNull
     public String getId() {
         return id;
     }
 
+    /**
+     * Returns the id of the entry.
+     *
+     * @return The id of the entry.
+     */
     @NonNull
     public String getEntryId() {
         return entryId;
     }
 
+    /**
+     * Returns the title.
+     *
+     * @return The title.
+     */
     @NonNull
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Returns the id of the uploader.
+     *
+     * @return The id of the uploader.
+     */
     @NonNull
     public String getUploaderId() {
         return uploaderId;
     }
 
+    /**
+     * Returns the name of the uploader.
+     *
+     * @return The name of the uploader.
+     */
     @NonNull
     public String getUploader() {
         return uploader;
     }
 
+    /**
+     * Returns the upload time.
+     *
+     * @return The upload time.
+     */
     @Override
     public long getTime() {
         return time;
     }
 
+    /**
+     * Returns the id of the scangroup.
+     *
+     * @return The id of the scangroup.
+     */
     @Nullable
     public String getScangroupId() {
         return scangroupId;
     }
 
+    /**
+     * Returns the name of the scangroup.
+     *
+     * @return The scangroup.
+     */
     @Nullable
     public String getScangroup() {
         return scangroup;
     }
 
+    /**
+     * Returns the server for this chapter.
+     *
+     * @return The server.
+     */
     @NonNull
     public String getServer() {
         return server;
     }
 
+    /**
+     * Returns an array of pages this chapter has.
+     *
+     * @return The pages.
+     */
     @NonNull
     public Page[] getPages() {
         Page[] result = new Page[pages.length];

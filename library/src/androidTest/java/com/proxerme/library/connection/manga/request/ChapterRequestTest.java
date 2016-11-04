@@ -7,7 +7,6 @@ import com.proxerme.library.parameters.GeneralLanguageParameter;
 import com.proxerme.library.test.R;
 import com.proxerme.library.util.RequestTest;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -18,7 +17,7 @@ import static com.proxerme.library.util.TestUtils.loadResponse;
 import static junit.framework.Assert.assertEquals;
 
 /**
- * TODO: Describe class
+ * Tests for {@link ChapterRequest}.
  *
  * @author Ruben Gees
  */
@@ -46,7 +45,7 @@ public class ChapterRequestTest extends RequestTest {
                 new ChapterRequest("0", 1, GeneralLanguageParameter.ENGLISH)
                         .withCustomHost(buildHostUrl(server.url(URL))));
 
-        Assert.assertEquals(URL, server.takeRequest().getPath());
+        assertEquals(URL, server.takeRequest().getPath());
     }
 
     private Chapter generateTestChapter() {

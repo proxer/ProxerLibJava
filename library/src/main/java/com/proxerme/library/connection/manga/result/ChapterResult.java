@@ -5,9 +5,7 @@ import com.proxerme.library.connection.manga.entity.Chapter;
 import com.squareup.moshi.Json;
 
 /**
- * TODO: Describe class
- *
- * @author Ruben Gees
+ * {@inheritDoc}
  */
 public final class ChapterResult extends ProxerResult<Chapter> {
 
