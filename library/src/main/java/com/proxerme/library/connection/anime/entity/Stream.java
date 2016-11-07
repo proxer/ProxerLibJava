@@ -31,7 +31,7 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
 
     @Json(name = "id")
     private String id;
-    @Json(name = "htype")
+    @Json(name = "type")
     private String hoster;
     @Json(name = "name")
     private String hosterName;
