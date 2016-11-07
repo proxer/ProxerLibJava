@@ -1,5 +1,7 @@
 package com.proxerme.library.connection.anime.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.proxerme.library.interfaces.IdItem;
@@ -12,7 +14,19 @@ import com.squareup.moshi.Json;
  *
  * @author Ruben Gees
  */
-public class Stream implements IdItem, ImageItem, TimeItem {
+public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
+
+    public static final Parcelable.Creator<Stream> CREATOR = new Parcelable.Creator<Stream>() {
+        @Override
+        public Stream createFromParcel(Parcel source) {
+            return new Stream(source);
+        }
+
+        @Override
+        public Stream[] newArray(int size) {
+            return new Stream[size];
+        }
+    };
 
     @Json(name = "id")
     private String id;
@@ -49,6 +63,19 @@ public class Stream implements IdItem, ImageItem, TimeItem {
         this.subgroupId = subgroupId;
         this.subgroup = subgroup;
         this.hosterType = hosterType;
+    }
+
+    protected Stream(Parcel in) {
+        this.id = in.readString();
+        this.hoster = in.readString();
+        this.hosterName = in.readString();
+        this.imageId = in.readString();
+        this.uploaderId = in.readString();
+        this.uploader = in.readString();
+        this.time = in.readLong();
+        this.subgroupId = in.readString();
+        this.subgroup = in.readString();
+        this.hosterType = in.readString();
     }
 
     @NonNull
@@ -136,5 +163,24 @@ public class Stream implements IdItem, ImageItem, TimeItem {
         result = 31 * result + subgroup.hashCode();
         result = 31 * result + hosterType.hashCode();
         return result;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.hoster);
+        dest.writeString(this.hosterName);
+        dest.writeString(this.imageId);
+        dest.writeString(this.uploaderId);
+        dest.writeString(this.uploader);
+        dest.writeLong(this.time);
+        dest.writeString(this.subgroupId);
+        dest.writeString(this.subgroup);
+        dest.writeString(this.hosterType);
     }
 }
