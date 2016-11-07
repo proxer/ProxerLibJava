@@ -3,6 +3,7 @@ package com.proxerme.library.connection.anime.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.interfaces.ImageItem;
@@ -51,7 +52,7 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
 
     public Stream(@NonNull String id, @NonNull String hoster, @NonNull String hosterName,
                   @NonNull String imageId, @NonNull String uploaderId, @NonNull String uploader,
-                  long time, @NonNull String subgroupId, @NonNull String subgroup,
+                  long time, @Nullable String subgroupId, @Nullable String subgroup,
                   @NonNull String hosterType) {
         this.id = id;
         this.hoster = hoster;
@@ -115,12 +116,12 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
         return time;
     }
 
-    @NonNull
+    @Nullable
     public String getSubgroupId() {
         return subgroupId;
     }
 
-    @NonNull
+    @Nullable
     public String getSubgroup() {
         return subgroup;
     }
@@ -145,8 +146,10 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
         if (!imageId.equals(stream.imageId)) return false;
         if (!uploaderId.equals(stream.uploaderId)) return false;
         if (!uploader.equals(stream.uploader)) return false;
-        if (!subgroupId.equals(stream.subgroupId)) return false;
-        if (!subgroup.equals(stream.subgroup)) return false;
+        if (subgroupId != null ? !subgroupId.equals(stream.subgroupId) : stream.subgroupId != null)
+            return false;
+        if (subgroup != null ? !subgroup.equals(stream.subgroup) : stream.subgroup != null)
+            return false;
         return hosterType.equals(stream.hosterType);
     }
 
@@ -159,8 +162,8 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
         result = 31 * result + uploaderId.hashCode();
         result = 31 * result + uploader.hashCode();
         result = 31 * result + (int) (time ^ (time >>> 32));
-        result = 31 * result + subgroupId.hashCode();
-        result = 31 * result + subgroup.hashCode();
+        result = 31 * result + (subgroupId != null ? subgroupId.hashCode() : 0);
+        result = 31 * result + (subgroup != null ? subgroup.hashCode() : 0);
         result = 31 * result + hosterType.hashCode();
         return result;
     }
