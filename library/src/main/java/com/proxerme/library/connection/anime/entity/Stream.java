@@ -45,7 +45,7 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
     private long time;
     @Json(name = "tid")
     private String subgroupId;
-    @Json(name = "tnime")
+    @Json(name = "tname")
     private String subgroup;
     @Json(name = "htype")
     private String hosterType;
