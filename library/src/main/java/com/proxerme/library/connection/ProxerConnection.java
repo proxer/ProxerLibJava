@@ -10,6 +10,7 @@ import android.support.annotation.WorkerThread;
 
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.proxerme.library.BuildConfig;
 import com.proxerme.library.info.ProxerUrlHolder;
 import com.proxerme.library.util.SaveAllSharedPrefCookiePersistor;
 import com.squareup.moshi.JsonDataException;
@@ -306,10 +307,12 @@ public final class ProxerConnection {
     public static class Builder {
 
         private static final String API_KEY_HEADER = "proxer-api-key";
+        private static final String USER_AGENT_HEADER = "User-Agent";
 
         private String apiKey;
         private Context context;
         private boolean deliverCancelledRequests;
+        private String userAgent = "ProxerLibAndroid/" + BuildConfig.VERSION_NAME;
 
         private Moshi moshi;
         private CookieJar cookieJar;
@@ -382,6 +385,12 @@ public final class ProxerConnection {
             return this;
         }
 
+        public Builder withCustomUserAgent(String userAgent) {
+            this.userAgent = userAgent;
+
+            return this;
+        }
+
         /**
          * Allows to set if requests should be delivered on the errorCallback if they have been
          * cancelled.
@@ -425,11 +434,19 @@ public final class ProxerConnection {
                             if (chain.request().url().host()
                                     .equals(ProxerUrlHolder.getBaseApiHost().host())) {
                                 return chain.proceed(chain.request().newBuilder()
-                                        .addHeader(API_KEY_HEADER, apiKey)
+                                        .header(API_KEY_HEADER, apiKey)
                                         .build());
                             } else {
                                 return chain.proceed(chain.request());
                             }
+                        }
+                    })
+                    .addInterceptor(new Interceptor() {
+                        @Override
+                        public Response intercept(Chain chain) throws IOException {
+                            return chain.proceed(chain.request().newBuilder()
+                                    .header(USER_AGENT_HEADER, userAgent)
+                                    .build());
                         }
                     })
                     .build();
