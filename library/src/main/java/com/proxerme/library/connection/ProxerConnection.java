@@ -10,6 +10,7 @@ import android.support.annotation.WorkerThread;
 
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.proxerme.library.info.ProxerUrlHolder;
 import com.proxerme.library.util.SaveAllSharedPrefCookiePersistor;
 import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.Moshi;
@@ -421,9 +422,14 @@ public final class ProxerConnection {
                     .addInterceptor(new Interceptor() {
                         @Override
                         public Response intercept(Chain chain) throws IOException {
-                            return chain.proceed(chain.request().newBuilder()
-                                    .addHeader(API_KEY_HEADER, apiKey)
-                                    .build());
+                            if (chain.request().url().host()
+                                    .equals(ProxerUrlHolder.getBaseApiHost().host())) {
+                                return chain.proceed(chain.request().newBuilder()
+                                        .addHeader(API_KEY_HEADER, apiKey)
+                                        .build());
+                            } else {
+                                return chain.proceed(chain.request());
+                            }
                         }
                     })
                     .build();
