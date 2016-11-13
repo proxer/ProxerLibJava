@@ -6,6 +6,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.proxerme.library.connection.notifications.entitiy.News;
 import com.proxerme.library.connection.notifications.request.NewsRequest;
+import com.proxerme.library.test.BuildConfig;
 import com.proxerme.library.test.R;
 import com.squareup.moshi.Moshi;
 
@@ -47,8 +48,11 @@ public class ProxerConnectionTest {
             "Listener was not unregistered.";
     private static final String ERROR_WRONG_LISTENER_CALLED = "Wrong listener called.";
 
-    private static final String API_KEY_HEADER = "proxer-api-key";
     private static final String API_KEY = "test";
+
+    private static final String USER_AGENT_HEADER = "User-Agent";
+    private static final String DEFAULT_USER_AGENT = "ProxerLibAndroid/" + BuildConfig.VERSION_NAME;
+    private static final String CUSTOM_USER_AGENT = "Test/123";
 
     private static final long TIMEOUT = 123456L;
 
@@ -67,13 +71,28 @@ public class ProxerConnectionTest {
     }
 
     @Test
-    public void testApiKeyHeader() throws Exception {
+    public void testUserAgentHeader() throws Exception {
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news)));
 
         connection.executeSynchronized(new NewsRequest(0)
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
-        assertEquals(API_KEY, server.takeRequest().getHeader(API_KEY_HEADER));
+        assertEquals(DEFAULT_USER_AGENT, server.takeRequest().getHeader(USER_AGENT_HEADER));
+    }
+
+    @Test
+    public void testCustomUserAgentHeader() throws Exception {
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
+                InstrumentationRegistry.getContext())
+                .withCustomUserAgent(CUSTOM_USER_AGENT)
+                .build();
+
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news)));
+
+        testConnection.executeSynchronized(new NewsRequest(0)
+                .withCustomHost(buildHostUrl(server.url(URL))));
+
+        assertEquals(CUSTOM_USER_AGENT, server.takeRequest().getHeader(USER_AGENT_HEADER));
     }
 
     @Test
@@ -118,6 +137,8 @@ public class ProxerConnectionTest {
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
         assertNotNull(news);
+
+        server.takeRequest();
     }
 
     @Test(timeout = 3000)
@@ -140,6 +161,8 @@ public class ProxerConnectionTest {
                 });
 
         lock.await();
+
+        server.takeRequest();
     }
 
     @Test
@@ -169,6 +192,8 @@ public class ProxerConnectionTest {
         } catch (ProxerException exception) {
             assertEquals(ProxerException.PROXER, exception.getErrorCode());
         }
+
+        server.takeRequest();
     }
 
     @Test
@@ -183,6 +208,8 @@ public class ProxerConnectionTest {
         } catch (ProxerException exception) {
             assertEquals(exception.getMessage(), "News konnten nicht abgerufen werden.");
         }
+
+        server.takeRequest();
     }
 
     @Test
@@ -197,6 +224,8 @@ public class ProxerConnectionTest {
         } catch (ProxerException exception) {
             assertEquals((Integer) ProxerException.NEWS, exception.getProxerErrorCode());
         }
+
+        server.takeRequest();
     }
 
     @Test
@@ -211,6 +240,8 @@ public class ProxerConnectionTest {
         } catch (ProxerException exception) {
             assertEquals(ProxerException.UNPARSABLE, exception.getErrorCode());
         }
+
+        server.takeRequest();
     }
 
     @Test
@@ -237,6 +268,8 @@ public class ProxerConnectionTest {
 
         call.cancel();
         lock.await();
+
+        server.takeRequest();
     }
 
     @Test(timeout = 3000)
@@ -261,6 +294,8 @@ public class ProxerConnectionTest {
                 null, null);
 
         lock.await();
+
+        server.takeRequest();
     }
 
     @Test(timeout = 3000)
@@ -290,6 +325,8 @@ public class ProxerConnectionTest {
                 null, null);
 
         lock.await();
+
+        server.takeRequest();
     }
 
     @Test(timeout = 3000)
@@ -318,6 +355,8 @@ public class ProxerConnectionTest {
                 });
 
         lock.await();
+
+        server.takeRequest();
     }
 
     @Test(timeout = 3000)
@@ -346,6 +385,8 @@ public class ProxerConnectionTest {
                 });
 
         lock.await();
+
+        server.takeRequest();
     }
 
     @Test(timeout = 3000)
@@ -377,5 +418,7 @@ public class ProxerConnectionTest {
                 });
 
         lock.await();
+
+        server.takeRequest();
     }
 }

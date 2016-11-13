@@ -307,12 +307,13 @@ public final class ProxerConnection {
     public static class Builder {
 
         private static final String API_KEY_HEADER = "proxer-api-key";
+        private static final String DEFAULT_USER_AGENT = "ProxerLibAndroid";
         private static final String USER_AGENT_HEADER = "User-Agent";
 
         private String apiKey;
         private Context context;
         private boolean deliverCancelledRequests;
-        private String userAgent = "ProxerLibAndroid/" + BuildConfig.VERSION_NAME;
+        private String userAgent;
 
         private Moshi moshi;
         private CookieJar cookieJar;
@@ -350,6 +351,7 @@ public final class ProxerConnection {
         public ProxerConnection build() {
             configureMoshi();
             configureCookieJar();
+            configureUserAgent();
             configureOkHttp();
 
             return new ProxerConnection(apiKey, moshi, httpClient, deliverCancelledRequests);
@@ -418,6 +420,12 @@ public final class ProxerConnection {
             }
         }
 
+        private void configureUserAgent() {
+            if (userAgent == null) {
+                userAgent = DEFAULT_USER_AGENT + "/" + BuildConfig.VERSION_NAME;
+            }
+        }
+
         private void configureOkHttp() {
             OkHttpClient.Builder builder;
 
@@ -428,28 +436,47 @@ public final class ProxerConnection {
             }
 
             httpClient = builder.cookieJar(cookieJar)
-                    .addInterceptor(new Interceptor() {
-                        @Override
-                        public Response intercept(Chain chain) throws IOException {
-                            if (chain.request().url().host()
-                                    .equals(ProxerUrlHolder.getBaseApiHost().host())) {
-                                return chain.proceed(chain.request().newBuilder()
-                                        .header(API_KEY_HEADER, apiKey)
-                                        .build());
-                            } else {
-                                return chain.proceed(chain.request());
-                            }
-                        }
-                    })
-                    .addInterceptor(new Interceptor() {
-                        @Override
-                        public Response intercept(Chain chain) throws IOException {
-                            return chain.proceed(chain.request().newBuilder()
-                                    .header(USER_AGENT_HEADER, userAgent)
-                                    .build());
-                        }
-                    })
+                    .addInterceptor(new ApiKeyInterceptor(apiKey))
+                    .addInterceptor(new UserAgentInterceptor(userAgent))
                     .build();
         }
+
+        private class ApiKeyInterceptor implements Interceptor {
+
+            private String apiKey;
+
+            public ApiKeyInterceptor(String apiKey) {
+                this.apiKey = apiKey;
+            }
+
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                if (chain.request().url().host()
+                        .equals(ProxerUrlHolder.getBaseApiHost().host())) {
+                    return chain.proceed(chain.request().newBuilder()
+                            .header(API_KEY_HEADER, apiKey)
+                            .build());
+                } else {
+                    return chain.proceed(chain.request());
+                }
+            }
+        }
+
+        private class UserAgentInterceptor implements Interceptor {
+
+            private String userAgent;
+
+            UserAgentInterceptor(@NonNull String userAgent) {
+                this.userAgent = userAgent;
+            }
+
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                return chain.proceed(chain.request().newBuilder()
+                        .header(USER_AGENT_HEADER, userAgent)
+                        .build());
+            }
+        }
+
     }
 }
