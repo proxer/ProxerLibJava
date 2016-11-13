@@ -445,7 +445,7 @@ public final class ProxerConnection {
 
             private String apiKey;
 
-            public ApiKeyInterceptor(String apiKey) {
+            ApiKeyInterceptor(String apiKey) {
                 this.apiKey = apiKey;
             }
 
