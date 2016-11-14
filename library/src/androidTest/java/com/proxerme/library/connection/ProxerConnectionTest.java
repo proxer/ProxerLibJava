@@ -244,7 +244,7 @@ public class ProxerConnectionTest {
         server.takeRequest();
     }
 
-    @Test
+    @Test(timeout = 3000)
     public void testCancelledException() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
@@ -268,8 +268,6 @@ public class ProxerConnectionTest {
 
         call.cancel();
         lock.await();
-
-        server.takeRequest();
     }
 
     @Test(timeout = 3000)
