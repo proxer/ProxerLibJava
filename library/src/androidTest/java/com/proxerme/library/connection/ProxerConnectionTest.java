@@ -50,6 +50,7 @@ public class ProxerConnectionTest {
 
     private static final String API_KEY = "test";
 
+    private static final String API_KEY_HEADER = "proxer-api-key";
     private static final String USER_AGENT_HEADER = "User-Agent";
     private static final String DEFAULT_USER_AGENT = "ProxerLibAndroid/" + BuildConfig.VERSION_NAME;
     private static final String CUSTOM_USER_AGENT = "Test/123";
@@ -68,6 +69,24 @@ public class ProxerConnectionTest {
     @AfterClass
     public static void tearDownServer() throws IOException {
         server.shutdown();
+    }
+
+    @Test
+    public void testApiKeyHeader() throws Exception {
+        server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news)));
+
+        connection.executeSynchronized(new NewsRequest(0)
+                .withCustomHost(buildHostUrl(server.url(URL))));
+
+        assertEquals(API_KEY, server.takeRequest().getHeader(API_KEY_HEADER));
+    }
+
+    @Test
+    public void testApiKey() throws Exception {
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
+                InstrumentationRegistry.getContext()).build();
+
+        assertSame(API_KEY, testConnection.getApiKey());
     }
 
     @Test
@@ -93,14 +112,6 @@ public class ProxerConnectionTest {
                 .withCustomHost(buildHostUrl(server.url(URL))));
 
         assertEquals(CUSTOM_USER_AGENT, server.takeRequest().getHeader(USER_AGENT_HEADER));
-    }
-
-    @Test
-    public void testApiKey() throws Exception {
-        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
-                InstrumentationRegistry.getContext()).build();
-
-        assertSame(API_KEY, testConnection.getApiKey());
     }
 
     @Test

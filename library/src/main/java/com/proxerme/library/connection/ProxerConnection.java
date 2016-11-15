@@ -11,7 +11,6 @@ import android.support.annotation.WorkerThread;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.proxerme.library.BuildConfig;
-import com.proxerme.library.info.ProxerUrlHolder;
 import com.proxerme.library.util.SaveAllSharedPrefCookiePersistor;
 import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.Moshi;
@@ -22,8 +21,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.CookieJar;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
 
 /**
@@ -67,7 +66,11 @@ import okhttp3.Response;
  */
 public final class ProxerConnection {
 
+    private static final String API_KEY_HEADER = "proxer-api-key";
+    private static final String USER_AGENT_HEADER = "User-Agent";
+
     private String apiKey;
+    private String userAgent;
     private Moshi moshi;
     private OkHttpClient httpClient;
 
@@ -76,9 +79,10 @@ public final class ProxerConnection {
     private Handler handler = new Handler(Looper.getMainLooper());
     private ConcurrentHashMap<Integer, ErrorListener> listenerMap;
 
-    private ProxerConnection(@NonNull String apiKey, Moshi moshi, OkHttpClient httpClient,
-                             boolean deliverCancelledRequests) {
+    private ProxerConnection(@NonNull String apiKey, @NonNull String userAgent, Moshi moshi,
+                             OkHttpClient httpClient, boolean deliverCancelledRequests) {
         this.apiKey = apiKey;
+        this.userAgent = userAgent;
         this.moshi = moshi;
         this.httpClient = httpClient;
         this.deliverCancelledRequests = deliverCancelledRequests;
@@ -99,7 +103,7 @@ public final class ProxerConnection {
     public <T> ProxerCall execute(@NonNull final ProxerRequest<T> request,
                                   @Nullable final ProxerCallback<T> callback,
                                   @Nullable final ProxerErrorCallback errorCallback) {
-        Call call = httpClient.newCall(request.build());
+        Call call = httpClient.newCall(buildRequest(request));
 
         call.enqueue(new Callback() {
             @Override
@@ -148,7 +152,7 @@ public final class ProxerConnection {
     @RequiresPermission(android.Manifest.permission.INTERNET)
     public <T> T executeSynchronized(@NonNull final ProxerRequest<T> request)
             throws ProxerException {
-        final Call call = httpClient.newCall(request.build());
+        final Call call = httpClient.newCall(buildRequest(request));
         Response response = null;
 
         try {
@@ -297,6 +301,13 @@ public final class ProxerConnection {
         }
     }
 
+    private <T> Request buildRequest(ProxerRequest<T> request) {
+        return request.build().newBuilder()
+                .header(API_KEY_HEADER, apiKey)
+                .header(USER_AGENT_HEADER, userAgent)
+                .build();
+    }
+
     public interface ErrorListener {
         void onError(@NonNull ProxerException exception);
     }
@@ -306,9 +317,7 @@ public final class ProxerConnection {
      */
     public static class Builder {
 
-        private static final String API_KEY_HEADER = "proxer-api-key";
         private static final String DEFAULT_USER_AGENT = "ProxerLibAndroid";
-        private static final String USER_AGENT_HEADER = "User-Agent";
 
         private String apiKey;
         private Context context;
@@ -354,7 +363,8 @@ public final class ProxerConnection {
             configureUserAgent();
             configureOkHttp();
 
-            return new ProxerConnection(apiKey, moshi, httpClient, deliverCancelledRequests);
+            return new ProxerConnection(apiKey, userAgent, moshi, httpClient,
+                    deliverCancelledRequests);
         }
 
         /**
@@ -435,48 +445,7 @@ public final class ProxerConnection {
                 builder = httpClient.newBuilder();
             }
 
-            httpClient = builder.cookieJar(cookieJar)
-                    .addInterceptor(new ApiKeyInterceptor(apiKey))
-                    .addInterceptor(new UserAgentInterceptor(userAgent))
-                    .build();
+            httpClient = builder.cookieJar(cookieJar).build();
         }
-
-        private class ApiKeyInterceptor implements Interceptor {
-
-            private String apiKey;
-
-            ApiKeyInterceptor(String apiKey) {
-                this.apiKey = apiKey;
-            }
-
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                if (chain.request().url().host()
-                        .equals(ProxerUrlHolder.getBaseApiHost().host())) {
-                    return chain.proceed(chain.request().newBuilder()
-                            .header(API_KEY_HEADER, apiKey)
-                            .build());
-                } else {
-                    return chain.proceed(chain.request());
-                }
-            }
-        }
-
-        private class UserAgentInterceptor implements Interceptor {
-
-            private String userAgent;
-
-            UserAgentInterceptor(@NonNull String userAgent) {
-                this.userAgent = userAgent;
-            }
-
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                return chain.proceed(chain.request().newBuilder()
-                        .header(USER_AGENT_HEADER, userAgent)
-                        .build());
-            }
-        }
-
     }
 }
