@@ -41,7 +41,7 @@ And this to your module build.gradle:
 
 ```groovy
 dependencies {
-    compile('com.github.proxer:ProxerLibAndroid:2.2.0') {
+    compile('com.github.proxer:ProxerLibAndroid:2.3.0') {
         transitive = true
     }
 }
@@ -295,7 +295,7 @@ The last line enables cancelled request delivery. This is disabled by default, m
 
 ### More
 
-You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/ProxerLibAndroid/2.2.0/javadoc/).
+You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/ProxerLibAndroid/2.3.0/javadoc/).
 
 ## Architecture
 
