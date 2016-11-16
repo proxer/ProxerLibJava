@@ -17,7 +17,8 @@ import java.util.Arrays;
 import okhttp3.ResponseBody;
 
 /**
- * TODO: Describe class
+ * Request for retrieving all streams for a specified episode of an anime (by id) with a specific
+ * language.
  *
  * @author Ruben Gees
  */
@@ -34,7 +35,7 @@ public class StreamsRequest extends AnimeRequest<Stream[]> {
     private int episode;
     private String language;
 
-    private boolean withProxerStreams;
+    private boolean includeProxerStreams;
 
     /**
      * The constructor.
@@ -50,8 +51,15 @@ public class StreamsRequest extends AnimeRequest<Stream[]> {
         this.language = language;
     }
 
-    public StreamsRequest withProxerStreams(boolean enable) {
-        this.withProxerStreams = enable;
+    /**
+     * Sets if Proxer-streams should be included. Those require the highest permission level 3.
+     *
+     * @param includeProxerStreams True if streams should be included. The request will fail and not
+     *                             return if the user has not sufficient rights.
+     * @return This request.
+     */
+    public StreamsRequest withIncludeProxerStreams(boolean includeProxerStreams) {
+        this.includeProxerStreams = includeProxerStreams;
 
         return this;
     }
@@ -65,7 +73,7 @@ public class StreamsRequest extends AnimeRequest<Stream[]> {
     @NonNull
     @Override
     protected String getApiEndpoint() {
-        if (withProxerStreams) {
+        if (includeProxerStreams) {
             return STREAMS_WITH_PROXER;
         } else {
             return STREAMS;

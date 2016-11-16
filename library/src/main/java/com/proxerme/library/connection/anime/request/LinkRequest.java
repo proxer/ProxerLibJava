@@ -14,7 +14,7 @@ import java.util.Collections;
 import okhttp3.ResponseBody;
 
 /**
- * TODO: Describe class
+ * Request for retrieving the link of a stream. This is no direct link.
  *
  * @author Ruben Gees
  */

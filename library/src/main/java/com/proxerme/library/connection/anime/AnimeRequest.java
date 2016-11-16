@@ -5,9 +5,9 @@ import android.support.annotation.NonNull;
 import com.proxerme.library.connection.ProxerRequest;
 
 /**
- * TODO: Describe class
+ * Base request for all requests in the "anime" API class.
  *
- * @author Ruben Gees
+ * @author Desnoo
  */
 public abstract class AnimeRequest<T> extends ProxerRequest<T> {
 

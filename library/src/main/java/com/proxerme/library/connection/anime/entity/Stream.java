@@ -11,7 +11,7 @@ import com.proxerme.library.interfaces.TimeItem;
 import com.squareup.moshi.Json;
 
 /**
- * TODO: Describe class
+ * Entity representing a single streaming option of an anime.
  *
  * @author Ruben Gees
  */
@@ -50,6 +50,20 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
     @Json(name = "htype")
     private String hosterType;
 
+    /**
+     * The constructor.
+     *
+     * @param id         The id of the stream.
+     * @param hoster     The hoster.
+     * @param hosterName The name of the hoster.
+     * @param imageId    The image.
+     * @param uploaderId THe id of the uploader.
+     * @param uploader   The username of the uploader.
+     * @param time       The time this streams was linked.
+     * @param subgroupId The id of the subgroup if existent
+     * @param subgroup   The name of the subgroup if existent.
+     * @param hosterType The type of the hoster.
+     */
     public Stream(@NonNull String id, @NonNull String hoster, @NonNull String hosterName,
                   @NonNull String imageId, @NonNull String uploaderId, @NonNull String uploader,
                   long time, @Nullable String subgroupId, @Nullable String subgroup,
@@ -79,53 +93,103 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
         this.hosterType = in.readString();
     }
 
+    /**
+     * Returns the id.
+     *
+     * @return The id.
+     */
     @NonNull
     @Override
     public String getId() {
         return id;
     }
 
+    /**
+     * Returns the hoster.
+     *
+     * @return The hoster.
+     */
     @NonNull
     public String getHoster() {
         return hoster;
     }
 
+    /**
+     * Returns the name of the hoster.
+     *
+     * @return The name of the hoster.
+     */
     @NonNull
     public String getHosterName() {
         return hosterName;
     }
 
+    /**
+     * Returns the image.
+     *
+     * @return The image.
+     */
     @NonNull
     @Override
     public String getImageId() {
         return imageId;
     }
 
+    /**
+     * Returns the id of the uploader.
+     *
+     * @return The id of the uploader.
+     */
     @NonNull
     public String getUploaderId() {
         return uploaderId;
     }
 
+    /**
+     * Returns the username of the uploader.
+     *
+     * @return The username of the uploader.
+     */
     @NonNull
     public String getUploader() {
         return uploader;
     }
 
+    /**
+     * Returns the time this stream was linked.
+     *
+     * @return The time.
+     */
     @Override
     public long getTime() {
         return time;
     }
 
+    /**
+     * Returns the id of the subgroup or null if not present.
+     *
+     * @return The id.
+     */
     @Nullable
     public String getSubgroupId() {
         return subgroupId;
     }
 
+    /**
+     * Returns the name of the subgroup or null if not present.
+     *
+     * @return The name.
+     */
     @Nullable
     public String getSubgroup() {
         return subgroup;
     }
 
+    /**
+     * Returns the type of the hoster.
+     *
+     * @return The type of the hoster.
+     */
     @NonNull
     public String getHosterType() {
         return hosterType;
