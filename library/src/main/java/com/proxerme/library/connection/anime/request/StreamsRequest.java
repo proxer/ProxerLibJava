@@ -23,7 +23,8 @@ import okhttp3.ResponseBody;
  */
 public class StreamsRequest extends AnimeRequest<Stream[]> {
 
-    private static final String ENDPOINT = "streams";
+    private static final String STREAMS = "streams";
+    private static final String STREAMS_WITH_PROXER = "proxerstreams";
 
     private static final String ID_PARAMETER = "id";
     private static final String EPISODE_PARAMETER = "episode";
@@ -32,6 +33,8 @@ public class StreamsRequest extends AnimeRequest<Stream[]> {
     private String id;
     private int episode;
     private String language;
+
+    private boolean withProxerStreams;
 
     /**
      * The constructor.
@@ -47,6 +50,12 @@ public class StreamsRequest extends AnimeRequest<Stream[]> {
         this.language = language;
     }
 
+    public StreamsRequest withProxerStreams(boolean enable) {
+        this.withProxerStreams = enable;
+
+        return this;
+    }
+
     @Override
     protected ProxerResult<Stream[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
@@ -56,7 +65,11 @@ public class StreamsRequest extends AnimeRequest<Stream[]> {
     @NonNull
     @Override
     protected String getApiEndpoint() {
-        return ENDPOINT;
+        if (withProxerStreams) {
+            return STREAMS_WITH_PROXER;
+        } else {
+            return STREAMS;
+        }
     }
 
     @NonNull
