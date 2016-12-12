@@ -5,7 +5,7 @@ group = 'com.github.proxer'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    buildToolsVersion "$build_tools_version"
 
     defaultConfig {
         minSdkVersion 14
