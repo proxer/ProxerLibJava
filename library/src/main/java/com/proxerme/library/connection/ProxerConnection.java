@@ -16,6 +16,7 @@ import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.concurrent.ConcurrentHashMap;
 
 import okhttp3.Call;
@@ -129,7 +130,11 @@ public final class ProxerConnection {
                         return;
                     }
                 } else {
-                    proxerException = new ProxerException(ProxerException.NETWORK);
+                    if (exception instanceof SocketTimeoutException) {
+                        proxerException = new ProxerException(ProxerException.TIMEOUT);
+                    } else {
+                        proxerException = new ProxerException(ProxerException.NETWORK);
+                    }
                 }
 
                 notifyListener(proxerException);

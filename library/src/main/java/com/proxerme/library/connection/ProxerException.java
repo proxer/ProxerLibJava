@@ -21,14 +21,19 @@ public class ProxerException extends Exception {
     public static final int PROXER = 0;
 
     /**
+     * The server didn't answer in time.
+     */
+    public static final int TIMEOUT = 1;
+
+    /**
      * The network is not available.
      */
-    public static final int NETWORK = 1;
+    public static final int NETWORK = 2;
 
     /**
      * The result was not parsable (The server sent bad data).
      */
-    public static final int UNPARSABLE = 2;
+    public static final int UNPARSABLE = 3;
 
     /**
      * The request has been cancelled.
@@ -122,7 +127,7 @@ public class ProxerException extends Exception {
     /**
      * An annotation representing the different error codes which might occur.
      */
-    @IntDef({PROXER, NETWORK, UNPARSABLE, CANCELLED})
+    @IntDef({PROXER, NETWORK, TIMEOUT, UNPARSABLE, CANCELLED})
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface ErrorCode {
