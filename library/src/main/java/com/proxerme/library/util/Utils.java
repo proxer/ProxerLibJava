@@ -55,11 +55,11 @@ public final class Utils {
         return output;
     }
 
-
     /**
      * Converts a one dimensional array back into a two dimensional (Used for parceling).
      * Stolen from here: http://stackoverflow.com/a/9562083/4279995
      *
+     * @param dimensions The amount of dimensions the input has.
      * @param input The array to convert.
      * @return The newly converted array.
      */
