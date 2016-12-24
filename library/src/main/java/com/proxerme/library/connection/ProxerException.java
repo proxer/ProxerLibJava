@@ -46,6 +46,7 @@ public class ProxerException extends Exception {
     public static final int UNKNOWN_API_FUNCTION = 1003;
     public static final int INSUFFICIENT_RIGHTS = 1004;
     public static final int INVALID_TOKEN = 1005;
+    public static final int FUNCTION_BLOCKED = 1006;
 
     public static final int IP_BLOCKED = 2000;
     public static final int NEWS = 2001;
@@ -64,6 +65,23 @@ public class ProxerException extends Exception {
     public static final int INFO_EXCEEDED_ALLOWED_ENTRIES = 3011;
     public static final int LOGIN_ALREADY_LOGGED_IN = 3012;
     public static final int LOGIN_DIFFERENT_USER_ALREADY_LOGGED_IN = 3013;
+    public static final int USER_ACCESS_DENIED = 3014;
+    public static final int LIST_UNKNOWN_CATEGORY = 3015;
+    public static final int LIST_UNKNOWN_MEDIUM = 3016;
+    public static final int MEDIA_UNKNOWN_STYLE = 3017;
+    public static final int MEDIA_UNKNOWN_ENTRY = 3018;
+    public static final int MANGA_UNKNOWN_CHAPTER = 3019;
+    public static final int ANIME_UNKNOWN_EPISODE = 3020;
+    public static final int ANIME_UNKNOWN_STREAM = 3021;
+    public static final int UCP_UNKNOWN_EPISODE = 3022;
+    public static final int MESSAGES_USER_NOT_LOGGED_IN = 3023;
+    public static final int MESSAGES_INVALID_CONFERENCE = 3024;
+    public static final int MESSAGES_MISSING_REPORT_INPUT = 3025;
+    public static final int MESSAGES_INVALID_MESSAGE = 3026;
+    public static final int MESSAGES_INVALID_USER = 3027;
+    public static final int MESSAGES_MAXIMUM_USERS_EXCEEDED = 3028;
+    public static final int MESSAGES_INVALID_TOPIC = 3029;
+    public static final int MESSAGES_MISSING_USER = 3030;
 
     @ErrorCode
     private int errorCode;
@@ -137,11 +155,17 @@ public class ProxerException extends Exception {
      * An annotation representing the different server error codes which might occur.
      */
     @IntDef({UNKNOWN_API, API_REMOVED, UNKNOWN_API_CLASS, UNKNOWN_API_FUNCTION, INSUFFICIENT_RIGHTS,
-            INVALID_TOKEN, IP_BLOCKED, NEWS, LOGIN_MISSING_CREDENTIALS, LOGIN_INVALID_CREDENTIALS,
-            NOTIFICATIONS_USER_NOT_LOGGED_IN, USERINFO_INVALID_ID, UCP_USER_NOT_LOGGED_IN,
-            UCP_INVALID_CATEGORY, UCP_INVALID_ID, INFO_INVALID_ID, INFO_INVALID_TYPE,
-            INFO_USER_NOT_LOGGED_IN, INFO_ENTRY_ALREADY_IN_LIST, INFO_EXCEEDED_ALLOWED_ENTRIES,
-            LOGIN_ALREADY_LOGGED_IN, LOGIN_DIFFERENT_USER_ALREADY_LOGGED_IN})
+            INVALID_TOKEN, FUNCTION_BLOCKED, IP_BLOCKED, NEWS, LOGIN_MISSING_CREDENTIALS,
+            LOGIN_INVALID_CREDENTIALS, NOTIFICATIONS_USER_NOT_LOGGED_IN, USERINFO_INVALID_ID,
+            UCP_USER_NOT_LOGGED_IN, UCP_INVALID_CATEGORY, UCP_INVALID_ID, INFO_INVALID_ID,
+            INFO_INVALID_TYPE, INFO_USER_NOT_LOGGED_IN, INFO_ENTRY_ALREADY_IN_LIST,
+            INFO_EXCEEDED_ALLOWED_ENTRIES, LOGIN_ALREADY_LOGGED_IN,
+            LOGIN_DIFFERENT_USER_ALREADY_LOGGED_IN, USER_ACCESS_DENIED, LIST_UNKNOWN_CATEGORY,
+            LIST_UNKNOWN_MEDIUM, MEDIA_UNKNOWN_STYLE, MEDIA_UNKNOWN_ENTRY, MANGA_UNKNOWN_CHAPTER,
+            ANIME_UNKNOWN_EPISODE, ANIME_UNKNOWN_STREAM, UCP_UNKNOWN_EPISODE,
+            MESSAGES_USER_NOT_LOGGED_IN, MESSAGES_INVALID_CONFERENCE, MESSAGES_MISSING_REPORT_INPUT,
+            MESSAGES_INVALID_MESSAGE, MESSAGES_INVALID_USER, MESSAGES_MAXIMUM_USERS_EXCEEDED,
+            MESSAGES_INVALID_TOPIC, MESSAGES_MISSING_USER})
     @Retention(value = RetentionPolicy.SOURCE)
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface ProxerErrorCode {
