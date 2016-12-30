@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.parameters.CategoryParameter;
 import com.proxerme.library.parameters.MediumParameter;
 import com.squareup.moshi.Json;
@@ -13,7 +14,7 @@ import com.squareup.moshi.Json;
  *
  * @author Ruben Gees
  */
-public class UcpToptenEntry implements Parcelable {
+public class UcpToptenEntry implements Parcelable, IdItem {
 
     public static final Parcelable.Creator<UcpToptenEntry> CREATOR = new Parcelable.Creator<UcpToptenEntry>() {
         @Override
@@ -70,6 +71,7 @@ public class UcpToptenEntry implements Parcelable {
      *
      * @return The id.
      */
+    @Override
     @NonNull
     public String getId() {
         return id;
