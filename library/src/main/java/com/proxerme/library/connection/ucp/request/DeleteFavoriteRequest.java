@@ -24,7 +24,7 @@ import okhttp3.ResponseBody;
  */
 public class DeleteFavoriteRequest extends UcpRequest<Void> {
 
-    private static final String ENDPOINT = "deletetopten";
+    private static final String ENDPOINT = "deletefavorite";
 
     private static final String ID_PARAMETER = "id";
 
