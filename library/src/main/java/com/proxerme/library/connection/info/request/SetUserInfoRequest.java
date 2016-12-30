@@ -3,9 +3,9 @@ package com.proxerme.library.connection.info.request;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.proxerme.library.connection.EmptyResult;
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.info.InfoRequest;
-import com.proxerme.library.connection.info.result.SetUserInfoResult;
 import com.proxerme.library.parameters.ViewStateParameter;
 import com.squareup.moshi.Moshi;
 
@@ -47,7 +47,7 @@ public class SetUserInfoRequest extends InfoRequest<Void> {
     @Override
     protected ProxerResult<Void> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(SetUserInfoResult.class).fromJson(body.source());
+        return moshi.adapter(EmptyResult.class).fromJson(body.source());
     }
 
     @NonNull

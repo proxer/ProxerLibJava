@@ -2,9 +2,9 @@ package com.proxerme.library.connection.user.request;
 
 import android.support.annotation.NonNull;
 
+import com.proxerme.library.connection.EmptyResult;
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.user.UserRequest;
-import com.proxerme.library.connection.user.result.LogoutResult;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class LogoutRequest extends UserRequest<Void> {
     @Override
     protected ProxerResult<Void> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(LogoutResult.class).fromJson(body.source());
+        return moshi.adapter(EmptyResult.class).fromJson(body.source());
     }
 
     @NonNull

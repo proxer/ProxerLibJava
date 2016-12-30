@@ -4,9 +4,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 import android.util.Pair;
 
+import com.proxerme.library.connection.EmptyResult;
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.messenger.MessengerRequest;
-import com.proxerme.library.connection.messenger.result.ModifyConferenceResult;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
@@ -80,7 +80,7 @@ public class ModifyConferenceRequest extends MessengerRequest<Void> {
     @Override
     protected ProxerResult<Void> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(ModifyConferenceResult.class).fromJson(body.source());
+        return moshi.adapter(EmptyResult.class).fromJson(body.source());
     }
 
     @NonNull

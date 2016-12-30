@@ -3,9 +3,9 @@ package com.proxerme.library.connection.ucp.request;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.proxerme.library.connection.EmptyResult;
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.ucp.UcpRequest;
-import com.proxerme.library.connection.ucp.result.DeleteFavoriteResult;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
@@ -41,7 +41,7 @@ public class DeleteFavoriteRequest extends UcpRequest<Void> {
     @Override
     protected ProxerResult<Void> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(DeleteFavoriteResult.class).fromJson(body.source());
+        return moshi.adapter(EmptyResult.class).fromJson(body.source());
     }
 
     @NonNull
