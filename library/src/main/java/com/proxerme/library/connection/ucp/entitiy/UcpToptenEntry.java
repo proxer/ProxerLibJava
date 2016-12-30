@@ -13,17 +13,17 @@ import com.squareup.moshi.Json;
  *
  * @author Ruben Gees
  */
-public class UcpToptenEntity implements Parcelable {
+public class UcpToptenEntry implements Parcelable {
 
-    public static final Parcelable.Creator<UcpToptenEntity> CREATOR = new Parcelable.Creator<UcpToptenEntity>() {
+    public static final Parcelable.Creator<UcpToptenEntry> CREATOR = new Parcelable.Creator<UcpToptenEntry>() {
         @Override
-        public UcpToptenEntity createFromParcel(Parcel source) {
-            return new UcpToptenEntity(source);
+        public UcpToptenEntry createFromParcel(Parcel source) {
+            return new UcpToptenEntry(source);
         }
 
         @Override
-        public UcpToptenEntity[] newArray(int size) {
-            return new UcpToptenEntity[size];
+        public UcpToptenEntry[] newArray(int size) {
+            return new UcpToptenEntry[size];
         }
     };
 
@@ -47,9 +47,9 @@ public class UcpToptenEntity implements Parcelable {
      * @param medium   The medium (Animeseries, ...)
      * @param category The category.
      */
-    public UcpToptenEntity(@NonNull String id, @NonNull String entryId, @NonNull String name,
-                           @MediumParameter.Medium @NonNull String medium,
-                           @CategoryParameter.Category @NonNull String category) {
+    public UcpToptenEntry(@NonNull String id, @NonNull String entryId, @NonNull String name,
+                          @MediumParameter.Medium @NonNull String medium,
+                          @CategoryParameter.Category @NonNull String category) {
         this.id = id;
         this.entryId = entryId;
         this.name = name;
@@ -57,7 +57,7 @@ public class UcpToptenEntity implements Parcelable {
         this.category = category;
     }
 
-    protected UcpToptenEntity(Parcel in) {
+    protected UcpToptenEntry(Parcel in) {
         this.id = in.readString();
         this.entryId = in.readString();
         this.name = in.readString();
@@ -123,7 +123,7 @@ public class UcpToptenEntity implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UcpToptenEntity that = (UcpToptenEntity) o;
+        UcpToptenEntry that = (UcpToptenEntry) o;
 
         if (!id.equals(that.id)) return false;
         if (!entryId.equals(that.entryId)) return false;

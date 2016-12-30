@@ -1,23 +1,23 @@
 package com.proxerme.library.connection.ucp.result;
 
 import com.proxerme.library.connection.ProxerResult;
-import com.proxerme.library.connection.ucp.entitiy.UcpToptenEntity;
+import com.proxerme.library.connection.ucp.entitiy.UcpToptenEntry;
 import com.squareup.moshi.Json;
 
 /**
  * {@inheritDoc}
  */
-public class UcpToptenResult extends ProxerResult<UcpToptenEntity[]> {
+public class UcpToptenResult extends ProxerResult<UcpToptenEntry[]> {
 
     @Json(name = "data")
-    private UcpToptenEntity[] data;
+    private UcpToptenEntry[] data;
 
     protected UcpToptenResult() {
 
     }
 
     @Override
-    public UcpToptenEntity[] getData() {
+    public UcpToptenEntry[] getData() {
         return data;
     }
 }

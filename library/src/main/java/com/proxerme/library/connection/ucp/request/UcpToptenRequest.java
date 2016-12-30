@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.ucp.UcpRequest;
-import com.proxerme.library.connection.ucp.entitiy.UcpToptenEntity;
+import com.proxerme.library.connection.ucp.entitiy.UcpToptenEntry;
 import com.proxerme.library.connection.ucp.result.UcpToptenResult;
 import com.squareup.moshi.Moshi;
 
@@ -18,13 +18,13 @@ import okhttp3.ResponseBody;
  *
  * @author Ruben Gees
  */
-public class UcpToptenRequest extends UcpRequest<UcpToptenEntity[]> {
+public class UcpToptenRequest extends UcpRequest<UcpToptenEntry[]> {
 
     private static final String ENDPOINT = "topten";
 
     @Override
-    protected ProxerResult<UcpToptenEntity[]> parse(@NonNull Moshi moshi,
-                                                    @NonNull ResponseBody body) throws IOException {
+    protected ProxerResult<UcpToptenEntry[]> parse(@NonNull Moshi moshi,
+                                                   @NonNull ResponseBody body) throws IOException {
         return moshi.adapter(UcpToptenResult.class).fromJson(body.source());
     }
 

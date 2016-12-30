@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.proxerme.library.connection.EmptyResult;
 import com.proxerme.library.connection.ProxerResult;
 import com.proxerme.library.connection.ucp.UcpRequest;
+import com.proxerme.library.connection.ucp.entitiy.UcpToptenEntry;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 /**
- * Deletes the {@link com.proxerme.library.connection.ucp.entitiy.UcpToptenEntity} (specified
+ * Deletes the {@link UcpToptenEntry} (specified
  * through the id in the constructor) from the list of the user. The user needs to be logged in for
  * this API.
  *
