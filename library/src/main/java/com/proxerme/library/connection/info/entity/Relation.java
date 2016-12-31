@@ -175,7 +175,7 @@ public class Relation implements IdItem, Parcelable {
     @NonNull
     @GenreParameter.Genre
     public String[] getGenres() {
-        if (genres.isEmpty()) {
+        if (genres == null || genres.isEmpty()) {
             return new String[0];
         } else {
             return genres.split(DELIMITER);
@@ -191,7 +191,7 @@ public class Relation implements IdItem, Parcelable {
     @NonNull
     @FskParameter.FskConstraint
     public String[] getFsk() {
-        if (fsk.isEmpty()) {
+        if (fsk == null || fsk.isEmpty()) {
             return new String[0];
         } else {
             return fsk.split(DELIMITER);
@@ -297,7 +297,7 @@ public class Relation implements IdItem, Parcelable {
     @NonNull
     @GeneralLanguageParameter.GeneralLanguage
     public String[] getLanguages() {
-        if (languages.isEmpty()) {
+        if (languages == null || languages.isEmpty()) {
             return new String[0];
         } else {
             return languages.split(LANGUAGE_DELIMITER);

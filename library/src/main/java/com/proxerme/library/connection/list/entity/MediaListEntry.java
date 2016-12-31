@@ -125,7 +125,7 @@ public class MediaListEntry implements Parcelable, IdItem {
     @NonNull
     @Genre
     public String[] getGenres() {
-        if (genres.isEmpty()) {
+        if (genres == null || genres.isEmpty()) {
             return new String[0];
         } else {
             return genres.split(" ");
@@ -206,7 +206,7 @@ public class MediaListEntry implements Parcelable, IdItem {
     @NonNull
     @SubDubLanguage
     public String[] getLanguages() {
-        if (languages.isEmpty()) {
+        if (languages == null || languages.isEmpty()) {
             return new String[0];
         } else {
             return languages.split(",");

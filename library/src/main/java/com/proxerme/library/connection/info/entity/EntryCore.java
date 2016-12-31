@@ -148,7 +148,7 @@ public class EntryCore implements Parcelable, IdItem {
     @NonNull
     @Genre
     public String[] getGenres() {
-        if (genres.isEmpty()) {
+        if (genres == null || genres.isEmpty()) {
             return new String[0];
         } else {
             return genres.split(DELIMITER);
@@ -164,7 +164,7 @@ public class EntryCore implements Parcelable, IdItem {
     @NonNull
     @FskConstraint
     public String[] getFsk() {
-        if (fsk.isEmpty()) {
+        if (fsk == null || fsk.isEmpty()) {
             return new String[0];
         } else {
             return fsk.split(DELIMITER);
