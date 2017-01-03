@@ -9,6 +9,7 @@ import com.proxerme.library.connection.info.InfoRequest;
 import com.proxerme.library.connection.info.entity.Comment;
 import com.proxerme.library.connection.info.result.CommentResult;
 import com.proxerme.library.parameters.CommentSortParameter;
+import com.proxerme.library.util.Utils;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
@@ -29,15 +30,6 @@ public class CommentRequest extends InfoRequest<Comment[]> {
     private static final String PAGE_PARAMETER = "p";
     private static final String LIMIT_PARAMETER = "limit";
     private static final String SORT_PARAMETER = "sort";
-
-    private static final String EMPTY_DATA_PATTERN = "\"data\":\"(\\[\\])?\"";
-    private static final String EMPTY_DATA_REPLACEMENT = "\"data\":{}";
-    private static final String START_PATTERN = "\"{";
-    private static final String END_PATTERN = "}\"";
-    private static final String START_REPLACEMENT = "{";
-    private static final String END_REPLACEMENT = "}";
-    private static final String ESCAPE_PATTERN = "\\";
-    private static final String ESCAPE_REPLACEMENT = "";
 
     private String id;
     private Integer page;
@@ -92,29 +84,7 @@ public class CommentRequest extends InfoRequest<Comment[]> {
     @Override
     protected ProxerResult<Comment[]> parse(@NonNull Moshi moshi, @NonNull ResponseBody body)
             throws IOException {
-        return moshi.adapter(CommentResult.class).fromJson(convertBody(body.string()));
-    }
-
-    @NonNull
-    private String convertBody(@NonNull String body) {
-        String result = body.replaceAll(EMPTY_DATA_PATTERN, EMPTY_DATA_REPLACEMENT);
-
-        int startIndex = result.indexOf(START_PATTERN);
-        int endIndex = result.indexOf(END_PATTERN);
-
-        while (startIndex > 0 && endIndex > 0) {
-            String convertedSection = result.substring(startIndex, endIndex + END_PATTERN.length())
-                    .replace(START_PATTERN, START_REPLACEMENT)
-                    .replace(ESCAPE_PATTERN, ESCAPE_REPLACEMENT)
-                    .replace(END_PATTERN, END_REPLACEMENT);
-
-            result = result.substring(0, startIndex) + convertedSection +
-                    result.substring(endIndex + END_PATTERN.length());
-            startIndex = result.indexOf(START_PATTERN, startIndex);
-            endIndex = result.indexOf(END_PATTERN, endIndex);
-        }
-
-        return result;
+        return moshi.adapter(CommentResult.class).fromJson(Utils.parseCommentData(body.string()));
     }
 
     @NonNull
