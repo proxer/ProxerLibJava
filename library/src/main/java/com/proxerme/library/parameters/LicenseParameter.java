@@ -29,5 +29,4 @@ public final class LicenseParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface License {
     }
-
 }

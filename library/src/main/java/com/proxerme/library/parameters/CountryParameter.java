@@ -8,24 +8,25 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Class containing the general available languages, used in searching.
+ * Class containing the the available countries, used for translator groups and industries.
  *
  * @author Ruben Gees
  */
-public final class GeneralLanguageParameter {
+public class CountryParameter {
 
     public static final String GERMAN = "de";
     public static final String ENGLISH = "en";
+    public static final String MISCELLANEOUS = "misc";
 
-    private GeneralLanguageParameter() {
+    private CountryParameter() {
     }
 
     /**
-     * An annotation representing the available general languages.
+     * An annotation representing the available countries.
      */
-    @StringDef({GERMAN, ENGLISH})
+    @StringDef({GERMAN, ENGLISH, MISCELLANEOUS})
     @Retention(value = RetentionPolicy.SOURCE)
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
-    public @interface GeneralLanguage {
+    public @interface Country {
     }
 }

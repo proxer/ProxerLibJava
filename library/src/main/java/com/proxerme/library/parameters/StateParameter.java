@@ -32,5 +32,4 @@ public final class StateParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface State {
     }
-
 }

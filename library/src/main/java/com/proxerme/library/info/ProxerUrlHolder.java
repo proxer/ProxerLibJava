@@ -45,7 +45,7 @@ public final class ProxerUrlHolder {
 
     private static final String WIKI_SEGMENT = "wiki";
 
-    private static final String SUBGROUP_SEGMENT = "translatorgroups";
+    private static final String TRANSLATOR_GROUP_SEGMENT = "translatorgroups";
 
     private static final String INDUSTRY_SEGMENT = "industry";
 
@@ -228,17 +228,17 @@ public final class ProxerUrlHolder {
     }
 
     /**
-     * Returns the url for a info subgroup page.
+     * Returns the url for a info translator group page.
      *
-     * @param id     The id of the subgroup.
+     * @param id     The id of the translator group.
      * @param device Optional parameter to specify the device. Possible are "mobile" and
      *               "default".
      * @return The url.
      */
     @NonNull
-    public static HttpUrl getSubgroupUrl(@NonNull String id, @Nullable @Device String device) {
+    public static HttpUrl getTranslatorGroupUrl(@NonNull String id, @Nullable @Device String device) {
         HttpUrl.Builder builder = getBaseApiHost().newBuilder()
-                .addPathSegment(SUBGROUP_SEGMENT)
+                .addPathSegment(TRANSLATOR_GROUP_SEGMENT)
                 .addQueryParameter(ID_PARAMETER, id);
 
         if (device != null) {

@@ -31,5 +31,4 @@ public final class ConferenceTypeParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface ConferenceType {
     }
-
 }

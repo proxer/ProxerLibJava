@@ -29,5 +29,4 @@ public final class TagSpoilerFilterParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface TagSpoilerFilter {
     }
-
 }

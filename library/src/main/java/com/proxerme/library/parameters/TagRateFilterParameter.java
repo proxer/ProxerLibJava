@@ -28,5 +28,4 @@ public final class TagRateFilterParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface TagRateFilter {
     }
-
 }

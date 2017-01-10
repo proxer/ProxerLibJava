@@ -33,5 +33,4 @@ public final class ActionParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface Action {
     }
-
 }

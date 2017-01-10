@@ -28,5 +28,4 @@ public final class CategoryParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface Category {
     }
-
 }

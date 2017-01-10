@@ -5,24 +5,25 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.proxerme.library.interfaces.IdItem;
+import com.proxerme.library.parameters.CountryParameter.Country;
 import com.squareup.moshi.Json;
 
 /**
- * An entity which holds the info of a single publisher.
+ * Entity containing the relevant info of a translator group, associated with an {@link Entry}.
  *
  * @author Ruben Gees
  */
-public class Publisher implements IdItem, Parcelable {
+public class EntryTranslatorGroup implements Parcelable, IdItem {
 
-    public static final Parcelable.Creator<Publisher> CREATOR = new Parcelable.Creator<Publisher>() {
+    public static final Parcelable.Creator<EntryTranslatorGroup> CREATOR = new Parcelable.Creator<EntryTranslatorGroup>() {
         @Override
-        public Publisher createFromParcel(Parcel source) {
-            return new Publisher(source);
+        public EntryTranslatorGroup createFromParcel(Parcel source) {
+            return new EntryTranslatorGroup(source);
         }
 
         @Override
-        public Publisher[] newArray(int size) {
-            return new Publisher[size];
+        public EntryTranslatorGroup[] newArray(int size) {
+            return new EntryTranslatorGroup[size];
         }
     };
 
@@ -30,12 +31,11 @@ public class Publisher implements IdItem, Parcelable {
     private String id;
     @Json(name = "name")
     private String name;
-    @Json(name = "type")
-    private String type;
     @Json(name = "country")
     private String country;
 
-    private Publisher() {
+    private EntryTranslatorGroup() {
+
     }
 
     /**
@@ -43,21 +43,17 @@ public class Publisher implements IdItem, Parcelable {
      *
      * @param id      The id.
      * @param name    The name.
-     * @param type    The type of the publisher.
-     * @param country The country the publisher resides in.
+     * @param country The country this translator group is active in.
      */
-    public Publisher(@NonNull String id, @NonNull String name, @NonNull String type,
-                     @NonNull String country) {
+    public EntryTranslatorGroup(@NonNull String id, @NonNull String name, @NonNull @Country String country) {
         this.id = id;
         this.name = name;
-        this.type = type;
         this.country = country;
     }
 
-    protected Publisher(Parcel in) {
+    protected EntryTranslatorGroup(Parcel in) {
         this.id = in.readString();
         this.name = in.readString();
-        this.type = in.readString();
         this.country = in.readString();
     }
 
@@ -83,21 +79,12 @@ public class Publisher implements IdItem, Parcelable {
     }
 
     /**
-     * Returns the type.
-     *
-     * @return The type.
-     */
-    @NonNull
-    public String getType() {
-        return type;
-    }
-
-    /**
      * Returns the country.
      *
      * @return The country.
      */
     @NonNull
+    @Country
     public String getCountry() {
         return country;
     }
@@ -108,19 +95,17 @@ public class Publisher implements IdItem, Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Publisher publisher = (Publisher) o;
+        EntryTranslatorGroup translatorGroup = (EntryTranslatorGroup) o;
 
-        if (!id.equals(publisher.id)) return false;
-        if (!name.equals(publisher.name)) return false;
-        if (!type.equals(publisher.type)) return false;
-        return country.equals(publisher.country);
+        if (!id.equals(translatorGroup.id)) return false;
+        if (!name.equals(translatorGroup.name)) return false;
+        return country.equals(translatorGroup.country);
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + name.hashCode();
-        result = 31 * result + type.hashCode();
         result = 31 * result + country.hashCode();
         return result;
     }
@@ -134,7 +119,6 @@ public class Publisher implements IdItem, Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.name);
-        dest.writeString(this.type);
         dest.writeString(this.country);
     }
 }

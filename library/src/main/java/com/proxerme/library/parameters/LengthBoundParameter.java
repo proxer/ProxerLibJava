@@ -28,5 +28,4 @@ public final class LengthBoundParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface LengthBound {
     }
-
 }

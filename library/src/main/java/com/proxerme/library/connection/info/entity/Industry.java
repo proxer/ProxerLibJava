@@ -8,21 +8,21 @@ import com.proxerme.library.interfaces.IdItem;
 import com.squareup.moshi.Json;
 
 /**
- * Entity containing the relevant info of a subgroup.
+ * An entity which holds the info of a single industry.
  *
  * @author Ruben Gees
  */
-public class Subgroup implements Parcelable, IdItem {
+public class Industry implements IdItem, Parcelable {
 
-    public static final Parcelable.Creator<Subgroup> CREATOR = new Parcelable.Creator<Subgroup>() {
+    public static final Parcelable.Creator<Industry> CREATOR = new Parcelable.Creator<Industry>() {
         @Override
-        public Subgroup createFromParcel(Parcel source) {
-            return new Subgroup(source);
+        public Industry createFromParcel(Parcel source) {
+            return new Industry(source);
         }
 
         @Override
-        public Subgroup[] newArray(int size) {
-            return new Subgroup[size];
+        public Industry[] newArray(int size) {
+            return new Industry[size];
         }
     };
 
@@ -30,11 +30,12 @@ public class Subgroup implements Parcelable, IdItem {
     private String id;
     @Json(name = "name")
     private String name;
+    @Json(name = "type")
+    private String type;
     @Json(name = "country")
     private String country;
 
-    private Subgroup() {
-
+    private Industry() {
     }
 
     /**
@@ -42,17 +43,21 @@ public class Subgroup implements Parcelable, IdItem {
      *
      * @param id      The id.
      * @param name    The name.
-     * @param country The country this subgroup is active in.
+     * @param type    The type of the industry.
+     * @param country The country the industry resides in.
      */
-    public Subgroup(@NonNull String id, @NonNull String name, @NonNull String country) {
+    public Industry(@NonNull String id, @NonNull String name, @NonNull String type,
+                    @NonNull String country) {
         this.id = id;
         this.name = name;
+        this.type = type;
         this.country = country;
     }
 
-    protected Subgroup(Parcel in) {
+    protected Industry(Parcel in) {
         this.id = in.readString();
         this.name = in.readString();
+        this.type = in.readString();
         this.country = in.readString();
     }
 
@@ -78,6 +83,16 @@ public class Subgroup implements Parcelable, IdItem {
     }
 
     /**
+     * Returns the type.
+     *
+     * @return The type.
+     */
+    @NonNull
+    public String getType() {
+        return type;
+    }
+
+    /**
      * Returns the country.
      *
      * @return The country.
@@ -93,17 +108,19 @@ public class Subgroup implements Parcelable, IdItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Subgroup subgroup = (Subgroup) o;
+        Industry industry = (Industry) o;
 
-        if (!id.equals(subgroup.id)) return false;
-        if (!name.equals(subgroup.name)) return false;
-        return country.equals(subgroup.country);
+        if (!id.equals(industry.id)) return false;
+        if (!name.equals(industry.name)) return false;
+        if (!type.equals(industry.type)) return false;
+        return country.equals(industry.country);
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + name.hashCode();
+        result = 31 * result + type.hashCode();
         result = 31 * result + country.hashCode();
         return result;
     }
@@ -117,6 +134,7 @@ public class Subgroup implements Parcelable, IdItem {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.name);
+        dest.writeString(this.type);
         dest.writeString(this.country);
     }
 }

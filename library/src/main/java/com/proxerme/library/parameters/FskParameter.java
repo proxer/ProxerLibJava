@@ -35,5 +35,4 @@ public final class FskParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface FskConstraint {
     }
-
 }

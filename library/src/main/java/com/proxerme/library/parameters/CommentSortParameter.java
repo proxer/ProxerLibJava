@@ -28,5 +28,4 @@ public final class CommentSortParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface CommentSort {
     }
-
 }

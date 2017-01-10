@@ -34,5 +34,4 @@ public final class MediumParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface Medium {
     }
-
 }

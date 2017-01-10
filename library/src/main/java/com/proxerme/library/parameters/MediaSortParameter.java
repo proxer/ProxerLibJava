@@ -31,5 +31,4 @@ public final class MediaSortParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface MediaSortCriteria {
     }
-
 }

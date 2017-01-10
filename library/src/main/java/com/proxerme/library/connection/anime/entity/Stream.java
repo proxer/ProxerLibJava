@@ -44,9 +44,9 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
     @Json(name = "timestamp")
     private long time;
     @Json(name = "tid")
-    private String subgroupId;
+    private String translatorGroupId;
     @Json(name = "tname")
-    private String subgroup;
+    private String translatorGroup;
     @Json(name = "htype")
     private String hosterType;
 
@@ -60,13 +60,13 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
      * @param uploaderId THe id of the uploader.
      * @param uploader   The username of the uploader.
      * @param time       The time this streams was linked.
-     * @param subgroupId The id of the subgroup if existent
-     * @param subgroup   The name of the subgroup if existent.
+     * @param translatorGroupId The id of the translator group if existent
+     * @param translatorGroup   The name of the translator group if existent.
      * @param hosterType The type of the hoster.
      */
     public Stream(@NonNull String id, @NonNull String hoster, @NonNull String hosterName,
                   @NonNull String imageId, @NonNull String uploaderId, @NonNull String uploader,
-                  long time, @Nullable String subgroupId, @Nullable String subgroup,
+                  long time, @Nullable String translatorGroupId, @Nullable String translatorGroup,
                   @NonNull String hosterType) {
         this.id = id;
         this.hoster = hoster;
@@ -75,8 +75,8 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
         this.uploaderId = uploaderId;
         this.uploader = uploader;
         this.time = time;
-        this.subgroupId = subgroupId;
-        this.subgroup = subgroup;
+        this.translatorGroupId = translatorGroupId;
+        this.translatorGroup = translatorGroup;
         this.hosterType = hosterType;
     }
 
@@ -88,8 +88,8 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
         this.uploaderId = in.readString();
         this.uploader = in.readString();
         this.time = in.readLong();
-        this.subgroupId = in.readString();
-        this.subgroup = in.readString();
+        this.translatorGroupId = in.readString();
+        this.translatorGroup = in.readString();
         this.hosterType = in.readString();
     }
 
@@ -166,23 +166,23 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
     }
 
     /**
-     * Returns the id of the subgroup or null if not present.
+     * Returns the id of the translator group or null if not present.
      *
      * @return The id.
      */
     @Nullable
-    public String getSubgroupId() {
-        return subgroupId;
+    public String gettranslatorGroupId() {
+        return translatorGroupId;
     }
 
     /**
-     * Returns the name of the subgroup or null if not present.
+     * Returns the name of the translator group or null if not present.
      *
      * @return The name.
      */
     @Nullable
-    public String getSubgroup() {
-        return subgroup;
+    public String gettranslatorGroup() {
+        return translatorGroup;
     }
 
     /**
@@ -210,9 +210,9 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
         if (!imageId.equals(stream.imageId)) return false;
         if (!uploaderId.equals(stream.uploaderId)) return false;
         if (!uploader.equals(stream.uploader)) return false;
-        if (subgroupId != null ? !subgroupId.equals(stream.subgroupId) : stream.subgroupId != null)
+        if (translatorGroupId != null ? !translatorGroupId.equals(stream.translatorGroupId) : stream.translatorGroupId != null)
             return false;
-        if (subgroup != null ? !subgroup.equals(stream.subgroup) : stream.subgroup != null)
+        if (translatorGroup != null ? !translatorGroup.equals(stream.translatorGroup) : stream.translatorGroup != null)
             return false;
         return hosterType.equals(stream.hosterType);
     }
@@ -226,8 +226,8 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
         result = 31 * result + uploaderId.hashCode();
         result = 31 * result + uploader.hashCode();
         result = 31 * result + (int) (time ^ (time >>> 32));
-        result = 31 * result + (subgroupId != null ? subgroupId.hashCode() : 0);
-        result = 31 * result + (subgroup != null ? subgroup.hashCode() : 0);
+        result = 31 * result + (translatorGroupId != null ? translatorGroupId.hashCode() : 0);
+        result = 31 * result + (translatorGroup != null ? translatorGroup.hashCode() : 0);
         result = 31 * result + hosterType.hashCode();
         return result;
     }
@@ -246,8 +246,8 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
         dest.writeString(this.uploaderId);
         dest.writeString(this.uploader);
         dest.writeLong(this.time);
-        dest.writeString(this.subgroupId);
-        dest.writeString(this.subgroup);
+        dest.writeString(this.translatorGroupId);
+        dest.writeString(this.translatorGroup);
         dest.writeString(this.hosterType);
     }
 }

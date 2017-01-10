@@ -36,5 +36,4 @@ public final class UserMediaSortParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface UserMediaSortCriteria {
     }
-
 }

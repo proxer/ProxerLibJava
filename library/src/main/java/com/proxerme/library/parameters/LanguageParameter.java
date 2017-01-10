@@ -27,5 +27,4 @@ public final class LanguageParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface Language {
     }
-
 }

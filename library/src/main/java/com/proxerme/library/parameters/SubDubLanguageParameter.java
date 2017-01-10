@@ -30,5 +30,4 @@ public final class SubDubLanguageParameter {
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface SubDubLanguage {
     }
-
 }

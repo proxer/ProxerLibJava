@@ -74,9 +74,9 @@ public class Entry implements Parcelable, IdItem {
     @Json(name = "seasons")
     private EntrySeason[] seasons;
     @Json(name = "groups")
-    private Subgroup[] subgroups;
+    private EntryTranslatorGroup[] translatorGroups;
     @Json(name = "publisher")
-    private Publisher[] publishers;
+    private Industry[] industries;
     @Json(name = "tags")
     private Tag[] tags;
 
@@ -87,26 +87,26 @@ public class Entry implements Parcelable, IdItem {
     /**
      * The constructor.
      *
-     * @param id            The entry id.
-     * @param name          The entry name.
-     * @param genres        The genres.
-     * @param fsk           The fsk ratings.
-     * @param description   The description.
-     * @param medium        The medium.
-     * @param episodeAmount The number of episodes.
-     * @param state         The user view state.
-     * @param rateSum       The sum of all ratings.
-     * @param rateCount     The amount of ratings.
-     * @param clicks        The amount of clicks.
-     * @param category      The category name.
-     * @param license       The license id.
-     * @param gate          If this entry has a gate (18+ check required)
-     * @param synonyms      The synonyms.
-     * @param languages     The languages.
-     * @param seasons       The seasons.
-     * @param subgroups     The subgroups.
-     * @param publishers    The publishers.
-     * @param tags          The tags.
+     * @param id               The entry id.
+     * @param name             The entry name.
+     * @param genres           The genres.
+     * @param fsk              The fsk ratings.
+     * @param description      The description.
+     * @param medium           The medium.
+     * @param episodeAmount    The number of episodes.
+     * @param state            The user view state.
+     * @param rateSum          The sum of all ratings.
+     * @param rateCount        The amount of ratings.
+     * @param clicks           The amount of clicks.
+     * @param category         The category name.
+     * @param license          The license id.
+     * @param gate             If this entry has a gate (18+ check required)
+     * @param synonyms         The synonyms.
+     * @param languages        The languages.
+     * @param seasons          The seasons.
+     * @param translatorGroups The translator groups.
+     * @param industries       The industries.
+     * @param tags             The tags.
      */
     public Entry(@NonNull String id, @NonNull String name, @NonNull String genres,
                  @NonNull String fsk, @NonNull String description, @NonNull @Medium String medium,
@@ -114,8 +114,8 @@ public class Entry implements Parcelable, IdItem {
                  @IntRange(from = 0) int rateSum, @IntRange(from = 0) int rateCount,
                  @IntRange(from = 0) int clicks, @Category String category, @License int license,
                  boolean gate, @NonNull Synonym[] synonyms, @NonNull String[] languages,
-                 @NonNull EntrySeason[] seasons, @NonNull Subgroup[] subgroups,
-                 @NonNull Publisher[] publishers, @NonNull Tag[] tags) {
+                 @NonNull EntrySeason[] seasons, @NonNull EntryTranslatorGroup[] translatorGroups,
+                 @NonNull Industry[] industries, @NonNull Tag[] tags) {
         this.id = id;
         this.name = name;
         this.genres = genres;
@@ -133,8 +133,8 @@ public class Entry implements Parcelable, IdItem {
         this.synonyms = synonyms;
         this.languages = languages;
         this.seasons = seasons;
-        this.subgroups = subgroups;
-        this.publishers = publishers;
+        this.translatorGroups = translatorGroups;
+        this.industries = industries;
         this.tags = tags;
     }
 
@@ -156,8 +156,8 @@ public class Entry implements Parcelable, IdItem {
         this.synonyms = in.createTypedArray(Synonym.CREATOR);
         this.languages = in.createStringArray();
         this.seasons = in.createTypedArray(EntrySeason.CREATOR);
-        this.subgroups = in.createTypedArray(Subgroup.CREATOR);
-        this.publishers = in.createTypedArray(Publisher.CREATOR);
+        this.translatorGroups = in.createTypedArray(EntryTranslatorGroup.CREATOR);
+        this.industries = in.createTypedArray(Industry.CREATOR);
         this.tags = in.createTypedArray(Tag.CREATOR);
     }
 
@@ -361,23 +361,23 @@ public class Entry implements Parcelable, IdItem {
     }
 
     /**
-     * Returns the subgroups.
+     * Returns the translator groups.
      *
-     * @return The subgroups.
+     * @return The translator groups.
      */
     @NonNull
-    public Subgroup[] getSubgroups() {
-        return subgroups;
+    public EntryTranslatorGroup[] gettranslatorGroups() {
+        return translatorGroups;
     }
 
     /**
-     * Returns the publishers.
+     * Returns the industries.
      *
-     * @return The publishers.
+     * @return The industries.
      */
     @NonNull
-    public Publisher[] getPublishers() {
-        return publishers;
+    public Industry[] getIndustries() {
+        return industries;
     }
 
     /**
@@ -415,8 +415,8 @@ public class Entry implements Parcelable, IdItem {
         if (!Arrays.equals(synonyms, entry.synonyms)) return false;
         if (!Arrays.equals(languages, entry.languages)) return false;
         if (!Arrays.equals(seasons, entry.seasons)) return false;
-        if (!Arrays.equals(subgroups, entry.subgroups)) return false;
-        if (!Arrays.equals(publishers, entry.publishers)) return false;
+        if (!Arrays.equals(translatorGroups, entry.translatorGroups)) return false;
+        if (!Arrays.equals(industries, entry.industries)) return false;
         return Arrays.equals(tags, entry.tags);
     }
 
@@ -439,8 +439,8 @@ public class Entry implements Parcelable, IdItem {
         result = 31 * result + Arrays.hashCode(synonyms);
         result = 31 * result + Arrays.hashCode(languages);
         result = 31 * result + Arrays.hashCode(seasons);
-        result = 31 * result + Arrays.hashCode(subgroups);
-        result = 31 * result + Arrays.hashCode(publishers);
+        result = 31 * result + Arrays.hashCode(translatorGroups);
+        result = 31 * result + Arrays.hashCode(industries);
         result = 31 * result + Arrays.hashCode(tags);
         return result;
     }
@@ -469,8 +469,8 @@ public class Entry implements Parcelable, IdItem {
         dest.writeTypedArray(this.synonyms, flags);
         dest.writeStringArray(this.languages);
         dest.writeTypedArray(this.seasons, flags);
-        dest.writeTypedArray(this.subgroups, flags);
-        dest.writeTypedArray(this.publishers, flags);
+        dest.writeTypedArray(this.translatorGroups, flags);
+        dest.writeTypedArray(this.industries, flags);
         dest.writeTypedArray(this.tags, flags);
     }
 }
