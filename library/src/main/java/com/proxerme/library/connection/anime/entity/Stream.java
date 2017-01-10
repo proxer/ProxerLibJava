@@ -171,7 +171,7 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
      * @return The id.
      */
     @Nullable
-    public String gettranslatorGroupId() {
+    public String getTranslatorGroupId() {
         return translatorGroupId;
     }
 
@@ -181,7 +181,7 @@ public class Stream implements IdItem, ImageItem, TimeItem, Parcelable {
      * @return The name.
      */
     @Nullable
-    public String gettranslatorGroup() {
+    public String getTranslatorGroup() {
         return translatorGroup;
     }
 

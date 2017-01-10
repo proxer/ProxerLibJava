@@ -366,7 +366,7 @@ public class Entry implements Parcelable, IdItem {
      * @return The translator groups.
      */
     @NonNull
-    public EntryTranslatorGroup[] gettranslatorGroups() {
+    public EntryTranslatorGroup[] getTranslatorGroups() {
         return translatorGroups;
     }
 
