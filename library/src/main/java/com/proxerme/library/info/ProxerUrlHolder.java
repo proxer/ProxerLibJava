@@ -18,39 +18,23 @@ public final class ProxerUrlHolder {
 
     public static final String DEVICE_QUERY_PARAMETER_DEFAULT = "default";
     public static final String DEVICE_QUERY_PARAMETER_MOBILE = "mobile";
-
+    public static final String TRANSLATOR_GROUPS_SEGMENT = "translatorgroups";
+    public static final String INDUSTRY_SEGMENT = "industry";
     private static final String SCHEME = "https";
     private static final String API_HOST = "proxer.me";
-
     private static final String IMAGE_HOST = "cdn.proxer.me";
-
     private static final String API_SEGMENT = "api";
     private static final String VERSION_SEGMENT = "v1";
-
+    private static final String IMAGE_SEGMENT = "%s.jpg";
     private static final String NEWS_SEGMENT = "news";
-
     private static final String TEMPORARY_SEGMENT = "tmp";
     private static final String NEWS_IMAGE_SEGMENT = "%s_%s.png";
-
     private static final String AVATAR_SEGMENT = "avatar";
-
     private static final String USER_SEGMENT = "user";
-
     private static final String COVER_SEGMENT = "cover";
-    private static final String COVER_IMAGE_SEGMENT = "%s.jpg";
-
     private static final String FORUM_SEGMENT = "forum";
-
     private static final String DONATE_SEGMENT = "donate";
-
     private static final String WIKI_SEGMENT = "wiki";
-
-    private static final String TRANSLATOR_GROUP_SEGMENT = "translatorgroups";
-
-    private static final String INDUSTRY_SEGMENT = "industry";
-
-    private static final String ID_PARAMETER = "id";
-
     private static final String IMAGES_SEGMENT = "images";
     private static final String HOSTER_SEGMENT = "hoster";
 
@@ -165,7 +149,7 @@ public final class ProxerUrlHolder {
         return getImageHost().newBuilder()
                 .addPathSegment(COVER_SEGMENT)
                 .addPathSegment(TEMPORARY_SEGMENT)
-                .addPathSegment(String.format(COVER_IMAGE_SEGMENT, entryId))
+                .addPathSegment(String.format(IMAGE_SEGMENT, entryId))
                 .build();
     }
 
@@ -192,6 +176,34 @@ public final class ProxerUrlHolder {
         }
 
         return builder.build();
+    }
+
+    /**
+     * Returns the url for the image of a translator group.
+     *
+     * @param id The id of the translator group.
+     * @return The url.
+     */
+    @NonNull
+    public static HttpUrl getTranslatorGroupImageUrl(@NonNull String id) {
+        return getImageHost().newBuilder()
+                .addPathSegment(TRANSLATOR_GROUPS_SEGMENT)
+                .addPathSegment(String.format(IMAGE_SEGMENT, id))
+                .build();
+    }
+
+    /**
+     * Returns the url for the image of an industry.
+     *
+     * @param id The id of the industry.
+     * @return The url.
+     */
+    @NonNull
+    public static HttpUrl getIndustryImageUrl(@NonNull String id) {
+        return getImageHost().newBuilder()
+                .addPathSegment(INDUSTRY_SEGMENT)
+                .addPathSegment(String.format(IMAGE_SEGMENT, id))
+                .build();
     }
 
     /**
@@ -225,48 +237,6 @@ public final class ProxerUrlHolder {
                 .addPathSegment(WIKI_SEGMENT)
                 .addPathSegment(topic)
                 .build();
-    }
-
-    /**
-     * Returns the url for a info translator group page.
-     *
-     * @param id     The id of the translator group.
-     * @param device Optional parameter to specify the device. Possible are "mobile" and
-     *               "default".
-     * @return The url.
-     */
-    @NonNull
-    public static HttpUrl getTranslatorGroupUrl(@NonNull String id, @Nullable @Device String device) {
-        HttpUrl.Builder builder = getBaseApiHost().newBuilder()
-                .addPathSegment(TRANSLATOR_GROUP_SEGMENT)
-                .addQueryParameter(ID_PARAMETER, id);
-
-        if (device != null) {
-            builder.addQueryParameter(DEVICE_QUERY_PARAMETER, device);
-        }
-
-        return builder.build();
-    }
-
-    /**
-     * Returns the url for a industry info page.
-     *
-     * @param id     The id of the industry.
-     * @param device Optional parameter to specify the device. Possible are "mobile" and
-     *               "default".
-     * @return The url.
-     */
-    @NonNull
-    public static HttpUrl getPublisherUrl(@NonNull String id, @Nullable @Device String device) {
-        HttpUrl.Builder builder = getBaseApiHost().newBuilder()
-                .addPathSegment(INDUSTRY_SEGMENT)
-                .addQueryParameter(ID_PARAMETER, id);
-
-        if (device != null) {
-            builder.addQueryParameter(DEVICE_QUERY_PARAMETER, device);
-        }
-
-        return builder.build();
     }
 
     /**

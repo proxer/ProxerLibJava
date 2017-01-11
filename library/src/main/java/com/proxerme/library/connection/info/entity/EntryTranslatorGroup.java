@@ -45,7 +45,8 @@ public class EntryTranslatorGroup implements Parcelable, IdItem {
      * @param name    The name.
      * @param country The country this translator group is active in.
      */
-    public EntryTranslatorGroup(@NonNull String id, @NonNull String name, @NonNull @Country String country) {
+    public EntryTranslatorGroup(@NonNull String id, @NonNull String name,
+                                @NonNull @Country String country) {
         this.id = id;
         this.name = name;
         this.country = country;

@@ -76,7 +76,7 @@ public class Entry implements Parcelable, IdItem {
     @Json(name = "groups")
     private EntryTranslatorGroup[] translatorGroups;
     @Json(name = "publisher")
-    private Industry[] industries;
+    private EntryIndustry[] industries;
     @Json(name = "tags")
     private Tag[] tags;
 
@@ -115,7 +115,7 @@ public class Entry implements Parcelable, IdItem {
                  @IntRange(from = 0) int clicks, @Category String category, @License int license,
                  boolean gate, @NonNull Synonym[] synonyms, @NonNull String[] languages,
                  @NonNull EntrySeason[] seasons, @NonNull EntryTranslatorGroup[] translatorGroups,
-                 @NonNull Industry[] industries, @NonNull Tag[] tags) {
+                 @NonNull EntryIndustry[] industries, @NonNull Tag[] tags) {
         this.id = id;
         this.name = name;
         this.genres = genres;
@@ -157,7 +157,7 @@ public class Entry implements Parcelable, IdItem {
         this.languages = in.createStringArray();
         this.seasons = in.createTypedArray(EntrySeason.CREATOR);
         this.translatorGroups = in.createTypedArray(EntryTranslatorGroup.CREATOR);
-        this.industries = in.createTypedArray(Industry.CREATOR);
+        this.industries = in.createTypedArray(EntryIndustry.CREATOR);
         this.tags = in.createTypedArray(Tag.CREATOR);
     }
 
@@ -376,7 +376,7 @@ public class Entry implements Parcelable, IdItem {
      * @return The industries.
      */
     @NonNull
-    public Industry[] getIndustries() {
+    public EntryIndustry[] getIndustries() {
         return industries;
     }
 

@@ -3,12 +3,14 @@ package com.proxerme.library.connection.info.request;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.proxerme.library.connection.info.entity.Entry;
+import com.proxerme.library.connection.info.entity.EntryIndustry;
 import com.proxerme.library.connection.info.entity.EntrySeason;
 import com.proxerme.library.connection.info.entity.EntryTranslatorGroup;
-import com.proxerme.library.connection.info.entity.Industry;
 import com.proxerme.library.connection.info.entity.Synonym;
 import com.proxerme.library.connection.info.entity.Tag;
 import com.proxerme.library.parameters.CategoryParameter;
+import com.proxerme.library.parameters.CountryParameter;
+import com.proxerme.library.parameters.IndustryTypeParameter;
 import com.proxerme.library.parameters.LicenseParameter;
 import com.proxerme.library.parameters.MediumParameter;
 import com.proxerme.library.parameters.SeasonParameter;
@@ -85,10 +87,11 @@ public class EntryRequestTest extends RequestTest {
                         new EntrySeason("2940", 2008, SeasonParameter.AUTUMN),
                 },
                 new EntryTranslatorGroup[]{
-                        new EntryTranslatorGroup("8", "Strawhat Subs", "de"),
-                        new EntryTranslatorGroup("137", "Anime-Crystal", "de"),},
-                new Industry[]{
-                        new Industry("101", "TNK", "studio", "jp"),
+                        new EntryTranslatorGroup("8", "Strawhat Subs", CountryParameter.GERMAN),
+                        new EntryTranslatorGroup("137", "Anime-Crystal", CountryParameter.GERMAN),},
+                new EntryIndustry[]{
+                        new EntryIndustry("101", "TNK", IndustryTypeParameter.STUDIO,
+                                CountryParameter.JAPANESE),
                 }, new Tag[]{
                 new Tag("12", "2710", "2016-06-18 18:09:59", 0, 0, "Incest", "Romantische " +
                         "Gefühle und/oder sexuelle Handlungen unter nahen Verwandten."),

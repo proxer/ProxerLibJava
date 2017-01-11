@@ -16,6 +16,7 @@ public class CountryParameter {
 
     public static final String GERMAN = "de";
     public static final String ENGLISH = "en";
+    public static final String JAPANESE = "jp";
     public static final String MISCELLANEOUS = "misc";
 
     private CountryParameter() {
@@ -24,7 +25,7 @@ public class CountryParameter {
     /**
      * An annotation representing the available countries.
      */
-    @StringDef({GERMAN, ENGLISH, MISCELLANEOUS})
+    @StringDef({GERMAN, ENGLISH, JAPANESE, MISCELLANEOUS})
     @Retention(value = RetentionPolicy.SOURCE)
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface Country {

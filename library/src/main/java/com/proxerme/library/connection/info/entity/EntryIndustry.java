@@ -10,21 +10,21 @@ import com.proxerme.library.parameters.IndustryTypeParameter.IndustryType;
 import com.squareup.moshi.Json;
 
 /**
- * An entity which holds the info of a single industry.
+ * Entity containing the relevant info of an industry, associated with an {@link Entry}.
  *
  * @author Ruben Gees
  */
-public class Industry implements IdItem, Parcelable {
+public class EntryIndustry implements IdItem, Parcelable {
 
-    public static final Creator<Industry> CREATOR = new Creator<Industry>() {
+    public static final Parcelable.Creator<EntryIndustry> CREATOR = new Parcelable.Creator<EntryIndustry>() {
         @Override
-        public Industry createFromParcel(Parcel source) {
-            return new Industry(source);
+        public EntryIndustry createFromParcel(Parcel source) {
+            return new EntryIndustry(source);
         }
 
         @Override
-        public Industry[] newArray(int size) {
-            return new Industry[size];
+        public EntryIndustry[] newArray(int size) {
+            return new EntryIndustry[size];
         }
     };
 
@@ -36,39 +36,31 @@ public class Industry implements IdItem, Parcelable {
     private String type;
     @Json(name = "country")
     private String country;
-    @Json(name = "link")
-    private String link;
-    @Json(name = "description")
-    private String description;
+
+    private EntryIndustry() {
+    }
 
     /**
      * The constructor.
      *
-     * @param id          The id.
-     * @param name        The name.
-     * @param type        The type of the industry.
-     * @param country     The country the industry resides in.
-     * @param link        The link.
-     * @param description A description of the industry.
+     * @param id      The id.
+     * @param name    The name.
+     * @param type    The type of the industry.
+     * @param country The country the industry resides in.
      */
-    public Industry(@NonNull String id, @NonNull String name, @NonNull @IndustryType String type,
-                    @NonNull @Country String country, @NonNull String link,
-                    @NonNull String description) {
+    public EntryIndustry(@NonNull String id, @NonNull String name,
+                         @NonNull @IndustryType String type, @NonNull @Country String country) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.country = country;
-        this.link = link;
-        this.description = description;
     }
 
-    protected Industry(Parcel in) {
+    protected EntryIndustry(Parcel in) {
         this.id = in.readString();
         this.name = in.readString();
         this.type = in.readString();
         this.country = in.readString();
-        this.link = in.readString();
-        this.description = in.readString();
     }
 
     /**
@@ -114,40 +106,18 @@ public class Industry implements IdItem, Parcelable {
         return country;
     }
 
-    /**
-     * Returns the link to the homepage.
-     *
-     * @return The link.
-     */
-    @NonNull
-    public String getLink() {
-        return link;
-    }
-
-    /**
-     * Returns the description.
-     *
-     * @return The description.
-     */
-    @NonNull
-    public String getDescription() {
-        return description;
-    }
-
     @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Industry industry = (Industry) o;
+        EntryIndustry industry = (EntryIndustry) o;
 
         if (!id.equals(industry.id)) return false;
         if (!name.equals(industry.name)) return false;
         if (!type.equals(industry.type)) return false;
-        if (!country.equals(industry.country)) return false;
-        if (!link.equals(industry.link)) return false;
-        return description.equals(industry.description);
+        return country.equals(industry.country);
     }
 
     @Override
@@ -156,8 +126,6 @@ public class Industry implements IdItem, Parcelable {
         result = 31 * result + name.hashCode();
         result = 31 * result + type.hashCode();
         result = 31 * result + country.hashCode();
-        result = 31 * result + link.hashCode();
-        result = 31 * result + description.hashCode();
         return result;
     }
 
@@ -172,7 +140,5 @@ public class Industry implements IdItem, Parcelable {
         dest.writeString(this.name);
         dest.writeString(this.type);
         dest.writeString(this.country);
-        dest.writeString(this.link);
-        dest.writeString(this.description);
     }
 }
