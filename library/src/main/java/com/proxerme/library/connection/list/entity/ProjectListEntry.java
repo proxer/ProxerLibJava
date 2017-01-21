@@ -10,7 +10,6 @@ import com.proxerme.library.interfaces.IdItem;
 import com.proxerme.library.parameters.FskParameter;
 import com.proxerme.library.parameters.GenreParameter.Genre;
 import com.proxerme.library.parameters.MediumParameter.Medium;
-import com.proxerme.library.parameters.ProjectTypeParameter.ProjectType;
 import com.proxerme.library.parameters.StateParameter.State;
 import com.squareup.moshi.Json;
 
@@ -48,7 +47,7 @@ public class ProjectListEntry implements Parcelable, IdItem {
     @Json(name = "medium")
     private String medium;
     @Json(name = "type")
-    private int type;
+    private String type;
     @Json(name = "state")
     private int state;
     @Json(name = "rate_sum")
@@ -68,14 +67,14 @@ public class ProjectListEntry implements Parcelable, IdItem {
      * @param genres    The genres, separated by a ' '.
      * @param fsk       The fsk ratings.
      * @param medium    The medium.
-     * @param type      The type of the project.
+     * @param type      The type.
      * @param state     The state.
      * @param rateSum   The sum of all ratings.
      * @param rateCount The amount of ratings.
      */
     public ProjectListEntry(@NonNull String id, @NonNull String name, @NonNull String genres,
                             @NonNull String fsk, @NonNull @Medium String medium,
-                            @ProjectType int type, @State int state,
+                            @NonNull String type, @State int state,
                             @IntRange(from = 0) int rateSum, @IntRange(from = 0) int rateCount) {
         this.id = id;
         this.name = name;
@@ -94,7 +93,7 @@ public class ProjectListEntry implements Parcelable, IdItem {
         this.genres = in.readString();
         this.fsk = in.readString();
         this.medium = in.readString();
-        this.type = in.readInt();
+        this.type = in.readString();
         this.state = in.readInt();
         this.rateSum = in.readInt();
         this.rateCount = in.readInt();
@@ -169,8 +168,8 @@ public class ProjectListEntry implements Parcelable, IdItem {
      *
      * @return The type.
      */
-    @ProjectType
-    public int getType() {
+    @NonNull
+    public String getType() {
         return type;
     }
 
@@ -226,7 +225,7 @@ public class ProjectListEntry implements Parcelable, IdItem {
 
         ProjectListEntry that = (ProjectListEntry) o;
 
-        if (type != that.type) return false;
+        if (!type.equals(that.type)) return false;
         if (state != that.state) return false;
         if (rateSum != that.rateSum) return false;
         if (rateCount != that.rateCount) return false;
@@ -244,7 +243,7 @@ public class ProjectListEntry implements Parcelable, IdItem {
         result = 31 * result + genres.hashCode();
         result = 31 * result + fsk.hashCode();
         result = 31 * result + medium.hashCode();
-        result = 31 * result + type;
+        result = 31 * result + type.hashCode();
         result = 31 * result + state;
         result = 31 * result + rateSum;
         result = 31 * result + rateCount;
@@ -263,7 +262,7 @@ public class ProjectListEntry implements Parcelable, IdItem {
         dest.writeString(this.genres);
         dest.writeString(this.fsk);
         dest.writeString(this.medium);
-        dest.writeInt(this.type);
+        dest.writeString(this.type);
         dest.writeInt(this.state);
         dest.writeInt(this.rateSum);
         dest.writeInt(this.rateCount);
