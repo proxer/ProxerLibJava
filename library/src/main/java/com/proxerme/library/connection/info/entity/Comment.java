@@ -20,8 +20,8 @@ public class Comment implements Parcelable, IdItem, ImageItem, TimeItem {
 
     public static final Creator<Comment> CREATOR = new Creator<Comment>() {
         @Override
-        public Comment createFromParcel(Parcel in) {
-            return new Comment(in);
+        public Comment createFromParcel(Parcel source) {
+            return new Comment(source);
         }
 
         @Override
@@ -81,11 +81,10 @@ public class Comment implements Parcelable, IdItem, ImageItem, TimeItem {
      * @param imageId       The image id.
      */
     public Comment(@NonNull String id, @NonNull String entryId, @NonNull String userId,
-                   @NonNull String type, @CommentState int state,
-                   @NonNull RatingDetails ratingDetails, @NonNull String comment,
-                   @IntRange(from = 0, to = 10) int rating, @IntRange(from = 0) int episode,
-                   @IntRange(from = 0) int helpfulVotes, long time, @NonNull String username,
-                   @NonNull String imageId) {
+                   String type, @CommentState int state, @NonNull RatingDetails ratingDetails,
+                   @NonNull String comment, @IntRange(from = 0, to = 10) int rating,
+                   @IntRange(from = 0) int episode, @IntRange(from = 0) int helpfulVotes, long time,
+                   @NonNull String username, @NonNull String imageId) {
         this.id = id;
         this.entryId = entryId;
         this.userId = userId;
@@ -101,25 +100,20 @@ public class Comment implements Parcelable, IdItem, ImageItem, TimeItem {
         this.imageId = imageId;
     }
 
-    /**
-     * The constructor to read in the parcel.
-     *
-     * @param in The parcel to parse.
-     */
     protected Comment(Parcel in) {
-        id = in.readString();
-        entryId = in.readString();
-        userId = in.readString();
-        type = in.readString();
-        state = in.readInt();
-        ratingDetails = in.readParcelable(RatingDetails.class.getClassLoader());
-        comment = in.readString();
-        rating = in.readInt();
-        episode = in.readInt();
-        helpfulVotes = in.readInt();
-        time = in.readLong();
-        username = in.readString();
-        imageId = in.readString();
+        this.id = in.readString();
+        this.entryId = in.readString();
+        this.userId = in.readString();
+        this.type = in.readString();
+        this.state = in.readInt();
+        this.ratingDetails = in.readParcelable(RatingDetails.class.getClassLoader());
+        this.comment = in.readString();
+        this.rating = in.readInt();
+        this.episode = in.readInt();
+        this.helpfulVotes = in.readInt();
+        this.time = in.readLong();
+        this.username = in.readString();
+        this.imageId = in.readString();
     }
 
     @NonNull
@@ -183,7 +177,6 @@ public class Comment implements Parcelable, IdItem, ImageItem, TimeItem {
      *
      * @return The Comment.
      **/
-    @NonNull
     public String getComment() {
         return comment;
     }
@@ -238,6 +231,9 @@ public class Comment implements Parcelable, IdItem, ImageItem, TimeItem {
         return username;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @NonNull
     @Override
     public String getImageId() {
@@ -250,20 +246,20 @@ public class Comment implements Parcelable, IdItem, ImageItem, TimeItem {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
-        parcel.writeString(entryId);
-        parcel.writeString(userId);
-        parcel.writeString(type);
-        parcel.writeInt(state);
-        parcel.writeParcelable(ratingDetails, i);
-        parcel.writeString(comment);
-        parcel.writeInt(rating);
-        parcel.writeInt(episode);
-        parcel.writeInt(helpfulVotes);
-        parcel.writeLong(time);
-        parcel.writeString(username);
-        parcel.writeString(imageId);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.entryId);
+        dest.writeString(this.userId);
+        dest.writeString(this.type);
+        dest.writeInt(this.state);
+        dest.writeParcelable(this.ratingDetails, flags);
+        dest.writeString(this.comment);
+        dest.writeInt(this.rating);
+        dest.writeInt(this.episode);
+        dest.writeInt(this.helpfulVotes);
+        dest.writeLong(this.time);
+        dest.writeString(this.username);
+        dest.writeString(this.imageId);
     }
 
     @SuppressWarnings("SimplifiableIfStatement")
@@ -282,12 +278,11 @@ public class Comment implements Parcelable, IdItem, ImageItem, TimeItem {
         if (!id.equals(comment1.id)) return false;
         if (!entryId.equals(comment1.entryId)) return false;
         if (!userId.equals(comment1.userId)) return false;
-        if (!type.equals(comment1.type)) return false;
+        if (type != null ? !type.equals(comment1.type) : comment1.type != null) return false;
         if (!ratingDetails.equals(comment1.ratingDetails)) return false;
         if (!comment.equals(comment1.comment)) return false;
         if (!username.equals(comment1.username)) return false;
         return imageId.equals(comment1.imageId);
-
     }
 
     @Override
@@ -295,7 +290,7 @@ public class Comment implements Parcelable, IdItem, ImageItem, TimeItem {
         int result = id.hashCode();
         result = 31 * result + entryId.hashCode();
         result = 31 * result + userId.hashCode();
-        result = 31 * result + type.hashCode();
+        result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + state;
         result = 31 * result + ratingDetails.hashCode();
         result = 31 * result + comment.hashCode();
