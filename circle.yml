@@ -28,6 +28,7 @@ test:
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/lint
     - mkdir -p $CIRCLE_ARTIFACTS/javadoc
-    - cp -r library/build/outputs/lint-results.* $CIRCLE_TEST_REPORTS/lint
+    - cp -r app/build/reports/* $CIRCLE_TEST_REPORTS/lint
     - cp -r library/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
     - cp -r library/build/docs/javadoc/* $CIRCLE_ARTIFACTS/javadoc
+    - cp library/build/outputs/aar/* $CIRCLE_ARTIFACTS
