@@ -87,12 +87,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         this.time = time;
         this.unreadMessageAmount = unreadMessageAmount;
         this.lastReadMessageId = lastReadMessageId;
-
-        if (imageType == null || imageType.isEmpty() || imageId == null || imageType.isEmpty()) {
-            this.image = EMPTY_RESULT;
-        } else {
-            this.image = imageType + IMAGE_DELIMITER + imageId;
-        }
+        this.image = imageType + IMAGE_DELIMITER + imageId;
     }
 
     protected Conference(Parcel in) {
