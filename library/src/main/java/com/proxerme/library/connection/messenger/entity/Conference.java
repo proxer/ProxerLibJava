@@ -149,7 +149,7 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
             if (delimiterIndex < 0) {
                 return EMPTY_RESULT;
             } else {
-                return image.substring(delimiterIndex);
+                return image.substring(delimiterIndex + 1);
             }
         }
     }
