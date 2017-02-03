@@ -123,12 +123,12 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         if (image.isEmpty()) {
             return EMPTY_RESULT;
         } else {
-            String[] split = image.split(IMAGE_DELIMITER);
+            int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
 
-            if (split.length == 2) {
-                return split[0];
-            } else {
+            if (delimiterIndex < 0) {
                 return EMPTY_RESULT;
+            } else {
+                return image.substring(0, delimiterIndex);
             }
         }
     }
@@ -144,12 +144,12 @@ public class Conference implements Parcelable, IdItem, TimeItem, ImageItem {
         if (image.isEmpty()) {
             return EMPTY_RESULT;
         } else {
-            String[] split = image.split(IMAGE_DELIMITER);
+            int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
 
-            if (split.length == 2) {
-                return split[1];
-            } else {
+            if (delimiterIndex < 0) {
                 return EMPTY_RESULT;
+            } else {
+                return image.substring(delimiterIndex);
             }
         }
     }
