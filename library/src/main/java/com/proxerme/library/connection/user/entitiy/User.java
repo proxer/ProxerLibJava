@@ -14,11 +14,14 @@ import com.squareup.moshi.Json;
  * @author Ruben Gees
  */
 public class User implements Parcelable, IdItem, ImageItem {
+
     public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
         public User createFromParcel(Parcel source) {
             return new User(source);
         }
 
+        @Override
         public User[] newArray(int size) {
             return new User[size];
         }
@@ -28,41 +31,40 @@ public class User implements Parcelable, IdItem, ImageItem {
     private String id;
     @Json(name = "avatar")
     private String imageId;
+    @Json(name = "token")
+    private String loginToken;
 
     private User() {
 
     }
 
     /**
-     * Constructor for a user after the login.
+     * The Constructor.
      *
-     * @param id    The id of the user.
-     * @param image The profile picture of the user.
+     * @param id         The id of the user.
+     * @param image      The profile picture of the user.
+     * @param loginToken The login token, usable for further authentication.
      */
-    public User(@NonNull String id,
-                @NonNull String image) {
+    public User(@NonNull String id, @NonNull String image, @NonNull String loginToken) {
         this.id = id;
         this.imageId = image;
+        this.loginToken = loginToken;
     }
 
     protected User(Parcel in) {
         this.id = in.readString();
         this.imageId = in.readString();
+        this.loginToken = in.readString();
     }
 
     /**
      * Returns the id of the user.
      *
      * @return The id.
-     * @throws RuntimeException If the user has no id yet, meaning he is not logged in yet.
      */
     @NonNull
     @Override
-    public String getId() throws UserInitializationException {
-        if (id == null) {
-            throw new UserInitializationException("User has no id yet.");
-        }
-
+    public String getId() {
         return id;
     }
 
@@ -70,16 +72,21 @@ public class User implements Parcelable, IdItem, ImageItem {
      * Returns the profile picture of the user.
      *
      * @return The image.
-     * @throws RuntimeException If the user has not image yet, meaning he is not logged in yet.
      */
     @NonNull
     @Override
-    public String getImageId() throws UserInitializationException {
-        if (imageId == null) {
-            throw new UserInitializationException("User has no image yet.");
-        }
-
+    public String getImageId() {
         return imageId;
+    }
+
+    /**
+     * Returns the login token of the user for further authentification.
+     *
+     * @return The token.
+     */
+    @NonNull
+    public String getLoginToken() {
+        return loginToken;
     }
 
     @SuppressWarnings("SimplifiableIfStatement")
@@ -91,13 +98,15 @@ public class User implements Parcelable, IdItem, ImageItem {
         User user = (User) o;
 
         if (!id.equals(user.id)) return false;
-        return imageId.equals(user.imageId);
+        if (!imageId.equals(user.imageId)) return false;
+        return loginToken.equals(user.loginToken);
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + imageId.hashCode();
+        result = 31 * result + loginToken.hashCode();
         return result;
     }
 
@@ -110,12 +119,6 @@ public class User implements Parcelable, IdItem, ImageItem {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.imageId);
-    }
-
-    public static class UserInitializationException extends RuntimeException {
-
-        public UserInitializationException(String message) {
-            super(message);
-        }
+        dest.writeString(this.loginToken);
     }
 }

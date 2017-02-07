@@ -81,6 +81,9 @@ public class LoginRequestTest extends RequestTest {
     }
 
     private User generateTestUser() {
-        return new User("121658", "121658_VHuZqz.jpg");
+        return new User("121658", "121658_VHuZqz.jpg", "OmSjyOzMeyICUnErDD04lsDta7REW2fIn6ZWUxG96" +
+                "mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCYcdWQ0Xv2TFvTUoD8XGHOHP11Uc46rF4" +
+                "BSXrZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlwK9DHlLxqS83rl6VPD9b" +
+                "qXabkKTsYBOslW61fOwFFDI7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6");
     }
 }
