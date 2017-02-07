@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class ProjectTypeParameter {
+public final class ProjectTypeParameter {
 
     public static final int UNDEFINED = 0;
     public static final int FINISHED = 1;

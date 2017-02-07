@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class IndustryTypeParameter {
+public final class IndustryTypeParameter {
 
     public static final String PUBLISHER = "publisher";
     public static final String STUDIO = "studio";

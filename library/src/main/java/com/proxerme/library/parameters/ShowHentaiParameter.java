@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class ShowHentaiParameter {
+public final class ShowHentaiParameter {
 
     public static final int NO_HENTAI = -1;
     public static final int BOTH = 0;

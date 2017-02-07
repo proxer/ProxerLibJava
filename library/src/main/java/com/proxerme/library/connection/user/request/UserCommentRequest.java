@@ -19,7 +19,8 @@ import java.util.Arrays;
 import okhttp3.ResponseBody;
 
 /**
- * TODO: Describe class
+ * Request for the comments of a {@link com.proxerme.library.connection.user.entitiy.User}.
+ * Note: This API is currently incomplete.
  *
  * @author Ruben Gees
  */

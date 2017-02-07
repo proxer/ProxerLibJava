@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  *
  * @author Ruben Gees
  */
-public class CountryParameter {
+public final class CountryParameter {
 
     public static final String GERMAN = "de";
     public static final String ENGLISH = "en";
