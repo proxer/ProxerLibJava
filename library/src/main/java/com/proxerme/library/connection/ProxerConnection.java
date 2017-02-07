@@ -63,6 +63,7 @@ import okhttp3.Response;
 public final class ProxerConnection {
 
     private static final String API_KEY_HEADER = "proxer-api-key";
+    private static final String LOGIN_TOKEN_HEADER = "proxer-api-token";
     private static final String USER_AGENT_HEADER = "User-Agent";
 
     private String apiKey;
@@ -348,7 +349,7 @@ public final class ProxerConnection {
         }
 
         if (loginToken != null && !loginToken.isEmpty()) {
-
+            builder.header(LOGIN_TOKEN_HEADER, loginToken);
         }
 
         return builder.build();
