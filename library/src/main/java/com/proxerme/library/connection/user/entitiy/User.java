@@ -24,9 +24,6 @@ public class User implements Parcelable, IdItem, ImageItem {
         }
     };
 
-    private String username;
-    private String password;
-
     @Json(name = "uid")
     private String id;
     @Json(name = "avatar")
@@ -37,75 +34,20 @@ public class User implements Parcelable, IdItem, ImageItem {
     }
 
     /**
-     * Constructor for a user before a login.
-     *
-     * @param username The username of the user.
-     * @param password The password of the user.
-     */
-    public User(@NonNull String username, @NonNull String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    /**
      * Constructor for a user after the login.
      *
-     * @param username The username of the user.
-     * @param password The password of the user.
-     * @param id       The id of the user.
-     * @param image    The profile picture of the user.
+     * @param id    The id of the user.
+     * @param image The profile picture of the user.
      */
-    public User(@NonNull String username, @NonNull String password, @NonNull String id,
+    public User(@NonNull String id,
                 @NonNull String image) {
-        this.username = username;
-        this.password = password;
         this.id = id;
         this.imageId = image;
     }
 
     protected User(Parcel in) {
-        this.username = in.readString();
-        this.password = in.readString();
         this.id = in.readString();
         this.imageId = in.readString();
-    }
-
-    /**
-     * Returns the username.
-     *
-     * @return The username.
-     */
-    @NonNull
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * Sets the username.
-     *
-     * @param username The new username.
-     */
-    public void setUsername(@NonNull String username) {
-        this.username = username;
-    }
-
-    /**
-     * Return the password of the user.
-     *
-     * @return The password.
-     */
-    @NonNull
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * Sets the password.
-     *
-     * @param password The new password.
-     */
-    public void setPassword(@NonNull String password) {
-        this.password = password;
     }
 
     /**
@@ -148,20 +90,14 @@ public class User implements Parcelable, IdItem, ImageItem {
 
         User user = (User) o;
 
-        if (!username.equals(user.username)) return false;
-        if (!password.equals(user.password)) return false;
-        if (id != null ? !id.equals(user.id) : user.id != null)
-            return false;
-        return !(imageId != null ? !imageId.equals(user.imageId) : user.imageId != null);
-
+        if (!id.equals(user.id)) return false;
+        return imageId.equals(user.imageId);
     }
 
     @Override
     public int hashCode() {
-        int result = username.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + (id != null ? id.hashCode() : 0);
-        result = 31 * result + (imageId != null ? imageId.hashCode() : 0);
+        int result = id.hashCode();
+        result = 31 * result + imageId.hashCode();
         return result;
     }
 
@@ -172,8 +108,6 @@ public class User implements Parcelable, IdItem, ImageItem {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.username);
-        dest.writeString(this.password);
         dest.writeString(this.id);
         dest.writeString(this.imageId);
     }

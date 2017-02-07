@@ -81,6 +81,6 @@ public class LoginRequestTest extends RequestTest {
     }
 
     private User generateTestUser() {
-        return new User(USERNAME, PASSWORD, "121658", "121658_VHuZqz.jpg");
+        return new User("121658", "121658_VHuZqz.jpg");
     }
 }
