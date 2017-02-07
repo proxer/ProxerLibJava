@@ -1,7 +1,6 @@
 package com.proxerme.library.connection;
 
 import android.support.annotation.NonNull;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.proxerme.library.connection.notifications.entitiy.News;
@@ -58,8 +57,8 @@ public class ProxerConnectionTest {
     private static final long TIMEOUT = 123456L;
 
     private static MockWebServer server = new MockWebServer();
-    private static ProxerConnection connection = new ProxerConnection.Builder(API_KEY,
-            InstrumentationRegistry.getContext()).withDeliverCancelledRequests(true).build();
+    private static ProxerConnection connection = new ProxerConnection.Builder(API_KEY)
+            .withDeliverCancelledRequests(true).build();
 
     @BeforeClass
     public static void setUpServer() throws IOException {
@@ -83,8 +82,7 @@ public class ProxerConnectionTest {
 
     @Test
     public void testApiKey() throws Exception {
-        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
-                InstrumentationRegistry.getContext()).build();
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY).build();
 
         assertSame(API_KEY, testConnection.getApiKey());
     }
@@ -101,8 +99,7 @@ public class ProxerConnectionTest {
 
     @Test
     public void testCustomUserAgentHeader() throws Exception {
-        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
-                InstrumentationRegistry.getContext())
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY)
                 .withCustomUserAgent(CUSTOM_USER_AGENT)
                 .build();
 
@@ -118,8 +115,7 @@ public class ProxerConnectionTest {
     public void testCustomMoshi() throws Exception {
         Moshi moshi = new Moshi.Builder().build();
 
-        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
-                InstrumentationRegistry.getContext())
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY)
                 .withCustomMoshi(moshi)
                 .build();
 
@@ -132,8 +128,7 @@ public class ProxerConnectionTest {
                 .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                 .build();
 
-        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
-                InstrumentationRegistry.getContext())
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY)
                 .withCustomOkHttp(okHttpClient)
                 .build();
 
@@ -284,9 +279,7 @@ public class ProxerConnectionTest {
     @Test(timeout = 3000)
     public void testErrorListener() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
-        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
-                InstrumentationRegistry.getContext())
-                .build();
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY).build();
 
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_broken)));
         testConnection.registerErrorListener(ProxerException.UNPARSABLE,
@@ -310,9 +303,7 @@ public class ProxerConnectionTest {
     @Test(timeout = 3000)
     public void testMultipleErrorListeners() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
-        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
-                InstrumentationRegistry.getContext())
-                .build();
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY).build();
 
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_broken)));
         testConnection.registerErrorListener(ProxerException.UNPARSABLE,
@@ -341,9 +332,7 @@ public class ProxerConnectionTest {
     @Test(timeout = 3000)
     public void testUnregisterErrorListener() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
-        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
-                InstrumentationRegistry.getContext())
-                .build();
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY).build();
 
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_broken)));
         testConnection.registerErrorListener(ProxerException.UNPARSABLE,
@@ -371,9 +360,7 @@ public class ProxerConnectionTest {
     @Test(timeout = 3000)
     public void testUnregisterAllErrorListeners() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
-        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
-                InstrumentationRegistry.getContext())
-                .build();
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY).build();
 
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_broken)));
         testConnection.registerErrorListener(ProxerException.UNPARSABLE,
@@ -401,9 +388,7 @@ public class ProxerConnectionTest {
     @Test(timeout = 3000)
     public void testErrorListenerCalledBeforeCallback() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
-        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY,
-                InstrumentationRegistry.getContext())
-                .build();
+        ProxerConnection testConnection = new ProxerConnection.Builder(API_KEY).build();
 
         server.enqueue(new MockResponse().setBody(loadResponse(R.raw.news_broken)));
         testConnection.registerErrorListener(ProxerException.UNPARSABLE,

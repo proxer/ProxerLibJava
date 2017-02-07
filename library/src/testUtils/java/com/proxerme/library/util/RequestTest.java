@@ -1,7 +1,5 @@
 package com.proxerme.library.util;
 
-import android.support.test.InstrumentationRegistry;
-
 import com.proxerme.library.connection.ProxerConnection;
 
 import org.junit.After;
@@ -28,8 +26,7 @@ public class RequestTest {
     @Before
     public void setUp() throws IOException {
         server = new MockWebServer();
-        connection = new ProxerConnection.Builder("test",
-                InstrumentationRegistry.getContext()).build();
+        connection = new ProxerConnection.Builder("test").build();
 
         server.start();
     }

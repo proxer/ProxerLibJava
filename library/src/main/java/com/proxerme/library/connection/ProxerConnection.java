@@ -1,6 +1,5 @@
 package com.proxerme.library.connection;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -8,10 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.support.annotation.WorkerThread;
 
-import com.franmontiel.persistentcookiejar.PersistentCookieJar;
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.proxerme.library.BuildConfig;
-import com.proxerme.library.util.SaveAllSharedPrefCookiePersistor;
 import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.Moshi;
 
@@ -21,7 +17,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.CookieJar;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -95,6 +90,7 @@ public final class ProxerConnection {
      * if passed. The callbacks are always called on the main thread.
      *
      * @param request       The request subclass.
+     * @param loginToken    The token for login. Can be null or empty.
      * @param callback      The callback for success.
      * @param errorCallback The callback in case of an error.
      * @param <T>           The type of the result. This is not a {@link ProxerResult} subclass.
@@ -102,9 +98,10 @@ public final class ProxerConnection {
      */
     @RequiresPermission(android.Manifest.permission.INTERNET)
     public <T> ProxerCall execute(@NonNull final ProxerRequest<T> request,
+                                  @Nullable final String loginToken,
                                   @Nullable final ProxerCallback<T> callback,
                                   @Nullable final ProxerErrorCallback errorCallback) {
-        Call call = httpClient.newCall(buildRequest(request));
+        Call call = httpClient.newCall(buildRequest(request, loginToken));
 
         call.enqueue(new Callback() {
             @Override
@@ -146,18 +143,37 @@ public final class ProxerConnection {
     }
 
     /**
+     * Convenience method if you do not want to pass a login token.
+     *
+     * @param request       The request subclass.
+     * @param callback      The callback for success.
+     * @param errorCallback The callback in case of an error.
+     * @param <T>           The type of the result. This is not a {@link ProxerResult} subclass.
+     * @return A call object to allow cancellation of the request.
+     * @see #execute(ProxerRequest, String, ProxerCallback, ProxerErrorCallback)
+     */
+    @RequiresPermission(android.Manifest.permission.INTERNET)
+    public <T> ProxerCall execute(@NonNull final ProxerRequest<T> request,
+                                  @Nullable final ProxerCallback<T> callback,
+                                  @Nullable final ProxerErrorCallback errorCallback) {
+        return execute(request, null, callback, errorCallback);
+    }
+
+    /**
      * Executes the passed request and returns the results immediately.
      *
-     * @param request The request subclass.
-     * @param <T>     The type of the result. This is not a {@link ProxerResult} subclass.
+     * @param request    The request subclass.
+     * @param loginToken The token for login. Can be null or empty.
+     * @param <T>        The type of the result. This is not a {@link ProxerResult} subclass.
      * @return The results.
      * @throws ProxerException The exception in case of an error.
      */
     @WorkerThread
     @RequiresPermission(android.Manifest.permission.INTERNET)
-    public <T> T executeSynchronized(@NonNull final ProxerRequest<T> request)
+    public <T> T executeSynchronized(@NonNull final ProxerRequest<T> request,
+                                     @Nullable final String loginToken)
             throws ProxerException {
-        final Call call = httpClient.newCall(buildRequest(request));
+        final Call call = httpClient.newCall(buildRequest(request, loginToken));
         Response response = null;
 
         try {
@@ -181,6 +197,22 @@ public final class ProxerConnection {
                 response.close();
             }
         }
+    }
+
+    /**
+     * Convenience method if you do not want to pass a login token.
+     *
+     * @param request The request subclass.
+     * @param <T>     The type of the result. This is not a {@link ProxerResult} subclass.
+     * @return The results.
+     * @throws ProxerException The exception in case of an error.
+     * @see #executeSynchronized(ProxerRequest, String)
+     */
+    @WorkerThread
+    @RequiresPermission(android.Manifest.permission.INTERNET)
+    public <T> T executeSynchronized(@NonNull final ProxerRequest<T> request)
+            throws ProxerException {
+        return executeSynchronized(request, null);
     }
 
     /**
@@ -306,11 +338,20 @@ public final class ProxerConnection {
         }
     }
 
-    private <T> Request buildRequest(ProxerRequest<T> request) {
-        return request.build().newBuilder()
-                .header(API_KEY_HEADER, apiKey)
-                .header(USER_AGENT_HEADER, userAgent)
-                .build();
+    private <T> Request buildRequest(@NonNull ProxerRequest<T> request,
+                                     @Nullable String loginToken) {
+        Request.Builder builder = request.build().newBuilder()
+                .header(API_KEY_HEADER, apiKey);
+
+        if (userAgent != null && !userAgent.isEmpty()) {
+            builder.header(USER_AGENT_HEADER, userAgent);
+        }
+
+        if (loginToken != null && !loginToken.isEmpty()) {
+
+        }
+
+        return builder.build();
     }
 
     public interface ErrorListener {
@@ -325,34 +366,18 @@ public final class ProxerConnection {
         private static final String DEFAULT_USER_AGENT = "ProxerLibAndroid";
 
         private String apiKey;
-        private Context context;
         private boolean deliverCancelledRequests;
         private String userAgent;
 
         private Moshi moshi;
-        private CookieJar cookieJar;
         private OkHttpClient httpClient;
 
         /**
          * The constructor.
          *
-         * @param context The context. This should be the application context.
-         * @param apiKey  The API key to use.
+         * @param apiKey The API key to use.
          */
-        public Builder(@NonNull String apiKey, @NonNull Context context) {
-            this.context = context;
-            this.apiKey = apiKey;
-        }
-
-        /**
-         * The constructor. This differs from the other constructor by the ability to pass a custom
-         * CookieJar instead of the one provided by the library.
-         *
-         * @param cookieJar The CookieJar to use.
-         * @param apiKey    The API key to use.
-         */
-        public Builder(@NonNull String apiKey, @NonNull CookieJar cookieJar) {
-            this.cookieJar = cookieJar;
+        public Builder(@NonNull String apiKey) {
             this.apiKey = apiKey;
         }
 
@@ -364,7 +389,6 @@ public final class ProxerConnection {
          */
         public ProxerConnection build() {
             configureMoshi();
-            configureCookieJar();
             configureUserAgent();
             configureOkHttp();
 
@@ -387,10 +411,6 @@ public final class ProxerConnection {
 
         /**
          * Allows to set a custom OkHttpClient.
-         * <br>
-         * Note that in all cases an Interceptor for the API
-         * key and an CookieJar (You can specify your own with the
-         * {@link #Builder(String, CookieJar)} constructor) will be added.
          *
          * @param httpClient The custom OkHttpClient.
          * @return This builder.
@@ -402,6 +422,13 @@ public final class ProxerConnection {
             return this;
         }
 
+        /**
+         * Allows to set a custom User-Agent. If none is set, a default one is used. You can pass
+         * in an empty String to avoid a User-Agent to be sent.
+         *
+         * @param userAgent The User-Agent.
+         * @return This builder.
+         */
         public Builder withCustomUserAgent(String userAgent) {
             this.userAgent = userAgent;
 
@@ -428,13 +455,6 @@ public final class ProxerConnection {
             }
         }
 
-        private void configureCookieJar() {
-            if (cookieJar == null) {
-                cookieJar = new PersistentCookieJar(new SetCookieCache(),
-                        new SaveAllSharedPrefCookiePersistor(context));
-            }
-        }
-
         private void configureUserAgent() {
             if (userAgent == null) {
                 userAgent = DEFAULT_USER_AGENT + "/" + BuildConfig.VERSION_NAME;
@@ -442,15 +462,9 @@ public final class ProxerConnection {
         }
 
         private void configureOkHttp() {
-            OkHttpClient.Builder builder;
-
             if (httpClient == null) {
-                builder = new OkHttpClient.Builder();
-            } else {
-                builder = httpClient.newBuilder();
+                httpClient = new OkHttpClient.Builder().build();
             }
-
-            httpClient = builder.cookieJar(cookieJar).build();
         }
     }
 }
