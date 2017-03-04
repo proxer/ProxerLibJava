@@ -13,5 +13,4 @@ public interface TimeItem {
      * @return The time.
      */
     long getTime();
-
 }

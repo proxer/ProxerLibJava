@@ -1,6 +1,6 @@
 package com.proxerme.library.interfaces;
 
-import android.support.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An interface for all entities with an image.
@@ -14,7 +14,6 @@ public interface ImageItem {
      *
      * @return The image.
      */
-    @NonNull
+    @NotNull
     String getImageId();
-
 }

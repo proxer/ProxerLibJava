@@ -1,54 +1,30 @@
-apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'java'
+apply plugin: 'maven'
 
 group = 'com.github.proxer'
 
-android {
-    compileSdkVersion 25
-    buildToolsVersion "$build_tools_version"
-
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 47
-        versionName "2.7.0"
-        consumerProguardFiles 'proguard-rules.pro'
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-
-    sourceSets {
-        androidTest.java.srcDirs += 'src/testUtils/java'
-        androidTest.resources.srcDirs += 'src/androidTest/res'
-    }
-}
-
 dependencies {
-    compile "com.android.support:support-annotations:$support_version"
-    compile 'com.squareup.moshi:moshi:1.4.0'
-    compile "com.squareup.okhttp3:okhttp:$okhttp_version"
+    compile deps.jetbrainsAnnotations
 
-    androidTestCompile "com.android.support:support-annotations:$support_version"
-    androidTestCompile "com.squareup.okhttp3:mockwebserver:$okhttp_version"
-    androidTestCompile "com.android.support.test:runner:$support_test_version"
-    androidTestCompile "com.android.support.test:rules:$support_test_version"
+    compile deps.retrofit
+    compile deps.retrofitMoshi
+    compile deps.okhttp
+    compile deps.moshi
+
+    testCompile deps.junit
+    testCompile deps.assertj
+
+    testCompile deps.mockwebserver
 }
 
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
+task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    failOnError false
-    options.memberLevel = JavadocMemberLevel.PUBLIC
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.compile
+    from sourceSets.main.allSource
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
-    from javadoc.getDestinationDir()
+    from javadoc.destinationDir
 }
 
 artifacts {

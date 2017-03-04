@@ -1,34 +1,51 @@
-buildscript {
-    ext.support_version = '25.1.1'
-    ext.support_test_version = '0.5'
-    ext.build_tools_version = '25.0.2'
-    ext.okhttp_version = '3.6.0'
+ext {
+    version = '3.0.0'
 
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-    }
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
 }
+
+def jetbrainsAnnotationsVersion = '13.0'
+
+def retrofitVersion = '2.2.0'
+def okhttpVersion = '3.6.0'
+def moshiVersion = '1.4.0'
+
+def junitVersion = '4.12'
+def assertjVersion = '3.6.2'
+
+ext.deps = [
+        jetbrainsAnnotations: "org.jetbrains:annotations:$jetbrainsAnnotationsVersion",
+
+        retrofit            : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+        retrofitMoshi       : "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
+        okhttp              : "com.squareup.okhttp3:okhttp:$okhttpVersion",
+        moshi               : "com.squareup.moshi:moshi:$moshiVersion",
+
+        junit               : "junit:junit:$junitVersion",
+        assertj             : "org.assertj:assertj-core:$assertjVersion",
+
+        mockwebserver       : "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
+]
 
 allprojects {
+    version = rootProject.ext.version
+
+    tasks.matching { it instanceof JavaCompile && it.name != "compileTestJava" }.all {
+        sourceCompatibility = rootProject.ext.sourceCompatibility
+        targetCompatibility = rootProject.ext.targetCompatibility
+    }
+
     repositories {
+        mavenCentral()
         jcenter()
-        maven { url "https://jitpack.io" }
     }
 }
 
-project.ext.preDexLibs = !project.hasProperty('disablePreDex')
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
 
-subprojects {
-    project.plugins.whenPluginAdded { plugin ->
-        if ("com.android.build.gradle.AppPlugin" == plugin.class.name) {
-            project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
-        } else if ("com.android.build.gradle.LibraryPlugin" == plugin.class.name) {
-            project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
-        }
-    }
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.4'
 }
