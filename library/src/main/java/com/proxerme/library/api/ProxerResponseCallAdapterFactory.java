@@ -28,9 +28,7 @@ class ProxerResponseCallAdapterFactory extends CallAdapter.Factory {
                     "ProxerCall<Foo> or ProxerCall<? extends Foo>");
         }
 
-        final Type innerType = getParameterUpperBound(0, (ParameterizedType) returnType);
-
-        return new ProxerResponseCallAdapter<>(innerType);
+        return new ProxerResponseCallAdapter<>(getParameterUpperBound(0, (ParameterizedType) returnType));
     }
 
     private static final class ProxerResponseCallAdapter<R> implements CallAdapter<ProxerResponse<R>, ProxerCall<R>> {
