@@ -27,18 +27,17 @@ public class NewsApiTest extends ApiTest {
                 .build()
                 .execute();
 
-        System.err.println("Result: " + result);
-        System.err.println("Expected: " + buildTestArticle());
+        System.err.println("Result: " + result.get(0).getDescription());
+        System.err.println("Expected: " + buildTestArticle().getDescription());
 
         assertThat(result).first().isEqualTo(buildTestArticle());
     }
 
     private NewsArticle buildTestArticle() {
-        return new NewsArticle("6316", 1472382000, "Es wurden kürzlich weitere Synchronsprecher " +
-                "vorgestellt, die in der kommenden Anime-Adaption zu Nobunaga no Shinobi eine " +
-                "Rolle übernehmen werden. Weiterhin ist nun bekannt, dass die Serie am 04." +
-                " Oktober erstausgestrahlt wird.", "942593469984", "Nobunaga no Shinobi \u2013" +
-                " weitere Sprecher sowie Erscheinung bekanntgegeben", 4111, "376973", "155334",
-                "Minato.", 1, "56", "Anime- und Manga News");
+        return new NewsArticle("7709", 1488654000, "In der diesjährigen 14. Ausgabe von " +
+                "Shueishas Weekly Shounen Jump-Magazin soll angekündigt werden, dass der Manga To Love-Ru Trouble " +
+                "Darkness eine neue OVA erhält.", "723465714977", "To Love-Ru Trouble Darkness – " +
+                "OVA zum zehnjährigen Jubiläum angekündigt", 549, "381362", "101731",
+                "SilentGray", 1, "56", "Anime- und Manga-News");
     }
 }
