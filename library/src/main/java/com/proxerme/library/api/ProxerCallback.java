@@ -1,4 +1,4 @@
-package com.proxerme.library;
+package com.proxerme.library.api;
 
 /**
  * A callback for a successful request.

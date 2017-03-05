@@ -1,4 +1,4 @@
-package com.proxerme.library;
+package com.proxerme.library.api;
 
 import com.squareup.moshi.JsonDataException;
 import org.jetbrains.annotations.NotNull;
@@ -133,6 +133,20 @@ public final class ProxerException extends Exception {
             }
 
             throw new JsonDataException("No value found for the code: " + errorCode);
+        }
+
+        static ServerErrorType fromErrorCodeOrNull(@Nullable final Integer errorCode) {
+            if (errorCode == null) {
+                return null;
+            }
+
+            for (final ServerErrorType type : values()) {
+                if (type.code == errorCode) {
+                    return type;
+                }
+            }
+
+            return null;
         }
     }
 }

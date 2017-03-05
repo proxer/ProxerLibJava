@@ -1,7 +1,7 @@
 package com.proxerme.library.api.user;
 
 import com.proxerme.library.ApiTest;
-import com.proxerme.library.ProxerException;
+import com.proxerme.library.api.ProxerException;
 import com.proxerme.library.entitiy.user.TopTenEntry;
 import com.proxerme.library.enums.Category;
 import com.proxerme.library.enums.Medium;

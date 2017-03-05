@@ -1,6 +1,6 @@
 package com.proxerme.library.api.notifications;
 
-import com.proxerme.library.ProxerCall;
+import com.proxerme.library.api.ProxerCall;
 import com.proxerme.library.entitiy.notifications.NewsArticle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

@@ -1,6 +1,6 @@
 package com.proxerme.library.api.user;
 
-import com.proxerme.library.ProxerCall;
+import com.proxerme.library.api.ProxerCall;
 import com.proxerme.library.entitiy.user.TopTenEntry;
 import com.proxerme.library.enums.Category;
 import org.jetbrains.annotations.NotNull;

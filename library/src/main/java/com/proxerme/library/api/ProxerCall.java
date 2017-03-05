@@ -1,4 +1,4 @@
-package com.proxerme.library;
+package com.proxerme.library.api;
 
 import com.proxerme.library.entitiy.ProxerResponse;
 import com.squareup.moshi.JsonDataException;
