@@ -11,5 +11,4 @@ test:
     - ./gradlew build --console=plain
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-    - cp -r library/build/test-results/.*xml $CIRCLE_TEST_REPORTS/junit/
-
+    - cp -r library/build/test-results/test/.*xml $CIRCLE_TEST_REPORTS/junit/
