@@ -27,9 +27,6 @@ public class NewsApiTest extends ApiTest {
                 .build()
                 .execute();
 
-        System.err.println("Result: " + result.get(0).getDescription());
-        System.err.println("Expected: " + buildTestArticle().getDescription());
-
         assertThat(result).first().isEqualTo(buildTestArticle());
     }
 
