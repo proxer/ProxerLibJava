@@ -18,6 +18,6 @@ public class LogoutEndpoint {
 
     @NotNull
     public ProxerCall<Void> build() {
-        return new ProxerCall<>(internalApi.logout());
+        return internalApi.logout();
     }
 }

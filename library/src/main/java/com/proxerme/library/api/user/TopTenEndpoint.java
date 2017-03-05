@@ -41,6 +41,6 @@ public final class TopTenEndpoint {
 
     @NotNull
     public ProxerCall<List<TopTenEntry>> build() {
-        return new ProxerCall<>(internalApi.topTen(userId, username, category));
+        return internalApi.topTen(userId, username, category);
     }
 }

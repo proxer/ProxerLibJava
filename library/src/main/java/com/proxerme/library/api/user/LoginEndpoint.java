@@ -25,6 +25,6 @@ public class LoginEndpoint {
 
     @NotNull
     public ProxerCall<User> build() {
-        return new ProxerCall<>(internalApi.login(username, password));
+        return internalApi.login(username, password);
     }
 }

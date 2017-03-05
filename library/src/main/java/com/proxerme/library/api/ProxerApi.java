@@ -150,6 +150,7 @@ public final class ProxerApi {
 
             retrofit = builder.baseUrl(ProxerUrls.apiBase())
                     .client(okHttp)
+                    .addCallAdapterFactory(new ProxerResponseCallAdapterFactory())
                     .addConverterFactory(MoshiConverterFactory.create(moshi))
                     .addConverterFactory(new EnumRetrofitConverterFactory())
                     .build();

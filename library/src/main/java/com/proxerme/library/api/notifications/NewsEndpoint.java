@@ -39,6 +39,6 @@ public final class NewsEndpoint {
 
     @NotNull
     public ProxerCall<List<NewsArticle>> build() {
-        return new ProxerCall<>(internalApi.news(page, limit));
+        return internalApi.news(page, limit);
     }
 }
