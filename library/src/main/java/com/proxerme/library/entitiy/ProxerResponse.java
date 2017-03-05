@@ -1,4 +1,4 @@
-package com.proxerme.library.api;
+package com.proxerme.library.entitiy;
 
 import com.squareup.moshi.Json;
 import org.jetbrains.annotations.NotNull;

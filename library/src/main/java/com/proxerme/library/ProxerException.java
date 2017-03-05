@@ -1,4 +1,4 @@
-package com.proxerme.library.api;
+package com.proxerme.library;
 
 import com.squareup.moshi.JsonDataException;
 import org.jetbrains.annotations.NotNull;

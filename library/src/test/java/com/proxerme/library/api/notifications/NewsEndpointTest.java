@@ -1,7 +1,7 @@
 package com.proxerme.library.api.notifications;
 
 import com.proxerme.library.ApiTest;
-import com.proxerme.library.api.ProxerException;
+import com.proxerme.library.ProxerException;
 import com.proxerme.library.entitiy.notifications.NewsArticle;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Ruben Gees
  */
-public class NewsApiTest extends ApiTest {
+public class NewsEndpointTest extends ApiTest {
 
     @Test
     public void testDefault() throws ProxerException, IOException {

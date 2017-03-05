@@ -1,4 +1,4 @@
-package com.proxerme.library.api;
+package com.proxerme.library;
 
 import org.jetbrains.annotations.NotNull;
 

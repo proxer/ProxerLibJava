@@ -1,7 +1,7 @@
 package com.proxerme.library.api.user;
 
-import com.proxerme.library.api.ProxerCall;
-import com.proxerme.library.entitiy.user.ToptenEntry;
+import com.proxerme.library.ProxerCall;
+import com.proxerme.library.entitiy.user.TopTenEntry;
 import com.proxerme.library.enums.Category;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -13,16 +13,16 @@ import java.util.List;
  *
  * @author Ruben Gees
  */
-public final class ToptenApi {
+public final class TopTenEndpoint {
 
-    private final UserApi.InternalApi internalApi;
+    private final InternalApi internalApi;
 
     private final String userId;
     private final String username;
     private Category category;
 
-    public ToptenApi(@NotNull final UserApi.InternalApi internalApi, @Nullable final String userId,
-                     @Nullable final String username) {
+    public TopTenEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
+                          @Nullable final String username) {
         if (userId == null && username == null) {
             throw new IllegalArgumentException("You must pass either an userId or an username.");
         }
@@ -33,14 +33,14 @@ public final class ToptenApi {
     }
 
     @NotNull
-    public ToptenApi category(@Nullable final Category category) {
+    public TopTenEndpoint category(@Nullable final Category category) {
         this.category = category;
 
         return this;
     }
 
     @NotNull
-    public ProxerCall<List<ToptenEntry>> build() {
-        return new ProxerCall<>(internalApi.topten(userId, username, category));
+    public ProxerCall<List<TopTenEntry>> build() {
+        return new ProxerCall<>(internalApi.topTen(userId, username, category));
     }
 }

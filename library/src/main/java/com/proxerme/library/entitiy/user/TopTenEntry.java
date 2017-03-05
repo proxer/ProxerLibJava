@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ruben Gees
  */
-public class ToptenEntry implements IdItem {
+public class TopTenEntry implements IdItem {
 
     @Json(name = "eid")
     private String id;
@@ -22,7 +22,7 @@ public class ToptenEntry implements IdItem {
     @Json(name = "medium")
     private Medium medium;
 
-    private ToptenEntry() {
+    private TopTenEntry() {
 
     }
 
@@ -34,7 +34,7 @@ public class ToptenEntry implements IdItem {
      * @param category The category.
      * @param medium   The medium.
      */
-    public ToptenEntry(@NotNull String id, @NotNull String name, @NotNull Category category, @NotNull Medium medium) {
+    public TopTenEntry(@NotNull String id, @NotNull String name, @NotNull Category category, @NotNull Medium medium) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -88,7 +88,7 @@ public class ToptenEntry implements IdItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ToptenEntry that = (ToptenEntry) o;
+        TopTenEntry that = (TopTenEntry) o;
 
         if (!id.equals(that.id)) return false;
         if (!name.equals(that.name)) return false;

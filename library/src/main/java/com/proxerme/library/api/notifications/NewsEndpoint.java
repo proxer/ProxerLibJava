@@ -1,6 +1,6 @@
 package com.proxerme.library.api.notifications;
 
-import com.proxerme.library.api.ProxerCall;
+import com.proxerme.library.ProxerCall;
 import com.proxerme.library.entitiy.notifications.NewsArticle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -12,26 +12,26 @@ import java.util.List;
  *
  * @author Ruben Gees
  */
-public final class NewsApi {
+public final class NewsEndpoint {
 
-    private NotificationsApi.InternalApi internalApi;
+    private InternalApi internalApi;
 
     private Integer page;
     private Integer limit;
 
-    public NewsApi(@NotNull final NotificationsApi.InternalApi internalApi) {
+    public NewsEndpoint(@NotNull final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
     @NotNull
-    public NewsApi page(@Nullable final Integer page) {
+    public NewsEndpoint page(@Nullable final Integer page) {
         this.page = page;
 
         return this;
     }
 
     @NotNull
-    public NewsApi limit(@Nullable final Integer limit) {
+    public NewsEndpoint limit(@Nullable final Integer limit) {
         this.limit = limit;
 
         return this;

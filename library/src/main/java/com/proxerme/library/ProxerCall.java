@@ -1,5 +1,6 @@
-package com.proxerme.library.api;
+package com.proxerme.library;
 
+import com.proxerme.library.entitiy.ProxerResponse;
 import com.squareup.moshi.JsonDataException;
 import okhttp3.Request;
 import org.jetbrains.annotations.NotNull;
