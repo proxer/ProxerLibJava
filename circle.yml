@@ -1,6 +1,6 @@
 machine:
   java:
-    version: openjdk8
+    version: openjdk7
 
 dependencies:
   override:
@@ -8,4 +8,8 @@ dependencies:
 
 test:
   override:
-    - ./gradlew build install --console=plain
+    - ./gradlew build --console=plain
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - cp -r library/build/test-results/.*xml $CIRCLE_TEST_REPORTS/junit/
+

@@ -31,7 +31,7 @@ ext.deps = [
 allprojects {
     version = rootProject.ext.version
 
-    tasks.matching { it instanceof JavaCompile && it.name != "compileTestJava" }.all {
+    tasks.withType(JavaCompile) {
         sourceCompatibility = rootProject.ext.sourceCompatibility
         targetCompatibility = rootProject.ext.targetCompatibility
     }
@@ -47,5 +47,5 @@ task clean(type: Delete) {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.4'
+    gradleVersion = '3.4.1'
 }
