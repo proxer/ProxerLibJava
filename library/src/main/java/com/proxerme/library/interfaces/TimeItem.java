@@ -1,5 +1,7 @@
 package com.proxerme.library.interfaces;
 
+import java.util.Date;
+
 /**
  * An interface for all entities with a time.
  *
@@ -8,9 +10,9 @@ package com.proxerme.library.interfaces;
 public interface TimeItem {
 
     /**
-     * Returns the time of the inheriting entity as a unix timestamp.
+     * Returns the time of the inheriting entity.
      *
      * @return The time.
      */
-    long getTime();
+    Date getTime();
 }

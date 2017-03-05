@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author Ruben Gees
  */
-public class UserApi {
+public final class UserApi {
 
     private final InternalApi internalApi;
 

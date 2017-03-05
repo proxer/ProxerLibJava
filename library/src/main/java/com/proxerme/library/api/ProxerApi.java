@@ -3,8 +3,10 @@ package com.proxerme.library.api;
 import com.proxerme.library.api.notifications.NotificationsApi;
 import com.proxerme.library.api.user.UserApi;
 import com.proxerme.library.util.ProxerUrls;
+import com.squareup.moshi.FromJson;
 import com.squareup.moshi.Json;
 import com.squareup.moshi.Moshi;
+import com.squareup.moshi.ToJson;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -18,6 +20,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.Date;
 
 /**
  * TODO: Describe class
@@ -103,7 +106,9 @@ public final class ProxerApi {
                 builder = moshi.newBuilder();
             }
 
-            moshi = builder.build();
+            moshi = builder
+                    .add(new TimestampDateAdapter())
+                    .build();
         }
 
         private void initOkHttp() {
@@ -115,7 +120,9 @@ public final class ProxerApi {
                 builder = okHttp.newBuilder();
             }
 
-            okHttp = builder.addInterceptor(new HeaderInterceptor(apiKey, userAgent)).build();
+            okHttp = builder
+                    .addInterceptor(new HeaderInterceptor(apiKey, userAgent))
+                    .build();
         }
 
         private void initRetrofit() {
@@ -134,7 +141,20 @@ public final class ProxerApi {
                     .build();
         }
 
-        private static class HeaderInterceptor implements Interceptor {
+        private static final class TimestampDateAdapter {
+            @FromJson
+            Date fromJson(final long timestamp) {
+                // The API returns seconds
+                return new Date(timestamp * 1000);
+            }
+
+            @ToJson
+            String toJson(final Date date) {
+                return String.valueOf(date.getTime());
+            }
+        }
+
+        private static final class HeaderInterceptor implements Interceptor {
 
             private static final String API_KEY_HEADER = "proxer-api-key";
             private static final String HEADER_USER_AGENT = "User-Agent";
@@ -166,7 +186,7 @@ public final class ProxerApi {
             }
         }
 
-        private static class EnumRetrofitConverterFactory extends Converter.Factory {
+        private static final class EnumRetrofitConverterFactory extends Converter.Factory {
             @Override
             public Converter<?, String> stringConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
                 if (type instanceof Class && ((Class<?>) type).isEnum()) {

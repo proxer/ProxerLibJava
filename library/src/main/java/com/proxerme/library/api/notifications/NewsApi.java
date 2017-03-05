@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Ruben Gees
  */
-public class NewsApi {
+public final class NewsApi {
 
     private NotificationsApi.InternalApi internalApi;
 

@@ -6,6 +6,8 @@ import com.proxerme.library.interfaces.TimeItem;
 import com.squareup.moshi.Json;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Date;
+
 /**
  * Entity holding all relevant info of a single news article.
  *
@@ -16,7 +18,7 @@ public final class NewsArticle implements IdItem, TimeItem, ImageItem {
     @Json(name = "nid")
     private String id;
     @Json(name = "time")
-    private long time;
+    private Date time;
     @Json(name = "description")
     private String description;
     @Json(name = "image_id")
@@ -43,20 +45,20 @@ public final class NewsArticle implements IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * @param id            The id of the news.
-     * @param time          The time the news was published.
+     * @param id            The id of the news article.
+     * @param time          The time the news article was published.
      * @param description   A description.
      * @param imageId       The image.
-     * @param subject       The subject of the news.
+     * @param subject       The subject of the news article.
      * @param hits          The amount of views.
      * @param threadId      The id of the thread.
      * @param authorId      The user id of the author.
      * @param author        The name of the author.
-     * @param commentAmount The amount of comments on the news.
-     * @param categoryId    The id of the category this news is in.
+     * @param commentAmount The amount of comments on the news article.
+     * @param categoryId    The id of the category this news article is in.
      * @param categoryTitle The title of the category.
      */
-    public NewsArticle(@NotNull final String id, final long time, @NotNull final String description,
+    public NewsArticle(@NotNull final String id, @NotNull final Date time, @NotNull final String description,
                        @NotNull final String imageId, @NotNull final String subject, final int hits,
                        @NotNull final String threadId, @NotNull final String authorId, @NotNull final String author,
                        final int commentAmount, @NotNull final String categoryId, @NotNull final String categoryTitle) {
@@ -75,7 +77,7 @@ public final class NewsArticle implements IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the id of this news.
+     * Returns the id of this news article.
      *
      * @return The id.
      */
@@ -86,17 +88,18 @@ public final class NewsArticle implements IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * returns the time this news has been published.
+     * returns the time this news article has been published.
      *
      * @return The time as a unix timestamp.
      */
     @Override
-    public long getTime() {
+    @NotNull
+    public Date getTime() {
         return time;
     }
 
     /**
-     * Returns the description of this news.
+     * Returns the description of this news article.
      *
      * @return The description.
      */
@@ -106,7 +109,7 @@ public final class NewsArticle implements IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the image of this news.
+     * Returns the image of this news article.
      *
      * @return The image.
      */
@@ -117,7 +120,7 @@ public final class NewsArticle implements IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Return the subject of this news.
+     * Return the subject of this news article.
      *
      * @return The subject.
      */
@@ -127,7 +130,7 @@ public final class NewsArticle implements IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the amount of views of this news.
+     * Returns the amount of views of this news article.
      *
      * @return The amount of views.
      */
@@ -166,7 +169,7 @@ public final class NewsArticle implements IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the amount of comments on this news.
+     * Returns the amount of comments on this news article.
      *
      * @return the amount of comments.
      */
@@ -175,7 +178,7 @@ public final class NewsArticle implements IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the id of the category of this news.
+     * Returns the id of the category of this news article.
      *
      * @return The id.
      */
@@ -185,7 +188,7 @@ public final class NewsArticle implements IdItem, TimeItem, ImageItem {
     }
 
     /**
-     * Returns the title of the category of this news.
+     * Returns the title of the category of this news article.
      *
      * @return The title of the category.
      */
@@ -202,10 +205,10 @@ public final class NewsArticle implements IdItem, TimeItem, ImageItem {
 
         NewsArticle that = (NewsArticle) o;
 
-        if (time != that.time) return false;
         if (hits != that.hits) return false;
         if (commentAmount != that.commentAmount) return false;
         if (!id.equals(that.id)) return false;
+        if (!time.equals(that.time)) return false;
         if (!description.equals(that.description)) return false;
         if (!imageId.equals(that.imageId)) return false;
         if (!subject.equals(that.subject)) return false;
@@ -219,7 +222,7 @@ public final class NewsArticle implements IdItem, TimeItem, ImageItem {
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + (int) (time ^ (time >>> 32));
+        result = 31 * result + time.hashCode();
         result = 31 * result + description.hashCode();
         result = 31 * result + imageId.hashCode();
         result = 31 * result + subject.hashCode();

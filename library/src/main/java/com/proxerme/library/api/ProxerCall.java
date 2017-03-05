@@ -16,7 +16,7 @@ import java.net.SocketTimeoutException;
  *
  * @author Ruben Gees
  */
-public class ProxerCall<T> {
+public final class ProxerCall<T> {
 
     private Call<ProxerResponse<T>> internalCall;
 
