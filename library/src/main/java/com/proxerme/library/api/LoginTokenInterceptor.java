@@ -33,7 +33,7 @@ final class LoginTokenInterceptor implements Interceptor {
             .build();
 
     private static final Pattern loginTokenPattern = Pattern.compile("\"token\":\"(.+?)\"");
-    private static final Pattern errorPattern = Pattern.compile("\"code\":(.+?)}");
+    private static final Pattern errorPattern = Pattern.compile("\"code\":(.+?)" + Pattern.quote("}"));
 
     private final LoginTokenManager loginTokenManager;
 
