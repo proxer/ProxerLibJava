@@ -3,6 +3,7 @@ package com.proxerme.library.api.user;
 import com.proxerme.library.api.ProxerCall;
 import com.proxerme.library.entitiy.user.TopTenEntry;
 import com.proxerme.library.entitiy.user.User;
+import com.proxerme.library.entitiy.user.UserInfo;
 import com.proxerme.library.enums.Category;
 import retrofit2.http.*;
 
@@ -20,4 +21,7 @@ interface InternalApi {
     @GET("user/topten")
     ProxerCall<List<TopTenEntry>> topTen(@Query("uid") String userId, @Query("username") String username,
                                          @Query("kat") Category category);
+
+    @GET("user/userinfo")
+    ProxerCall<UserInfo> userInfo(@Query("uid") String userId, @Query("username") String username);
 }

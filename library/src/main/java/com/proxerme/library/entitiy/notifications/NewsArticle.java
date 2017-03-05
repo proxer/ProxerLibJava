@@ -90,7 +90,7 @@ public final class NewsArticle implements IdItem, TimeItem, ImageItem {
     /**
      * returns the time this news article has been published.
      *
-     * @return The time as a unix timestamp.
+     * @return The time.
      */
     @Override
     @NotNull
