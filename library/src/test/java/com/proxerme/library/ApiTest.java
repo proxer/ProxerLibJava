@@ -2,7 +2,9 @@ package com.proxerme.library;
 
 import com.proxerme.library.api.ProxerApi;
 import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Response;
 import okhttp3.mockwebserver.MockWebServer;
 import okio.Okio;
 import org.jetbrains.annotations.NotNull;
@@ -26,16 +28,19 @@ public abstract class ApiTest {
         server = new MockWebServer();
         api = new ProxerApi.Builder("mockKey")
                 .okHttp(new OkHttpClient.Builder()
-                        .addInterceptor(chain -> {
-                            final HttpUrl oldUrl = chain.request().url();
-                            final HttpUrl serverUrl = server.url(oldUrl.encodedPath());
-                            final HttpUrl newUrl = oldUrl.newBuilder()
-                                    .scheme(serverUrl.scheme())
-                                    .host(serverUrl.host())
-                                    .port(serverUrl.port())
-                                    .build();
+                        .addInterceptor(new Interceptor() {
+                            @Override
+                            public Response intercept(Chain chain) throws IOException {
+                                final HttpUrl oldUrl = chain.request().url();
+                                final HttpUrl serverUrl = server.url(oldUrl.encodedPath());
+                                final HttpUrl newUrl = oldUrl.newBuilder()
+                                        .scheme(serverUrl.scheme())
+                                        .host(serverUrl.host())
+                                        .port(serverUrl.port())
+                                        .build();
 
-                            return chain.proceed(chain.request().newBuilder().url(newUrl).build());
+                                return chain.proceed(chain.request().newBuilder().url(newUrl).build());
+                            }
                         }).build())
                 .build();
 
