@@ -28,8 +28,8 @@ public final class MediaListEndpoint {
     private String searchStartQuery;
     private UserMediaListSortCriteria sortCriteria;
 
-    public MediaListEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
-                             @Nullable final String username) {
+    MediaListEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
+                      @Nullable final String username) {
         if (userId == null && username == null) {
             throw new IllegalArgumentException("You must pass either an userId or an username.");
         }

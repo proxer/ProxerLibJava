@@ -16,8 +16,8 @@ public class LoginEndpoint {
     private String username;
     private String password;
 
-    public LoginEndpoint(@NotNull final InternalApi internalApi, @NotNull final String username,
-                         @NotNull final String password) {
+    LoginEndpoint(@NotNull final InternalApi internalApi, @NotNull final String username,
+                  @NotNull final String password) {
         this.internalApi = internalApi;
         this.username = username;
         this.password = password;

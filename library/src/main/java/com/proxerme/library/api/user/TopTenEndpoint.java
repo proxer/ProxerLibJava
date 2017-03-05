@@ -21,8 +21,8 @@ public final class TopTenEndpoint {
     private final String username;
     private Category category;
 
-    public TopTenEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
-                          @Nullable final String username) {
+    TopTenEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
+                   @Nullable final String username) {
         if (userId == null && username == null) {
             throw new IllegalArgumentException("You must pass either an userId or an username.");
         }

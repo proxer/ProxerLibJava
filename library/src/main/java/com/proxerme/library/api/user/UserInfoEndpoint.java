@@ -17,8 +17,8 @@ public class UserInfoEndpoint {
     private final String userId;
     private final String username;
 
-    public UserInfoEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
-                            @Nullable final String username) {
+    UserInfoEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
+                     @Nullable final String username) {
         if (userId == null && username == null) {
             throw new IllegalArgumentException("You must pass either an userId or an username.");
         }

@@ -12,7 +12,7 @@ public class LogoutEndpoint {
 
     private final InternalApi internalApi;
 
-    public LogoutEndpoint(@NotNull final InternalApi internalApi) {
+    LogoutEndpoint(@NotNull final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 

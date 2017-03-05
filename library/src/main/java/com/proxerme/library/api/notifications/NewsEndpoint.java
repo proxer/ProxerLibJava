@@ -19,7 +19,7 @@ public final class NewsEndpoint {
     private Integer page;
     private Integer limit;
 
-    public NewsEndpoint(@NotNull final InternalApi internalApi) {
+    NewsEndpoint(@NotNull final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
