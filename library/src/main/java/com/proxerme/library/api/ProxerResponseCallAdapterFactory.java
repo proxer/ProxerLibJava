@@ -35,7 +35,7 @@ class ProxerResponseCallAdapterFactory extends CallAdapter.Factory {
 
         private final Type responseType;
 
-        public ProxerResponseCallAdapter(final Type responseType) {
+        ProxerResponseCallAdapter(final Type responseType) {
             this.responseType = Types.newParameterizedType(ProxerResponse.class, responseType);
         }
 
