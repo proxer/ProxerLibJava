@@ -21,7 +21,7 @@ public final class ProxerCall<T> {
 
     private Call<ProxerResponse<T>> internalCall;
 
-    public ProxerCall(@NotNull Call<ProxerResponse<T>> call) {
+    public ProxerCall(@NotNull final Call<ProxerResponse<T>> call) {
         this.internalCall = call;
     }
 
@@ -57,7 +57,7 @@ public final class ProxerCall<T> {
             }
 
             @Override
-            public void onFailure(Call<ProxerResponse<T>> call, Throwable error) {
+            public void onFailure(final Call<ProxerResponse<T>> call, Throwable error) {
                 if (errorCallback != null) {
                     if (error instanceof SocketTimeoutException) {
                         errorCallback.onError(new ProxerException(ProxerException.ErrorType.TIMEOUT));

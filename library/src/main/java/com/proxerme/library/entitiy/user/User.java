@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ruben Gees
  */
-public class User implements IdItem, ImageItem {
+public final class User implements IdItem, ImageItem {
 
     @Json(name = "uid")
     private String id;
@@ -30,7 +30,7 @@ public class User implements IdItem, ImageItem {
      * @param image      The profile picture of the user.
      * @param loginToken The login token, usable for further authentication.
      */
-    public User(@NotNull String id, @NotNull String image, @NotNull String loginToken) {
+    public User(@NotNull final String id, @NotNull final String image, @NotNull final String loginToken) {
         this.id = id;
         this.imageId = image;
         this.loginToken = loginToken;
@@ -70,7 +70,7 @@ public class User implements IdItem, ImageItem {
 
     @SuppressWarnings("SimplifiableIfStatement")
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

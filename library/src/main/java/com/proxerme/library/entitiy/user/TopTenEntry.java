@@ -34,7 +34,8 @@ public class TopTenEntry implements IdItem {
      * @param category The category.
      * @param medium   The medium.
      */
-    public TopTenEntry(@NotNull String id, @NotNull String name, @NotNull Category category, @NotNull Medium medium) {
+    public TopTenEntry(@NotNull final String id, @NotNull final String name, @NotNull final Category category,
+                       @NotNull final Medium medium) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -84,7 +85,7 @@ public class TopTenEntry implements IdItem {
 
     @SuppressWarnings("SimplifiableIfStatement")
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

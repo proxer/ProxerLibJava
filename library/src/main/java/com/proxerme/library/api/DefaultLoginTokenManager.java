@@ -18,7 +18,7 @@ final class DefaultLoginTokenManager implements LoginTokenManager {
     }
 
     @Override
-    public void persist(@Nullable String loginToken) {
+    public void persist(@Nullable final String loginToken) {
         currentToken = loginToken;
     }
 }

@@ -16,7 +16,8 @@ import java.lang.reflect.Type;
 final class EnumRetrofitConverterFactory extends Converter.Factory {
 
     @Override
-    public Converter<?, String> stringConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
+    public Converter<?, String> stringConverter(final Type type, final Annotation[] annotations,
+                                                final Retrofit retrofit) {
         if (type instanceof Class && ((Class<?>) type).isEnum()) {
             return new EnumConverter();
         }
@@ -24,7 +25,7 @@ final class EnumRetrofitConverterFactory extends Converter.Factory {
         return null;
     }
 
-    private static class EnumConverter implements Converter<Enum<?>, String> {
+    private static final class EnumConverter implements Converter<Enum<?>, String> {
         @Override
         public String convert(final Enum<?> e) throws IOException {
             try {

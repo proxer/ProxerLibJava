@@ -37,12 +37,12 @@ final class LoginTokenInterceptor implements Interceptor {
 
     private final LoginTokenManager loginTokenManager;
 
-    LoginTokenInterceptor(@Nullable LoginTokenManager loginTokenManager) {
+    LoginTokenInterceptor(@Nullable final LoginTokenManager loginTokenManager) {
         this.loginTokenManager = loginTokenManager;
     }
 
     @Override
-    public Response intercept(Chain chain) throws IOException {
+    public Response intercept(final Chain chain) throws IOException {
         final Request oldRequest = chain.request();
 
         if (loginTokenManager != null && oldRequest.url().host().equals(ProxerUrls.apiBase().host())) {
@@ -97,7 +97,7 @@ final class LoginTokenInterceptor implements Interceptor {
     }
 
     @Nullable
-    private Integer toIntOrNull(@NotNull String candidate) {
+    private Integer toIntOrNull(@NotNull final String candidate) {
         try {
             return Integer.parseInt(candidate);
         } catch (NumberFormatException ignored) {
@@ -105,7 +105,7 @@ final class LoginTokenInterceptor implements Interceptor {
         }
     }
 
-    private boolean isLoginError(@NotNull ServerErrorType errorType) {
+    private boolean isLoginError(@NotNull final ServerErrorType errorType) {
         switch (errorType) {
             case NOTIFICATIONS_LOGIN_REQUIRED:
             case UCP_LOGIN_REQUIRED:
