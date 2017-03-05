@@ -9,6 +9,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 
+/**
+ * TODO: Describe class
+ *
+ * @author Ruben Gees
+ */
 final class HeaderInterceptor implements Interceptor {
 
     private static final String API_KEY_HEADER = "proxer-api-key";

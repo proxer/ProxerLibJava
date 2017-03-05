@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * TODO: Describe class
+ *
+ * @author Ruben Gees
+ */
 final class LoginTokenInterceptor implements Interceptor {
 
     private static final String LOGIN_TOKEN_HEADER = "proxer-api-token";

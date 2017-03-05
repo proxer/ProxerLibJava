@@ -4,6 +4,7 @@ package com.proxerme.library.api;
  * A callback for a successful request.
  *
  * @param <T> The type of the Result.
+ * @author Ruben Gees
  */
 public interface ProxerCallback<T> {
 

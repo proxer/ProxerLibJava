@@ -4,6 +4,11 @@ import com.squareup.moshi.FromJson;
 import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.ToJson;
 
+/**
+ * TODO: Describe class
+ *
+ * @author Ruben Gees
+ */
 final class VoidAdapter {
 
     private static final String JSON_NULL = "null";

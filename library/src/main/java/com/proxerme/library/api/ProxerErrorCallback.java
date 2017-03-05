@@ -4,6 +4,8 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * A callback for an unsuccessful request.
+ *
+ * @author Ruben Gees
  */
 public interface ProxerErrorCallback {
 

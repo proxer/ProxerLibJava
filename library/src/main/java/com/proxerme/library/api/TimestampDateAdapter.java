@@ -5,6 +5,11 @@ import com.squareup.moshi.ToJson;
 
 import java.util.Date;
 
+/**
+ * TODO: Describe class
+ *
+ * @author Ruben Gees
+ */
 final class TimestampDateAdapter {
 
     @FromJson
