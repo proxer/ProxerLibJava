@@ -31,7 +31,7 @@ ext.deps = [
 allprojects {
     version = rootProject.ext.version
 
-    tasks.withType(JavaCompile) {
+    tasks.matching { it instanceof JavaCompile && it.name != "compileTestJava" }.all {
         sourceCompatibility = rootProject.ext.sourceCompatibility
         targetCompatibility = rootProject.ext.targetCompatibility
     }
