@@ -140,6 +140,8 @@ public final class ProxerApi {
             moshi = builder
                     .add(new VoidAdapter())
                     .add(new TimestampDateAdapter())
+                    .add(new GenreAdapter())
+                    .add(new FskConstraintAdapter())
                     .add(new FixRatingDetailsAdapter())
                     .build();
         }

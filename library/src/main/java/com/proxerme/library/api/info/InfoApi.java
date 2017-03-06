@@ -20,4 +20,9 @@ public final class InfoApi {
     public CommentsEndpoint comments(@NotNull String entryId) {
         return new CommentsEndpoint(internalApi, entryId);
     }
+
+    @NotNull
+    public EntryCoreEndpoint entryCore(@NotNull String entryId) {
+        return new EntryCoreEndpoint(internalApi, entryId);
+    }
 }
