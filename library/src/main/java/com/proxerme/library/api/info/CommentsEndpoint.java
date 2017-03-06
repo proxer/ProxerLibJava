@@ -15,9 +15,9 @@ import java.util.List;
  */
 public final class CommentsEndpoint {
 
-    private InternalApi internalApi;
+    private final InternalApi internalApi;
 
-    private String id;
+    private final String id;
 
     private Integer page;
     private Integer limit;

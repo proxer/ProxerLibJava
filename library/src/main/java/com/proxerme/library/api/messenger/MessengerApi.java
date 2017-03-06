@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
  */
 public final class MessengerApi {
 
-    private InternalApi internalApi;
+    private final InternalApi internalApi;
 
     public MessengerApi(@NotNull final Retrofit retrofit) {
         this.internalApi = retrofit.create(InternalApi.class);

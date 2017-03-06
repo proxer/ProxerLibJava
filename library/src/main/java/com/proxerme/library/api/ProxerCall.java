@@ -19,7 +19,7 @@ import java.net.SocketTimeoutException;
  */
 public final class ProxerCall<T> {
 
-    private Call<ProxerResponse<T>> internalCall;
+    private final Call<ProxerResponse<T>> internalCall;
 
     public ProxerCall(@NotNull final Call<ProxerResponse<T>> call) {
         this.internalCall = call;

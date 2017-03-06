@@ -15,7 +15,7 @@ import java.util.List;
  */
 public final class ConferencesEndpoint {
 
-    private InternalApi internalApi;
+    private final InternalApi internalApi;
 
     private Integer page;
     private ConferenceType type;

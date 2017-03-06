@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class ProxerUrls {
 
-    private static String HOST = "proxer.me";
+    private static final String HOST = "proxer.me";
 
     private static final HttpUrl API_BASE = new HttpUrl.Builder()
             .scheme("https")

@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
  */
 public final class NotificationsApi {
 
-    private InternalApi internalApi;
+    private final InternalApi internalApi;
 
     public NotificationsApi(@NotNull final Retrofit retrofit) {
         this.internalApi = retrofit.create(InternalApi.class);

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public final class NewsEndpoint {
 
-    private InternalApi internalApi;
+    private final InternalApi internalApi;
 
     private Integer page;
     private Integer limit;

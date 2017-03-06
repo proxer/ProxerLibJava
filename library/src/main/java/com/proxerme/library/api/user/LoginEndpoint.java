@@ -13,8 +13,8 @@ public class LoginEndpoint {
 
     private final InternalApi internalApi;
 
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
 
     LoginEndpoint(@NotNull final InternalApi internalApi, @NotNull final String username,
                   @NotNull final String password) {

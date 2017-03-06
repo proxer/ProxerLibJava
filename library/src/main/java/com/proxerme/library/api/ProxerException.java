@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class ProxerException extends Exception {
 
-    private ErrorType error;
+    private final ErrorType error;
     private ServerErrorType serverError;
     private String message;
 
@@ -115,7 +115,7 @@ public final class ProxerException extends Exception {
         USER(3041),
         ERRORLOG_INVALID_INPUT(3042);
 
-        private int code;
+        private final int code;
 
         ServerErrorType(final int code) {
             this.code = code;
