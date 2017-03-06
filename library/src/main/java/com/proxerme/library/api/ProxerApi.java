@@ -1,5 +1,6 @@
 package com.proxerme.library.api;
 
+import com.proxerme.library.api.info.InfoApi;
 import com.proxerme.library.api.notifications.NotificationsApi;
 import com.proxerme.library.api.user.UserApi;
 import com.proxerme.library.util.ProxerUrls;
@@ -19,10 +20,12 @@ public final class ProxerApi {
 
     private final NotificationsApi notifications;
     private final UserApi user;
+    private final InfoApi info;
 
     ProxerApi(@NotNull final Retrofit retrofit) {
         notifications = new NotificationsApi(retrofit);
         user = new UserApi(retrofit);
+        info = new InfoApi(retrofit);
     }
 
     @NotNull
@@ -33,6 +36,11 @@ public final class ProxerApi {
     @NotNull
     public UserApi user() {
         return user;
+    }
+
+    @NotNull
+    public InfoApi info() {
+        return info;
     }
 
     public static class Builder {
@@ -121,6 +129,7 @@ public final class ProxerApi {
             moshi = builder
                     .add(new VoidAdapter())
                     .add(new TimestampDateAdapter())
+                    .add(new FixRatingDetailsAdapter())
                     .build();
         }
 

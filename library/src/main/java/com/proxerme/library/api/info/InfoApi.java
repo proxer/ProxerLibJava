@@ -1,0 +1,23 @@
+package com.proxerme.library.api.info;
+
+import org.jetbrains.annotations.NotNull;
+import retrofit2.Retrofit;
+
+/**
+ * TODO: Describe class
+ *
+ * @author Ruben Gees
+ */
+public final class InfoApi {
+
+    private InternalApi internalApi;
+
+    public InfoApi(@NotNull final Retrofit retrofit) {
+        this.internalApi = retrofit.create(InternalApi.class);
+    }
+
+    @NotNull
+    public CommentsEndpoint comments(@NotNull String entryId) {
+        return new CommentsEndpoint(internalApi, entryId);
+    }
+}
