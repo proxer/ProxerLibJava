@@ -10,8 +10,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static java.util.regex.Pattern.DOTALL;
 
 /**
  * TODO: Describe class
@@ -22,22 +25,21 @@ final class LoginTokenInterceptor implements Interceptor {
 
     private static final String LOGIN_TOKEN_HEADER = "proxer-api-token";
     private static final int MAX_PEEK_BYTE_COUNT = 1048576; // 1MB
-
-    private static final HttpUrl loginUrl = ProxerUrls.apiBase().newBuilder()
+    private static final Pattern loginTokenPattern = Pattern.compile("\"token\":.*?\"(.+?)\"", DOTALL);
+    private static final Pattern errorPattern = Pattern.compile("\"code\":(.+?)" + Pattern.quote("}"), DOTALL);
+    private final List<String> loginPath = ProxerUrls.apiBase().newBuilder()
             .addPathSegment("user")
             .addPathSegment("login")
-            .build();
-    private static final HttpUrl logoutUrl = ProxerUrls.apiBase().newBuilder()
+            .build()
+            .pathSegments();
+    private final List<String> logoutPath = ProxerUrls.apiBase().newBuilder()
             .addPathSegment("user")
             .addPathSegment("logout")
-            .build();
-
-    private static final Pattern loginTokenPattern = Pattern.compile("\"token\":\"(.+?)\"");
-    private static final Pattern errorPattern = Pattern.compile("\"code\":(.+?)" + Pattern.quote("}"));
-
+            .build()
+            .pathSegments();
     private final LoginTokenManager loginTokenManager;
 
-    LoginTokenInterceptor(@Nullable final LoginTokenManager loginTokenManager) {
+    LoginTokenInterceptor(@NotNull final LoginTokenManager loginTokenManager) {
         this.loginTokenManager = loginTokenManager;
     }
 
@@ -45,7 +47,7 @@ final class LoginTokenInterceptor implements Interceptor {
     public Response intercept(final Chain chain) throws IOException {
         final Request oldRequest = chain.request();
 
-        if (loginTokenManager != null && oldRequest.url().host().equals(ProxerUrls.apiBase().host())) {
+        if (oldRequest.url().host().equals(ProxerUrls.apiBase().host())) {
             final Request.Builder newRequestBuilder = oldRequest.newBuilder();
             final String loginToken = loginTokenManager.provide();
 
@@ -61,7 +63,7 @@ final class LoginTokenInterceptor implements Interceptor {
                 final Integer errorCode;
 
                 if (errorMatcher.find()) {
-                    errorCode = toIntOrNull(errorMatcher.group(1));
+                    errorCode = toIntOrNull(errorMatcher.group(1).trim());
 
                     if (errorCode == null) {
                         return response;
@@ -71,14 +73,14 @@ final class LoginTokenInterceptor implements Interceptor {
                 }
 
                 if (errorCode == 0) {
-                    if (url.equals(loginUrl)) {
+                    if (url.pathSegments().equals(loginPath)) {
                         final Matcher matcher = loginTokenPattern.matcher(response.peekBody(MAX_PEEK_BYTE_COUNT)
                                 .string());
 
                         if (matcher.find()) {
-                            loginTokenManager.persist(matcher.group(1));
+                            loginTokenManager.persist(matcher.group(1).trim());
                         }
-                    } else if (url.equals(logoutUrl)) {
+                    } else if (url.pathSegments().equals(logoutPath)) {
                         loginTokenManager.persist(null);
                     }
                 } else {

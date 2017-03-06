@@ -16,27 +16,29 @@ import java.io.IOException;
  *
  * @author Ruben Gees
  */
-public abstract class EndpointTest {
+public abstract class ProxerTest {
 
     protected MockWebServer server;
+    protected OkHttpClient client;
     protected ProxerApi api;
 
     @Before
     public void setUp() throws IOException {
         server = new MockWebServer();
-        api = new ProxerApi.Builder("mockKey")
-                .okHttp(new OkHttpClient.Builder()
-                        .addInterceptor(chain -> {
-                            final HttpUrl oldUrl = chain.request().url();
-                            final HttpUrl serverUrl = server.url(oldUrl.encodedPath());
-                            final HttpUrl newUrl = oldUrl.newBuilder()
-                                    .scheme(serverUrl.scheme())
-                                    .host(serverUrl.host())
-                                    .port(serverUrl.port())
-                                    .build();
+        client = new OkHttpClient.Builder()
+                .addInterceptor(chain -> {
+                    final HttpUrl oldUrl = chain.request().url();
+                    final HttpUrl serverUrl = server.url(oldUrl.encodedPath());
+                    final HttpUrl newUrl = oldUrl.newBuilder()
+                            .scheme(serverUrl.scheme())
+                            .host(serverUrl.host())
+                            .port(serverUrl.port())
+                            .build();
 
-                            return chain.proceed(chain.request().newBuilder().url(newUrl).build());
-                        }).build())
+                    return chain.proceed(chain.request().newBuilder().url(newUrl).build());
+                }).build();
+        api = new ProxerApi.Builder("mockKey")
+                .okHttp(client)
                 .build();
 
         server.start();

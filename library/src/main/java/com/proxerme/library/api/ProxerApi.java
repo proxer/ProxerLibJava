@@ -1,6 +1,7 @@
 package com.proxerme.library.api;
 
 import com.proxerme.library.api.info.InfoApi;
+import com.proxerme.library.api.messenger.MessengerApi;
 import com.proxerme.library.api.notifications.NotificationsApi;
 import com.proxerme.library.api.user.UserApi;
 import com.proxerme.library.util.ProxerUrls;
@@ -24,11 +25,13 @@ public final class ProxerApi {
     private final NotificationsApi notifications;
     private final UserApi user;
     private final InfoApi info;
+    private final MessengerApi messenger;
 
     ProxerApi(@NotNull final Retrofit retrofit) {
         notifications = new NotificationsApi(retrofit);
         user = new UserApi(retrofit);
         info = new InfoApi(retrofit);
+        messenger = new MessengerApi(retrofit);
     }
 
     @NotNull
@@ -46,9 +49,14 @@ public final class ProxerApi {
         return info;
     }
 
+    @NotNull
+    public MessengerApi messenger() {
+        return messenger;
+    }
+
     public static class Builder {
 
-        private static final String DEFAULT_USER_AGENT = "ProxerLibAndroid/3.0.0";
+        private static final String DEFAULT_USER_AGENT = "ProxerLibJava/3.0.0";
 
         private final String apiKey;
         private LoginTokenManager loginTokenManager;

@@ -1,6 +1,6 @@
 package com.proxerme.library.api.notifications;
 
-import com.proxerme.library.EndpointTest;
+import com.proxerme.library.ProxerTest;
 import com.proxerme.library.api.ProxerException;
 import com.proxerme.library.entitiy.notifications.NewsArticle;
 import okhttp3.mockwebserver.MockResponse;
@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Ruben Gees
  */
-public class NewsEndpointTest extends EndpointTest {
+public class NewsEndpointTest extends ProxerTest {
 
     @Test
     public void testDefault() throws ProxerException, IOException {

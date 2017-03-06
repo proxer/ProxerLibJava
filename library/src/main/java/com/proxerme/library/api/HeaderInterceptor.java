@@ -35,7 +35,7 @@ final class HeaderInterceptor implements Interceptor {
             final Request.Builder newRequestBuilder = chain.request().newBuilder()
                     .addHeader(API_KEY_HEADER, apiKey);
 
-            if (userAgent != null && oldRequest.header(HEADER_USER_AGENT) == null) {
+            if (userAgent != null) {
                 newRequestBuilder.addHeader(HEADER_USER_AGENT, userAgent);
             }
 
