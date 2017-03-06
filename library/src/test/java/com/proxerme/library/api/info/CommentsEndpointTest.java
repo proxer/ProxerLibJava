@@ -1,6 +1,6 @@
 package com.proxerme.library.api.info;
 
-import com.proxerme.library.ApiTest;
+import com.proxerme.library.EndpointTest;
 import com.proxerme.library.api.ProxerException;
 import com.proxerme.library.entitiy.info.Comment;
 import com.proxerme.library.entitiy.info.RatingDetails;
@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Ruben Gees
  */
-public class CommentsEndpointTest extends ApiTest {
+public class CommentsEndpointTest extends EndpointTest {
 
     @Test
     public void testDefault() throws ProxerException, IOException {

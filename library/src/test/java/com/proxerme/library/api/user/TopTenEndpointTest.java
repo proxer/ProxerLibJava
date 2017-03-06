@@ -1,6 +1,6 @@
 package com.proxerme.library.api.user;
 
-import com.proxerme.library.ApiTest;
+import com.proxerme.library.EndpointTest;
 import com.proxerme.library.api.ProxerException;
 import com.proxerme.library.entitiy.user.TopTenEntry;
 import com.proxerme.library.enums.Category;
@@ -18,7 +18,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
  *
  * @author Ruben Gees
  */
-public class TopTenEndpointTest extends ApiTest {
+public class TopTenEndpointTest extends EndpointTest {
 
     @Test
     public void testDefault() throws ProxerException, IOException {

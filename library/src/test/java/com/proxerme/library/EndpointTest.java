@@ -16,7 +16,7 @@ import java.io.IOException;
  *
  * @author Ruben Gees
  */
-public abstract class ApiTest {
+public abstract class EndpointTest {
 
     protected MockWebServer server;
     protected ProxerApi api;
