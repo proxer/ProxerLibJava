@@ -31,6 +31,19 @@ public class NewsEndpointTest extends EndpointTest {
         assertThat(result).first().isEqualTo(buildTestArticle());
     }
 
+    @Test
+    public void testPath() throws Exception {
+        server.enqueue(new MockResponse().setBody(fromResource("news.json")));
+
+        api.notifications().news()
+                .page(0)
+                .limit(10)
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/notifications/news?p=0&limit=10");
+    }
+
     private NewsArticle buildTestArticle() {
         return new NewsArticle("7709", new Date(1488654000L * 1000), "In der diesjährigen 14. Ausgabe " +
                 "von Shueishas Weekly Shounen Jump-Magazin soll angekündigt werden, dass der Manga To Love-Ru " +

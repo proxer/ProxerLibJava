@@ -6,6 +6,7 @@ import com.proxerme.library.entitiy.user.TopTenEntry;
 import com.proxerme.library.enums.Category;
 import com.proxerme.library.enums.Medium;
 import okhttp3.mockwebserver.MockResponse;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -44,6 +45,19 @@ public class TopTenEndpointTest extends EndpointTest {
                 .execute();
 
         assertThat(result).first().isEqualTo(buildMangaTestEntry());
+    }
+
+    @Test
+    public void testPath() throws Exception {
+        server.enqueue(new MockResponse().setBody(fromResource("topten_manga.json")));
+
+        api.user().topTen("123", "rubygee")
+                .category(Category.ANIME)
+                .build()
+                .execute();
+
+        Assertions.assertThat(server.takeRequest().getPath())
+                .isEqualTo("/api/v1/user/topten?uid=123&username=rubygee&kat=anime");
     }
 
     private TopTenEntry buildTestEntry() {
