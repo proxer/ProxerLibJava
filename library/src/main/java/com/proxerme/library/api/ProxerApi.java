@@ -5,11 +5,14 @@ import com.proxerme.library.api.notifications.NotificationsApi;
 import com.proxerme.library.api.user.UserApi;
 import com.proxerme.library.util.ProxerUrls;
 import com.squareup.moshi.Moshi;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
+
+import java.util.List;
 
 /**
  * TODO: Describe class
@@ -142,10 +145,12 @@ public final class ProxerApi {
                 builder = okHttp.newBuilder();
             }
 
-            okHttp = builder
-                    .addInterceptor(new HeaderInterceptor(apiKey, userAgent))
-                    .addInterceptor(new LoginTokenInterceptor(loginTokenManager))
-                    .build();
+            final List<Interceptor> existingInterceptors = builder.interceptors();
+
+            existingInterceptors.add(0, new HeaderInterceptor(apiKey, userAgent));
+            existingInterceptors.add(1, new LoginTokenInterceptor(loginTokenManager));
+
+            okHttp = builder.build();
         }
 
         private void initRetrofit() {
