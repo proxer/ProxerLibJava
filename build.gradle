@@ -6,7 +6,7 @@ ext {
     targetCompatibility = 1.7
 }
 
-def jetbrainsAnnotationsVersion = '13.0'
+def jetbrainsAnnotationsVersion = '15.0'
 
 def retrofitVersion = '2.2.0'
 def okhttpVersion = '3.6.0'
