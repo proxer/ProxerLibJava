@@ -148,9 +148,5 @@ public final class ProxerException extends Exception {
 
             return null;
         }
-
-        public int code() {
-            return code;
-        }
     }
 }
