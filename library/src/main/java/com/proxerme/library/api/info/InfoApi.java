@@ -25,4 +25,9 @@ public final class InfoApi {
     public EntryCoreEndpoint entryCore(@NotNull String entryId) {
         return new EntryCoreEndpoint(internalApi, entryId);
     }
+
+    @NotNull
+    public EntryEndpoint entry(@NotNull String entryId) {
+        return new EntryEndpoint(internalApi, entryId);
+    }
 }

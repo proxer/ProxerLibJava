@@ -33,6 +33,17 @@ public class EntryCoreEndpointTest extends ProxerTest {
         assertThat(result).isEqualTo(buildTestEntry());
     }
 
+    @Test
+    public void testPath() throws Exception {
+        server.enqueue(new MockResponse().setBody(fromResource("entry.json")));
+
+        api.info().entryCore("1")
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/info/entry?id=1");
+    }
+
     private EntryCore buildTestEntry() {
         return new EntryCore("6174", "LuCu LuCu",
                 new HashSet<>(Arrays.asList(Genre.COMEDY, Genre.FANTASY, Genre.SEINEN, Genre.SLICE_OF_LIFE)),
@@ -44,7 +55,6 @@ public class EntryCoreEndpointTest extends ProxerTest {
                         "decent again. Of course, the angels can't simply allow demons to roam freely on Earth, " +
                         "and they do their best to stop Lucu and her dastardly plans.",
                 Medium.MANGASERIES, 90, MediaState.FINISHED, 7, 1, 134,
-                Category.MANGA, Licence.NOT_LICENSED
-        );
+                Category.MANGA, Licence.NOT_LICENSED);
     }
 }
