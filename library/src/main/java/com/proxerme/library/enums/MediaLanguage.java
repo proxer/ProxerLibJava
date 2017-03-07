@@ -9,5 +9,9 @@ import com.squareup.moshi.Json;
  */
 public enum MediaLanguage {
     @Json(name = "de")GERMAN,
-    @Json(name = "en")ENGLISH
+    @Json(name = "en")ENGLISH,
+    @Json(name = "gersub")GERMAN_SUB,
+    @Json(name = "gerdub")GERMAN_DUB,
+    @Json(name = "engsub")ENGLISH_SUB,
+    @Json(name = "engdub")ENGLISH_DUB
 }
