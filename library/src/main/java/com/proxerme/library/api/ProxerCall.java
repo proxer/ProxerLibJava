@@ -44,7 +44,7 @@ public final class ProxerCall<T> {
     public void enqueue(@Nullable final ProxerCallback<T> callback, @Nullable final ProxerErrorCallback errorCallback) {
         internalCall.enqueue(new Callback<ProxerResponse<T>>() {
             @Override
-            public void onResponse(Call<ProxerResponse<T>> call, Response<ProxerResponse<T>> response) {
+            public void onResponse(final Call<ProxerResponse<T>> call, final Response<ProxerResponse<T>> response) {
                 try {
                     if (callback != null) {
                         callback.onSuccess(processResponse(response));
@@ -57,7 +57,7 @@ public final class ProxerCall<T> {
             }
 
             @Override
-            public void onFailure(final Call<ProxerResponse<T>> call, Throwable error) {
+            public void onFailure(final Call<ProxerResponse<T>> call, final Throwable error) {
                 if (errorCallback != null) {
                     if (error instanceof SocketTimeoutException) {
                         errorCallback.onError(new ProxerException(ProxerException.ErrorType.TIMEOUT));
