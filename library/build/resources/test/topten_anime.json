@@ -1,0 +1,66 @@
+{
+  "data": [
+    {
+      "eid": 13633,
+      "name": "Boku dake ga Inai Machi",
+      "medium": "animeseries",
+      "kat": "anime"
+    },
+    {
+      "eid": 219,
+      "name": "Clannad After Story",
+      "medium": "animeseries",
+      "kat": "anime"
+    },
+    {
+      "eid": 59,
+      "name": "Death Note",
+      "medium": "animeseries",
+      "kat": "anime"
+    },
+    {
+      "eid": 886,
+      "name": "Hakuouki: Shinsengumi Kitan",
+      "medium": "animeseries",
+      "kat": "anime"
+    },
+    {
+      "eid": 2357,
+      "name": "High School DxD",
+      "medium": "animeseries",
+      "kat": "anime"
+    },
+    {
+      "eid": 6302,
+      "name": "Kami nomi zo Shiru Sekai Megami-hen",
+      "medium": "animeseries",
+      "kat": "anime"
+    },
+    {
+      "eid": 9723,
+      "name": "Kiseijuu: Sei no Kakuritsu",
+      "medium": "animeseries",
+      "kat": "anime"
+    },
+    {
+      "eid": 1533,
+      "name": "Mirai Nikki",
+      "medium": "animeseries",
+      "kat": "anime"
+    },
+    {
+      "eid": 53,
+      "name": "One Piece",
+      "medium": "animeseries",
+      "kat": "anime"
+    },
+    {
+      "eid": 5840,
+      "name": "Shingeki no Kyojin",
+      "medium": "animeseries",
+      "kat": "anime"
+    }
+  ],
+  "error": 0,
+  "message": "Abfrage erfolgreich"
+}
