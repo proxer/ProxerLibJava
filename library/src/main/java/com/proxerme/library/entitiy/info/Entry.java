@@ -42,8 +42,8 @@ public class Entry implements IdItem {
     private Category category;
     @Json(name = "license")
     private Licence license;
-    @Json(name = "gate")
-    private boolean gate;
+    @Json(name = "ageRestricted")
+    private boolean ageRestricted;
     @Json(name = "names")
     private List<Synonym> synonyms;
     @Json(name = "lang")
@@ -77,7 +77,7 @@ public class Entry implements IdItem {
      * @param clicks           The amount of clicks.
      * @param category         The category name.
      * @param license          The license id.
-     * @param gate             If this entry has a gate (18+ check required)
+     * @param ageRestricted             If this entry has a ageRestricted (18+ check required)
      * @param synonyms         The synonyms.
      * @param languages        The languages.
      * @param seasons          The seasons.
@@ -89,7 +89,7 @@ public class Entry implements IdItem {
                  @NotNull final Set<FskConstraint> fskConstraints, @NotNull final String description,
                  @NotNull final Medium medium, final int episodeAmount, @NotNull final MediaState state,
                  final int rateSum, final int rateCount, final int clicks, @NotNull final Category category,
-                 @NotNull final Licence license, final boolean gate, @NotNull final List<Synonym> synonyms,
+                 @NotNull final Licence license, final boolean ageRestricted, @NotNull final List<Synonym> synonyms,
                  @NotNull final Set<MediaLanguage> languages, @NotNull final List<EntrySeasonInfo> seasons,
                  @NotNull final List<EntryTranslatorGroup> translatorGroups,
                  @NotNull final List<EntryIndustry> industries, @NotNull final List<Tag> tags) {
@@ -106,7 +106,7 @@ public class Entry implements IdItem {
         this.clicks = clicks;
         this.category = category;
         this.license = license;
-        this.gate = gate;
+        this.ageRestricted = ageRestricted;
         this.synonyms = synonyms;
         this.languages = languages;
         this.seasons = seasons;
@@ -257,12 +257,12 @@ public class Entry implements IdItem {
     }
 
     /**
-     * Returns if this entry has a gate (18+ check needed).
+     * Returns if this entry has a age restricted (18+ check needed).
      *
      * @return True, if gated.
      */
-    public boolean isGate() {
-        return gate;
+    public boolean isAgeRestricted() {
+        return ageRestricted;
     }
 
     /**
@@ -337,7 +337,7 @@ public class Entry implements IdItem {
         if (rateSum != entry.rateSum) return false;
         if (rateCount != entry.rateCount) return false;
         if (clicks != entry.clicks) return false;
-        if (gate != entry.gate) return false;
+        if (ageRestricted != entry.ageRestricted) return false;
         if (!id.equals(entry.id)) return false;
         if (!name.equals(entry.name)) return false;
         if (!genres.equals(entry.genres)) return false;
@@ -370,7 +370,7 @@ public class Entry implements IdItem {
         result = 31 * result + clicks;
         result = 31 * result + category.hashCode();
         result = 31 * result + license.hashCode();
-        result = 31 * result + (gate ? 1 : 0);
+        result = 31 * result + (ageRestricted ? 1 : 0);
         result = 31 * result + synonyms.hashCode();
         result = 31 * result + languages.hashCode();
         result = 31 * result + seasons.hashCode();
