@@ -8,9 +8,7 @@ import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -46,8 +44,8 @@ public class EntryCoreEndpointTest extends ProxerTest {
 
     private EntryCore buildTestEntry() {
         return new EntryCore("6174", "LuCu LuCu",
-                new HashSet<>(Arrays.asList(Genre.COMEDY, Genre.FANTASY, Genre.SEINEN, Genre.SLICE_OF_LIFE)),
-                Collections.singleton(FskConstraint.BAD_LANGUAGE),
+                EnumSet.of(Genre.COMEDY, Genre.FANTASY, Genre.SEINEN, Genre.SLICE_OF_LIFE),
+                EnumSet.of(FskConstraint.BAD_LANGUAGE),
                 "Humans are a despicable lot, committing sin after sin, filling the endless boundaries " +
                         "of the underworld with tortured souls. Now, it would seem, Hell isn't so endless after all, " +
                         "and it has become dangerously close to filling, and then overflowing into the human realm. " +

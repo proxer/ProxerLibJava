@@ -12,7 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -50,8 +50,8 @@ public class EntryEndpointTest extends ProxerTest {
 
     private Entry buildTestEntry() throws ParseException {
         return new Entry("6174", "LuCu LuCu",
-                new HashSet<>(Arrays.asList(Genre.COMEDY, Genre.FANTASY, Genre.SEINEN, Genre.SLICE_OF_LIFE)),
-                Collections.emptySet(),
+                EnumSet.of(Genre.COMEDY, Genre.FANTASY, Genre.SEINEN, Genre.SLICE_OF_LIFE),
+                EnumSet.noneOf(FskConstraint.class),
                 "Humans are a despicable lot, committing sin after sin, filling the endless boundaries " +
                         "of the underworld with tortured souls. Now, it would seem, Hell isn't so endless after all, " +
                         "and it has become dangerously close to filling, and then overflowing into the human realm. " +

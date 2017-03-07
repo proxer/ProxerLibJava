@@ -141,8 +141,7 @@ public final class ProxerApi {
                     .add(new VoidAdapter())
                     .add(new DateAdapter())
                     .add(new BooleanAdapter())
-                    .add(new GenreAdapter())
-                    .add(new FskConstraintAdapter())
+                    .add(new DelimitedEnumSetAdapterFactory())
                     .add(new FixRatingDetailsAdapter())
                     .build();
         }
