@@ -1,5 +1,8 @@
 package com.proxerme.library.util;
 
+import lombok.Getter;
+import lombok.experimental.Accessors;
+import lombok.experimental.UtilityClass;
 import okhttp3.HttpUrl;
 import org.jetbrains.annotations.NotNull;
 
@@ -8,24 +11,16 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ruben Gees
  */
+@UtilityClass
+@Accessors(fluent = true)
 public final class ProxerUrls {
 
-    private static final String HOST = "proxer.me";
-
-    private static final HttpUrl API_BASE = new HttpUrl.Builder()
+    @Getter(onMethod = @__({@NotNull}))
+    private final HttpUrl apiBase = new HttpUrl.Builder()
             .scheme("https")
-            .host(HOST)
+            .host("proxer.me")
             .addPathSegment("api")
             .addPathSegment("v1")
             .addPathSegment("")
             .build();
-
-    private ProxerUrls() {
-
-    }
-
-    @NotNull
-    public static HttpUrl apiBase() {
-        return API_BASE;
-    }
 }
