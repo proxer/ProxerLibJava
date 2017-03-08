@@ -1,6 +1,8 @@
 apply plugin: 'idea'
+
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
+
 apply plugin: "jacoco"
 
 dependencies {
@@ -19,8 +21,39 @@ dependencies {
     testImplementation deps.mockwebserver
 }
 
+task delombok {
+    dependsOn compileJava
+
+    def srcPath = 'src/main/java'
+    def delombokPath = 'build/delombok'
+
+    inputs.files file(srcPath)
+    outputs.dir file(delombokPath)
+
+    ext.outputDir = delombokPath
+
+    println(configurations.compile.asPath)
+
+    doLast {
+        ant.taskdef(name: 'delombok', classname: 'lombok.delombok.ant.Tasks$Delombok',
+                classpath: configurations.compileOnly.asPath)
+        ant.delombok(encoding: 'UTF-8', from: srcPath, to: delombokPath, classpath: configurations.compileClasspath.asPath)
+    }
+}
+
+javadoc {
+    dependsOn delombok
+
+    options.memberLevel = JavadocMemberLevel.PUBLIC
+    options.linkSource true
+    options { links "http://docs.oracle.com/javase/7/docs/api/" }
+
+    source = delombok.outputDir
+    failOnError = false
+}
+
 task sourceJar(type: Jar, dependsOn: classes) {
-    from sourceSets.main.allSource
+    from delombok.outputDir
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
