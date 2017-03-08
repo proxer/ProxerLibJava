@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,6 +16,8 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  * @author Ruben Gees
  */
 public class DateAdapterTest {
+
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     private DateAdapter adapter;
 
@@ -30,7 +33,8 @@ public class DateAdapterTest {
 
     @Test
     public void testFromJsonIso() throws Exception {
-        assertThat(adapter.fromJson("2010-01-01 23:12:10")).isEqualTo(new Date(1262383930L * 1000));
+        assertThat(adapter.fromJson("2010-01-01 23:12:10"))
+                .isEqualTo(DATE_FORMAT.parse("2010-01-01 23:12:10"));
     }
 
     @Test
