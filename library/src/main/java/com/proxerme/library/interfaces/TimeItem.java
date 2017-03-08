@@ -1,5 +1,7 @@
 package com.proxerme.library.interfaces;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Date;
 
 /**
@@ -14,5 +16,6 @@ public interface TimeItem {
      *
      * @return The time.
      */
+    @NotNull
     Date getTime();
 }
