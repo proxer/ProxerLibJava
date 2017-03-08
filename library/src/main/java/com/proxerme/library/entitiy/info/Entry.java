@@ -21,93 +21,148 @@ import java.util.Set;
 public class Entry implements IdItem {
 
     /**
-     * @return The id of this entry:
+     * @return The id.
      */
-    @Getter(onMethod = @__(@NotNull))
+    @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "id")
     private String id;
 
-    @Getter(onMethod = @__(@NotNull))
+    /**
+     * @return The name.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "name")
     private String name;
 
-    @Getter(onMethod = @__(@NotNull))
+    /**
+     * @return The genres.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "genre")
     private Set<Genre> genres;
-    @Json(name = "fsk")
 
-    @Getter(onMethod = @__(@NotNull))
+    /**
+     * @return The fsk ratings.
+     */
+    @Json(name = "fsk")
+    @Getter(onMethod = @__({@NotNull}))
     private Set<FskConstraint> fskConstraints;
 
-    @Getter(onMethod = @__(@NotNull))
+    /**
+     * @return The description.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "description")
     private String description;
 
-    @Getter(onMethod = @__(@NotNull))
+    /**
+     * @return The medium
+     */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "medium")
     private Medium medium;
 
+    /**
+     * @return The amount of episodes, this entry has. They do not necessarily have to be uploaded.
+     */
     @Json(name = "count")
     private int episodeAmount;
 
-    @Getter(onMethod = @__(@NotNull))
+    /**
+     * @return The current state.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "state")
     private MediaState state;
 
+    /**
+     * @return The sum of all ratings.
+     */
     @Json(name = "rate_sum")
-    private int rateSum;
+    private int ratingSum;
 
+    /**
+     * @return The amount of ratings.
+     */
     @Json(name = "rate_count")
-    private int rateCount;
+    private int ratingAmount;
 
+    /**
+     * @return The clicks on this entry, in this season.
+     */
     @Json(name = "clicks")
     private int clicks;
 
-    @Getter(onMethod = @__(@NotNull))
+    /**
+     * @return The category.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "kat")
     private Category category;
 
-    @Getter(onMethod = @__(@NotNull))
+    /**
+     * @return The type of licence.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "license")
-    private Licence license;
+    private Licence licence;
 
+    /**
+     * @return True, if this entry is age restricted.
+     */
     @Json(name = "ageRestricted")
     private boolean ageRestricted;
 
-    @Getter(onMethod = @__(@NotNull))
+    /**
+     * @return The synonyms in different languages.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "names")
     private List<Synonym> synonyms;
 
-    @Getter(onMethod = @__(@NotNull))
+    /**
+     * @return The languages, this entry is available in.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "lang")
     private Set<MediaLanguage> languages;
 
-    @Getter(onMethod = @__(@NotNull))
+    /**
+     * @return The seasons, this entry was aired. If present, the first in the list is the start and the second the end.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "seasons")
     private List<EntrySeasonInfo> seasons;
 
-    @Getter(onMethod = @__(@NotNull))
+    /**
+     * @return The translator groups.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "groups")
     private List<EntryTranslatorGroup> translatorGroups;
 
-    @Getter(onMethod = @__(@NotNull))
+    /**
+     * @return The industries involved in production and marketing.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "publisher")
     private List<EntryIndustry> industries;
 
-    @Getter(onMethod = @__(@NotNull))
+    /**
+     * @return The tags.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "tags")
     private List<Tag> tags;
 
     /**
-     * Returns the sum of all ratings of this entry.
-     *
      * @return The sum of all ratings.
      */
     public float getRating() {
-        if (rateCount <= 0) {
+        if (ratingAmount <= 0) {
             return 0;
         } else {
-            return rateSum / rateCount;
+            return ratingSum / ratingAmount;
         }
     }
 }
