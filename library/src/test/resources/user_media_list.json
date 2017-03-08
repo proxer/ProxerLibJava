@@ -1,0 +1,76 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": [
+    {
+      "count": "12",
+      "medium": "animeseries",
+      "estate": "1",
+      "cid": "18301850",
+      "name": "91 Days",
+      "id": "16257",
+      "comment": "",
+      "state": "0",
+      "episode": "12",
+      "data": "",
+      "rating": "0",
+      "timestamp": "1475086684"
+    },
+    {
+      "count": "24",
+      "medium": "animeseries",
+      "estate": "1",
+      "cid": "7299371",
+      "name": "Accel World",
+      "id": "3247",
+      "comment": "",
+      "state": "0",
+      "episode": "24",
+      "data": "",
+      "rating": "0",
+      "timestamp": "1417038296"
+    },
+    {
+      "count": "24",
+      "medium": "animeseries",
+      "estate": "1",
+      "cid": "8723613",
+      "name": "Akame ga Kill!",
+      "id": "8399",
+      "comment": "",
+      "state": "0",
+      "episode": "24",
+      "data": "",
+      "rating": "0",
+      "timestamp": "1425605887"
+    },
+    {
+      "count": "25",
+      "medium": "animeseries",
+      "estate": "1",
+      "cid": "1097282",
+      "name": "Amagami SS",
+      "id": "1165",
+      "comment": "",
+      "state": "0",
+      "episode": "25",
+      "data": "",
+      "rating": "0",
+      "timestamp": "1357939792"
+    },
+    {
+      "count": "13",
+      "medium": "animeseries",
+      "estate": "1",
+      "cid": "824300",
+      "name": "Amagami SS plus",
+      "id": "2358",
+      "comment": "",
+      "state": "0",
+      "episode": "13",
+      "data": "",
+      "rating": "0",
+      "timestamp": "1349776995"
+    }
+  ]
+}

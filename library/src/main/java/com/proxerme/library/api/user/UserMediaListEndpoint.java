@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Ruben Gees
  */
-public final class MediaListEndpoint {
+public final class UserMediaListEndpoint {
 
     private final InternalApi internalApi;
 
@@ -28,8 +28,8 @@ public final class MediaListEndpoint {
     private String searchStartQuery;
     private UserMediaListSortCriteria sortCriteria;
 
-    MediaListEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
-                      @Nullable final String username) {
+    UserMediaListEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
+                          @Nullable final String username) {
         if (userId == null && username == null) {
             throw new IllegalArgumentException("You must pass either an userId or an username.");
         }
@@ -40,42 +40,42 @@ public final class MediaListEndpoint {
     }
 
     @NotNull
-    public MediaListEndpoint category(@Nullable final Category category) {
+    public UserMediaListEndpoint category(@Nullable final Category category) {
         this.category = category;
 
         return this;
     }
 
     @NotNull
-    public MediaListEndpoint page(@Nullable final Integer page) {
+    public UserMediaListEndpoint page(@Nullable final Integer page) {
         this.page = page;
 
         return this;
     }
 
     @NotNull
-    public MediaListEndpoint limit(@Nullable final Integer limit) {
+    public UserMediaListEndpoint limit(@Nullable final Integer limit) {
         this.limit = limit;
 
         return this;
     }
 
     @NotNull
-    public MediaListEndpoint search(@Nullable final String query) {
+    public UserMediaListEndpoint search(@Nullable final String query) {
         this.searchQuery = query;
 
         return this;
     }
 
     @NotNull
-    public MediaListEndpoint searchStart(@Nullable final String query) {
+    public UserMediaListEndpoint searchStart(@Nullable final String query) {
         this.searchStartQuery = query;
 
         return this;
     }
 
     @NotNull
-    public MediaListEndpoint sort(@Nullable final UserMediaListSortCriteria criteria) {
+    public UserMediaListEndpoint sort(@Nullable final UserMediaListSortCriteria criteria) {
         this.sortCriteria = criteria;
 
         return this;
@@ -85,5 +85,6 @@ public final class MediaListEndpoint {
     public ProxerCall<List<UserMediaListEntry>> build() {
         return internalApi.userMediaList(userId, username, category, page, limit, searchQuery, searchStartQuery,
                 sortCriteria);
+
     }
 }

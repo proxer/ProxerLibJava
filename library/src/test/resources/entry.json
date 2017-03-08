@@ -1,0 +1,103 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich.",
+  "data": {
+    "id": "6174",
+    "name": "LuCu LuCu",
+    "genre": "Comedy Fantasy Seinen Slice_of_Life",
+    "fsk": "",
+    "description": "Humans are a despicable lot, committing sin after sin, filling the endless boundaries of the underworld with tortured souls. Now, it would seem, Hell isn't so endless after all, and it has become dangerously close to filling, and then overflowing into the human realm. Princess Lucuha sees this imminent disaster and has a plan: save Hell by making humans decent again. Of course, the angels can't simply allow demons to roam freely on Earth, and they do their best to stop Lucu and her dastardly plans.",
+    "medium": "mangaseries",
+    "adaption_type": "",
+    "adaption_value": "",
+    "count": "90",
+    "state": "1",
+    "rate_sum": "7",
+    "rate_count": "1",
+    "clicks": "134",
+    "kat": "manga",
+    "license": "1",
+    "names": [
+      {
+        "id": "12322",
+        "eid": "6174",
+        "type": "name",
+        "name": "LuCu LuCu"
+      },
+      {
+        "id": "12323",
+        "eid": "6174",
+        "type": "namejap",
+        "name": "るくるく"
+      },
+      {
+        "id": "44662",
+        "eid": "6174",
+        "type": "syn",
+        "name": "Lucu Lucu"
+      },
+      {
+        "id": "44663",
+        "eid": "6174",
+        "type": "syn",
+        "name": "LuCuLuCu"
+      }
+    ],
+    "gate": false,
+    "lang": [
+      "en"
+    ],
+    "seasons": [
+      {
+        "id": "1061",
+        "year": "2002",
+        "season": "0"
+      },
+      {
+        "id": "15776",
+        "year": "2009",
+        "season": "0"
+      }
+    ],
+    "groups": [
+      {
+        "name": "SnoopyCool",
+        "id": "215",
+        "country": "en"
+      },
+      {
+        "name": "FoOlRulez",
+        "id": "294",
+        "country": "en"
+      }
+    ],
+    "publisher": [
+      {
+        "name": "Kodansha",
+        "id": "19",
+        "type": "publisher",
+        "country": "jp"
+      }
+    ],
+    "tags": [
+      {
+        "id": "2027",
+        "tid": "93",
+        "timestamp": "2016-06-18 14:14:22",
+        "rate_flag": "0",
+        "spoiler_flag": "0",
+        "tag": "Dämonen",
+        "description": "In diesem Werk kommen Dämonen vor."
+      },
+      {
+        "id": "2028",
+        "tid": "299",
+        "timestamp": "2016-06-18 14:14:30",
+        "rate_flag": "0",
+        "spoiler_flag": "0",
+        "tag": "Slapstick",
+        "description": "Situationskomik, kommt ohne Worte aus."
+      }
+    ]
+  }
+}
