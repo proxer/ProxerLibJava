@@ -91,9 +91,5 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
 
             writer.value(result);
         }
-
-        private String getName(FskConstraint fskConstraint) throws NoSuchFieldException {
-            return enumType.getField(fskConstraint.name()).getAnnotation(Json.class).name();
-        }
     }
 }
