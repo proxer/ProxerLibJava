@@ -3,8 +3,6 @@ package com.proxerme.library.api;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.JsonDataException;
 
-import java.text.ParseException;
-
 /**
  * TODO: Describe class
  *
@@ -13,18 +11,32 @@ import java.text.ParseException;
 class BooleanAdapter {
 
     @FromJson
-    boolean fromJson(final Object json) throws ParseException {
+    boolean fromJson(final Object json) {
         final String jsonString = json.toString();
+        final Integer jsonInteger = toIntOrNull(jsonString);
 
-        switch (jsonString) {
-            case "true":
-            case "1":
+        if (jsonInteger != null) {
+            if (jsonInteger == 1) {
                 return true;
-            case "false":
-            case "0":
+            } else if (jsonInteger == 0) {
                 return false;
-            default:
-                throw new JsonDataException("Unable to map " + jsonString + " to a boolean value");
+            }
+        } else {
+            if (jsonString.equals("true")) {
+                return true;
+            } else if (jsonString.equals("false")) {
+                return false;
+            }
+        }
+
+        throw new JsonDataException("Unable to map " + json + " to a boolean value");
+    }
+
+    private Integer toIntOrNull(String candidate) {
+        try {
+            return (int) Float.parseFloat(candidate);
+        } catch (NumberFormatException ignored) {
+            return null;
         }
     }
 }
