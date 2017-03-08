@@ -21,7 +21,7 @@ public class EntryCoreEndpointTest extends ProxerTest {
 
     @Test
     public void testDefault() throws IOException, ProxerException {
-        server.enqueue(new MockResponse().setBody(fromResource("entrycore.json")));
+        server.enqueue(new MockResponse().setBody(fromResource("entry_core.json")));
 
         final EntryCore result = api.info()
                 .entryCore("1")

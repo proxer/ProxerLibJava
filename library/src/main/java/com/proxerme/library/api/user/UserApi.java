@@ -33,6 +33,11 @@ public final class UserApi {
     }
 
     @NotNull
+    public UserInfoEndpoint info(@Nullable final String userId, @Nullable final String username) {
+        return new UserInfoEndpoint(internalApi, userId, username);
+    }
+
+    @NotNull
     public UserMediaListEndpoint mediaList(@Nullable final String userId, @Nullable final String username) {
         return new UserMediaListEndpoint(internalApi, userId, username);
     }
