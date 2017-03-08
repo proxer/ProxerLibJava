@@ -1,6 +1,10 @@
+apply plugin: 'idea'
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 apply plugin: "jacoco"
+apply plugin: 'io.franzbecker.gradle-lombok'
+
+import io.franzbecker.gradle.lombok.task.DelombokTask
 
 dependencies {
     api deps.jetbrainsAnnotations
@@ -10,10 +14,31 @@ dependencies {
     api deps.okhttp
     api deps.moshi
 
+    compileOnly deps.lombok
+
     testImplementation deps.junit
     testImplementation deps.assertj
 
     testImplementation deps.mockwebserver
+}
+
+task delombok(type: DelombokTask, dependsOn: compileJava) {
+    ext.outputDir = file("$buildDir/delombok")
+    outputs.dir(outputDir)
+
+    sourceSets.main.java.srcDirs.each {
+        inputs.dir(it)
+
+        //noinspection GroovyAssignabilityCheck
+        args(it, "-d", outputDir)
+    }
+}
+
+javadoc {
+    dependsOn delombok
+
+    source = delombok.outputDir
+    failOnError = false
 }
 
 task sourceJar(type: Jar, dependsOn: classes) {
