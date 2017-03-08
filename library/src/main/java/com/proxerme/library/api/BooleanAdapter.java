@@ -1,6 +1,7 @@
 package com.proxerme.library.api;
 
 import com.squareup.moshi.FromJson;
+import com.squareup.moshi.JsonDataException;
 
 import java.text.ParseException;
 
@@ -15,6 +16,15 @@ class BooleanAdapter {
     boolean fromJson(final Object json) throws ParseException {
         final String jsonString = json.toString();
 
-        return jsonString.equals("true") || jsonString.equals("1");
+        switch (jsonString) {
+            case "true":
+            case "1":
+                return true;
+            case "false":
+            case "0":
+                return false;
+            default:
+                throw new JsonDataException("Unable to map " + jsonString + " to a boolean value");
+        }
     }
 }

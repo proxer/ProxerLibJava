@@ -29,8 +29,8 @@ final class DateAdapter {
     }
 
     @ToJson
-    String toJson(final Date date) {
-        return String.valueOf(date.getTime());
+    long toJson(final Date date) {
+        return date.getTime();
     }
 
     private Long toLongOrNull(String candidate) {
