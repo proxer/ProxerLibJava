@@ -4,6 +4,8 @@ import com.proxerme.library.enums.Category;
 import com.proxerme.library.enums.Medium;
 import com.proxerme.library.interfaces.IdItem;
 import com.squareup.moshi.Json;
+import lombok.Getter;
+import lombok.Value;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -11,98 +13,35 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ruben Gees
  */
+@SuppressWarnings("JavaDoc")
+@Value
 public class TopTenEntry implements IdItem {
 
-    @Json(name = "eid")
-    private String id;
-    @Json(name = "name")
-    private String name;
-    @Json(name = "kat")
-    private Category category;
-    @Json(name = "medium")
-    private Medium medium;
-
-    private TopTenEntry() {
-
-    }
-
     /**
-     * The constructor.
-     *
-     * @param id       The id of the entry.
-     * @param name     The name of the entry.
-     * @param category The category.
-     * @param medium   The medium.
-     */
-    public TopTenEntry(@NotNull final String id, @NotNull final String name, @NotNull final Category category,
-                       @NotNull final Medium medium) {
-        this.id = id;
-        this.name = name;
-        this.category = category;
-        this.medium = medium;
-    }
-
-    /**
-     * Returns the id of this entry.
-     *
      * @return The id.
      */
-    @Override
-    @NotNull
-    public String getId() {
-        return id;
-    }
+    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Json(name = "eid")
+    private String id;
 
     /**
-     * Returns the name of this entry.
-     *
      * @return The name.
      */
-    @NotNull
-    public String getName() {
-        return name;
-    }
+    @Getter(onMethod = @__({@NotNull}))
+    @Json(name = "name")
+    private String name;
 
     /**
-     * Returns the category of this entry.
-     *
      * @return The category.
      */
-    @NotNull
-    public Category getCategory() {
-        return category;
-    }
+    @Getter(onMethod = @__({@NotNull}))
+    @Json(name = "kat")
+    private Category category;
 
     /**
-     * Returns the medium of this entry.
-     *
      * @return The medium.
      */
-    @NotNull
-    public Medium getMedium() {
-        return medium;
-    }
-
-    @SuppressWarnings("SimplifiableIfStatement")
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        TopTenEntry that = (TopTenEntry) o;
-
-        if (!id.equals(that.id)) return false;
-        if (!name.equals(that.name)) return false;
-        if (category != that.category) return false;
-        return medium == that.medium;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + category.hashCode();
-        result = 31 * result + medium.hashCode();
-        return result;
-    }
+    @Getter(onMethod = @__({@NotNull}))
+    @Json(name = "medium")
+    private Medium medium;
 }
