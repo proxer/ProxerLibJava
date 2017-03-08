@@ -29,8 +29,10 @@ interface InternalApi {
 
     @GET("user/list")
     ProxerCall<List<UserMediaListEntry>> userMediaList(@Query("uid") String userId, @Query("username") String username,
-                                                       @Query("kat") Category category, @Query("p") int page,
-                                                       @Query("limit") int limit, @Query("search") String query,
+                                                       @Query("kat") Category category, @Query("p") Integer page,
+                                                       @Query("limit") Integer limit, @Query("search") String query,
                                                        @Query("search_start") String startQuery,
                                                        @Query("sort") UserMediaListSortCriteria sortCriteria);
+
+
 }
