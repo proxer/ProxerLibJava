@@ -14,7 +14,7 @@ dependencies {
     api deps.okhttp
     api deps.moshi
 
-    compileOnly deps.lombok
+    implementation deps.lombok
 
     testImplementation deps.junit
     testImplementation deps.assertj
