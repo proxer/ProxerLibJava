@@ -12,7 +12,7 @@ def retrofitVersion = '2.2.0'
 def okhttpVersion = '3.6.0'
 def moshiVersion = '1.4.0'
 
-def lombokVersion = '1.12.6'
+def lombokVersion = '1.16.14'
 
 def junitVersion = '4.12'
 def assertjVersion = '3.6.2'
