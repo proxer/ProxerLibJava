@@ -10,12 +10,14 @@ tasks.matching { it instanceof JavaCompile && it.name != "compileTestJava" }.all
     sourceCompatibility = rootProject.ext.sourceCompatibility
     targetCompatibility = rootProject.ext.targetCompatibility
 
-    println("Java Home:" + System.getenv("JAVA_HOME"))
+    if (System.getenv("CIRCLECI") || System.getenv("JITPACK")) {
+        def java7Installation = System.properties.'java.home'
+                .replace("8", String.valueOf(rootProject.ext.targetCompatibility))
 
-    if (System.getenv('CIRCLECI')) {
-        options.bootClasspath = "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar"
-    } else if (System.getenv('JITPACK')) {
-        options.bootClasspath = "/usr/lib/jvm/java-7-openjdk/jre/lib/rt.jar"
+        //noinspection GroovyAssignabilityCheck
+        if (new File(java7Installation).exists()) {
+            options.bootClasspath = java7Installation
+        }
     }
 }
 
