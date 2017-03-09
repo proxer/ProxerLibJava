@@ -3,6 +3,7 @@ package com.proxerme.library.api.user;
 import com.proxerme.library.api.Endpoint;
 import com.proxerme.library.api.ProxerCall;
 import com.proxerme.library.entitiy.user.User;
+import lombok.experimental.Accessors;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -10,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ruben Gees
  */
+@Accessors(fluent = true)
 public class LoginEndpoint implements Endpoint {
 
     private final InternalApi internalApi;

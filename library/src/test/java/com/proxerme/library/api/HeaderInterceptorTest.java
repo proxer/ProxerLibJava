@@ -35,7 +35,7 @@ public class HeaderInterceptorTest extends ProxerTest {
     public void testCustomUserAgent() throws IOException, ProxerException, InterruptedException {
         api = new ProxerApi.Builder("mockKey")
                 .userAgent("test")
-                .okHttp(client)
+                .client(client)
                 .build();
 
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));

@@ -2,6 +2,7 @@ package com.proxerme.library.api.user;
 
 import com.proxerme.library.api.Endpoint;
 import com.proxerme.library.api.ProxerCall;
+import lombok.experimental.Accessors;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -9,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ruben Gees
  */
+@Accessors(fluent = true)
 public class LogoutEndpoint implements Endpoint {
 
     private final InternalApi internalApi;

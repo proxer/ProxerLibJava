@@ -6,6 +6,9 @@ import com.proxerme.library.api.notifications.NotificationsApi;
 import com.proxerme.library.api.user.UserApi;
 import com.proxerme.library.util.ProxerUrls;
 import com.squareup.moshi.Moshi;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.NotNull;
@@ -16,15 +19,40 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 import java.util.List;
 
 /**
- * TODO: Describe class
+ * Class for access to the various APIs of Proxer.
+ * <p>
+ * Before usage, you have to construct an instance through the {@link Builder}.
+ * <p>
+ * Note, that this is not a singleton. Each instance is separated from each other; You could even have instances with a
+ * different api key.
  *
  * @author Ruben Gees
  */
+@Accessors(fluent = true)
 public final class ProxerApi {
 
+    /**
+     * Returns the respective API.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     private final NotificationsApi notifications;
+
+    /**
+     * Returns the respective API.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     private final UserApi user;
+
+    /**
+     * Returns the respective API.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     private final InfoApi info;
+
+    /**
+     * Returns the respective API.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     private final MessengerApi messenger;
 
     ProxerApi(@NotNull final Retrofit retrofit) {
@@ -34,83 +62,76 @@ public final class ProxerApi {
         messenger = new MessengerApi(retrofit);
     }
 
-    @NotNull
-    public NotificationsApi notifications() {
-        return notifications;
-    }
-
-    @NotNull
-    public UserApi user() {
-        return user;
-    }
-
-    @NotNull
-    public InfoApi info() {
-        return info;
-    }
-
-    @NotNull
-    public MessengerApi messenger() {
-        return messenger;
-    }
-
+    /**
+     * Builder class for the API.
+     * <p>
+     * You can set customized instances, of the internally used libraries: Moshi, OkHttp and Retrofit.
+     * Moreover you can specify your own {@link LoginTokenManager} and user agent.
+     */
+    @Accessors(fluent = true)
     public static class Builder {
 
         private static final String DEFAULT_USER_AGENT = "ProxerLibJava/3.0.0";
 
         private final String apiKey;
+
+        /**
+         * Sets a custom login token manager.
+         */
+        @Setter(onMethod = @__({@Nullable}))
         private LoginTokenManager loginTokenManager;
+
+        /**
+         * Sets a custom user agent.
+         * <p>
+         * If not set, it will default to "ProxerLibJava/[version]"
+         */
+        @Setter(onMethod = @__({@Nullable}))
         private String userAgent;
 
+        /**
+         * Sets a custom Moshi instance.
+         * <p>
+         * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
+         * instance.
+         */
+        @Setter(onMethod = @__({@Nullable}))
         private Moshi moshi;
-        private OkHttpClient okHttp;
+
+        /**
+         * Sets a custom OkHttp instance.
+         * <p>
+         * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
+         * instance.
+         */
+        @Setter(onMethod = @__({@Nullable}))
+        private OkHttpClient client;
+
+        /**
+         * Sets a custom Retrofit instance.
+         * <p>
+         * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
+         * instance.
+         */
+        @Setter(onMethod = @__({@Nullable}))
         private Retrofit retrofit;
 
+        /**
+         * Constructs a new instance of the builder, with the passed {@code apiKey}.
+         */
         public Builder(@NotNull final String apiKey) {
             this.apiKey = apiKey;
         }
 
-        @NotNull
-        public Builder loginTokenManager(@NotNull final LoginTokenManager loginTokenManager) {
-            this.loginTokenManager = loginTokenManager;
-
-            return this;
-        }
-
-        @NotNull
-        public Builder userAgent(@Nullable final String userAgent) {
-            this.userAgent = userAgent;
-
-            return this;
-        }
-
-        @NotNull
-        public Builder moshi(@Nullable final Moshi moshi) {
-            this.moshi = moshi;
-
-            return this;
-        }
-
-        @NotNull
-        public Builder okHttp(@Nullable final OkHttpClient okHttp) {
-            this.okHttp = okHttp;
-
-            return this;
-        }
-
-        @NotNull
-        public Builder retrofit(@Nullable final Retrofit retrofit) {
-            this.retrofit = retrofit;
-
-            return this;
-        }
-
+        /**
+         * Finally builds the {@link ProxerApi} with the provided adjustments.
+         */
         @NotNull
         public ProxerApi build() {
             initLoginTokenManager();
             initUserAgent();
             initMoshi();
-            initOkHttp();
+            initClient();
             initRetrofit();
 
             return new ProxerApi(retrofit);
@@ -147,13 +168,13 @@ public final class ProxerApi {
                     .build();
         }
 
-        private void initOkHttp() {
+        private void initClient() {
             final OkHttpClient.Builder builder;
 
-            if (okHttp == null) {
+            if (client == null) {
                 builder = new OkHttpClient.Builder();
             } else {
-                builder = okHttp.newBuilder();
+                builder = client.newBuilder();
             }
 
             final List<Interceptor> existingInterceptors = builder.interceptors();
@@ -161,7 +182,7 @@ public final class ProxerApi {
             existingInterceptors.add(0, new HeaderInterceptor(apiKey, userAgent));
             existingInterceptors.add(1, new LoginTokenInterceptor(loginTokenManager));
 
-            okHttp = builder.build();
+            client = builder.build();
         }
 
         private void initRetrofit() {
@@ -174,7 +195,7 @@ public final class ProxerApi {
             }
 
             retrofit = builder.baseUrl(ProxerUrls.apiBase())
-                    .client(okHttp)
+                    .client(client)
                     .addCallAdapterFactory(new ProxerResponseCallAdapterFactory())
                     .addConverterFactory(MoshiConverterFactory.create(moshi))
                     .addConverterFactory(new EnumRetrofitConverterFactory())

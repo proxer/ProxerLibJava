@@ -38,7 +38,7 @@ public abstract class ProxerTest {
                     return chain.proceed(chain.request().newBuilder().url(newUrl).build());
                 }).build();
         api = new ProxerApi.Builder("mockKey")
-                .okHttp(client)
+                .client(client)
                 .build();
 
         server.start();
