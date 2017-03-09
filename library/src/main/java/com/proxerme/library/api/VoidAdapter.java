@@ -5,8 +5,6 @@ import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.ToJson;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 final class VoidAdapter {
@@ -23,7 +21,7 @@ final class VoidAdapter {
     }
 
     @ToJson
-    String toJson(final Void nothingness) {
+    String toJson(@SuppressWarnings("unused") final Void nothingness) {
         return JSON_NULL;
     }
 }

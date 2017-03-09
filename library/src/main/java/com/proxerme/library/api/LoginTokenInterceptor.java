@@ -17,8 +17,6 @@ import java.util.regex.Pattern;
 import static java.util.regex.Pattern.DOTALL;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 final class LoginTokenInterceptor implements Interceptor {

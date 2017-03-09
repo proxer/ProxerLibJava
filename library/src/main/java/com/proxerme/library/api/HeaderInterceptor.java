@@ -10,8 +10,6 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 final class HeaderInterceptor implements Interceptor {

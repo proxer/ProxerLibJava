@@ -62,8 +62,8 @@ public class EntryEndpointTest extends ProxerTest {
                 Category.MANGA, Licence.NOT_LICENSED, false, Arrays.asList(
                 new Synonym("12322", "6174", SynonymType.ORIGINAL, "LuCu LuCu"),
                 new Synonym("12323", "6174", SynonymType.JAPANESE, "るくるく"),
-                new Synonym("44662", "6174", SynonymType.ALTERNATIVE, "Lucu Lucu"),
-                new Synonym("44663", "6174", SynonymType.ALTERNATIVE, "LuCuLuCu")
+                new Synonym("44662", "6174", SynonymType.ORIGINAL_ALTERNATIVE, "Lucu Lucu"),
+                new Synonym("44663", "6174", SynonymType.ORIGINAL_ALTERNATIVE, "LuCuLuCu")
         ), Collections.singleton(MediaLanguage.ENGLISH), Arrays.asList(
                 new EntrySeasonInfo("1061", 2002, Season.UNSPECIFIED_ALT),
                 new EntrySeasonInfo("15776", 2009, Season.UNSPECIFIED_ALT)

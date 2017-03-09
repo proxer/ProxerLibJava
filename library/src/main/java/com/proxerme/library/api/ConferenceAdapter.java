@@ -10,8 +10,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Date;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 class ConferenceAdapter {

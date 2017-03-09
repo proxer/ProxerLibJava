@@ -11,11 +11,9 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
-class ProxerResponseCallAdapterFactory extends CallAdapter.Factory {
+final class ProxerResponseCallAdapterFactory extends CallAdapter.Factory {
 
     @Override
     public CallAdapter<?, ?> get(final Type returnType, final Annotation[] annotations, final Retrofit retrofit) {

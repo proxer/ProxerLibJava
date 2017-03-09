@@ -4,8 +4,6 @@ import com.squareup.moshi.FromJson;
 import com.squareup.moshi.JsonDataException;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 class BooleanAdapter {

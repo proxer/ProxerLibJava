@@ -9,8 +9,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 final class EnumRetrofitConverterFactory extends Converter.Factory {

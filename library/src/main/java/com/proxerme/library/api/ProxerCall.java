@@ -13,7 +13,10 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 
 /**
- * TODO: Describe class
+ * Class for performing a single request.
+ * <p>
+ * It provides nearly the same API as Retrofit's {@link Call}, thus allowing for synchronous and asynchronous
+ * requests and cancellation.
  *
  * @author Ruben Gees
  */
@@ -21,10 +24,16 @@ public final class ProxerCall<T> implements Cloneable {
 
     private final Call<ProxerResponse<T>> internalCall;
 
-    public ProxerCall(@NotNull final Call<ProxerResponse<T>> call) {
+    ProxerCall(@NotNull final Call<ProxerResponse<T>> call) {
         this.internalCall = call;
     }
 
+    /**
+     * Executes the request synchronous.
+     * <p>
+     * Upon success, the result entity is returned. If an error occurs, the respective {@link ProxerException} is
+     * thrown.
+     */
     public T execute() throws ProxerException {
         try {
             return processResponse(internalCall.execute());
@@ -35,6 +44,15 @@ public final class ProxerCall<T> implements Cloneable {
         }
     }
 
+    /**
+     * Executes the request asynchronous.
+     * <p>
+     * Upon success, the result is returned on the {@code callback}. If an error occurs, the respective
+     * {@link ProxerException} is returned on the {@code errorCallback}.
+     * <p>
+     * Note that this method does not know anything about the threads, it is running on. If you need to switch to
+     * another thread (the main thread on Android for example), you have to do this yourself.
+     */
     public void enqueue(@Nullable final ProxerCallback<T> callback, @Nullable final ProxerErrorCallback errorCallback) {
         internalCall.enqueue(new Callback<ProxerResponse<T>>() {
             @Override
@@ -59,22 +77,37 @@ public final class ProxerCall<T> implements Cloneable {
         });
     }
 
+    /**
+     * Returns if this call has already been executed. It is an error to execute the same Call multiple times.
+     */
     public boolean isExecuted() {
         return internalCall.isExecuted();
     }
 
+    /**
+     * Cancels this call.
+     */
     public void cancel() {
         internalCall.cancel();
     }
 
+    /**
+     * Returns if the call has been canceled.
+     */
     public boolean isCanceled() {
         return internalCall.isCanceled();
     }
 
+    /**
+     * Clones the call for reuse.
+     */
     public ProxerCall<T> clone() {
         return new ProxerCall<>(internalCall.clone());
     }
 
+    /**
+     * Returns the underlying request.
+     */
     public Request request() {
         return internalCall.request();
     }

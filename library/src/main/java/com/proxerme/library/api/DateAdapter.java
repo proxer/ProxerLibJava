@@ -8,8 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 final class DateAdapter {

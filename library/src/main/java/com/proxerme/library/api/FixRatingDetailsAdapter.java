@@ -9,8 +9,6 @@ import com.squareup.moshi.ToJson;
 import java.io.IOException;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 class FixRatingDetailsAdapter {

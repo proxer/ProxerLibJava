@@ -1,20 +1,42 @@
 package com.proxerme.library.api;
 
 import com.squareup.moshi.JsonDataException;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * TODO: Describe class
+ * Common Exception for all errors, occurring around the api.
+ * <p>
+ * {@link #getError()} returns the general type of error. This could for example be an {@link ErrorType#IO} error,
+ * or invalid JSON data (leading to {@link ErrorType#PARSING}). If the type is {@link ErrorType#SERVER},
+ * {@link #getServerError()} returns the type of server error. Moreover, message is set in that case.
  *
  * @author Ruben Gees
  */
 public final class ProxerException extends Exception {
 
+    /**
+     * Returns the error type of this exception.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     private final ErrorType error;
-    private ServerErrorType serverError;
-    private String message;
 
+    /**
+     * Returns the server error type if, and only if, {@link #getError()} returns {@link ErrorType#SERVER}.
+     */
+    @Getter(onMethod = @__({@Nullable}))
+    private final ServerErrorType serverError;
+
+    /**
+     * Returns a error message from the server if, and only if, {@link #getError()} returns {@link ErrorType#SERVER}.
+     */
+    @Getter(onMethod = @__({@Override, @Nullable}))
+    private final String message;
+
+    /**
+     * Constructs an instance from the passed {@code error}, {@code serverError} and {@code message}.
+     */
     public ProxerException(@NotNull final ErrorType error, @Nullable final ServerErrorType serverError,
                            @Nullable final String message) {
         this.error = error;
@@ -22,6 +44,11 @@ public final class ProxerException extends Exception {
         this.message = message;
     }
 
+    /**
+     * Constructs an instance from the passed {@code error}, {@code serverErrorCode} and {@code message}.
+     * <p>
+     * If a invalid number is passed for the {@code serverErrorCode}, an error is thrown.
+     */
     public ProxerException(@NotNull final ErrorType error, @Nullable final Integer serverErrorCode,
                            @Nullable final String message) {
         this.error = error;
@@ -29,24 +56,15 @@ public final class ProxerException extends Exception {
         this.message = message;
     }
 
+    /**
+     * Constructs an instance from the passed {@code error}.
+     * <p>
+     * {@link #getServerError()} and {@link #getMessage()} will return null.
+     */
     public ProxerException(@NotNull final ErrorType error) {
         this.error = error;
-    }
-
-    @NotNull
-    public ErrorType getError() {
-        return error;
-    }
-
-    @Nullable
-    public ServerErrorType getServerError() {
-        return serverError;
-    }
-
-    @Override
-    @Nullable
-    public String getMessage() {
-        return message;
+        this.serverError = null;
+        this.message = null;
     }
 
     public enum ErrorType {

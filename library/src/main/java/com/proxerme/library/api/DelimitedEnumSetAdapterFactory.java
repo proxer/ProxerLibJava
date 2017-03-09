@@ -14,8 +14,6 @@ import java.util.EnumSet;
 import java.util.Set;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
