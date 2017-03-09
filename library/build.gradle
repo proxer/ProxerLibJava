@@ -6,6 +6,15 @@ apply plugin: 'maven-publish'
 apply plugin: "jacoco"
 apply plugin: "io.freefair.javadoc-links"
 
+tasks.matching { it instanceof JavaCompile && it.name != "compileTestJava" }.all {
+    sourceCompatibility = rootProject.ext.sourceCompatibility
+    targetCompatibility = rootProject.ext.targetCompatibility
+
+    if (System.getenv('CIRCLECI')) {
+        options.bootClasspath = "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar"
+    }
+}
+
 dependencies {
     api deps.jetbrainsAnnotations
 
@@ -46,7 +55,7 @@ javadoc {
     dependsOn delombok
 
     options.memberLevel = JavadocMemberLevel.PUBLIC
-    options.linkSource true
+    options.addBooleanOption('Xdoclint:-missing', true)
     options { links "http://docs.oracle.com/javase/7/docs/api/" }
 
     source = delombok.outputDir

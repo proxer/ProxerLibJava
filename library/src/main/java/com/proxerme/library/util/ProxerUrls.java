@@ -20,7 +20,7 @@ import static com.proxerme.library.util.ProxerUrls.Device.DEFAULT;
 public final class ProxerUrls {
 
     /**
-     * @return The base url for all web pages.
+     * Returns the base url for all web pages.
      */
     @Getter(onMethod = @__({@NotNull}))
     private final HttpUrl webBase = new HttpUrl.Builder()
@@ -30,7 +30,7 @@ public final class ProxerUrls {
             .build();
 
     /**
-     * @return The base url for all api calls.
+     * Returns the base url for all api calls.
      */
     @Getter(onMethod = @__({@NotNull}))
     private final HttpUrl apiBase = webBase.newBuilder()
@@ -40,7 +40,7 @@ public final class ProxerUrls {
             .build();
 
     /**
-     * @return The base url for all image links.
+     * Returns the base url for all image links.
      */
     @Getter(onMethod = @__({@NotNull}))
     private final HttpUrl cdnBase = new HttpUrl.Builder()
@@ -50,9 +50,8 @@ public final class ProxerUrls {
             .build();
 
     /**
-     * @param id      The id.
-     * @param imageId The image id.
-     * @return The image link of a {@link com.proxerme.library.entitiy.notifications.NewsArticle}.
+     * Returns the image link of a {@link com.proxerme.library.entitiy.notifications.NewsArticle}, based on its
+     * {@code id} and {@code imageId}.
      */
     @NotNull
     public HttpUrl newsImage(@NotNull final String id, @NotNull final String imageId) {
@@ -65,8 +64,7 @@ public final class ProxerUrls {
     }
 
     /**
-     * @param imageId The id.
-     * @return The image link of the user.
+     * Returns the image link of the user.
      */
     @NotNull
     public HttpUrl userImage(@NotNull final String imageId) {
@@ -78,8 +76,7 @@ public final class ProxerUrls {
     }
 
     /**
-     * @param id The id.
-     * @return The cover image link of an entry.
+     * Returns the cover image link of the entry.
      */
     @NotNull
     public HttpUrl entryImage(@NotNull final String id) {
@@ -92,8 +89,7 @@ public final class ProxerUrls {
     }
 
     /**
-     * @param id The id.
-     * @return The image link of the translator group.
+     * Returns the image link of the translator group.
      */
     @NotNull
     public HttpUrl translatorGroupImage(@NotNull final String id) {
@@ -105,8 +101,7 @@ public final class ProxerUrls {
     }
 
     /**
-     * @param id The id.
-     * @return The image link of the industry.
+     * Returns the image link of the industry.
      */
     @NotNull
     public HttpUrl industryImage(@NotNull final String id) {
@@ -118,8 +113,7 @@ public final class ProxerUrls {
     }
 
     /**
-     * @param id The id.
-     * @return The image link of the hoster.
+     * Returns the image link of the hoster.
      */
     @NotNull
     public static HttpUrl hosterImage(@NotNull final String id) {
@@ -132,11 +126,8 @@ public final class ProxerUrls {
     }
 
     /**
-     * @param server  The server number, the chapter resides on.
-     * @param entryId The id of the associated {@link com.proxerme.library.entitiy.info.Entry}.
-     * @param id      The id of the chapter.
-     * @param name    The filename of the page.
-     * @return The image link of the page.
+     * Returns the image link of the page, based on the {@code server} number, the {@code entryId}, the {@code id} of
+     * the chapter and the file{@code name} of the page.
      */
     @NotNull
     public static HttpUrl mangaPageImage(@NotNull final String server, @NotNull final String entryId,
@@ -153,7 +144,7 @@ public final class ProxerUrls {
     }
 
     /**
-     * @return The link for the donation web page.
+     * Returns the link for the donation web page.
      */
     @NotNull
     public HttpUrl donateWeb() {
@@ -164,8 +155,7 @@ public final class ProxerUrls {
     }
 
     /**
-     * @param device The device in use.
-     * @return The link for the donation web page.
+     * Returns the link for the donation web page.
      */
     @NotNull
     public HttpUrl donateWeb(@NotNull final Device device) {
@@ -175,8 +165,7 @@ public final class ProxerUrls {
     }
 
     /**
-     * @param topic The topic of the article.
-     * @return The link for the wiki web page.
+     * Returns the link for the wiki web page, based on the {@code topic}.
      */
     @NotNull
     public static HttpUrl wikiWeb(@NotNull final String topic) {
@@ -188,8 +177,7 @@ public final class ProxerUrls {
     }
 
     /**
-     * @param id The id of the user.
-     * @return The link for the user web page.
+     * Returns the link for the user's web page.
      */
     @NotNull
     public HttpUrl userWeb(@NotNull final String id) {
@@ -201,9 +189,7 @@ public final class ProxerUrls {
     }
 
     /**
-     * @param id     The id of the user.
-     * @param device The device in use.
-     * @return The link for the user web page.
+     * Returns the link for the user's web page.
      */
     @NotNull
     public HttpUrl userWeb(@NotNull final String id, @NotNull final Device device) {
@@ -213,9 +199,8 @@ public final class ProxerUrls {
     }
 
     /**
-     * @param categoryId The id of the category.
-     * @param threadId   The id of the thread.
-     * @return The link for the web page of the requested forum thread.
+     * Returns the link for the web page of the requested forum thread, residing in the category, specified by the
+     * {@code categoryId}.
      */
     @NotNull
     public HttpUrl forumWeb(@NotNull final String categoryId, @NotNull final String threadId) {
@@ -228,10 +213,8 @@ public final class ProxerUrls {
     }
 
     /**
-     * @param categoryId The id of the category.
-     * @param threadId   The id of the thread.
-     * @param device     The device in use.
-     * @return The link for the web page of the requested forum thread.
+     * Returns the link for the web page of the requested forum thread, residing in the category, specified by the
+     * {@code categoryId}.
      */
     @NotNull
     public HttpUrl forumWeb(@NotNull final String categoryId, @NotNull final String threadId,
@@ -242,9 +225,8 @@ public final class ProxerUrls {
     }
 
     /**
-     * @param categoryId The id of the category.
-     * @param threadId   The id of the thread.
-     * @return The link for the web page of the requested news article.
+     * Returns the link for the web page of the requested news article, residing in the category, specified by the
+     * {@code categoryId}.
      */
     @NotNull
     public HttpUrl newsWeb(@NotNull final String categoryId, @NotNull final String threadId) {
@@ -252,10 +234,8 @@ public final class ProxerUrls {
     }
 
     /**
-     * @param categoryId The id of the category.
-     * @param threadId   The id of the thread.
-     * @param device     The device in use.
-     * @return The link for the web page of the requested news article.
+     * Returns the link for the web page of the requested news article, residing in the category, specified by the
+     * {@code categoryId}.
      */
     @NotNull
     public HttpUrl newsWeb(@NotNull final String categoryId, @NotNull final String threadId,

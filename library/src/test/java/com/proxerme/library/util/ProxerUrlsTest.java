@@ -7,7 +7,7 @@ import static com.proxerme.library.util.ProxerUrls.Device.MOBILE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * TODO: Describe class
+ * Tests for the {@link ProxerUrls} utility class.
  *
  * @author Ruben Gees
  */

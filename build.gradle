@@ -53,15 +53,6 @@ allprojects {
         options.encoding = 'UTF-8'
     }
 
-    tasks.matching { it instanceof JavaCompile && it.name != "compileTestJava" }.all {
-        sourceCompatibility = rootProject.ext.sourceCompatibility
-        targetCompatibility = rootProject.ext.targetCompatibility
-
-        if (System.getenv('CIRCLECI')) {
-            options.bootClasspath = "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar"
-        }
-    }
-
     repositories {
         mavenCentral()
         jcenter()
