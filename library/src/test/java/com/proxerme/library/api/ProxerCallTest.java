@@ -73,6 +73,26 @@ public class ProxerCallTest extends ProxerTest {
     }
 
     @Test
+    public void testEnqueueError() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        server.enqueue(new MockResponse().setBody(fromResource("news.json")).setResponseCode(404));
+
+        api.notifications().news().build().enqueue(result -> {
+                    // Failed. The lock will never be counted down and timeout.
+                },
+                exception -> {
+                    if (exception.getError() == ProxerException.ErrorType.IO) {
+                        lock.countDown();
+                    }
+
+                    // Failed: Not the exception we want. The lock will never be counted down and timeout.
+                });
+
+        lock.await();
+    }
+
+    @Test
     public void testIsExecuted() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
 
