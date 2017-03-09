@@ -3,7 +3,7 @@ package com.proxerme.library.enums;
 import com.squareup.moshi.Json;
 
 /**
- * TODO: Create class
+ * Enum holding the available licence types.
  *
  * @author Ruben Gees
  */

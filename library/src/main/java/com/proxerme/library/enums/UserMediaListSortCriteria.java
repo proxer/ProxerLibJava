@@ -3,7 +3,7 @@ package com.proxerme.library.enums;
 import com.squareup.moshi.Json;
 
 /**
- * TODO: Describe class
+ * Enum holding the available sort types for the user media list.
  *
  * @author Ruben Gees
  */

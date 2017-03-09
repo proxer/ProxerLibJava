@@ -3,7 +3,7 @@ package com.proxerme.library.enums;
 import com.squareup.moshi.Json;
 
 /**
- * TODO: Describe class
+ * Enum holding the available stats of an {@link com.proxerme.library.entitiy.info.Entry}.
  *
  * @author Ruben Gees
  */

@@ -3,7 +3,7 @@ package com.proxerme.library.enums;
 import com.squareup.moshi.Json;
 
 /**
- * TODO: Create class
+ * Enum holding the available genres.
  *
  * @author Ruben Gees
  */

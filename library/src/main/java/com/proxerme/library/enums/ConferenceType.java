@@ -3,7 +3,7 @@ package com.proxerme.library.enums;
 import com.squareup.moshi.Json;
 
 /**
- * TODO: Describe class
+ * Enum holding the available conference types.
  *
  * @author Ruben Gees
  */
