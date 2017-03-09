@@ -17,32 +17,37 @@ public class BooleanAdapterTest {
     private BooleanAdapter adapter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         adapter = new BooleanAdapter();
     }
 
     @Test
-    public void testDefault() throws Exception {
+    public void testDefault() {
         assertThat(adapter.fromJson("true")).isTrue();
     }
 
     @Test
-    public void testAlternative() throws Exception {
+    public void testAlternative() {
         assertThat(adapter.fromJson("1")).isTrue();
     }
 
     @Test
-    public void testDefaultFalse() throws Exception {
+    public void testDefaultFalse() {
         assertThat(adapter.fromJson("false")).isFalse();
     }
 
     @Test
-    public void testAlternativeFalse() throws Exception {
+    public void testAlternativeFalse() {
         assertThat(adapter.fromJson("0")).isFalse();
     }
 
     @Test
-    public void testInvalid() throws Exception {
+    public void testInvalid() {
         assertThatExceptionOfType(JsonDataException.class).isThrownBy(() -> adapter.fromJson("malformed"));
+    }
+
+    @Test
+    public void testInvalidNumber() {
+        assertThatExceptionOfType(JsonDataException.class).isThrownBy(() -> adapter.fromJson("3"));
     }
 }

@@ -73,7 +73,7 @@ public class ProxerCallTest extends ProxerTest {
     }
 
     @Test
-    public void testEnqueueError() throws Exception {
+    public void testEnqueueError() throws IOException, InterruptedException {
         final CountDownLatch lock = new CountDownLatch(1);
 
         server.enqueue(new MockResponse().setBody(fromResource("news.json")).setResponseCode(404));

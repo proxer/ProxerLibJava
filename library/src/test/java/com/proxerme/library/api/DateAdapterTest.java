@@ -22,28 +22,28 @@ public class DateAdapterTest {
     private DateAdapter adapter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         adapter = new DateAdapter();
     }
 
     @Test
-    public void testFromJsonTimestamp() throws Exception {
+    public void testFromJsonTimestamp() throws ParseException {
         assertThat(adapter.fromJson("12345")).isEqualTo(new Date(12345 * 1000));
     }
 
     @Test
-    public void testFromJsonIso() throws Exception {
+    public void testFromJsonIso() throws ParseException {
         assertThat(adapter.fromJson("2010-01-01 23:12:10"))
                 .isEqualTo(DATE_FORMAT.parse("2010-01-01 23:12:10"));
     }
 
     @Test
-    public void testFromJsonMalformed() throws Exception {
+    public void testFromJsonMalformed() {
         assertThatExceptionOfType(ParseException.class).isThrownBy(() -> adapter.fromJson("malformed"));
     }
 
     @Test
-    public void testToJson() throws Exception {
+    public void testToJson() {
         assertThat(adapter.toJson(new Date(123))).isEqualTo(123);
     }
 }

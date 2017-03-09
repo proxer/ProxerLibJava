@@ -4,6 +4,8 @@ import com.proxerme.library.ProxerTest;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -14,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class HeaderInterceptorTest extends ProxerTest {
 
     @Test
-    public void testApiKey() throws Exception {
+    public void testApiKey() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
         api.notifications().news().build().execute();
 
@@ -22,7 +24,7 @@ public class HeaderInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testDefaultUserAgent() throws Exception {
+    public void testDefaultUserAgent() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
         api.notifications().news().build().execute();
 
@@ -30,7 +32,7 @@ public class HeaderInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testCustomUserAgent() throws Exception {
+    public void testCustomUserAgent() throws IOException, ProxerException, InterruptedException {
         api = new ProxerApi.Builder("mockKey")
                 .userAgent("test")
                 .okHttp(client)

@@ -78,7 +78,7 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
             for (final T item : value) {
                 try {
                     result += enumType.getField(item.name()).getAnnotation(Json.class).name();
-                } catch (NoSuchFieldException e) {
+                } catch (final NoSuchFieldException ignored) {
                     throw new JsonDataException("Illegal item in set: " + item.name());
                 }
 
@@ -86,7 +86,7 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
             }
 
             if (!result.isEmpty()) {
-                result = result.substring(result.length() - DELIMITER.length());
+                result = result.substring(0, result.length() - DELIMITER.length());
             }
 
             writer.value(result);

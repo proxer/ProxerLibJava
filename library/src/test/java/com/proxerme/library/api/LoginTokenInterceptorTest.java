@@ -4,6 +4,8 @@ import com.proxerme.library.ProxerTest;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -14,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LoginTokenInterceptorTest extends ProxerTest {
 
     @Test
-    public void testTokenSetAfterLogin() throws Exception {
+    public void testTokenSetAfterLogin() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
         api.user().login("test", "secret").build().execute();
         server.takeRequest();
@@ -29,7 +31,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testTokenRemovedAfterLogout() throws Exception {
+    public void testTokenRemovedAfterLogout() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
         api.user().login("test", "secret").build().execute();
         server.takeRequest();
@@ -45,7 +47,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testTokenNotSetOnError() throws Exception {
+    public void testTokenNotSetOnError() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("login_error.json")));
 
         try {
@@ -63,7 +65,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testTokenNotRemovedOnError() throws Exception {
+    public void testTokenNotRemovedOnError() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
         api.user().login("test", "secret").build().execute();
         server.takeRequest();
@@ -88,7 +90,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testTokenRemovedOnLoginError() throws Exception {
+    public void testTokenRemovedOnLoginError() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
         api.user().login("test", "secret").build().execute();
         server.takeRequest();

@@ -18,7 +18,7 @@ final class EnumRetrofitConverterFactory extends Converter.Factory {
     @Override
     public Converter<?, String> stringConverter(final Type type, final Annotation[] annotations,
                                                 final Retrofit retrofit) {
-        if (type instanceof Class && ((Class<?>) type).isEnum()) {
+        if (((Class<?>) type).isEnum()) {
             return new EnumConverter();
         }
 
