@@ -11,6 +11,9 @@ import retrofit2.http.*;
 
 import java.util.List;
 
+/**
+ * @author Ruben Gees
+ */
 interface InternalApi {
 
     @FormUrlEncoded
@@ -33,6 +36,4 @@ interface InternalApi {
                                                        @Query("limit") Integer limit, @Query("search") String query,
                                                        @Query("search_start") String startQuery,
                                                        @Query("sort") UserMediaListSortCriteria sortCriteria);
-
-
 }

@@ -1,9 +1,9 @@
 package com.proxerme.library.entitiy.user;
 
+import com.proxerme.library.entitiy.interfaces.IdItem;
 import com.proxerme.library.enums.MediaState;
 import com.proxerme.library.enums.Medium;
 import com.proxerme.library.enums.UserMediaProgress;
-import com.proxerme.library.interfaces.IdItem;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Value;

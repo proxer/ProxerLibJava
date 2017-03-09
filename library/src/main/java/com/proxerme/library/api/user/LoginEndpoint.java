@@ -1,15 +1,16 @@
 package com.proxerme.library.api.user;
 
+import com.proxerme.library.api.Endpoint;
 import com.proxerme.library.api.ProxerCall;
 import com.proxerme.library.entitiy.user.User;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * TODO: Describe class
+ * Endpoint for logging an user in.
  *
  * @author Ruben Gees
  */
-public class LoginEndpoint {
+public class LoginEndpoint implements Endpoint {
 
     private final InternalApi internalApi;
 
@@ -23,6 +24,10 @@ public class LoginEndpoint {
         this.password = password;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @NotNull
     public ProxerCall<User> build() {
         return internalApi.login(username, password);

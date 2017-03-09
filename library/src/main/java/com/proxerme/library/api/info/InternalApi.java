@@ -10,6 +10,9 @@ import retrofit2.http.Query;
 
 import java.util.List;
 
+/**
+ * @author Ruben Gees
+ */
 interface InternalApi {
 
     @GET("info/comments")

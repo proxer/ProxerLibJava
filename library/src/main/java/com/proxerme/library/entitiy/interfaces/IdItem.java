@@ -1,4 +1,4 @@
-package com.proxerme.library.interfaces;
+package com.proxerme.library.entitiy.interfaces;
 
 import org.jetbrains.annotations.NotNull;
 

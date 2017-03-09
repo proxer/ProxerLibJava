@@ -1,32 +1,66 @@
 package com.proxerme.library.api.user;
 
+import com.proxerme.library.api.LimitEndpoint;
+import com.proxerme.library.api.PagingEndpoint;
 import com.proxerme.library.api.ProxerCall;
 import com.proxerme.library.entitiy.user.UserMediaListEntry;
 import com.proxerme.library.enums.Category;
 import com.proxerme.library.enums.UserMediaListSortCriteria;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 /**
- * TODO: Describe class
+ * Endpoint for requesting the media list of an user.
  *
  * @author Ruben Gees
  */
-public final class UserMediaListEndpoint {
+@Accessors(fluent = true)
+public final class UserMediaListEndpoint implements PagingEndpoint, LimitEndpoint {
 
     private final InternalApi internalApi;
 
     private final String userId;
     private final String username;
 
+    /**
+     * Sets the category to filter by.
+     */
+    @Setter(onMethod = @__({@Nullable}))
     private Category category;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Setter(onMethod = @__({@Override, @Nullable}))
     private Integer page;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Setter(onMethod = @__({@Override, @Nullable}))
     private Integer limit;
-    private String searchQuery;
-    private String searchStartQuery;
-    private UserMediaListSortCriteria sortCriteria;
+
+    /**
+     * Sets the query to search for.
+     */
+    @Setter(onMethod = @__({@Nullable}))
+    private String search;
+
+    /**
+     * Sets the query to search for only from the start.
+     */
+    @Setter(onMethod = @__({@Nullable}))
+    private String searchStart;
+
+    /**
+     * Set the criteria for sorting.
+     */
+    @Setter(onMethod = @__({@Nullable}))
+    private UserMediaListSortCriteria sort;
 
     UserMediaListEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
                           @Nullable final String username) {
@@ -39,52 +73,12 @@ public final class UserMediaListEndpoint {
         this.username = username;
     }
 
-    @NotNull
-    public UserMediaListEndpoint category(@Nullable final Category category) {
-        this.category = category;
-
-        return this;
-    }
-
-    @NotNull
-    public UserMediaListEndpoint page(@Nullable final Integer page) {
-        this.page = page;
-
-        return this;
-    }
-
-    @NotNull
-    public UserMediaListEndpoint limit(@Nullable final Integer limit) {
-        this.limit = limit;
-
-        return this;
-    }
-
-    @NotNull
-    public UserMediaListEndpoint search(@Nullable final String query) {
-        this.searchQuery = query;
-
-        return this;
-    }
-
-    @NotNull
-    public UserMediaListEndpoint searchStart(@Nullable final String query) {
-        this.searchStartQuery = query;
-
-        return this;
-    }
-
-    @NotNull
-    public UserMediaListEndpoint sort(@Nullable final UserMediaListSortCriteria criteria) {
-        this.sortCriteria = criteria;
-
-        return this;
-    }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @NotNull
     public ProxerCall<List<UserMediaListEntry>> build() {
-        return internalApi.userMediaList(userId, username, category, page, limit, searchQuery, searchStartQuery,
-                sortCriteria);
-
+        return internalApi.userMediaList(userId, username, category, page, limit, search, searchStart, sort);
     }
 }

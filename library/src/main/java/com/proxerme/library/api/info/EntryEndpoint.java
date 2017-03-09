@@ -1,15 +1,18 @@
 package com.proxerme.library.api.info;
 
+import com.proxerme.library.api.Endpoint;
 import com.proxerme.library.api.ProxerCall;
 import com.proxerme.library.entitiy.info.Entry;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * TODO: Create class
+ * Endpoint for retrieving all information of an {@link Entry}.
+ * <p>
+ * If you do not need everything, consider using the {@link EntryCoreEndpoint}.
  *
  * @author Ruben Gees
  */
-public class EntryEndpoint {
+public class EntryEndpoint implements Endpoint {
 
     private final InternalApi internalApi;
 
@@ -20,6 +23,10 @@ public class EntryEndpoint {
         this.id = id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @NotNull
     public ProxerCall<Entry> build() {
         return internalApi.entry(id);

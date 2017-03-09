@@ -1,16 +1,19 @@
 package com.proxerme.library.api.user;
 
+import com.proxerme.library.api.Endpoint;
 import com.proxerme.library.api.ProxerCall;
 import com.proxerme.library.entitiy.user.UserInfo;
+import lombok.experimental.Accessors;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * TODO: Describe class
+ * Endpoint for requesting various information of an user.
  *
  * @author Ruben Gees
  */
-public class UserInfoEndpoint {
+@Accessors(fluent = true)
+public class UserInfoEndpoint implements Endpoint {
 
     private final InternalApi internalApi;
 
@@ -28,6 +31,10 @@ public class UserInfoEndpoint {
         this.username = username;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @NotNull
     public ProxerCall<UserInfo> build() {
         return internalApi.userInfo(userId, username);

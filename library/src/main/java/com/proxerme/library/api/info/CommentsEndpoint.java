@@ -1,56 +1,58 @@
 package com.proxerme.library.api.info;
 
+import com.proxerme.library.api.LimitEndpoint;
+import com.proxerme.library.api.PagingEndpoint;
 import com.proxerme.library.api.ProxerCall;
 import com.proxerme.library.entitiy.info.Comment;
 import com.proxerme.library.enums.CommentSortCriteria;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 /**
- * TODO: Describe class
+ * Endpoint for retrieving the comments of an {@link com.proxerme.library.entitiy.info.Entry}.
  *
  * @author Ruben Gees
  */
-public final class CommentsEndpoint {
+@Accessors(fluent = true)
+public final class CommentsEndpoint implements PagingEndpoint, LimitEndpoint {
 
     private final InternalApi internalApi;
 
     private final String id;
 
+    /**
+     * {@inheritDoc}
+     */
+    @Setter(onMethod = @__({@Override, @Nullable}))
     private Integer page;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Setter(onMethod = @__({@Override, @Nullable}))
     private Integer limit;
-    private CommentSortCriteria sortCriteria;
+
+    /**
+     * Sets criteria on how to sort the comments.
+     */
+    @Setter(onMethod = @__({@Nullable}))
+    private CommentSortCriteria sort;
 
     CommentsEndpoint(@NotNull final InternalApi internalApi, @NotNull final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
 
-    @NotNull
-    public CommentsEndpoint page(@Nullable final Integer page) {
-        this.page = page;
-
-        return this;
-    }
-
-    @NotNull
-    public CommentsEndpoint limit(@Nullable final Integer limit) {
-        this.limit = limit;
-
-        return this;
-    }
-
-    @NotNull
-    public CommentsEndpoint sort(@Nullable final CommentSortCriteria criteria) {
-        this.sortCriteria = criteria;
-
-        return this;
-    }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @NotNull
     public ProxerCall<List<Comment>> build() {
-        return internalApi.comments(id, page, limit, sortCriteria);
+        return internalApi.comments(id, page, limit, sort);
     }
 }

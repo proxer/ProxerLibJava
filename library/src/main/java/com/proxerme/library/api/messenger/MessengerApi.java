@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 
 /**
- * TODO: Describe class
+ * API for the Messenger class.
  *
  * @author Ruben Gees
  */
@@ -12,10 +12,16 @@ public final class MessengerApi {
 
     private final InternalApi internalApi;
 
+    /**
+     * Only for internal use.
+     */
     public MessengerApi(@NotNull final Retrofit retrofit) {
         this.internalApi = retrofit.create(InternalApi.class);
     }
 
+    /**
+     * Returns the respective endpoint.
+     */
     @NotNull
     public ConferencesEndpoint conferences() {
         return new ConferencesEndpoint(internalApi);

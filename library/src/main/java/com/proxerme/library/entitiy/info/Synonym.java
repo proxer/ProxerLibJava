@@ -1,7 +1,7 @@
 package com.proxerme.library.entitiy.info;
 
+import com.proxerme.library.entitiy.interfaces.IdItem;
 import com.proxerme.library.enums.SynonymType;
-import com.proxerme.library.interfaces.IdItem;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Value;
