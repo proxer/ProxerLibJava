@@ -17,7 +17,7 @@ import java.net.SocketTimeoutException;
  *
  * @author Ruben Gees
  */
-public final class ProxerCall<T> {
+public final class ProxerCall<T> implements Cloneable {
 
     private final Call<ProxerResponse<T>> internalCall;
 
@@ -28,16 +28,10 @@ public final class ProxerCall<T> {
     public T execute() throws ProxerException {
         try {
             return processResponse(internalCall.execute());
-        } catch (ProxerException error) {
+        } catch (final ProxerException error) {
             throw error;
-        } catch (SocketTimeoutException error) {
-            throw new ProxerException(ProxerException.ErrorType.TIMEOUT);
-        } catch (IOException error) {
-            throw new ProxerException(ProxerException.ErrorType.IO);
-        } catch (JsonDataException error) {
-            throw new ProxerException(ProxerException.ErrorType.PARSING);
-        } catch (Throwable error) {
-            throw new ProxerException(ProxerException.ErrorType.UNKNOWN);
+        } catch (final Throwable error) {
+            throw processNonProxerError(error);
         }
     }
 
@@ -59,15 +53,7 @@ public final class ProxerCall<T> {
             @Override
             public void onFailure(final Call<ProxerResponse<T>> call, final Throwable error) {
                 if (errorCallback != null) {
-                    if (error instanceof SocketTimeoutException) {
-                        errorCallback.onError(new ProxerException(ProxerException.ErrorType.TIMEOUT));
-                    } else if (error instanceof IOException) {
-                        errorCallback.onError(new ProxerException(ProxerException.ErrorType.IO));
-                    } else if (error instanceof JsonDataException) {
-                        errorCallback.onError(new ProxerException(ProxerException.ErrorType.PARSING));
-                    } else {
-                        errorCallback.onError(new ProxerException(ProxerException.ErrorType.UNKNOWN));
-                    }
+                    errorCallback.onError(processNonProxerError(error));
                 }
             }
         });
@@ -85,7 +71,6 @@ public final class ProxerCall<T> {
         return internalCall.isCanceled();
     }
 
-    @SuppressWarnings("CloneDoesntCallSuperClone")
     public ProxerCall<T> clone() {
         return new ProxerCall<>(internalCall.clone());
     }
@@ -106,6 +91,18 @@ public final class ProxerCall<T> {
             }
         } else {
             throw new ProxerException(ProxerException.ErrorType.IO);
+        }
+    }
+
+    private ProxerException processNonProxerError(@NotNull final Throwable error) {
+        if (error instanceof SocketTimeoutException) {
+            return new ProxerException(ProxerException.ErrorType.TIMEOUT);
+        } else if (error instanceof IOException) {
+            return new ProxerException(ProxerException.ErrorType.IO);
+        } else if (error instanceof JsonDataException) {
+            return new ProxerException(ProxerException.ErrorType.PARSING);
+        } else {
+            return new ProxerException(ProxerException.ErrorType.UNKNOWN);
         }
     }
 }
