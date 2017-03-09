@@ -17,28 +17,28 @@ import org.jetbrains.annotations.NotNull;
 public class Synonym implements IdItem {
 
     /**
-     * @return The id.
+     * Returns the id.
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "id")
     private String id;
 
     /**
-     * @return The id of the associated entry.
+     * Returns the id of the associated entry.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "eid")
     private String entryId;
 
     /**
-     * @return The type.
+     * Returns the type.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "type")
     private SynonymType type;
 
     /**
-     * @return The name.
+     * Returns the name.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "name")

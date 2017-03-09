@@ -12,9 +12,7 @@ import java.util.Date;
 public interface TimeItem {
 
     /**
-     * Returns the time of the inheriting entity.
-     *
-     * @return The time.
+     * Returns the time.
      */
     @NotNull
     Date getTime();

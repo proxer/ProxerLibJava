@@ -21,71 +21,71 @@ import java.util.Date;
 public class Conference implements IdItem, TimeItem, ImageItem {
 
     /**
-     * @return The id.
+     * Returns the id.
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "id")
     private String id;
 
     /**
-     * @return The topic.
+     * Returns the topic.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "topic")
     private String topic;
 
     /**
-     * @return The custom topic.
+     * Returns the custom topic.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "topic_custom")
     private String customTopic;
 
     /**
-     * @return The amount of participants.
+     * Returns the amount of participants.
      */
     @Json(name = "count")
     private int participantAmount;
 
     /**
-     * @return The id of the image.
+     * Returns the id of the image.
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     private String imageId;
 
     /**
-     * @return The type of the image.
+     * Returns the type of the image.
      */
     @Getter(onMethod = @__({@NotNull}))
     private String imageType;
 
     /**
-     * @return The group.
+     * Returns the group.
      */
     @Json(name = "group")
     private boolean group;
 
     /**
-     * @return True, if this conference has been read.
+     * Returns true, if this conference has been read.
      */
     @Json(name = "read")
     private boolean read;
 
     /**
-     * @return The time.
+     * Returns the time.
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "timestamp_end")
     private Date time;
 
     /**
-     * @return The amount of unread messages.
+     * Returns the amount of unread messages.
      */
     @Json(name = "read_count")
     private int unreadMessageAmount;
 
     /**
-     * @return The id of the last read message. Can be "0".
+     * Returns the id of the last read message. Can be "0".
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "read_mid")

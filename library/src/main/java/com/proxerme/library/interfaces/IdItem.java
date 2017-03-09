@@ -10,9 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public interface IdItem {
 
     /**
-     * Returns the id of the inheriting entity.
-     *
-     * @return The id.
+     * Returns the id.
      */
     @NotNull
     String getId();

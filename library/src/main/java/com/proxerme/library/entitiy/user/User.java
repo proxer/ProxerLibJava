@@ -8,7 +8,7 @@ import lombok.Value;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Entity holding information for the login and about the user after the login.
+ * Entity holding information about the user after a login.
  *
  * @author Ruben Gees
  */
@@ -17,21 +17,21 @@ import org.jetbrains.annotations.NotNull;
 public final class User implements IdItem, ImageItem {
 
     /**
-     * @return The id.
+     * Returns the id.
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "uid")
     private String id;
 
     /**
-     * @return The image id.
+     * Returns the image id.
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "avatar")
     private String imageId;
 
     /**
-     * @return The login token for further authentication.
+     * Returns the login token for further authentication.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "token")

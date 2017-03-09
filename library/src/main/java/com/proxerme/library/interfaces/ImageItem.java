@@ -10,9 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public interface ImageItem {
 
     /**
-     * Returns the image of the inheriting entity.
-     *
-     * @return The image.
+     * Returns the image id.
      */
     @NotNull
     String getImageId();

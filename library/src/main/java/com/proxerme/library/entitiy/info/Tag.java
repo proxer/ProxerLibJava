@@ -19,47 +19,47 @@ import java.util.Date;
 public class Tag implements IdItem, TimeItem {
 
     /**
-     * @return The id of the associated entry.
+     * Returns the id of the associated entry.
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "tid")
     private String id;
 
     /**
-     * @return The id of the associated tag entry.
+     * Returns the id of the associated tag entry.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "id")
     private String entryTagId;
 
     /**
-     * @return The time.
+     * Returns the time.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "timestamp")
     private Date time;
 
     /**
-     * @return True, if this tag has been rated.
+     * Returns true, if this tag has been rated.
      */
     @Json(name = "rate_flag")
     private boolean rated;
 
     /**
-     * @return True, if this tag is a spoiler.
+     * Returns true, if this tag is a spoiler.
      */
     @Json(name = "spoiler_flag")
     private boolean spoiler;
 
     /**
-     * @return The name.
+     * Returns the name.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "tag")
     private String name;
 
     /**
-     * @return The description.
+     * Returns the description.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "description")

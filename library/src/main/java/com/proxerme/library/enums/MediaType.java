@@ -3,12 +3,11 @@ package com.proxerme.library.enums;
 import com.squareup.moshi.Json;
 
 /**
- * Enum of the available media types. Similiar to {@link Medium}
- * <p>
- * Created by Desnoo on 07.03.2017.
+ * Enum of the available media types. Similar to {@link Medium}.
+ *
+ * @author Desnoo
  */
 public enum MediaType {
-
     @Json(name = "animeseries")ANIMESERIES,
     @Json(name = "movie")MOVIE,
     @Json(name = "ova")OVA,
@@ -20,5 +19,5 @@ public enum MediaType {
     @Json(name = "all-anim")ALL_ANIME,
     @Json(name = "all-manga")ALL_MANGA,
     @Json(name = "all")ALL,
-    @Json(name = "all18")ALL_WITH_HENTAI;
+    @Json(name = "all18")ALL_WITH_HENTAI
 }

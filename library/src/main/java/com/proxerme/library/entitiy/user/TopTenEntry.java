@@ -18,28 +18,28 @@ import org.jetbrains.annotations.NotNull;
 public class TopTenEntry implements IdItem {
 
     /**
-     * @return The id.
+     * Returns the id.
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "eid")
     private String id;
 
     /**
-     * @return The name.
+     * Returns the name.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "name")
     private String name;
 
     /**
-     * @return The category.
+     * Returns the category.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "kat")
     private Category category;
 
     /**
-     * @return The medium.
+     * Returns the medium.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "medium")

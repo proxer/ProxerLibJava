@@ -17,21 +17,21 @@ import org.jetbrains.annotations.NotNull;
 public class EntryTranslatorGroup implements IdItem {
 
     /**
-     * @return The id.
+     * Returns the id.
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "id")
     private String id;
 
     /**
-     * @return The name.
+     * Returns the name.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "name")
     private String name;
 
     /**
-     * @return The country, the translator group is active in.
+     * Returns the country, the translator group is active in.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "country")

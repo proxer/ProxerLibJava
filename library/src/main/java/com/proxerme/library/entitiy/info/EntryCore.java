@@ -10,7 +10,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
 /**
- * Entity holding the detail data of an Entry (Anime, Manga)
+ * Entity holding the detail data of an Entry (Anime, Manga). These are only the basics.
+ * For full info, consult {@link Entry}.
  *
  * @author Desnoo
  */
@@ -19,89 +20,100 @@ import java.util.Set;
 public class EntryCore implements IdItem {
 
     /**
-     * @return The id.
+     * Returns the id.
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "id")
     private String id;
 
     /**
-     * @return The name.
+     * Returns the name.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "name")
     private String name;
 
     /**
-     * @return The genres.
+     * Returns the genres.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "genre")
     private Set<Genre> genres;
 
     /**
-     * @return The fsk ratings.
+     * Returns the fsk ratings.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "fsk")
     private Set<FskConstraint> fskConstraints;
 
     /**
-     * @return The description.
+     * Returns the description.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "description")
     private String description;
 
     /**
-     * @return The medium
+     * Returns the medium
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "medium")
     private Medium medium;
 
     /**
-     * @return The amount of episodes, this entry has. They do not necessarily have to be uploaded.
+     * Returns the amount of episodes, this entry has. They do not necessarily have to be uploaded.
      */
     @Json(name = "count")
     private int episodeAmount;
 
     /**
-     * @return The current state.
+     * Returns the current state.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "state")
     private MediaState state;
 
     /**
-     * @return The sum of all ratings.
+     * Returns the sum of all ratings.
      */
     @Json(name = "rate_sum")
     private int ratingSum;
 
     /**
-     * @return The amount of ratings.
+     * Returns the amount of ratings.
      */
     @Json(name = "rate_count")
     private int ratingAmount;
 
     /**
-     * @return The clicks on this entry, in this season.
+     * Returns the clicks on this entry, in this season.
      */
     @Json(name = "clicks")
     private int clicks;
 
     /**
-     * @return The category.
+     * Returns the category.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "kat")
     private Category category;
 
     /**
-     * @return The type of licence.
+     * Returns the type of licence.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "license")
     private Licence licence;
+
+    /**
+     * Returns the average of all ratings.
+     */
+    public float getRating() {
+        if (ratingAmount <= 0) {
+            return 0;
+        } else {
+            return ratingSum / ratingAmount;
+        }
+    }
 }

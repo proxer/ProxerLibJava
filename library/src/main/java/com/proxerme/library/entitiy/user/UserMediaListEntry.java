@@ -20,69 +20,69 @@ import org.jetbrains.annotations.NotNull;
 public class UserMediaListEntry implements IdItem {
 
     /**
-     * @return The id.
+     * Returns the id.
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "id")
     private String id;
 
     /**
-     * @return The name.
+     * Returns the name.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "name")
     private String name;
 
     /**
-     * @return The amount of episodes.
+     * Returns the amount of episodes.
      */
     @Json(name = "count")
     private int episodeAmount;
 
     /**
-     * @return The medium.
+     * Returns the medium.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "medium")
     private Medium medium;
 
     /**
-     * @return The state, the associated {@link com.proxerme.library.entitiy.info.Entry} currently has.
+     * Returns the state, the associated {@link com.proxerme.library.entitiy.info.Entry} currently has.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "estate")
     private MediaState state;
 
     /**
-     * @return The id of the associated {@link com.proxerme.library.entitiy.info.Comment}.
+     * Returns the id of the associated {@link com.proxerme.library.entitiy.info.Comment}.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "cid")
     private String commentId;
 
     /**
-     * @return The content of the associated {@link com.proxerme.library.entitiy.info.Comment}.
+     * Returns the content of the associated {@link com.proxerme.library.entitiy.info.Comment}.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "comment")
     private String commentContent;
 
     /**
-     * @return The progress, the user has made on this entry,
+     * Returns the progress, the user has made on this entry,
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "state")
     private UserMediaProgress mediaProgress;
 
     /**
-     * @return The episode, the user is currently at.
+     * Returns the episode, the user is currently at.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "episode")
     private int episode;
 
     /**
-     * @return The rating, the user has given. 0 means, the user has not rated yet.
+     * Returns the rating, the user has given. 0 means that the user has not rated yet.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "rating")

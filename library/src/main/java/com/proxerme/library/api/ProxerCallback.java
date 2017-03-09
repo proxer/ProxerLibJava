@@ -9,9 +9,7 @@ package com.proxerme.library.api;
 public interface ProxerCallback<T> {
 
     /**
-     * Called upon success for each Request with the result.
-     *
-     * @param result The result specified through the type parameter.
+     * Called upon success for each Request with the {@code result}.
      */
     void onSuccess(T result);
 }

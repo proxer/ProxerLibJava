@@ -5,7 +5,7 @@ import lombok.Value;
 
 /**
  * Container for the single ratings. This ranges from 1 to 5 and is 0 if the user has not rated a
- * specific (or all) section(s).
+ * specific (or all) section(s) yet.
  *
  * @author Desnoo
  */
@@ -14,31 +14,31 @@ import lombok.Value;
 public class RatingDetails {
 
     /**
-     * @return The genre rating.
+     * Returns the genre rating.
      */
     @Json(name = "genre")
     private int genre;
 
     /**
-     * @return The story rating.
+     * @Returns the story rating.
      */
     @Json(name = "story")
     private int story;
 
     /**
-     * @return The animation rating.
+     * Returns the animation rating.
      */
     @Json(name = "animation")
     private int animation;
 
     /**
-     * @return The characters rating.
+     * Returns the characters rating.
      */
     @Json(name = "characters")
     private int characters;
 
     /**
-     * @return The music rating.
+     * Returns the music rating.
      */
     @Json(name = "music")
     private int music;

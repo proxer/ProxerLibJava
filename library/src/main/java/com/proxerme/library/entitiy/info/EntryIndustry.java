@@ -18,28 +18,28 @@ import org.jetbrains.annotations.NotNull;
 public class EntryIndustry implements IdItem {
 
     /**
-     * @return The id.
+     * Returns the id.
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "id")
     private String id;
 
     /**
-     * @return The name.
+     * Returns the name.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "name")
     private String name;
 
     /**
-     * @return The type.
+     * Returns the type.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "type")
     private IndustryType type;
 
     /**
-     * @return The country, the industry resides in.
+     * Returns thecountry, the industry resides in.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "country")

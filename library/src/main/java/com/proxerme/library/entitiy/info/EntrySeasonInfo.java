@@ -17,20 +17,20 @@ import org.jetbrains.annotations.NotNull;
 public class EntrySeasonInfo implements IdItem {
 
     /**
-     * @return The type.
+     * Returns the type.
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "id")
     private String id;
 
     /**
-     * @return The year.
+     * Returns the year.
      */
     @Json(name = "year")
     private int year;
 
     /**
-     * @return The actual season..
+     * Returns the actual season.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "season")
