@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  * TODO: Describe class
@@ -39,6 +40,12 @@ public class UserInfoEndpointTest extends ProxerTest {
                 .execute();
 
         assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/user/userinfo?uid=123&username=rubygee");
+    }
+
+    @Test
+    public void testUserIdAndUsernameNull() {
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> api.user().info(null, null));
     }
 
     private UserInfo buildTestInfo() {

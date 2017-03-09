@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  * TODO: Describe class
@@ -47,6 +48,12 @@ public class UserMediaListEndpointTest extends ProxerTest {
 
         assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/user/list?uid=1&username=rubygee" +
                 "&kat=anime&p=0&limit=5&search=test&search_start=startTest&sort=stateChangeDateASC");
+    }
+
+    @Test
+    public void testUserIdAndUsernameNull() {
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> api.user().mediaList(null, null));
     }
 
     private UserMediaListEntry buildTestEntry() {

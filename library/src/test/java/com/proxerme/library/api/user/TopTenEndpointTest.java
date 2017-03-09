@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 /**
@@ -58,6 +59,12 @@ public class TopTenEndpointTest extends ProxerTest {
 
         Assertions.assertThat(server.takeRequest().getPath())
                 .isEqualTo("/api/v1/user/topten?uid=123&username=rubygee&kat=anime");
+    }
+
+    @Test
+    public void testUserIdAndUsernameNull() {
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> api.user().topTen(null, null));
     }
 
     private TopTenEntry buildTestEntry() {
