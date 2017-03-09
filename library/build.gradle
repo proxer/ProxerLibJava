@@ -10,10 +10,12 @@ tasks.matching { it instanceof JavaCompile && it.name != "compileTestJava" }.all
     sourceCompatibility = rootProject.ext.sourceCompatibility
     targetCompatibility = rootProject.ext.targetCompatibility
 
-    if (System.getenv('CIRCLECI') || System.getenv('JITPACK')) {
-        println("Java Home:" + System.getenv("JAVA_HOME"))
+    println("Java Home:" + System.getenv("JAVA_HOME"))
 
+    if (System.getenv('CIRCLECI')) {
         options.bootClasspath = "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar"
+    } else if (System.getenv('JITPACK')) {
+        options.bootClasspath = "/usr/lib/jvm/java-7-openjdk/jre/lib/rt.jar"
     }
 }
 
