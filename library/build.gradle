@@ -11,6 +11,8 @@ tasks.matching { it instanceof JavaCompile && it.name != "compileTestJava" }.all
     targetCompatibility = rootProject.ext.targetCompatibility
 
     if (System.getenv('CIRCLECI') || System.getenv('JITPACK')) {
+        println("Java Home:" + System.getenv("JAVA_HOME"))
+
         options.bootClasspath = "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar"
     }
 }
