@@ -33,6 +33,18 @@ ext.deps = [
         mockwebserver       : "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
 ]
 
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
+    dependencies {
+        classpath "io.freefair.gradle:gradle-plugins:0.9.9"
+    }
+}
+
 allprojects {
     version = rootProject.ext.version
     group = rootProject.ext.group
