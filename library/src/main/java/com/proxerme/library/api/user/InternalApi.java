@@ -18,7 +18,8 @@ interface InternalApi {
 
     @FormUrlEncoded
     @POST("user/login")
-    ProxerCall<User> login(@Field("username") String username, @Field("password") String password);
+    ProxerCall<User> login(@Field("username") String username, @Field("password") String password,
+                           @Field("secretkey") String secretKey);
 
     @POST("user/logout")
     ProxerCall<Void> logout();

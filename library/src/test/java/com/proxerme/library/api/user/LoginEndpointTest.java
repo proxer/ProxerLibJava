@@ -44,10 +44,12 @@ public class LoginEndpointTest extends ProxerTest {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
 
         api.user().login("test", "supersecret")
+                .secretKey("secretkey")
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getBody().readUtf8()).isEqualTo("username=test&password=supersecret");
+        assertThat(server.takeRequest().getBody().readUtf8())
+                .isEqualTo("username=test&password=supersecret&secretkey=secretkey");
     }
 
     private User buildTestUser() {
