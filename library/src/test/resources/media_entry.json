@@ -1,0 +1,105 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": [
+    {
+      "name": "+ A Channel",
+      "id": "3637",
+      "genre": "Comedy School",
+      "medium": "ova",
+      "count": "11",
+      "state": "1",
+      "rate_sum": "774",
+      "rate_count": "115",
+      "language": "gersub,engsub"
+    },
+    {
+      "name": ".hack//G.U. Returner",
+      "id": "1412",
+      "genre": "Abenteuer SciFi",
+      "medium": "ova",
+      "count": "1",
+      "state": "1",
+      "rate_sum": "465",
+      "rate_count": "72",
+      "language": "gersub,engsub"
+    },
+    {
+      "name": ".hack//G.U. Trilogy",
+      "id": "292",
+      "genre": "Abenteuer Action Drama SciFi",
+      "medium": "movie",
+      "count": "1",
+      "state": "1",
+      "rate_sum": "865",
+      "rate_count": "112",
+      "language": "gersub,engsub"
+    },
+    {
+      "name": ".hack//Gift",
+      "id": "3692",
+      "genre": "Comedy Fantasy",
+      "medium": "ova",
+      "count": "1",
+      "state": "1",
+      "rate_sum": "109",
+      "rate_count": "27",
+      "language": "engsub"
+    },
+    {
+      "name": ".hack//LIMINALITY",
+      "id": "295",
+      "genre": "Abenteuer Drama Mystery SciFi",
+      "medium": "ova",
+      "count": "4",
+      "state": "1",
+      "rate_sum": "298",
+      "rate_count": "48",
+      "language": "engsub"
+    },
+    {
+      "name": ".hack//Quantum",
+      "id": "1603",
+      "genre": "Action Fantasy Magic SciFi",
+      "medium": "ova",
+      "count": "3",
+      "state": "1",
+      "rate_sum": "1134",
+      "rate_count": "155",
+      "language": "gerdub,engsub"
+    },
+    {
+      "name": ".hack//Roots",
+      "id": "296",
+      "genre": "Abenteuer Action Drama Romance SciFi",
+      "medium": "animeseries",
+      "count": "26",
+      "state": "1",
+      "rate_sum": "2777",
+      "rate_count": "410",
+      "language": "gersub,engsub,engdub"
+    },
+    {
+      "name": ".hack//Sekai no Mukou ni",
+      "id": "4642",
+      "genre": "Abenteuer Action Fantasy Mystery SciFi",
+      "medium": "movie",
+      "count": "1",
+      "state": "1",
+      "rate_sum": "363",
+      "rate_count": "52",
+      "language": "engsub"
+    },
+    {
+      "name": ".hack//SIGN",
+      "id": "1148",
+      "genre": "Abenteuer Drama Magic Mystery Psychological SciFi",
+      "medium": "animeseries",
+      "count": "26",
+      "state": "1",
+      "rate_sum": "4347",
+      "rate_count": "681",
+      "language": "engsub,engdub"
+    }
+  ]
+}

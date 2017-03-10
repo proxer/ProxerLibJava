@@ -1,6 +1,7 @@
 package com.proxerme.library.api;
 
 import com.proxerme.library.api.info.InfoApi;
+import com.proxerme.library.api.list.ListApi;
 import com.proxerme.library.api.messenger.MessengerApi;
 import com.proxerme.library.api.notifications.NotificationsApi;
 import com.proxerme.library.api.user.UserApi;
@@ -55,11 +56,18 @@ public final class ProxerApi {
     @Getter(onMethod = @__({@NotNull}))
     private final MessengerApi messenger;
 
+    /**
+     * Returns the respective API.
+     */
+    @Getter(onMethod = @__({@NotNull}))
+    private final ListApi list;
+
     ProxerApi(@NotNull final Retrofit retrofit) {
         notifications = new NotificationsApi(retrofit);
         user = new UserApi(retrofit);
         info = new InfoApi(retrofit);
         messenger = new MessengerApi(retrofit);
+        list = new ListApi(retrofit);
     }
 
     /**
