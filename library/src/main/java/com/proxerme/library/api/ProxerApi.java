@@ -164,6 +164,7 @@ public final class ProxerApi {
                     .add(new BooleanAdapter())
                     .add(new DelimitedEnumSetAdapterFactory())
                     .add(new ConferenceAdapter())
+                    .add(new ConferenceInfoAdapter())
                     .add(new FixRatingDetailsAdapter())
                     .build();
         }

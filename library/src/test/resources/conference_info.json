@@ -1,0 +1,27 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich.",
+  "data": {
+    "conference": {
+      "topic": "Ein weiterer Test",
+      "count": "2",
+      "timestamp_start": "1480260735",
+      "timestamp_end": "1487080743",
+      "leader": "121658"
+    },
+    "users": [
+      {
+        "uid": "121658",
+        "avatar": "121658_cEBC8F.png",
+        "username": "RubyGee",
+        "status": "Ihr könnt mich jederzeit anschreiben, Skype oder ProxerPn!"
+      },
+      {
+        "uid": "574520",
+        "avatar": "574520_K4DfDC.jpg",
+        "username": "Testerio",
+        "status": "Ich bin Rubys Sklave~"
+      }
+    ]
+  }
+}
