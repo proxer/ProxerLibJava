@@ -35,19 +35,22 @@ public final class MessagesEndpoint implements Endpoint {
     /**
      * Sets the conference id of the conference to load.
      */
-    @Setter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@NotNull}))
     private String conferenceId;
 
     /**
      * Sets the message id to load from.
      */
-    @Setter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@NotNull}))
     private String messageId;
 
     /**
      * Sets if the conference should be marked as read. Defaults to true.
      */
-    @Setter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@NotNull}))
     private Boolean markAsRead;
 
     MessagesEndpoint(@NotNull final InternalApi internalApi) {

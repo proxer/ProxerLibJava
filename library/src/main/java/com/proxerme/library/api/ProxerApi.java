@@ -86,7 +86,8 @@ public final class ProxerApi {
         /**
          * Sets a custom login token manager.
          */
-        @Setter(onMethod = @__({@Nullable}))
+        @Nullable
+        @Setter(onMethod = @__({@NotNull}))
         private LoginTokenManager loginTokenManager;
 
         /**
@@ -94,7 +95,8 @@ public final class ProxerApi {
          * <p>
          * If not set, it will default to "ProxerLibJava/[version]"
          */
-        @Setter(onMethod = @__({@Nullable}))
+        @Nullable
+        @Setter(onMethod = @__({@NotNull}))
         private String userAgent;
 
         /**
@@ -103,7 +105,8 @@ public final class ProxerApi {
          * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
          * instance.
          */
-        @Setter(onMethod = @__({@Nullable}))
+        @Nullable
+        @Setter(onMethod = @__({@NotNull}))
         private Moshi moshi;
 
         /**
@@ -112,7 +115,8 @@ public final class ProxerApi {
          * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
          * instance.
          */
-        @Setter(onMethod = @__({@Nullable}))
+        @Nullable
+        @Setter(onMethod = @__({@NotNull}))
         private OkHttpClient client;
 
         /**
@@ -121,7 +125,8 @@ public final class ProxerApi {
          * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
          * instance.
          */
-        @Setter(onMethod = @__({@Nullable}))
+        @Nullable
+        @Setter(onMethod = @__({@NotNull}))
         private Retrofit retrofit;
 
         /**
