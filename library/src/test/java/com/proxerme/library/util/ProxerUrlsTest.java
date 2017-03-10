@@ -1,9 +1,8 @@
 package com.proxerme.library.util;
 
+import com.proxerme.library.enums.Device;
 import org.junit.Test;
 
-import static com.proxerme.library.util.ProxerUrls.Device.DEFAULT;
-import static com.proxerme.library.util.ProxerUrls.Device.MOBILE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -78,7 +77,7 @@ public class ProxerUrlsTest {
 
     @Test
     public void donateWebWithDevice() {
-        assertThat(ProxerUrls.donateWeb(DEFAULT).toString())
+        assertThat(ProxerUrls.donateWeb(Device.DEFAULT).toString())
                 .isEqualTo("https://proxer.me/donate/?device=default");
     }
 
@@ -96,7 +95,7 @@ public class ProxerUrlsTest {
 
     @Test
     public void userWebWithDevice() {
-        assertThat(ProxerUrls.userWeb("2", DEFAULT).toString())
+        assertThat(ProxerUrls.userWeb("2", Device.DEFAULT).toString())
                 .isEqualTo("https://proxer.me/user/2/?device=default");
     }
 
@@ -108,7 +107,7 @@ public class ProxerUrlsTest {
 
     @Test
     public void forumWebWithDevice() {
-        assertThat(ProxerUrls.forumWeb("1", "2", MOBILE).toString())
+        assertThat(ProxerUrls.forumWeb("1", "2", Device.MOBILE).toString())
                 .isEqualTo("https://proxer.me/forum/1/2/?device=mobile");
     }
 
@@ -120,7 +119,7 @@ public class ProxerUrlsTest {
 
     @Test
     public void newsWebWithDevice() {
-        assertThat(ProxerUrls.newsWeb("4", "5", MOBILE).toString())
+        assertThat(ProxerUrls.newsWeb("4", "5", Device.MOBILE).toString())
                 .isEqualTo("https://proxer.me/forum/4/5/?device=mobile");
     }
 }

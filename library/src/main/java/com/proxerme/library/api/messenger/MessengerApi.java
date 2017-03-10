@@ -26,4 +26,12 @@ public final class MessengerApi {
     public ConferencesEndpoint conferences() {
         return new ConferencesEndpoint(internalApi);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public MessagesEndpoint messages() {
+        return new MessagesEndpoint(internalApi);
+    }
 }

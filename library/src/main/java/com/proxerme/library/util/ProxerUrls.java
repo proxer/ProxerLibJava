@@ -1,12 +1,13 @@
 package com.proxerme.library.util;
 
+import com.proxerme.library.enums.Device;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import lombok.experimental.UtilityClass;
 import okhttp3.HttpUrl;
 import org.jetbrains.annotations.NotNull;
 
-import static com.proxerme.library.util.ProxerUrls.Device.DEFAULT;
+import static com.proxerme.library.enums.Device.DEFAULT;
 
 /**
  * Utility class with various static methods for retrieving web and image links.
@@ -241,15 +242,5 @@ public final class ProxerUrls {
     public HttpUrl newsWeb(@NotNull final String categoryId, @NotNull final String threadId,
                            @NotNull final Device device) {
         return forumWeb(categoryId, threadId, device);
-    }
-
-    /**
-     * Simple enum for the available types of devices, supported by Proxer.
-     * Each leads to a different theme and is cached with a cookie. If you want to change, you have to call one of the
-     * methods with a "device" parameter.
-     */
-    public enum Device {
-        DEFAULT,
-        MOBILE
     }
 }

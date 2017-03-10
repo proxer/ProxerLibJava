@@ -1,0 +1,76 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich.",
+  "data": [
+    {
+      "message_id": "5193325",
+      "conference_id": "131029",
+      "user_id": "121658",
+      "username": "RubyGee",
+      "message": "RubyGee",
+      "action": "addUser",
+      "timestamp": "1480260735",
+      "device": ""
+    },
+    {
+      "message_id": "5193326",
+      "conference_id": "131029",
+      "user_id": "121658",
+      "username": "RubyGee",
+      "message": "cuechan",
+      "action": "addUser",
+      "timestamp": "1480260735",
+      "device": ""
+    },
+    {
+      "message_id": "5193327",
+      "conference_id": "131029",
+      "user_id": "121658",
+      "username": "RubyGee",
+      "message": "Testerio",
+      "action": "addUser",
+      "timestamp": "1480260735",
+      "device": ""
+    },
+    {
+      "message_id": "5193328",
+      "conference_id": "131029",
+      "user_id": "121658",
+      "username": "RubyGee",
+      "message": "Es wird getestet~",
+      "action": "",
+      "timestamp": "1480260735",
+      "device": "default"
+    },
+    {
+      "message_id": "5193696",
+      "conference_id": "131029",
+      "user_id": "391004",
+      "username": "cuechan",
+      "message": "🍪",
+      "action": "",
+      "timestamp": "1480270099",
+      "device": "default"
+    },
+    {
+      "message_id": "5195794",
+      "conference_id": "131029",
+      "user_id": "121658",
+      "username": "RubyGee",
+      "message": "😋",
+      "action": "",
+      "timestamp": "1480320949",
+      "device": "default"
+    },
+    {
+      "message_id": "5242257",
+      "conference_id": "131029",
+      "user_id": "391004",
+      "username": "cuechan",
+      "message": "http://test.abcd",
+      "action": "",
+      "timestamp": "1481916469",
+      "device": "default"
+    }
+  ]
+}
