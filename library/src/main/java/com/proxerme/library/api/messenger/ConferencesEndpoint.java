@@ -24,13 +24,15 @@ public final class ConferencesEndpoint implements PagingEndpoint {
     /**
      * {@inheritDoc}
      */
-    @Setter(onMethod = @__({@Override, @Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@Override, @NotNull}))
     private Integer page;
 
     /**
      * Sets the type of conferences to load.
      */
-    @Setter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@NotNull}))
     private ConferenceType type;
 
     ConferencesEndpoint(@NotNull final InternalApi internalApi) {

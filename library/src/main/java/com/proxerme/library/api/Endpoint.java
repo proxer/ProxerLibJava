@@ -1,5 +1,7 @@
 package com.proxerme.library.api;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Interface for all endpoints.
  *
@@ -10,6 +12,6 @@ public interface Endpoint {
     /**
      * Builds the call for this endpoint.
      */
+    @NotNull
     ProxerCall build();
-
 }

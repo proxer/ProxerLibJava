@@ -24,7 +24,8 @@ public class LoginEndpoint implements Endpoint {
     /**
      * Sets he secret key for authentication with 2FA.
      */
-    @Setter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@NotNull}))
     private String secretKey;
 
     LoginEndpoint(@NotNull final InternalApi internalApi, @NotNull final String username,

@@ -29,37 +29,43 @@ public final class UserMediaListEndpoint implements PagingEndpoint, LimitEndpoin
     /**
      * Sets the category to filter by.
      */
-    @Setter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@NotNull}))
     private Category category;
 
     /**
      * {@inheritDoc}
      */
-    @Setter(onMethod = @__({@Override, @Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@Override, @NotNull}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
-    @Setter(onMethod = @__({@Override, @Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@Override, @NotNull}))
     private Integer limit;
 
     /**
      * Sets the query to search for.
      */
-    @Setter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@NotNull}))
     private String search;
 
     /**
      * Sets the query to search for only from the start.
      */
-    @Setter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@NotNull}))
     private String searchStart;
 
     /**
      * Set the criteria for sorting.
      */
-    @Setter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@NotNull}))
     private UserMediaListSortCriteria sort;
 
     UserMediaListEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,

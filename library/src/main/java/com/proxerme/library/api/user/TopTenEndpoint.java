@@ -27,7 +27,8 @@ public final class TopTenEndpoint implements Endpoint {
     /**
      * Sets the category to filter by.
      */
-    @Setter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@NotNull}))
     private Category category;
 
     TopTenEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,

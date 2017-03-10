@@ -27,19 +27,22 @@ public final class CommentsEndpoint implements PagingEndpoint, LimitEndpoint {
     /**
      * {@inheritDoc}
      */
-    @Setter(onMethod = @__({@Override, @Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@Override, @NotNull}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
-    @Setter(onMethod = @__({@Override, @Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@Override, @NotNull}))
     private Integer limit;
 
     /**
      * Sets criteria on how to sort the comments.
      */
-    @Setter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@NotNull}))
     private CommentSortCriteria sort;
 
     CommentsEndpoint(@NotNull final InternalApi internalApi, @NotNull final String id) {

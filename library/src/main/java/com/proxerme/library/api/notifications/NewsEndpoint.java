@@ -24,13 +24,15 @@ public final class NewsEndpoint implements PagingEndpoint, LimitEndpoint {
     /**
      * {@inheritDoc}
      */
-    @Setter(onMethod = @__({@Override, @Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@Override, @NotNull}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
-    @Setter(onMethod = @__({@Override, @Nullable}))
+    @Nullable
+    @Setter(onMethod = @__({@Override, @NotNull}))
     private Integer limit;
 
     NewsEndpoint(@NotNull final InternalApi internalApi) {
