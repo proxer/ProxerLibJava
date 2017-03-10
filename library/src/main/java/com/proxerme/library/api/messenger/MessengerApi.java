@@ -1,5 +1,6 @@
 package com.proxerme.library.api.messenger;
 
+import com.proxerme.library.api.messenger.ConferenceModificationEndpoint.ConferenceModification;
 import com.proxerme.library.enums.MessageAction;
 import com.proxerme.library.util.Utils;
 import org.jetbrains.annotations.NotNull;
@@ -80,6 +81,54 @@ public final class MessengerApi {
     public SendMessageEndpoint sendMessage(@NotNull final String conferenceId, @NotNull final MessageAction action,
                                            @NotNull String subject) {
         return new SendMessageEndpoint(internalApi, conferenceId, constructMessageFromAction(action, subject));
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public ConferenceModificationEndpoint markConferenceAsRead(@NotNull final String id) {
+        return new ConferenceModificationEndpoint(internalApi, id, ConferenceModification.READ);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public ConferenceModificationEndpoint unmarkConferenceAsRead(@NotNull final String id) {
+        return new ConferenceModificationEndpoint(internalApi, id, ConferenceModification.UNREAD);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public ConferenceModificationEndpoint markConferenceAsBlocked(@NotNull final String id) {
+        return new ConferenceModificationEndpoint(internalApi, id, ConferenceModification.BLOCK);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public ConferenceModificationEndpoint unmarkConferenceAsBlocked(@NotNull final String id) {
+        return new ConferenceModificationEndpoint(internalApi, id, ConferenceModification.UNBLOCK);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public ConferenceModificationEndpoint markConferenceAsFavorite(@NotNull final String id) {
+        return new ConferenceModificationEndpoint(internalApi, id, ConferenceModification.FAVOUR);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public ConferenceModificationEndpoint unmarkConferenceAsFavorite(@NotNull final String id) {
+        return new ConferenceModificationEndpoint(internalApi, id, ConferenceModification.UNFAVOUR);
     }
 
     private String constructMessageFromAction(@NotNull final MessageAction action, @NotNull final String subject) {

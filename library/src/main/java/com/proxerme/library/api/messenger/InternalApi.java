@@ -36,4 +36,28 @@ interface InternalApi {
     @FormUrlEncoded
     @POST("messenger/setmessage")
     ProxerCall<String> sendMessage(@Field("conference_id") String conferenceId, @Field("text") String message);
+
+    @FormUrlEncoded
+    @POST("messenger/setread")
+    ProxerCall<Void> markConferenceAsRead(@Field("conference_id") String id);
+
+    @FormUrlEncoded
+    @POST("messenger/setunread")
+    ProxerCall<Void> unmarkConferenceAsRead(@Field("conference_id") String id);
+
+    @FormUrlEncoded
+    @POST("messenger/setblock")
+    ProxerCall<Void> markConferenceAsBlocked(@Field("conference_id") String id);
+
+    @FormUrlEncoded
+    @POST("messenger/setunblock")
+    ProxerCall<Void> unmarkConferenceAsBlocked(@Field("conference_id") String id);
+
+    @FormUrlEncoded
+    @POST("messenger/setfavour")
+    ProxerCall<Void> markConferenceAsFavorite(@Field("conference_id") String id);
+
+    @FormUrlEncoded
+    @POST("messenger/setunfavour")
+    ProxerCall<Void> unmarkConferenceAsFavorite(@Field("conference_id") String id);
 }
