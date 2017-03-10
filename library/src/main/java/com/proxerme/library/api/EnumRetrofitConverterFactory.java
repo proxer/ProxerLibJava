@@ -1,6 +1,6 @@
 package com.proxerme.library.api;
 
-import com.squareup.moshi.Json;
+import com.proxerme.library.util.Utils;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 
@@ -27,8 +27,8 @@ final class EnumRetrofitConverterFactory extends Converter.Factory {
         @Override
         public String convert(final Enum<?> e) throws IOException {
             try {
-                return e.getClass().getField(e.name()).getAnnotation(Json.class).name();
-            } catch (NoSuchFieldException ignored) {
+                return Utils.getEnumName(e);
+            } catch (NoSuchFieldException e1) {
                 return null;
             }
         }

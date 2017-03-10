@@ -1,5 +1,7 @@
 package com.proxerme.library.api.messenger;
 
+import com.proxerme.library.enums.MessageAction;
+import com.proxerme.library.util.Utils;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 
@@ -61,5 +63,34 @@ public final class MessengerApi {
                                                                @NotNull final String firstMessage,
                                                                @NotNull final List<String> participants) {
         return new CreateConferenceGroupEndpoint(internalApi, topic, firstMessage, participants);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public SendMessageEndpoint sendMessage(@NotNull final String conferenceId, @NotNull final String message) {
+        return new SendMessageEndpoint(internalApi, conferenceId, message);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public SendMessageEndpoint sendMessage(@NotNull final String conferenceId, @NotNull final MessageAction action,
+                                           @NotNull String subject) {
+        return new SendMessageEndpoint(internalApi, conferenceId, constructMessageFromAction(action, subject));
+    }
+
+    private String constructMessageFromAction(@NotNull final MessageAction action, @NotNull final String subject) {
+        if (action == MessageAction.NONE) {
+            throw new IllegalArgumentException("Invalid action: " + action);
+        }
+
+        try {
+            return "/" + Utils.getEnumName(action) + " " + subject;
+        } catch (NoSuchFieldException exception) {
+            throw new IllegalArgumentException("Invalid action: " + action);
+        }
     }
 }

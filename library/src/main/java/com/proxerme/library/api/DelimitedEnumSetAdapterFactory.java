@@ -2,6 +2,7 @@ package com.proxerme.library.api;
 
 import com.proxerme.library.enums.FskConstraint;
 import com.proxerme.library.enums.Genre;
+import com.proxerme.library.util.Utils;
 import com.squareup.moshi.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -75,7 +76,7 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
 
             for (final T item : value) {
                 try {
-                    result += enumType.getField(item.name()).getAnnotation(Json.class).name();
+                    result += Utils.getEnumName(item);
                 } catch (final NoSuchFieldException ignored) {
                     throw new JsonDataException("Illegal item in set: " + item.name());
                 }

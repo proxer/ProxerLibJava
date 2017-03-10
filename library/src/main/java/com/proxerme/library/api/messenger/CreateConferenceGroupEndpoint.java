@@ -9,6 +9,8 @@ import java.util.List;
 
 /**
  * Endpoint for creating a new conference group with one or more other participants.
+ * <p>
+ * Upon success, the result is a single string with the id of the newly created conference.
  *
  * @author Ruben Gees
  */

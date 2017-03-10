@@ -32,4 +32,8 @@ interface InternalApi {
     @POST("messenger/newconferencegroup")
     ProxerCall<String> createConferenceGroup(@Field("topic") String topic, @Field("text") String firstMessage,
                                              @Field("users") List<String> participants);
+
+    @FormUrlEncoded
+    @POST("messenger/setmessage")
+    ProxerCall<String> sendMessage(@Field("conference_id") String conferenceId, @Field("text") String message);
 }

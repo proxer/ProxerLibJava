@@ -7,6 +7,8 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Endpoint for creating a new conference with a single other user.
+ * <p>
+ * Upon success, the result is a single string with the id of the newly created conference.
  *
  * @author Ruben Gees
  */
