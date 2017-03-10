@@ -13,8 +13,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 public class UserInfoEndpointTest extends ProxerTest {
@@ -32,7 +30,7 @@ public class UserInfoEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws Exception {
+    public void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("user_info.json")));
 
         api.user().info("123", "rubygee")

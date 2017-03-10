@@ -15,8 +15,6 @@ import java.util.List;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 public class ConferencesEndpointTest extends ProxerTest {
@@ -34,7 +32,7 @@ public class ConferencesEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws Exception {
+    public void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("conferences.json")));
 
         api.messenger().conferences()

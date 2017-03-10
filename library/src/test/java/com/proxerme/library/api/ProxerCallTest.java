@@ -15,8 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * TODO: Create class
- *
  * @author Ruben Gees
  */
 public class ProxerCallTest extends ProxerTest {
@@ -126,7 +124,7 @@ public class ProxerCallTest extends ProxerTest {
     }
 
     @Test(timeout = 1000L)
-    public void testIsCanceled() throws InterruptedException, IOException {
+    public void testIsCanceled() throws IOException, InterruptedException {
         final CountDownLatch lock = new CountDownLatch(1);
 
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));

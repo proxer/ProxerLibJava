@@ -14,8 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 public class UserMediaListEndpointTest extends ProxerTest {
@@ -33,7 +31,7 @@ public class UserMediaListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws Exception {
+    public void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("user_media_list.json")));
 
         api.user().mediaList("1", "rubygee")

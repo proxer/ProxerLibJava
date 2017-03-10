@@ -8,8 +8,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 public class BooleanAdapterTest {

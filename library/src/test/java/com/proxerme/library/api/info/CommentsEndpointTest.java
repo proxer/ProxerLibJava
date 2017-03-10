@@ -16,8 +16,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 public class CommentsEndpointTest extends ProxerTest {
@@ -47,7 +45,7 @@ public class CommentsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws Exception {
+    public void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("comment_manga.json")));
 
         api.info().comments("1")

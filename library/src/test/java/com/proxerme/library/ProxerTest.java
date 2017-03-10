@@ -12,7 +12,10 @@ import org.junit.Before;
 import java.io.IOException;
 
 /**
- * TODO: Describe class
+ * Base class for all tests. It provides a ready to use {@link MockWebServer}, an OkHttp client, configured to change
+ * the host to that of the server and a {@link ProxerApi} instance. After each test, the server is shutdown.
+ * <p>
+ * Moreover it has the {@link #fromResource(String)} method for easily loading a test file.
  *
  * @author Ruben Gees
  */

@@ -16,8 +16,6 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 public class TopTenEndpointTest extends ProxerTest {
@@ -49,7 +47,7 @@ public class TopTenEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws Exception {
+    public void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("topten_manga.json")));
 
         api.user().topTen("123", "rubygee")

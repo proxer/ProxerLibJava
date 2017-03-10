@@ -11,8 +11,6 @@ import java.io.IOException;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 public class LoginEndpointTest extends ProxerTest {
@@ -29,7 +27,7 @@ public class LoginEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws Exception {
+    public void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
 
         api.user().login("test", "supersecret")
@@ -40,7 +38,7 @@ public class LoginEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testParameters() throws Exception {
+    public void testParameters() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
 
         api.user().login("test", "supersecret")

@@ -9,8 +9,6 @@ import java.io.IOException;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 public class FixRatingDetailsAdapterTest {

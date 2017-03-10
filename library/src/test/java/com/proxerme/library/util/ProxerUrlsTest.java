@@ -6,8 +6,6 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for the {@link ProxerUrls} utility class.
- *
  * @author Ruben Gees
  */
 public class ProxerUrlsTest {

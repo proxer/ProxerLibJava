@@ -10,8 +10,6 @@ import java.io.IOException;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 public class LogoutEndpointTest extends ProxerTest {
@@ -26,7 +24,7 @@ public class LogoutEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws Exception {
+    public void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("logout.json")));
 
         api.user().logout()

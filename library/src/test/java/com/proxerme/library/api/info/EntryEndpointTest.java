@@ -17,8 +17,6 @@ import java.util.EnumSet;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * TODO: Describe class
- *
  * @author Ruben Gees
  */
 public class EntryEndpointTest extends ProxerTest {
@@ -38,7 +36,7 @@ public class EntryEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws Exception {
+    public void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("entry.json")));
 
         api.info().entry("1")
