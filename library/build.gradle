@@ -43,12 +43,11 @@ task delombok {
 
     ext.outputDir = delombokPath
 
-    println(configurations.compile.asPath)
-
     doLast {
         ant.taskdef(name: 'delombok', classname: 'lombok.delombok.ant.Tasks$Delombok',
                 classpath: configurations.compileOnly.asPath)
-        ant.delombok(encoding: 'UTF-8', from: srcPath, to: delombokPath, classpath: configurations.compileClasspath.asPath)
+        ant.delombok(encoding: 'UTF-8', from: srcPath, to: delombokPath,
+                classpath: configurations.compileClasspath.asPath)
     }
 }
 
