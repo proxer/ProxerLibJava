@@ -2,7 +2,7 @@ package com.proxerme.library.entitiy.list;
 
 import com.proxerme.library.entitiy.interfaces.IdItem;
 import com.proxerme.library.enums.Genre;
-import com.proxerme.library.enums.MediaListEntryLanguage;
+import com.proxerme.library.enums.MediaLanguage;
 import com.proxerme.library.enums.MediaState;
 import com.proxerme.library.enums.Medium;
 import com.squareup.moshi.Json;
@@ -78,7 +78,7 @@ public class MediaListEntry implements IdItem {
      * Returns the languages, this entry is available in.
      */
     @Json(name = "language")
-    private Set<MediaListEntryLanguage> languages;
+    private Set<MediaLanguage> languages;
 
     /**
      * Returns the average of all ratings.

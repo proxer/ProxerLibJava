@@ -2,7 +2,7 @@ package com.proxerme.library.api;
 
 import com.proxerme.library.enums.FskConstraint;
 import com.proxerme.library.enums.Genre;
-import com.proxerme.library.enums.MediaListEntryLanguage;
+import com.proxerme.library.enums.MediaLanguage;
 import com.proxerme.library.util.Utils;
 import com.squareup.moshi.*;
 import org.jetbrains.annotations.NotNull;
@@ -12,8 +12,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.EnumSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Ruben Gees
@@ -37,8 +36,8 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
             return new DelimitedEnumSetAdapter<>(Genre.class, DELIMITER);
         } else if (parameterType == FskConstraint.class) {
             return new DelimitedEnumSetAdapter<>(FskConstraint.class, DELIMITER);
-        } else if (parameterType == MediaListEntryLanguage.class) {
-            return new DelimitedEnumSetAdapter<>(MediaListEntryLanguage.class, COMMA_DELIMITER);
+        } else if (parameterType == MediaLanguage.class) {
+            return new DelimitedEnumSetAdapter<>(MediaLanguage.class, COMMA_DELIMITER);
         }
 
         return null;
@@ -56,14 +55,26 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
 
         @Override
         public Set<T> fromJson(final JsonReader reader) throws IOException {
-            final String json = reader.nextString();
-
-            if (json.isEmpty()) {
-                return EnumSet.noneOf(enumType);
-            }
-
-            final String[] parts = json.split(delimiter);
             final EnumSet<T> result = EnumSet.noneOf(enumType);
+            final List<String> parts;
+
+            if (reader.peek() == JsonReader.Token.BEGIN_ARRAY) {
+                parts = new ArrayList<>();
+
+                reader.beginArray();
+                while (reader.hasNext()) {
+                    parts.add(reader.nextString());
+                }
+                reader.endArray();
+            } else {
+                final String json = reader.nextString();
+
+                if (json.isEmpty()) {
+                    return EnumSet.noneOf(enumType);
+                }
+
+                parts = Arrays.asList(json.split(delimiter));
+            }
 
             for (final String part : parts) {
                 for (final Field field : enumType.getFields()) {
