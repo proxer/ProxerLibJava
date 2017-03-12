@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 
 /**
- * TODO: Describe class
+ * API for the List class.
  *
  * @author Desnoo.
  */
@@ -16,11 +16,19 @@ public class ListApi {
         this.internalApi = retrofit.create(InternalApi.class);
     }
 
+    /**
+     * Returns the respective endpoint.
+     */
     @NotNull
-    public EntryListEndpoint mediaEntries(Integer page) {
-        return new EntryListEndpoint(internalApi).page(page);
+    public MediaListEndpoint mediaList() {
+        return new MediaListEndpoint(internalApi);
     }
 
+    /**
+     * Returns the respective endpoint.
+     */
     @NotNull
-    public EntrySearchEndpoint searchEntries(Integer page) { return new EntrySearchEndpoint(internalApi).page(page); }
+    public MediaSearchEndpoint mediaSearch() {
+        return new MediaSearchEndpoint(internalApi);
+    }
 }

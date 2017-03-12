@@ -22,42 +22,22 @@ public class Utils {
     }
 
     /**
-     * Joins a {@link String} Array with a given delimiter to a {@link String}.
-     * Returns the joined String.
-     */
-    public String join(final String delimiter, final String... array) {
-        if (delimiter == null || array == null) {
-            return "";
-        } else if (array.length == 1) {
-            return array[0];
-        } else {
-            StringBuilder builder = new StringBuilder();
-            builder.append(array[0]);
-            for (String entry : array) {
-                builder.append(delimiter).append(entry);
-            }
-            return builder.toString();
-        }
-    }
-
-    /**
      * Joins a {@link String} Iterator with a given delimiter to a {@link String}.
      * Returns the joined String.
      */
-    public String join(final String delimiter, final Iterable<String> iterable) {
-        if (delimiter == null || iterable == null) {
+    public String join(@NotNull final String delimiter, @NotNull final Iterable<?> iterable) {
+        final Iterator<?> iterator = iterable.iterator();
+
+        if (!iterator.hasNext()) {
             return "";
-        } else {
-            Iterator<String> iterator = iterable.iterator();
-            if (!iterator.hasNext()) {
-                return "";
-            }
-            StringBuilder builder = new StringBuilder();
-            builder.append(iterator.next());
-            while (iterator.hasNext()) {
-                builder.append(delimiter).append(iterator.next());
-            }
-            return builder.toString();
         }
+
+        final StringBuilder builder = new StringBuilder().append(iterator.next());
+
+        while (iterator.hasNext()) {
+            builder.append(delimiter).append(iterator.next());
+        }
+
+        return builder.toString();
     }
 }

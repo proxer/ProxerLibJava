@@ -1,12 +1,16 @@
 package com.proxerme.library.entitiy.list;
 
 import com.proxerme.library.entitiy.interfaces.IdItem;
+import com.proxerme.library.enums.Genre;
+import com.proxerme.library.enums.MediaLanguage;
 import com.proxerme.library.enums.MediaState;
 import com.proxerme.library.enums.Medium;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Value;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Set;
 
 /**
  * Entity holding all relevant info about a single entry in the media list (Anime, Manga)
@@ -15,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class MediaEntry implements IdItem {
+public class MediaListEntry implements IdItem {
 
     /**
      * Returns the id.
@@ -34,8 +38,9 @@ public class MediaEntry implements IdItem {
     /**
      * Returns the selected genres.
      */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "genre")
-    private String genres;
+    private Set<Genre> genres;
 
     /**
      * Returns the selected medium.
@@ -45,64 +50,44 @@ public class MediaEntry implements IdItem {
     private Medium medium;
 
     /**
-     * Returns the amount of episodes.
+     * Returns the amount of episodes, this entry has. They do not necessarily have to be uploaded.
      */
     @Json(name = "count")
-    private int episodeCount;
+    private int episodeAmount;
 
     /**
      * Returns the state.
      */
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "state")
     private MediaState state;
 
-
-    // ------- Members with a custom getter. ------- //
-
-    @Json(name = "rate_sum")
-    private int rateSum;
-
-    @Json(name = "rate_count")
-    private int rateCount;
-
-    @Json(name = "language")
-    private String languages;
-
     /**
-     * Returns an array with the genres of this entry.
+     * Returns the sum of all ratings.
      */
-    @SuppressWarnings("WrongConstant")
-    @NotNull
-    public String[] getGenres() {
-        if (genres.isEmpty()) {
-            return new String[0];
-        } else {
-            return genres.split(" ");
-        }
-    }
+    @Json(name = "rate_sum")
+    private int ratingSum;
 
     /**
-     * Returns the average rating.
+     * Returns the amount of ratings.
+     */
+    @Json(name = "rate_count")
+    private int ratingAmount;
+
+    /**
+     * Returns the languages, this entry is available in.
+     */
+    @Json(name = "language")
+    private Set<MediaLanguage> languages;
+
+    /**
+     * Returns the average of all ratings.
      */
     public float getRating() {
-        if (rateCount <= 0) {
-            return -1;
+        if (ratingAmount <= 0) {
+            return 0;
         } else {
-            return rateSum / rateCount;
+            return ratingSum / ratingAmount;
         }
     }
-
-    /**
-     * Returns an array with the available languages.
-     */
-    @SuppressWarnings("WrongConstant")
-    @NotNull
-    public String[] getLanguages() {
-        if (languages.isEmpty()) {
-            return new String[0];
-        } else {
-            return languages.split(",");
-        }
-    }
-
 }

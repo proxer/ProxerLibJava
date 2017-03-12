@@ -2,6 +2,7 @@ package com.proxerme.library.api;
 
 import com.proxerme.library.enums.FskConstraint;
 import com.proxerme.library.enums.Genre;
+import com.proxerme.library.enums.MediaLanguage;
 import com.proxerme.library.util.Utils;
 import com.squareup.moshi.*;
 import org.jetbrains.annotations.NotNull;
@@ -19,6 +20,9 @@ import java.util.Set;
  */
 class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
 
+    private static final String DELIMITER = " ";
+    private static final String COMMA_DELIMITER = ",";
+
     @Override
     public JsonAdapter<?> create(final Type type, final Set<? extends Annotation> annotations, final Moshi moshi) {
         final Type rawType = Types.getRawType(type);
@@ -30,9 +34,11 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
         final Type parameterType = ((ParameterizedType) type).getActualTypeArguments()[0];
 
         if (parameterType == Genre.class) {
-            return new DelimitedEnumSetAdapter<>(Genre.class);
+            return new DelimitedEnumSetAdapter<>(Genre.class, DELIMITER);
         } else if (parameterType == FskConstraint.class) {
-            return new DelimitedEnumSetAdapter<>(FskConstraint.class);
+            return new DelimitedEnumSetAdapter<>(FskConstraint.class, DELIMITER);
+        } else if (parameterType == MediaLanguage.class) {
+            return new DelimitedEnumSetAdapter<>(MediaLanguage.class, COMMA_DELIMITER);
         }
 
         return null;
@@ -40,12 +46,12 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
 
     private static class DelimitedEnumSetAdapter<T extends Enum<T>> extends JsonAdapter<Set<T>> {
 
-        private static final String DELIMITER = " ";
-
         private final Class<T> enumType;
+        private final String delimiter;
 
-        DelimitedEnumSetAdapter(@NotNull final Class<T> enumType) {
+        DelimitedEnumSetAdapter(@NotNull final Class<T> enumType, @NotNull final String delimiter) {
             this.enumType = enumType;
+            this.delimiter = delimiter;
         }
 
         @Override
@@ -56,7 +62,7 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
                 return EnumSet.noneOf(enumType);
             }
 
-            final String[] parts = json.split(DELIMITER);
+            final String[] parts = json.split(delimiter);
             final EnumSet<T> result = EnumSet.noneOf(enumType);
 
             for (final String part : parts) {
@@ -81,11 +87,11 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
                     throw new JsonDataException("Illegal item in set: " + item.name());
                 }
 
-                result += DELIMITER;
+                result += delimiter;
             }
 
             if (!result.isEmpty()) {
-                result = result.substring(0, result.length() - DELIMITER.length());
+                result = result.substring(0, result.length() - delimiter.length());
             }
 
             writer.value(result);
