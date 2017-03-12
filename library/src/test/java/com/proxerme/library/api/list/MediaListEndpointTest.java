@@ -53,6 +53,6 @@ public class MediaListEndpointTest extends ProxerTest {
     private MediaListEntry buildTestEntryEntry() {
         return new MediaListEntry("3637", "+ A Channel", EnumSet.of(Genre.COMEDY, Genre.SCHOOL),
                 Medium.OVA, 11, MediaState.FINISHED, 774, 115,
-                EnumSet.of(MediaLanguage.ENGLISH_SUB, MediaLanguage.GERMAN_SUB));
+                EnumSet.of(MediaListEntryLanguage.ENGLISH_SUB, MediaListEntryLanguage.GERMAN_SUB));
     }
 }

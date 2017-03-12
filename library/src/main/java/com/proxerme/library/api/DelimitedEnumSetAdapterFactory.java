@@ -2,7 +2,7 @@ package com.proxerme.library.api;
 
 import com.proxerme.library.enums.FskConstraint;
 import com.proxerme.library.enums.Genre;
-import com.proxerme.library.enums.MediaLanguage;
+import com.proxerme.library.enums.MediaListEntryLanguage;
 import com.proxerme.library.util.Utils;
 import com.squareup.moshi.*;
 import org.jetbrains.annotations.NotNull;
@@ -37,8 +37,8 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
             return new DelimitedEnumSetAdapter<>(Genre.class, DELIMITER);
         } else if (parameterType == FskConstraint.class) {
             return new DelimitedEnumSetAdapter<>(FskConstraint.class, DELIMITER);
-        } else if (parameterType == MediaLanguage.class) {
-            return new DelimitedEnumSetAdapter<>(MediaLanguage.class, COMMA_DELIMITER);
+        } else if (parameterType == MediaListEntryLanguage.class) {
+            return new DelimitedEnumSetAdapter<>(MediaListEntryLanguage.class, COMMA_DELIMITER);
         }
 
         return null;
