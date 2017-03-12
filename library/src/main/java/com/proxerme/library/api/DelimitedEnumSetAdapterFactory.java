@@ -67,19 +67,15 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
                 }
                 reader.endArray();
             } else {
-                final String json = reader.nextString();
-
-                if (json.isEmpty()) {
-                    return EnumSet.noneOf(enumType);
-                }
-
-                parts = Arrays.asList(json.split(delimiter));
+                parts = Arrays.asList(reader.nextString().split(delimiter));
             }
 
             for (final String part : parts) {
                 for (final Field field : enumType.getFields()) {
                     if (field.getAnnotation(Json.class).name().equals(part)) {
                         result.add(Enum.valueOf(enumType, field.getName()));
+
+                        break;
                     }
                 }
             }
