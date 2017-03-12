@@ -5,7 +5,7 @@ import com.squareup.moshi.Json;
 /**
  * Enum holding the available languages of an {@link com.proxerme.library.entitiy.list.MediaListEntry}.
  * <p>
- * This is the same as the {@link MediaLanguage}, but is needed, because the APIs encode both differently
+ * This is the same as the {@link MediaLanguage}, but is needed because the APIs encodes both differently.
  *
  * @author Ruben Gees
  */
