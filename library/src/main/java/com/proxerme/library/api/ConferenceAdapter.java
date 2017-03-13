@@ -20,7 +20,8 @@ class ConferenceAdapter {
     @FromJson
     Conference fromJson(IntermediateConference json) {
         return new Conference(json.id, json.topic, json.customTopic, json.participantAmount, json.getImageId(),
-                json.getImageType(), json.group, json.read, json.time, json.unreadMessageAmount, json.lastReadMessageId);
+                json.getImageType(), json.group, json.read, json.time, json.unreadMessageAmount,
+                json.lastReadMessageId);
     }
 
     private static class IntermediateConference {
@@ -58,31 +59,23 @@ class ConferenceAdapter {
 
         @NotNull
         private String getImageId() {
-            if (image.isEmpty()) {
+            final int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
+
+            if (delimiterIndex < 0) {
                 return EMPTY_RESULT;
             } else {
-                int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
-
-                if (delimiterIndex < 0) {
-                    return EMPTY_RESULT;
-                } else {
-                    return image.substring(0, delimiterIndex);
-                }
+                return image.substring(0, delimiterIndex);
             }
         }
 
         @NotNull
         private String getImageType() {
-            if (image.isEmpty()) {
+            final int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
+
+            if (delimiterIndex < 0) {
                 return EMPTY_RESULT;
             } else {
-                int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
-
-                if (delimiterIndex < 0) {
-                    return EMPTY_RESULT;
-                } else {
-                    return image.substring(delimiterIndex + 1);
-                }
+                return image.substring(delimiterIndex + 1);
             }
         }
     }

@@ -88,6 +88,7 @@ public class MediaListEndpoint implements PagingEndpoint, LimitEndpoint {
     /**
      * {@inheritDoc}
      */
+    @Override
     @NotNull
     public ProxerCall<List<MediaListEntry>> build() {
         return internalApi.mediaList(category, medium, includeHentai, searchStart, sort, sortType, page, limit);

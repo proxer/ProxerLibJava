@@ -24,7 +24,8 @@ public final class AnimeApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public StreamsEndpoint streams(@NotNull final String entryId, final int episode, final @NotNull AnimeLanguage language) {
+    public StreamsEndpoint streams(@NotNull final String entryId, final int episode,
+                                   @NotNull final AnimeLanguage language) {
         return new StreamsEndpoint(internalApi, entryId, episode, language);
     }
 

@@ -21,8 +21,8 @@ final class ProxerResponseCallAdapterFactory extends CallAdapter.Factory {
         }
 
         if (!(returnType instanceof ParameterizedType)) {
-            throw new IllegalArgumentException("ProxerCall return type must be parameterized as " +
-                    "ProxerCall<Foo> or ProxerCall<? extends Foo>");
+            throw new IllegalArgumentException("ProxerCall return type must be parameterized as "
+                    + "ProxerCall<Foo> or ProxerCall<? extends Foo>");
         }
 
         return new ProxerResponseCallAdapter<>(getParameterUpperBound(0, (ParameterizedType) returnType));

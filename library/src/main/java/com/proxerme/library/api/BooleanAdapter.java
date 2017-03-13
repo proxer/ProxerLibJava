@@ -20,9 +20,9 @@ class BooleanAdapter {
                 return false;
             }
         } else {
-            if (jsonString.equals("true")) {
+            if ("true".equals(jsonString)) {
                 return true;
-            } else if (jsonString.equals("false")) {
+            } else if ("false".equals(jsonString)) {
                 return false;
             }
         }

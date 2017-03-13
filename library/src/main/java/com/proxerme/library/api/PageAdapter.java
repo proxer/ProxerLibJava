@@ -14,7 +14,7 @@ final class PageAdapter {
 
     @FromJson
     List<Page> fromJson(final String[][] json) {
-        List<Page> result = new ArrayList<>();
+        final List<Page> result = new ArrayList<>();
 
         for (String[] jsonPage : json) {
             if (jsonPage.length != 3) {

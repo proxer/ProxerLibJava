@@ -22,15 +22,15 @@ import static java.util.regex.Pattern.DOTALL;
 final class LoginTokenInterceptor implements Interceptor {
 
     private static final String LOGIN_TOKEN_HEADER = "proxer-api-token";
-    private static final int MAX_PEEK_BYTE_COUNT = 1048576; // 1MB
-    private static final Pattern loginTokenPattern = Pattern.compile("\"token\":.*?\"(.+?)\"", DOTALL);
-    private static final Pattern errorPattern = Pattern.compile("\"code\":(.+?)" + Pattern.quote("}"), DOTALL);
-    private final List<String> loginPath = ProxerUrls.apiBase().newBuilder()
+    private static final int MAX_PEEK_BYTE_COUNT = 1048576;
+    private static final Pattern LOGIN_TOKEN_PATTERN = Pattern.compile("\"token\":.*?\"(.+?)\"", DOTALL);
+    private static final Pattern ERROR_PATTERN = Pattern.compile("\"code\":(.+?)" + Pattern.quote("}"), DOTALL);
+    private static final List<String> LOGIN_PATH = ProxerUrls.apiBase().newBuilder()
             .addPathSegment("user")
             .addPathSegment("login")
             .build()
             .pathSegments();
-    private final List<String> logoutPath = ProxerUrls.apiBase().newBuilder()
+    private static final List<String> LOGOUT_PATH = ProxerUrls.apiBase().newBuilder()
             .addPathSegment("user")
             .addPathSegment("logout")
             .build()
@@ -57,7 +57,7 @@ final class LoginTokenInterceptor implements Interceptor {
 
             if (response.isSuccessful()) {
                 final HttpUrl url = response.request().url();
-                final Matcher errorMatcher = errorPattern.matcher(response.peekBody(MAX_PEEK_BYTE_COUNT).string());
+                final Matcher errorMatcher = ERROR_PATTERN.matcher(response.peekBody(MAX_PEEK_BYTE_COUNT).string());
                 final Integer errorCode;
 
                 if (errorMatcher.find()) {
@@ -71,14 +71,14 @@ final class LoginTokenInterceptor implements Interceptor {
                 }
 
                 if (errorCode == 0) {
-                    if (url.pathSegments().equals(loginPath)) {
-                        final Matcher matcher = loginTokenPattern.matcher(response.peekBody(MAX_PEEK_BYTE_COUNT)
+                    if (url.pathSegments().equals(LOGIN_PATH)) {
+                        final Matcher matcher = LOGIN_TOKEN_PATTERN.matcher(response.peekBody(MAX_PEEK_BYTE_COUNT)
                                 .string());
 
                         if (matcher.find()) {
                             loginTokenManager.persist(matcher.group(1).trim());
                         }
-                    } else if (url.pathSegments().equals(logoutPath)) {
+                    } else if (url.pathSegments().equals(LOGOUT_PATH)) {
                         loginTokenManager.persist(null);
                     }
                 } else {

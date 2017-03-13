@@ -33,9 +33,9 @@ public class EnumRetrofitConverterFactoryTest {
         assertThat(factory.stringConverter(Entry.class, new Annotation[0], null)).isNull();
     }
 
+    @SuppressWarnings({"unchecked", "ConstantConditions"})
     @Test
     public void testConvert() throws IOException {
-        //noinspection ConstantConditions,unchecked
         assertThat(((Converter<Enum<?>, String>) factory.stringConverter(Genre.class, new Annotation[0], null))
                 .convert(Genre.ADVENTURE)).isEqualTo("Abenteuer");
     }

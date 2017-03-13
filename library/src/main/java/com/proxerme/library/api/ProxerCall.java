@@ -17,6 +17,7 @@ import java.net.SocketTimeoutException;
  * It provides nearly the same API as Retrofit's {@link Call}, thus allowing for synchronous and asynchronous
  * requests and cancellation.
  *
+ * @param <T> The result type of the call.
  * @author Ruben Gees
  */
 public final class ProxerCall<T> implements Cloneable {
