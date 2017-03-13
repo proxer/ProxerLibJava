@@ -1,0 +1,48 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": [
+    {
+      "eid": "2357",
+      "name": "High School DxD",
+      "fid": "640467",
+      "kat": "anime",
+      "medium": "animeseries"
+    },
+    {
+      "eid": "9219",
+      "name": "High School DxD BorN",
+      "fid": "1377645",
+      "kat": "anime",
+      "medium": "animeseries"
+    },
+    {
+      "eid": "6056",
+      "name": "High School DxD New",
+      "fid": "1377646",
+      "kat": "anime",
+      "medium": "animeseries"
+    },
+    {
+      "eid": "18116",
+      "name": "High School DxD Season 4",
+      "fid": "1377647",
+      "kat": "anime",
+      "medium": "animeseries"
+    },
+    {
+      "eid": "3175",
+      "name": "High School DxD Specials",
+      "fid": "1377648",
+      "kat": "anime",
+      "medium": "ova"
+    },
+    {
+      "eid": "2727",
+      "name": "The Breaker",
+      "fid": "1332105",
+      "kat": "manga",
+      "medium": "mangaseries"
+    }
+  ]
+}

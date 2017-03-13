@@ -6,6 +6,7 @@ import com.proxerme.library.api.list.ListApi;
 import com.proxerme.library.api.manga.MangaApi;
 import com.proxerme.library.api.messenger.MessengerApi;
 import com.proxerme.library.api.notifications.NotificationsApi;
+import com.proxerme.library.api.ucp.UcpApi;
 import com.proxerme.library.api.user.UserApi;
 import com.proxerme.library.util.ProxerUrls;
 import com.squareup.moshi.Moshi;
@@ -67,6 +68,12 @@ public final class ProxerApi {
      * Returns the respective API.
      */
     @Getter(onMethod = @__({@NotNull}))
+    private final UcpApi ucp;
+
+    /**
+     * Returns the respective API.
+     */
+    @Getter(onMethod = @__({@NotNull}))
     private final AnimeApi anime;
 
     /**
@@ -81,6 +88,7 @@ public final class ProxerApi {
         info = new InfoApi(retrofit);
         messenger = new MessengerApi(retrofit);
         list = new ListApi(retrofit);
+        ucp = new UcpApi(retrofit);
         anime = new AnimeApi(retrofit);
         manga = new MangaApi(retrofit);
     }

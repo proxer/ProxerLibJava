@@ -1,0 +1,56 @@
+package com.proxerme.library.api.ucp;
+
+import com.proxerme.library.ProxerTest;
+import com.proxerme.library.api.ProxerException;
+import com.proxerme.library.entitiy.ucp.UcpHistoryEntry;
+import com.proxerme.library.enums.Category;
+import com.proxerme.library.enums.MediaLanguage;
+import com.proxerme.library.enums.Medium;
+import okhttp3.mockwebserver.MockResponse;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ * @author Ruben Gees
+ */
+public class UcpHistoryEndpointTest extends ProxerTest {
+
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+    @Test
+    public void testDefault() throws ProxerException, IOException, ParseException {
+        server.enqueue(new MockResponse().setBody(fromResource("ucp_history.json")));
+
+        final List<UcpHistoryEntry> result = api.ucp()
+                .history()
+                .build()
+                .execute();
+
+        assertThat(result).first().isEqualTo(buildTestEntry());
+    }
+
+    @Test
+    public void testPath() throws ProxerException, IOException, InterruptedException {
+        server.enqueue(new MockResponse().setBody(fromResource("ucp_history.json")));
+
+        api.ucp().history()
+                .page(0)
+                .limit(10)
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/ucp/history?p=0&limit=10");
+    }
+
+    private UcpHistoryEntry buildTestEntry() throws ParseException {
+        return new UcpHistoryEntry("14701", "Nejimaki Seirei Senki: Tenkyou no Alderamin",
+                MediaLanguage.ENGLISH_SUB, Medium.ANIMESERIES, Category.ANIME, 1,
+                DATE_FORMAT.parse("2017-03-13 23:16:36"));
+    }
+}

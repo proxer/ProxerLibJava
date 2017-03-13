@@ -42,8 +42,8 @@ public final class UserApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public TopTenEndpoint topTen(@Nullable final String userId, @Nullable final String username) {
-        return new TopTenEndpoint(internalApi, userId, username);
+    public UserTopTenEndpoint topTen(@Nullable final String userId, @Nullable final String username) {
+        return new UserTopTenEndpoint(internalApi, userId, username);
     }
 
     /**

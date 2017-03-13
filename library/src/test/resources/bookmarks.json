@@ -1,0 +1,50 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": [
+    {
+      "eid": "16656",
+      "kat": "anime",
+      "name": "Kobayashi-san Chi no Maid Dragon",
+      "episode": "10",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "46285981",
+      "state": "2",
+      "available": "0"
+    },
+    {
+      "eid": "18100",
+      "kat": "anime",
+      "name": "Seiren",
+      "episode": "5",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "46272980",
+      "state": "2",
+      "available": "1"
+    },
+    {
+      "eid": "17176",
+      "kat": "anime",
+      "name": "Masamune-kun no Revenge",
+      "episode": "11",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "46263020",
+      "state": "2",
+      "available": "0"
+    },
+    {
+      "eid": "16209",
+      "kat": "anime",
+      "name": "Kono Subarashii Sekai ni Shukufuku wo! 2",
+      "episode": "10",
+      "language": "engsub",
+      "medium": "animeseries",
+      "id": "46258753",
+      "state": "2",
+      "available": "0"
+    }
+  ]
+}

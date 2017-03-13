@@ -17,7 +17,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class TopTenEndpoint implements Endpoint {
+public final class UserTopTenEndpoint implements Endpoint {
 
     private final InternalApi internalApi;
 
@@ -31,8 +31,8 @@ public final class TopTenEndpoint implements Endpoint {
     @Setter(onMethod = @__({@NotNull}))
     private Category category;
 
-    TopTenEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
-                   @Nullable final String username) {
+    UserTopTenEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
+                       @Nullable final String username) {
         if (userId == null && username == null) {
             throw new IllegalArgumentException("You must pass either an userId or an username.");
         }

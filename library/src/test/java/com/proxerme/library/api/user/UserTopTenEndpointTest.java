@@ -18,11 +18,11 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class TopTenEndpointTest extends ProxerTest {
+public class UserTopTenEndpointTest extends ProxerTest {
 
     @Test
     public void testDefault() throws ProxerException, IOException {
-        server.enqueue(new MockResponse().setBody(fromResource("topten_anime.json")));
+        server.enqueue(new MockResponse().setBody(fromResource("user_top_ten_anime.json")));
 
         final List<TopTenEntry> result = api.user()
                 .topTen(null, "rubygee")
@@ -35,7 +35,7 @@ public class TopTenEndpointTest extends ProxerTest {
 
     @Test
     public void testManga() throws ProxerException, IOException {
-        server.enqueue(new MockResponse().setBody(fromResource("topten_manga.json")));
+        server.enqueue(new MockResponse().setBody(fromResource("user_top_ten_manga.json")));
 
         final List<TopTenEntry> result = api.user()
                 .topTen(null, "rubygee")
@@ -48,7 +48,7 @@ public class TopTenEndpointTest extends ProxerTest {
 
     @Test
     public void testPath() throws ProxerException, IOException, InterruptedException {
-        server.enqueue(new MockResponse().setBody(fromResource("topten_manga.json")));
+        server.enqueue(new MockResponse().setBody(fromResource("user_top_ten_manga.json")));
 
         api.user().topTen("123", "rubygee")
                 .category(Category.ANIME)

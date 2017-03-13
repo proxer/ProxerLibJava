@@ -17,7 +17,7 @@ public class SendMessageEndpointTest extends ProxerTest {
 
     @Test
     public void testDefault() throws ProxerException, IOException {
-        server.enqueue(new MockResponse().setBody(fromResource("send_message.json")));
+        server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         final String result = api.messenger()
                 .sendMessage("123", "message")
@@ -29,7 +29,7 @@ public class SendMessageEndpointTest extends ProxerTest {
 
     @Test
     public void testPath() throws ProxerException, IOException, InterruptedException {
-        server.enqueue(new MockResponse().setBody(fromResource("send_message.json")));
+        server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.messenger().sendMessage("123", "message")
                 .build()
@@ -41,7 +41,7 @@ public class SendMessageEndpointTest extends ProxerTest {
 
     @Test
     public void testParameters() throws ProxerException, IOException, InterruptedException {
-        server.enqueue(new MockResponse().setBody(fromResource("send_message.json")));
+        server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.messenger().sendMessage("id", "someMessage")
                 .build()
@@ -53,7 +53,7 @@ public class SendMessageEndpointTest extends ProxerTest {
 
     @Test
     public void testActionParameters() throws ProxerException, IOException, InterruptedException {
-        server.enqueue(new MockResponse().setBody(fromResource("send_message.json")));
+        server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.messenger().sendMessage("id", MessageAction.REMOVE_USER, "Testerio")
                 .build()
