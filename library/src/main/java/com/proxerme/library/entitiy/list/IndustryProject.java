@@ -1,10 +1,7 @@
 package com.proxerme.library.entitiy.list;
 
 import com.proxerme.library.entitiy.interfaces.IdItem;
-import com.proxerme.library.enums.Genre;
-import com.proxerme.library.enums.MediaLanguage;
-import com.proxerme.library.enums.MediaState;
-import com.proxerme.library.enums.Medium;
+import com.proxerme.library.enums.*;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Value;
@@ -13,13 +10,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
 /**
- * Entity holding all relevant info about a single entry in the media list.
+ * Entity holding all relevant info about a single entry in an industry's project list.
  *
  * @author Desnoo
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class MediaListEntry implements IdItem {
+public class IndustryProject implements IdItem {
 
     /**
      * Returns the id.
@@ -43,6 +40,13 @@ public class MediaListEntry implements IdItem {
     private Set<Genre> genres;
 
     /**
+     * Returns the fsk ratings.
+     */
+    @Getter(onMethod = @__({@NotNull}))
+    @Json(name = "fsk")
+    private Set<FskConstraint> fskConstraints;
+
+    /**
      * Returns the selected medium.
      */
     @Getter(onMethod = @__({@NotNull}))
@@ -50,10 +54,11 @@ public class MediaListEntry implements IdItem {
     private Medium medium;
 
     /**
-     * Returns the amount of episodes, this entry has. They do not necessarily have to be uploaded.
+     * Returns the state.
      */
-    @Json(name = "count")
-    private int episodeAmount;
+    @Getter(onMethod = @__({@NotNull}))
+    @Json(name = "type")
+    private IndustryType type;
 
     /**
      * Returns the state.
@@ -73,12 +78,6 @@ public class MediaListEntry implements IdItem {
      */
     @Json(name = "rate_count")
     private int ratingAmount;
-
-    /**
-     * Returns the languages, this entry is available in.
-     */
-    @Json(name = "language")
-    private Set<MediaLanguage> languages;
 
     /**
      * Returns the average of all ratings.

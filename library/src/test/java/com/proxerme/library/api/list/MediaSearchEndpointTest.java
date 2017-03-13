@@ -29,9 +29,8 @@ public class MediaSearchEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(result).first().isEqualTo(buildTestEntryEntry());
+        assertThat(result).first().isEqualTo(buildTestEntry());
     }
-
 
     @Test
     public void testPath() throws ProxerException, IOException, InterruptedException {
@@ -61,7 +60,7 @@ public class MediaSearchEndpointTest extends ProxerTest {
                 "&tags=3%207&notags=5%2020&tagratefilter=rate_1&tagspoilerfilter=spoiler_1&p=3&limit=10");
     }
 
-    private MediaListEntry buildTestEntryEntry() {
+    private MediaListEntry buildTestEntry() {
         return new MediaListEntry("3637", "+ A Channel", EnumSet.of(Genre.COMEDY, Genre.SCHOOL),
                 Medium.OVA, 11, MediaState.FINISHED, 774, 115,
                 EnumSet.of(MediaLanguage.ENGLISH_SUB, MediaLanguage.GERMAN_SUB));

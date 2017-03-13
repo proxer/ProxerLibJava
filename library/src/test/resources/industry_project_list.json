@@ -1,0 +1,127 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": [
+    {
+      "id": "10198",
+      "name": "&Dropout",
+      "fsk": "",
+      "genre": "Comedy SciFi Yuri",
+      "medium": "oneshot",
+      "state": "1",
+      "rate_sum": "109",
+      "rate_count": "23",
+      "type": "publisher"
+    },
+    {
+      "id": "7505",
+      "name": "...Virgin Love.",
+      "fsk": "fsk18 sex",
+      "genre": "Adult Drama Romance Yaoi",
+      "medium": "mangaseries",
+      "state": "1",
+      "rate_sum": "400",
+      "rate_count": "61",
+      "type": "publisher"
+    },
+    {
+      "id": "5653",
+      "name": "1-en no Otoko",
+      "fsk": "fsk18 sex",
+      "genre": "Comedy Drama Romance Slice_of_Life Yaoi",
+      "medium": "mangaseries",
+      "state": "1",
+      "rate_sum": "169",
+      "rate_count": "27",
+      "type": "publisher"
+    },
+    {
+      "id": "2401",
+      "name": "1999 Shanghai",
+      "fsk": "",
+      "genre": "Action Drama Romance Shounen-Ai Yaoi",
+      "medium": "mangaseries",
+      "state": "1",
+      "rate_sum": "106",
+      "rate_count": "17",
+      "type": "publisher"
+    },
+    {
+      "id": "6627",
+      "name": "A Channel",
+      "fsk": "fsk6",
+      "genre": "Comedy Seinen Slice_of_Life",
+      "medium": "mangaseries",
+      "state": "2",
+      "rate_sum": "63",
+      "rate_count": "8",
+      "type": "publisher"
+    },
+    {
+      "id": "5096",
+      "name": "Acchi Kocchi",
+      "fsk": "",
+      "genre": "Comedy Romance School",
+      "medium": "mangaseries",
+      "state": "2",
+      "rate_sum": "99",
+      "rate_count": "12",
+      "type": "publisher"
+    },
+    {
+      "id": "12929",
+      "name": "Aisareru Karada",
+      "fsk": "sex",
+      "genre": "Yaoi",
+      "medium": "mangaseries",
+      "state": "1",
+      "rate_sum": "22",
+      "rate_count": "4",
+      "type": "publisher"
+    },
+    {
+      "id": "12920",
+      "name": "Akihabara Fall In Love",
+      "fsk": "",
+      "genre": "Comedy Romance School Yaoi",
+      "medium": "mangaseries",
+      "state": "1",
+      "rate_sum": "514",
+      "rate_count": "71",
+      "type": "publisher"
+    },
+    {
+      "id": "10239",
+      "name": "Aldnoah.Zero",
+      "fsk": "fsk12 violence",
+      "genre": "Action Mecha SciFi",
+      "medium": "mangaseries",
+      "state": "1",
+      "rate_sum": "132",
+      "rate_count": "17",
+      "type": "publisher"
+    },
+    {
+      "id": "17295",
+      "name": "Anata no Tame Nara Dokomade mo",
+      "fsk": "",
+      "genre": "Comedy Historical Romance Yaoi",
+      "medium": "mangaseries",
+      "state": "1",
+      "rate_sum": "17",
+      "rate_count": "4",
+      "type": "publisher"
+    },
+    {
+      "id": "13635",
+      "name": "Anne Happy♪",
+      "fsk": "",
+      "genre": "Comedy School Seinen Slice_of_Life",
+      "medium": "mangaseries",
+      "state": "2",
+      "rate_sum": "0",
+      "rate_count": "0",
+      "type": "publisher"
+    }
+  ]
+}

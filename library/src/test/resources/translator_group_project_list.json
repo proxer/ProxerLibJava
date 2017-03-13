@@ -1,0 +1,204 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": [
+    {
+      "id": "15775",
+      "name": "12-Sai: Chiccha na Mune no Tokimeki",
+      "fsk": "fsk0",
+      "genre": "Comedy Romance",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "942",
+      "rate_count": "136",
+      "type": "2"
+    },
+    {
+      "id": "106",
+      "name": "Ani*Kuri15",
+      "fsk": "",
+      "genre": "Abenteuer Action Comedy Drama Fantasy Historical School SciFi",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "245",
+      "rate_count": "40",
+      "type": "1"
+    },
+    {
+      "id": "4349",
+      "name": "Arve Rezzle: Kikaijikake no Yoseitachi",
+      "fsk": "fsk16 fear",
+      "genre": "Action Drama Mystery SciFi",
+      "medium": "movie",
+      "state": "1",
+      "rate_sum": "1829",
+      "rate_count": "260",
+      "type": "1"
+    },
+    {
+      "id": "17064",
+      "name": "Bananya",
+      "fsk": "fsk0",
+      "genre": "Comedy",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "1531",
+      "rate_count": "236",
+      "type": "2"
+    },
+    {
+      "id": "178",
+      "name": "Basquash!",
+      "fsk": "",
+      "genre": "Action Comedy Drama Ecchi Mecha Shounen Sport",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "861",
+      "rate_count": "108",
+      "type": "4"
+    },
+    {
+      "id": "1019",
+      "name": "Byousoku 5 Centimeter",
+      "fsk": "fsk6",
+      "genre": "Drama Romance School Slice_of_Life",
+      "medium": "movie",
+      "state": "1",
+      "rate_sum": "17133",
+      "rate_count": "2200",
+      "type": "5"
+    },
+    {
+      "id": "7",
+      "name": "Claymore",
+      "fsk": "fsk16 violence",
+      "genre": "Abenteuer Action Adult Drama Fantasy Horror Romance Shounen Splatter Superpower Violence",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "22003",
+      "rate_count": "2684",
+      "type": "5"
+    },
+    {
+      "id": "222",
+      "name": "Code Geass: Hangyaku no Lelouch",
+      "fsk": "fsk16 bad_language violence",
+      "genre": "Action Drama Mecha Military Psychological Romance School SciFi Superpower Violence",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "78138",
+      "rate_count": "8509",
+      "type": "5"
+    },
+    {
+      "id": "41",
+      "name": "Code Geass: Hangyaku no Lelouch R2",
+      "fsk": "fsk16 violence",
+      "genre": "Action Drama Mecha Military Psychological Romance School SciFi Superpower Violence",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "69562",
+      "rate_count": "7380",
+      "type": "5"
+    },
+    {
+      "id": "227",
+      "name": "Coyote Ragtime Show",
+      "fsk": "fsk12",
+      "genre": "Abenteuer Action Comedy Mecha SciFi Shounen",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "210",
+      "rate_count": "31",
+      "type": "5"
+    },
+    {
+      "id": "135",
+      "name": "Dance in the Vampire Bund",
+      "fsk": "fsk16 violence",
+      "genre": "Action Drama Ecchi Horror Romance Superpower Vampire Violence",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "21676",
+      "rate_count": "2829",
+      "type": "5"
+    },
+    {
+      "id": "340",
+      "name": "Dennou Coil",
+      "fsk": "fsk0",
+      "genre": "Abenteuer Action Comedy Drama Horror Mystery Psychological Romance SciFi",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "1270",
+      "rate_count": "160",
+      "type": "4"
+    },
+    {
+      "id": "245",
+      "name": "Ef: A Tale of Melodies.",
+      "fsk": "fsk12",
+      "genre": "Drama Psychological Romance",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "5703",
+      "rate_count": "688",
+      "type": "1"
+    },
+    {
+      "id": "244",
+      "name": "Ef: A Tale of Memories.",
+      "fsk": "fsk12",
+      "genre": "Drama Mystery Psychological Romance",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "9733",
+      "rate_count": "1173",
+      "type": "1"
+    },
+    {
+      "id": "792",
+      "name": "Eve no Jikan",
+      "fsk": "fsk12",
+      "genre": "Drama Mecha SciFi Slice_of_Life",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "1573",
+      "rate_count": "200",
+      "type": "5"
+    },
+    {
+      "id": "300",
+      "name": "Hakushaku to Yousei",
+      "fsk": "fsk12",
+      "genre": "Abenteuer Drama Fantasy Magic Mystery Romance Shoujou",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "13412",
+      "rate_count": "1672",
+      "type": "1"
+    },
+    {
+      "id": "306",
+      "name": "Happy World!",
+      "fsk": "fsk16",
+      "genre": "Comedy Ecchi Fantasy",
+      "medium": "ova",
+      "state": "1",
+      "rate_sum": "114",
+      "rate_count": "16",
+      "type": "1"
+    },
+    {
+      "id": "92",
+      "name": "Hayate no Gotoku!",
+      "fsk": "fsk6",
+      "genre": "Action Comedy Drama Harem Romance School",
+      "medium": "animeseries",
+      "state": "1",
+      "rate_sum": "5054",
+      "rate_count": "642",
+      "type": "4"
+    }
+  ]
+}

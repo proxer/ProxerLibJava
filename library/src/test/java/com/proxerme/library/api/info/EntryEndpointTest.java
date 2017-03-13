@@ -3,6 +3,7 @@ package com.proxerme.library.api.info;
 import com.proxerme.library.ProxerTest;
 import com.proxerme.library.api.ProxerException;
 import com.proxerme.library.entitiy.info.*;
+import com.proxerme.library.entitiy.list.IndustryCore;
 import com.proxerme.library.enums.*;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
@@ -69,7 +70,7 @@ public class EntryEndpointTest extends ProxerTest {
                 new EntryTranslatorGroup("215", "SnoopyCool", Country.ENGLAND),
                 new EntryTranslatorGroup("294", "FoOlRulez", Country.ENGLAND)
         ), Collections.singletonList(
-                new EntryIndustry("19", "Kodansha", IndustryType.PUBLISHER, Country.JAPAN)
+                new IndustryCore("19", "Kodansha", IndustryType.PUBLISHER, Country.JAPAN)
         ), Arrays.asList(
                 new Tag("93", "2027", DATE_FORMAT.parse("2016-06-18 14:14:22"), false,
                         false, "Dämonen", "In diesem Werk kommen Dämonen vor."),

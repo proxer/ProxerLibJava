@@ -31,4 +31,36 @@ public class ListApi {
     public MediaSearchEndpoint mediaSearch() {
         return new MediaSearchEndpoint(internalApi);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public TranslatorGroupListEndpoint translatorGroupList() {
+        return new TranslatorGroupListEndpoint(internalApi);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public IndustryListEndpoint industryList() {
+        return new IndustryListEndpoint(internalApi);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public TranslatorGroupProjectListEndpoint translatorGroupProjectList(@NotNull String translatorGroupId) {
+        return new TranslatorGroupProjectListEndpoint(internalApi, translatorGroupId);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public IndustryProjectListEndpoint industryProjectList(@NotNull String industryId) {
+        return new IndustryProjectListEndpoint(internalApi, industryId);
+    }
 }

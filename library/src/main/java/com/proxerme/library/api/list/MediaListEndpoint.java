@@ -81,7 +81,7 @@ public class MediaListEndpoint implements PagingEndpoint, LimitEndpoint {
     @Setter(onMethod = @__({@Override, @NotNull}))
     private Integer limit;
 
-    MediaListEndpoint(@NotNull InternalApi internalApi) {
+    MediaListEndpoint(@NotNull final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 

@@ -1,7 +1,7 @@
 package com.proxerme.library.api.list;
 
 import com.proxerme.library.api.ProxerCall;
-import com.proxerme.library.entitiy.list.MediaListEntry;
+import com.proxerme.library.entitiy.list.*;
 import com.proxerme.library.enums.*;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -34,4 +34,27 @@ public interface InternalApi {
                                                  @Query("tagspoilerfilter") TagSpoilerFilter tagSpoilerFilter,
                                                  @Query("p") Integer page,
                                                  @Query("limit") Integer limit);
+
+    @GET("list/translatorgroups")
+    ProxerCall<List<TranslatorGroupCore>> translatorGroupList(@Query("start") String searchStart,
+                                                              @Query("contains") String search,
+                                                              @Query("country") Country country,
+                                                              @Query("p") Integer page, @Query("limit") Integer limit);
+
+    @GET("list/industrys")
+    ProxerCall<List<IndustryCore>> industryList(@Query("start") String searchStart, @Query("contains") String search,
+                                                @Query("country") Country country, @Query("p") Integer page,
+                                                @Query("limit") Integer limit);
+
+    @GET("list/translatorgroupprojects")
+    ProxerCall<List<TranslatorGroupProject>> translatorGroupProjectList(@Query("id") String id,
+                                                                        @Query("type") ProjectState projectState,
+                                                                        @Query("isH") Boolean includeHentai,
+                                                                        @Query("p") Integer page,
+                                                                        @Query("limit") Integer limit);
+
+    @GET("list/industryprojects")
+    ProxerCall<List<IndustryProject>> industryProjectList(@Query("id") String id, @Query("type") IndustryType type,
+                                                          @Query("isH") Boolean includeHentai, @Query("p") Integer page,
+                                                          @Query("limit") Integer limit);
 }

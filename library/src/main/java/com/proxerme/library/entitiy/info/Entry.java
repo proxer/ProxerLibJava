@@ -1,6 +1,7 @@
 package com.proxerme.library.entitiy.info;
 
 import com.proxerme.library.entitiy.interfaces.IdItem;
+import com.proxerme.library.entitiy.list.IndustryCore;
 import com.proxerme.library.enums.*;
 import com.squareup.moshi.Json;
 import lombok.Getter;
@@ -146,7 +147,7 @@ public class Entry implements IdItem {
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "publisher")
-    private List<EntryIndustry> industries;
+    private List<IndustryCore> industries;
 
     /**
      * Returns the tags.

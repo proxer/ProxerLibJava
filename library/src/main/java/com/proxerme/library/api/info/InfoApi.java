@@ -42,4 +42,20 @@ public final class InfoApi {
     public EntryEndpoint entry(@NotNull String entryId) {
         return new EntryEndpoint(internalApi, entryId);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public TranslatorGroupEndpoint translatorGroup(@NotNull String translatorGroupId) {
+        return new TranslatorGroupEndpoint(internalApi, translatorGroupId);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public IndustryEndpoint industry(@NotNull String industryId) {
+        return new IndustryEndpoint(internalApi, industryId);
+    }
 }

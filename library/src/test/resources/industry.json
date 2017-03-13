@@ -1,0 +1,12 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": {
+    "id": "123",
+    "type": "studio",
+    "name": "Hoods Entertainment",
+    "country": "jp",
+    "link": "http://www.hoods.co.jp/",
+    "description": "Anfang 2009 gegründetes Animations-Studio mit Sitz in Tokio."
+  }
+}

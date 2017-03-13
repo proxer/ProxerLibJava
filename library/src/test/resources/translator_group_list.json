@@ -1,0 +1,90 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": [
+    {
+      "id": "533",
+      "name": "/ak/ Scans",
+      "country": "en",
+      "image": "http://img1.wikia.nocookie.net/__cb20120723230150/ak-scans/images/5/58/1342952821487.png"
+    },
+    {
+      "id": "638",
+      "name": "/u/ Scanlations",
+      "country": "en",
+      "image": " "
+    },
+    {
+      "id": "1336",
+      "name": "13th Hour Scanlations",
+      "country": "en",
+      "image": ""
+    },
+    {
+      "id": "833",
+      "name": "14BiQ-Scans",
+      "country": "en",
+      "image": ""
+    },
+    {
+      "id": "659",
+      "name": "200 wpm",
+      "country": "en",
+      "image": " "
+    },
+    {
+      "id": "1015",
+      "name": "2hungryazns",
+      "country": "en",
+      "image": ""
+    },
+    {
+      "id": "769",
+      "name": "3829",
+      "country": "en",
+      "image": "http://fs2.directupload.net/images/150406/kkpvfxm8.png"
+    },
+    {
+      "id": "693",
+      "name": "4chan",
+      "country": "en",
+      "image": "http://img5.fotos-hochladen.net/uploads/4chanlogoproxer5mdxa6hv72.jpg"
+    },
+    {
+      "id": "122",
+      "name": "4dawgz",
+      "country": "en",
+      "image": "http://4.bp.blogspot.com/-yk4QYGa2E9c/ULlznpK0x-I/AAAAAAAACOk/y8"
+    },
+    {
+      "id": "1333",
+      "name": "4S",
+      "country": "en",
+      "image": ""
+    },
+    {
+      "id": "746",
+      "name": "5 a.m. Translations",
+      "country": "en",
+      "image": " "
+    },
+    {
+      "id": "1018",
+      "name": "8lackScans",
+      "country": "de",
+      "image": ""
+    },
+    {
+      "id": "858",
+      "name": "::Obsession::",
+      "country": "en",
+      "image": ""
+    },
+    {
+      "id": "321",
+      "name": "A Bored Tamer",
+      "country": "en",
+      "image": ""
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": [
+    {
+      "id": "493",
+      "type": "studio",
+      "name": "10Gauge",
+      "country": "jp"
+    },
+    {
+      "id": "387",
+      "type": "producer",
+      "name": "5pb.",
+      "country": "jp"
+    },
+    {
+      "id": "503",
+      "type": "studio",
+      "name": "6-Jigen Animation",
+      "country": "jp"
+    },
+    {
+      "id": "93",
+      "type": "studio",
+      "name": "8-Bit",
+      "country": "jp"
+    },
+    {
+      "id": "347",
+      "type": "publisher",
+      "name": "801 Media",
+      "country": "us"
+    },
+    {
+      "id": "509",
+      "type": "talent_agent",
+      "name": "81 Produce",
+      "country": "jp"
+    },
+    {
+      "id": "7",
+      "type": "studio",
+      "name": "A-1 Pictures",
+      "country": "jp"
+    }
+  ]
+}

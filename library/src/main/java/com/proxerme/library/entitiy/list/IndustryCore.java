@@ -1,4 +1,4 @@
-package com.proxerme.library.entitiy.info;
+package com.proxerme.library.entitiy.list;
 
 import com.proxerme.library.entitiy.interfaces.IdItem;
 import com.proxerme.library.enums.Country;
@@ -9,13 +9,13 @@ import lombok.Value;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Entity containing the relevant info of an industry, associated with an {@link Entry}.
+ * Entity containing the core information of an industry.
  *
  * @author Ruben Gees
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class EntryIndustry implements IdItem {
+public class IndustryCore implements IdItem {
 
     /**
      * Returns the id.
@@ -39,7 +39,7 @@ public class EntryIndustry implements IdItem {
     private IndustryType type;
 
     /**
-     * Returns thecountry, the industry resides in.
+     * Returns the country, the industry resides in.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "country")

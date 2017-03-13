@@ -1,10 +1,7 @@
 package com.proxerme.library.api.info;
 
 import com.proxerme.library.api.ProxerCall;
-import com.proxerme.library.entitiy.info.Comment;
-import com.proxerme.library.entitiy.info.Entry;
-import com.proxerme.library.entitiy.info.EntryCore;
-import com.proxerme.library.entitiy.info.Synonym;
+import com.proxerme.library.entitiy.info.*;
 import com.proxerme.library.enums.CommentSortCriteria;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -28,4 +25,10 @@ interface InternalApi {
 
     @GET("info/names")
     ProxerCall<List<Synonym>> synonyms(@Query("id") String id);
+
+    @GET("info/translatorgroup")
+    ProxerCall<TranslatorGroup> translatorGroup(@Query("id") String id);
+
+    @GET("info/industry")
+    ProxerCall<Industry> industry(@Query("id") String id);
 }

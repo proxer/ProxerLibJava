@@ -123,7 +123,7 @@ public class MediaSearchEndpoint implements PagingEndpoint, LimitEndpoint {
     private String tags;
     private String excludedTags;
 
-    MediaSearchEndpoint(InternalApi internalApi) {
+    MediaSearchEndpoint(@NotNull final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
