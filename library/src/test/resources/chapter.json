@@ -1,0 +1,27 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": {
+    "cid": "1954",
+    "eid": "2784",
+    "title": "Chapter 1",
+    "server": "0",
+    "uploader": "0",
+    "timestamp": "1318716000",
+    "username": "nobody",
+    "tid": null,
+    "tname": null,
+    "pages": [
+      [
+        "fairy-001-01.jpg",
+        1100,
+        765
+      ],
+      [
+        "fairy-001-02-03.jpg",
+        641,
+        900
+      ]
+    ]
+  }
+}

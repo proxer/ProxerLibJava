@@ -3,6 +3,7 @@ package com.proxerme.library.api;
 import com.proxerme.library.api.anime.AnimeApi;
 import com.proxerme.library.api.info.InfoApi;
 import com.proxerme.library.api.list.ListApi;
+import com.proxerme.library.api.manga.MangaApi;
 import com.proxerme.library.api.messenger.MessengerApi;
 import com.proxerme.library.api.notifications.NotificationsApi;
 import com.proxerme.library.api.user.UserApi;
@@ -69,6 +70,12 @@ public final class ProxerApi {
     @Getter(onMethod = @__({@NotNull}))
     private final AnimeApi anime;
 
+    /**
+     * Returns the respective API.
+     */
+    @Getter(onMethod = @__({@NotNull}))
+    private final MangaApi manga;
+
     ProxerApi(@NotNull final Retrofit retrofit) {
         notifications = new NotificationsApi(retrofit);
         user = new UserApi(retrofit);
@@ -76,6 +83,7 @@ public final class ProxerApi {
         messenger = new MessengerApi(retrofit);
         list = new ListApi(retrofit);
         anime = new AnimeApi(retrofit);
+        manga = new MangaApi(retrofit);
     }
 
     /**
@@ -187,6 +195,7 @@ public final class ProxerApi {
                     .add(new HttpUrlAdapter())
                     .add(new ConferenceAdapter())
                     .add(new ConferenceInfoAdapter())
+                    .add(new PageAdapter())
                     .add(new FixRatingDetailsAdapter())
                     .build();
         }

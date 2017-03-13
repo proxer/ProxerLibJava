@@ -1,7 +1,6 @@
-package com.proxerme.library.entitiy.anime;
+package com.proxerme.library.entitiy.manga;
 
 import com.proxerme.library.entitiy.interfaces.IdItem;
-import com.proxerme.library.entitiy.interfaces.ImageItem;
 import com.proxerme.library.entitiy.interfaces.TimeItem;
 import com.squareup.moshi.Json;
 import lombok.Getter;
@@ -10,42 +9,36 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Date;
+import java.util.List;
 
 /**
- * Entity representing a single streaming option of an anime.
+ * Entity representing a chapter in a single language of a manga.
  *
  * @author Ruben Gees
  */
 @Value
-public class Stream implements IdItem, ImageItem, TimeItem {
+public class Chapter implements IdItem, TimeItem {
 
     /**
      * {@inheritDoc}
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
-    @Json(name = "id")
+    @Json(name = "cid")
     private String id;
 
     /**
-     * Returns the type of hoster of this stream.
+     * Returns the id of the associated entry.
      */
     @Getter(onMethod = @__({@NotNull}))
-    @Json(name = "type")
-    private String hoster;
+    @Json(name = "eid")
+    private String entryId;
 
     /**
-     * Returns the name of the hoster.
+     * Returns the title.
      */
     @Getter(onMethod = @__({@NotNull}))
-    @Json(name = "name")
-    private String hosterName;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Getter(onMethod = @__({@Override, @NotNull}))
-    @Json(name = "img")
-    private String imageId;
+    @Json(name = "title")
+    private String title;
 
     /**
      * Returns the id of the uploader.
@@ -69,16 +62,30 @@ public class Stream implements IdItem, ImageItem, TimeItem {
     private Date time;
 
     /**
-     * Returns the id of the translator group, if present.
+     * Returns the id of the scan group if present.
      */
     @Getter(onMethod = @__({@Nullable}))
     @Json(name = "tid")
-    private String translatorGroupId;
+    private String scanGroupId;
 
     /**
-     * Returns the name of the translator group, if present.
+     * Returns the name of the scan group if present.
      */
     @Getter(onMethod = @__({@Nullable}))
     @Json(name = "tname")
-    private String translatorGroupName;
+    private String scanGroupName;
+
+    /**
+     * Returns the server this page is saved on. To be used for retriving the url.
+     */
+    @Getter(onMethod = @__({@NotNull}))
+    @Json(name = "server")
+    private String server;
+
+    /**
+     * Returns the actual pages of the chapter..
+     */
+    @Getter(onMethod = @__({@NotNull}))
+    @Json(name = "pages")
+    private List<Page> pages;
 }
