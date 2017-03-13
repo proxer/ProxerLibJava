@@ -40,7 +40,7 @@ public class MediaListEndpointTest extends ProxerTest {
                 .includeHentai(true)
                 .searchStart("abc")
                 .sort(MediaListSortCriteria.RATING)
-                .sortType(MediaListSortType.ASCENDING)
+                .sortType(SortType.ASCENDING)
                 .limit(10)
                 .page(0)
                 .build()

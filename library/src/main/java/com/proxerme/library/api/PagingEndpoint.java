@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * TODO: Describe class
+ * Interface for all pageable endpoints.
  *
  * @author Ruben Gees
  */

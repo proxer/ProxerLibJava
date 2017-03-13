@@ -6,8 +6,8 @@ import com.proxerme.library.api.ProxerCall;
 import com.proxerme.library.entitiy.list.MediaListEntry;
 import com.proxerme.library.enums.Category;
 import com.proxerme.library.enums.MediaListSortCriteria;
-import com.proxerme.library.enums.MediaListSortType;
 import com.proxerme.library.enums.Medium;
+import com.proxerme.library.enums.SortType;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.NotNull;
@@ -58,7 +58,7 @@ public class MediaListEndpoint implements PagingEndpoint, LimitEndpoint {
      */
     @Nullable
     @Setter(onMethod = @__({@NotNull}))
-    private MediaListSortType sortType;
+    private SortType sortType;
 
     /**
      * Sets the query to search for only from the start.

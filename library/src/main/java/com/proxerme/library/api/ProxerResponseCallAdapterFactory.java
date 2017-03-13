@@ -1,6 +1,5 @@
 package com.proxerme.library.api;
 
-import com.proxerme.library.entitiy.ProxerResponse;
 import com.squareup.moshi.Types;
 import retrofit2.Call;
 import retrofit2.CallAdapter;

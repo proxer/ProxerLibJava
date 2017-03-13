@@ -18,8 +18,8 @@ public interface InternalApi {
     ProxerCall<List<MediaListEntry>> mediaList(@Query("kat") Category category, @Query("medium") Medium medium,
                                                @Query("isH") Boolean includeHentai, @Query("start") String searchStart,
                                                @Query("sort") MediaListSortCriteria sort,
-                                               @Query("sort_type") MediaListSortType sortType,
-                                               @Query("p") Integer page, @Query("limit") Integer limit);
+                                               @Query("sort_type") SortType sortType, @Query("p") Integer page,
+                                               @Query("limit") Integer limit);
 
     @GET("list/entrysearch")
     ProxerCall<List<MediaListEntry>> mediaSearch(@Query("name") String name, @Query("language") Language language,

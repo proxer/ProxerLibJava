@@ -3,11 +3,11 @@ package com.proxerme.library.enums;
 import com.squareup.moshi.Json;
 
 /**
- * TODO: Describe class
+ * Enum holding the available sort types.
  *
  * @author Ruben Gees
  */
-public enum MediaListSortType {
+public enum SortType {
     @Json(name = "ASC")ASCENDING,
     @Json(name = "DESC")DESCENDING
 }
