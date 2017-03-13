@@ -44,7 +44,7 @@ public final class MessengerApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public ConferenceInfoEndpoint conferenceInfo(@NotNull String id) {
+    public ConferenceInfoEndpoint conferenceInfo(@NotNull final String id) {
         return new ConferenceInfoEndpoint(internalApi, id);
     }
 
@@ -52,7 +52,8 @@ public final class MessengerApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public CreateConferenceEndpoint createConference(@NotNull String firstMessage, @NotNull String username) {
+    public CreateConferenceEndpoint createConference(@NotNull final String firstMessage,
+                                                     @NotNull final String username) {
         return new CreateConferenceEndpoint(internalApi, firstMessage, username);
     }
 
@@ -79,7 +80,7 @@ public final class MessengerApi {
      */
     @NotNull
     public SendMessageEndpoint sendMessage(@NotNull final String conferenceId, @NotNull final MessageAction action,
-                                           @NotNull String subject) {
+                                           @NotNull final String subject) {
         return new SendMessageEndpoint(internalApi, conferenceId, constructMessageFromAction(action, subject));
     }
 

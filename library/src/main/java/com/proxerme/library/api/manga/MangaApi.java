@@ -24,7 +24,7 @@ public final class MangaApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public ChapterEndpoint chapter(@NotNull String entryId, int episode, @NotNull Language language) {
+    public ChapterEndpoint chapter(@NotNull final String entryId, int episode, @NotNull Language language) {
         return new ChapterEndpoint(internalApi, entryId, episode, language);
     }
 }

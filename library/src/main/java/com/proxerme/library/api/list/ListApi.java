@@ -52,7 +52,7 @@ public class ListApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public TranslatorGroupProjectListEndpoint translatorGroupProjectList(@NotNull String translatorGroupId) {
+    public TranslatorGroupProjectListEndpoint translatorGroupProjectList(@NotNull final String translatorGroupId) {
         return new TranslatorGroupProjectListEndpoint(internalApi, translatorGroupId);
     }
 
@@ -60,7 +60,7 @@ public class ListApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public IndustryProjectListEndpoint industryProjectList(@NotNull String industryId) {
+    public IndustryProjectListEndpoint industryProjectList(@NotNull final String industryId) {
         return new IndustryProjectListEndpoint(internalApi, industryId);
     }
 }

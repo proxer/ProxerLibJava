@@ -23,7 +23,7 @@ public final class InfoApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public CommentsEndpoint comments(@NotNull String entryId) {
+    public CommentsEndpoint comments(@NotNull final String entryId) {
         return new CommentsEndpoint(internalApi, entryId);
     }
 
@@ -31,7 +31,7 @@ public final class InfoApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public EntryCoreEndpoint entryCore(@NotNull String entryId) {
+    public EntryCoreEndpoint entryCore(@NotNull final String entryId) {
         return new EntryCoreEndpoint(internalApi, entryId);
     }
 
@@ -39,7 +39,7 @@ public final class InfoApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public EntryEndpoint entry(@NotNull String entryId) {
+    public EntryEndpoint entry(@NotNull final String entryId) {
         return new EntryEndpoint(internalApi, entryId);
     }
 
@@ -47,7 +47,7 @@ public final class InfoApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public TranslatorGroupEndpoint translatorGroup(@NotNull String translatorGroupId) {
+    public TranslatorGroupEndpoint translatorGroup(@NotNull final String translatorGroupId) {
         return new TranslatorGroupEndpoint(internalApi, translatorGroupId);
     }
 
@@ -55,7 +55,7 @@ public final class InfoApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public IndustryEndpoint industry(@NotNull String industryId) {
+    public IndustryEndpoint industry(@NotNull final String industryId) {
         return new IndustryEndpoint(internalApi, industryId);
     }
 }

@@ -24,7 +24,7 @@ public final class AnimeApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public StreamsEndpoint streams(@NotNull String entryId, int episode, @NotNull AnimeLanguage language) {
+    public StreamsEndpoint streams(@NotNull final String entryId, final int episode, final @NotNull AnimeLanguage language) {
         return new StreamsEndpoint(internalApi, entryId, episode, language);
     }
 
@@ -32,7 +32,7 @@ public final class AnimeApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public LinkEndpoint link(@NotNull String streamId) {
+    public LinkEndpoint link(@NotNull final String streamId) {
         return new LinkEndpoint(internalApi, streamId);
     }
 }

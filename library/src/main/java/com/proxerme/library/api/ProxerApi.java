@@ -15,7 +15,6 @@ import lombok.experimental.Accessors;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
@@ -102,7 +101,6 @@ public final class ProxerApi {
         /**
          * Sets a custom login token manager.
          */
-        @Nullable
         @Setter(onMethod = @__({@NotNull}))
         private LoginTokenManager loginTokenManager;
 
@@ -111,7 +109,6 @@ public final class ProxerApi {
          * <p>
          * If not set, it will default to "ProxerLibJava/[version]"
          */
-        @Nullable
         @Setter(onMethod = @__({@NotNull}))
         private String userAgent;
 
@@ -121,7 +118,6 @@ public final class ProxerApi {
          * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
          * instance.
          */
-        @Nullable
         @Setter(onMethod = @__({@NotNull}))
         private Moshi moshi;
 
@@ -131,7 +127,6 @@ public final class ProxerApi {
          * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
          * instance.
          */
-        @Nullable
         @Setter(onMethod = @__({@NotNull}))
         private OkHttpClient client;
 
@@ -141,7 +136,6 @@ public final class ProxerApi {
          * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
          * instance.
          */
-        @Nullable
         @Setter(onMethod = @__({@NotNull}))
         private Retrofit retrofit;
 
