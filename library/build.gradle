@@ -27,7 +27,9 @@ dependencies {
 
     testImplementation deps.junit
     testImplementation deps.assertj
+
     testImplementation deps.mockwebserver
+    testImplementation deps.privateConstructor
 
     testCompileOnly deps.lombok
 }

@@ -28,4 +28,9 @@ public class VoidAdapterTest {
     public void testFromJsonInvalid() {
         assertThatExceptionOfType(JsonDataException.class).isThrownBy(() -> adapter.fromJson("value"));
     }
+
+    @Test
+    public void testToJson() {
+        assertThat(adapter.toJson(null)).isEqualTo("null");
+    }
 }

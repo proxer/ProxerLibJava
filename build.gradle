@@ -17,6 +17,8 @@ def lombokVersion = '1.16.14'
 def junitVersion = '4.12'
 def assertjVersion = '3.6.2'
 
+def privateConstructorVersion = '1.2.0'
+
 ext.deps = [
         jetbrainsAnnotations: "org.jetbrains:annotations:$jetbrainsAnnotationsVersion",
 
@@ -30,7 +32,8 @@ ext.deps = [
         junit               : "junit:junit:$junitVersion",
         assertj             : "org.assertj:assertj-core:$assertjVersion",
 
-        mockwebserver       : "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
+        mockwebserver       : "com.squareup.okhttp3:mockwebserver:$okhttpVersion",
+        privateConstructor:  "com.pushtorefresh.java-private-constructor-checker:checker:$privateConstructorVersion"
 ]
 
 buildscript {
