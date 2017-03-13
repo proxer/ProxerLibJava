@@ -1,0 +1,71 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": [
+    {
+      "id": "565484",
+      "type": "dailymotion",
+      "htype": "iframe",
+      "name": "Dailymotion",
+      "img": "dailymotion.png",
+      "replace": "//www.dailymotion.com/embed/video/#",
+      "uploader": "217857",
+      "username": "kollenbad",
+      "timestamp": "1454414911",
+      "tid": "698",
+      "tname": "Grim-Subs"
+    },
+    {
+      "id": "565922",
+      "type": "mp4upload",
+      "htype": "iframe",
+      "name": "MP4Upload",
+      "img": "mp4upload.png",
+      "replace": "http://www.mp4upload.com/embed-#.html",
+      "uploader": "66",
+      "username": "ProxerBot",
+      "timestamp": "1454767383",
+      "tid": "92",
+      "tname": "Chinurarete-Subs"
+    },
+    {
+      "id": "565924",
+      "type": "novamov",
+      "htype": "iframe",
+      "name": "Auroravid/Novamov",
+      "img": "novamov.png",
+      "replace": "http://embed.novamov.com/embed.php?width=728&height=504&v=#&px=1",
+      "uploader": "66",
+      "username": "ProxerBot",
+      "timestamp": "1454767407",
+      "tid": "92",
+      "tname": "Chinurarete-Subs"
+    },
+    {
+      "id": "565925",
+      "type": "streamcloud2",
+      "htype": "link",
+      "name": "Streamcloud",
+      "img": "streamcloud.png",
+      "replace": "http://streamcloud.eu/#",
+      "uploader": "66",
+      "username": "ProxerBot",
+      "timestamp": "1454767960",
+      "tid": "92",
+      "tname": "Chinurarete-Subs"
+    },
+    {
+      "id": "565923",
+      "type": "videoweed",
+      "htype": "iframe",
+      "name": "VideoWeed",
+      "img": "videoweed.png",
+      "replace": "http://embed.videoweed.es/embed.php?v=#&width=728&height=504",
+      "uploader": "66",
+      "username": "ProxerBot",
+      "timestamp": "1454767406",
+      "tid": "92",
+      "tname": "Chinurarete-Subs"
+    }
+  ]
+}

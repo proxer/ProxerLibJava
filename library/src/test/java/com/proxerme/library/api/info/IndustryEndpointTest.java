@@ -5,6 +5,7 @@ import com.proxerme.library.api.ProxerException;
 import com.proxerme.library.entitiy.info.Industry;
 import com.proxerme.library.enums.Country;
 import com.proxerme.library.enums.IndustryType;
+import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 
@@ -42,6 +43,7 @@ public class IndustryEndpointTest extends ProxerTest {
 
     private Industry buildTestIndustry() {
         return new Industry("123", "Hoods Entertainment", IndustryType.STUDIO, Country.JAPAN,
-                "http://www.hoods.co.jp/", "Anfang 2009 gegründetes Animations-Studio mit Sitz in Tokio.");
+                HttpUrl.parse("http://www.hoods.co.jp/"),
+                "Anfang 2009 gegründetes Animations-Studio mit Sitz in Tokio.");
     }
 }

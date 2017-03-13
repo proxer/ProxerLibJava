@@ -6,7 +6,9 @@ import com.proxerme.library.enums.IndustryType;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Value;
+import okhttp3.HttpUrl;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Entity with detailed information concerning an industry.
@@ -48,9 +50,9 @@ public class Industry implements IdItem {
     /**
      * Returns the link to the homepage.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nullable}))
     @Json(name = "link")
-    private String link;
+    private HttpUrl link;
 
     /**
      * Returns the description.
