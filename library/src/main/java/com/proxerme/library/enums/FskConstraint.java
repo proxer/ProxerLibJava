@@ -8,7 +8,7 @@ import com.squareup.moshi.Json;
  * @author Ruben Gees
  */
 public enum FskConstraint {
-    @Json(name = "fsk0")FSK_O,
+    @Json(name = "fsk0")FSK_0,
     @Json(name = "fsk6")FSK_6,
     @Json(name = "fsk12")FSK_12,
     @Json(name = "fsk16")FSK_16,

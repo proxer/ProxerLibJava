@@ -48,7 +48,7 @@ public class TranslatorGroupProjectListEndpointTest extends ProxerTest {
 
     private TranslatorGroupProject buildTestProject() {
         return new TranslatorGroupProject("15775", "12-Sai: Chiccha na Mune no Tokimeki",
-                EnumSet.of(Genre.COMEDY, Genre.ROMANCE), EnumSet.of(FskConstraint.FSK_O), Medium.ANIMESERIES,
+                EnumSet.of(Genre.COMEDY, Genre.ROMANCE), EnumSet.of(FskConstraint.FSK_0), Medium.ANIMESERIES,
                 ProjectState.ONGOING, MediaState.FINISHED, 942, 136);
     }
 }
