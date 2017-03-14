@@ -3,8 +3,8 @@ package com.proxerme.library.api.info;
 import com.proxerme.library.api.ProxerCall;
 import com.proxerme.library.entitiy.info.*;
 import com.proxerme.library.enums.CommentSortCriteria;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+import com.proxerme.library.enums.UserInfoType;
+import retrofit2.http.*;
 
 import java.util.List;
 
@@ -31,4 +31,8 @@ interface InternalApi {
 
     @GET("info/industry")
     ProxerCall<Industry> industry(@Query("id") String id);
+
+    @FormUrlEncoded
+    @POST("info/setuserinfo")
+    ProxerCall<Void> modifyUserInfo(@Field("id") String id, @Field("type") UserInfoType type);
 }

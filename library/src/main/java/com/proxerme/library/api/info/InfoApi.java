@@ -1,5 +1,6 @@
 package com.proxerme.library.api.info;
 
+import com.proxerme.library.enums.UserInfoType;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 
@@ -57,5 +58,29 @@ public final class InfoApi {
     @NotNull
     public IndustryEndpoint industry(@NotNull final String industryId) {
         return new IndustryEndpoint(internalApi, industryId);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public ModifyUserInfoEndpoint note(@NotNull final String entryId) {
+        return new ModifyUserInfoEndpoint(internalApi, entryId, UserInfoType.NOTE);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public ModifyUserInfoEndpoint markAsFavorite(@NotNull final String entryId) {
+        return new ModifyUserInfoEndpoint(internalApi, entryId, UserInfoType.FAVORITE);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public ModifyUserInfoEndpoint markAsFinished(@NotNull final String entryId) {
+        return new ModifyUserInfoEndpoint(internalApi, entryId, UserInfoType.FINISHED);
     }
 }
