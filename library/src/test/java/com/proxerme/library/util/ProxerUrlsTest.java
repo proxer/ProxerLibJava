@@ -123,6 +123,17 @@ public class ProxerUrlsTest {
     }
 
     @Test
+    public void testCaptchaWeb() {
+        assertThat(ProxerUrls.captchaWeb().toString()).isEqualTo("https://proxer.me/misc/captcha/");
+    }
+
+    @Test
+    public void testCaptchaWebWithDevice() {
+        assertThat(ProxerUrls.captchaWeb(Device.MOBILE).toString())
+                .isEqualTo("https://proxer.me/misc/captcha/?device=mobile");
+    }
+
+    @Test
     public void testIsUtilityClass() {
         PrivateConstructorChecker
                 .forClass(ProxerUrls.class)

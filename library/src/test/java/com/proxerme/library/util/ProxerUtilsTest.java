@@ -12,27 +12,27 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class UtilsTest {
+public class ProxerUtilsTest {
 
     @Test
     public void testGetEnumName() throws NoSuchFieldException {
-        assertThat(Utils.getEnumName(Genre.COMEDY)).isEqualTo("Comedy");
+        assertThat(ProxerUtils.getApiEnumName(Genre.COMEDY)).isEqualTo("Comedy");
     }
 
     @Test
     public void testJoin() {
-        assertThat(Utils.join(";", Arrays.asList("a", "b", "c"))).isEqualTo("a;b;c");
+        assertThat(ProxerUtils.join(";", Arrays.asList("a", "b", "c"))).isEqualTo("a;b;c");
     }
 
     @Test
     public void testJoinEmpty() {
-        assertThat(Utils.join(";", Collections.emptyList())).isEmpty();
+        assertThat(ProxerUtils.join(";", Collections.emptyList())).isEmpty();
     }
 
     @Test
     public void testIsUtilityClass() {
         PrivateConstructorChecker
-                .forClass(Utils.class)
+                .forClass(ProxerUtils.class)
                 .expectedTypeOfException(UnsupportedOperationException.class)
                 .check();
     }

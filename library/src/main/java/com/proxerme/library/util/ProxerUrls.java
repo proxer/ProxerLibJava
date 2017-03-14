@@ -161,7 +161,7 @@ public final class ProxerUrls {
     @NotNull
     public HttpUrl donateWeb(@NotNull final Device device) {
         return donateWeb().newBuilder()
-                .addQueryParameter("device", device == DEFAULT ? "default" : "mobile")
+                .addQueryParameter("device", deviceToString(device))
                 .build();
     }
 
@@ -195,7 +195,7 @@ public final class ProxerUrls {
     @NotNull
     public HttpUrl userWeb(@NotNull final String id, @NotNull final Device device) {
         return userWeb(id).newBuilder()
-                .addQueryParameter("device", device == DEFAULT ? "default" : "mobile")
+                .addQueryParameter("device", deviceToString(device))
                 .build();
     }
 
@@ -221,7 +221,7 @@ public final class ProxerUrls {
     public HttpUrl forumWeb(@NotNull final String categoryId, @NotNull final String threadId,
                             @NotNull final Device device) {
         return forumWeb(categoryId, threadId).newBuilder()
-                .addQueryParameter("device", device == DEFAULT ? "default" : "mobile")
+                .addQueryParameter("device", deviceToString(device))
                 .build();
     }
 
@@ -242,5 +242,40 @@ public final class ProxerUrls {
     public HttpUrl newsWeb(@NotNull final String categoryId, @NotNull final String threadId,
                            @NotNull final Device device) {
         return forumWeb(categoryId, threadId, device);
+    }
+
+    /**
+     * Returns the link for the web page to solve the captcha.
+     */
+    @NotNull
+    public HttpUrl captchaWeb() {
+        return webBase().newBuilder()
+                .addPathSegment("misc")
+                .addPathSegment("captcha")
+                .addPathSegment("")
+                .build();
+    }
+
+    /**
+     * Returns the link for the web page to solve the captcha.
+     */
+    @NotNull
+    public HttpUrl captchaWeb(@NotNull final Device device) {
+        return captchaWeb().newBuilder()
+                .addQueryParameter("device", device == DEFAULT ? "default" : "mobile")
+                .build();
+    }
+
+    private String deviceToString(@NotNull final Device device) {
+        switch (device) {
+            case DEFAULT:
+                return "default";
+            case MOBILE:
+                return "mobile";
+            case UNSPECIFIED:
+                return "";
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 }

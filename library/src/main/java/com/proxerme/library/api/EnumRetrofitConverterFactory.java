@@ -1,6 +1,6 @@
 package com.proxerme.library.api;
 
-import com.proxerme.library.util.Utils;
+import com.proxerme.library.util.ProxerUtils;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 
@@ -27,7 +27,7 @@ final class EnumRetrofitConverterFactory extends Converter.Factory {
         @Override
         public String convert(final Enum<?> e) throws IOException {
             try {
-                return Utils.getEnumName(e);
+                return ProxerUtils.getApiEnumName(e);
             } catch (NoSuchFieldException e1) {
                 return null;
             }

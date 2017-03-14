@@ -8,9 +8,9 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Common Exception for all errors, occurring around the api.
  * <p>
- * {@link #getError()} returns the general type of error. This could for example be an {@link ErrorType#IO} error,
+ * {@link #getErrorType()} returns the general type of error. This could for example be an {@link ErrorType#IO} error,
  * or invalid JSON data (leading to {@link ErrorType#PARSING}). If the type is {@link ErrorType#SERVER},
- * {@link #getServerError()} returns the type of server error. Moreover, message is set in that case.
+ * {@link #getServerErrorType()} returns the type of server error. Moreover, message is set in that case.
  *
  * @author Ruben Gees
  */
@@ -20,16 +20,16 @@ public final class ProxerException extends Exception {
      * Returns the error type of this exception.
      */
     @Getter(onMethod = @__({@NotNull}))
-    private final ErrorType error;
+    private final ErrorType errorType;
 
     /**
-     * Returns the server error type if, and only if, {@link #getError()} returns {@link ErrorType#SERVER}.
+     * Returns the server error type if, and only if, {@link #getErrorType()} returns {@link ErrorType#SERVER}.
      */
     @Getter(onMethod = @__({@Nullable}))
-    private final ServerErrorType serverError;
+    private final ServerErrorType serverErrorType;
 
     /**
-     * Returns a error message from the server if, and only if, {@link #getError()} returns {@link ErrorType#SERVER}.
+     * Returns a error message from the server if, and only if, {@link #getErrorType()} returns {@link ErrorType#SERVER}.
      */
     @Getter(onMethod = @__({@Override, @Nullable}))
     private final String message;
@@ -37,10 +37,10 @@ public final class ProxerException extends Exception {
     /**
      * Constructs an instance from the passed {@code error}, {@code serverError} and {@code message}.
      */
-    public ProxerException(@NotNull final ErrorType error, @Nullable final ServerErrorType serverError,
+    public ProxerException(@NotNull final ErrorType errorType, @Nullable final ServerErrorType serverErrorType,
                            @Nullable final String message) {
-        this.error = error;
-        this.serverError = serverError;
+        this.errorType = errorType;
+        this.serverErrorType = serverErrorType;
         this.message = message;
     }
 
@@ -49,24 +49,27 @@ public final class ProxerException extends Exception {
      * <p>
      * If a invalid number is passed for the {@code serverErrorCode}, an error is thrown.
      */
-    public ProxerException(@NotNull final ErrorType error, @Nullable final Integer serverErrorCode,
+    public ProxerException(@NotNull final ErrorType errorType, @Nullable final Integer serverErrorCode,
                            @Nullable final String message) {
-        this.error = error;
-        this.serverError = ServerErrorType.fromErrorCode(serverErrorCode);
+        this.errorType = errorType;
+        this.serverErrorType = ServerErrorType.fromErrorCode(serverErrorCode);
         this.message = message;
     }
 
     /**
      * Constructs an instance from the passed {@code error}.
      * <p>
-     * {@link #getServerError()} and {@link #getMessage()} will return null.
+     * {@link #getServerErrorType()} and {@link #getMessage()} will return null.
      */
-    public ProxerException(@NotNull final ErrorType error) {
-        this.error = error;
-        this.serverError = null;
+    public ProxerException(@NotNull final ErrorType errorType) {
+        this.errorType = errorType;
+        this.serverErrorType = null;
         this.message = null;
     }
 
+    /**
+     * Enum containing the available general error types.
+     */
     public enum ErrorType {
         SERVER,
         TIMEOUT,
@@ -75,6 +78,9 @@ public final class ProxerException extends Exception {
         UNKNOWN
     }
 
+    /**
+     * Enum containing the server error types.
+     */
     public enum ServerErrorType {
         UNKNOWN_API(1000),
         API_REMOVED(1001),

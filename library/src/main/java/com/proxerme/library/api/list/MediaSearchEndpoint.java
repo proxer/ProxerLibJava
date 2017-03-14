@@ -5,7 +5,7 @@ import com.proxerme.library.api.PagingEndpoint;
 import com.proxerme.library.api.ProxerCall;
 import com.proxerme.library.entitiy.list.MediaListEntry;
 import com.proxerme.library.enums.*;
-import com.proxerme.library.util.Utils;
+import com.proxerme.library.util.ProxerUtils;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.jetbrains.annotations.NotNull;
@@ -133,7 +133,7 @@ public class MediaSearchEndpoint implements PagingEndpoint, LimitEndpoint {
     @NotNull
     public MediaSearchEndpoint tags(@Nullable Set<String> ids) {
         if (ids != null) {
-            this.tags = Utils.join(DELIMITER, ids);
+            this.tags = ProxerUtils.join(DELIMITER, ids);
         }
 
         return this;
@@ -145,7 +145,7 @@ public class MediaSearchEndpoint implements PagingEndpoint, LimitEndpoint {
     @NotNull
     public MediaSearchEndpoint excludedTags(@Nullable Set<String> excludedIds) {
         if (excludedIds != null) {
-            this.excludedTags = Utils.join(DELIMITER, excludedIds);
+            this.excludedTags = ProxerUtils.join(DELIMITER, excludedIds);
         }
 
         return this;

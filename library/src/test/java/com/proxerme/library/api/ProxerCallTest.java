@@ -25,7 +25,7 @@ public class ProxerCallTest extends ProxerTest {
                 .setSocketPolicy(SocketPolicy.NO_RESPONSE));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
-                .has(new Condition<Throwable>(e -> ((ProxerException) e).getError() == ProxerException.ErrorType.TIMEOUT,
+                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ProxerException.ErrorType.TIMEOUT,
                         "TIMEOUT ErrorType"));
     }
 
@@ -34,7 +34,7 @@ public class ProxerCallTest extends ProxerTest {
         server.enqueue(new MockResponse().setBody(fromResource("news.json")).setResponseCode(404));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
-                .has(new Condition<Throwable>(e -> ((ProxerException) e).getError() == ProxerException.ErrorType.IO,
+                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ProxerException.ErrorType.IO,
                         "IO ErrorType"));
     }
 
@@ -43,7 +43,7 @@ public class ProxerCallTest extends ProxerTest {
         server.enqueue(new MockResponse().setBody(fromResource("news.json").replace(":", "invalid")));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
-                .has(new Condition<Throwable>(e -> ((ProxerException) e).getError() == ProxerException.ErrorType.IO,
+                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ProxerException.ErrorType.IO,
                         "IO ErrorType"));
     }
 
@@ -52,7 +52,7 @@ public class ProxerCallTest extends ProxerTest {
         server.enqueue(new MockResponse().setBody(fromResource("news.json").replace("256", "invalid")));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
-                .has(new Condition<Throwable>(e -> ((ProxerException) e).getError() == ProxerException.ErrorType.PARSING,
+                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ProxerException.ErrorType.PARSING,
                         "PARSING ErrorType"));
     }
 
@@ -80,7 +80,7 @@ public class ProxerCallTest extends ProxerTest {
                     // Failed. The lock will never be counted down and timeout.
                 },
                 exception -> {
-                    if (exception.getError() == ProxerException.ErrorType.IO) {
+                    if (exception.getErrorType() == ProxerException.ErrorType.IO) {
                         lock.countDown();
                     }
 
@@ -112,7 +112,7 @@ public class ProxerCallTest extends ProxerTest {
         call.enqueue(result -> {
             // Failed. The lock will never be counted down and timeout.
         }, exception -> {
-            if (exception.getError() == ProxerException.ErrorType.IO) {
+            if (exception.getErrorType() == ProxerException.ErrorType.IO) {
                 lock.countDown();
             }
 

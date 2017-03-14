@@ -2,7 +2,7 @@ package com.proxerme.library.api.messenger;
 
 import com.proxerme.library.api.messenger.ConferenceModificationEndpoint.ConferenceModification;
 import com.proxerme.library.enums.MessageAction;
-import com.proxerme.library.util.Utils;
+import com.proxerme.library.util.ProxerUtils;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 
@@ -138,7 +138,7 @@ public final class MessengerApi {
         }
 
         try {
-            return "/" + Utils.getEnumName(action) + " " + subject;
+            return "/" + ProxerUtils.getApiEnumName(action) + " " + subject;
         } catch (NoSuchFieldException exception) {
             throw new IllegalArgumentException("Invalid action: " + action);
         }
