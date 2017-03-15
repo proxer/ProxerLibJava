@@ -14,17 +14,17 @@ import java.util.Date;
  */
 class ConferenceAdapter {
 
-    private static final String IMAGE_DELIMITER = ":";
-    private static final String EMPTY_RESULT = "";
-
     @FromJson
     Conference fromJson(IntermediateConference json) {
-        return new Conference(json.id, json.topic, json.customTopic, json.participantAmount, json.getImageId(),
-                json.getImageType(), json.group, json.read, json.time, json.unreadMessageAmount,
+        return new Conference(json.id, json.topic, json.customTopic, json.participantAmount, json.getImage(),
+                json.getImageType(), json.group, json.read, json.date, json.unreadMessageAmount,
                 json.lastReadMessageId);
     }
 
     private static class IntermediateConference {
+
+        private static final String IMAGE_DELIMITER = ":";
+        private static final String EMPTY_RESULT = "";
 
         @Json(name = "id")
         private String id;
@@ -45,7 +45,7 @@ class ConferenceAdapter {
         private boolean read;
 
         @Json(name = "timestamp_end")
-        private Date time;
+        private Date date;
 
         @Json(name = "read_count")
         private int unreadMessageAmount;
@@ -58,7 +58,7 @@ class ConferenceAdapter {
         private String image;
 
         @NotNull
-        private String getImageId() {
+        private String getImage() {
             final int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
 
             if (delimiterIndex < 0) {

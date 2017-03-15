@@ -1,6 +1,6 @@
 package com.proxerme.library.entitiy.info;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
 import com.proxerme.library.enums.*;
 import com.squareup.moshi.Json;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import java.util.Set;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class EntryCore implements IdItem {
+public class EntryCore implements ProxerIdItem {
 
     /**
      * Returns the id.

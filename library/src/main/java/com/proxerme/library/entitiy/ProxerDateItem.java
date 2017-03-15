@@ -1,4 +1,4 @@
-package com.proxerme.library.entitiy.interfaces;
+package com.proxerme.library.entitiy;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -9,11 +9,11 @@ import java.util.Date;
  *
  * @author Ruben Gees
  */
-public interface TimeItem {
+public interface ProxerDateItem {
 
     /**
      * Returns the time.
      */
     @NotNull
-    Date getTime();
+    Date getDate();
 }

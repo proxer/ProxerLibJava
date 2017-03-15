@@ -52,14 +52,14 @@ public final class ProxerUrls {
 
     /**
      * Returns the image link of a {@link com.proxerme.library.entitiy.notifications.NewsArticle}, based on its
-     * {@code id} and {@code imageId}.
+     * {@code id} and {@code image}.
      */
     @NotNull
-    public HttpUrl newsImage(@NotNull final String id, @NotNull final String imageId) {
+    public HttpUrl newsImage(@NotNull final String id, @NotNull final String image) {
         return cdnBase.newBuilder()
                 .addPathSegment("news")
                 .addPathSegment("tmp")
-                .addPathSegment(String.format("%s_%s.png", id, imageId))
+                .addPathSegment(String.format("%s_%s.png", id, image))
                 .addPathSegment("")
                 .build();
     }
@@ -68,10 +68,10 @@ public final class ProxerUrls {
      * Returns the image link of the user.
      */
     @NotNull
-    public HttpUrl userImage(@NotNull final String imageId) {
+    public HttpUrl userImage(@NotNull final String image) {
         return cdnBase.newBuilder()
                 .addPathSegment("avatar")
-                .addPathSegment(imageId)
+                .addPathSegment(image)
                 .addPathSegment("")
                 .build();
     }

@@ -1,6 +1,6 @@
 package com.proxerme.library.entitiy.list;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
 import com.proxerme.library.enums.Genre;
 import com.proxerme.library.enums.MediaLanguage;
 import com.proxerme.library.enums.MediaState;
@@ -19,7 +19,7 @@ import java.util.Set;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class MediaListEntry implements IdItem {
+public class MediaListEntry implements ProxerIdItem {
 
     /**
      * Returns the id.

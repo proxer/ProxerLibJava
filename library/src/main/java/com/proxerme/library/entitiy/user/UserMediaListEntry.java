@@ -1,6 +1,6 @@
 package com.proxerme.library.entitiy.user;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
 import com.proxerme.library.enums.MediaState;
 import com.proxerme.library.enums.Medium;
 import com.proxerme.library.enums.UserMediaProgress;
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class UserMediaListEntry implements IdItem {
+public class UserMediaListEntry implements ProxerIdItem {
 
     /**
      * Returns the id.

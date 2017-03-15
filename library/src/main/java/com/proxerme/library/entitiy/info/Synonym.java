@@ -1,6 +1,6 @@
 package com.proxerme.library.entitiy.info;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
 import com.proxerme.library.enums.SynonymType;
 import com.squareup.moshi.Json;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class Synonym implements IdItem {
+public class Synonym implements ProxerIdItem {
 
     /**
      * Returns the id.

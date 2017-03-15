@@ -1,8 +1,8 @@
 package com.proxerme.library.entitiy.info;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
-import com.proxerme.library.entitiy.interfaces.ImageItem;
-import com.proxerme.library.entitiy.interfaces.TimeItem;
+import com.proxerme.library.entitiy.ProxerDateItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
+import com.proxerme.library.entitiy.ProxerImageItem;
 import com.proxerme.library.enums.UserMediaProgress;
 import com.squareup.moshi.Json;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import java.util.Date;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class Comment implements IdItem, ImageItem, TimeItem {
+public class Comment implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
 
     /**
      * Returns the id of this comment.
@@ -85,7 +85,7 @@ public class Comment implements IdItem, ImageItem, TimeItem {
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "timestamp")
-    private Date time;
+    private Date date;
 
     /**
      * Returns the username of the author.
@@ -99,5 +99,5 @@ public class Comment implements IdItem, ImageItem, TimeItem {
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "avatar")
-    private String imageId;
+    private String image;
 }

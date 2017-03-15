@@ -1,7 +1,7 @@
 package com.proxerme.library.entitiy.user;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
-import com.proxerme.library.entitiy.interfaces.ImageItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
+import com.proxerme.library.entitiy.ProxerImageItem;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Value;
@@ -16,7 +16,7 @@ import java.util.Date;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class UserInfo implements IdItem, ImageItem {
+public class UserInfo implements ProxerIdItem, ProxerImageItem {
 
     /**
      * Returns the id.
@@ -37,7 +37,7 @@ public class UserInfo implements IdItem, ImageItem {
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "avatar")
-    private String imageId;
+    private String image;
 
     /**
      * Returns the current status message.

@@ -1,6 +1,6 @@
 package com.proxerme.library.entitiy.list;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
 import com.proxerme.library.enums.Country;
 import com.proxerme.library.enums.IndustryType;
 import com.squareup.moshi.Json;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class IndustryCore implements IdItem {
+public class IndustryCore implements ProxerIdItem {
 
     /**
      * Returns the id.

@@ -1,6 +1,6 @@
 package com.proxerme.library.entitiy.ucp;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
 import com.proxerme.library.enums.Category;
 import com.proxerme.library.enums.MediaLanguage;
 import com.proxerme.library.enums.MediaState;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ruben Gees
  */
 @Value
-public class Bookmark implements IdItem {
+public class Bookmark implements ProxerIdItem {
 
     /**
      * {@inheritDoc}

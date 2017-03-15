@@ -1,8 +1,8 @@
 package com.proxerme.library.entitiy.messenger;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
-import com.proxerme.library.entitiy.interfaces.ImageItem;
-import com.proxerme.library.entitiy.interfaces.TimeItem;
+import com.proxerme.library.entitiy.ProxerDateItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
+import com.proxerme.library.entitiy.ProxerImageItem;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Value;
@@ -18,7 +18,7 @@ import java.util.Date;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class Conference implements IdItem, TimeItem, ImageItem {
+public class Conference implements ProxerIdItem, ProxerDateItem, ProxerImageItem {
 
     /**
      * Returns the id.
@@ -51,7 +51,7 @@ public class Conference implements IdItem, TimeItem, ImageItem {
      * Returns the id of the image.
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
-    private String imageId;
+    private String image;
 
     /**
      * Returns the type of the image.
@@ -76,7 +76,7 @@ public class Conference implements IdItem, TimeItem, ImageItem {
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "timestamp_end")
-    private Date time;
+    private Date date;
 
     /**
      * Returns the amount of unread messages.

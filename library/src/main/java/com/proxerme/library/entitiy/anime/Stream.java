@@ -1,8 +1,8 @@
 package com.proxerme.library.entitiy.anime;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
-import com.proxerme.library.entitiy.interfaces.ImageItem;
-import com.proxerme.library.entitiy.interfaces.TimeItem;
+import com.proxerme.library.entitiy.ProxerDateItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
+import com.proxerme.library.entitiy.ProxerImageItem;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Value;
@@ -17,7 +17,7 @@ import java.util.Date;
  * @author Ruben Gees
  */
 @Value
-public class Stream implements IdItem, ImageItem, TimeItem {
+public class Stream implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
 
     /**
      * {@inheritDoc}
@@ -45,7 +45,7 @@ public class Stream implements IdItem, ImageItem, TimeItem {
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "img")
-    private String imageId;
+    private String image;
 
     /**
      * Returns the id of the uploader.
@@ -66,7 +66,7 @@ public class Stream implements IdItem, ImageItem, TimeItem {
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "timestamp")
-    private Date time;
+    private Date date;
 
     /**
      * Returns the id of the translator group, if present.

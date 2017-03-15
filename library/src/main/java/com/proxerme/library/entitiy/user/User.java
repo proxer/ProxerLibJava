@@ -1,7 +1,7 @@
 package com.proxerme.library.entitiy.user;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
-import com.proxerme.library.entitiy.interfaces.ImageItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
+import com.proxerme.library.entitiy.ProxerImageItem;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Value;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public final class User implements IdItem, ImageItem {
+public final class User implements ProxerIdItem, ProxerImageItem {
 
     /**
      * Returns the id.
@@ -28,7 +28,7 @@ public final class User implements IdItem, ImageItem {
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "avatar")
-    private String imageId;
+    private String image;
 
     /**
      * Returns the login token for further authentication.

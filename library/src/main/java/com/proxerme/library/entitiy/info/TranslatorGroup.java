@@ -1,7 +1,7 @@
 package com.proxerme.library.entitiy.info;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
-import com.proxerme.library.entitiy.interfaces.ImageItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
+import com.proxerme.library.entitiy.ProxerImageItem;
 import com.proxerme.library.enums.Country;
 import com.squareup.moshi.Json;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class TranslatorGroup implements IdItem, ImageItem {
+public class TranslatorGroup implements ProxerIdItem, ProxerImageItem {
 
     /**
      * Returns the id.
@@ -43,7 +43,7 @@ public class TranslatorGroup implements IdItem, ImageItem {
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "image")
-    private String imageId;
+    private String image;
 
     /**
      * Returns the description.

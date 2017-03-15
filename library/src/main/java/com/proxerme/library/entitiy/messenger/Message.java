@@ -1,7 +1,7 @@
 package com.proxerme.library.entitiy.messenger;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
-import com.proxerme.library.entitiy.interfaces.TimeItem;
+import com.proxerme.library.entitiy.ProxerDateItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
 import com.proxerme.library.enums.Device;
 import com.proxerme.library.enums.MessageAction;
 import com.squareup.moshi.Json;
@@ -17,7 +17,7 @@ import java.util.Date;
  * @author Ruben Gees
  */
 @Value
-public class Message implements IdItem, TimeItem {
+public class Message implements ProxerIdItem, ProxerDateItem {
 
     /**
      * {@inheritDoc}
@@ -67,7 +67,7 @@ public class Message implements IdItem, TimeItem {
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "timestamp")
-    private Date time;
+    private Date date;
 
     /**
      * Returns the device, the message was sent from.

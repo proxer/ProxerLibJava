@@ -1,7 +1,7 @@
 package com.proxerme.library.entitiy.ucp;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
-import com.proxerme.library.entitiy.interfaces.TimeItem;
+import com.proxerme.library.entitiy.ProxerDateItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
 import com.proxerme.library.enums.Category;
 import com.proxerme.library.enums.MediaLanguage;
 import com.proxerme.library.enums.Medium;
@@ -18,7 +18,7 @@ import java.util.Date;
  * @author Ruben Gees
  */
 @Value
-public class UcpHistoryEntry implements IdItem, TimeItem {
+public class UcpHistoryEntry implements ProxerIdItem, ProxerDateItem {
 
     /**
      * {@inheritDoc}
@@ -66,5 +66,5 @@ public class UcpHistoryEntry implements IdItem, TimeItem {
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "timestamp")
-    private Date time;
+    private Date date;
 }

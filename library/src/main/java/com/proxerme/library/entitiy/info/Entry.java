@@ -1,6 +1,6 @@
 package com.proxerme.library.entitiy.info;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
 import com.proxerme.library.entitiy.list.IndustryCore;
 import com.proxerme.library.enums.*;
 import com.squareup.moshi.Json;
@@ -19,7 +19,7 @@ import java.util.Set;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class Entry implements IdItem {
+public class Entry implements ProxerIdItem {
 
     /**
      * Returns the id.

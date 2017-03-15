@@ -1,6 +1,6 @@
 package com.proxerme.library.entitiy.user;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
 import com.proxerme.library.enums.Category;
 import com.proxerme.library.enums.Medium;
 import com.squareup.moshi.Json;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class TopTenEntry implements IdItem {
+public class TopTenEntry implements ProxerIdItem {
 
     /**
      * Returns the id.

@@ -1,7 +1,7 @@
 package com.proxerme.library.entitiy.messenger;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
-import com.proxerme.library.entitiy.interfaces.ImageItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
+import com.proxerme.library.entitiy.ProxerImageItem;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Value;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Desnoo
  */
 @Value
-public class ConferenceParticipant implements IdItem, ImageItem {
+public class ConferenceParticipant implements ProxerIdItem, ProxerImageItem {
 
     /**
      * {@inheritDoc}
@@ -27,7 +27,7 @@ public class ConferenceParticipant implements IdItem, ImageItem {
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "avatar")
-    private String imageId;
+    private String image;
 
     /**
      * Returns the username.

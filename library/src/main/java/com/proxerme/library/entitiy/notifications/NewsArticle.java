@@ -1,8 +1,8 @@
 package com.proxerme.library.entitiy.notifications;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
-import com.proxerme.library.entitiy.interfaces.ImageItem;
-import com.proxerme.library.entitiy.interfaces.TimeItem;
+import com.proxerme.library.entitiy.ProxerDateItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
+import com.proxerme.library.entitiy.ProxerImageItem;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Value;
@@ -17,7 +17,7 @@ import java.util.Date;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class NewsArticle implements IdItem, TimeItem, ImageItem {
+public class NewsArticle implements ProxerIdItem, ProxerDateItem, ProxerImageItem {
 
     /**
      * Returns the id.
@@ -31,7 +31,7 @@ public class NewsArticle implements IdItem, TimeItem, ImageItem {
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "time")
-    private Date time;
+    private Date date;
 
     /**
      * Returns the description.
@@ -45,7 +45,7 @@ public class NewsArticle implements IdItem, TimeItem, ImageItem {
      */
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "image_id")
-    private String imageId;
+    private String image;
 
     /**
      * Returns the subject.

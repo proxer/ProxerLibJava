@@ -1,7 +1,7 @@
 package com.proxerme.library.entitiy.info;
 
-import com.proxerme.library.entitiy.interfaces.IdItem;
-import com.proxerme.library.entitiy.interfaces.TimeItem;
+import com.proxerme.library.entitiy.ProxerDateItem;
+import com.proxerme.library.entitiy.ProxerIdItem;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Value;
@@ -16,7 +16,7 @@ import java.util.Date;
  */
 @SuppressWarnings("JavaDoc")
 @Value
-public class Tag implements IdItem, TimeItem {
+public class Tag implements ProxerIdItem, ProxerDateItem {
 
     /**
      * Returns the id of the associated entry.
@@ -37,7 +37,7 @@ public class Tag implements IdItem, TimeItem {
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "timestamp")
-    private Date time;
+    private Date date;
 
     /**
      * Returns true, if this tag has been rated.

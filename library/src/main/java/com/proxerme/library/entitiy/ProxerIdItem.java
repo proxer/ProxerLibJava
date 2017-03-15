@@ -1,4 +1,4 @@
-package com.proxerme.library.entitiy.interfaces;
+package com.proxerme.library.entitiy;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ruben Gees
  */
-public interface IdItem {
+public interface ProxerIdItem {
 
     /**
      * Returns the id.
