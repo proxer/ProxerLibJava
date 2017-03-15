@@ -29,108 +29,108 @@ public class ProxerUrlsTest {
     @Test
     public void testNewsImage() {
         assertThat(ProxerUrls.newsImage("1", "2").toString())
-                .isEqualTo("https://cdn.proxer.me/news/tmp/1_2.png/");
+                .isEqualTo("https://cdn.proxer.me/news/tmp/1_2.png");
     }
 
     @Test
     public void testUserImage() {
         assertThat(ProxerUrls.userImage("1").toString())
-                .isEqualTo("https://cdn.proxer.me/avatar/1/");
+                .isEqualTo("https://cdn.proxer.me/avatar/1");
     }
 
     @Test
     public void testEntryImage() {
         assertThat(ProxerUrls.entryImage("1").toString())
-                .isEqualTo("https://cdn.proxer.me/cover/tmp/1.jpg/");
+                .isEqualTo("https://cdn.proxer.me/cover/tmp/1.jpg");
     }
 
     @Test
     public void testTranslatorGroupImage() {
         assertThat(ProxerUrls.translatorGroupImage("1").toString())
-                .isEqualTo("https://cdn.proxer.me/translatorgroups/1.jpg/");
+                .isEqualTo("https://cdn.proxer.me/translatorgroups/1.jpg");
     }
 
     @Test
     public void testIndustryImage() {
         assertThat(ProxerUrls.industryImage("1").toString())
-                .isEqualTo("https://cdn.proxer.me/industry/1.jpg/");
+                .isEqualTo("https://cdn.proxer.me/industry/1.jpg");
     }
 
     @Test
     public void testHosterImage() {
         assertThat(ProxerUrls.hosterImage("1").toString())
-                .isEqualTo("https://cdn.proxer.me/images/hoster/1/");
+                .isEqualTo("https://cdn.proxer.me/images/hoster/1");
     }
 
     @Test
     public void testMangaPageImage() {
         assertThat(ProxerUrls.mangaPageImage("1", "2", "3", "SAO").toString())
-                .isEqualTo("https://manga1.proxer.me/f/2/3/SAO/");
+                .isEqualTo("https://manga1.proxer.me/f/2/3/SAO");
     }
 
     @Test
     public void testDonateWeb() {
         assertThat(ProxerUrls.donateWeb().toString())
-                .isEqualTo("https://proxer.me/donate/");
+                .isEqualTo("https://proxer.me/donate");
     }
 
     @Test
     public void testDonateWebWithDevice() {
         assertThat(ProxerUrls.donateWeb(Device.DEFAULT).toString())
-                .isEqualTo("https://proxer.me/donate/?device=default");
+                .isEqualTo("https://proxer.me/donate?device=default");
     }
 
     @Test
     public void testWikiWeb() {
         assertThat(ProxerUrls.wikiWeb("test").toString())
-                .isEqualTo("https://proxer.me/wiki/test/");
+                .isEqualTo("https://proxer.me/wiki/test");
     }
 
     @Test
     public void testUserWeb() {
         assertThat(ProxerUrls.userWeb("1").toString())
-                .isEqualTo("https://proxer.me/user/1/");
+                .isEqualTo("https://proxer.me/user/1");
     }
 
     @Test
     public void testUserWebWithDevice() {
         assertThat(ProxerUrls.userWeb("2", Device.DEFAULT).toString())
-                .isEqualTo("https://proxer.me/user/2/?device=default");
+                .isEqualTo("https://proxer.me/user/2?device=default");
     }
 
     @Test
     public void testForumWeb() {
         assertThat(ProxerUrls.forumWeb("1", "2").toString())
-                .isEqualTo("https://proxer.me/forum/1/2/");
+                .isEqualTo("https://proxer.me/forum/1/2");
     }
 
     @Test
     public void testForumWebWithDevice() {
         assertThat(ProxerUrls.forumWeb("1", "2", Device.MOBILE).toString())
-                .isEqualTo("https://proxer.me/forum/1/2/?device=mobile");
+                .isEqualTo("https://proxer.me/forum/1/2?device=mobile");
     }
 
     @Test
     public void testNewsWeb() {
         assertThat(ProxerUrls.newsWeb("4", "5").toString())
-                .isEqualTo("https://proxer.me/forum/4/5/");
+                .isEqualTo("https://proxer.me/forum/4/5");
     }
 
     @Test
     public void testNewsWebWithDevice() {
         assertThat(ProxerUrls.newsWeb("4", "5", Device.MOBILE).toString())
-                .isEqualTo("https://proxer.me/forum/4/5/?device=mobile");
+                .isEqualTo("https://proxer.me/forum/4/5?device=mobile");
     }
 
     @Test
     public void testCaptchaWeb() {
-        assertThat(ProxerUrls.captchaWeb().toString()).isEqualTo("https://proxer.me/misc/captcha/");
+        assertThat(ProxerUrls.captchaWeb().toString()).isEqualTo("https://proxer.me/misc/captcha");
     }
 
     @Test
     public void testCaptchaWebWithDevice() {
         assertThat(ProxerUrls.captchaWeb(Device.MOBILE).toString())
-                .isEqualTo("https://proxer.me/misc/captcha/?device=mobile");
+                .isEqualTo("https://proxer.me/misc/captcha?device=mobile");
     }
 
     @Test

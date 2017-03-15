@@ -60,7 +60,6 @@ public final class ProxerUrls {
                 .addPathSegment("news")
                 .addPathSegment("tmp")
                 .addPathSegment(String.format("%s_%s.png", id, image))
-                .addPathSegment("")
                 .build();
     }
 
@@ -72,7 +71,6 @@ public final class ProxerUrls {
         return cdnBase.newBuilder()
                 .addPathSegment("avatar")
                 .addPathSegment(image)
-                .addPathSegment("")
                 .build();
     }
 
@@ -85,7 +83,6 @@ public final class ProxerUrls {
                 .addPathSegment("cover")
                 .addPathSegment("tmp")
                 .addPathSegment(String.format("%s.jpg", id))
-                .addPathSegment("")
                 .build();
     }
 
@@ -97,7 +94,6 @@ public final class ProxerUrls {
         return cdnBase.newBuilder()
                 .addPathSegment("translatorgroups")
                 .addPathSegment(String.format("%s.jpg", id))
-                .addPathSegment("")
                 .build();
     }
 
@@ -109,7 +105,6 @@ public final class ProxerUrls {
         return cdnBase.newBuilder()
                 .addPathSegment("industry")
                 .addPathSegment(String.format("%s.jpg", id))
-                .addPathSegment("")
                 .build();
     }
 
@@ -122,7 +117,6 @@ public final class ProxerUrls {
                 .addPathSegment("images")
                 .addPathSegment("hoster")
                 .addPathSegment(id)
-                .addPathSegment("")
                 .build();
     }
 
@@ -140,7 +134,6 @@ public final class ProxerUrls {
                 .addPathSegment(entryId)
                 .addPathSegment(id)
                 .addPathSegment(name)
-                .addPathSegment("")
                 .build();
     }
 
@@ -151,7 +144,6 @@ public final class ProxerUrls {
     public HttpUrl donateWeb() {
         return webBase.newBuilder()
                 .addPathSegment("donate")
-                .addPathSegment("")
                 .build();
     }
 
@@ -173,7 +165,6 @@ public final class ProxerUrls {
         return webBase.newBuilder()
                 .addPathSegment("wiki")
                 .addPathSegment(topic)
-                .addPathSegment("")
                 .build();
     }
 
@@ -185,7 +176,6 @@ public final class ProxerUrls {
         return webBase.newBuilder()
                 .addPathSegment("user")
                 .addPathSegment(id)
-                .addPathSegment("")
                 .build();
     }
 
@@ -209,7 +199,6 @@ public final class ProxerUrls {
                 .addPathSegment("forum")
                 .addPathSegment(categoryId)
                 .addPathSegment(threadId)
-                .addPathSegment("")
                 .build();
     }
 
@@ -252,7 +241,6 @@ public final class ProxerUrls {
         return webBase().newBuilder()
                 .addPathSegment("misc")
                 .addPathSegment("captcha")
-                .addPathSegment("")
                 .build();
     }
 
