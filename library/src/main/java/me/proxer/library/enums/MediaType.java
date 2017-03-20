@@ -16,7 +16,7 @@ public enum MediaType {
     @Json(name = "oneshot")ONESHOT,
     @Json(name = "doujin")DOUJIN,
     @Json(name = "hmanga")HMANGA,
-    @Json(name = "all-anim")ALL_ANIME,
+    @Json(name = "all-anime")ALL_ANIME,
     @Json(name = "all-manga")ALL_MANGA,
     @Json(name = "all")ALL,
     @Json(name = "all18")ALL_WITH_HENTAI
