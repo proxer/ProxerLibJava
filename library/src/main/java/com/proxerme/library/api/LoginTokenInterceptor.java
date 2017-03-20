@@ -2,10 +2,7 @@ package com.proxerme.library.api;
 
 import com.proxerme.library.api.ProxerException.ServerErrorType;
 import com.proxerme.library.util.ProxerUrls;
-import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
-import okhttp3.Request;
-import okhttp3.Response;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,6 +10,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static java.util.regex.Pattern.DOTALL;
 
@@ -107,6 +109,7 @@ final class LoginTokenInterceptor implements Interceptor {
 
     private boolean isLoginError(@NotNull final ServerErrorType errorType) {
         switch (errorType) {
+            case INVALID_TOKEN:
             case NOTIFICATIONS_LOGIN_REQUIRED:
             case UCP_LOGIN_REQUIRED:
             case INFO_LOGIN_REQUIRED:
