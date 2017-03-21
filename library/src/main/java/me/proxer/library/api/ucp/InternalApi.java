@@ -5,8 +5,7 @@ import me.proxer.library.entitiy.ucp.Bookmark;
 import me.proxer.library.entitiy.ucp.UcpHistoryEntry;
 import me.proxer.library.entitiy.ucp.UcpTopTenEntry;
 import me.proxer.library.enums.Category;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 import java.util.List;
 
@@ -15,11 +14,13 @@ import java.util.List;
  */
 interface InternalApi {
 
-    @GET("ucp/deletefavorite")
-    ProxerCall<Void> deleteFavorite(@Query("id") String id);
+    @FormUrlEncoded
+    @POST("ucp/deletefavorite")
+    ProxerCall<Void> deleteFavorite(@Field("id") String id);
 
-    @GET("ucp/deletereminder")
-    ProxerCall<Void> deleteBookmark(@Query("id") String id);
+    @FormUrlEncoded
+    @POST("ucp/deletereminder")
+    ProxerCall<Void> deleteBookmark(@Field("id") String id);
 
     @GET("ucp/listsum")
     ProxerCall<Integer> watchedEpisodes();

@@ -34,6 +34,17 @@ public class DeleteBookmarkRequestTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/ucp/deletereminder?id=321");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/ucp/deletereminder");
+    }
+
+    @Test
+    public void testParameter() throws IOException, ProxerException, InterruptedException {
+        server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
+
+        api.ucp().deleteBookmark("321")
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getBody().readUtf8()).isEqualTo("id=321");
     }
 }
