@@ -44,6 +44,7 @@ buildscript {
     }
 
     dependencies {
+        classpath 'gradle.plugin.de.fuerstenau:BuildConfigPlugin:1.1.8'
         classpath "io.freefair.gradle:gradle-plugins:0.9.9"
     }
 }

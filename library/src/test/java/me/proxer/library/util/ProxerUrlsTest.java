@@ -2,6 +2,7 @@ package me.proxer.library.util;
 
 import com.pushtorefresh.private_constructor_checker.PrivateConstructorChecker;
 import me.proxer.library.enums.Device;
+import okhttp3.HttpUrl;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -131,6 +132,21 @@ public class ProxerUrlsTest {
     public void testCaptchaWebWithDevice() {
         assertThat(ProxerUrls.captchaWeb(Device.MOBILE).toString())
                 .isEqualTo("https://proxer.me/misc/captcha?device=mobile");
+    }
+
+    @Test
+    public void testHasProxerHost() {
+        assertThat(ProxerUrls.hasProxerHost(HttpUrl.parse("https://proxer.me/test"))).isTrue();
+    }
+
+    @Test
+    public void testHasProxerHostCdn() {
+        assertThat(ProxerUrls.hasProxerHost(HttpUrl.parse("https://cdn.proxer.me/test"))).isTrue();
+    }
+
+    @Test
+    public void testHasProxerHostFalse() {
+        assertThat(ProxerUrls.hasProxerHost(HttpUrl.parse("https://example.me/test"))).isFalse();
     }
 
     @Test

@@ -1,5 +1,6 @@
 package me.proxer.library.api;
 
+import me.proxer.library.api.ProxerException.ServerErrorType;
 import me.proxer.library.util.ProxerUrls;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -81,7 +82,7 @@ final class LoginTokenInterceptor implements Interceptor {
                         loginTokenManager.persist(null);
                     }
                 } else {
-                    final ProxerException.ServerErrorType errorType = ProxerException.ServerErrorType.fromErrorCodeOrNull(errorCode);
+                    final ServerErrorType errorType = ServerErrorType.fromErrorCodeOrNull(errorCode);
 
                     if (errorType != null && isLoginError(errorType)) {
                         loginTokenManager.persist(null);
@@ -104,7 +105,7 @@ final class LoginTokenInterceptor implements Interceptor {
         }
     }
 
-    private boolean isLoginError(@NotNull final ProxerException.ServerErrorType errorType) {
+    private boolean isLoginError(@NotNull final ServerErrorType errorType) {
         switch (errorType) {
             case INVALID_TOKEN:
             case NOTIFICATIONS_LOGIN_REQUIRED:

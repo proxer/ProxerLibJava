@@ -2,6 +2,7 @@ apply plugin: 'idea'
 
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
+apply plugin: 'de.fuerstenau.buildconfig'
 
 apply plugin: "jacoco"
 apply plugin: "io.freefair.javadoc-links"
@@ -51,6 +52,10 @@ task delombok {
         ant.delombok(encoding: 'UTF-8', from: srcPath, to: delombokPath,
                 classpath: configurations.compileClasspath.asPath)
     }
+}
+
+buildConfig {
+    packageName = 'me.proxer.library'
 }
 
 javadoc {

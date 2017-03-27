@@ -40,9 +40,7 @@ public abstract class ProxerTest {
 
                     return chain.proceed(chain.request().newBuilder().url(newUrl).build());
                 }).build();
-        api = new ProxerApi.Builder("mockKey")
-                .client(client)
-                .build();
+        api = constructApi().build();
 
         server.start();
     }
@@ -55,5 +53,11 @@ public abstract class ProxerTest {
     @NotNull
     protected String fromResource(@NotNull final String file) throws IOException {
         return Okio.buffer(Okio.source(getClass().getClassLoader().getResourceAsStream(file))).readUtf8();
+    }
+
+    @NotNull
+    protected ProxerApi.Builder constructApi() {
+        return new ProxerApi.Builder("mockKey")
+                .client(client);
     }
 }

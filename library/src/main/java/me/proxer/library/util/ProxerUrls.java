@@ -253,6 +253,13 @@ public final class ProxerUrls {
                 .build();
     }
 
+    /**
+     * Returns if the passed url has a valid host of proxer.
+     */
+    public boolean hasProxerHost(@NotNull HttpUrl url) {
+        return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host());
+    }
+
     private String deviceToString(@NotNull final Device device) {
         switch (device) {
             case DEFAULT:

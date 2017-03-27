@@ -4,6 +4,7 @@ import com.squareup.moshi.Moshi;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import me.proxer.library.BuildConfig;
 import me.proxer.library.api.anime.AnimeApi;
 import me.proxer.library.api.info.InfoApi;
 import me.proxer.library.api.list.ListApi;
@@ -33,6 +34,24 @@ import java.util.List;
  */
 @Accessors(fluent = true)
 public final class ProxerApi {
+
+    /**
+     * Returns the Moshi instance.
+     */
+    @Getter(onMethod = @__({@NotNull}))
+    private final Moshi moshi;
+
+    /**
+     * Returns the OkHttpClient instance.
+     */
+    @Getter(onMethod = @__({@NotNull}))
+    private final OkHttpClient client;
+
+    /**
+     * Returns the Retrofit instance.
+     */
+    @Getter(onMethod = @__({@NotNull}))
+    private final Retrofit retrofit;
 
     /**
      * Returns the respective API.
@@ -82,7 +101,11 @@ public final class ProxerApi {
     @Getter(onMethod = @__({@NotNull}))
     private final MangaApi manga;
 
-    ProxerApi(@NotNull final Retrofit retrofit) {
+    ProxerApi(@NotNull final Moshi moshi, @NotNull final OkHttpClient client, @NotNull final Retrofit retrofit) {
+        this.moshi = moshi;
+        this.client = client;
+        this.retrofit = retrofit;
+
         notifications = new NotificationsApi(retrofit);
         user = new UserApi(retrofit);
         info = new InfoApi(retrofit);
@@ -102,7 +125,7 @@ public final class ProxerApi {
     @Accessors(fluent = true)
     public static class Builder {
 
-        private static final String DEFAULT_USER_AGENT = "ProxerLibJava/3.0.0";
+        private static final String DEFAULT_USER_AGENT = "ProxerLibJava/" + BuildConfig.VERSION;
 
         private final String apiKey;
 
@@ -148,6 +171,13 @@ public final class ProxerApi {
         private Retrofit retrofit;
 
         /**
+         * Sets the logging strategy. You can either disable logging, enable it for everything concerning the api, or
+         * for all traffic, sent through the OkHttp instance.
+         */
+        @Setter
+        private LoggingStrategy loggingStrategy = LoggingStrategy.NONE;
+
+        /**
          * Constructs a new instance of the builder, with the passed {@code apiKey}.
          */
         public Builder(@NotNull final String apiKey) {
@@ -165,7 +195,7 @@ public final class ProxerApi {
             initClient();
             initRetrofit();
 
-            return new ProxerApi(retrofit);
+            return new ProxerApi(moshi, client, retrofit);
         }
 
         private void initLoginTokenManager() {
@@ -211,6 +241,10 @@ public final class ProxerApi {
                 builder = client.newBuilder();
             }
 
+            if (loggingStrategy != LoggingStrategy.NONE) {
+                builder.addInterceptor(new LoggingInterceptor(loggingStrategy));
+            }
+
             final List<Interceptor> existingInterceptors = builder.interceptors();
 
             existingInterceptors.add(0, new HeaderInterceptor(apiKey, userAgent));
@@ -234,6 +268,27 @@ public final class ProxerApi {
                     .addConverterFactory(MoshiConverterFactory.create(moshi))
                     .addConverterFactory(new EnumRetrofitConverterFactory())
                     .build();
+        }
+
+        /**
+         * Enum with the available strategies for http logging.
+         */
+        public enum LoggingStrategy {
+
+            /**
+             * Nothing shall be logged.
+             */
+            NONE,
+
+            /**
+             * Everything concerning the api shall be logged.
+             */
+            API,
+
+            /**
+             * All network traffic shall be logged.
+             */
+            ALL
         }
     }
 }
