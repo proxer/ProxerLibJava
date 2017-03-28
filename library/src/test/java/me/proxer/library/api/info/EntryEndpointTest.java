@@ -58,7 +58,7 @@ public class EntryEndpointTest extends ProxerTest {
                         "decent again. Of course, the angels can't simply allow demons to roam freely on Earth, " +
                         "and they do their best to stop Lucu and her dastardly plans.",
                 Medium.MANGASERIES, 90, MediaState.FINISHED, 7, 1, 134,
-                Category.MANGA, Licence.NOT_LICENSED, false, Arrays.asList(
+                Category.MANGA, License.NOT_LICENSED, false, Arrays.asList(
                 new Synonym("12322", "6174", SynonymType.ORIGINAL, "LuCu LuCu"),
                 new Synonym("12323", "6174", SynonymType.JAPANESE, "るくるく"),
                 new Synonym("44662", "6174", SynonymType.ORIGINAL_ALTERNATIVE, "Lucu Lucu"),

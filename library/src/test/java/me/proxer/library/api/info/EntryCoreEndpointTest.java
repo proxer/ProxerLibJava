@@ -51,6 +51,6 @@ public class EntryCoreEndpointTest extends ProxerTest {
                         "decent again. Of course, the angels can't simply allow demons to roam freely on Earth, " +
                         "and they do their best to stop Lucu and her dastardly plans.",
                 Medium.MANGASERIES, 90, MediaState.FINISHED, 7, 1, 134,
-                Category.MANGA, Licence.NOT_LICENSED);
+                Category.MANGA, License.NOT_LICENSED);
     }
 }

@@ -13,5 +13,5 @@ public enum ProjectState {
     @Json(name = "2")ONGOING,
     @Json(name = "3")PLANNED,
     @Json(name = "4")CANCELLED,
-    @Json(name = "5")LICENCED
+    @Json(name = "5")LICENSED
 }

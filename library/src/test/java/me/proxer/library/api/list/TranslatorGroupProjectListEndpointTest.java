@@ -36,7 +36,7 @@ public class TranslatorGroupProjectListEndpointTest extends ProxerTest {
 
         api.list().translatorGroupProjectList("321")
                 .includeHentai(true)
-                .projectState(ProjectState.LICENCED)
+                .projectState(ProjectState.LICENSED)
                 .page(3)
                 .limit(12)
                 .build()

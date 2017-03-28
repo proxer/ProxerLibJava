@@ -102,11 +102,11 @@ public class Entry implements ProxerIdItem {
     private Category category;
 
     /**
-     * Returns the type of licence.
+     * Returns the type of license.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "license")
-    private Licence licence;
+    private License license;
 
     /**
      * Returns true, if this entry is age restricted.
