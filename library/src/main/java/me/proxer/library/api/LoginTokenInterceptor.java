@@ -25,16 +25,19 @@ final class LoginTokenInterceptor implements Interceptor {
     private static final int MAX_PEEK_BYTE_COUNT = 1048576;
     private static final Pattern LOGIN_TOKEN_PATTERN = Pattern.compile("\"token\":.*?\"(.+?)\"", DOTALL);
     private static final Pattern ERROR_PATTERN = Pattern.compile("\"code\":(.+?)" + Pattern.quote("}"), DOTALL);
+
     private static final List<String> LOGIN_PATH = ProxerUrls.apiBase().newBuilder()
             .addPathSegment("user")
             .addPathSegment("login")
             .build()
             .pathSegments();
+
     private static final List<String> LOGOUT_PATH = ProxerUrls.apiBase().newBuilder()
             .addPathSegment("user")
             .addPathSegment("logout")
             .build()
             .pathSegments();
+
     private final LoginTokenManager loginTokenManager;
 
     LoginTokenInterceptor(@NotNull final LoginTokenManager loginTokenManager) {

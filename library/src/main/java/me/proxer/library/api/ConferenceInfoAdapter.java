@@ -22,27 +22,27 @@ class ConferenceInfoAdapter {
     private static class IntermediateConferenceInfoContainer {
 
         @Json(name = "conference")
-        private IntermediateConferenceInfo info;
+        IntermediateConferenceInfo info;
 
         @Json(name = "users")
-        private List<ConferenceParticipant> participants;
+        List<ConferenceParticipant> participants;
 
-        private static class IntermediateConferenceInfo {
+        static class IntermediateConferenceInfo {
 
             @Json(name = "topic")
-            private String topic;
+            String topic;
 
             @Json(name = "count")
-            private int participantAmount;
+            int participantAmount;
 
             @Json(name = "timestamp_start")
-            private Date firstMessageTime;
+            Date firstMessageTime;
 
             @Json(name = "timestamp_end")
-            private Date lastMessageTime;
+            Date lastMessageTime;
 
             @Json(name = "leader")
-            private String leaderId;
+            String leaderId;
         }
     }
 }

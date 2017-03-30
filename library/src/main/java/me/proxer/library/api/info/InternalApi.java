@@ -13,10 +13,6 @@ import java.util.List;
  */
 interface InternalApi {
 
-    @GET("info/comments")
-    ProxerCall<List<Comment>> comments(@Query("id") String id, @Query("p") Integer page, @Query("limit") Integer limit,
-                                       @Query("sort") CommentSortCriteria criteria);
-
     @GET("info/entry")
     ProxerCall<EntryCore> entryCore(@Query("id") String id);
 
@@ -25,6 +21,14 @@ interface InternalApi {
 
     @GET("info/names")
     ProxerCall<List<Synonym>> synonyms(@Query("id") String id);
+
+    @GET("info/listinfo")
+    ProxerCall<EpisodeInfo> episodeInfo(@Query("id") String id, @Query("p") Integer page,
+                                        @Query("limit") Integer limit);
+
+    @GET("info/comments")
+    ProxerCall<List<Comment>> comments(@Query("id") String id, @Query("p") Integer page, @Query("limit") Integer limit,
+                                       @Query("sort") CommentSortCriteria criteria);
 
     @GET("info/translatorgroup")
     ProxerCall<TranslatorGroup> translatorGroup(@Query("id") String id);

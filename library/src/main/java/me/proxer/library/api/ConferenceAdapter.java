@@ -21,44 +21,44 @@ class ConferenceAdapter {
                 json.lastReadMessageId);
     }
 
-    private static class IntermediateConference {
+    static class IntermediateConference {
 
         private static final String IMAGE_DELIMITER = ":";
         private static final String EMPTY_RESULT = "";
 
         @Json(name = "id")
-        private String id;
+        String id;
 
         @Json(name = "topic")
-        private String topic;
+        String topic;
 
         @Json(name = "topic_custom")
-        private String customTopic;
+        String customTopic;
 
         @Json(name = "count")
-        private int participantAmount;
+        int participantAmount;
 
         @Json(name = "group")
-        private boolean group;
+        boolean group;
 
         @Json(name = "read")
-        private boolean read;
+        boolean read;
 
         @Json(name = "timestamp_end")
-        private Date date;
+        Date date;
 
         @Json(name = "read_count")
-        private int unreadMessageAmount;
+        int unreadMessageAmount;
 
         @Json(name = "read_mid")
-        private String lastReadMessageId;
+        String lastReadMessageId;
 
         @Getter(AccessLevel.NONE)
         @Json(name = "image")
-        private String image;
+        String image;
 
         @NotNull
-        private String getImage() {
+        String getImage() {
             final int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
 
             if (delimiterIndex < 0) {
@@ -69,7 +69,7 @@ class ConferenceAdapter {
         }
 
         @NotNull
-        private String getImageType() {
+        String getImageType() {
             final int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
 
             if (delimiterIndex < 0) {

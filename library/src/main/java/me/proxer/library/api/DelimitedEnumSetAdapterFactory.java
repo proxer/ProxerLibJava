@@ -85,23 +85,23 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
 
         @Override
         public void toJson(final JsonWriter writer, final Set<T> value) throws IOException {
-            String result = "";
+            StringBuilder result = new StringBuilder();
 
             for (final T item : value) {
                 try {
-                    result += ProxerUtils.getApiEnumName(item);
+                    result.append(ProxerUtils.getApiEnumName(item));
                 } catch (final NoSuchFieldException ignored) {
                     throw new JsonDataException("Illegal item in set: " + item.name());
                 }
 
-                result += delimiter;
+                result.append(delimiter);
             }
 
-            if (!result.isEmpty()) {
-                result = result.substring(0, result.length() - delimiter.length());
+            if (result.length() > 0) {
+                result = new StringBuilder(result.substring(0, result.length() - delimiter.length()));
             }
 
-            writer.value(result);
+            writer.value(result.toString());
         }
     }
 }

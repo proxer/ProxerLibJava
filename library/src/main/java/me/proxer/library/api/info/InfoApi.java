@@ -24,14 +24,6 @@ public final class InfoApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public CommentsEndpoint comments(@NotNull final String entryId) {
-        return new CommentsEndpoint(internalApi, entryId);
-    }
-
-    /**
-     * Returns the respective endpoint.
-     */
-    @NotNull
     public EntryCoreEndpoint entryCore(@NotNull final String entryId) {
         return new EntryCoreEndpoint(internalApi, entryId);
     }
@@ -42,6 +34,22 @@ public final class InfoApi {
     @NotNull
     public EntryEndpoint entry(@NotNull final String entryId) {
         return new EntryEndpoint(internalApi, entryId);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public EpisodeInfoEndpoint episodeInfo(@NotNull final String entryId) {
+        return new EpisodeInfoEndpoint(internalApi, entryId);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public CommentsEndpoint comments(@NotNull final String entryId) {
+        return new CommentsEndpoint(internalApi, entryId);
     }
 
     /**
