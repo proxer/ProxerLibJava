@@ -59,8 +59,8 @@ public class ProxerUrlsTest {
 
     @Test
     public void testHosterImage() {
-        assertThat(ProxerUrls.hosterImage("1").toString())
-                .isEqualTo("https://cdn.proxer.me/images/hoster/1");
+        assertThat(ProxerUrls.hosterImage("play.png").toString())
+                .isEqualTo("https://proxer.me/images/hoster/play.png");
     }
 
     @Test

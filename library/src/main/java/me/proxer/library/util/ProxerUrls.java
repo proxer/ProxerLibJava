@@ -112,7 +112,7 @@ public final class ProxerUrls {
      */
     @NotNull
     public static HttpUrl hosterImage(@NotNull final String id) {
-        return cdnBase.newBuilder()
+        return webBase.newBuilder()
                 .addPathSegment("images")
                 .addPathSegment("hoster")
                 .addPathSegment(id)
