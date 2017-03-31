@@ -3,7 +3,6 @@ package me.proxer.library.api.info;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.info.*;
 import me.proxer.library.enums.CommentSortCriteria;
-import me.proxer.library.enums.UserInfoType;
 import retrofit2.http.*;
 
 import java.util.List;

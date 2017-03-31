@@ -7,7 +7,7 @@ import me.proxer.library.enums.MediaLanguage;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * TODO: Describe class
+ * Base entity holding the common data of an {@link AnimeEpisode} and {@link MangaEpisode}.
  *
  * @author Ruben Gees.
  */
@@ -19,13 +19,13 @@ import org.jetbrains.annotations.NotNull;
 public abstract class Episode {
 
     /**
-     * Returns the id.
+     * Returns the number of this episode.
      */
     @Json(name = "no")
     private int number;
 
     /**
-     * Returns the id.
+     * Returns the language.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "typ")

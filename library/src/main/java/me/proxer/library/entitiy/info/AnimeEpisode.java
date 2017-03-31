@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * TODO: Describe class
+ * Entity holding the data of a single anime episode.
  *
  * @author Ruben Gees.
  */

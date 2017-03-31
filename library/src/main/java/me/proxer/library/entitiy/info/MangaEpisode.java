@@ -7,7 +7,7 @@ import me.proxer.library.enums.MediaLanguage;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * TODO: Describe class
+ * Entity holding the data of a single anime chapter.
  *
  * @author Ruben Gees.
  */

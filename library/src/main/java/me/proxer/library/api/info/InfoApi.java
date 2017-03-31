@@ -1,6 +1,5 @@
 package me.proxer.library.api.info;
 
-import me.proxer.library.enums.UserInfoType;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 

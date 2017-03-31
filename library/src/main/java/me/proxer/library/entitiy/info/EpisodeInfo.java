@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * TODO: Describe class
+ * Entity containing information about the available episodes or chapters of an media entry.
  *
  * @author Ruben Gees.
  */
@@ -19,39 +19,39 @@ import java.util.Set;
 public class EpisodeInfo {
 
     /**
-     * Returns the id.
+     * Returns the first available episode.
      */
     @Json(name = "start")
     private int firstEpisode;
 
     /**
-     * Returns the id.
+     * Returns the last available episode.
      */
     @Json(name = "end")
     private int lastEpisode;
 
     /**
-     * Returns the id.
+     * Returns the category of the associated media entry.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "kat")
     private Category category;
 
     /**
-     * Returns the id.
+     * Returns the available languages.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "lang")
     private Set<MediaLanguage> availableLanguages;
 
     /**
-     * Returns the id.
+     * Returns the progress, the user has made on this media entry so far.
      */
     @Json(name = "state")
-    private int userState;
+    private int userProgress;
 
     /**
-     * Returns the id.
+     * Returns the actual list of episodes.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "episodes")
