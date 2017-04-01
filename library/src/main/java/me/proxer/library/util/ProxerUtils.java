@@ -3,7 +3,9 @@ package me.proxer.library.util;
 import com.squareup.moshi.Json;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Field;
 import java.util.Iterator;
 
 /**
@@ -20,6 +22,23 @@ public class ProxerUtils {
     @NotNull
     public String getApiEnumName(@NotNull final Enum<?> it) throws NoSuchFieldException {
         return it.getClass().getField(it.name()).getAnnotation(Json.class).name();
+    }
+
+    /**
+     * Converts the passed {@code value} string to an instance of the passed enum {@code type}.
+     * <p>
+     * If the conversion is not possible, because the passed string was invalid, null is returned.
+     * If an invalid enum type is passed (one that is not in this library), an exception is thrown.
+     */
+    @Nullable
+    public <T extends Enum<T>> T toApiEnum(@NotNull Class<T> type, @NotNull final String value) {
+        for (final Field field : type.getFields()) {
+            if (field.getAnnotation(Json.class).name().equals(value)) {
+                return Enum.valueOf(type, field.getName());
+            }
+        }
+
+        return null;
     }
 
     /**
