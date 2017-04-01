@@ -12,5 +12,6 @@ public enum SynonymType {
     @Json(name = "nameeng")ENGLISH,
     @Json(name = "nameger")GERMAN,
     @Json(name = "namejap")JAPANESE,
+    @Json(name = "namekor")KOREAN,
     @Json(name = "syn")ORIGINAL_ALTERNATIVE,
 }
