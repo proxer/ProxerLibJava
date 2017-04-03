@@ -3,7 +3,6 @@ package me.proxer.library.api.anime;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import okhttp3.HttpUrl;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -30,7 +29,7 @@ public class LinkEndpoint implements Endpoint {
      */
     @Override
     @NotNull
-    public ProxerCall<HttpUrl> build() {
+    public ProxerCall<String> build() {
         return internalApi.link(id);
     }
 }

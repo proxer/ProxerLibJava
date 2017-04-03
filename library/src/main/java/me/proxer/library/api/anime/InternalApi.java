@@ -3,7 +3,6 @@ package me.proxer.library.api.anime;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.anime.Stream;
 import me.proxer.library.enums.AnimeLanguage;
-import okhttp3.HttpUrl;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -23,5 +22,5 @@ interface InternalApi {
                                            @Query("language") AnimeLanguage language);
 
     @GET("anime/link")
-    ProxerCall<HttpUrl> link(@Query("id") String id);
+    ProxerCall<String> link(@Query("id") String id);
 }
