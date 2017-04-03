@@ -1,5 +1,7 @@
 package me.proxer.library.api.ucp;
 
+import me.proxer.library.enums.Category;
+import me.proxer.library.enums.MediaLanguage;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 
@@ -65,5 +67,14 @@ public final class UcpApi {
     @NotNull
     public UcpTopTenEndpoint topTen() {
         return new UcpTopTenEndpoint(internalApi);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public SetBookmarkRequest setBookmark(@NotNull final String id, final int episode,
+                                          @NotNull final MediaLanguage language, @NotNull final Category category) {
+        return new SetBookmarkRequest(internalApi, id, episode, language, category);
     }
 }

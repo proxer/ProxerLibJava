@@ -5,6 +5,7 @@ import me.proxer.library.entitiy.ucp.Bookmark;
 import me.proxer.library.entitiy.ucp.UcpHistoryEntry;
 import me.proxer.library.entitiy.ucp.UcpTopTenEntry;
 import me.proxer.library.enums.Category;
+import me.proxer.library.enums.MediaLanguage;
 import retrofit2.http.*;
 
 import java.util.List;
@@ -34,4 +35,9 @@ interface InternalApi {
 
     @GET("ucp/topten")
     ProxerCall<List<UcpTopTenEntry>> topTen();
+
+    @FormUrlEncoded
+    @POST("ucp/setreminder")
+    ProxerCall<Void> setBookmark(@Field("id") String id, @Field("episode") int episode,
+                                 @Field("language") MediaLanguage language, @Field("kat") Category category);
 }
