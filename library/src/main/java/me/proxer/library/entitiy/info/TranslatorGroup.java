@@ -6,6 +6,7 @@ import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.entitiy.ProxerImageItem;
 import me.proxer.library.enums.Country;
+import okhttp3.HttpUrl;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -44,6 +45,13 @@ public class TranslatorGroup implements ProxerIdItem, ProxerImageItem {
     @Getter(onMethod = @__({@Override, @NotNull}))
     @Json(name = "image")
     private String image;
+
+    /**
+     * Returns the link to the homepage.
+     */
+    @Getter(onMethod = @__({@NotNull}))
+    @Json(name = "link")
+    private HttpUrl link;
 
     /**
      * Returns the description.

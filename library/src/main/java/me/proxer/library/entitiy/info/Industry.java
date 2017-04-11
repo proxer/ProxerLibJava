@@ -8,7 +8,6 @@ import me.proxer.library.enums.Country;
 import me.proxer.library.enums.IndustryType;
 import okhttp3.HttpUrl;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Entity with detailed information concerning an industry.
@@ -50,7 +49,7 @@ public class Industry implements ProxerIdItem {
     /**
      * Returns the link to the homepage.
      */
-    @Getter(onMethod = @__({@Nullable}))
+    @Getter(onMethod = @__({@NotNull}))
     @Json(name = "link")
     private HttpUrl link;
 
