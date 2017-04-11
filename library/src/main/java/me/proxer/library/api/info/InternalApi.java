@@ -29,6 +29,9 @@ interface InternalApi {
     ProxerCall<List<Comment>> comments(@Query("id") String id, @Query("p") Integer page, @Query("limit") Integer limit,
                                        @Query("sort") CommentSortCriteria criteria);
 
+    @GET("info/relations")
+    ProxerCall<List<Relation>> relations(@Query("id") String id);
+
     @GET("info/translatorgroup")
     ProxerCall<TranslatorGroup> translatorGroup(@Query("id") String id);
 

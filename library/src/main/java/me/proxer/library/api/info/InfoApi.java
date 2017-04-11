@@ -55,6 +55,14 @@ public final class InfoApi {
      * Returns the respective endpoint.
      */
     @NotNull
+    public RelationsEndpoint relations(@NotNull final String entryId) {
+        return new RelationsEndpoint(internalApi, entryId);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
     public TranslatorGroupEndpoint translatorGroup(@NotNull final String translatorGroupId) {
         return new TranslatorGroupEndpoint(internalApi, translatorGroupId);
     }

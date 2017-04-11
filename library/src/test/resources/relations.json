@@ -1,0 +1,42 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich.",
+  "data": [
+    {
+      "id": "18598",
+      "name": "Sword Art Online dj - Asuna Kouryakubon",
+      "genre": "Adult",
+      "fsk": "fsk18 sex",
+      "description": "N/A",
+      "medium": "doujin",
+      "count": "1",
+      "state": "1",
+      "rate_sum": "14",
+      "rate_count": "3",
+      "clicks": "122",
+      "kat": "manga",
+      "license": "0",
+      "language": "en",
+      "year": null,
+      "season": null
+    },
+    {
+      "id": "4167",
+      "name": "Sword Art Online",
+      "genre": "Abenteuer Action Comedy Drama Fantasy Romance SciFi",
+      "fsk": "fsk12 bad_language violence",
+      "description": "Kazuto Kirigaya testet als einer der ersten einen neuen Hightech-Helm, welcher die Psyche des Nutzers komplett in die Welt des MMORPGs „Sword Art Online“ transferiert. Als Tester der Beta-Version besitzt er bereits einiges an Erfahrung und kämpfte sich mehr als erfolgreich als „Kirito“ durch die ersten Ebenen der Fantasy-Welt. Doch schon kurz nach der Eröffnung SAOs merken die Spieler, dass etwas nicht stimmt: Im Menü gibt es keinen Logout-Button. Hinter dem Grund der allgemeinen aufkommenden Panik scheint der Administrator des Spiels zu stecken und die einzige Möglichkeit wieder in die reale Welt zurückzukehren besteht darin, SAO erfolgreich abzuschließen. Doch das ist leichter gesagt als getan, denn der Tod in der Fantasy-Welt bedeutet auch den richtigen Tod in der richtigen Welt.",
+      "medium": "animeseries",
+      "count": "25",
+      "state": "1",
+      "rate_sum": "158782",
+      "rate_count": "17935",
+      "clicks": "5968",
+      "kat": "anime",
+      "license": "2",
+      "language": "engsub,engdub,gerdub",
+      "year": "2012",
+      "season": "3"
+    }
+  ]
+}
