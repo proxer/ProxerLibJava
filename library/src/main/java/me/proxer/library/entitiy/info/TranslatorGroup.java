@@ -8,6 +8,7 @@ import me.proxer.library.entitiy.ProxerImageItem;
 import me.proxer.library.enums.Country;
 import okhttp3.HttpUrl;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Entity with detailed information concerning a translator group.
@@ -49,7 +50,7 @@ public class TranslatorGroup implements ProxerIdItem, ProxerImageItem {
     /**
      * Returns the link to the homepage.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nullable}))
     @Json(name = "link")
     private HttpUrl link;
 
