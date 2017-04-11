@@ -81,6 +81,12 @@ public class DelimitedEnumSetAdapterFactoryTest {
     }
 
     @Test
+    public void testFromJsonNull() throws IOException {
+        assertThat(moshi.adapter(TestClass.class).fromJson("{\"genre\":null}").genre)
+                .isEmpty();
+    }
+
+    @Test
     public void testToJsonSingle() {
         assertThat(moshi.adapter(TestClass.class).toJson(new TestClass(EnumSet.of(Genre.ACTION))))
                 .isEqualTo("{\"genre\":\"Action\"}");

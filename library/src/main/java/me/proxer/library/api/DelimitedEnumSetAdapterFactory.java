@@ -56,9 +56,10 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
         @Override
         public Set<T> fromJson(final JsonReader reader) throws IOException {
             final EnumSet<T> result = EnumSet.noneOf(enumType);
+            final JsonReader.Token nextToken = reader.peek();
             final List<String> parts;
 
-            if (reader.peek() == JsonReader.Token.BEGIN_ARRAY) {
+            if (nextToken == JsonReader.Token.BEGIN_ARRAY) {
                 parts = new ArrayList<>();
 
                 reader.beginArray();
@@ -66,6 +67,10 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
                     parts.add(reader.nextString());
                 }
                 reader.endArray();
+            } else if (nextToken == JsonReader.Token.NULL) {
+                reader.nextNull();
+
+                parts = Collections.emptyList();
             } else {
                 parts = Arrays.asList(reader.nextString().split(delimiter));
             }
