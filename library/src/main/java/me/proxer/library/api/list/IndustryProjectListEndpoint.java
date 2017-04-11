@@ -31,12 +31,8 @@ public class IndustryProjectListEndpoint implements PagingEndpoint, LimitEndpoin
     @Setter(onMethod = @__({@NotNull}))
     private IndustryType type;
 
-    /**
-     * Sets if hentai should be included in the result.
-     */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
-    private Boolean includeHentai;
+    private Integer includeHentai;
 
     /**
      * {@inheritDoc}
@@ -61,6 +57,19 @@ public class IndustryProjectListEndpoint implements PagingEndpoint, LimitEndpoin
     @NotNull
     public ProxerCall<List<IndustryProject>> build() {
         return internalApi.industryProjectList(id, type, includeHentai, page, limit);
+    }
 
+    /**
+     * Sets if hentai should be included in the result.
+     */
+    @NotNull
+    public IndustryProjectListEndpoint includeHentai(@Nullable Boolean includeHentai) {
+        if (includeHentai == null) {
+            this.includeHentai = null;
+        } else {
+            this.includeHentai = includeHentai ? 0 : -1;
+        }
+
+        return this;
     }
 }

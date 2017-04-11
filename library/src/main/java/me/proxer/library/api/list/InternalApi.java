@@ -49,12 +49,12 @@ public interface InternalApi {
     @GET("list/translatorgroupprojects")
     ProxerCall<List<TranslatorGroupProject>> translatorGroupProjectList(@Query("id") String id,
                                                                         @Query("type") ProjectState projectState,
-                                                                        @Query("isH") Boolean includeHentai,
+                                                                        @Query("isH") Integer includeHentai,
                                                                         @Query("p") Integer page,
                                                                         @Query("limit") Integer limit);
 
     @GET("list/industryprojects")
     ProxerCall<List<IndustryProject>> industryProjectList(@Query("id") String id, @Query("type") IndustryType type,
-                                                          @Query("isH") Boolean includeHentai, @Query("p") Integer page,
+                                                          @Query("isH") Integer includeHentai, @Query("p") Integer page,
                                                           @Query("limit") Integer limit);
 }

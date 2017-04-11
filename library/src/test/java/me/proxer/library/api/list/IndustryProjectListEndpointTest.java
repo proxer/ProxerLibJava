@@ -43,7 +43,23 @@ public class IndustryProjectListEndpointTest extends ProxerTest {
                 .execute();
 
         assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/industryprojects?id=543&type=record_label" +
-                "&isH=true&p=3&limit=12");
+                "&isH=0&p=3&limit=12");
+    }
+
+    @Test
+    public void testPathNoHentai() throws ProxerException, IOException, InterruptedException {
+        server.enqueue(new MockResponse().setBody(fromResource("industry_project_list.json")));
+
+        api.list().industryProjectList("543")
+                .includeHentai(false)
+                .type(IndustryType.RECORD_LABEL)
+                .page(3)
+                .limit(12)
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/industryprojects?id=543&type=record_label" +
+                "&isH=-1&p=3&limit=12");
     }
 
     private IndustryProject buildTestProject() {

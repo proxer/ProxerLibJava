@@ -35,8 +35,7 @@ public class TranslatorGroupProjectListEndpoint implements PagingEndpoint, Limit
      * Sets if hentai should be included in the result.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
-    private Boolean includeHentai;
+    private Integer includeHentai;
 
     /**
      * {@inheritDoc}
@@ -61,5 +60,19 @@ public class TranslatorGroupProjectListEndpoint implements PagingEndpoint, Limit
     @NotNull
     public ProxerCall<List<TranslatorGroupProject>> build() {
         return internalApi.translatorGroupProjectList(id, projectState, includeHentai, page, limit);
+    }
+
+    /**
+     * Sets if hentai should be included in the result.
+     */
+    @NotNull
+    public TranslatorGroupProjectListEndpoint includeHentai(@Nullable Boolean includeHentai) {
+        if (includeHentai == null) {
+            this.includeHentai = null;
+        } else {
+            this.includeHentai = includeHentai ? 0 : -1;
+        }
+
+        return this;
     }
 }
