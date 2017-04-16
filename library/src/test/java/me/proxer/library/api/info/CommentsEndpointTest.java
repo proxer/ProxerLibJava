@@ -45,6 +45,18 @@ public class CommentsEndpointTest extends ProxerTest {
     }
 
     @Test
+    public void testEmptyRatingDetailsOther() throws ProxerException, IOException {
+        server.enqueue(new MockResponse().setBody(fromResource("comment_anime_other.json")));
+
+        final List<Comment> result = api.info()
+                .comments("1")
+                .build()
+                .execute();
+
+        assertThat(result).first().isEqualTo(buildTestCommentWithOtherEmptyRatingDetails());
+    }
+
+    @Test
     public void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("comment_manga.json")));
 
@@ -84,5 +96,23 @@ public class CommentsEndpointTest extends ProxerTest {
                         "relevant zumal ja für dieses Jahr auch endlich die Zweite Staffel angekündigt wurde. " +
                         "Ich kann also aktuell jeden empfehlen diesen Anime zu schauen. ",
                 10, 0, 0, new Date(1487696018L * 1000), "Hackl24", "");
+    }
+
+    private Comment buildTestCommentWithOtherEmptyRatingDetails() {
+        return new Comment("715699", "4167", "30647", UserMediaProgress.WATCHED,
+                new RatingDetails(0, 0, 0, 0, 0),
+                "Ich habe dem Anime richtig entgegen gefiebert. Ich hatte mir die Promovideos angesehen und " +
+                        "hatte mich daher gefreut, als dann endlich die erste Folge rauskam. \r\nUnd sie hatte" +
+                        " mich wirklich nicht enttäuscht. \r\nIch habe auch den Manga gelesen und deshalb bin " +
+                        "ich gespannt, wie sie es nun umsetzten. \r\nAber es wird schon einige Unterschiede zum " +
+                        "Manga geben, da man im Trailer doch einige Unterschiede erkennen konnte.\r\n\r\nGenerell " +
+                        "finde ich die Idee des Mangas/Animes sehr gut. Wenn man so zuschaut, würde man auch gerne " +
+                        "selber so ein Spiel ausprobieren. Natürlich ohne solche Komplikationen :D\r\n\r\nDie Musik " +
+                        "gefiel mir sehr gut und auch die Animation und die Story. \r\nIch denke mal, dass Swords " +
+                        "Art Online der beste Anime der Saison werden wird. Ich bin schon auf die nächsten Folgen " +
+                        "gespannt.\r\n\r\nIch bin jetzt fertig und der Anime war wirklich gut, bis auf das Ende... " +
+                        "das war nicht so mein Ding, aber trotzdem ein sehr guter Anime.",
+                7, 25, 67, new Date(1382548071L * 1000), "Bramble",
+                "30647_51b789443be90.jpg");
     }
 }

@@ -40,6 +40,12 @@ public class FixRatingDetailsAdapterTest {
     }
 
     @Test
+    public void testFromJsonEmpty() throws IOException {
+        assertThat(adapter.fromJson(""))
+                .isEqualTo(new RatingDetails(0, 0, 0, 0, 0));
+    }
+
+    @Test
     public void testFromJsonInvalid() throws IOException {
         assertThat(adapter.fromJson("{\"invalid\":\"invalid\"}"))
                 .isEqualTo(new RatingDetails(0, 0, 0, 0, 0));

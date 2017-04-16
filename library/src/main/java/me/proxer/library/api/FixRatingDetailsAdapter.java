@@ -22,7 +22,7 @@ class FixRatingDetailsAdapter {
 
     @FromJson
     RatingDetails fromJson(final String json) throws IOException {
-        if (json.equals(INVALID_ARRAY)) {
+        if (json.isEmpty() || json.equals(INVALID_ARRAY)) {
             return new RatingDetails(0, 0, 0, 0, 0);
         } else {
             return internalAdapter.fromJson(json);
