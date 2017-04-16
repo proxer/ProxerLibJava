@@ -9,10 +9,10 @@ ext {
 def jetbrainsAnnotationsVersion = '13.0'
 
 def retrofitVersion = '2.2.0'
-def okhttpVersion = '3.6.0'
+def okhttpVersion = '3.7.0'
 def moshiVersion = '1.4.0'
 
-def lombokVersion = '1.16.14'
+def lombokVersion = '1.16.16'
 
 def junitVersion = '4.12'
 def assertjVersion = '3.6.2'
@@ -33,7 +33,7 @@ ext.deps = [
         assertj             : "org.assertj:assertj-core:$assertjVersion",
 
         mockwebserver       : "com.squareup.okhttp3:mockwebserver:$okhttpVersion",
-        privateConstructor:  "com.pushtorefresh.java-private-constructor-checker:checker:$privateConstructorVersion"
+        privateConstructor  : "com.pushtorefresh.java-private-constructor-checker:checker:$privateConstructorVersion"
 ]
 
 buildscript {
@@ -64,5 +64,5 @@ allprojects {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.4.1'
+    gradleVersion = '3.5'
 }
