@@ -9,5 +9,6 @@ import com.squareup.moshi.Json;
  */
 public enum Language {
     @Json(name = "de")GERMAN,
-    @Json(name = "en")ENGLISH
+    @Json(name = "en")ENGLISH,
+    @Json(name = "misc")OTHER,
 }

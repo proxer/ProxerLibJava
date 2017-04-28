@@ -14,5 +14,6 @@ public enum MediaLanguage {
     @Json(name = "gersub")GERMAN_SUB,
     @Json(name = "gerdub")GERMAN_DUB,
     @Json(name = "engsub")ENGLISH_SUB,
-    @Json(name = "engdub")ENGLISH_DUB
+    @Json(name = "engdub")ENGLISH_DUB,
+    @Json(name = "misc")OTHER,
 }
