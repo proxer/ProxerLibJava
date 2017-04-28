@@ -257,7 +257,8 @@ public final class ProxerUrls {
      * Returns if the passed url has a valid host of proxer.
      */
     public boolean hasProxerHost(@NotNull HttpUrl url) {
-        return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host());
+        return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host())
+                || url.host().matches("manga[0-9]+\\.proxer\\.me");
     }
 
     private String deviceToString(@NotNull final Device device) {

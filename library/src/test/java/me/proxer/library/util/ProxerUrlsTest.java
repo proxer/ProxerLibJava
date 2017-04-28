@@ -145,6 +145,11 @@ public class ProxerUrlsTest {
     }
 
     @Test
+    public void testHasProxerHostManga() {
+        assertThat(ProxerUrls.hasProxerHost(HttpUrl.parse("https://manga1.proxer.me/f/test"))).isTrue();
+    }
+
+    @Test
     public void testHasProxerHostFalse() {
         assertThat(ProxerUrls.hasProxerHost(HttpUrl.parse("https://example.me/test"))).isFalse();
     }
