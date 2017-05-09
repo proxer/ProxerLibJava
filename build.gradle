@@ -15,7 +15,7 @@ def moshiVersion = '1.4.0'
 def lombokVersion = '1.16.16'
 
 def junitVersion = '4.12'
-def assertjVersion = '3.6.2'
+def assertjVersion = '3.7.0'
 
 def privateConstructorVersion = '1.2.0'
 
@@ -45,7 +45,7 @@ buildscript {
 
     dependencies {
         classpath 'gradle.plugin.de.fuerstenau:BuildConfigPlugin:1.1.8'
-        classpath "io.freefair.gradle:gradle-plugins:0.9.9"
+        classpath "io.freefair.gradle:gradle-plugins:0.10.1"
     }
 }
 
