@@ -225,6 +225,7 @@ public final class ProxerApi {
                     .add(new BooleanAdapter())
                     .add(new DelimitedEnumSetAdapterFactory())
                     .add(new HttpUrlAdapter())
+                    .add(new NotificationAdapter())
                     .add(new ConferenceAdapter())
                     .add(new ConferenceInfoAdapter())
                     .add(new EpisodeInfoAdapter())
