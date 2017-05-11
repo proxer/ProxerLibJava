@@ -1,6 +1,8 @@
 package me.proxer.library.api;
 
 import me.proxer.library.ProxerTest;
+import me.proxer.library.api.ProxerException.ErrorType;
+import me.proxer.library.api.ProxerException.ServerErrorType;
 import me.proxer.library.entitiy.notifications.NewsArticle;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.SocketPolicy;
@@ -25,7 +27,7 @@ public class ProxerCallTest extends ProxerTest {
                 .setSocketPolicy(SocketPolicy.NO_RESPONSE));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
-                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ProxerException.ErrorType.TIMEOUT,
+                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ErrorType.TIMEOUT,
                         "TIMEOUT ErrorType"));
     }
 
@@ -34,7 +36,7 @@ public class ProxerCallTest extends ProxerTest {
         server.enqueue(new MockResponse().setBody(fromResource("news.json")).setResponseCode(404));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
-                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ProxerException.ErrorType.IO,
+                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ErrorType.IO,
                         "IO ErrorType"));
     }
 
@@ -43,7 +45,7 @@ public class ProxerCallTest extends ProxerTest {
         server.enqueue(new MockResponse().setBody(fromResource("news.json").replace(":", "invalid")));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
-                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ProxerException.ErrorType.IO,
+                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ErrorType.IO,
                         "IO ErrorType"));
     }
 
@@ -52,8 +54,21 @@ public class ProxerCallTest extends ProxerTest {
         server.enqueue(new MockResponse().setBody(fromResource("news.json").replace("256", "invalid")));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
-                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ProxerException.ErrorType.PARSING,
+                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ErrorType.PARSING,
                         "PARSING ErrorType"));
+    }
+
+    @Test
+    public void testServerError() throws Exception {
+        server.enqueue(new MockResponse().setBody(fromResource("conferences_error.json")));
+
+        assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.messenger().conferences().build().execute())
+                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ErrorType.SERVER,
+                        "SERVER ErrorType"))
+                .has(new Condition<Throwable>(e -> ((ProxerException) e).getServerErrorType() == ServerErrorType.MESSAGES_LOGIN_REQUIRED,
+                        "MESSAGES_LOGIN_REQUIRED ServerErrorType"))
+                .has(new Condition<Throwable>(e -> e.getMessage().equals("Du bist nicht eingeloggt."),
+                        "Message is equal"));
     }
 
     @Test(timeout = 1000L)
@@ -80,7 +95,7 @@ public class ProxerCallTest extends ProxerTest {
                     // Failed. The lock will never be counted down and timeout.
                 },
                 exception -> {
-                    if (exception.getErrorType() == ProxerException.ErrorType.IO) {
+                    if (exception.getErrorType() == ErrorType.IO) {
                         lock.countDown();
                     }
 
@@ -112,7 +127,7 @@ public class ProxerCallTest extends ProxerTest {
         call.enqueue(result -> {
             // Failed. The lock will never be counted down and timeout.
         }, exception -> {
-            if (exception.getErrorType() == ProxerException.ErrorType.IO) {
+            if (exception.getErrorType() == ErrorType.IO) {
                 lock.countDown();
             }
 

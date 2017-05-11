@@ -119,8 +119,8 @@ public class ProxerUrlsTest {
 
     @Test
     public void testNewsWebWithDevice() {
-        assertThat(ProxerUrls.newsWeb("4", "5", Device.MOBILE).toString())
-                .isEqualTo("https://proxer.me/forum/4/5?device=mobile");
+        assertThat(ProxerUrls.newsWeb("4", "5", Device.UNSPECIFIED).toString())
+                .isEqualTo("https://proxer.me/forum/4/5?device=");
     }
 
     @Test
