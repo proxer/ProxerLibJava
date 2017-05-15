@@ -246,6 +246,7 @@ If you are using ProGuard, the following config is required:
 -dontwarn okio.**
 -dontwarn javax.annotation.Nullable
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
+-dontwarn javax.annotation.concurrent.GuardedBy
 
 # Config for Retrofit
 -dontnote retrofit2.Platform
