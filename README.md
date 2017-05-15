@@ -1,36 +1,17 @@
-# ProxerLibAndroid [![Release](https://jitpack.io/v/proxer/ProxerLibAndroid.svg)](https://jitpack.io/#proxer/ProxerLibAndroid) [![Release](https://circleci.com/gh/proxer/ProxerLibAndroid.svg?style=shield)](https://circleci.com/gh/proxer/ProxerLibAndroid) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/540bc78bb6d34b1eb88e7baaa4cc19df)](https://www.codacy.com/app/geesruben/ProxerLibAndroid?utm_source=github.com&utm_medium=referral&utm_content=proxer/ProxerLibAndroid&utm_campaign=Badge_Grade)
+# ProxerLibJava [![Release](https://jitpack.io/v/proxer/ProxerLibAndroid.svg)](https://jitpack.io/#proxer/ProxerLibAndroid) [![Release](https://circleci.com/gh/proxer/ProxerLibAndroid.svg?style=shield)](https://circleci.com/gh/proxer/ProxerLibAndroid)
 
 ## What is this?
 
-This is an Android library, implementing the API of the [Proxer.me](https://proxer.me/) website. This is currently `v1`.
-
-## Table of contents
-
-- [Including in your project](#including-in-your-project)
-- [Usage](#usage)
-
-  - [Initialization](#initialization)
-  - [Doing a request](#doing-a-request)
-  - [Cancelling a request](#cancelling-a-request)
-  - [Error handling](#error-handling)
-  - [Images and non-API pages](#images-and-non-api-pages)
-  - [Configuration](#configuration)
-  - [More](#more)
-
-- [Architecture](#architecture)
-
-  - [Organisation](#organisation)
-  - [Experimental APIs](#experimental-apis)
-
-- [Extensions](#extensions)
-
-- [Dependencies](#dependencies)
-
-- [Contributions and contributors](#contributions-and-contributors)
+This is an `Java` and `Android` library, implementing the API of the [Proxer.me](https://proxer.me/) website. This is currently `v1`.
+Built on [Retrofit](https://github.com/square/retrofit),
+[OkHttp](https://github.com/square/okhttp) and
+[Moshi](https://github.com/square/moshi), it offers great performance and
+flexability.
 
 ## Including in your project
 
-Add this to your project build.gradle:
+The preferred Build System is [Gradle](https://gradle.org/).<br>
+Add this to your project wide build.gradle:
 
 ```groovy
 repositories {
@@ -42,9 +23,7 @@ And this to your module build.gradle:
 
 ```groovy
 dependencies {
-    compile('com.github.proxer:ProxerLibAndroid:2.7.0') {
-        transitive = true
-    }
+    compile 'com.github.proxer:ProxerLibJava:3.0.0'
 }
 ```
 
@@ -52,276 +31,249 @@ dependencies {
 
 ### Initialization
 
-All requests are done through the `ProxerConnection` class. You have to initialize it with the `ProxerConnection.Builder` before using.
-
-The construction looks like this:
-
-```java
-ProxerConnection proxerConnection = new ProxerConnection.Builder("yourApiKey", this).build();
-```
-
-You can customize the connection which will be covered later.
-
-The recommended usage is to use it as a Singleton in an `Application` subclass.<br>
-To do so, add an entry for your subclass in the `AndroidManifest`:
-
-```xml
-<application
-        android:name=".MainApplication"
-        ...
-```
-
-Create the class and initialize the `ProxerConnection` in it:
+All requests are done through the `ProxerApi` class. You initialize an instance
+with the `ProxerApi.Builder`.<br>
+The most simple initialization looks like this:
 
 ```java
-public class MainApplication extends Application {
-
-    public static ProxerConnection proxerConnection;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        proxerConnection = new ProxerConnection.Builder("yourApiKey", this)
-                .build();
-    }
-}
+ProxerApi api = new ProxerConnection.Builder("yourApiKey").build();
 ```
 
-This allows you to access the `ProxerConnection` in every part of your app like this:
+You can customize the app in the following ways:
+
+| Method | Description |
+| -- | -- |
+| `loginTokenManager` | Sets an own `LoginTokenManager` for automatic login. This will covered later. |
+| `userAgent` | Sets a custom Http `User-Agent` to be used. This defaults to `ProxerLibJava/<Version>` otherwise. Pass an empty String if you don't want to sent one.
+| `moshi` | Sets a custom `Moshi` instance, used for parsing. Note, that various adapters are still applied, to make the API work properly. |
+| `client` | Sets a custom `OkHttpClient` instance, used for Http requests. Note, that various interceptors are still applied, to make the API work properly. |
+| `retrofit` | Sets a custom `Retrofit` instance. |
+| `logginStrategy` | Allows for simple logging of Http request, sent through the API. Available strategies are: `NONE`, `API`, `ALL`. |
+
+### Sending a request
+
+The API is divided in classes for the various request, similar to the actual
+REST-API.<br>
+A simple query for the latest news looks like this:
 
 ```java
-ProxerConnection connection = MainApplication.proxerConnection;
+List<NewsArticle> result = api.notifications()
+                .news()
+                .build()
+                .execute();
 ```
 
-### Doing a request
-
-To do a Request, you have to construct one of the available `ProxerRequest` subclasses and pass it to the `ProxerConnection`.
-
-A simple query for the latest News looks like this:
+The `build` method returns a `ProxerCall` object. If you are familier with
+`OkHttp`, this works exactly the same.
+The `ProxerCall` object also allows for asynchronous requests:
 
 ```java
-proxerConnection.execute(new NewsRequest(0), // 0 is the first page
-        new ProxerCallback<News[]>() {
-            @Override
-            public void onSuccess(News[] result) {
-
-            }
-        }, new ProxerErrorCallback() {
-            @Override
-            public void onError(ProxerException exception) {
-
-            }
+api.notifications().news()
+        .page(0)
+        .limit(10)
+        .build()
+        .enqueue(result -> {
+            // Show the result.
+        }, error -> {
+            // Show the error.
         });
 ```
 
-As you can see, you have to pass a `ProxerRequest` subclass, a `ProxerCallback` and a `ProxerErrorCallback`. The ProxerCallback always returns the specific result entity (Or `null` for `POST` requests).
-
-Many requests are configurable through either their constructor if the parameters are obligatory or through `withParameter` builder methods if the parameters are not obligatory.
-
-The `NewsRequest` has an optional `limit` parameter to limit the amount of items returned.<br>
-Setting it looks like so:
-
-```java
-NewsRequest request = new NewsRequest(0).withLimit(30);
-```
-
-As you have seen, you use the `execute` method for asynchronous requests with callbacks. If you want to execute the request synchronous, you can use the `executeSynchronized` method. This is useful if you want to manage the threading yourself or if you are on a background thread already (e.g. `AsyncTask`, `IntentService`).
-
-A synchronous query for the latest News looks like this:
-
-```java
-try {
-    News[] latestNews = proxerConnection
-            .executeSynchronized(new NewsRequest(0));
-
-    // Do something with the data
-} catch (ProxerException exception) {
-    // Handle the error
-}
-```
-
-One thing to note is that all results from `execute` are delivered on the main thread for you so you can directly update the UI (Note: You still have to check if your `View`s are available at that time).
+As you can see in the example above, the individual endpoints also allow for
+various options.
 
 ### Cancelling a request
 
-You might want to cancel a request, especially if using in the Android lifecycle:
+You might want to cancel a request, especially if using on `Android`:
 
 ```java
-ProxerCall call = proxerConnection.execute(...);
+ProxerCall call = api.[...].build()
 
 call.cancel();
 ```
 
-The `execute` method returns a `ProxerCall` object, which you can invoke `cancel` on. Moreover it has methods for retrieving the current status of the request (`isCancelled` and `isExecuted`).
-
-It is important to always cancel your requests if directly used in an `Activity` or `Fragment`.<br>
-A simple example for an Activity, retrieving the latest News:
-
-```java
-public class NewsActivity extends AppCompatActivity {
-
-    private ProxerCall call;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news);
-
-        call = MainApplication.proxerConnection.execute(new NewsRequest(0),
-                new ProxerCallback<News[]>() {
-                    @Override
-                    public void onSuccess(News[] result) {
-                        // Update the UI
-                    }
-                }, new ProxerErrorCallback() {
-                    @Override
-                    public void onError(ProxerException exception) {
-                        // Show error
-                    }
-                });
-    }
-
-    @Override
-    protected void onDestroy() {
-        call.cancel();
-
-        super.onDestroy();
-    }
-}
-```
+> It is an error to execute a cancelled `ProxerCall`.
 
 ### Error handling
 
-If a request fails, a ProxerException is thrown or passed to your callback. This Exception contains useful information on what went wrong.
+All errors are encapsulated in an `ProxerException`. It offers the following
+info about the error:
 
-Handling the Exception might look like this:
+| Method | Description |
+| -- | -- |
+| `getErrorType` | Returns the general error type. |
+| `getServerErrorType` | Returns the type of proxer server error. |
+| `getMessage` | Returns the associated message of the error was a proxer server error. |
+
+These are the available general error types:
+
+| Type | Description |
+| -- | -- |
+| `SERVER` | An error on the server occured. This can for exaple be `LOGIN_INVALID_CREDENTIALS`, signaling that incorrect credentials were passed during login. |
+| `TIMEOUT` | The server did not respond in time. |
+| `IO` | The data transfer failed. This can happen if no network connectivity is present for example. |
+| `PARSING` | The server sent broken data. This happens mostly when the REST-API changed and this library was not adjusted yet. |
+| `UNKNOWN` | Any other type of error. This is an internal error in most cases. |
+
+There is a wide range of server error. Consult the `ProxerException` class for details.<br>
+Here is a selection of important ones:
+
+| Type | Description |
+| -- | -- |
+| `INSUFFICIENT_PERMISSIONS` | Your API-key is not allowed to access the API. |
+| `IP_BLOCKED` | You sent to many request in a specific time duration. |
+| `*_INVALID_*` | The passed data was not correct. |
+| `*_LOGIN_REQUIRED` | This section can only accessed as a logged in user. |
+
+You catch errors like this (synchronous):
 
 ```java
-private void handleException(ProxerException exception) {
-    switch (exception.getErrorCode()) {
-        case ProxerException.NETWORK:
-            Toast.makeText(getContext(), "Network is misconfigured or not available.",
-                    Toast.LENGTH_SHORT).show();
+try {
+    api.notifications().news()
+            .build()
+            .execute();
+} catch (ProxerException error) {
+    // Handle the error here.
+}
+```
+
+Or like this (asynchronous):
+
+```java
+api.notifications().news()
+        .build()
+        .enqueue(result -> {
+            // No error occurred.
+        }, error -> {
+            // Handler the error here.
+        });
+```
+
+If you just want to present the error to the user, it can be done like so:
+
+```java
+void handleError(ProxerException error){
+    switch (error.getErrorType()){
+        case SERVER:
+            print(error.getMessage());
 
             break;
-        case ProxerException.PROXER:
-            handleProxerException(exception);
+        case TIMEOUT:
+            print("The server did not respond in time.");
 
             break;
-        case ProxerException.UNPARSABLE:
-            Toast.makeText(getContext(), "The server sent broken data.",
-                    Toast.LENGTH_SHORT).show();
+        case IO:
+            print("Data transfer failed. Check your network connection.");
 
             break;
-        case ProxerException.CANCELLED:
-            Toast.makeText(getContext(), "The request was cancelled.",
-                    Toast.LENGTH_SHORT).show();
+        case PARSING:
+            print("The server sent broken data.");
 
-            // This might not be needed in all cases, see "Configuration"
+            break;
+        case UNKNOWN:
+            print("An unkown error occurred.");
 
             break;
     }
 }
 ```
 
-If a server error occured, you can obtain more granular information like so:
+### Login
+
+The `ProxerApi` offers a mechanism for automatic login.<br>
+If you call the `user.login` API, the relevant information are stored
+automatically. If you then call `user.logout`, they are also removed
+automatically.
+
+You can customize this behaviour through a custom `LoginTokenManager`.<br>
+The most simple one looks like this (Such a `LoginTokenManager` is used if you
+do not pass one):
 
 ```java
-private void handleProxerException(ProxerException exception) {
-    switch (exception.getProxerErrorCode()) {
-        case ProxerException.INFO_ENTRY_ALREADY_IN_LIST:
-            Toast.makeText(getContext(), "The entry is already in the list.",
-                    Toast.LENGTH_SHORT).show();
+ProxerApi api = new ProxerApi.Builder("yourApiKey")
+        .loginTokenManager(new LoginTokenManager() {
 
-            break;
-        case ProxerException.INSUFFICIENT_RIGHTS:
-            Toast.makeText(getContext(), "You do not have the rights for this page",
-                    Toast.LENGTH_SHORT).show();
+            private String token;
 
-            break;
-        ...
-    }
-}
-```
+            @Nullable
+            @Override
+            public String provide() {
+                return token;
+            }
 
-This example is not complete as there are many more possible errors which you can find in the `ProxerException` class.
-
-In most cases it is enough (and much more easy) to show the error message to the user:
-
-```java
-if (exception.getErrorCode() == ProxerException.PROXER) {
-    Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
-}
-```
-
-### Images and non-API pages
-
-You might want to load images for various entities or open a page which is not part of the API.
-
-For this purpose there is a `ProxerUrlHolder` class, which provides methods to obtain various often needed Urls.<br>
-One example is the Url of the image of a News:
-
-```java
-private String getUrlToNewsImage(News news) {
-    return ProxerUrlHolder.getNewsImageUrl(news.getId(), news.getImageId())
-            .toString();
-}
-```
-
-### Configuration
-
-The `ProxerConnection` allows for customization. The internally used libs are plugable and you can specify some other arguments.<br>
-Here is an example with all available customizations:
-
-```java
-CookieJar cookieJar = ...;
-OkHttpClient httpClient = ...;
-Moshi moshi = ...;
-
-ProxerConnection proxerConnection = new ProxerConnection.Builder("yourApiKey", cookieJar)
-        .withCustomOkHttp(httpClient)
-        .withCustomMoshi(moshi)
-        .withDeliverCancelledRequests(true)
+            @Override
+            public void persist(@Nullable String loginToken) {
+                token = loginToken;
+            }
+        })
         .build();
 ```
 
-The first line uses the alternate constructor, in which you pass a custom `CookieJar` instead of a `Context`. The `Context` is only used to construct a persistent `CookieJar` internally, based on `SharedPreferences`.
+> The token is only stored in memory with the default `LoginTokenManager`. This
+> means, that you lose the login information, when the application terminates.
+> You may want to persist it into a `File` or `SharedPreferences` on `Android`.
 
-The second line passes a custom `OkHttpClient`. Note that it has no effect to set your `CookieJar` to it as that will be overridden.
+### Utils
 
-The third line passes a custom `Moshi` instance.
+This library offers two utility classes: `ProxerUrls` and `ProxerUtils`.
 
-The last line enables cancelled request delivery. This is disabled by default, meaning that your callbacks will not be called if an request was cancelled.
+#### ProxerUrls
+
+The `ProxerUrls` class has various static methods for getting often needed
+urls.<br>
+These are returned as an [HttpUrl](https://medium.com/square-corner-blog/okhttps-new-url-class-515460eea661),
+which has various advantages above the default `Java` classes.
+
+Retrieving the Url to the image of an user can be done like so:
+
+```java
+HttpUrl url = ProxerUrls.userImage("image property of the UserInfo entity here");
+```
+
+#### ProxerUtils
+
+The API often returns entities, which have enums as properties. You may want to
+get the `String` representation, which is actually used for communication. To
+do so, you can used the `getApiEnumName` method:
+
+```java
+try {
+    String genreAsString = ProxerUtils.getApiEnumName(Genre.ACTION);
+} catch (NoSuchFieldException ignored) {
+    // This should never happen.
+}
+```
+
+The other way around is also available:
+
+```java
+Genre genreAsEnum = ProxerUtils.toApiEnum(Genre.class, "Action");
+```
 
 ### More
 
-You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/ProxerLibAndroid/2.7.0/javadoc/).
+You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/ProxerLibAndroid/3.0.0/javadoc/).
 
-## Architecture
+## Working on the library
 
-### Organisation
-
-The actual REST API is organized in classes. This library tries to mirror those as closely as possible. For each class there is a package with all requests in the `connection` package. The `NewsRequest` for example is in the `notification` package just as in the REST API.
-
-[This page](https://proxer.me/wiki/Proxer_API/v1) contains more information about the REST API.
-
-### Experimental APIs
-
-In some versions there might be an `experimental` package. This package contains requests or other features which _should_ work, but are not documented and officially supported. Note that those are potentially dangerous as they might get removed without further notice.
-
-## Extensions
-
-You can easily write your own requests if this library does not provide a request yet. To do so, have a look at the `entity`, `result` and `request` packages for each API class. You have to define a `Entity`, a `ProxerResult` subclass and a `ProxerRequest` subclass, each with an easy to implement interface.<br>
-Don't forget to do a Pull Request!
+Recommended development environment is
+[IntelliJ IDEA](https://www.jetbrains.com/idea/).<br>
+As this project uses [Lombok](https://projectlombok.org/), you will also need
+the plugin. Remember to turn on annotation processing, to make compilation work
+correctly.
 
 ## Dependencies
 
-This library highly relies on [OkHttp](http://square.github.io/okhttp/) by [Square](https://github.com/square) for the network communication.<br>
-Moreover it uses [Moshi](https://github.com/square/moshi) for response parsing, [PersistentCookieJar](https://github.com/franmontiel/PersistentCookieJar) for Cookie management and [Android Support Annotations](http://tools.android.com/tech-docs/support-annotations) to improve the code style and provide IDE support.
+This library highly relies on [Retrofit](https://github.com/square/retrofit) and
+[OkHttp](http://square.github.io/okhttp/) by [Square](https://github.com/square)
+for the network communication.<br>
+Moreover it uses [Moshi](https://github.com/square/moshi) for response parsing
+and the
+[Jetbrains Annotations](https://www.jetbrains.com/help/idea/2017.1/nullable-and-notnull-annotations.html)
+to improve code style and provide IDE support.
 
 ## Contributions and contributors
 
 A guide for contribution can be found [here](.github/CONTRIBUTING.md).
 
-- @Desnoo for implementing several APIs.
+- [@Desnoo](https://github.com/desnoo) for implementing several APIs.
