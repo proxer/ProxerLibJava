@@ -21,7 +21,7 @@ dependencies {
 
     api deps.retrofit
     api deps.retrofitMoshi
-    api deps.okhttp
+    api deps.okHttp
     api deps.moshi
 
     compileOnly deps.lombok

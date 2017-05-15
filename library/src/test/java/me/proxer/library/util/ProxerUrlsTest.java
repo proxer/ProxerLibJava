@@ -136,21 +136,25 @@ public class ProxerUrlsTest {
 
     @Test
     public void testHasProxerHost() {
+        //noinspection ConstantConditions
         assertThat(ProxerUrls.hasProxerHost(HttpUrl.parse("https://proxer.me/test"))).isTrue();
     }
 
     @Test
     public void testHasProxerHostCdn() {
+        //noinspection ConstantConditions
         assertThat(ProxerUrls.hasProxerHost(HttpUrl.parse("https://cdn.proxer.me/test"))).isTrue();
     }
 
     @Test
     public void testHasProxerHostManga() {
+        //noinspection ConstantConditions
         assertThat(ProxerUrls.hasProxerHost(HttpUrl.parse("https://manga1.proxer.me/f/test"))).isTrue();
     }
 
     @Test
     public void testHasProxerHostFalse() {
+        //noinspection ConstantConditions
         assertThat(ProxerUrls.hasProxerHost(HttpUrl.parse("https://example.me/test"))).isFalse();
     }
 

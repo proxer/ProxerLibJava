@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * @author Desnoo
  */
-public interface InternalApi {
+interface InternalApi {
 
     @GET("list/entrylist")
     ProxerCall<List<MediaListEntry>> mediaList(@Query("kat") Category category, @Query("medium") Medium medium,

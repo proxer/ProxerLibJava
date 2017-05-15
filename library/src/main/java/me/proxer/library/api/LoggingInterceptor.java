@@ -5,6 +5,7 @@ import me.proxer.library.api.ProxerApi.Builder.LoggingStrategy;
 import me.proxer.library.util.ProxerUrls;
 import okhttp3.Interceptor;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
 import org.jetbrains.annotations.NotNull;
@@ -49,13 +50,14 @@ class LoggingInterceptor implements Interceptor {
 
     @NotNull
     private String buildBodyMessage(@NotNull final Request requestCopy) throws IOException {
+        final RequestBody body = requestCopy.body();
         final Buffer bodyBuffer = new Buffer();
         final String bodyContent;
 
-        if (requestCopy.body() == null) {
+        if (body == null) {
             bodyContent = null;
         } else {
-            requestCopy.body().writeTo(bodyBuffer);
+            body.writeTo(bodyBuffer);
 
             bodyContent = bodyBuffer.readUtf8();
         }

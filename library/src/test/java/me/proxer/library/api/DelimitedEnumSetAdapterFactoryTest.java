@@ -64,24 +64,28 @@ public class DelimitedEnumSetAdapterFactoryTest {
 
     @Test
     public void testFromJsonSingle() throws IOException {
+        //noinspection ConstantConditions
         assertThat(moshi.adapter(TestClass.class).fromJson("{\"genre\":\"Abenteuer\"}").genre)
                 .containsExactly(Genre.ADVENTURE);
     }
 
     @Test
     public void testFromJsonMultiple() throws IOException {
+        //noinspection ConstantConditions
         assertThat(moshi.adapter(TestClass.class).fromJson("{\"genre\":\"Abenteuer Action\"}").genre)
                 .containsExactly(Genre.ADVENTURE, Genre.ACTION);
     }
 
     @Test
     public void testFromJsonInvalidDelimiter() throws IOException {
+        //noinspection ConstantConditions
         assertThat(moshi.adapter(TestClass.class).fromJson("{\"genre\":\"Abenteuer;Action\"}").genre)
                 .isEmpty();
     }
 
     @Test
     public void testFromJsonNull() throws IOException {
+        //noinspection ConstantConditions
         assertThat(moshi.adapter(TestClass.class).fromJson("{\"genre\":null}").genre)
                 .isEmpty();
     }

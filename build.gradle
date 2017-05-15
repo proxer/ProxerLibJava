@@ -8,9 +8,9 @@ ext {
 
 def jetbrainsAnnotationsVersion = '13.0'
 
-def retrofitVersion = '2.2.0'
-def okhttpVersion = '3.7.0'
-def moshiVersion = '1.4.0'
+def retrofitVersion = '2.3.0'
+def okHttpVersion = '3.8.0'
+def moshiVersion = '1.5.0'
 
 def lombokVersion = '1.16.16'
 
@@ -24,7 +24,7 @@ ext.deps = [
 
         retrofit            : "com.squareup.retrofit2:retrofit:$retrofitVersion",
         retrofitMoshi       : "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
-        okhttp              : "com.squareup.okhttp3:okhttp:$okhttpVersion",
+        okHttp              : "com.squareup.okhttp3:okhttp:$okHttpVersion",
         moshi               : "com.squareup.moshi:moshi:$moshiVersion",
 
         lombok              : "org.projectlombok:lombok:$lombokVersion",
@@ -32,7 +32,7 @@ ext.deps = [
         junit               : "junit:junit:$junitVersion",
         assertj             : "org.assertj:assertj-core:$assertjVersion",
 
-        mockwebserver       : "com.squareup.okhttp3:mockwebserver:$okhttpVersion",
+        mockwebserver       : "com.squareup.okhttp3:mockwebserver:$okHttpVersion",
         privateConstructor  : "com.pushtorefresh.java-private-constructor-checker:checker:$privateConstructorVersion"
 ]
 

@@ -50,6 +50,8 @@ public class HeaderInterceptorTest extends ProxerTest {
     @Test
     public void testHeadersOnlyForProxerHost() throws Exception {
         server.enqueue(new MockResponse());
+
+        //noinspection ConstantConditions
         api.client().newCall(new Request.Builder().url(HttpUrl.parse("http://example.com" + server.getPort() + "test"))
                 .build()).execute();
 

@@ -116,6 +116,10 @@ public final class ProxerCall<T> implements Cloneable {
         if (response.isSuccessful()) {
             final ProxerResponse<T> proxerResponse = response.body();
 
+            if (proxerResponse == null) {
+                throw new ProxerException(ProxerException.ErrorType.PARSING);
+            }
+
             if (proxerResponse.isSuccessful()) {
                 return proxerResponse.getData();
             } else {

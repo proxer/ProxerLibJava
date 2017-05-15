@@ -42,7 +42,7 @@ public class UcpTopTenEndpointTest extends ProxerTest {
         assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/ucp/topten");
     }
 
-    private UcpTopTenEntry buildTestEntry() throws ParseException {
+    private UcpTopTenEntry buildTestEntry() {
         return new UcpTopTenEntry("640467", "2357", "High School DxD", Medium.ANIMESERIES,
                 Category.ANIME);
     }
