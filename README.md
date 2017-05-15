@@ -1,4 +1,4 @@
-# ProxerLibJava [![Release](https://jitpack.io/v/proxer/ProxerLibAndroid.svg)](https://jitpack.io/#proxer/ProxerLibAndroid) [![Release](https://circleci.com/gh/proxer/ProxerLibAndroid.svg?style=shield)](https://circleci.com/gh/proxer/ProxerLibAndroid)
+# ProxerLibJava [![Release](https://jitpack.io/v/proxer/ProxerLibJava.svg)](https://jitpack.io/#proxer/ProxerLibJava) [![Release](https://circleci.com/gh/proxer/ProxerLibJava.svg?style=shield)](https://circleci.com/gh/proxer/ProxerLibJava)
 
 ## What is this?
 
@@ -252,7 +252,7 @@ Genre genreAsEnum = ProxerUtils.toApiEnum(Genre.class, "Action");
 
 ### More
 
-You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/ProxerLibAndroid/3.0.0/javadoc/).
+You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/ProxerLibJava/3.0.0/javadoc/).
 
 ## Working on the library
 
