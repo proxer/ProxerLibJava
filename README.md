@@ -231,6 +231,33 @@ The other way around is also available:
 Genre genreAsEnum = ProxerUtils.toApiEnum(Genre.class, "Action");
 ```
 
+### ProGuard
+
+If you are using ProGuard, the following config is required:
+
+```proguard
+# Config for ProxerLibJava itself
+-keep public enum me.proxer.library.enums.** {
+    **[] $VALUES;
+    public *;
+}
+
+# Config for OkHttp and Okio
+-dontwarn okio.**
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
+
+# Config for Retrofit
+-dontnote retrofit2.Platform
+-dontwarn retrofit2.Platform$Java8
+-keepattributes Signature
+-keepattributes Exceptions
+
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+```
+
 ### More
 
 You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/ProxerLibJava/3.0.0/javadoc/).
