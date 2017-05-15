@@ -10,7 +10,7 @@ flexability.
 
 ## Including in your project
 
-The preferred Build System is [Gradle](https://gradle.org/).<br>
+The preferred build system is [Gradle](https://gradle.org/).<br>
 Add this to your project wide build.gradle:
 
 ```groovy
@@ -39,7 +39,7 @@ The most simple initialization looks like this:
 ProxerApi api = new ProxerConnection.Builder("yourApiKey").build();
 ```
 
-You can customize the app in the following ways:
+You can customize the `ProxerApi` in the following ways:
 
 | Method | Description |
 | -- | -- |
@@ -96,7 +96,7 @@ call.cancel();
 
 ### Error handling
 
-All errors are encapsulated in an `ProxerException`. It offers the following
+All errors are encapsulated in a `ProxerException`. It offers the following
 info about the error:
 
 | Method | Description |
@@ -152,8 +152,8 @@ api.notifications().news()
 If you just want to present the error to the user, it can be done like so:
 
 ```java
-void handleError(ProxerException error){
-    switch (error.getErrorType()){
+void handleError(ProxerException error) {
+    switch (error.getErrorType()) {
         case SERVER:
             print(error.getMessage());
 
@@ -181,8 +181,8 @@ void handleError(ProxerException error){
 ### Login
 
 The `ProxerApi` offers a mechanism for automatic login.<br>
-If you call the `user.login` API, the relevant information are stored
-automatically. If you then call `user.logout`, they are also removed
+If you call the `user.login` API, the relevant information is stored
+automatically. If you then call `user.logout`, is is also removed
 automatically.
 
 You can customize this behaviour through a custom `LoginTokenManager`.<br>
