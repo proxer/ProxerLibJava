@@ -43,7 +43,7 @@ Method              | Description
 `moshi`             | Sets a custom `Moshi` instance, used for parsing. Note, that various adapters are still applied, to make the API work properly.
 `client`            | Sets a custom `OkHttpClient` instance, used for Http requests. Note, that various interceptors are still applied, to make the API work properly.
 `retrofit`          | Sets a custom `Retrofit` instance.
-`logginStrategy`    | Allows for simple logging of Http request, sent through the API. Available strategies are: `NONE`, `API`, `ALL`.
+`logginStrategy`    | Allows for simple logging of Http requests, sent through the API. Available strategies are: `NONE`, `API`, `ALL`.
 
 ### Sending a request
 
@@ -57,7 +57,7 @@ List<NewsArticle> result = api.notifications()
                 .execute();
 ```
 
-The `build` method returns a `ProxerCall` object. If you are familier with `OkHttp`, this works exactly the same. The `ProxerCall` object also allows for asynchronous requests:
+The `build` method returns a `ProxerCall` object. If you are familiar with `OkHttp`, this works exactly the same. The `ProxerCall` object also allows for asynchronous requests:
 
 ```java
 api.notifications().news()
@@ -90,30 +90,30 @@ call.cancel();
 All errors are encapsulated in a `ProxerException`. It offers the following info about the error:
 
 Method               | Description
--------------------- | ----------------------------------------------------------------------
+-------------------- | -------------------------------------------------------------------------------------
 `getErrorType`       | Returns the general error type.
-`getServerErrorType` | Returns the type of proxer server error.
-`getMessage`         | Returns the associated message of the error was a proxer server error.
+`getServerErrorType` | Returns the type of server error.
+`getMessage`         | Returns the associated message of the error if it was a server error. Otherwise null.
 
 These are the available general error types:
 
 Type      | Description
---------- | --------------------------------------------------------------------------------------------------------------------------------------------------
-`SERVER`  | An error on the server occured. This can for exaple be `LOGIN_INVALID_CREDENTIALS`, signaling that incorrect credentials were passed during login.
+--------- | ----------------------------------------------------------------------------------------------------------------------------------------------------
+`SERVER`  | An error on the server occurred. This can for example be `LOGIN_INVALID_CREDENTIALS`, signaling that incorrect credentials were passed during login.
 `TIMEOUT` | The server did not respond in time.
 `IO`      | The data transfer failed. This can happen if no network connectivity is present for example.
 `PARSING` | The server sent broken data. This happens mostly when the REST-API changed and this library was not adjusted yet.
 `UNKNOWN` | Any other type of error. This is an internal error in most cases.
 
-There is a wide range of server error. Consult the `ProxerException` class for details.<br>
+There is a wide range of server errors. Consult the [ProxerException](https://github.com/proxer/ProxerLibJava/blob/master/library/src/main/java/me/proxer/library/api/ProxerException.java) class for details.<br>
 Here is a selection of important ones:
 
 Type                       | Description
--------------------------- | -----------------------------------------------------
+-------------------------- | ------------------------------------------------------
 `INSUFFICIENT_PERMISSIONS` | Your API-key is not allowed to access the API.
 `IP_BLOCKED`               | You sent to many request in a specific time duration.
 `*_INVALID_*`              | The passed data was not correct.
-`*_LOGIN_REQUIRED`         | This section can only accessed as a logged in user.
+`*_LOGIN_REQUIRED`         | This section can only be accessed as a logged in user.
 
 You catch errors like this (synchronous):
 
@@ -196,7 +196,7 @@ ProxerApi api = new ProxerApi.Builder("yourApiKey")
         .build();
 ```
 
-> The token is only stored in memory with the default `LoginTokenManager`. This means, that you lose the login information, when the application terminates. You may want to persist it into a `File` or `SharedPreferences` on `Android`.
+> The token is only stored in memory with the default `LoginTokenManager`. This means, that you lose the login information when the application terminates. You may want to persist it into a `File` or `SharedPreferences` on `Android`.
 
 ### Utils
 
@@ -207,7 +207,7 @@ This library offers two utility classes: `ProxerUrls` and `ProxerUtils`.
 The `ProxerUrls` class has various static methods for getting often needed urls.<br>
 These are returned as an [HttpUrl](https://medium.com/square-corner-blog/okhttps-new-url-class-515460eea661), which has various advantages above the default `Java` classes.
 
-Retrieving the Url to the image of an user can be done like so:
+Retrieving the url to the image of an user can be done like so:
 
 ```java
 HttpUrl url = ProxerUrls.userImage("image property of the UserInfo entity here");
@@ -215,14 +215,10 @@ HttpUrl url = ProxerUrls.userImage("image property of the UserInfo entity here")
 
 #### ProxerUtils
 
-The API often returns entities, which have enums as properties. You may want to get the `String` representation, which is actually used for communication. To do so, you can used the `getApiEnumName` method:
+The API often returns entities, which have enums as properties. You may want to get the `String` representation, which is actually used for communication. To do so, you can use the `getApiEnumName` method:
 
 ```java
-try {
-    String genreAsString = ProxerUtils.getApiEnumName(Genre.ACTION);
-} catch (NoSuchFieldException ignored) {
-    // This should never happen.
-}
+String genreAsString = ProxerUtils.getApiEnumName(Genre.ACTION);
 ```
 
 The other way around is also available:
@@ -236,7 +232,7 @@ Genre genreAsEnum = ProxerUtils.toApiEnum(Genre.class, "Action");
 If you are using ProGuard, the following config is required:
 
 ```proguard
-# Config for ProxerLibJava itself
+# Config for ProxerLibJava itselfs
 -keep public enum me.proxer.library.enums.** {
     **[] $VALUES;
     public *;
@@ -266,7 +262,7 @@ You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/Proxer
 ## Working on the library
 
 Recommended development environment is [IntelliJ IDEA](https://www.jetbrains.com/idea/).<br>
-As this project uses [Lombok](https://projectlombok.org/), you will also need the plugin. Remember to turn on annotation processing, to make compilation work correctly.
+As this project uses [Lombok](https://projectlombok.org/), you will also need the plugin. Remember to turn on annotation processing to make compilation work correctly.
 
 ## Dependencies
 
