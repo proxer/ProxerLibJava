@@ -19,9 +19,13 @@ public class ProxerUtils {
     /**
      * Returns the name of the passed enum instance (Using that specified in the {@code @Json} annotation).
      */
-    @NotNull
-    public String getApiEnumName(@NotNull final Enum<?> it) throws NoSuchFieldException {
-        return it.getClass().getField(it.name()).getAnnotation(Json.class).name();
+    @Nullable
+    public String getApiEnumName(@NotNull final Enum<?> it) {
+        try {
+            return it.getClass().getField(it.name()).getAnnotation(Json.class).name();
+        } catch (NoSuchFieldException ignored) {
+            return null;
+        }
     }
 
     /**
