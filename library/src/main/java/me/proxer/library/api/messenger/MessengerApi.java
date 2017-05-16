@@ -137,10 +137,6 @@ public final class MessengerApi {
             throw new IllegalArgumentException("Invalid action: " + action);
         }
 
-        try {
-            return "/" + ProxerUtils.getApiEnumName(action) + " " + subject;
-        } catch (NoSuchFieldException exception) {
-            throw new IllegalArgumentException("Invalid action: " + action);
-        }
+        return "/" + ProxerUtils.getApiEnumName(action) + " " + subject;
     }
 }

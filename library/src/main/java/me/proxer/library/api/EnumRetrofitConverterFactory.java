@@ -26,11 +26,7 @@ final class EnumRetrofitConverterFactory extends Converter.Factory {
     private static final class EnumConverter implements Converter<Enum<?>, String> {
         @Override
         public String convert(final Enum<?> e) throws IOException {
-            try {
-                return ProxerUtils.getApiEnumName(e);
-            } catch (NoSuchFieldException e1) {
-                return null;
-            }
+            return ProxerUtils.getApiEnumName(e);
         }
     }
 }
