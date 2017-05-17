@@ -64,7 +64,7 @@ class ConferenceAdapter {
             if (delimiterIndex < 0) {
                 return EMPTY_RESULT;
             } else {
-                return image.substring(0, delimiterIndex);
+                return image.substring(delimiterIndex + 1);
             }
         }
 
@@ -75,7 +75,7 @@ class ConferenceAdapter {
             if (delimiterIndex < 0) {
                 return EMPTY_RESULT;
             } else {
-                return image.substring(delimiterIndex + 1);
+                return image.substring(0, delimiterIndex);
             }
         }
     }

@@ -46,8 +46,8 @@ public class ConferencesEndpointTest extends ProxerTest {
     }
 
     private Conference buildTestConference() {
-        return new Conference("133663", "Novus4K", "", 2, "avatar",
-                "513596_5DoIo2.png", false, true, new Date(1488810726L * 1000),
+        return new Conference("133663", "Novus4K", "", 2, "513596_5DoIo2.png",
+                "avatar", false, true, new Date(1488810726L * 1000),
                 0, "0");
     }
 }
