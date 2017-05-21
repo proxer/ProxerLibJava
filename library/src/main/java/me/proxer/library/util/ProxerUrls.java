@@ -152,7 +152,7 @@ public final class ProxerUrls {
     @NotNull
     public HttpUrl donateWeb(@NotNull final Device device) {
         return donateWeb().newBuilder()
-                .addQueryParameter("device", deviceToString(device))
+                .addQueryParameter("device", ProxerUtils.getApiEnumName(device))
                 .build();
     }
 
@@ -184,7 +184,7 @@ public final class ProxerUrls {
     @NotNull
     public HttpUrl userWeb(@NotNull final String id, @NotNull final Device device) {
         return userWeb(id).newBuilder()
-                .addQueryParameter("device", deviceToString(device))
+                .addQueryParameter("device", ProxerUtils.getApiEnumName(device))
                 .build();
     }
 
@@ -209,7 +209,7 @@ public final class ProxerUrls {
     public HttpUrl forumWeb(@NotNull final String categoryId, @NotNull final String threadId,
                             @NotNull final Device device) {
         return forumWeb(categoryId, threadId).newBuilder()
-                .addQueryParameter("device", deviceToString(device))
+                .addQueryParameter("device", ProxerUtils.getApiEnumName(device))
                 .build();
     }
 
@@ -259,18 +259,5 @@ public final class ProxerUrls {
     public boolean hasProxerHost(@NotNull HttpUrl url) {
         return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host())
                 || url.host().matches("manga[0-9]+\\.proxer\\.me");
-    }
-
-    private String deviceToString(@NotNull final Device device) {
-        switch (device) {
-            case DEFAULT:
-                return "default";
-            case MOBILE:
-                return "mobile";
-            case UNSPECIFIED:
-                return "";
-            default:
-                throw new IllegalArgumentException();
-        }
     }
 }

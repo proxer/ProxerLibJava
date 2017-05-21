@@ -95,8 +95,8 @@ public class ProxerUrlsTest {
 
     @Test
     public void testUserWebWithDevice() {
-        assertThat(ProxerUrls.userWeb("2", Device.DEFAULT).toString())
-                .isEqualTo("https://proxer.me/user/2?device=default");
+        assertThat(ProxerUrls.userWeb("2", Device.DESKTOP).toString())
+                .isEqualTo("https://proxer.me/user/2?device=desktop");
     }
 
     @Test
