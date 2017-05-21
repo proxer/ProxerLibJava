@@ -12,6 +12,7 @@ import com.squareup.moshi.Json;
 public enum Device {
     @Json(name = "")UNSPECIFIED,
     @Json(name = "default")DEFAULT,
-    @Json(name = "desktop")DESKTOP,
-    @Json(name = "mobile")MOBILE
+    @Json(name = "mobile")MOBILE,
+    @Json(name = "desktop")LEGACY_DESKTOP,
+    @Json(name = "html")LEGACY_HTML
 }
