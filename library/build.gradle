@@ -7,17 +7,8 @@ apply plugin: 'de.fuerstenau.buildconfig'
 apply plugin: "jacoco"
 apply plugin: "io.freefair.javadoc-links"
 
-tasks.matching { it instanceof JavaCompile && it.name != "compileTestJava" }.all {
-    sourceCompatibility = rootProject.ext.sourceCompatibility
-    targetCompatibility = rootProject.ext.targetCompatibility
-
-    if (System.getenv('CIRCLECI')) {
-        options.bootClasspath = "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar"
-    }
-}
-
 dependencies {
-    api deps.jetbrainsAnnotations
+    apiElements deps.jetbrainsAnnotations
 
     api deps.retrofit
     api deps.retrofitMoshi
@@ -25,6 +16,8 @@ dependencies {
     api deps.moshi
 
     compileOnly deps.lombok
+
+    testImplementation deps.jetbrainsAnnotations
 
     testImplementation deps.junit
     testImplementation deps.assertj
@@ -49,6 +42,7 @@ task delombok {
     doLast {
         ant.taskdef(name: 'delombok', classname: 'lombok.delombok.ant.Tasks$Delombok',
                 classpath: configurations.compileOnly.asPath)
+
         ant.delombok(encoding: 'UTF-8', from: srcPath, to: delombokPath,
                 classpath: configurations.compileClasspath.asPath)
     }
@@ -94,7 +88,7 @@ publishing {
 
 jacocoTestReport {
     reports {
-        xml.enabled true
-        html.enabled false
+        xml.enabled = true
+        html.enabled = false
     }
 }
