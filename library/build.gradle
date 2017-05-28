@@ -8,8 +8,7 @@ apply plugin: "jacoco"
 apply plugin: "io.freefair.javadoc-links"
 
 dependencies {
-    apiElements deps.jetbrainsAnnotations
-    compileOnly deps.jetbrainsAnnotations
+    api deps.jetbrainsAnnotations
 
     api deps.retrofit
     api deps.retrofitMoshi
