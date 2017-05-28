@@ -23,6 +23,10 @@ dependencies {
 }
 ```
 
+You can also download the `jar` directly from [here](https://jitpack.io/com/github/proxer/ProxerLibJava/3.0.1/ProxerLibJava-3.0.1.jar), if you prefer.
+
+> Note that this jar does not come with the required dependencies. You have to include those manually in that case.
+
 ## Usage
 
 ### Initialization
