@@ -19,7 +19,7 @@ And this to your module build.gradle:
 
 ```groovy
 dependencies {
-    compile 'com.github.proxer:ProxerLibJava:3.0.0'
+    compile 'com.github.proxer:ProxerLibJava:3.0.1'
 }
 ```
 
@@ -257,7 +257,7 @@ If you are using ProGuard, the following config is required:
 
 ### More
 
-You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/ProxerLibJava/3.0.0/javadoc/).
+You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/ProxerLibJava/3.0.1/javadoc/).
 
 ## Working on the library
 
