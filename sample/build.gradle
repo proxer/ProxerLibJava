@@ -1,0 +1,12 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = "me.proxer.sample.News"
+
+run {
+    standardInput = System.in
+}
+
+dependencies {
+    implementation project(':library')
+}
