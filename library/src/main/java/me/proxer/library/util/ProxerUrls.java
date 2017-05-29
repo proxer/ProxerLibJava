@@ -258,6 +258,6 @@ public final class ProxerUrls {
      */
     public boolean hasProxerHost(@NotNull HttpUrl url) {
         return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host())
-                || url.host().matches("manga[0-9]+\\.proxer\\.me");
+                || url.host().matches("(manga[0-9]+|s[0-9]+\\.stream)\\.proxer\\.me");
     }
 }
