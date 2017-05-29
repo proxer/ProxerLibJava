@@ -8,6 +8,8 @@ import me.proxer.library.enums.Device;
 import okhttp3.HttpUrl;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.regex.Pattern;
+
 /**
  * Utility class with various static methods for retrieving web and image links.
  * Moreover it holds the base urls of web, api and image cdn.
@@ -18,6 +20,8 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 @Accessors(fluent = true)
 public final class ProxerUrls {
+
+    private static final Pattern proxerHostPattern = Pattern.compile("(manga[0-9]+|s[0-9]+\\.stream)\\.proxer\\.me");
 
     /**
      * Returns the base url for all web pages.
@@ -257,7 +261,7 @@ public final class ProxerUrls {
      * Returns if the passed url has a valid host of proxer.
      */
     public boolean hasProxerHost(@NotNull HttpUrl url) {
-        return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host())
-                || url.host().matches("(manga[0-9]+|s[0-9]+\\.stream)\\.proxer\\.me");
+        return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host()) ||
+                proxerHostPattern.matcher(url.host()).matches();
     }
 }
