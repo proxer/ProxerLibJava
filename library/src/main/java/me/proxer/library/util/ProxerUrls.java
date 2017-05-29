@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 @Accessors(fluent = true)
 public final class ProxerUrls {
 
-    private static final Pattern proxerHostPattern = Pattern.compile("(manga[0-9]+|s[0-9]+\\.stream)\\.proxer\\.me");
+    private static final Pattern proxerHostPattern = Pattern.compile("(manga[0-9]+|(s[0-9]+\\.)?stream)\\.proxer\\.me");
 
     /**
      * Returns the base url for all web pages.

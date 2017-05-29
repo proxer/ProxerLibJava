@@ -155,6 +155,12 @@ public class ProxerUrlsTest {
     @Test
     public void testHasProxerHostStream() {
         //noinspection ConstantConditions
+        assertThat(ProxerUrls.hasProxerHost(HttpUrl.parse("https://stream.proxer.me/files/test.mp4"))).isTrue();
+    }
+
+    @Test
+    public void testHasProxerHostStreamServer() {
+        //noinspection ConstantConditions
         assertThat(ProxerUrls.hasProxerHost(HttpUrl.parse("https://s39.stream.proxer.me/files/test.mp4"))).isTrue();
     }
 
