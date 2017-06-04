@@ -244,17 +244,17 @@ If you are using ProGuard, the following config is required:
 
 # Config for OkHttp and Okio
 -dontwarn okio.**
--dontwarn javax.annotation.Nullable
--dontwarn javax.annotation.ParametersAreNonnullByDefault
--dontwarn javax.annotation.concurrent.GuardedBy
+-dontwarn javax.annotation.**
 
 # Config for Retrofit
 -dontnote retrofit2.Platform
 -dontwarn retrofit2.Platform$Java8
--keepattributes Signature
--keepattributes Exceptions
 
 -keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+
+-keepclasseswithmembers interface * {
     @retrofit2.http.* <methods>;
 }
 ```
