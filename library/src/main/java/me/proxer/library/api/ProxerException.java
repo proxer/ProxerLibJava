@@ -35,6 +35,18 @@ public final class ProxerException extends Exception {
     private final String message;
 
     /**
+     * Constructs an instance from the passed {@code error}, {@code serverError}, {@code message} and {@code cause}.
+     */
+    public ProxerException(@NotNull final ErrorType errorType, @Nullable final ServerErrorType serverErrorType,
+                           @Nullable final String message, @Nullable Throwable cause) {
+        super(cause);
+
+        this.errorType = errorType;
+        this.serverErrorType = serverErrorType;
+        this.message = message;
+    }
+
+    /**
      * Constructs an instance from the passed {@code error}, {@code serverError} and {@code message}.
      */
     public ProxerException(@NotNull final ErrorType errorType, @Nullable final ServerErrorType serverErrorType,
@@ -54,6 +66,19 @@ public final class ProxerException extends Exception {
         this.errorType = errorType;
         this.serverErrorType = ServerErrorType.fromErrorCode(serverErrorCode);
         this.message = message;
+    }
+
+    /**
+     * Constructs an instance from the passed {@code error} and {@code cause}.
+     * <p>
+     * {@link #getServerErrorType()} and {@link #getMessage()} will return null.
+     */
+    public ProxerException(@NotNull final ErrorType errorType, @Nullable Throwable cause) {
+        super(cause);
+
+        this.errorType = errorType;
+        this.serverErrorType = null;
+        this.message = null;
     }
 
     /**

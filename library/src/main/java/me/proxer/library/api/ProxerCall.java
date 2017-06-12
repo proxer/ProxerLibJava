@@ -133,13 +133,13 @@ public final class ProxerCall<T> implements Cloneable {
 
     private ProxerException processNonProxerError(@NotNull final Throwable error) {
         if (error instanceof SocketTimeoutException) {
-            return new ProxerException(ProxerException.ErrorType.TIMEOUT);
+            return new ProxerException(ProxerException.ErrorType.TIMEOUT, error);
         } else if (error instanceof IOException) {
-            return new ProxerException(ProxerException.ErrorType.IO);
+            return new ProxerException(ProxerException.ErrorType.IO, error);
         } else if (error instanceof JsonDataException) {
-            return new ProxerException(ProxerException.ErrorType.PARSING);
+            return new ProxerException(ProxerException.ErrorType.PARSING, error);
         } else {
-            return new ProxerException(ProxerException.ErrorType.UNKNOWN);
+            return new ProxerException(ProxerException.ErrorType.UNKNOWN, error);
         }
     }
 }
