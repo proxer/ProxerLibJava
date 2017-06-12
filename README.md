@@ -237,7 +237,7 @@ If you are using ProGuard, the following config is required:
 
 ```proguard
 # Config for ProxerLibJava itselfs
--keep public enum me.proxer.library.enums.** {
+-keep enum me.proxer.library.** {
     **[] $VALUES;
     public *;
 }
