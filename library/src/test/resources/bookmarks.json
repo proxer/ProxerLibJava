@@ -3,48 +3,40 @@
   "message": "Abfrage erfolgreich",
   "data": [
     {
-      "eid": "16656",
-      "kat": "anime",
-      "name": "Kobayashi-san Chi no Maid Dragon",
-      "episode": "10",
-      "language": "engsub",
-      "medium": "animeseries",
-      "id": "46285981",
-      "state": "2",
-      "available": "0"
-    },
-    {
-      "eid": "18100",
-      "kat": "anime",
-      "name": "Seiren",
+      "eid": "2727",
+      "kat": "manga",
+      "name": "The Breaker",
       "episode": "5",
-      "language": "engsub",
-      "medium": "animeseries",
-      "id": "46272980",
-      "state": "2",
+      "language": "en",
+      "medium": "mangaseries",
+      "id": "51851772",
+      "state": "1",
+      "chapterName": "Chapter 05",
       "available": "1"
     },
     {
-      "eid": "17176",
+      "eid": "74",
       "kat": "anime",
-      "name": "Masamune-kun no Revenge",
-      "episode": "11",
+      "name": "Fairy Tail",
+      "episode": "2",
       "language": "engsub",
       "medium": "animeseries",
-      "id": "46263020",
-      "state": "2",
-      "available": "0"
+      "id": "42477668",
+      "state": "1",
+      "chapterName": null,
+      "available": "1"
     },
     {
-      "eid": "16209",
+      "eid": "4167",
       "kat": "anime",
-      "name": "Kono Subarashii Sekai ni Shukufuku wo! 2",
-      "episode": "10",
+      "name": "Sword Art Online",
+      "episode": "1",
       "language": "engsub",
       "medium": "animeseries",
-      "id": "46258753",
-      "state": "2",
-      "available": "0"
+      "id": "42477549",
+      "state": "1",
+      "chapterName": null,
+      "available": "1"
     }
   ]
 }

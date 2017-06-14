@@ -10,6 +10,7 @@ import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Entity representing a single entry in the history list.
@@ -73,6 +74,13 @@ public class Bookmark implements ProxerIdItem {
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "state")
     private MediaState state;
+
+    /**
+     * Returns the name of the chapter if the associated media is a manga and it is uploaded.
+     */
+    @Getter(onMethod = @__({@Nullable}))
+    @Json(name = "chapterName")
+    private String chapterName;
 
     /**
      * Returns if this episode is available yet.

@@ -47,7 +47,7 @@ public class BookmarksEndpointTest extends ProxerTest {
     }
 
     private Bookmark buildTestBookmark() {
-        return new Bookmark("46285981", "16656", Category.ANIME, "Kobayashi-san Chi no Maid Dragon",
-                10, MediaLanguage.ENGLISH_SUB, Medium.ANIMESERIES, MediaState.AIRING, false);
+        return new Bookmark("51851772", "2727", Category.MANGA, "The Breaker", 5,
+                MediaLanguage.ENGLISH, Medium.MANGASERIES, MediaState.FINISHED, "Chapter 05", true);
     }
 }
