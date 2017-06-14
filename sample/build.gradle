@@ -1,6 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
+apply plugin: 'idea'
+
 mainClassName = "me.proxer.sample.News"
 
 run {
