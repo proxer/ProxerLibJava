@@ -52,11 +52,12 @@ public class UserTopTenEndpointTest extends ProxerTest {
 
         api.user().topTen("123", "rubygee")
                 .category(Category.ANIME)
+                .includeHentai(true)
                 .build()
                 .execute();
 
         Assertions.assertThat(server.takeRequest().getPath())
-                .isEqualTo("/api/v1/user/topten?uid=123&username=rubygee&kat=anime");
+                .isEqualTo("/api/v1/user/topten?uid=123&username=rubygee&kat=anime&isH=true");
     }
 
     @Test

@@ -6,6 +6,7 @@ import me.proxer.library.entitiy.user.User;
 import me.proxer.library.entitiy.user.UserInfo;
 import me.proxer.library.entitiy.user.UserMediaListEntry;
 import me.proxer.library.enums.Category;
+import me.proxer.library.enums.UserMediaListFilterType;
 import me.proxer.library.enums.UserMediaListSortCriteria;
 import retrofit2.http.*;
 
@@ -26,7 +27,7 @@ interface InternalApi {
 
     @GET("user/topten")
     ProxerCall<List<TopTenEntry>> topTen(@Query("uid") String userId, @Query("username") String username,
-                                         @Query("kat") Category category);
+                                         @Query("kat") Category category, @Query("isH") Boolean includeHentai);
 
     @GET("user/userinfo")
     ProxerCall<UserInfo> userInfo(@Query("uid") String userId, @Query("username") String username);
@@ -36,5 +37,7 @@ interface InternalApi {
                                                        @Query("kat") Category category, @Query("p") Integer page,
                                                        @Query("limit") Integer limit, @Query("search") String query,
                                                        @Query("search_start") String startQuery,
-                                                       @Query("sort") UserMediaListSortCriteria sortCriteria);
+                                                       @Query("filter") UserMediaListFilterType filter,
+                                                       @Query("sort") UserMediaListSortCriteria sortCriteria,
+                                                       @Query("isH") Boolean includeHentai);
 }

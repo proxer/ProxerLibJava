@@ -31,6 +31,13 @@ public final class UserTopTenEndpoint implements Endpoint {
     @Setter(onMethod = @__({@NotNull}))
     private Category category;
 
+    /**
+     * Sets if hentai should be included in the result.
+     */
+    @Nullable
+    @Setter(onMethod = @__({@NotNull}))
+    private Boolean includeHentai;
+
     UserTopTenEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
                        @Nullable final String username) {
         if (userId == null && username == null) {
@@ -48,6 +55,6 @@ public final class UserTopTenEndpoint implements Endpoint {
     @Override
     @NotNull
     public ProxerCall<List<TopTenEntry>> build() {
-        return internalApi.topTen(userId, username, category);
+        return internalApi.topTen(userId, username, category, includeHentai);
     }
 }

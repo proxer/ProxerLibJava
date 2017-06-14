@@ -7,6 +7,7 @@ import me.proxer.library.api.PagingEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.user.UserMediaListEntry;
 import me.proxer.library.enums.Category;
+import me.proxer.library.enums.UserMediaListFilterType;
 import me.proxer.library.enums.UserMediaListSortCriteria;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -62,6 +63,20 @@ public final class UserMediaListEndpoint implements PagingEndpoint, LimitEndpoin
     private String searchStart;
 
     /**
+     * Sets the filter.
+     */
+    @Nullable
+    @Setter(onMethod = @__({@NotNull}))
+    private UserMediaListFilterType filter;
+
+    /**
+     * Sets if hentai should be included in the result.
+     */
+    @Nullable
+    @Setter(onMethod = @__({@NotNull}))
+    private Boolean includeHentai;
+
+    /**
      * Set the criteria for sorting.
      */
     @Nullable
@@ -85,6 +100,7 @@ public final class UserMediaListEndpoint implements PagingEndpoint, LimitEndpoin
     @Override
     @NotNull
     public ProxerCall<List<UserMediaListEntry>> build() {
-        return internalApi.userMediaList(userId, username, category, page, limit, search, searchStart, sort);
+        return internalApi.userMediaList(userId, username, category, page, limit, search, searchStart, filter, sort,
+                includeHentai);
     }
 }

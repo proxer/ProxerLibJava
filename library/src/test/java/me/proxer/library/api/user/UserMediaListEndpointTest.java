@@ -40,12 +40,15 @@ public class UserMediaListEndpointTest extends ProxerTest {
                 .limit(5)
                 .search("test")
                 .searchStart("startTest")
+                .filter(UserMediaListFilterType.WATCHING)
                 .sort(UserMediaListSortCriteria.STATE_CHANGE_DATE_ASCENDING)
+                .includeHentai(true)
                 .build()
                 .execute();
 
         assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/user/list?uid=1&username=rubygee" +
-                "&kat=anime&p=0&limit=5&search=test&search_start=startTest&sort=stateChangeDateASC");
+                "&kat=anime&p=0&limit=5&search=test&search_start=startTest" +
+                "&filter=stateFilter1&sort=stateChangeDateASC&isH=true");
     }
 
     @Test
