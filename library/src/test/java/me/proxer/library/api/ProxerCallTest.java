@@ -36,8 +36,7 @@ public class ProxerCallTest extends ProxerTest {
         server.enqueue(new MockResponse().setBody(fromResource("news.json")).setResponseCode(404));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
-                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ErrorType.IO,
-                        "IO ErrorType"));
+                .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ErrorType.IO, "IO ErrorType"));
     }
 
     @Test
@@ -56,26 +55,6 @@ public class ProxerCallTest extends ProxerTest {
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
                 .has(new Condition<Throwable>(e -> ((ProxerException) e).getErrorType() == ErrorType.PARSING,
                         "PARSING ErrorType"));
-    }
-
-    @Test(timeout = 1000L)
-    public void testCancelledError() throws IOException, InterruptedException {
-        final CountDownLatch lock = new CountDownLatch(1);
-
-        server.enqueue(new MockResponse().setBody(fromResource("news.json")));
-
-        final ProxerCall<List<NewsArticle>> call = api.notifications().news().build();
-
-        call.enqueue(result -> {
-            // Failed. The lock will never be counted down and timeout.
-        }, exception -> {
-            assertThat(exception.getErrorType()).isEqualTo(ErrorType.CANCELLED);
-
-            lock.countDown();
-        });
-
-        call.cancel();
-        lock.await();
     }
 
     @Test
@@ -147,11 +126,9 @@ public class ProxerCallTest extends ProxerTest {
         call.enqueue(result -> {
             // Failed. The lock will never be counted down and timeout.
         }, exception -> {
-            if (exception.getErrorType() == ErrorType.IO) {
-                lock.countDown();
-            }
+            assertThat(exception.getErrorType()).isEqualTo(ErrorType.CANCELLED);
 
-            // Failed: Not the exception we want. The lock will never be counted down and timeout.
+            lock.countDown();
         });
 
         call.cancel();

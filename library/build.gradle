@@ -1,11 +1,11 @@
-apply plugin: 'idea'
-
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 apply plugin: 'de.fuerstenau.buildconfig'
 
 apply plugin: "jacoco"
 apply plugin: "io.freefair.javadoc-links"
+
+apply plugin: 'idea'
 
 dependencies {
     api deps.jetbrainsAnnotations
