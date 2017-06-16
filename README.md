@@ -19,11 +19,11 @@ And this to your module build.gradle:
 
 ```groovy
 dependencies {
-    compile 'com.github.proxer:ProxerLibJava:3.0.2'
+    compile 'com.github.proxer:ProxerLibJava:3.0.3'
 }
 ```
 
-You can also download the `jar` directly from [here](https://jitpack.io/com/github/proxer/ProxerLibJava/3.0.2/ProxerLibJava-3.0.2.jar), if you prefer.
+You can also download the `jar` directly from [here](https://jitpack.io/com/github/proxer/ProxerLibJava/3.0.3/ProxerLibJava-3.0.3.jar), if you prefer.
 
 > Note that this jar does not come with the required dependencies. You have to include those manually in that case.
 
@@ -261,7 +261,7 @@ If you are using ProGuard, the following config is required:
 
 ### More
 
-You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/ProxerLibJava/3.0.2/javadoc/).
+You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/ProxerLibJava/3.0.3/javadoc/).
 
 ## Working on the library
 
