@@ -61,4 +61,12 @@ public final class UserApi {
     public UserMediaListEndpoint mediaList(@Nullable final String userId, @Nullable final String username) {
         return new UserMediaListEndpoint(internalApi, userId, username);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public UserCommentsEndpoint comments(@Nullable final String userId, @Nullable final String username) {
+        return new UserCommentsEndpoint(internalApi, userId, username);
+    }
 }
