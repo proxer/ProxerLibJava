@@ -100,6 +100,7 @@ public final class ProxerException extends Exception {
         TIMEOUT,
         IO,
         PARSING,
+        CANCELLED,
         UNKNOWN
     }
 

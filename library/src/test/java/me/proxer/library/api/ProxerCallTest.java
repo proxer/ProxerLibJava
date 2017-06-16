@@ -58,6 +58,26 @@ public class ProxerCallTest extends ProxerTest {
                         "PARSING ErrorType"));
     }
 
+    @Test(timeout = 1000L)
+    public void testCancelledError() throws IOException, InterruptedException {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        server.enqueue(new MockResponse().setBody(fromResource("news.json")));
+
+        final ProxerCall<List<NewsArticle>> call = api.notifications().news().build();
+
+        call.enqueue(result -> {
+            // Failed. The lock will never be counted down and timeout.
+        }, exception -> {
+            assertThat(exception.getErrorType()).isEqualTo(ErrorType.CANCELLED);
+
+            lock.countDown();
+        });
+
+        call.cancel();
+        lock.await();
+    }
+
     @Test
     public void testServerError() throws Exception {
         server.enqueue(new MockResponse().setBody(fromResource("conferences_error.json")));
