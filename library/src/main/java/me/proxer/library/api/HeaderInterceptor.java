@@ -15,7 +15,7 @@ import java.io.IOException;
 final class HeaderInterceptor implements Interceptor {
 
     private static final String API_KEY_HEADER = "proxer-api-key";
-    private static final String HEADER_USER_AGENT = "User-Agent";
+    private static final String USER_AGENT_HEADER = "User-Agent";
 
     private final String apiKey;
     private final String userAgent;
@@ -33,8 +33,8 @@ final class HeaderInterceptor implements Interceptor {
             final Request.Builder newRequestBuilder = chain.request().newBuilder().addHeader(API_KEY_HEADER, apiKey);
 
             if (userAgent != null) {
-                newRequestBuilder.removeHeader(HEADER_USER_AGENT);
-                newRequestBuilder.addHeader(HEADER_USER_AGENT, userAgent);
+                newRequestBuilder.removeHeader(USER_AGENT_HEADER);
+                newRequestBuilder.addHeader(USER_AGENT_HEADER, userAgent);
             }
 
             return chain.proceed(newRequestBuilder.build());
