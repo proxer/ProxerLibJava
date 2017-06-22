@@ -1,5 +1,6 @@
 package me.proxer.library.api;
 
+import com.squareup.moshi.JsonDataException;
 import me.proxer.library.api.ProxerException.ServerErrorType;
 import me.proxer.library.util.ProxerUrls;
 import okhttp3.HttpUrl;
@@ -7,7 +8,6 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,8 +23,10 @@ final class LoginTokenInterceptor implements Interceptor {
 
     private static final String LOGIN_TOKEN_HEADER = "proxer-api-token";
     private static final int MAX_PEEK_BYTE_COUNT = 1048576;
+
     private static final Pattern LOGIN_TOKEN_PATTERN = Pattern.compile("\"token\":.*?\"(.+?)\"", DOTALL);
-    private static final Pattern ERROR_PATTERN = Pattern.compile("\"code\":(.+?)" + Pattern.quote("}"), DOTALL);
+    private static final Pattern ERROR_PATTERN = Pattern.compile("\"code\":.*?(\\d+\b?)", DOTALL);
+
 
     private static final List<String> LOGIN_PATH = ProxerUrls.apiBase().newBuilder()
             .addPathSegment("user")
@@ -60,51 +62,34 @@ final class LoginTokenInterceptor implements Interceptor {
 
             if (response.isSuccessful()) {
                 final HttpUrl url = response.request().url();
-                final Matcher errorMatcher = ERROR_PATTERN.matcher(response.peekBody(MAX_PEEK_BYTE_COUNT).string());
-                final Integer errorCode;
+                final String responseBody = response.peekBody(MAX_PEEK_BYTE_COUNT).string();
+                final Matcher errorMatcher = ERROR_PATTERN.matcher(responseBody);
 
                 if (errorMatcher.find()) {
-                    errorCode = toIntOrNull(errorMatcher.group(1).trim());
-
-                    if (errorCode == null) {
-                        return response;
-                    }
-                } else {
-                    errorCode = 0;
-                }
-
-                if (errorCode == 0) {
-                    if (url.pathSegments().equals(LOGIN_PATH)) {
-                        final Matcher matcher = LOGIN_TOKEN_PATTERN.matcher(response.peekBody(MAX_PEEK_BYTE_COUNT)
-                                .string());
-
-                        if (matcher.find()) {
-                            loginTokenManager.persist(matcher.group(1).trim());
-                        }
-                    } else if (url.pathSegments().equals(LOGOUT_PATH)) {
-                        loginTokenManager.persist(null);
-                    }
-                } else {
+                    final int errorCode = Integer.parseInt(errorMatcher.group(1));
                     final ServerErrorType errorType = ServerErrorType.fromErrorCodeOrNull(errorCode);
 
                     if (errorType != null && isLoginError(errorType)) {
                         loginTokenManager.persist(null);
                     }
+
+                    return response;
+                } else if (url.pathSegments().equals(LOGIN_PATH)) {
+                    final Matcher loginTokenMatcher = LOGIN_TOKEN_PATTERN.matcher(responseBody);
+
+                    if (loginTokenMatcher.find()) {
+                        loginTokenManager.persist(loginTokenMatcher.group(1).trim());
+                    } else {
+                        throw new JsonDataException("No token found after successful login.");
+                    }
+                } else if (url.pathSegments().equals(LOGOUT_PATH)) {
+                    loginTokenManager.persist(null);
                 }
             }
 
             return response;
         } else {
             return chain.proceed(oldRequest);
-        }
-    }
-
-    @Nullable
-    private Integer toIntOrNull(@NotNull final String candidate) {
-        try {
-            return Integer.parseInt(candidate);
-        } catch (NumberFormatException ignored) {
-            return null;
         }
     }
 

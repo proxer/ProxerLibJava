@@ -1,12 +1,14 @@
 package me.proxer.library.api;
 
 import me.proxer.library.ProxerTest;
+import me.proxer.library.api.ProxerException.ErrorType;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  * @author Ruben Gees
@@ -107,5 +109,14 @@ public class LoginTokenInterceptorTest extends ProxerTest {
         api.notifications().news().build().execute();
 
         assertThat(server.takeRequest().getHeaders().get("proxer-api-token")).isNull();
+    }
+
+    @Test
+    public void testMalformedResponse() throws IOException, InterruptedException, ProxerException {
+        server.enqueue(new MockResponse().setBody(fromResource("login_malformed.json")));
+
+        assertThatExceptionOfType(ProxerException.class)
+                .isThrownBy(() -> api.user().login("test", "secret").build().execute())
+                .matches(exception -> exception.getErrorType() == ErrorType.PARSING);
     }
 }
