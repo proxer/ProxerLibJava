@@ -9,7 +9,7 @@ ext {
 def jetbrainsAnnotationsVersion = '15.0'
 
 def retrofitVersion = '2.3.0'
-def okHttpVersion = '3.8.0'
+def okHttpVersion = '3.8.1'
 def moshiVersion = '1.5.0'
 
 def lombokVersion = '1.16.16'
@@ -38,12 +38,12 @@ ext.deps = [
 
 buildscript {
     repositories {
-        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
 
     dependencies {
         classpath 'gradle.plugin.de.fuerstenau:BuildConfigPlugin:1.1.8'
-        classpath "io.freefair.gradle:gradle-plugins:0.10.1"
+        classpath 'io.freefair.gradle:gradle-plugins:0.10.1'
     }
 }
 
@@ -56,7 +56,6 @@ allprojects {
     }
 
     repositories {
-        mavenCentral()
         jcenter()
     }
 }
