@@ -56,12 +56,11 @@ public class StreamsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testProxerStreamsNull() throws ProxerException, IOException, InterruptedException {
+    public void testProxerStreamFalse() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("streams.json")));
 
         api.anime().streams("43", 3, AnimeLanguage.GERMAN_SUB)
-                .includeProxerStreams(true)
-                .includeProxerStreams(null)
+                .includeProxerStreams(false)
                 .build()
                 .execute();
 
