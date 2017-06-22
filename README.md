@@ -236,7 +236,7 @@ Genre genreAsEnum = ProxerUtils.toApiEnum(Genre.class, "Action");
 If you are using ProGuard, the following config is required:
 
 ```proguard
-# Config for ProxerLibJava itselfs
+# Config for ProxerLibJava itself
 -keep enum me.proxer.library.** {
     **[] $VALUES;
     public *;
@@ -245,6 +245,12 @@ If you are using ProGuard, the following config is required:
 # Config for OkHttp and Okio
 -dontwarn okio.**
 -dontwarn javax.annotation.**
+
+# Config for Moshi
+-keepclassmembers class ** {
+    @com.squareup.moshi.FromJson *;
+    @com.squareup.moshi.ToJson *;
+}
 
 # Config for Retrofit
 -dontnote retrofit2.Platform
