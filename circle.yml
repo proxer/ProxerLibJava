@@ -13,5 +13,5 @@ test:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - cp -r library/build/test-results/test/*.xml $CIRCLE_TEST_REPORTS/junit/
 
-    - ./gradlew jacocoTestReport
+    - ./gradlew jacocoTestReport --console=plain
     - bash <(curl -s https://codecov.io/bash)
