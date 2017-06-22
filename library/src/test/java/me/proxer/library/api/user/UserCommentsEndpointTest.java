@@ -9,12 +9,14 @@ import me.proxer.library.enums.Medium;
 import me.proxer.library.enums.UserMediaProgress;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
+import retrofit2.Retrofit;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * @author Ruben Gees
@@ -46,6 +48,17 @@ public class UserCommentsEndpointTest extends ProxerTest {
                 .execute();
 
         assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/user/comments?uid=123&username=abc&kat=anime&p=3&limit=12&length=1234");
+    }
+
+    @Test
+    public void testIllegalArguments() throws Exception {
+        final InternalApi internalApi = new Retrofit.Builder()
+                .baseUrl("http://example.com")
+                .build()
+                .create(InternalApi.class);
+
+        assertThatThrownBy(() -> new UserCommentsEndpoint(internalApi, null, null))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     private UserComment buildTestComment() {

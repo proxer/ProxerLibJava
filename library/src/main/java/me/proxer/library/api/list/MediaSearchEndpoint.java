@@ -134,6 +134,8 @@ public class MediaSearchEndpoint implements PagingEndpoint, LimitEndpoint {
     public MediaSearchEndpoint tags(@Nullable Set<String> ids) {
         if (ids != null) {
             this.tags = ProxerUtils.join(DELIMITER, ids);
+        } else {
+            this.tags = null;
         }
 
         return this;
@@ -146,6 +148,8 @@ public class MediaSearchEndpoint implements PagingEndpoint, LimitEndpoint {
     public MediaSearchEndpoint excludedTags(@Nullable Set<String> excludedIds) {
         if (excludedIds != null) {
             this.excludedTags = ProxerUtils.join(DELIMITER, excludedIds);
+        } else {
+            this.excludedTags = null;
         }
 
         return this;
@@ -156,6 +160,5 @@ public class MediaSearchEndpoint implements PagingEndpoint, LimitEndpoint {
     public ProxerCall<List<MediaListEntry>> build() {
         return internalApi.mediaSearch(name, language, type, genres, excludedGenres, fskConstraints,
                 sort, length, lengthBound, tags, excludedTags, tagRateFilter, tagSpoilerFilter, page, limit);
-
     }
 }

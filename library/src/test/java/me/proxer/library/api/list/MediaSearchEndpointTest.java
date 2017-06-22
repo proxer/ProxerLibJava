@@ -60,6 +60,32 @@ public class MediaSearchEndpointTest extends ProxerTest {
                 "&tags=3%207&notags=5%2020&tagratefilter=rate_1&tagspoilerfilter=spoiler_1&p=3&limit=10");
     }
 
+    @Test
+    public void testTagsNull() throws Exception {
+        server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
+
+        api.list().mediaSearch()
+                .tags(new HashSet<>(Arrays.asList("3", "7")))
+                .tags(null)
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/entrysearch");
+    }
+
+    @Test
+    public void testExcludedTagsNull() throws Exception {
+        server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
+
+        api.list().mediaSearch()
+                .excludedTags(new HashSet<>(Arrays.asList("5", "20")))
+                .excludedTags(null)
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/entrysearch");
+    }
+
     private MediaListEntry buildTestEntry() {
         return new MediaListEntry("3637", "+ A Channel", EnumSet.of(Genre.COMEDY, Genre.SCHOOL),
                 Medium.OVA, 11, MediaState.FINISHED, 774, 115,

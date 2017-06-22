@@ -31,7 +31,7 @@ public class TranslatorGroupListEndpointTest extends ProxerTest {
 
     @Test
     public void testPath() throws ProxerException, IOException, InterruptedException {
-        server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
+        server.enqueue(new MockResponse().setBody(fromResource("translator_group_list.json")));
 
         api.list().translatorGroupList()
                 .country(Country.JAPAN)

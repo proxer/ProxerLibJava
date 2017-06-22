@@ -62,6 +62,19 @@ public class TranslatorGroupProjectListEndpointTest extends ProxerTest {
                 "&isH=-1&p=3&limit=12");
     }
 
+    @Test
+    public void testHentaiNull() throws Exception {
+        server.enqueue(new MockResponse().setBody(fromResource("translator_group_project_list.json")));
+
+        api.list().translatorGroupProjectList("654")
+                .includeHentai(true)
+                .includeHentai(null)
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/translatorgroupprojects?id=654");
+    }
+
     private TranslatorGroupProject buildTestProject() {
         return new TranslatorGroupProject("15775", "12-Sai: Chiccha na Mune no Tokimeki",
                 EnumSet.of(Genre.COMEDY, Genre.ROMANCE), EnumSet.of(FskConstraint.FSK_0), Medium.ANIMESERIES,

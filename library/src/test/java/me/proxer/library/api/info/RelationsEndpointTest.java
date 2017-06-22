@@ -36,10 +36,11 @@ public class RelationsEndpointTest extends ProxerTest {
         server.enqueue(new MockResponse().setBody(fromResource("relations.json")));
 
         api.info().relations("115")
+                .includeHentai(true)
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/info/relations?id=115");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/info/relations?id=115&isH=true");
     }
 
     private List<Relation> buildTestRelations() {

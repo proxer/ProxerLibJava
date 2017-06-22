@@ -62,6 +62,19 @@ public class IndustryProjectListEndpointTest extends ProxerTest {
                 "&isH=-1&p=3&limit=12");
     }
 
+    @Test
+    public void testHentaiNull() throws Exception {
+        server.enqueue(new MockResponse().setBody(fromResource("industry_project_list.json")));
+
+        api.list().industryProjectList("543")
+                .includeHentai(true)
+                .includeHentai(null)
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/industryprojects?id=543");
+    }
+
     private IndustryProject buildTestProject() {
         return new IndustryProject("10198", "&Dropout", EnumSet.of(Genre.COMEDY, Genre.SCI_FI, Genre.YURI),
                 EnumSet.noneOf(FskConstraint.class), Medium.ONESHOT, IndustryType.PUBLISHER, MediaState.FINISHED,

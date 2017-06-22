@@ -38,7 +38,8 @@ public class StreamsEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/anime/streams?id=33&episode=3&language=gerdub");
+        assertThat(server.takeRequest().getPath())
+                .isEqualTo("/api/v1/anime/streams?id=33&episode=3&language=gerdub");
     }
 
     @Test
@@ -50,8 +51,22 @@ public class StreamsEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/anime/proxerstreams?id=35&episode=1" +
-                "&language=engdub");
+        assertThat(server.takeRequest().getPath())
+                .isEqualTo("/api/v1/anime/proxerstreams?id=35&episode=1&language=engdub");
+    }
+
+    @Test
+    public void testProxerStreamsNull() throws ProxerException, IOException, InterruptedException {
+        server.enqueue(new MockResponse().setBody(fromResource("streams.json")));
+
+        api.anime().streams("43", 3, AnimeLanguage.GERMAN_SUB)
+                .includeProxerStreams(true)
+                .includeProxerStreams(null)
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getPath())
+                .isEqualTo("/api/v1/anime/streams?id=43&episode=3&language=gersub");
     }
 
     private Stream buildTestStream() {

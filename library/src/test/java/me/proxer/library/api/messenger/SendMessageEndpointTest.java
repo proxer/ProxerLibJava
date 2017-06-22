@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * @author Ruben Gees
@@ -61,5 +62,15 @@ public class SendMessageEndpointTest extends ProxerTest {
 
         assertThat(server.takeRequest().getBody().readUtf8())
                 .isEqualTo("conference_id=id&text=%2FremoveUser%20Testerio");
+    }
+
+    @Test
+    public void testInvalidAction() throws ProxerException, IOException, InterruptedException {
+        //noinspection CodeBlock2Expr
+        assertThatThrownBy(() -> {
+            api.messenger().sendMessage("id", MessageAction.NONE, "")
+                    .build()
+                    .execute();
+        }).isInstanceOf(IllegalArgumentException.class);
     }
 }
