@@ -230,6 +230,7 @@ public final class ProxerApi {
                     .add(new ConferenceInfoAdapter())
                     .add(new EpisodeInfoAdapter())
                     .add(new PageAdapter())
+                    .add(new NotificationInfoAdapter())
                     .add(new FixRatingDetailsAdapter())
                     .build();
         }

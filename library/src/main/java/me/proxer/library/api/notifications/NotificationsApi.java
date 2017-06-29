@@ -34,4 +34,12 @@ public final class NotificationsApi {
     public NotificationsEndpoint notifications() {
         return new NotificationsEndpoint(internalApi);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public NotificationInfoEndpoint notificationInfo() {
+        return new NotificationInfoEndpoint(internalApi);
+    }
 }
