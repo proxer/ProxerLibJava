@@ -25,16 +25,16 @@ public final class UcpApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public DeleteFavoriteRequest deleteFavorite(@NotNull final String id) {
-        return new DeleteFavoriteRequest(internalApi, id);
+    public DeleteFavoriteEndpoint deleteFavorite(@NotNull final String id) {
+        return new DeleteFavoriteEndpoint(internalApi, id);
     }
 
     /**
      * Returns the respective endpoint.
      */
     @NotNull
-    public DeleteBookmarkRequest deleteBookmark(@NotNull final String id) {
-        return new DeleteBookmarkRequest(internalApi, id);
+    public DeleteBookmarkEndpoint deleteBookmark(@NotNull final String id) {
+        return new DeleteBookmarkEndpoint(internalApi, id);
     }
 
     /**
@@ -73,8 +73,8 @@ public final class UcpApi {
      * Returns the respective endpoint.
      */
     @NotNull
-    public SetBookmarkRequest setBookmark(@NotNull final String id, final int episode,
-                                          @NotNull final MediaLanguage language, @NotNull final Category category) {
-        return new SetBookmarkRequest(internalApi, id, episode, language, category);
+    public SetBookmarkEndpoint setBookmark(@NotNull final String id, final int episode,
+                                           @NotNull final MediaLanguage language, @NotNull final Category category) {
+        return new SetBookmarkEndpoint(internalApi, id, episode, language, category);
     }
 }

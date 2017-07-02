@@ -11,13 +11,13 @@ import org.jetbrains.annotations.NotNull;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class DeleteFavoriteRequest implements Endpoint {
+public final class DeleteFavoriteEndpoint implements Endpoint {
 
     private final InternalApi internalApi;
 
     private final String id;
 
-    DeleteFavoriteRequest(@NotNull final InternalApi internalApi, @NotNull final String id) {
+    DeleteFavoriteEndpoint(@NotNull final InternalApi internalApi, @NotNull final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }

@@ -11,13 +11,13 @@ import org.jetbrains.annotations.NotNull;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class DeleteBookmarkRequest implements Endpoint {
+public final class DeleteBookmarkEndpoint implements Endpoint {
 
     private final InternalApi internalApi;
 
     private final String id;
 
-    DeleteBookmarkRequest(@NotNull final InternalApi internalApi, @NotNull final String id) {
+    DeleteBookmarkEndpoint(@NotNull final InternalApi internalApi, @NotNull final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }

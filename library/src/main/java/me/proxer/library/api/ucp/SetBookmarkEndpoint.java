@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class SetBookmarkRequest implements Endpoint {
+public final class SetBookmarkEndpoint implements Endpoint {
 
     private final InternalApi internalApi;
 
@@ -22,8 +22,8 @@ public final class SetBookmarkRequest implements Endpoint {
     private final MediaLanguage language;
     private final Category category;
 
-    SetBookmarkRequest(@NotNull InternalApi internalApi, @NotNull String id, int episode,
-                       @NotNull MediaLanguage language, @NotNull Category category) {
+    SetBookmarkEndpoint(@NotNull InternalApi internalApi, @NotNull String id, int episode,
+                        @NotNull MediaLanguage language, @NotNull Category category) {
         this.internalApi = internalApi;
         this.id = id;
         this.episode = episode;

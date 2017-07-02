@@ -12,14 +12,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class DeleteBookmarkRequestTest extends ProxerTest {
+public class DeleteFavoriteEndpointTest extends ProxerTest {
 
     @Test
     public void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         final Void result = api.ucp()
-                .deleteBookmark("123")
+                .deleteFavorite("123")
                 .build()
                 .execute();
 
@@ -30,18 +30,18 @@ public class DeleteBookmarkRequestTest extends ProxerTest {
     public void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
-        api.ucp().deleteBookmark("321")
+        api.ucp().deleteFavorite("321")
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/ucp/deletereminder");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/ucp/deletefavorite");
     }
 
     @Test
     public void testParameter() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
-        api.ucp().deleteBookmark("321")
+        api.ucp().deleteFavorite("321")
                 .build()
                 .execute();
 
