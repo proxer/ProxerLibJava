@@ -42,4 +42,20 @@ public final class NotificationsApi {
     public NotificationInfoEndpoint notificationInfo() {
         return new NotificationInfoEndpoint(internalApi);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public DeleteNotificationEndpoint deleteNotification(@NotNull final String id) {
+        return new DeleteNotificationEndpoint(internalApi, id);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    @NotNull
+    public DeleteNotificationEndpoint deleteAllNotifications() {
+        return new DeleteNotificationEndpoint(internalApi, "0");
+    }
 }

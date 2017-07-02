@@ -4,8 +4,7 @@ import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.notifications.NewsArticle;
 import me.proxer.library.entitiy.notifications.Notification;
 import me.proxer.library.entitiy.notifications.NotificationInfo;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 import java.util.List;
 
@@ -23,4 +22,8 @@ interface InternalApi {
 
     @GET("notifications/count")
     ProxerCall<NotificationInfo> notificationInfo();
+
+    @FormUrlEncoded
+    @POST("notifications/delete")
+    ProxerCall<Void> deleteNotification(@Field("nid") String id);
 }
