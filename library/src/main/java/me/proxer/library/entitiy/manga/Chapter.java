@@ -76,7 +76,7 @@ public class Chapter implements ProxerIdItem, ProxerDateItem {
     private String scanGroupName;
 
     /**
-     * Returns the server this page is saved on. To be used for retriving the url.
+     * Returns the server this page is saved on. To be used for retrieving the url.
      */
     @Getter(onMethod = @__({@NotNull}))
     @Json(name = "server")
