@@ -10,7 +10,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}-{{ checksum  "sample/build.gradle" }}
       - run:
           name: Download Dependencies
-          command: ./gradlew dependencies --console=plain
+          command: ./gradlew library:dependencies sample:dependencies --console=plain
       - save_cache:
           paths:
             - ~/.gradle
