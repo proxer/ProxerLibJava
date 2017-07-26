@@ -20,7 +20,7 @@ import java.util.Set;
  * @author Desnoo
  */
 @Accessors(fluent = true)
-public class MediaSearchEndpoint implements PagingEndpoint, LimitEndpoint {
+public class MediaSearchEndpoint implements PagingEndpoint<List<MediaListEntry>>, LimitEndpoint<List<MediaListEntry>> {
 
     private static final String DELIMITER = " ";
 

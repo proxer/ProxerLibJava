@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class TranslatorGroupEndpoint implements Endpoint {
+public class TranslatorGroupEndpoint implements Endpoint<TranslatorGroup> {
 
     private final InternalApi internalApi;
 

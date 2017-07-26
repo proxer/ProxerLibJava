@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class IndustryEndpoint implements Endpoint {
+public class IndustryEndpoint implements Endpoint<Industry> {
 
     private final InternalApi internalApi;
 

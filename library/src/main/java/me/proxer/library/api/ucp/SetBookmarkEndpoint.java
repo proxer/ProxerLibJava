@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class SetBookmarkEndpoint implements Endpoint {
+public final class SetBookmarkEndpoint implements Endpoint<Void> {
 
     private final InternalApi internalApi;
 

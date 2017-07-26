@@ -15,7 +15,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class CreateConferenceGroupEndpoint implements Endpoint {
+public final class CreateConferenceGroupEndpoint implements Endpoint<String> {
 
     private final InternalApi internalApi;
 

@@ -17,7 +17,8 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class UcpHistoryEndpoint implements PagingEndpoint, LimitEndpoint {
+public final class UcpHistoryEndpoint implements PagingEndpoint<List<UcpHistoryEntry>>,
+        LimitEndpoint<List<UcpHistoryEntry>> {
 
     private final InternalApi internalApi;
 

@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ruben Gees
  */
-public class DeleteNotificationEndpoint implements Endpoint {
+public class DeleteNotificationEndpoint implements Endpoint<Void> {
 
     private final InternalApi internalApi;
 

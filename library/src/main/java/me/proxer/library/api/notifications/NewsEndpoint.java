@@ -17,7 +17,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class NewsEndpoint implements PagingEndpoint, LimitEndpoint {
+public final class NewsEndpoint implements PagingEndpoint<List<NewsArticle>>, LimitEndpoint<List<NewsArticle>> {
 
     private final InternalApi internalApi;
 

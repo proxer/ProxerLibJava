@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class UserInfoEndpoint implements Endpoint {
+public class UserInfoEndpoint implements Endpoint<UserInfo> {
 
     private final InternalApi internalApi;
 

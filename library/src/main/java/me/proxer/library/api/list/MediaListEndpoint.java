@@ -21,7 +21,7 @@ import java.util.List;
  * @author Desnoo
  */
 @Accessors(fluent = true)
-public class MediaListEndpoint implements PagingEndpoint, LimitEndpoint {
+public class MediaListEndpoint implements PagingEndpoint<List<MediaListEntry>>, LimitEndpoint<List<MediaListEntry>> {
 
     private final InternalApi internalApi;
 

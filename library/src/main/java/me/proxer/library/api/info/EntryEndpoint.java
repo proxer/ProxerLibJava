@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class EntryEndpoint implements Endpoint {
+public class EntryEndpoint implements Endpoint<Entry> {
 
     private final InternalApi internalApi;
 

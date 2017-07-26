@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class WatchedEpisodesEndpoint implements Endpoint {
+public final class WatchedEpisodesEndpoint implements Endpoint<Integer> {
 
     private final InternalApi internalApi;
 

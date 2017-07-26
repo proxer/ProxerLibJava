@@ -17,7 +17,8 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class NotificationsEndpoint implements PagingEndpoint, LimitEndpoint {
+public final class NotificationsEndpoint implements PagingEndpoint<List<Notification>>,
+        LimitEndpoint<List<Notification>> {
 
     private final InternalApi internalApi;
 

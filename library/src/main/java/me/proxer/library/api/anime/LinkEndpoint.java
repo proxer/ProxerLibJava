@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class LinkEndpoint implements Endpoint {
+public class LinkEndpoint implements Endpoint<String> {
 
     private final InternalApi internalApi;
 

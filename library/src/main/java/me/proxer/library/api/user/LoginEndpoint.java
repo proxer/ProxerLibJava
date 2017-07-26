@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class LoginEndpoint implements Endpoint {
+public class LoginEndpoint implements Endpoint<User> {
 
     private final InternalApi internalApi;
 

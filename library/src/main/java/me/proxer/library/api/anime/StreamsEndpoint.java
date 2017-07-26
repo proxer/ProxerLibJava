@@ -17,7 +17,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class StreamsEndpoint implements Endpoint {
+public class StreamsEndpoint implements Endpoint<List<Stream>> {
 
     private final InternalApi internalApi;
 

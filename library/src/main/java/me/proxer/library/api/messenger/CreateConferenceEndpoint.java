@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class CreateConferenceEndpoint implements Endpoint {
+public final class CreateConferenceEndpoint implements Endpoint<String> {
 
     private final InternalApi internalApi;
 

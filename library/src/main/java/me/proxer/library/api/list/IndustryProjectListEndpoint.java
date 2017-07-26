@@ -18,7 +18,8 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class IndustryProjectListEndpoint implements PagingEndpoint, LimitEndpoint {
+public class IndustryProjectListEndpoint implements PagingEndpoint<List<IndustryProject>>,
+        LimitEndpoint<List<IndustryProject>> {
 
     private final InternalApi internalApi;
 

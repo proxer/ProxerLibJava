@@ -17,7 +17,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class UserTopTenEndpoint implements Endpoint {
+public final class UserTopTenEndpoint implements Endpoint<List<TopTenEntry>> {
 
     private final InternalApi internalApi;
 

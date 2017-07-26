@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ruben Gees
  */
-public class ModifyUserInfoEndpoint implements Endpoint {
+public class ModifyUserInfoEndpoint implements Endpoint<Void> {
 
     private final InternalApi internalApi;
 

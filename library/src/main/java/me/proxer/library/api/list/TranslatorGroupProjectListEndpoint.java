@@ -18,7 +18,8 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class TranslatorGroupProjectListEndpoint implements PagingEndpoint, LimitEndpoint {
+public class TranslatorGroupProjectListEndpoint implements PagingEndpoint<List<TranslatorGroupProject>>,
+        LimitEndpoint<List<TranslatorGroupProject>> {
 
     private final InternalApi internalApi;
 

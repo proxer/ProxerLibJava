@@ -17,7 +17,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class ConferencesEndpoint implements PagingEndpoint {
+public final class ConferencesEndpoint implements PagingEndpoint<List<Conference>> {
 
     private final InternalApi internalApi;
 

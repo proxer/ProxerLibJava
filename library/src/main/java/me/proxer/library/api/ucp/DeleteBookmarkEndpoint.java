@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class DeleteBookmarkEndpoint implements Endpoint {
+public final class DeleteBookmarkEndpoint implements Endpoint<Void> {
 
     private final InternalApi internalApi;
 

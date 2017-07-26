@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class ChapterEndpoint implements Endpoint {
+public class ChapterEndpoint implements Endpoint<Chapter> {
 
     private final InternalApi internalApi;
 

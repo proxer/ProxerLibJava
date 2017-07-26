@@ -18,7 +18,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class BookmarksEndpoint implements PagingEndpoint, LimitEndpoint {
+public final class BookmarksEndpoint implements PagingEndpoint<List<Bookmark>>, LimitEndpoint<List<Bookmark>> {
 
     private final InternalApi internalApi;
 

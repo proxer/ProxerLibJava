@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class EpisodeInfoEndpoint implements PagingEndpoint, LimitEndpoint {
+public final class EpisodeInfoEndpoint implements PagingEndpoint<EpisodeInfo>, LimitEndpoint<EpisodeInfo> {
 
     private final InternalApi internalApi;
 

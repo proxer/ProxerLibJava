@@ -5,13 +5,14 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Interface for all endpoints.
  *
+ * @param <T> The type this endpoint returns.
  * @author Ruben Gees
  */
-public interface Endpoint {
+public interface Endpoint<T> {
 
     /**
      * Builds the call for this endpoint.
      */
     @NotNull
-    ProxerCall build();
+    ProxerCall<T> build();
 }

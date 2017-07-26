@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class ConferenceModificationEndpoint implements Endpoint {
+public class ConferenceModificationEndpoint implements Endpoint<Void> {
 
     private final InternalApi internalApi;
 

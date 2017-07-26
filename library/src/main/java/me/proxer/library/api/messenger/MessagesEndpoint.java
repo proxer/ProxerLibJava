@@ -28,7 +28,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class MessagesEndpoint implements Endpoint {
+public final class MessagesEndpoint implements Endpoint<List<Message>> {
 
     private final InternalApi internalApi;
 

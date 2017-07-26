@@ -14,7 +14,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class UcpTopTenEndpoint implements Endpoint {
+public final class UcpTopTenEndpoint implements Endpoint<List<UcpTopTenEntry>> {
 
     private final InternalApi internalApi;
 
