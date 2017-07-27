@@ -6,9 +6,9 @@ import me.proxer.library.api.LimitEndpoint;
 import me.proxer.library.api.PagingEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.notifications.NewsArticle;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -25,17 +25,17 @@ public final class NewsEndpoint implements PagingEndpoint<List<NewsArticle>>, Li
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer limit;
 
-    NewsEndpoint(@NotNull final InternalApi internalApi) {
+    NewsEndpoint(@Nonnull final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
@@ -43,7 +43,7 @@ public final class NewsEndpoint implements PagingEndpoint<List<NewsArticle>>, Li
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<List<NewsArticle>> build() {
         return internalApi.news(page, limit);
     }

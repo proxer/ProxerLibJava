@@ -3,8 +3,8 @@ package me.proxer.library.api.messenger;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -23,8 +23,8 @@ public final class CreateConferenceGroupEndpoint implements Endpoint<String> {
     private final String firstMessage;
     private final List<String> participants;
 
-    CreateConferenceGroupEndpoint(@NotNull final InternalApi internalApi, @NotNull final String topic,
-                                  @NotNull final String firstMessage, @NotNull final List<String> participants) {
+    CreateConferenceGroupEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String topic,
+                                  @Nonnull final String firstMessage, @Nonnull final List<String> participants) {
         this.internalApi = internalApi;
         this.topic = topic;
         this.firstMessage = firstMessage;
@@ -35,7 +35,7 @@ public final class CreateConferenceGroupEndpoint implements Endpoint<String> {
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<String> build() {
         return internalApi.createConferenceGroup(topic, firstMessage, participants);
     }

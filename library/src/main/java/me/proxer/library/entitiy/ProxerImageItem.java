@@ -1,6 +1,6 @@
 package me.proxer.library.entitiy;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * An interface for all entities with an image.
@@ -14,6 +14,6 @@ public interface ProxerImageItem {
      * <p>
      * This can either be an id or a direct link, depending on the API.
      */
-    @NotNull
+    @Nonnull
     String getImage();
 }

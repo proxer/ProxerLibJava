@@ -7,8 +7,9 @@ import me.proxer.library.api.PagingEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.info.Entry;
 import me.proxer.library.entitiy.info.EpisodeInfo;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Endpoint for retrieving a list of episodes and associated meta information of an {@link Entry}.
@@ -26,17 +27,17 @@ public final class EpisodeInfoEndpoint implements PagingEndpoint<EpisodeInfo>, L
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer limit;
 
-    EpisodeInfoEndpoint(@NotNull final InternalApi internalApi, @NotNull final String id) {
+    EpisodeInfoEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
@@ -45,7 +46,7 @@ public final class EpisodeInfoEndpoint implements PagingEndpoint<EpisodeInfo>, L
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<EpisodeInfo> build() {
         return internalApi.episodeInfo(id, page, limit);
     }

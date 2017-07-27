@@ -5,8 +5,8 @@ import me.proxer.library.enums.FskConstraint;
 import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.util.ProxerUtils;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -48,7 +48,7 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
         private final Class<T> enumType;
         private final String delimiter;
 
-        DelimitedEnumSetAdapter(@NotNull final Class<T> enumType, @NotNull final String delimiter) {
+        DelimitedEnumSetAdapter(@Nonnull final Class<T> enumType, @Nonnull final String delimiter) {
             this.enumType = enumType;
             this.delimiter = delimiter;
         }

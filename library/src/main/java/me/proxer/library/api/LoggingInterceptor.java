@@ -8,8 +8,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -38,7 +38,7 @@ class LoggingInterceptor implements Interceptor {
         return chain.proceed(chain.request());
     }
 
-    private String buildHeaderMessage(@NotNull final Request requestCopy) {
+    private String buildHeaderMessage(@Nonnull final Request requestCopy) {
         final String headerContent = requestCopy.headers().toString().trim();
 
         if (headerContent.isEmpty()) {
@@ -48,8 +48,8 @@ class LoggingInterceptor implements Interceptor {
         }
     }
 
-    @NotNull
-    private String buildBodyMessage(@NotNull final Request requestCopy) throws IOException {
+    @Nonnull
+    private String buildBodyMessage(@Nonnull final Request requestCopy) throws IOException {
         final RequestBody body = requestCopy.body();
         final Buffer bodyBuffer = new Buffer();
         final String bodyContent;

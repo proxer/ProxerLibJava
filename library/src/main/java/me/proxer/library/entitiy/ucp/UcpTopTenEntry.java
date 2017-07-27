@@ -7,7 +7,8 @@ import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.entitiy.info.Entry;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.Medium;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Entity representing a single entry in the history list.
@@ -20,35 +21,35 @@ public class UcpTopTenEntry implements ProxerIdItem {
     /**
      * {@inheritDoc}
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "fid")
     private String id;
 
     /**
      * Returns the id of the associated {@link Entry}.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "eid")
     private String entryId;
 
     /**
      * Returns the name.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "name")
     private String name;
 
     /**
      * Returns the medium.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "medium")
     private Medium medium;
 
     /**
      * Returns the category.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "kat")
     private Category category;
 }

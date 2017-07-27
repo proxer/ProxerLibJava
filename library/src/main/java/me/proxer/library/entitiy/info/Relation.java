@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.enums.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Set;
 
 /**
@@ -21,42 +21,42 @@ public class Relation implements ProxerIdItem {
     /**
      * Returns the id.
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "id")
     private String id;
 
     /**
      * Returns the name.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "name")
     private String name;
 
     /**
      * Returns the genres.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "genre")
     private Set<Genre> genres;
 
     /**
      * Returns the fsk ratings.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "fsk")
     private Set<FskConstraint> fskConstraints;
 
     /**
      * Returns the description.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "description")
     private String description;
 
     /**
      * Returns the medium
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "medium")
     private Medium medium;
 
@@ -69,7 +69,7 @@ public class Relation implements ProxerIdItem {
     /**
      * Returns the current state.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "state")
     private MediaState state;
 
@@ -94,21 +94,21 @@ public class Relation implements ProxerIdItem {
     /**
      * Returns the category.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "kat")
     private Category category;
 
     /**
      * Returns the type of license.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "license")
     private License license;
 
     /**
      * Returns the available languages.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "language")
     private Set<MediaLanguage> languages;
 

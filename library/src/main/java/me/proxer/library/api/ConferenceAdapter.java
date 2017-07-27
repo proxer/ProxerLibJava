@@ -5,8 +5,8 @@ import com.squareup.moshi.Json;
 import lombok.AccessLevel;
 import lombok.Getter;
 import me.proxer.library.entitiy.messenger.Conference;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.Date;
 
 /**
@@ -57,7 +57,7 @@ class ConferenceAdapter {
         @Json(name = "image")
         String image;
 
-        @NotNull
+        @Nonnull
         String getImage() {
             final int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
 
@@ -68,7 +68,7 @@ class ConferenceAdapter {
             }
         }
 
-        @NotNull
+        @Nonnull
         String getImageType() {
             final int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
 

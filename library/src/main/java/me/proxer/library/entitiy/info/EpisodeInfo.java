@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
 
@@ -33,14 +33,14 @@ public class EpisodeInfo {
     /**
      * Returns the category of the associated media entry.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "kat")
     private Category category;
 
     /**
      * Returns the available languages.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "lang")
     private Set<MediaLanguage> availableLanguages;
 
@@ -53,7 +53,7 @@ public class EpisodeInfo {
     /**
      * Returns the actual list of episodes.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "episodes")
     private List<Episode> episodes;
 }

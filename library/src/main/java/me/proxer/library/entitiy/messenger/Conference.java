@@ -6,8 +6,8 @@ import lombok.Value;
 import me.proxer.library.entitiy.ProxerDateItem;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.entitiy.ProxerImageItem;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.Date;
 
 /**
@@ -23,21 +23,21 @@ public class Conference implements ProxerIdItem, ProxerDateItem, ProxerImageItem
     /**
      * Returns the id.
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "id")
     private String id;
 
     /**
      * Returns the topic.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "topic")
     private String topic;
 
     /**
      * Returns the custom topic.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "topic_custom")
     private String customTopic;
 
@@ -50,13 +50,13 @@ public class Conference implements ProxerIdItem, ProxerDateItem, ProxerImageItem
     /**
      * Returns the id of the image.
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     private String image;
 
     /**
      * Returns the type of the image.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     private String imageType;
 
     /**
@@ -74,7 +74,7 @@ public class Conference implements ProxerIdItem, ProxerDateItem, ProxerImageItem
     /**
      * Returns the time.
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "timestamp_end")
     private Date date;
 
@@ -87,7 +87,7 @@ public class Conference implements ProxerIdItem, ProxerDateItem, ProxerImageItem
     /**
      * Returns the id of the last read message. Can be "0".
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "read_mid")
     private String lastReadMessageId;
 }

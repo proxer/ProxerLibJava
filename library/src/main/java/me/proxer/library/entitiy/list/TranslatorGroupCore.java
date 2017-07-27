@@ -6,7 +6,8 @@ import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.entitiy.ProxerImageItem;
 import me.proxer.library.enums.Country;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Entity containing the core information of a translator group.
@@ -20,28 +21,28 @@ public class TranslatorGroupCore implements ProxerIdItem, ProxerImageItem {
     /**
      * Returns the id.
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "id")
     private String id;
 
     /**
      * Returns the name.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "name")
     private String name;
 
     /**
      * Returns the country, the translator group is active in.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "country")
     private Country country;
 
     /**
      * {@inheritDoc}
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "image")
     private String image;
 }

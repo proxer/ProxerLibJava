@@ -1,6 +1,6 @@
 package me.proxer.library.api;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * @author Ruben Gees

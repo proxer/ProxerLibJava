@@ -1,6 +1,6 @@
 package me.proxer.library.api;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * Interface for custom implementation of login token management.

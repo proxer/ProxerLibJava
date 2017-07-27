@@ -6,9 +6,9 @@ import me.proxer.library.api.LimitEndpoint;
 import me.proxer.library.api.PagingEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.ucp.UcpHistoryEntry;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -26,17 +26,17 @@ public final class UcpHistoryEndpoint implements PagingEndpoint<List<UcpHistoryE
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer limit;
 
-    UcpHistoryEndpoint(@NotNull final InternalApi internalApi) {
+    UcpHistoryEndpoint(@Nonnull final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
@@ -44,7 +44,7 @@ public final class UcpHistoryEndpoint implements PagingEndpoint<List<UcpHistoryE
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<List<UcpHistoryEntry>> build() {
         return internalApi.history(page, limit);
     }

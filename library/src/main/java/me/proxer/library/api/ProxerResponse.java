@@ -2,7 +2,8 @@ package me.proxer.library.api;
 
 import com.squareup.moshi.Json;
 import lombok.*;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Ruben Gees
@@ -17,7 +18,7 @@ final class ProxerResponse<T> {
     @Json(name = "error")
     private boolean error;
 
-    @Getter(value = AccessLevel.PACKAGE, onMethod = @__({@NotNull}))
+    @Getter(value = AccessLevel.PACKAGE, onMethod = @__({@Nonnull}))
     @Json(name = "message")
     private String message;
 

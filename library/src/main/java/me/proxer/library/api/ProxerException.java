@@ -2,8 +2,9 @@ package me.proxer.library.api;
 
 import com.squareup.moshi.JsonDataException;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Common Exception for all errors, occurring around the api.
@@ -19,7 +20,7 @@ public final class ProxerException extends Exception {
     /**
      * Returns the error type of this exception.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     private final ErrorType errorType;
 
     /**
@@ -37,7 +38,7 @@ public final class ProxerException extends Exception {
     /**
      * Constructs an instance from the passed {@code error}, {@code serverError}, {@code message} and {@code cause}.
      */
-    public ProxerException(@NotNull final ErrorType errorType, @Nullable final ServerErrorType serverErrorType,
+    public ProxerException(@Nonnull final ErrorType errorType, @Nullable final ServerErrorType serverErrorType,
                            @Nullable final String message, @Nullable Throwable cause) {
         super(cause);
 
@@ -49,7 +50,7 @@ public final class ProxerException extends Exception {
     /**
      * Constructs an instance from the passed {@code error}, {@code serverError} and {@code message}.
      */
-    public ProxerException(@NotNull final ErrorType errorType, @Nullable final ServerErrorType serverErrorType,
+    public ProxerException(@Nonnull final ErrorType errorType, @Nullable final ServerErrorType serverErrorType,
                            @Nullable final String message) {
         this.errorType = errorType;
         this.serverErrorType = serverErrorType;
@@ -61,7 +62,7 @@ public final class ProxerException extends Exception {
      * <p>
      * If a invalid number is passed for the {@code serverErrorCode}, an error is thrown.
      */
-    public ProxerException(@NotNull final ErrorType errorType, @Nullable final Integer serverErrorCode,
+    public ProxerException(@Nonnull final ErrorType errorType, @Nullable final Integer serverErrorCode,
                            @Nullable final String message) {
         this.errorType = errorType;
         this.serverErrorType = ServerErrorType.fromErrorCode(serverErrorCode);
@@ -73,7 +74,7 @@ public final class ProxerException extends Exception {
      * <p>
      * {@link #getServerErrorType()} and {@link #getMessage()} will return null.
      */
-    public ProxerException(@NotNull final ErrorType errorType, @Nullable Throwable cause) {
+    public ProxerException(@Nonnull final ErrorType errorType, @Nullable Throwable cause) {
         super(cause);
 
         this.errorType = errorType;
@@ -86,7 +87,7 @@ public final class ProxerException extends Exception {
      * <p>
      * {@link #getServerErrorType()} and {@link #getMessage()} will return null.
      */
-    public ProxerException(@NotNull final ErrorType errorType) {
+    public ProxerException(@Nonnull final ErrorType errorType) {
         this.errorType = errorType;
         this.serverErrorType = null;
         this.message = null;

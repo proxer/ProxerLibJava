@@ -4,7 +4,8 @@ import com.squareup.moshi.Json;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import me.proxer.library.enums.MediaLanguage;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Base entity holding the common data of an {@link AnimeEpisode} and {@link MangaEpisode}.
@@ -27,7 +28,7 @@ public abstract class Episode {
     /**
      * Returns the language.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "typ")
     private MediaLanguage language;
 }

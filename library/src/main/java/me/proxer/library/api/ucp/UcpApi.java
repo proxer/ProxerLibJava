@@ -2,8 +2,9 @@ package me.proxer.library.api.ucp;
 
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
-import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
+
+import javax.annotation.Nonnull;
 
 /**
  * API for the Ucp class.
@@ -17,30 +18,30 @@ public final class UcpApi {
     /**
      * Only for internal use.
      */
-    public UcpApi(@NotNull final Retrofit retrofit) {
+    public UcpApi(@Nonnull final Retrofit retrofit) {
         this.internalApi = retrofit.create(InternalApi.class);
     }
 
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
-    public DeleteFavoriteEndpoint deleteFavorite(@NotNull final String id) {
+    @Nonnull
+    public DeleteFavoriteEndpoint deleteFavorite(@Nonnull final String id) {
         return new DeleteFavoriteEndpoint(internalApi, id);
     }
 
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
-    public DeleteBookmarkEndpoint deleteBookmark(@NotNull final String id) {
+    @Nonnull
+    public DeleteBookmarkEndpoint deleteBookmark(@Nonnull final String id) {
         return new DeleteBookmarkEndpoint(internalApi, id);
     }
 
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
+    @Nonnull
     public WatchedEpisodesEndpoint watchedEpisodes() {
         return new WatchedEpisodesEndpoint(internalApi);
     }
@@ -48,7 +49,7 @@ public final class UcpApi {
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
+    @Nonnull
     public UcpHistoryEndpoint history() {
         return new UcpHistoryEndpoint(internalApi);
     }
@@ -56,7 +57,7 @@ public final class UcpApi {
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
+    @Nonnull
     public BookmarksEndpoint bookmarks() {
         return new BookmarksEndpoint(internalApi);
     }
@@ -64,7 +65,7 @@ public final class UcpApi {
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
+    @Nonnull
     public UcpTopTenEndpoint topTen() {
         return new UcpTopTenEndpoint(internalApi);
     }
@@ -72,9 +73,9 @@ public final class UcpApi {
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
-    public SetBookmarkEndpoint setBookmark(@NotNull final String id, final int episode,
-                                           @NotNull final MediaLanguage language, @NotNull final Category category) {
+    @Nonnull
+    public SetBookmarkEndpoint setBookmark(@Nonnull final String id, final int episode,
+                                           @Nonnull final MediaLanguage language, @Nonnull final Category category) {
         return new SetBookmarkEndpoint(internalApi, id, episode, language, category);
     }
 }

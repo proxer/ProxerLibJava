@@ -4,8 +4,9 @@ import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.user.UserInfo;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Endpoint for requesting various information of an user.
@@ -20,7 +21,7 @@ public class UserInfoEndpoint implements Endpoint<UserInfo> {
     private final String userId;
     private final String username;
 
-    UserInfoEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
+    UserInfoEndpoint(@Nonnull final InternalApi internalApi, @Nullable final String userId,
                      @Nullable final String username) {
         if (userId == null && username == null) {
             throw new IllegalArgumentException("You must pass either an userId or an username.");
@@ -35,7 +36,7 @@ public class UserInfoEndpoint implements Endpoint<UserInfo> {
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<UserInfo> build() {
         return internalApi.userInfo(userId, username);
     }

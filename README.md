@@ -277,7 +277,7 @@ As this project uses [Lombok](https://projectlombok.org/), you will also need th
 ## Dependencies
 
 This library highly relies on [Retrofit](https://github.com/square/retrofit) and [OkHttp](http://square.github.io/okhttp/) by [Square](https://github.com/square) for the network communication.<br>
-Moreover it uses [Moshi](https://github.com/square/moshi) for response parsing and the [Jetbrains Annotations](https://www.jetbrains.com/help/idea/2017.1/nullable-and-notnull-annotations.html) to improve code style and provide IDE support.
+Moreover it uses [Moshi](https://github.com/square/moshi) for response parsing.
 
 ## Contributions and contributors
 

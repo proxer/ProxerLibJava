@@ -5,7 +5,8 @@ import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.info.Entry;
 import me.proxer.library.entitiy.info.EntryCore;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Endpoint for retrieving the most important information of an {@link Entry}.
@@ -21,7 +22,7 @@ public class EntryCoreEndpoint implements Endpoint<EntryCore> {
 
     private final String id;
 
-    EntryCoreEndpoint(@NotNull final InternalApi internalApi, @NotNull final String id) {
+    EntryCoreEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
@@ -30,7 +31,7 @@ public class EntryCoreEndpoint implements Endpoint<EntryCore> {
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<EntryCore> build() {
         return internalApi.entryCore(id);
     }

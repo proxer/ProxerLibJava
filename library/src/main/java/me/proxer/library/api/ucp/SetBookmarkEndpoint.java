@@ -5,7 +5,8 @@ import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Endpoint for setting a bookmark.
@@ -22,8 +23,8 @@ public final class SetBookmarkEndpoint implements Endpoint<Void> {
     private final MediaLanguage language;
     private final Category category;
 
-    SetBookmarkEndpoint(@NotNull InternalApi internalApi, @NotNull String id, int episode,
-                        @NotNull MediaLanguage language, @NotNull Category category) {
+    SetBookmarkEndpoint(@Nonnull InternalApi internalApi, @Nonnull String id, int episode,
+                        @Nonnull MediaLanguage language, @Nonnull Category category) {
         this.internalApi = internalApi;
         this.id = id;
         this.episode = episode;
@@ -35,7 +36,7 @@ public final class SetBookmarkEndpoint implements Endpoint<Void> {
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<Void> build() {
         return internalApi.setBookmark(id, episode, language, category);
     }

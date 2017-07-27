@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.entitiy.ProxerImageItem;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Entity holding information about the user after a login.
@@ -19,21 +20,21 @@ public final class User implements ProxerIdItem, ProxerImageItem {
     /**
      * Returns the id.
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "uid")
     private String id;
 
     /**
      * Returns the image id.
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "avatar")
     private String image;
 
     /**
      * Returns the login token for further authentication.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "token")
     private String loginToken;
 }

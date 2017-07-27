@@ -5,7 +5,8 @@ import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.manga.Chapter;
 import me.proxer.library.enums.Language;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Endpoint for retrieving the chapter corresponding to the passed entryId, episode and language.
@@ -21,8 +22,8 @@ public class ChapterEndpoint implements Endpoint<Chapter> {
     private final int episode;
     private final Language language;
 
-    ChapterEndpoint(@NotNull final InternalApi internalApi, @NotNull final String id, final int episode,
-                    @NotNull final Language language) {
+    ChapterEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id, final int episode,
+                    @Nonnull final Language language) {
         this.internalApi = internalApi;
         this.id = id;
         this.episode = episode;
@@ -33,7 +34,7 @@ public class ChapterEndpoint implements Endpoint<Chapter> {
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<Chapter> build() {
         return internalApi.chapter(id, episode, language);
     }

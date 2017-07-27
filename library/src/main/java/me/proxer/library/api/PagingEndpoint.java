@@ -1,7 +1,7 @@
 package me.proxer.library.api;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Interface for all pageable endpoints.
@@ -14,6 +14,6 @@ public interface PagingEndpoint<T> extends Endpoint<T> {
     /**
      * Sets the page to request. Must be zero or higher.
      */
-    @NotNull
+    @Nonnull
     PagingEndpoint<T> page(@Nullable Integer page);
 }

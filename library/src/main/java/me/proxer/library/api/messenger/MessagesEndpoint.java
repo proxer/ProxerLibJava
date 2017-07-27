@@ -5,9 +5,9 @@ import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.messenger.Message;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -36,24 +36,24 @@ public final class MessagesEndpoint implements Endpoint<List<Message>> {
      * Sets the conference id of the conference to load.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private String conferenceId;
 
     /**
      * Sets the message id to load from.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private String messageId;
 
     /**
      * Sets if the conference should be marked as read. Defaults to true.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private Boolean markAsRead;
 
-    MessagesEndpoint(@NotNull final InternalApi internalApi) {
+    MessagesEndpoint(@Nonnull final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
@@ -61,7 +61,7 @@ public final class MessagesEndpoint implements Endpoint<List<Message>> {
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<List<Message>> build() {
         return internalApi.messages(conferenceId, messageId, markAsRead);
     }

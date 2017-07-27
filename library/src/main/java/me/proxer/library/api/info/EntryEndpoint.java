@@ -4,7 +4,8 @@ import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.info.Entry;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Endpoint for retrieving all information of an {@link Entry}.
@@ -20,7 +21,7 @@ public class EntryEndpoint implements Endpoint<Entry> {
 
     private final String id;
 
-    EntryEndpoint(@NotNull final InternalApi internalApi, @NotNull final String id) {
+    EntryEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
@@ -29,7 +30,7 @@ public class EntryEndpoint implements Endpoint<Entry> {
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<Entry> build() {
         return internalApi.entry(id);
     }

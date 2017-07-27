@@ -4,8 +4,8 @@ import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.ucp.UcpTopTenEntry;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -18,7 +18,7 @@ public final class UcpTopTenEndpoint implements Endpoint<List<UcpTopTenEntry>> {
 
     private final InternalApi internalApi;
 
-    UcpTopTenEndpoint(@NotNull final InternalApi internalApi) {
+    UcpTopTenEndpoint(@Nonnull final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
@@ -26,7 +26,7 @@ public final class UcpTopTenEndpoint implements Endpoint<List<UcpTopTenEntry>> {
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<List<UcpTopTenEntry>> build() {
         return internalApi.topTen();
     }

@@ -5,8 +5,9 @@ import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.user.User;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Endpoint for logging an user in.
@@ -25,11 +26,11 @@ public class LoginEndpoint implements Endpoint<User> {
      * Sets he secret key for authentication with 2FA.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private String secretKey;
 
-    LoginEndpoint(@NotNull final InternalApi internalApi, @NotNull final String username,
-                  @NotNull final String password) {
+    LoginEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String username,
+                  @Nonnull final String password) {
         this.internalApi = internalApi;
         this.username = username;
         this.password = password;
@@ -39,7 +40,7 @@ public class LoginEndpoint implements Endpoint<User> {
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<User> build() {
         return internalApi.login(username, password, secretKey);
     }

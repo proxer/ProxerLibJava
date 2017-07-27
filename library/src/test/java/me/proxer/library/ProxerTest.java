@@ -5,10 +5,10 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.MockWebServer;
 import okio.Okio;
-import org.jetbrains.annotations.NotNull;
 import org.junit.After;
 import org.junit.Before;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 
 /**
@@ -50,12 +50,12 @@ public abstract class ProxerTest {
         server.shutdown();
     }
 
-    @NotNull
-    protected String fromResource(@NotNull final String file) throws IOException {
+    @Nonnull
+    protected String fromResource(@Nonnull final String file) throws IOException {
         return Okio.buffer(Okio.source(getClass().getClassLoader().getResourceAsStream(file))).readUtf8();
     }
 
-    @NotNull
+    @Nonnull
     protected ProxerApi.Builder constructApi() {
         return new ProxerApi.Builder("mockKey")
                 .client(client);

@@ -2,12 +2,12 @@ package me.proxer.library.api;
 
 import com.squareup.moshi.JsonDataException;
 import okhttp3.Request;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
@@ -24,7 +24,7 @@ public final class ProxerCall<T> implements Cloneable {
 
     private final Call<ProxerResponse<T>> internalCall;
 
-    ProxerCall(@NotNull final Call<ProxerResponse<T>> call) {
+    ProxerCall(@Nonnull final Call<ProxerResponse<T>> call) {
         this.internalCall = call;
     }
 
@@ -112,7 +112,7 @@ public final class ProxerCall<T> implements Cloneable {
         return internalCall.request();
     }
 
-    private T processResponse(@NotNull final Response<ProxerResponse<T>> response) throws ProxerException {
+    private T processResponse(@Nonnull final Response<ProxerResponse<T>> response) throws ProxerException {
         if (response.isSuccessful()) {
             final ProxerResponse<T> proxerResponse = response.body();
 
@@ -131,7 +131,7 @@ public final class ProxerCall<T> implements Cloneable {
         }
     }
 
-    private ProxerException processNonProxerError(@NotNull final Throwable error) {
+    private ProxerException processNonProxerError(@Nonnull final Throwable error) {
         if (error instanceof SocketTimeoutException) {
             return new ProxerException(ProxerException.ErrorType.TIMEOUT, error);
         } else if (error instanceof IOException) {

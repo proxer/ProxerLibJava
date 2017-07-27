@@ -7,9 +7,9 @@ import me.proxer.library.api.PagingEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.list.TranslatorGroupCore;
 import me.proxer.library.enums.Country;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -27,43 +27,43 @@ public class TranslatorGroupListEndpoint implements PagingEndpoint<List<Translat
      * Sets the query to search for only from the start.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private String searchStart;
 
     /**
      * Sets the query to search for.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private String search;
 
     /**
      * Sets the country to filter by.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private Country country;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer limit;
 
-    TranslatorGroupListEndpoint(@NotNull final InternalApi internalApi) {
+    TranslatorGroupListEndpoint(@Nonnull final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<List<TranslatorGroupCore>> build() {
         return internalApi.translatorGroupList(searchStart, search, country, page, limit);
 

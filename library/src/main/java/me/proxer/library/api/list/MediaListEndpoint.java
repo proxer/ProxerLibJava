@@ -10,9 +10,9 @@ import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaListSortCriteria;
 import me.proxer.library.enums.Medium;
 import me.proxer.library.enums.SortType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -29,59 +29,59 @@ public class MediaListEndpoint implements PagingEndpoint<List<MediaListEntry>>, 
      * Sets the category to search.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private Category category;
 
     /**
      * Sets the medium.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private Medium medium;
 
     /**
      * Sets if hentai should be included in the result.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private Boolean includeHentai;
 
     /**
      * Sets the criteria to search the result by.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private MediaListSortCriteria sort;
 
     /**
      * Sets the type to search the result by.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private SortType sortType;
 
     /**
      * Sets the query to search for only from the start.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private String searchStart;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer limit;
 
-    MediaListEndpoint(@NotNull final InternalApi internalApi) {
+    MediaListEndpoint(@Nonnull final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
@@ -89,7 +89,7 @@ public class MediaListEndpoint implements PagingEndpoint<List<MediaListEntry>>, 
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<List<MediaListEntry>> build() {
         return internalApi.mediaList(category, medium, includeHentai, searchStart, sort, sortType, page, limit);
     }

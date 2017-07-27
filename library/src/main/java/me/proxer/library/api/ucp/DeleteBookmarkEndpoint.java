@@ -3,7 +3,8 @@ package me.proxer.library.api.ucp;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Endpoint for deleting a bookmark.
@@ -17,7 +18,7 @@ public final class DeleteBookmarkEndpoint implements Endpoint<Void> {
 
     private final String id;
 
-    DeleteBookmarkEndpoint(@NotNull final InternalApi internalApi, @NotNull final String id) {
+    DeleteBookmarkEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
@@ -26,7 +27,7 @@ public final class DeleteBookmarkEndpoint implements Endpoint<Void> {
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<Void> build() {
         return internalApi.deleteBookmark(id);
     }

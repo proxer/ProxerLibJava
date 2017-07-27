@@ -6,7 +6,8 @@ import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.Medium;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Entity representing a single Topten entry.
@@ -20,28 +21,28 @@ public class TopTenEntry implements ProxerIdItem {
     /**
      * Returns the id.
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "eid")
     private String id;
 
     /**
      * Returns the name.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "name")
     private String name;
 
     /**
      * Returns the category.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "kat")
     private Category category;
 
     /**
      * Returns the medium.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "medium")
     private Medium medium;
 }

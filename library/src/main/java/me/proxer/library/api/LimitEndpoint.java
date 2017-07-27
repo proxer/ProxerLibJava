@@ -1,7 +1,7 @@
 package me.proxer.library.api;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Interface for all endpoints which allow limiting.
@@ -14,6 +14,6 @@ public interface LimitEndpoint<T> extends Endpoint<T> {
     /**
      * Sets a limit on the amount of items to return. Must be one or higher.
      */
-    @NotNull
+    @Nonnull
     LimitEndpoint<T> limit(@Nullable Integer limit);
 }

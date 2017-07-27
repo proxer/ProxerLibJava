@@ -3,7 +3,8 @@ package me.proxer.library.api.messenger;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Endpoint for modifying a conference in various ways.
@@ -26,8 +27,8 @@ public class ConferenceModificationEndpoint implements Endpoint<Void> {
     private final String id;
     private final ConferenceModification modification;
 
-    ConferenceModificationEndpoint(@NotNull final InternalApi internalApi, @NotNull final String id,
-                                   @NotNull final ConferenceModification modification) {
+    ConferenceModificationEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id,
+                                   @Nonnull final ConferenceModification modification) {
         this.internalApi = internalApi;
         this.id = id;
         this.modification = modification;
@@ -37,7 +38,7 @@ public class ConferenceModificationEndpoint implements Endpoint<Void> {
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<Void> build() {
         switch (modification) {
             case READ:

@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerDateItem;
 import me.proxer.library.entitiy.ProxerIdItem;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Date;
 import java.util.List;
 
@@ -22,42 +22,42 @@ public class Chapter implements ProxerIdItem, ProxerDateItem {
     /**
      * {@inheritDoc}
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "cid")
     private String id;
 
     /**
      * Returns the id of the associated entry.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "eid")
     private String entryId;
 
     /**
      * Returns the title.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "title")
     private String title;
 
     /**
      * Returns the id of the uploader.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "uploader")
     private String uploaderId;
 
     /**
      * Returns the username of the uploader.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "username")
     private String uploaderName;
 
     /**
      * {@inheritDoc}
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "timestamp")
     private Date date;
 
@@ -78,14 +78,14 @@ public class Chapter implements ProxerIdItem, ProxerDateItem {
     /**
      * Returns the server this page is saved on. To be used for retrieving the url.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "server")
     private String server;
 
     /**
      * Returns the actual pages of the chapter..
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "pages")
     private List<Page> pages;
 }

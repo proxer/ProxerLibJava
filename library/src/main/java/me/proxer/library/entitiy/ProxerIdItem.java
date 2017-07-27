@@ -1,6 +1,6 @@
 package me.proxer.library.entitiy;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * An interface for all entities with an id.
@@ -12,6 +12,6 @@ public interface ProxerIdItem {
     /**
      * Returns the id.
      */
-    @NotNull
+    @Nonnull
     String getId();
 }

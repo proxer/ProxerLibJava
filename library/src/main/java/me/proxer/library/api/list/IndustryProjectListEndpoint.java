@@ -7,9 +7,9 @@ import me.proxer.library.api.PagingEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.list.IndustryProject;
 import me.proxer.library.enums.IndustryType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -29,7 +29,7 @@ public class IndustryProjectListEndpoint implements PagingEndpoint<List<Industry
      * Sets the type of industries to filter by.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private IndustryType type;
 
     @Nullable
@@ -39,23 +39,23 @@ public class IndustryProjectListEndpoint implements PagingEndpoint<List<Industry
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer limit;
 
-    IndustryProjectListEndpoint(@NotNull final InternalApi internalApi, @NotNull final String id) {
+    IndustryProjectListEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
 
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<List<IndustryProject>> build() {
         return internalApi.industryProjectList(id, type, includeHentai, page, limit);
     }
@@ -63,7 +63,7 @@ public class IndustryProjectListEndpoint implements PagingEndpoint<List<Industry
     /**
      * Sets if hentai should be included in the result.
      */
-    @NotNull
+    @Nonnull
     public IndustryProjectListEndpoint includeHentai(@Nullable Boolean includeHentai) {
         if (includeHentai == null) {
             this.includeHentai = null;

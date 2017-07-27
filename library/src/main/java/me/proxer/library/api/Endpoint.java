@@ -1,6 +1,6 @@
 package me.proxer.library.api;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * Interface for all endpoints.
@@ -13,6 +13,6 @@ public interface Endpoint<T> {
     /**
      * Builds the call for this endpoint.
      */
-    @NotNull
+    @Nonnull
     ProxerCall<T> build();
 }

@@ -1,7 +1,8 @@
 package me.proxer.library.api.list;
 
-import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
+
+import javax.annotation.Nonnull;
 
 /**
  * API for the List class.
@@ -12,14 +13,14 @@ public class ListApi {
 
     private final InternalApi internalApi;
 
-    public ListApi(@NotNull final Retrofit retrofit) {
+    public ListApi(@Nonnull final Retrofit retrofit) {
         this.internalApi = retrofit.create(InternalApi.class);
     }
 
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
+    @Nonnull
     public MediaListEndpoint mediaList() {
         return new MediaListEndpoint(internalApi);
     }
@@ -27,7 +28,7 @@ public class ListApi {
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
+    @Nonnull
     public MediaSearchEndpoint mediaSearch() {
         return new MediaSearchEndpoint(internalApi);
     }
@@ -35,7 +36,7 @@ public class ListApi {
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
+    @Nonnull
     public TranslatorGroupListEndpoint translatorGroupList() {
         return new TranslatorGroupListEndpoint(internalApi);
     }
@@ -43,7 +44,7 @@ public class ListApi {
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
+    @Nonnull
     public IndustryListEndpoint industryList() {
         return new IndustryListEndpoint(internalApi);
     }
@@ -51,16 +52,16 @@ public class ListApi {
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
-    public TranslatorGroupProjectListEndpoint translatorGroupProjectList(@NotNull final String translatorGroupId) {
+    @Nonnull
+    public TranslatorGroupProjectListEndpoint translatorGroupProjectList(@Nonnull final String translatorGroupId) {
         return new TranslatorGroupProjectListEndpoint(internalApi, translatorGroupId);
     }
 
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
-    public IndustryProjectListEndpoint industryProjectList(@NotNull final String industryId) {
+    @Nonnull
+    public IndustryProjectListEndpoint industryProjectList(@Nonnull final String industryId) {
         return new IndustryProjectListEndpoint(internalApi, industryId);
     }
 }

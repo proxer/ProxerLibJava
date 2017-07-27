@@ -4,9 +4,9 @@ import me.proxer.library.util.ProxerUrls;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 
 /**
@@ -20,7 +20,7 @@ final class HeaderInterceptor implements Interceptor {
     private final String apiKey;
     private final String userAgent;
 
-    HeaderInterceptor(@NotNull final String apiKey, @Nullable final String userAgent) {
+    HeaderInterceptor(@Nonnull final String apiKey, @Nullable final String userAgent) {
         this.apiKey = apiKey;
         this.userAgent = userAgent;
     }

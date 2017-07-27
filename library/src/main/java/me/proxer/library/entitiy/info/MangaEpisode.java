@@ -4,7 +4,8 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import me.proxer.library.enums.MediaLanguage;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Entity holding the data of a single anime chapter.
@@ -23,7 +24,7 @@ public final class MangaEpisode extends Episode {
         this.title = title;
     }
 
-    @NotNull
+    @Nonnull
     public String getTitle() {
         return title;
     }

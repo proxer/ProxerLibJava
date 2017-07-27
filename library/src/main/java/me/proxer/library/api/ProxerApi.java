@@ -16,10 +16,10 @@ import me.proxer.library.api.user.UserApi;
 import me.proxer.library.util.ProxerUrls;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -38,70 +38,70 @@ public final class ProxerApi {
     /**
      * Returns the Moshi instance.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     private final Moshi moshi;
 
     /**
      * Returns the OkHttpClient instance.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     private final OkHttpClient client;
 
     /**
      * Returns the Retrofit instance.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     private final Retrofit retrofit;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     private final NotificationsApi notifications;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     private final UserApi user;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     private final InfoApi info;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     private final MessengerApi messenger;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     private final ListApi list;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     private final UcpApi ucp;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     private final AnimeApi anime;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     private final MangaApi manga;
 
-    ProxerApi(@NotNull final Moshi moshi, @NotNull final OkHttpClient client, @NotNull final Retrofit retrofit) {
+    ProxerApi(@Nonnull final Moshi moshi, @Nonnull final OkHttpClient client, @Nonnull final Retrofit retrofit) {
         this.moshi = moshi;
         this.client = client;
         this.retrofit = retrofit;
@@ -132,7 +132,7 @@ public final class ProxerApi {
         /**
          * Sets a custom login token manager.
          */
-        @Setter(onMethod = @__({@NotNull}))
+        @Setter(onMethod = @__({@Nonnull}))
         private LoginTokenManager loginTokenManager;
 
         /**
@@ -140,7 +140,7 @@ public final class ProxerApi {
          * <p>
          * If not set, it will default to "ProxerLibJava/[version]"
          */
-        @Setter(onMethod = @__({@NotNull}))
+        @Setter(onMethod = @__({@Nonnull}))
         private String userAgent;
 
         /**
@@ -149,7 +149,7 @@ public final class ProxerApi {
          * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
          * instance.
          */
-        @Setter(onMethod = @__({@NotNull}))
+        @Setter(onMethod = @__({@Nonnull}))
         private Moshi moshi;
 
         /**
@@ -158,7 +158,7 @@ public final class ProxerApi {
          * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
          * instance.
          */
-        @Setter(onMethod = @__({@NotNull}))
+        @Setter(onMethod = @__({@Nonnull}))
         private OkHttpClient client;
 
         /**
@@ -167,7 +167,7 @@ public final class ProxerApi {
          * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
          * instance.
          */
-        @Setter(onMethod = @__({@NotNull}))
+        @Setter(onMethod = @__({@Nonnull}))
         private Retrofit retrofit;
 
         /**
@@ -180,14 +180,14 @@ public final class ProxerApi {
         /**
          * Constructs a new instance of the builder, with the passed {@code apiKey}.
          */
-        public Builder(@NotNull final String apiKey) {
+        public Builder(@Nonnull final String apiKey) {
             this.apiKey = apiKey;
         }
 
         /**
          * Finally builds the {@link ProxerApi} with the provided adjustments.
          */
-        @NotNull
+        @Nonnull
         public ProxerApi build() {
             initLoginTokenManager();
             initUserAgent();

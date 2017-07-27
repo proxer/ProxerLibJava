@@ -6,9 +6,9 @@ import lombok.Value;
 import me.proxer.library.entitiy.ProxerDateItem;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.entitiy.ProxerImageItem;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Date;
 
 /**
@@ -22,49 +22,49 @@ public class Stream implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
     /**
      * {@inheritDoc}
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "id")
     private String id;
 
     /**
      * Returns the type of hoster of this stream.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "type")
     private String hoster;
 
     /**
      * Returns the name of the hoster.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "name")
     private String hosterName;
 
     /**
      * {@inheritDoc}
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "img")
     private String image;
 
     /**
      * Returns the id of the uploader.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "uploader")
     private String uploaderId;
 
     /**
      * Returns the username of the uploader.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "username")
     private String uploaderName;
 
     /**
      * {@inheritDoc}
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "timestamp")
     private Date date;
 

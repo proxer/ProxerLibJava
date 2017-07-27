@@ -3,7 +3,8 @@ package me.proxer.library.api.anime;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Endpoint for retrieving the link to the uploaded anime. This may be null, if the link is broken or has been deleted.
@@ -19,7 +20,7 @@ public class LinkEndpoint implements Endpoint<String> {
 
     private final String id;
 
-    LinkEndpoint(@NotNull final InternalApi internalApi, @NotNull final String id) {
+    LinkEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
@@ -28,7 +29,7 @@ public class LinkEndpoint implements Endpoint<String> {
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<String> build() {
         return internalApi.link(id);
     }

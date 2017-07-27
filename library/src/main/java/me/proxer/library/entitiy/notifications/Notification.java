@@ -7,9 +7,9 @@ import me.proxer.library.entitiy.ProxerDateItem;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.enums.NotificationType;
 import okhttp3.HttpUrl;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Date;
 
 /**
@@ -21,42 +21,42 @@ public class Notification implements ProxerIdItem, ProxerDateItem {
     /**
      * Returns the id.
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "id")
     private String id;
 
     /**
      * Returns the type of the notification.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "type")
     private NotificationType type;
 
     /**
      * Returns the id of the content. This depends on the {@link #type}.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "tid")
     private String contentId;
 
     /**
      * Returns the link to the content.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "link")
     private HttpUrl contentLink;
 
     /**
      * Returns the description of the content. This is directly usable for presentation.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "linktext")
     private String text;
 
     /**
      * Returns the time.
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "time")
     private Date date;
 

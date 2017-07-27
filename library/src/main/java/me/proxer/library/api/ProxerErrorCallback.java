@@ -1,6 +1,6 @@
 package me.proxer.library.api;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * A callback for a failed request.
@@ -12,5 +12,5 @@ public interface ProxerErrorCallback {
     /**
      * Called upon an error for each Request with the {@code exception}.
      */
-    void onError(@NotNull ProxerException exception);
+    void onError(@Nonnull ProxerException exception);
 }

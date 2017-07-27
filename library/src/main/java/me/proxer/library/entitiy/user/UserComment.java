@@ -11,8 +11,8 @@ import me.proxer.library.entitiy.info.RatingDetails;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.Medium;
 import me.proxer.library.enums.UserMediaProgress;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.Date;
 
 /**
@@ -27,63 +27,63 @@ public class UserComment implements ProxerIdItem, ProxerImageItem, ProxerDateIte
     /**
      * Returns the id of this comment.
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "id")
     private String id;
 
     /**
      * Returns the id of the associated entry.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "tid")
     private String entryId;
 
     /**
      * Returns the id of the associated entry.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "name")
     private String entryName;
 
     /**
      * Returns the medium of the associated entry.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "medium")
     private Medium medium;
 
     /**
      * Returns the category of the associated entry.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "kat")
     private Category category;
 
     /**
      * Returns the id of the author.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "uid")
     private String authorId;
 
     /**
      * Returns the progress, the user has made on the associated media.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "state")
     private UserMediaProgress mediaProgress;
 
     /**
      * Returns finer grained ratings for e.g. music.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "data")
     private RatingDetails ratingDetails;
 
     /**
      * Returns the actual content of the comment.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "comment")
     private String content;
 
@@ -108,21 +108,21 @@ public class UserComment implements ProxerIdItem, ProxerImageItem, ProxerDateIte
     /**
      * Returns the time, the comment was updated the last time.
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "timestamp")
     private Date date;
 
     /**
      * Returns the username of the author.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "username")
     private String author;
 
     /**
      * Returns the id of the author's image.
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "avatar")
     private String image;
 }

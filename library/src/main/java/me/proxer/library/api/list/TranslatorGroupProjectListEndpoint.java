@@ -7,9 +7,9 @@ import me.proxer.library.api.PagingEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.list.TranslatorGroupProject;
 import me.proxer.library.enums.ProjectState;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -29,7 +29,7 @@ public class TranslatorGroupProjectListEndpoint implements PagingEndpoint<List<T
      * Sets the state of projects to filter by.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private ProjectState projectState;
 
     /**
@@ -42,23 +42,23 @@ public class TranslatorGroupProjectListEndpoint implements PagingEndpoint<List<T
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer limit;
 
-    TranslatorGroupProjectListEndpoint(@NotNull final InternalApi internalApi, @NotNull final String id) {
+    TranslatorGroupProjectListEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
 
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<List<TranslatorGroupProject>> build() {
         return internalApi.translatorGroupProjectList(id, projectState, includeHentai, page, limit);
     }
@@ -66,7 +66,7 @@ public class TranslatorGroupProjectListEndpoint implements PagingEndpoint<List<T
     /**
      * Sets if hentai should be included in the result.
      */
-    @NotNull
+    @Nonnull
     public TranslatorGroupProjectListEndpoint includeHentai(@Nullable Boolean includeHentai) {
         if (includeHentai == null) {
             this.includeHentai = null;

@@ -1,8 +1,9 @@
 package me.proxer.library.api.anime;
 
 import me.proxer.library.enums.AnimeLanguage;
-import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
+
+import javax.annotation.Nonnull;
 
 /**
  * API for the Anime class.
@@ -16,24 +17,24 @@ public final class AnimeApi {
     /**
      * Only for internal use.
      */
-    public AnimeApi(@NotNull final Retrofit retrofit) {
+    public AnimeApi(@Nonnull final Retrofit retrofit) {
         this.internalApi = retrofit.create(InternalApi.class);
     }
 
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
-    public StreamsEndpoint streams(@NotNull final String entryId, final int episode,
-                                   @NotNull final AnimeLanguage language) {
+    @Nonnull
+    public StreamsEndpoint streams(@Nonnull final String entryId, final int episode,
+                                   @Nonnull final AnimeLanguage language) {
         return new StreamsEndpoint(internalApi, entryId, episode, language);
     }
 
     /**
      * Returns the respective endpoint.
      */
-    @NotNull
-    public LinkEndpoint link(@NotNull final String streamId) {
+    @Nonnull
+    public LinkEndpoint link(@Nonnull final String streamId) {
         return new LinkEndpoint(internalApi, streamId);
     }
 }

@@ -7,9 +7,9 @@ import me.proxer.library.api.PagingEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.ucp.Bookmark;
 import me.proxer.library.enums.Category;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -26,24 +26,24 @@ public final class BookmarksEndpoint implements PagingEndpoint<List<Bookmark>>, 
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private Category category;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer limit;
 
-    BookmarksEndpoint(@NotNull final InternalApi internalApi) {
+    BookmarksEndpoint(@Nonnull final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
@@ -51,7 +51,7 @@ public final class BookmarksEndpoint implements PagingEndpoint<List<Bookmark>>, 
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<List<Bookmark>> build() {
         return internalApi.bookmarks(category, page, limit);
     }

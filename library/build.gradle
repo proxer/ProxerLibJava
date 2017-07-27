@@ -1,49 +1,41 @@
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
-apply plugin: 'de.fuerstenau.buildconfig'
 
-apply plugin: "jacoco"
-apply plugin: "io.freefair.javadoc-links"
+apply plugin: 'jacoco'
+apply plugin: 'de.fuerstenau.buildconfig'
+apply plugin: 'io.freefair.javadoc-links'
 
 apply plugin: 'idea'
 
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
 dependencies {
-    api deps.jetbrainsAnnotations
+    compileOnly deps.lombok
+    compileOnly deps.jsr305
 
     api deps.retrofit
     api deps.retrofitMoshi
     api deps.okHttp
     api deps.moshi
 
-    compileOnly deps.lombok
-
-    testImplementation deps.jetbrainsAnnotations
+    testCompileOnly deps.lombok
+    testCompileOnly deps.jsr305
 
     testImplementation deps.junit
     testImplementation deps.assertj
-
     testImplementation deps.mockwebserver
     testImplementation deps.privateConstructor
-
-    testCompileOnly deps.lombok
 }
 
-task delombok {
-    dependsOn compileJava
-
-    def srcPath = 'src/main/java'
-    def delombokPath = 'build/delombok'
-
-    inputs.files file(srcPath)
-    outputs.dir file(delombokPath)
-
-    ext.outputDir = delombokPath
+task delombok(dependsOn: compileJava) {
+    ext.outputDir = 'build/delombok'
 
     doLast {
         ant.taskdef(name: 'delombok', classname: 'lombok.delombok.ant.Tasks$Delombok',
                 classpath: configurations.compileOnly.asPath)
 
-        ant.delombok(encoding: 'UTF-8', from: srcPath, to: delombokPath,
+        ant.delombok(encoding: 'UTF-8', from: 'src/main/java', to: ext.outputDir,
                 classpath: configurations.compileClasspath.asPath)
     }
 }
@@ -62,7 +54,14 @@ javadoc {
     failOnError = false
 }
 
-task sourceJar(type: Jar, dependsOn: classes) {
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = false
+    }
+}
+
+task sourceJar(type: Jar, dependsOn: delombok) {
     from delombok.outputDir
 }
 
@@ -83,12 +82,5 @@ publishing {
                 classifier "javadoc"
             }
         }
-    }
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = false
     }
 }

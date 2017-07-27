@@ -7,8 +7,8 @@ import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -42,7 +42,7 @@ final class LoginTokenInterceptor implements Interceptor {
 
     private final LoginTokenManager loginTokenManager;
 
-    LoginTokenInterceptor(@NotNull final LoginTokenManager loginTokenManager) {
+    LoginTokenInterceptor(@Nonnull final LoginTokenManager loginTokenManager) {
         this.loginTokenManager = loginTokenManager;
     }
 
@@ -93,7 +93,7 @@ final class LoginTokenInterceptor implements Interceptor {
         }
     }
 
-    private boolean isLoginError(@NotNull final ServerErrorType errorType) {
+    private boolean isLoginError(@Nonnull final ServerErrorType errorType) {
         switch (errorType) {
             case INVALID_TOKEN:
             case NOTIFICATIONS_LOGIN_REQUIRED:

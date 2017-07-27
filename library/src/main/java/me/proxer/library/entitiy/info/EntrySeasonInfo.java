@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.enums.Season;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Entity holding the season of an entry.
@@ -19,7 +20,7 @@ public class EntrySeasonInfo implements ProxerIdItem {
     /**
      * Returns the type.
      */
-    @Getter(onMethod = @__({@Override, @NotNull}))
+    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "id")
     private String id;
 
@@ -32,7 +33,7 @@ public class EntrySeasonInfo implements ProxerIdItem {
     /**
      * Returns the actual season.
      */
-    @Getter(onMethod = @__({@NotNull}))
+    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "season")
     private Season season;
 }

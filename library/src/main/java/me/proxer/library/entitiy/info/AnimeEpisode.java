@@ -4,8 +4,8 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import me.proxer.library.enums.MediaLanguage;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
 
@@ -30,12 +30,12 @@ public final class AnimeEpisode extends Episode {
         this.hosterImages = hosterImages;
     }
 
-    @NotNull
+    @Nonnull
     public Set<String> getHosters() {
         return hosters;
     }
 
-    @NotNull
+    @Nonnull
     public List<String> getHosterImages() {
         return hosterImages;
     }

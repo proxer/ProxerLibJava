@@ -1,49 +1,45 @@
-ext {
-    version = '3.0.3'
-    group = 'com.github.proxer'
-
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-}
-
-def jetbrainsAnnotationsVersion = '15.0'
-
-def retrofitVersion = '2.3.0'
-def okHttpVersion = '3.8.1'
-def moshiVersion = '1.5.0'
-
-def lombokVersion = '1.16.18'
-
-def junitVersion = '4.12'
-def assertjVersion = '3.8.0'
-
-def privateConstructorVersion = '1.2.0'
-
-ext.deps = [
-        jetbrainsAnnotations: "org.jetbrains:annotations:$jetbrainsAnnotationsVersion",
-
-        retrofit            : "com.squareup.retrofit2:retrofit:$retrofitVersion",
-        retrofitMoshi       : "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
-        okHttp              : "com.squareup.okhttp3:okhttp:$okHttpVersion",
-        moshi               : "com.squareup.moshi:moshi:$moshiVersion",
-
-        lombok              : "org.projectlombok:lombok:$lombokVersion",
-
-        junit               : "junit:junit:$junitVersion",
-        assertj             : "org.assertj:assertj-core:$assertjVersion",
-
-        mockwebserver       : "com.squareup.okhttp3:mockwebserver:$okHttpVersion",
-        privateConstructor  : "com.pushtorefresh.java-private-constructor-checker:checker:$privateConstructorVersion"
-]
-
 buildscript {
+    ext {
+        version = '3.0.3'
+        group = 'com.github.proxer'
+
+        buildConfigPluginVersion = '1.1.8'
+        freefairPluginsVersion = '1.0.0'
+
+        lombokVersion = '1.16.18'
+        jsr305Version = '3.0.2'
+
+        retrofitVersion = '2.3.0'
+        okHttpVersion = '3.8.1'
+        moshiVersion = '1.5.0'
+
+        junitVersion = '4.12'
+        assertjVersion = '3.8.0'
+        privateConstructorVersion = '1.2.0'
+
+        deps = [
+                lombok            : "org.projectlombok:lombok:$lombokVersion",
+                jsr305            : "com.google.code.findbugs:jsr305:$jsr305Version",
+
+                retrofit          : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+                retrofitMoshi     : "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
+                okHttp            : "com.squareup.okhttp3:okhttp:$okHttpVersion",
+                moshi             : "com.squareup.moshi:moshi:$moshiVersion",
+
+                junit             : "junit:junit:$junitVersion",
+                assertj           : "org.assertj:assertj-core:$assertjVersion",
+                mockwebserver     : "com.squareup.okhttp3:mockwebserver:$okHttpVersion",
+                privateConstructor: "com.pushtorefresh.java-private-constructor-checker:checker:$privateConstructorVersion"
+        ]
+    }
+
     repositories {
         maven { url 'https://plugins.gradle.org/m2/' }
     }
 
     dependencies {
-        classpath 'gradle.plugin.de.fuerstenau:BuildConfigPlugin:1.1.8'
-        classpath 'io.freefair.gradle:gradle-plugins:0.10.1'
+        classpath "gradle.plugin.de.fuerstenau:BuildConfigPlugin:$buildConfigPluginVersion"
+        classpath "io.freefair.gradle:gradle-plugins:$freefairPluginsVersion"
     }
 }
 
@@ -51,15 +47,11 @@ allprojects {
     version = rootProject.ext.version
     group = rootProject.ext.group
 
-    tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
-    }
-
     repositories {
         jcenter()
     }
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1-milestone-1'
+    gradleVersion = '4.1-rc-1'
 }

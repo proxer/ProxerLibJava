@@ -6,9 +6,9 @@ import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.user.TopTenEntry;
 import me.proxer.library.enums.Category;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -28,17 +28,17 @@ public final class UserTopTenEndpoint implements Endpoint<List<TopTenEntry>> {
      * Sets the category to filter by.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private Category category;
 
     /**
      * Sets if hentai should be included in the result.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private Boolean includeHentai;
 
-    UserTopTenEndpoint(@NotNull final InternalApi internalApi, @Nullable final String userId,
+    UserTopTenEndpoint(@Nonnull final InternalApi internalApi, @Nullable final String userId,
                        @Nullable final String username) {
         if (userId == null && username == null) {
             throw new IllegalArgumentException("You must pass either an userId or an username.");
@@ -53,7 +53,7 @@ public final class UserTopTenEndpoint implements Endpoint<List<TopTenEntry>> {
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<List<TopTenEntry>> build() {
         return internalApi.topTen(userId, username, category, includeHentai);
     }

@@ -8,9 +8,9 @@ import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.info.Comment;
 import me.proxer.library.entitiy.info.Entry;
 import me.proxer.library.enums.CommentSortCriteria;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -29,24 +29,24 @@ public final class CommentsEndpoint implements PagingEndpoint<List<Comment>>, Li
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @NotNull}))
+    @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer limit;
 
     /**
      * Sets criteria on how to sort the comments.
      */
     @Nullable
-    @Setter(onMethod = @__({@NotNull}))
+    @Setter(onMethod = @__({@Nonnull}))
     private CommentSortCriteria sort;
 
-    CommentsEndpoint(@NotNull final InternalApi internalApi, @NotNull final String id) {
+    CommentsEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
@@ -55,7 +55,7 @@ public final class CommentsEndpoint implements PagingEndpoint<List<Comment>>, Li
      * {@inheritDoc}
      */
     @Override
-    @NotNull
+    @Nonnull
     public ProxerCall<List<Comment>> build() {
         return internalApi.comments(id, page, limit, sort);
     }
