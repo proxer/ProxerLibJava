@@ -2,8 +2,7 @@ package me.proxer.library.api.notifications;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import me.proxer.library.api.LimitEndpoint;
-import me.proxer.library.api.PagingEndpoint;
+import me.proxer.library.api.PagingLimitEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.notifications.NewsArticle;
 
@@ -17,7 +16,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class NewsEndpoint implements PagingEndpoint<List<NewsArticle>>, LimitEndpoint<List<NewsArticle>> {
+public final class NewsEndpoint implements PagingLimitEndpoint<List<NewsArticle>> {
 
     private final InternalApi internalApi;
 

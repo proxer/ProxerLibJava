@@ -2,8 +2,7 @@ package me.proxer.library.api.info;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import me.proxer.library.api.LimitEndpoint;
-import me.proxer.library.api.PagingEndpoint;
+import me.proxer.library.api.PagingLimitEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.info.Entry;
 import me.proxer.library.entitiy.info.EpisodeInfo;
@@ -17,7 +16,7 @@ import javax.annotation.Nullable;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class EpisodeInfoEndpoint implements PagingEndpoint<EpisodeInfo>, LimitEndpoint<EpisodeInfo> {
+public final class EpisodeInfoEndpoint implements PagingLimitEndpoint<EpisodeInfo> {
 
     private final InternalApi internalApi;
 

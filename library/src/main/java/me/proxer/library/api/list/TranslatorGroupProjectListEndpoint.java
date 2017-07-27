@@ -2,8 +2,7 @@ package me.proxer.library.api.list;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import me.proxer.library.api.LimitEndpoint;
-import me.proxer.library.api.PagingEndpoint;
+import me.proxer.library.api.PagingLimitEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.list.TranslatorGroupProject;
 import me.proxer.library.enums.ProjectState;
@@ -18,8 +17,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class TranslatorGroupProjectListEndpoint implements PagingEndpoint<List<TranslatorGroupProject>>,
-        LimitEndpoint<List<TranslatorGroupProject>> {
+public class TranslatorGroupProjectListEndpoint implements PagingLimitEndpoint<List<TranslatorGroupProject>> {
 
     private final InternalApi internalApi;
 

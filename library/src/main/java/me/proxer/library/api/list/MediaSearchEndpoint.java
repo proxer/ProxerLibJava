@@ -2,8 +2,7 @@ package me.proxer.library.api.list;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import me.proxer.library.api.LimitEndpoint;
-import me.proxer.library.api.PagingEndpoint;
+import me.proxer.library.api.PagingLimitEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.list.MediaListEntry;
 import me.proxer.library.enums.*;
@@ -20,7 +19,7 @@ import java.util.Set;
  * @author Desnoo
  */
 @Accessors(fluent = true)
-public class MediaSearchEndpoint implements PagingEndpoint<List<MediaListEntry>>, LimitEndpoint<List<MediaListEntry>> {
+public class MediaSearchEndpoint implements PagingLimitEndpoint<List<MediaListEntry>> {
 
     private static final String DELIMITER = " ";
 

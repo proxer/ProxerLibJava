@@ -2,8 +2,7 @@ package me.proxer.library.api.info;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import me.proxer.library.api.LimitEndpoint;
-import me.proxer.library.api.PagingEndpoint;
+import me.proxer.library.api.PagingLimitEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.info.Comment;
 import me.proxer.library.entitiy.info.Entry;
@@ -19,7 +18,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class CommentsEndpoint implements PagingEndpoint<List<Comment>>, LimitEndpoint<List<Comment>> {
+public final class CommentsEndpoint implements PagingLimitEndpoint<List<Comment>> {
 
     private final InternalApi internalApi;
 

@@ -2,8 +2,7 @@ package me.proxer.library.api.ucp;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import me.proxer.library.api.LimitEndpoint;
-import me.proxer.library.api.PagingEndpoint;
+import me.proxer.library.api.PagingLimitEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.ucp.Bookmark;
 import me.proxer.library.enums.Category;
@@ -18,7 +17,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class BookmarksEndpoint implements PagingEndpoint<List<Bookmark>>, LimitEndpoint<List<Bookmark>> {
+public final class BookmarksEndpoint implements PagingLimitEndpoint<List<Bookmark>> {
 
     private final InternalApi internalApi;
 
