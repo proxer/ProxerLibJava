@@ -28,16 +28,27 @@ dependencies {
     testImplementation deps.privateConstructor
 }
 
-task delombok(dependsOn: compileJava) {
+task delombok(type: JavaExec, dependsOn: compileJava) {
+    def buildConfigInputDir = "$buildDir/gen/buildconfig/src/main"
+
     ext.outputDir = 'build/delombok'
+    outputs.dir(outputDir)
+    inputs.dir(buildConfigInputDir)
 
-    doLast {
-        ant.taskdef(name: 'delombok', classname: 'lombok.delombok.ant.Tasks$Delombok',
-                classpath: configurations.compileOnly.asPath)
+    args += "delombok"
 
-        ant.delombok(encoding: 'UTF-8', from: 'src/main/java', to: ext.outputDir,
-                classpath: configurations.compileClasspath.asPath)
+    sourceSets.main.java.srcDirs.each {
+        inputs.dir(it)
+
+        args += it
     }
+
+    args += buildConfigInputDir
+    args += "--target=$outputDir"
+    args += "--classpath=$configurations.compileClasspath.asPath"
+
+    classpath configurations.compileOnly.asPath
+    main = "lombok.launch.Main"
 }
 
 buildConfig {
