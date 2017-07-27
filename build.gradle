@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        version = '3.0.3'
+        version = '3.1.0'
         group = 'com.github.proxer'
 
         buildConfigPluginVersion = '1.1.8'
