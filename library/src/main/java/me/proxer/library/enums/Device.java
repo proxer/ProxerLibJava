@@ -10,9 +10,9 @@ import com.squareup.moshi.Json;
  * @author Ruben Gees
  */
 public enum Device {
-    @Json(name = "")UNSPECIFIED,
-    @Json(name = "default")DEFAULT,
-    @Json(name = "mobile")MOBILE,
-    @Json(name = "desktop")LEGACY_DESKTOP,
-    @Json(name = "html")LEGACY_HTML
+    @Json(name = "") UNSPECIFIED,
+    @Json(name = "default") DEFAULT,
+    @Json(name = "mobile") MOBILE,
+    @Json(name = "desktop") LEGACY_DESKTOP,
+    @Json(name = "html") LEGACY_HTML
 }

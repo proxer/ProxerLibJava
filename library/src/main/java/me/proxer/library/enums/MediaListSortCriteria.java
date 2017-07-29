@@ -8,7 +8,7 @@ import com.squareup.moshi.Json;
  * @author Ruben Gees
  */
 public enum MediaListSortCriteria {
-    @Json(name = "title")TITLE,
-    @Json(name = "clicks")CLICKS,
-    @Json(name = "rating")RATING,
+    @Json(name = "title") TITLE,
+    @Json(name = "clicks") CLICKS,
+    @Json(name = "rating") RATING,
 }

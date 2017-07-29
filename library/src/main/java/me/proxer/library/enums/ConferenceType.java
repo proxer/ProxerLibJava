@@ -8,8 +8,8 @@ import com.squareup.moshi.Json;
  * @author Ruben Gees
  */
 public enum ConferenceType {
-    @Json(name = "favour")FAVORITE,
-    @Json(name = "block")BLOCKED,
-    @Json(name = "group")GROUP,
-    @Json(name = "default")DEFAULT
+    @Json(name = "favour") FAVORITE,
+    @Json(name = "block") BLOCKED,
+    @Json(name = "group") GROUP,
+    @Json(name = "default") DEFAULT
 }

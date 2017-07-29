@@ -8,6 +8,6 @@ import com.squareup.moshi.Json;
  * @author Ruben Gees
  */
 public enum Category {
-    @Json(name = "anime")ANIME,
-    @Json(name = "manga")MANGA
+    @Json(name = "anime") ANIME,
+    @Json(name = "manga") MANGA
 }

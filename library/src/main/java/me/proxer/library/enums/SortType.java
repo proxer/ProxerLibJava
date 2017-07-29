@@ -8,6 +8,6 @@ import com.squareup.moshi.Json;
  * @author Ruben Gees
  */
 public enum SortType {
-    @Json(name = "ASC")ASCENDING,
-    @Json(name = "DESC")DESCENDING
+    @Json(name = "ASC") ASCENDING,
+    @Json(name = "DESC") DESCENDING
 }

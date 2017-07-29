@@ -8,6 +8,6 @@ import com.squareup.moshi.Json;
  * @author Ruben Gees
  */
 public enum CommentSortCriteria {
-    @Json(name = "rating")RATING,
-    @Json(name = "")TIME
+    @Json(name = "rating") RATING,
+    @Json(name = "") TIME
 }

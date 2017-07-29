@@ -9,8 +9,8 @@ import me.proxer.library.entitiy.info.Entry;
  * @author Ruben Gees
  */
 public enum UserMediaProgress {
-    @Json(name = "0")WATCHED,
-    @Json(name = "1")WATCHING,
-    @Json(name = "2")WILL_WATCH,
-    @Json(name = "3")CANCELLED
+    @Json(name = "0") WATCHED,
+    @Json(name = "1") WATCHING,
+    @Json(name = "2") WILL_WATCH,
+    @Json(name = "3") CANCELLED
 }

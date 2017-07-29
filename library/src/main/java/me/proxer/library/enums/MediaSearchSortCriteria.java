@@ -8,9 +8,9 @@ import com.squareup.moshi.Json;
  * @author Ruben Gees
  */
 public enum MediaSearchSortCriteria {
-    @Json(name = "relevance")RELEVANCE,
-    @Json(name = "clicks")CLICKS,
-    @Json(name = "rating")RATING,
-    @Json(name = "count")EPISODE_AMOUNT,
-    @Json(name = "name")NAME,
+    @Json(name = "relevance") RELEVANCE,
+    @Json(name = "clicks") CLICKS,
+    @Json(name = "rating") RATING,
+    @Json(name = "count") EPISODE_AMOUNT,
+    @Json(name = "name") NAME,
 }

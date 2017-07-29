@@ -8,9 +8,9 @@ import com.squareup.moshi.Json;
  * @author Ruben Gees
  */
 public enum AnimeLanguage {
-    @Json(name = "gersub")GERMAN_SUB,
-    @Json(name = "gerdub")GERMAN_DUB,
-    @Json(name = "engsub")ENGLISH_SUB,
-    @Json(name = "engdub")ENGLISH_DUB,
-    @Json(name = "misc")OTHER,
+    @Json(name = "gersub") GERMAN_SUB,
+    @Json(name = "gerdub") GERMAN_DUB,
+    @Json(name = "engsub") ENGLISH_SUB,
+    @Json(name = "engdub") ENGLISH_DUB,
+    @Json(name = "misc") OTHER,
 }

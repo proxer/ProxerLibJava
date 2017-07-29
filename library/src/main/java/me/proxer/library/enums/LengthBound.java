@@ -8,6 +8,6 @@ import com.squareup.moshi.Json;
  * @author Ruben Gees
  */
 public enum LengthBound {
-    @Json(name = "up")HIGHER,
-    @Json(name = "down")LOWER
+    @Json(name = "up") HIGHER,
+    @Json(name = "down") LOWER
 }
