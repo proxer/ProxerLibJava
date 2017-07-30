@@ -15,5 +15,6 @@ public enum IndustryType {
     @Json(name = "talent_agent") TALENT_AGENT,
     @Json(name = "streaming") STREAMING,
     @Json(name = "developer") DEVELOPER,
-    @Json(name = "tv") TV
+    @Json(name = "tv") TV,
+    @Json(name = "soundstudio") SOUND_STUDIO
 }
