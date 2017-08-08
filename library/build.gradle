@@ -2,6 +2,7 @@ apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 
 apply plugin: 'jacoco'
+apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'de.fuerstenau.buildconfig'
 apply plugin: 'io.freefair.javadoc-links'
 
@@ -57,12 +58,12 @@ buildConfig {
 
 javadoc {
     dependsOn delombok
+    failOnError false
+
+    source = delombok.outputDir
 
     options.memberLevel = JavadocMemberLevel.PUBLIC
     options.addBooleanOption('Xdoclint:-missing', true)
-
-    source = delombok.outputDir
-    failOnError = false
 }
 
 jacocoTestReport {
