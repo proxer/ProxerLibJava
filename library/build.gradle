@@ -30,7 +30,7 @@ dependencies {
 }
 
 task delombok(type: JavaExec, dependsOn: compileJava) {
-    def buildConfigInputDir = "$buildDir/gen/buildconfig/src/main"
+    String buildConfigInputDir = "$buildDir/gen/buildconfig/src/main"
 
     ext.outputDir = 'build/delombok'
     outputs.dir(outputDir)
