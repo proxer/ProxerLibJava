@@ -5,6 +5,7 @@ import lombok.experimental.Accessors;
 import me.proxer.library.api.PagingLimitEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.notifications.Notification;
+import me.proxer.library.enums.NotificationFilter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -41,6 +42,13 @@ public final class NotificationsEndpoint implements PagingLimitEndpoint<List<Not
     @Setter(onMethod = @__({@Nonnull}))
     private Boolean markAsRead;
 
+    /**
+     * {@inheritDoc}
+     */
+    @Nullable
+    @Setter(onMethod = @__({@Nonnull}))
+    private NotificationFilter filter;
+
     NotificationsEndpoint(@Nonnull final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
@@ -51,6 +59,6 @@ public final class NotificationsEndpoint implements PagingLimitEndpoint<List<Not
     @Override
     @Nonnull
     public ProxerCall<List<Notification>> build() {
-        return internalApi.notifications(page, limit, markAsRead);
+        return internalApi.notifications(page, limit, markAsRead, filter);
     }
 }

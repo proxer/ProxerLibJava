@@ -34,6 +34,13 @@ public final class NewsEndpoint implements PagingLimitEndpoint<List<NewsArticle>
     @Setter(onMethod = @__({@Override, @Nonnull}))
     private Integer limit;
 
+    /**
+     * Sets if the news should be marked as read. Defaults to false.
+     */
+    @Nullable
+    @Setter(onMethod = @__({@Nonnull}))
+    private Boolean markAsRead;
+
     NewsEndpoint(@Nonnull final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
@@ -44,6 +51,6 @@ public final class NewsEndpoint implements PagingLimitEndpoint<List<NewsArticle>
     @Override
     @Nonnull
     public ProxerCall<List<NewsArticle>> build() {
-        return internalApi.news(page, limit);
+        return internalApi.news(page, limit, markAsRead);
     }
 }

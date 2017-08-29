@@ -3,6 +3,7 @@ package me.proxer.library.api.notifications;
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entitiy.notifications.Notification;
+import me.proxer.library.enums.NotificationFilter;
 import me.proxer.library.enums.NotificationType;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
@@ -39,11 +40,12 @@ public class NotificationEndpointTest extends ProxerTest {
                 .page(0)
                 .limit(10)
                 .markAsRead(true)
+                .filter(NotificationFilter.UNREAD)
                 .build()
                 .execute();
 
         assertThat(server.takeRequest().getPath())
-                .isEqualTo("/api/v1/notifications/notifications?p=0&limit=10&set_read=true");
+                .isEqualTo("/api/v1/notifications/notifications?p=0&limit=10&set_read=true&filter=1");
     }
 
     private Notification buildTestNotification() {

@@ -36,10 +36,11 @@ public class NewsEndpointTest extends ProxerTest {
         api.notifications().news()
                 .page(0)
                 .limit(10)
+                .markAsRead(false)
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/notifications/news?p=0&limit=10");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/notifications/news?p=0&limit=10&set_read=false");
     }
 
     private NewsArticle buildTestArticle() {
