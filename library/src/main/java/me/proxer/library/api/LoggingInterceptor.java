@@ -10,6 +10,7 @@ import okhttp3.Response;
 import okio.Buffer;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -22,6 +23,7 @@ class LoggingInterceptor implements Interceptor {
     private final LoggingStrategy loggingStrategy;
 
     @Override
+    @ParametersAreNonnullByDefault
     public Response intercept(final Chain chain) throws IOException {
         if (loggingStrategy == LoggingStrategy.ALL || ProxerUrls.hasProxerHost(chain.request().url())) {
             final Request requestCopy = chain.request().newBuilder().build();

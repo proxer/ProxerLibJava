@@ -36,14 +36,14 @@ public final class NotificationsEndpoint implements PagingLimitEndpoint<List<Not
     private Integer limit;
 
     /**
-     * {@inheritDoc}
+     * Sets if the retrieved notifications should be marked as read.
      */
     @Nullable
     @Setter(onMethod = @__({@Nonnull}))
     private Boolean markAsRead;
 
     /**
-     * {@inheritDoc}
+     * Sets a filter for the notifications to retrieve.
      */
     @Nullable
     @Setter(onMethod = @__({@Nonnull}))

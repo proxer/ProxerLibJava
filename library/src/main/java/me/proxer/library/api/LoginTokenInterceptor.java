@@ -9,6 +9,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -47,6 +48,7 @@ final class LoginTokenInterceptor implements Interceptor {
     }
 
     @Override
+    @ParametersAreNonnullByDefault
     public Response intercept(final Chain chain) throws IOException {
         final Request oldRequest = chain.request();
 

@@ -21,7 +21,7 @@ final class VoidAdapter {
     }
 
     @ToJson
-    String toJson(@SuppressWarnings("unused") final Void nothingness) {
+    String toJson(@SuppressWarnings({"unused", "SameParameterValue"}) final Void nothingness) {
         return JSON_NULL;
     }
 }

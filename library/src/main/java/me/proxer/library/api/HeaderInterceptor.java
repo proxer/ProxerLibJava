@@ -7,6 +7,7 @@ import okhttp3.Response;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 
 /**
@@ -26,6 +27,7 @@ final class HeaderInterceptor implements Interceptor {
     }
 
     @Override
+    @ParametersAreNonnullByDefault
     public Response intercept(final Chain chain) throws IOException {
         final Request oldRequest = chain.request();
 

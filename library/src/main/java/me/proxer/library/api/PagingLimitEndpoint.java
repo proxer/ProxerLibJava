@@ -10,10 +10,16 @@ import javax.annotation.Nullable;
  */
 public interface PagingLimitEndpoint<T> extends PagingEndpoint<T>, LimitEndpoint<T> {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Nonnull
     PagingLimitEndpoint<T> page(@Nullable Integer page);
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Nonnull
     PagingLimitEndpoint<T> limit(@Nullable Integer limit);

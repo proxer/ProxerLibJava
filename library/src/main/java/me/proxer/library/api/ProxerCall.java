@@ -8,6 +8,7 @@ import retrofit2.Response;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
@@ -56,6 +57,7 @@ public final class ProxerCall<T> implements Cloneable {
     public void enqueue(@Nullable final ProxerCallback<T> callback, @Nullable final ProxerErrorCallback errorCallback) {
         internalCall.enqueue(new Callback<ProxerResponse<T>>() {
             @Override
+            @ParametersAreNonnullByDefault
             public void onResponse(final Call<ProxerResponse<T>> call, final Response<ProxerResponse<T>> response) {
                 try {
                     if (callback != null) {
@@ -69,6 +71,7 @@ public final class ProxerCall<T> implements Cloneable {
             }
 
             @Override
+            @ParametersAreNonnullByDefault
             public void onFailure(final Call<ProxerResponse<T>> call, final Throwable error) {
                 if (errorCallback != null) {
                     errorCallback.onError(processNonProxerError(error));

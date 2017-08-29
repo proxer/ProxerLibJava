@@ -5,6 +5,7 @@ import retrofit2.Call;
 import retrofit2.CallAdapter;
 import retrofit2.Retrofit;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -15,6 +16,7 @@ import java.lang.reflect.Type;
 final class ProxerResponseCallAdapterFactory extends CallAdapter.Factory {
 
     @Override
+    @ParametersAreNonnullByDefault
     public CallAdapter<?, ?> get(final Type returnType, final Annotation[] annotations, final Retrofit retrofit) {
         if (getRawType(returnType) != ProxerCall.class) {
             return null;
@@ -42,6 +44,7 @@ final class ProxerResponseCallAdapterFactory extends CallAdapter.Factory {
         }
 
         @Override
+        @ParametersAreNonnullByDefault
         public ProxerCall<R> adapt(final Call<ProxerResponse<R>> call) {
             return new ProxerCall<>(call);
         }

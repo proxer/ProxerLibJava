@@ -101,7 +101,8 @@ public final class ProxerApi {
     @Getter(onMethod = @__({@Nonnull}))
     private final MangaApi manga;
 
-    ProxerApi(@Nonnull final Moshi moshi, @Nonnull final OkHttpClient client, @Nonnull final Retrofit retrofit) {
+    private ProxerApi(@Nonnull final Moshi moshi, @Nonnull final OkHttpClient client,
+                      @Nonnull final Retrofit retrofit) {
         this.moshi = moshi;
         this.client = client;
         this.retrofit = retrofit;
