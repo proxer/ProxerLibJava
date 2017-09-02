@@ -25,14 +25,14 @@ public final class EpisodeInfoEndpoint implements PagingLimitEndpoint<EpisodeInf
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer limit;
 
     EpisodeInfoEndpoint(final InternalApi internalApi, final String id) {

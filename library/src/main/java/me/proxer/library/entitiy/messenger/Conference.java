@@ -1,6 +1,7 @@
 package me.proxer.library.entitiy.messenger;
 
 import com.squareup.moshi.Json;
+import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerDateItem;
 import me.proxer.library.entitiy.ProxerIdItem;
@@ -20,6 +21,7 @@ public class Conference implements ProxerIdItem, ProxerDateItem, ProxerImageItem
     /**
      * Returns the id.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "id")
     private String id;
 
@@ -44,6 +46,7 @@ public class Conference implements ProxerIdItem, ProxerDateItem, ProxerImageItem
     /**
      * Returns the id of the image.
      */
+    @Getter(onMethod = @__({@Override}))
     private String image;
 
     /**
@@ -66,6 +69,7 @@ public class Conference implements ProxerIdItem, ProxerDateItem, ProxerImageItem
     /**
      * Returns the time.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "timestamp_end")
     private Date date;
 

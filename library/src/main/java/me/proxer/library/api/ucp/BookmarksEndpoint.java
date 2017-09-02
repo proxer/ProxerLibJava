@@ -31,14 +31,14 @@ public final class BookmarksEndpoint implements PagingLimitEndpoint<List<Bookmar
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer limit;
 
     BookmarksEndpoint(final InternalApi internalApi) {

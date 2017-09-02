@@ -5,6 +5,7 @@ import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerApi.Builder.LoggingStrategy;
 import okhttp3.Request;
 import okhttp3.mockwebserver.MockResponse;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +31,15 @@ public class LoggingInterceptorTest extends ProxerTest {
         loggerStream = new ByteArrayOutputStream();
         loggerHandler = new StreamHandler(loggerStream, new EchoFormatter());
 
-        Logger.getLogger("ProxerAndroid").addHandler(loggerHandler);
+        Logger.getLogger("ProxerLibJava").addHandler(loggerHandler);
+    }
+
+    @Override
+    @After
+    public void tearDown() throws IOException {
+        Logger.getLogger("ProxerLibJava").removeHandler(loggerHandler);
+
+        super.tearDown();
     }
 
     @Test

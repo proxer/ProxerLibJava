@@ -32,7 +32,7 @@ public final class ProxerException extends Exception {
      * Returns a error message from the server if, and only if, {@link #getErrorType()} returns
      * {@link ErrorType#SERVER}.
      */
-    @Getter(onMethod = @__({@Nullable}))
+    @Getter(onMethod = @__({@Override, @Nullable}))
     private final String message;
 
     /**

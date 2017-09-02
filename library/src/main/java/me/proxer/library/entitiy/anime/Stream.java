@@ -21,6 +21,7 @@ public class Stream implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "id")
     private String id;
 
@@ -39,6 +40,7 @@ public class Stream implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "img")
     private String image;
 
@@ -57,6 +59,7 @@ public class Stream implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "timestamp")
     private Date date;
 

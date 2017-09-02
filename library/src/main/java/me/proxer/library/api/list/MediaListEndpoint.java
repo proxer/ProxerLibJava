@@ -69,14 +69,14 @@ public final class MediaListEndpoint implements PagingLimitEndpoint<List<MediaLi
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer limit;
 
     MediaListEndpoint(final InternalApi internalApi) {

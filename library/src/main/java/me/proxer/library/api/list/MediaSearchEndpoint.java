@@ -108,14 +108,14 @@ public final class MediaSearchEndpoint implements PagingLimitEndpoint<List<Media
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer limit;
 
     @Nullable

@@ -6,6 +6,7 @@ import lombok.*;
 /**
  * @author Ruben Gees
  */
+@SuppressWarnings("TypeParameterUnusedInFormals")
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

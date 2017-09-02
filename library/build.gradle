@@ -7,10 +7,12 @@ import java.util.regex.Pattern
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 
+apply plugin: "net.ltgt.errorprone"
 apply plugin: 'checkstyle'
 apply plugin: 'findbugs'
 apply plugin: 'jacoco'
 apply plugin: 'pmd'
+
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'de.fuerstenau.buildconfig'
 apply plugin: 'io.freefair.javadoc-links'
@@ -21,6 +23,8 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
+    errorprone deps.errorprone
+
     compileOnly deps.lombok
     compileOnly deps.findbugs
 
@@ -115,6 +119,10 @@ task sourceJar(type: Jar, dependsOn: delombok) {
 task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
+
+//compileJava {
+//    options.compilerArgs << "-Werror"
+//}
 
 buildConfig {
     packageName = 'me.proxer.library'

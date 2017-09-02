@@ -27,14 +27,14 @@ public final class CommentsEndpoint implements PagingLimitEndpoint<List<Comment>
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer limit;
 
     /**

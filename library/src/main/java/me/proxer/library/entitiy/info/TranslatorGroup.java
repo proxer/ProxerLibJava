@@ -21,6 +21,7 @@ public class TranslatorGroup implements ProxerIdItem, ProxerImageItem {
     /**
      * Returns the id.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "id")
     private String id;
 
@@ -39,6 +40,7 @@ public class TranslatorGroup implements ProxerIdItem, ProxerImageItem {
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "image")
     private String image;
 

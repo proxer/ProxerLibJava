@@ -1,6 +1,7 @@
 package me.proxer.library.entitiy.ucp;
 
 import com.squareup.moshi.Json;
+import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerDateItem;
 import me.proxer.library.entitiy.ProxerIdItem;
@@ -21,6 +22,7 @@ public class UcpHistoryEntry implements ProxerIdItem, ProxerDateItem {
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "eid")
     private String id;
 
@@ -57,6 +59,7 @@ public class UcpHistoryEntry implements ProxerIdItem, ProxerDateItem {
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "timestamp")
     private Date date;
 }

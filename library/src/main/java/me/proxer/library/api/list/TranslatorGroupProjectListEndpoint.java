@@ -39,14 +39,14 @@ public final class TranslatorGroupProjectListEndpoint implements PagingLimitEndp
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer limit;
 
     TranslatorGroupProjectListEndpoint(final InternalApi internalApi, final String id) {

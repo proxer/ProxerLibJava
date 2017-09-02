@@ -20,6 +20,7 @@ public class Notification implements ProxerIdItem, ProxerDateItem {
     /**
      * Returns the id.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "id")
     private String id;
 
@@ -50,6 +51,7 @@ public class Notification implements ProxerIdItem, ProxerDateItem {
     /**
      * Returns the time.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "time")
     private Date date;
 

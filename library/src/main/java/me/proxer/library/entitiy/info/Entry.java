@@ -1,6 +1,7 @@
 package me.proxer.library.entitiy.info;
 
 import com.squareup.moshi.Json;
+import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.entitiy.list.IndustryCore;
@@ -21,6 +22,7 @@ public class Entry implements ProxerIdItem {
     /**
      * Returns the id.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "id")
     private String id;
 

@@ -21,8 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class UcpHistoryEndpointTest extends ProxerTest {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-
     @Test
     public void testDefault() throws ProxerException, IOException, ParseException {
         server.enqueue(new MockResponse().setBody(fromResource("ucp_history.json")));
@@ -51,6 +49,6 @@ public class UcpHistoryEndpointTest extends ProxerTest {
     private UcpHistoryEntry buildTestEntry() throws ParseException {
         return new UcpHistoryEntry("14701", "Nejimaki Seirei Senki: Tenkyou no Alderamin",
                 MediaLanguage.ENGLISH_SUB, Medium.ANIMESERIES, Category.ANIME, 1,
-                DATE_FORMAT.parse("2017-03-13 23:16:36"));
+                new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2017-03-13 23:16:36"));
     }
 }

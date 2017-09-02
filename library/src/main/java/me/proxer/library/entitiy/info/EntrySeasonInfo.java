@@ -1,6 +1,7 @@
 package me.proxer.library.entitiy.info;
 
 import com.squareup.moshi.Json;
+import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.enums.Season;
@@ -16,6 +17,7 @@ public class EntrySeasonInfo implements ProxerIdItem {
     /**
      * Returns the type.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "id")
     private String id;
 

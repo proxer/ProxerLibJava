@@ -100,6 +100,7 @@ public final class ProxerCall<T> implements Cloneable {
     /**
      * Clones the call for reuse.
      */
+    @Override
     public ProxerCall<T> clone() {
         return new ProxerCall<>(internalCall.clone());
     }

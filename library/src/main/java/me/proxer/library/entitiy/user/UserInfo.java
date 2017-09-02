@@ -1,6 +1,7 @@
 package me.proxer.library.entitiy.user;
 
 import com.squareup.moshi.Json;
+import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.entitiy.ProxerImageItem;
@@ -18,6 +19,7 @@ public class UserInfo implements ProxerIdItem, ProxerImageItem {
     /**
      * Returns the id.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "uid")
     private String id;
 
@@ -30,6 +32,7 @@ public class UserInfo implements ProxerIdItem, ProxerImageItem {
     /**
      * Returns the image id.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "avatar")
     private String image;
 

@@ -3,6 +3,9 @@ buildscript {
         version = '3.2.1'
         group = 'com.github.proxer'
 
+        errorpronePluginVersion = '0.0.11'
+        errorproneVersion = '2.0.19'
+
         gradleVersionsPluginVersion = '0.15.0'
         buildConfigPluginVersion = '1.1.8'
         freefairPluginsVersion = '1.0.0'
@@ -19,6 +22,7 @@ buildscript {
         privateConstructorVersion = '1.2.0'
 
         deps = [
+                errorprone        : "com.google.errorprone:error_prone_core:$errorproneVersion",
                 lombok            : "org.projectlombok:lombok:$lombokVersion",
                 findbugs          : "com.google.code.findbugs:annotations:$findbugsVersion",
 
@@ -39,6 +43,8 @@ buildscript {
     }
 
     dependencies {
+        classpath "net.ltgt.gradle:gradle-errorprone-plugin:$errorpronePluginVersion"
+
         classpath "gradle.plugin.de.fuerstenau:BuildConfigPlugin:$buildConfigPluginVersion"
         classpath "com.github.ben-manes:gradle-versions-plugin:$gradleVersionsPluginVersion"
         classpath "io.freefair.gradle:gradle-plugins:$freefairPluginsVersion"

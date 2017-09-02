@@ -23,14 +23,14 @@ public final class UcpHistoryEndpoint implements PagingLimitEndpoint<List<UcpHis
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer limit;
 
     UcpHistoryEndpoint(final InternalApi internalApi) {

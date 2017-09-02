@@ -23,6 +23,7 @@ public class Bookmark implements ProxerIdItem {
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "id")
     private String id;
 

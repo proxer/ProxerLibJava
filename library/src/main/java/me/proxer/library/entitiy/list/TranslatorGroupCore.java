@@ -1,6 +1,7 @@
 package me.proxer.library.entitiy.list;
 
 import com.squareup.moshi.Json;
+import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.entitiy.ProxerImageItem;
@@ -17,6 +18,7 @@ public class TranslatorGroupCore implements ProxerIdItem, ProxerImageItem {
     /**
      * Returns the id.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "id")
     private String id;
 
@@ -35,6 +37,7 @@ public class TranslatorGroupCore implements ProxerIdItem, ProxerImageItem {
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "image")
     private String image;
 }

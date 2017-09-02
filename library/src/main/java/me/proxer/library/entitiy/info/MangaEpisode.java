@@ -23,4 +23,9 @@ public final class MangaEpisode extends Episode {
         super(number, language);
         this.title = title;
     }
+
+    @Override
+    protected boolean canEqual(final Object other) {
+        return other instanceof MangaEpisode;
+    }
 }

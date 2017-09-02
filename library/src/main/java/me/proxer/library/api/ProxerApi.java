@@ -167,6 +167,12 @@ public final class ProxerApi {
         private LoggingStrategy loggingStrategy = LoggingStrategy.NONE;
 
         /**
+         * Sets the tag to use for logs.
+         */
+        @Setter
+        private String loggingTag = "ProxerLibJava";
+
+        /**
          * Constructs a new instance of the builder, with the passed {@code apiKey}.
          */
         public Builder(final String apiKey) {
@@ -233,7 +239,7 @@ public final class ProxerApi {
             }
 
             if (loggingStrategy != LoggingStrategy.NONE) {
-                builder.addInterceptor(new LoggingInterceptor(loggingStrategy));
+                builder.addInterceptor(new LoggingInterceptor(loggingStrategy, loggingTag));
             }
 
             final List<Interceptor> existingInterceptors = builder.interceptors();

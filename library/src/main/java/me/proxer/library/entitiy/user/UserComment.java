@@ -1,6 +1,7 @@
 package me.proxer.library.entitiy.user;
 
 import com.squareup.moshi.Json;
+import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerDateItem;
 import me.proxer.library.entitiy.ProxerIdItem;
@@ -24,6 +25,7 @@ public class UserComment implements ProxerIdItem, ProxerImageItem, ProxerDateIte
     /**
      * Returns the id of this comment.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "id")
     private String id;
 
@@ -96,6 +98,7 @@ public class UserComment implements ProxerIdItem, ProxerImageItem, ProxerDateIte
     /**
      * Returns the time, the comment was updated the last time.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "timestamp")
     private Date date;
 
@@ -108,6 +111,7 @@ public class UserComment implements ProxerIdItem, ProxerImageItem, ProxerDateIte
     /**
      * Returns the id of the author's image.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "avatar")
     private String image;
 }

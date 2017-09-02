@@ -1,6 +1,7 @@
 package me.proxer.library.entitiy.info;
 
 import com.squareup.moshi.Json;
+import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerDateItem;
 import me.proxer.library.entitiy.ProxerIdItem;
@@ -18,6 +19,7 @@ public class Tag implements ProxerIdItem, ProxerDateItem {
     /**
      * Returns the id of the associated entry.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "tid")
     private String id;
 
@@ -30,6 +32,7 @@ public class Tag implements ProxerIdItem, ProxerDateItem {
     /**
      * Returns the time.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "timestamp")
     private Date date;
 

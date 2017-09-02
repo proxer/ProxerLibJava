@@ -21,6 +21,7 @@ public class Chapter implements ProxerIdItem, ProxerDateItem {
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "cid")
     private String id;
 
@@ -51,6 +52,7 @@ public class Chapter implements ProxerIdItem, ProxerDateItem {
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "timestamp")
     private Date date;
 

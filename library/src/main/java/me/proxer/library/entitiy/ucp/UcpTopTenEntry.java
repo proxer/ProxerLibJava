@@ -1,6 +1,7 @@
 package me.proxer.library.entitiy.ucp;
 
 import com.squareup.moshi.Json;
+import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.entitiy.info.Entry;
@@ -18,6 +19,7 @@ public class UcpTopTenEntry implements ProxerIdItem {
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "fid")
     private String id;
 

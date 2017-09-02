@@ -21,7 +21,7 @@ public class ProxerUtils {
     @Nullable
     public final String getApiEnumName(final Enum<?> it) {
         try {
-            return it.getClass().getField(it.name()).getAnnotation(Json.class).name();
+            return it.getDeclaringClass().getField(it.name()).getAnnotation(Json.class).name();
         } catch (NoSuchFieldException ignored) {
             return null;
         }

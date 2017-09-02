@@ -1,6 +1,7 @@
 package me.proxer.library.entitiy.notifications;
 
 import com.squareup.moshi.Json;
+import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerDateItem;
 import me.proxer.library.entitiy.ProxerIdItem;
@@ -19,12 +20,14 @@ public class NewsArticle implements ProxerIdItem, ProxerDateItem, ProxerImageIte
     /**
      * Returns the id.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "nid")
     private String id;
 
     /**
      * Returns the time.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "time")
     private Date date;
 
@@ -37,6 +40,7 @@ public class NewsArticle implements ProxerIdItem, ProxerDateItem, ProxerImageIte
     /**
      * Returns the image id.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "image_id")
     private String image;
 

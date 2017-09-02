@@ -21,6 +21,7 @@ public class Industry implements ProxerIdItem {
     /**
      * Returns the id.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "id")
     private String id;
 

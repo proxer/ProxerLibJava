@@ -1,6 +1,7 @@
 package me.proxer.library.entitiy.messenger;
 
 import com.squareup.moshi.Json;
+import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.entitiy.ProxerImageItem;
@@ -16,12 +17,14 @@ public class ConferenceParticipant implements ProxerIdItem, ProxerImageItem {
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "uid")
     private String id;
 
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "avatar")
     private String image;
 

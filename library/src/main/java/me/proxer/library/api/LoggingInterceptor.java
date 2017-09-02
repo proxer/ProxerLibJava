@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 class LoggingInterceptor implements Interceptor {
 
     private final LoggingStrategy loggingStrategy;
+    private final String loggingTag;
 
     @Override
     public Response intercept(final Chain chain) throws IOException {
@@ -31,7 +32,7 @@ class LoggingInterceptor implements Interceptor {
                     + (bodyMessage.isEmpty() ? " and " : ", ") + headerMessage
                     + (!headerMessage.contains("\n") && bodyMessage.isEmpty() ? "." : bodyMessage);
 
-            Logger.getLogger("ProxerAndroid").info(message);
+            Logger.getLogger(loggingTag).info(message);
         }
 
         return chain.proceed(chain.request());

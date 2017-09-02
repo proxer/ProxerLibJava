@@ -45,14 +45,14 @@ public final class TranslatorGroupListEndpoint implements PagingLimitEndpoint<Li
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer limit;
 
     TranslatorGroupListEndpoint(final InternalApi internalApi) {

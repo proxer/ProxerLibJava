@@ -1,6 +1,7 @@
 package me.proxer.library.entitiy.user;
 
 import com.squareup.moshi.Json;
+import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.enums.Category;
@@ -17,6 +18,7 @@ public class TopTenEntry implements ProxerIdItem {
     /**
      * Returns the id.
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "eid")
     private String id;
 

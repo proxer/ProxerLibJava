@@ -22,8 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class EntryEndpointTest extends ProxerTest {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-
     @Test
     public void testDefault() throws IOException, ProxerException, ParseException {
         server.enqueue(new MockResponse().setBody(fromResource("entry.json")));
@@ -72,9 +70,11 @@ public class EntryEndpointTest extends ProxerTest {
         ), Collections.singletonList(
                 new IndustryCore("19", "Kodansha", IndustryType.PUBLISHER, Country.JAPAN)
         ), Arrays.asList(
-                new Tag("93", "2027", DATE_FORMAT.parse("2016-06-18 14:14:22"), false,
+                new Tag("93", "2027",
+                        new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2016-06-18 14:14:22"), false,
                         false, "Dämonen", "In diesem Werk kommen Dämonen vor."),
-                new Tag("299", "2028", DATE_FORMAT.parse("2016-06-18 14:14:30"), false,
+                new Tag("299", "2028",
+                        new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2016-06-18 14:14:30"), false,
                         false, "Slapstick", "Situationskomik, kommt ohne Worte aus.")
         ));
     }

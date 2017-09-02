@@ -24,7 +24,7 @@ public final class ConferencesEndpoint implements PagingEndpoint<List<Conference
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer page;
 
     /**

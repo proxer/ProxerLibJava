@@ -15,8 +15,6 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  */
 public class DateAdapterTest {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-
     private DateAdapter adapter;
 
     @Before
@@ -32,7 +30,7 @@ public class DateAdapterTest {
     @Test
     public void testFromJsonIso() throws ParseException {
         assertThat(adapter.fromJson("2010-01-01 23:12:10"))
-                .isEqualTo(DATE_FORMAT.parse("2010-01-01 23:12:10"));
+                .isEqualTo(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2010-01-01 23:12:10"));
     }
 
     @Test

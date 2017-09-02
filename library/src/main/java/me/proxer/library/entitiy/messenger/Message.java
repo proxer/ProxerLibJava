@@ -1,6 +1,7 @@
 package me.proxer.library.entitiy.messenger;
 
 import com.squareup.moshi.Json;
+import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerDateItem;
 import me.proxer.library.entitiy.ProxerIdItem;
@@ -20,6 +21,7 @@ public class Message implements ProxerIdItem, ProxerDateItem {
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "message_id")
     private String id;
 
@@ -57,6 +59,7 @@ public class Message implements ProxerIdItem, ProxerDateItem {
     /**
      * {@inheritDoc}
      */
+    @Getter(onMethod = @__({@Override}))
     @Json(name = "timestamp")
     private Date date;
 

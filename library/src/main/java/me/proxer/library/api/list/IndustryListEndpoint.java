@@ -45,14 +45,14 @@ public final class IndustryListEndpoint implements PagingLimitEndpoint<List<Indu
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
+    @Setter(onMethod = @__({@Override}))
     private Integer limit;
 
     IndustryListEndpoint(final InternalApi internalApi) {
