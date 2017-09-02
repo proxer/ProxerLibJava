@@ -137,12 +137,15 @@ jacocoTestReport {
     }
 }
 
-checkstyle {
-    configDir = file("$projectDir/checkstyle")
-}
-
 findbugs {
     sourceSets = [sourceSets.main]
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
 }
 
 publishing {
