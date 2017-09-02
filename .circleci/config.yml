@@ -13,6 +13,9 @@ jobs:
           command: ./gradlew build --console=plain
       - store_test_results:
           path: library/build/test-results/test
+      - store_artifacts:
+          path: library/build/reports
+          destination: reports
       - run:
           name: Generate Coverage
           command: ./gradlew jacocoTestReport --console=plain
