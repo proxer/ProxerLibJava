@@ -17,7 +17,3 @@ Type here or delete section if not relevant.
 ##### I also want to say the following (can be anything):
 
 Type here or delete section if not relevant.
-
-##### Here are my references and screenshots (Only post those here and link to them in your description):
-
-Paste here or delete section if not relevant.
