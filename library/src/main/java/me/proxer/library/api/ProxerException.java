@@ -3,7 +3,6 @@ package me.proxer.library.api;
 import com.squareup.moshi.JsonDataException;
 import lombok.Getter;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -20,7 +19,7 @@ public final class ProxerException extends Exception {
     /**
      * Returns the error type of this exception.
      */
-    @Getter(onMethod = @__({@Nonnull}))
+    @Getter
     private final ErrorType errorType;
 
     /**
@@ -32,13 +31,13 @@ public final class ProxerException extends Exception {
     /**
      * Returns a error message from the server if, and only if, {@link #getErrorType()} returns {@link ErrorType#SERVER}.
      */
-    @Getter(onMethod = @__({@Override, @Nullable}))
+    @Getter(onMethod = @__({@Nullable}))
     private final String message;
 
     /**
      * Constructs an instance from the passed {@code error}, {@code serverError}, {@code message} and {@code cause}.
      */
-    public ProxerException(@Nonnull final ErrorType errorType, @Nullable final ServerErrorType serverErrorType,
+    public ProxerException(final ErrorType errorType, @Nullable final ServerErrorType serverErrorType,
                            @Nullable final String message, @Nullable Throwable cause) {
         super(cause);
 
@@ -50,7 +49,7 @@ public final class ProxerException extends Exception {
     /**
      * Constructs an instance from the passed {@code error}, {@code serverError} and {@code message}.
      */
-    public ProxerException(@Nonnull final ErrorType errorType, @Nullable final ServerErrorType serverErrorType,
+    public ProxerException(final ErrorType errorType, @Nullable final ServerErrorType serverErrorType,
                            @Nullable final String message) {
         this.errorType = errorType;
         this.serverErrorType = serverErrorType;
@@ -62,7 +61,7 @@ public final class ProxerException extends Exception {
      * <p>
      * If a invalid number is passed for the {@code serverErrorCode}, an error is thrown.
      */
-    public ProxerException(@Nonnull final ErrorType errorType, @Nullable final Integer serverErrorCode,
+    public ProxerException(final ErrorType errorType, @Nullable final Integer serverErrorCode,
                            @Nullable final String message) {
         this.errorType = errorType;
         this.serverErrorType = ServerErrorType.fromErrorCode(serverErrorCode);
@@ -74,7 +73,7 @@ public final class ProxerException extends Exception {
      * <p>
      * {@link #getServerErrorType()} and {@link #getMessage()} will return null.
      */
-    public ProxerException(@Nonnull final ErrorType errorType, @Nullable Throwable cause) {
+    public ProxerException(final ErrorType errorType, @Nullable Throwable cause) {
         super(cause);
 
         this.errorType = errorType;
@@ -87,7 +86,7 @@ public final class ProxerException extends Exception {
      * <p>
      * {@link #getServerErrorType()} and {@link #getMessage()} will return null.
      */
-    public ProxerException(@Nonnull final ErrorType errorType) {
+    public ProxerException(final ErrorType errorType) {
         this.errorType = errorType;
         this.serverErrorType = null;
         this.message = null;
@@ -172,6 +171,7 @@ public final class ProxerException extends Exception {
             this.code = code;
         }
 
+        @Nullable
         static ServerErrorType fromErrorCode(@Nullable final Integer errorCode) {
             if (errorCode == null) {
                 return null;
@@ -186,6 +186,7 @@ public final class ProxerException extends Exception {
             throw new JsonDataException("No value found for the code: " + errorCode);
         }
 
+        @Nullable
         static ServerErrorType fromErrorCodeOrNull(@Nullable final Integer errorCode) {
             if (errorCode == null) {
                 return null;

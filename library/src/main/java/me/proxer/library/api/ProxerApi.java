@@ -19,7 +19,6 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -32,77 +31,66 @@ import java.util.List;
  *
  * @author Ruben Gees
  */
+@Getter
 @Accessors(fluent = true)
 public final class ProxerApi {
 
     /**
      * Returns the Moshi instance.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     private final Moshi moshi;
 
     /**
      * Returns the OkHttpClient instance.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     private final OkHttpClient client;
 
     /**
      * Returns the Retrofit instance.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     private final Retrofit retrofit;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     private final NotificationsApi notifications;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     private final UserApi user;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     private final InfoApi info;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     private final MessengerApi messenger;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     private final ListApi list;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     private final UcpApi ucp;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     private final AnimeApi anime;
 
     /**
      * Returns the respective API.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     private final MangaApi manga;
 
-    private ProxerApi(@Nonnull final Moshi moshi, @Nonnull final OkHttpClient client,
-                      @Nonnull final Retrofit retrofit) {
+    private ProxerApi(final Moshi moshi, final OkHttpClient client, final Retrofit retrofit) {
         this.moshi = moshi;
         this.client = client;
         this.retrofit = retrofit;
@@ -133,7 +121,7 @@ public final class ProxerApi {
         /**
          * Sets a custom login token manager.
          */
-        @Setter(onMethod = @__({@Nonnull}))
+        @Setter
         private LoginTokenManager loginTokenManager;
 
         /**
@@ -141,7 +129,7 @@ public final class ProxerApi {
          * <p>
          * If not set, it will default to "ProxerLibJava/[version]"
          */
-        @Setter(onMethod = @__({@Nonnull}))
+        @Setter
         private String userAgent;
 
         /**
@@ -150,7 +138,7 @@ public final class ProxerApi {
          * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
          * instance.
          */
-        @Setter(onMethod = @__({@Nonnull}))
+        @Setter
         private Moshi moshi;
 
         /**
@@ -159,7 +147,7 @@ public final class ProxerApi {
          * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
          * instance.
          */
-        @Setter(onMethod = @__({@Nonnull}))
+        @Setter
         private OkHttpClient client;
 
         /**
@@ -168,7 +156,7 @@ public final class ProxerApi {
          * Note, that a internally, a new instance will be constructed, with the adjustments included, you did on your
          * instance.
          */
-        @Setter(onMethod = @__({@Nonnull}))
+        @Setter
         private Retrofit retrofit;
 
         /**
@@ -181,14 +169,13 @@ public final class ProxerApi {
         /**
          * Constructs a new instance of the builder, with the passed {@code apiKey}.
          */
-        public Builder(@Nonnull final String apiKey) {
+        public Builder(final String apiKey) {
             this.apiKey = apiKey;
         }
 
         /**
          * Finally builds the {@link ProxerApi} with the provided adjustments.
          */
-        @Nonnull
         public ProxerApi build() {
             initLoginTokenManager();
             initUserAgent();

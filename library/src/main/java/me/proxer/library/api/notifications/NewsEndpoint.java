@@ -6,7 +6,6 @@ import me.proxer.library.api.PagingLimitEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.notifications.NewsArticle;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -24,24 +23,24 @@ public final class NewsEndpoint implements PagingLimitEndpoint<List<NewsArticle>
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer limit;
 
     /**
      * Sets if the news should be marked as read. Defaults to false.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private Boolean markAsRead;
 
-    NewsEndpoint(@Nonnull final InternalApi internalApi) {
+    NewsEndpoint(final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
@@ -49,7 +48,6 @@ public final class NewsEndpoint implements PagingLimitEndpoint<List<NewsArticle>
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<List<NewsArticle>> build() {
         return internalApi.news(page, limit, markAsRead);
     }

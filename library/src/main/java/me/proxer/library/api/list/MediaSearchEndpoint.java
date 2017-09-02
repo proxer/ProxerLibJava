@@ -8,7 +8,6 @@ import me.proxer.library.entitiy.list.MediaListEntry;
 import me.proxer.library.enums.*;
 import me.proxer.library.util.ProxerUtils;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
@@ -29,28 +28,28 @@ public class MediaSearchEndpoint implements PagingLimitEndpoint<List<MediaListEn
      * Sets the name to search for.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private String name;
 
     /**
      * Sets the language to filter by.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private Language language;
 
     /**
      * Sets the type to load.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private MediaType type;
 
     /**
      * Sets the criteria the list should be sorted by.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private MediaSearchSortCriteria sort;
 
     /**
@@ -59,7 +58,7 @@ public class MediaSearchEndpoint implements PagingLimitEndpoint<List<MediaListEn
      * {@link #lengthBound(LengthBound)} method.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private Integer length;
 
     /**
@@ -67,69 +66,71 @@ public class MediaSearchEndpoint implements PagingLimitEndpoint<List<MediaListEn
      * be greater or smaller than the specified value.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private LengthBound lengthBound;
 
     /**
      * Sets the filter for the tags.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private TagRateFilter tagRateFilter;
 
     /**
      * Sets the spoiler filter for the tags.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private TagSpoilerFilter tagSpoilerFilter;
 
     /**
      * Sets the required genres.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private Set<Genre> genres;
 
     /**
      * Sets the excluded genres.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private Set<Genre> excludedGenres;
 
     /**
      * Sets the required fsk ratings.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private Set<FskConstraint> fskConstraints;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer limit;
 
+    @Nullable
     private String tags;
+
+    @Nullable
     private String excludedTags;
 
-    MediaSearchEndpoint(@Nonnull final InternalApi internalApi) {
+    MediaSearchEndpoint(final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
     /**
      * Sets the tag ids a entry must have to be included in the result.
      */
-    @Nonnull
     public MediaSearchEndpoint tags(@Nullable Set<String> ids) {
         if (ids != null) {
             this.tags = ProxerUtils.join(DELIMITER, ids);
@@ -143,7 +144,6 @@ public class MediaSearchEndpoint implements PagingLimitEndpoint<List<MediaListEn
     /**
      * Sets the tag ids a entry must not have to be included in the result.
      */
-    @Nonnull
     public MediaSearchEndpoint excludedTags(@Nullable Set<String> excludedIds) {
         if (excludedIds != null) {
             this.excludedTags = ProxerUtils.join(DELIMITER, excludedIds);
@@ -155,7 +155,6 @@ public class MediaSearchEndpoint implements PagingLimitEndpoint<List<MediaListEn
     }
 
     @Override
-    @Nonnull
     public ProxerCall<List<MediaListEntry>> build() {
         return internalApi.mediaSearch(name, language, type, genres, excludedGenres, fskConstraints,
                 sort, length, lengthBound, tags, excludedTags, tagRateFilter, tagSpoilerFilter, page, limit);

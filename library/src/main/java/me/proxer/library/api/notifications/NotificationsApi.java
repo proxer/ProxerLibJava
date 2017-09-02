@@ -2,8 +2,6 @@ package me.proxer.library.api.notifications;
 
 import retrofit2.Retrofit;
 
-import javax.annotation.Nonnull;
-
 /**
  * API for the Notifications class.
  *
@@ -16,14 +14,13 @@ public final class NotificationsApi {
     /**
      * Only for internal use.
      */
-    public NotificationsApi(@Nonnull final Retrofit retrofit) {
+    public NotificationsApi(final Retrofit retrofit) {
         this.internalApi = retrofit.create(InternalApi.class);
     }
 
     /**
      * Returns the respective endpoint.
      */
-    @Nonnull
     public NewsEndpoint news() {
         return new NewsEndpoint(internalApi);
     }
@@ -31,7 +28,6 @@ public final class NotificationsApi {
     /**
      * Returns the respective endpoint.
      */
-    @Nonnull
     public NotificationsEndpoint notifications() {
         return new NotificationsEndpoint(internalApi);
     }
@@ -39,7 +35,6 @@ public final class NotificationsApi {
     /**
      * Returns the respective endpoint.
      */
-    @Nonnull
     public NotificationInfoEndpoint notificationInfo() {
         return new NotificationInfoEndpoint(internalApi);
     }
@@ -47,15 +42,13 @@ public final class NotificationsApi {
     /**
      * Returns the respective endpoint.
      */
-    @Nonnull
-    public DeleteNotificationEndpoint deleteNotification(@Nonnull final String id) {
+    public DeleteNotificationEndpoint deleteNotification(final String id) {
         return new DeleteNotificationEndpoint(internalApi, id);
     }
 
     /**
      * Returns the respective endpoint.
      */
-    @Nonnull
     public DeleteNotificationEndpoint deleteAllNotifications() {
         return new DeleteNotificationEndpoint(internalApi, "0");
     }

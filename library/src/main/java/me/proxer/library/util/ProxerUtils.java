@@ -3,7 +3,6 @@ package me.proxer.library.util;
 import com.squareup.moshi.Json;
 import lombok.experimental.UtilityClass;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.util.Iterator;
@@ -20,7 +19,7 @@ public class ProxerUtils {
      * Returns the name of the passed enum instance (Using that specified in the {@code @Json} annotation).
      */
     @Nullable
-    public String getApiEnumName(@Nonnull final Enum<?> it) {
+    public String getApiEnumName(final Enum<?> it) {
         try {
             return it.getClass().getField(it.name()).getAnnotation(Json.class).name();
         } catch (NoSuchFieldException ignored) {
@@ -35,7 +34,7 @@ public class ProxerUtils {
      * If an invalid enum type is passed (one that is not in this library), an exception is thrown.
      */
     @Nullable
-    public <T extends Enum<T>> T toApiEnum(@Nonnull Class<T> type, @Nonnull final String value) {
+    public <T extends Enum<T>> T toApiEnum(Class<T> type, final String value) {
         for (final Field field : type.getFields()) {
             if (field.getAnnotation(Json.class).name().equals(value)) {
                 return Enum.valueOf(type, field.getName());
@@ -50,8 +49,7 @@ public class ProxerUtils {
      * <p>
      * The Iterator can have any type, toString is called on the individual items.
      */
-    @Nonnull
-    public String join(@Nonnull final String delimiter, @Nonnull final Iterable<?> iterable) {
+    public String join(final String delimiter, final Iterable<?> iterable) {
         final Iterator<?> iterator = iterable.iterator();
 
         if (!iterator.hasNext()) {

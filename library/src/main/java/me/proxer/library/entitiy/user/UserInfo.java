@@ -1,12 +1,10 @@
 package me.proxer.library.entitiy.user;
 
 import com.squareup.moshi.Json;
-import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.entitiy.ProxerImageItem;
 
-import javax.annotation.Nonnull;
 import java.util.Date;
 
 /**
@@ -14,42 +12,36 @@ import java.util.Date;
  *
  * @author Ruben Gees
  */
-@SuppressWarnings("JavaDoc")
 @Value
 public class UserInfo implements ProxerIdItem, ProxerImageItem {
 
     /**
      * Returns the id.
      */
-    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "uid")
     private String id;
 
     /**
      * Returns the username.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "username")
     private String username;
 
     /**
      * Returns the image id.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "avatar")
     private String image;
 
     /**
      * Returns the current status message.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "status")
     private String status;
 
     /**
      * Returns the time of the last status change.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "status_time")
     private Date lastStatusChange;
 

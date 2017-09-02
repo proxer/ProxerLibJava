@@ -7,7 +7,6 @@ import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.messenger.Conference;
 import me.proxer.library.enums.ConferenceType;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -25,17 +24,17 @@ public final class ConferencesEndpoint implements PagingEndpoint<List<Conference
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer page;
 
     /**
      * Sets the type of conferences to load.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private ConferenceType type;
 
-    ConferencesEndpoint(@Nonnull final InternalApi internalApi) {
+    ConferencesEndpoint(final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
@@ -43,7 +42,6 @@ public final class ConferencesEndpoint implements PagingEndpoint<List<Conference
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<List<Conference>> build() {
         return internalApi.conferences(page, type);
     }

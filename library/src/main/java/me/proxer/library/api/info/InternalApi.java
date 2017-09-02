@@ -5,11 +5,13 @@ import me.proxer.library.entitiy.info.*;
 import me.proxer.library.enums.CommentSortCriteria;
 import retrofit2.http.*;
 
+import javax.annotation.ParametersAreNullableByDefault;
 import java.util.List;
 
 /**
  * @author Ruben Gees
  */
+@ParametersAreNullableByDefault
 interface InternalApi {
 
     @GET("info/entry")
@@ -18,19 +20,20 @@ interface InternalApi {
     @GET("info/fullentry")
     ProxerCall<Entry> entry(@Query("id") String id);
 
-    @GET("info/names")
-    ProxerCall<List<Synonym>> synonyms(@Query("id") String id);
-
     @GET("info/listinfo")
-    ProxerCall<EpisodeInfo> episodeInfo(@Query("id") String id, @Query("p") Integer page,
+    ProxerCall<EpisodeInfo> episodeInfo(@Query("id") String id,
+                                        @Query("p") Integer page,
                                         @Query("limit") Integer limit);
 
     @GET("info/comments")
-    ProxerCall<List<Comment>> comments(@Query("id") String id, @Query("p") Integer page, @Query("limit") Integer limit,
+    ProxerCall<List<Comment>> comments(@Query("id") String id,
+                                       @Query("p") Integer page,
+                                       @Query("limit") Integer limit,
                                        @Query("sort") CommentSortCriteria criteria);
 
     @GET("info/relations")
-    ProxerCall<List<Relation>> relations(@Query("id") String id, @Query("isH") Boolean includeHentai);
+    ProxerCall<List<Relation>> relations(@Query("id") String id,
+                                         @Query("isH") Boolean includeHentai);
 
     @GET("info/translatorgroup")
     ProxerCall<TranslatorGroup> translatorGroup(@Query("id") String id);
@@ -40,5 +43,6 @@ interface InternalApi {
 
     @FormUrlEncoded
     @POST("info/setuserinfo")
-    ProxerCall<Void> modifyUserInfo(@Field("id") String id, @Field("type") UserInfoType type);
+    ProxerCall<Void> modifyUserInfo(@Field("id") String id,
+                                    @Field("type") UserInfoType type);
 }

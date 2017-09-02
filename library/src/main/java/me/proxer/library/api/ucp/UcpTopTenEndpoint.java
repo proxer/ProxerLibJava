@@ -5,7 +5,6 @@ import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.ucp.UcpTopTenEntry;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ public final class UcpTopTenEndpoint implements Endpoint<List<UcpTopTenEntry>> {
 
     private final InternalApi internalApi;
 
-    UcpTopTenEndpoint(@Nonnull final InternalApi internalApi) {
+    UcpTopTenEndpoint(final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
@@ -26,7 +25,6 @@ public final class UcpTopTenEndpoint implements Endpoint<List<UcpTopTenEntry>> {
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<List<UcpTopTenEntry>> build() {
         return internalApi.topTen();
     }

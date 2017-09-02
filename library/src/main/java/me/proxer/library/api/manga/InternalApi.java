@@ -6,12 +6,16 @@ import me.proxer.library.enums.Language;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
+import javax.annotation.ParametersAreNullableByDefault;
+
 /**
  * @author Ruben Gees
  */
+@ParametersAreNullableByDefault
 interface InternalApi {
 
     @GET("manga/chapter")
-    ProxerCall<Chapter> chapter(@Query("id") String id, @Query("episode") Integer episode,
+    ProxerCall<Chapter> chapter(@Query("id") String id,
+                                @Query("episode") Integer episode,
                                 @Query("language") Language language);
 }

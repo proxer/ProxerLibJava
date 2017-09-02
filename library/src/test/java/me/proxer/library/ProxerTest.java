@@ -8,7 +8,6 @@ import okio.Okio;
 import org.junit.After;
 import org.junit.Before;
 
-import javax.annotation.Nonnull;
 import java.io.IOException;
 
 /**
@@ -50,12 +49,10 @@ public abstract class ProxerTest {
         server.shutdown();
     }
 
-    @Nonnull
-    protected String fromResource(@Nonnull final String file) throws IOException {
+    protected String fromResource(final String file) throws IOException {
         return Okio.buffer(Okio.source(getClass().getClassLoader().getResourceAsStream(file))).readUtf8();
     }
 
-    @Nonnull
     protected ProxerApi.Builder constructApi() {
         return new ProxerApi.Builder("mockKey")
                 .client(client);

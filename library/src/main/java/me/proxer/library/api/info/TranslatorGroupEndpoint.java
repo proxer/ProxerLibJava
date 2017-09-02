@@ -5,8 +5,6 @@ import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.info.TranslatorGroup;
 
-import javax.annotation.Nonnull;
-
 /**
  * Endpoint for retrieving all information of an {@link TranslatorGroup}.
  *
@@ -19,7 +17,7 @@ public class TranslatorGroupEndpoint implements Endpoint<TranslatorGroup> {
 
     private final String id;
 
-    TranslatorGroupEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
+    TranslatorGroupEndpoint(final InternalApi internalApi, final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
@@ -28,7 +26,6 @@ public class TranslatorGroupEndpoint implements Endpoint<TranslatorGroup> {
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<TranslatorGroup> build() {
         return internalApi.translatorGroup(id);
     }

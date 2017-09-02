@@ -6,9 +6,7 @@ import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.util.ProxerUtils;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -25,7 +23,6 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
     private static final String COMMA_DELIMITER = ",";
 
     @Override
-    @ParametersAreNonnullByDefault
     public JsonAdapter<?> create(final Type type, final Set<? extends Annotation> annotations, final Moshi moshi) {
         final Type rawType = Types.getRawType(type);
 
@@ -51,13 +48,12 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
         private final Class<T> enumType;
         private final String delimiter;
 
-        DelimitedEnumSetAdapter(@Nonnull final Class<T> enumType, @Nonnull final String delimiter) {
+        DelimitedEnumSetAdapter(final Class<T> enumType, final String delimiter) {
             this.enumType = enumType;
             this.delimiter = delimiter;
         }
 
         @Override
-        @ParametersAreNonnullByDefault
         public Set<T> fromJson(final JsonReader reader) throws IOException {
             final EnumSet<T> result = EnumSet.noneOf(enumType);
             final JsonReader.Token nextToken = reader.peek();
@@ -93,7 +89,6 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
         }
 
         @Override
-        @ParametersAreNonnullByDefault
         public void toJson(final JsonWriter writer, @Nullable final Set<T> value) throws IOException {
             if (value == null) return;
 

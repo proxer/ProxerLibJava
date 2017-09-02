@@ -11,6 +11,7 @@ import me.proxer.library.entitiy.info.MangaEpisode;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 /**
@@ -38,8 +39,9 @@ class EpisodeInfoAdapter {
                 json.userState, episodes);
     }
 
+    @SuppressWarnings("unused")
     @ToJson
-    String toJson(final EpisodeInfo episodeInfo) {
+    String toJson(@SuppressWarnings("unused") @Nullable final EpisodeInfo episodeInfo) {
         // Moshi somehow needs this method for this case, we don't use it though.
         throw new UnsupportedOperationException();
     }

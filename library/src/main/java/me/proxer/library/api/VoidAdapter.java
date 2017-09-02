@@ -4,6 +4,8 @@ import com.squareup.moshi.FromJson;
 import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.ToJson;
 
+import javax.annotation.Nullable;
+
 /**
  * @author Ruben Gees
  */
@@ -21,7 +23,7 @@ final class VoidAdapter {
     }
 
     @ToJson
-    String toJson(@SuppressWarnings({"unused", "SameParameterValue"}) final Void nothingness) {
+    String toJson(@SuppressWarnings({"unused", "SameParameterValue"}) @Nullable final Void nothingness) {
         return JSON_NULL;
     }
 }

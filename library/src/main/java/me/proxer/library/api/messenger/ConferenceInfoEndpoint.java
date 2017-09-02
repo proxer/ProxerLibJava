@@ -6,8 +6,6 @@ import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.messenger.Conference;
 import me.proxer.library.entitiy.messenger.ConferenceInfo;
 
-import javax.annotation.Nonnull;
-
 /**
  * Endpoint for retrieving information concerning a {@link Conference}.
  *
@@ -20,7 +18,7 @@ public final class ConferenceInfoEndpoint implements Endpoint<ConferenceInfo> {
 
     private final String id;
 
-    ConferenceInfoEndpoint(@Nonnull final InternalApi internalApi, @Nonnull String id) {
+    ConferenceInfoEndpoint(final InternalApi internalApi, final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
@@ -29,7 +27,6 @@ public final class ConferenceInfoEndpoint implements Endpoint<ConferenceInfo> {
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<ConferenceInfo> build() {
         return internalApi.conferenceInfo(id);
     }

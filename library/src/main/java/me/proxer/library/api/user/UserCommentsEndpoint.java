@@ -7,7 +7,6 @@ import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.user.UserComment;
 import me.proxer.library.enums.Category;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -21,38 +20,41 @@ public class UserCommentsEndpoint implements PagingLimitEndpoint<List<UserCommen
 
     private final InternalApi internalApi;
 
+    @Nullable
     private final String userId;
+
+    @Nullable
     private final String username;
 
     /**
      * Sets the category to filter by.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private Category category;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer limit;
 
     /**
      * Sets the minimum length to filter by.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private Integer minimumLength;
 
-    UserCommentsEndpoint(@Nonnull final InternalApi internalApi, @Nullable final String userId,
+    UserCommentsEndpoint(final InternalApi internalApi, @Nullable final String userId,
                          @Nullable final String username) {
         if (userId == null && username == null) {
             throw new IllegalArgumentException("You must pass either an userId or an username.");
@@ -67,7 +69,6 @@ public class UserCommentsEndpoint implements PagingLimitEndpoint<List<UserCommen
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<List<UserComment>> build() {
         return internalApi.comments(userId, username, category, page, limit, minimumLength);
     }

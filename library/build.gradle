@@ -1,3 +1,9 @@
+import groovy.io.FileType
+import groovy.text.SimpleTemplateEngine
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 
@@ -29,6 +35,53 @@ dependencies {
     testImplementation deps.privateConstructor
 }
 
+task generatePackageInfo {
+    File generatedPackageInfoDir = file("$buildDir/generated")
+
+    sourceSets.main.java.srcDirs -= generatedPackageInfoDir
+    sourceSets.main.java.srcDirs.each { inputs.dir(it.absolutePath) }
+    outputs.dir(generatedPackageInfoDir)
+
+    sourceSets.main.java.srcDirs += generatedPackageInfoDir
+
+    doLast {
+        Pattern packagePattern = Pattern.compile('package (.*?);', Pattern.DOTALL)
+        String templateText = new File(projectDir, 'package-info.template').text
+        Set<String> packages = []
+
+        generatedPackageInfoDir.deleteDir()
+        generatedPackageInfoDir.mkdirs()
+
+        sourceSets.main.java.srcDirs.each {
+            it.eachFileRecurse(FileType.FILES) {
+                if (it.name.endsWith('.java')) {
+                    List<String> fileLines = it.readLines()
+
+                    if (!fileLines.isEmpty()) {
+                        Matcher matcher = packagePattern.matcher(fileLines.first())
+
+                        if (matcher.matches()) {
+                            packages += matcher.group(1)
+                        }
+                    }
+                }
+            }
+        }
+
+        packages.each {
+            File outputDirectory = mkdir(new File(generatedPackageInfoDir, it.replaceAll('\\.', '/')))
+            File outputFile = new File(outputDirectory.absolutePath, 'package-info.java')
+
+            String templateOutput = new SimpleTemplateEngine()
+                    .createTemplate(templateText)
+                    .make(['packageName': it])
+                    .toString()
+
+            outputFile << templateOutput
+        }
+    }
+}
+
 task delombok(type: JavaExec, dependsOn: compileJava) {
     String buildConfigInputDir = "$buildDir/gen/buildconfig/src/main"
 
@@ -52,6 +105,14 @@ task delombok(type: JavaExec, dependsOn: compileJava) {
     main = "lombok.launch.Main"
 }
 
+task sourceJar(type: Jar, dependsOn: delombok) {
+    from delombok.outputDir
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from javadoc.destinationDir
+}
+
 buildConfig {
     packageName = 'me.proxer.library'
 }
@@ -73,14 +134,6 @@ jacocoTestReport {
     }
 }
 
-task sourceJar(type: Jar, dependsOn: delombok) {
-    from delombok.outputDir
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    from javadoc.destinationDir
-}
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -95,4 +148,8 @@ publishing {
             }
         }
     }
+}
+
+gradle.projectsEvaluated {
+    compileJava.dependsOn(generatePackageInfo)
 }

@@ -7,7 +7,6 @@ import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.list.IndustryCore;
 import me.proxer.library.enums.Country;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -25,43 +24,42 @@ public class IndustryListEndpoint implements PagingLimitEndpoint<List<IndustryCo
      * Sets the query to search for only from the start.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private String searchStart;
 
     /**
      * Sets the query to search for.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private String search;
 
     /**
      * Sets the country to filter by.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private Country country;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer limit;
 
-    IndustryListEndpoint(@Nonnull final InternalApi internalApi) {
+    IndustryListEndpoint(final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
     @Override
-    @Nonnull
     public ProxerCall<List<IndustryCore>> build() {
         return internalApi.industryList(searchStart, search, country, page, limit);
 

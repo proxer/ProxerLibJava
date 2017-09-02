@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import me.proxer.library.entitiy.messenger.Conference;
 
-import javax.annotation.Nonnull;
 import java.util.Date;
 
 /**
@@ -57,7 +56,6 @@ class ConferenceAdapter {
         @Json(name = "image")
         String image;
 
-        @Nonnull
         String getImage() {
             final int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
 
@@ -68,7 +66,6 @@ class ConferenceAdapter {
             }
         }
 
-        @Nonnull
         String getImageType() {
             final int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
 

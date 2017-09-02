@@ -7,7 +7,6 @@ import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.list.TranslatorGroupProject;
 import me.proxer.library.enums.ProjectState;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class TranslatorGroupProjectListEndpoint implements PagingLimitEndpoint<L
      * Sets the state of projects to filter by.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private ProjectState projectState;
 
     /**
@@ -40,23 +39,22 @@ public class TranslatorGroupProjectListEndpoint implements PagingLimitEndpoint<L
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer limit;
 
-    TranslatorGroupProjectListEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
+    TranslatorGroupProjectListEndpoint(final InternalApi internalApi, final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
 
     @Override
-    @Nonnull
     public ProxerCall<List<TranslatorGroupProject>> build() {
         return internalApi.translatorGroupProjectList(id, projectState, includeHentai, page, limit);
     }
@@ -64,7 +62,6 @@ public class TranslatorGroupProjectListEndpoint implements PagingLimitEndpoint<L
     /**
      * Sets if hentai should be included in the result.
      */
-    @Nonnull
     public TranslatorGroupProjectListEndpoint includeHentai(@Nullable Boolean includeHentai) {
         if (includeHentai == null) {
             this.includeHentai = null;

@@ -1,6 +1,5 @@
 package me.proxer.library.api;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -14,6 +13,6 @@ public interface PagingEndpoint<T> extends Endpoint<T> {
     /**
      * Sets the page to request. Must be zero or higher.
      */
-    @Nonnull
+    @SuppressWarnings("EmptyMethod")
     PagingEndpoint<T> page(@Nullable Integer page);
 }

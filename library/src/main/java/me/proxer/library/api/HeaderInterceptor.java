@@ -5,9 +5,7 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 
 /**
@@ -21,13 +19,12 @@ final class HeaderInterceptor implements Interceptor {
     private final String apiKey;
     private final String userAgent;
 
-    HeaderInterceptor(@Nonnull final String apiKey, @Nullable final String userAgent) {
+    HeaderInterceptor(final String apiKey, @Nullable final String userAgent) {
         this.apiKey = apiKey;
         this.userAgent = userAgent;
     }
 
     @Override
-    @ParametersAreNonnullByDefault
     public Response intercept(final Chain chain) throws IOException {
         final Request oldRequest = chain.request();
 

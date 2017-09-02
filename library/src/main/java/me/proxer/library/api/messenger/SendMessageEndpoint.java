@@ -5,8 +5,6 @@ import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.messenger.Conference;
 
-import javax.annotation.Nonnull;
-
 /**
  * Endpoint for sending a single message in a {@link Conference}. This can be a
  * group or a conversation with a single user.
@@ -24,8 +22,7 @@ public final class SendMessageEndpoint implements Endpoint<String> {
     private final String conferenceId;
     private final String message;
 
-    SendMessageEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String conferenceId,
-                        @Nonnull final String message) {
+    SendMessageEndpoint(final InternalApi internalApi, final String conferenceId, final String message) {
         this.internalApi = internalApi;
         this.conferenceId = conferenceId;
         this.message = message;
@@ -35,7 +32,6 @@ public final class SendMessageEndpoint implements Endpoint<String> {
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<String> build() {
         return internalApi.sendMessage(conferenceId, message);
     }

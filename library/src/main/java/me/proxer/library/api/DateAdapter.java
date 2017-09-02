@@ -3,6 +3,7 @@ package me.proxer.library.api;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
+import javax.annotation.Nullable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,10 +28,11 @@ final class DateAdapter {
     }
 
     @ToJson
-    long toJson(final Date date) {
-        return date.getTime();
+    long toJson(@Nullable final Date date) {
+        return date != null ? date.getTime() : 0;
     }
 
+    @Nullable
     private Long toLongOrNull(String candidate) {
         try {
             return Long.parseLong(candidate);

@@ -7,7 +7,6 @@ import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.list.IndustryProject;
 import me.proxer.library.enums.IndustryType;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class IndustryProjectListEndpoint implements PagingLimitEndpoint<List<Ind
      * Sets the type of industries to filter by.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private IndustryType type;
 
     @Nullable
@@ -37,23 +36,22 @@ public class IndustryProjectListEndpoint implements PagingLimitEndpoint<List<Ind
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer limit;
 
-    IndustryProjectListEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
+    IndustryProjectListEndpoint(final InternalApi internalApi, final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
 
     @Override
-    @Nonnull
     public ProxerCall<List<IndustryProject>> build() {
         return internalApi.industryProjectList(id, type, includeHentai, page, limit);
     }
@@ -61,8 +59,7 @@ public class IndustryProjectListEndpoint implements PagingLimitEndpoint<List<Ind
     /**
      * Sets if hentai should be included in the result.
      */
-    @Nonnull
-    public IndustryProjectListEndpoint includeHentai(@Nullable Boolean includeHentai) {
+    public IndustryProjectListEndpoint includeHentai(@Nullable final Boolean includeHentai) {
         if (includeHentai == null) {
             this.includeHentai = null;
         } else {

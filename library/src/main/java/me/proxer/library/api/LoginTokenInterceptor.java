@@ -8,8 +8,6 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -28,7 +26,6 @@ final class LoginTokenInterceptor implements Interceptor {
     private static final Pattern LOGIN_TOKEN_PATTERN = Pattern.compile("\"token\":.*?\"(.+?)\"", DOTALL);
     private static final Pattern ERROR_PATTERN = Pattern.compile("\"code\":.*?(\\d+\b?)", DOTALL);
 
-
     private static final List<String> LOGIN_PATH = ProxerUrls.apiBase().newBuilder()
             .addPathSegment("user")
             .addPathSegment("login")
@@ -43,12 +40,11 @@ final class LoginTokenInterceptor implements Interceptor {
 
     private final LoginTokenManager loginTokenManager;
 
-    LoginTokenInterceptor(@Nonnull final LoginTokenManager loginTokenManager) {
+    LoginTokenInterceptor(final LoginTokenManager loginTokenManager) {
         this.loginTokenManager = loginTokenManager;
     }
 
     @Override
-    @ParametersAreNonnullByDefault
     public Response intercept(final Chain chain) throws IOException {
         final Request oldRequest = chain.request();
 
@@ -95,7 +91,7 @@ final class LoginTokenInterceptor implements Interceptor {
         }
     }
 
-    private boolean isLoginError(@Nonnull final ServerErrorType errorType) {
+    private boolean isLoginError(final ServerErrorType errorType) {
         switch (errorType) {
             case INVALID_TOKEN:
             case NOTIFICATIONS_LOGIN_REQUIRED:

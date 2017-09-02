@@ -6,7 +6,6 @@ import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.user.User;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -23,14 +22,13 @@ public class LoginEndpoint implements Endpoint<User> {
     private final String password;
 
     /**
-     * Sets he secret key for authentication with 2FA.
+     * Sets the secret key for authentication with 2FA.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private String secretKey;
 
-    LoginEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String username,
-                  @Nonnull final String password) {
+    LoginEndpoint(final InternalApi internalApi, final String username, final String password) {
         this.internalApi = internalApi;
         this.username = username;
         this.password = password;
@@ -40,7 +38,6 @@ public class LoginEndpoint implements Endpoint<User> {
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<User> build() {
         return internalApi.login(username, password, secretKey);
     }

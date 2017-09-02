@@ -7,7 +7,6 @@ import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.notifications.Notification;
 import me.proxer.library.enums.NotificationFilter;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -25,31 +24,31 @@ public final class NotificationsEndpoint implements PagingLimitEndpoint<List<Not
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer limit;
 
     /**
      * Sets if the retrieved notifications should be marked as read.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private Boolean markAsRead;
 
     /**
      * Sets a filter for the notifications to retrieve.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private NotificationFilter filter;
 
-    NotificationsEndpoint(@Nonnull final InternalApi internalApi) {
+    NotificationsEndpoint(final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
@@ -57,7 +56,6 @@ public final class NotificationsEndpoint implements PagingLimitEndpoint<List<Not
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<List<Notification>> build() {
         return internalApi.notifications(page, limit, markAsRead, filter);
     }

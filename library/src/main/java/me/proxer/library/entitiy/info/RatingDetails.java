@@ -9,7 +9,6 @@ import lombok.Value;
  *
  * @author Desnoo
  */
-@SuppressWarnings("JavaDoc")
 @Value
 public class RatingDetails {
 
@@ -20,7 +19,7 @@ public class RatingDetails {
     private int genre;
 
     /**
-     * @Returns the story rating.
+     * Returns the story rating.
      */
     @Json(name = "story")
     private int story;

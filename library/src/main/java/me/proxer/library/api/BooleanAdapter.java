@@ -3,6 +3,8 @@ package me.proxer.library.api;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.JsonDataException;
 
+import javax.annotation.Nullable;
+
 /**
  * @author Ruben Gees
  */
@@ -30,6 +32,7 @@ class BooleanAdapter {
         throw new JsonDataException("Unable to map " + json + " to a boolean value");
     }
 
+    @Nullable
     private Integer toIntOrNull(String candidate) {
         try {
             return (int) Float.parseFloat(candidate);

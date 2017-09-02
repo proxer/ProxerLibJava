@@ -7,7 +7,6 @@ import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.anime.Stream;
 import me.proxer.library.enums.AnimeLanguage;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -31,11 +30,10 @@ public class StreamsEndpoint implements Endpoint<List<Stream>> {
      * Note, that those require higher access levels.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private Boolean includeProxerStreams;
 
-    StreamsEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id, final int episode,
-                    @Nonnull final AnimeLanguage language) {
+    StreamsEndpoint(final InternalApi internalApi, final String id, final int episode, final AnimeLanguage language) {
         this.internalApi = internalApi;
         this.id = id;
         this.episode = episode;
@@ -46,7 +44,6 @@ public class StreamsEndpoint implements Endpoint<List<Stream>> {
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<List<Stream>> build() {
         if (includeProxerStreams == null || !includeProxerStreams) {
             return internalApi.streams(id, episode, language);

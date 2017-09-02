@@ -3,8 +3,6 @@ package me.proxer.library.api.manga;
 import me.proxer.library.enums.Language;
 import retrofit2.Retrofit;
 
-import javax.annotation.Nonnull;
-
 /**
  * API for the Manga class.
  *
@@ -17,15 +15,14 @@ public final class MangaApi {
     /**
      * Only for internal use.
      */
-    public MangaApi(@Nonnull final Retrofit retrofit) {
+    public MangaApi(final Retrofit retrofit) {
         this.internalApi = retrofit.create(InternalApi.class);
     }
 
     /**
      * Returns the respective endpoint.
      */
-    @Nonnull
-    public ChapterEndpoint chapter(@Nonnull final String entryId, int episode, @Nonnull Language language) {
+    public ChapterEndpoint chapter(final String entryId, final int episode, final Language language) {
         return new ChapterEndpoint(internalApi, entryId, episode, language);
     }
 }

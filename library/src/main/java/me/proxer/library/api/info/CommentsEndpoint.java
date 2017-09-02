@@ -8,7 +8,6 @@ import me.proxer.library.entitiy.info.Comment;
 import me.proxer.library.entitiy.info.Entry;
 import me.proxer.library.enums.CommentSortCriteria;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -28,24 +27,24 @@ public final class CommentsEndpoint implements PagingLimitEndpoint<List<Comment>
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer limit;
 
     /**
      * Sets criteria on how to sort the comments.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private CommentSortCriteria sort;
 
-    CommentsEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
+    CommentsEndpoint(final InternalApi internalApi, final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
@@ -54,7 +53,6 @@ public final class CommentsEndpoint implements PagingLimitEndpoint<List<Comment>
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<List<Comment>> build() {
         return internalApi.comments(id, page, limit, sort);
     }

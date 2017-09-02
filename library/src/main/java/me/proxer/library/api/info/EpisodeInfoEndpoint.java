@@ -7,7 +7,6 @@ import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.info.Entry;
 import me.proxer.library.entitiy.info.EpisodeInfo;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -26,17 +25,17 @@ public final class EpisodeInfoEndpoint implements PagingLimitEndpoint<EpisodeInf
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer page;
 
     /**
      * {@inheritDoc}
      */
     @Nullable
-    @Setter(onMethod = @__({@Override, @Nonnull}))
+    @Setter
     private Integer limit;
 
-    EpisodeInfoEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
+    EpisodeInfoEndpoint(final InternalApi internalApi, final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
@@ -45,7 +44,6 @@ public final class EpisodeInfoEndpoint implements PagingLimitEndpoint<EpisodeInf
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<EpisodeInfo> build() {
         return internalApi.episodeInfo(id, page, limit);
     }

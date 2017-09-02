@@ -7,7 +7,6 @@ import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.info.Entry;
 import me.proxer.library.entitiy.info.Relation;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -27,10 +26,10 @@ public class RelationsEndpoint implements Endpoint<List<Relation>> {
      * Sets if hentai should be included in the result.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private Boolean includeHentai;
 
-    RelationsEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
+    RelationsEndpoint(final InternalApi internalApi, final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
@@ -39,7 +38,6 @@ public class RelationsEndpoint implements Endpoint<List<Relation>> {
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<List<Relation>> build() {
         return internalApi.relations(id, includeHentai);
     }

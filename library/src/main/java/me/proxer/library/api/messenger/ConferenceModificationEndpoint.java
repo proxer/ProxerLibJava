@@ -4,8 +4,6 @@ import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 
-import javax.annotation.Nonnull;
-
 /**
  * Endpoint for modifying a conference in various ways.
  * <p>
@@ -27,8 +25,8 @@ public class ConferenceModificationEndpoint implements Endpoint<Void> {
     private final String id;
     private final ConferenceModification modification;
 
-    ConferenceModificationEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id,
-                                   @Nonnull final ConferenceModification modification) {
+    ConferenceModificationEndpoint(final InternalApi internalApi, final String id,
+                                   final ConferenceModification modification) {
         this.internalApi = internalApi;
         this.id = id;
         this.modification = modification;
@@ -38,7 +36,6 @@ public class ConferenceModificationEndpoint implements Endpoint<Void> {
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<Void> build() {
         switch (modification) {
             case READ:

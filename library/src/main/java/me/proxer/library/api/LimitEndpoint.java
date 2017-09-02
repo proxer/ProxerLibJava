@@ -1,6 +1,5 @@
 package me.proxer.library.api;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -14,6 +13,6 @@ public interface LimitEndpoint<T> extends Endpoint<T> {
     /**
      * Sets a limit on the amount of items to return. Must be one or higher.
      */
-    @Nonnull
+    @SuppressWarnings("EmptyMethod")
     LimitEndpoint<T> limit(@Nullable Integer limit);
 }

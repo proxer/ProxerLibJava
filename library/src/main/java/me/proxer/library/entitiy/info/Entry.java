@@ -1,13 +1,11 @@
 package me.proxer.library.entitiy.info;
 
 import com.squareup.moshi.Json;
-import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.entitiy.list.IndustryCore;
 import me.proxer.library.enums.*;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
 
@@ -17,28 +15,24 @@ import java.util.Set;
  *
  * @author Ruben Gees
  */
-@SuppressWarnings("JavaDoc")
 @Value
 public class Entry implements ProxerIdItem {
 
     /**
      * Returns the id.
      */
-    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "id")
     private String id;
 
     /**
      * Returns the name.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "name")
     private String name;
 
     /**
      * Returns the genres.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "genre")
     private Set<Genre> genres;
 
@@ -46,20 +40,17 @@ public class Entry implements ProxerIdItem {
      * Returns the fsk ratings.
      */
     @Json(name = "fsk")
-    @Getter(onMethod = @__({@Nonnull}))
     private Set<FskConstraint> fskConstraints;
 
     /**
      * Returns the description.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "description")
     private String description;
 
     /**
      * Returns the medium
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "medium")
     private Medium medium;
 
@@ -72,7 +63,6 @@ public class Entry implements ProxerIdItem {
     /**
      * Returns the current state.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "state")
     private MediaState state;
 
@@ -97,14 +87,12 @@ public class Entry implements ProxerIdItem {
     /**
      * Returns the category.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "kat")
     private Category category;
 
     /**
      * Returns the type of license.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "license")
     private License license;
 
@@ -117,42 +105,36 @@ public class Entry implements ProxerIdItem {
     /**
      * Returns the synonyms in different languages.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "names")
     private List<Synonym> synonyms;
 
     /**
      * Returns the languages, this entry is available in.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "lang")
     private Set<MediaLanguage> languages;
 
     /**
      * Returns the seasons, this entry was aired. If present, the first in the list is the start and the second the end.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "seasons")
     private List<EntrySeasonInfo> seasons;
 
     /**
      * Returns the translator groups.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "groups")
     private List<EntryTranslatorGroup> translatorGroups;
 
     /**
      * Returns the industries involved in production and marketing.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "publisher")
     private List<IndustryCore> industries;
 
     /**
      * Returns the tags.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "tags")
     private List<Tag> tags;
 

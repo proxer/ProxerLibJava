@@ -8,7 +8,6 @@ import me.proxer.library.entitiy.ProxerImageItem;
 import me.proxer.library.enums.Country;
 import okhttp3.HttpUrl;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -16,35 +15,30 @@ import javax.annotation.Nullable;
  *
  * @author Ruben Gees
  */
-@SuppressWarnings("JavaDoc")
 @Value
 public class TranslatorGroup implements ProxerIdItem, ProxerImageItem {
 
     /**
      * Returns the id.
      */
-    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "id")
     private String id;
 
     /**
      * Returns the name.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "name")
     private String name;
 
     /**
      * Returns the country, the translator group is active in.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "country")
     private Country country;
 
     /**
      * {@inheritDoc}
      */
-    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "image")
     private String image;
 
@@ -58,7 +52,6 @@ public class TranslatorGroup implements ProxerIdItem, ProxerImageItem {
     /**
      * Returns the description.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "description")
     private String description;
 

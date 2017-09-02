@@ -5,8 +5,6 @@ import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.notifications.NotificationInfo;
 
-import javax.annotation.Nonnull;
-
 /**
  * Endpoint for retrieving the notifications of an user.
  *
@@ -17,7 +15,7 @@ public final class NotificationInfoEndpoint implements Endpoint {
 
     private final InternalApi internalApi;
 
-    NotificationInfoEndpoint(@Nonnull final InternalApi internalApi) {
+    NotificationInfoEndpoint(final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
@@ -25,7 +23,6 @@ public final class NotificationInfoEndpoint implements Endpoint {
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<NotificationInfo> build() {
         return internalApi.notificationInfo();
     }

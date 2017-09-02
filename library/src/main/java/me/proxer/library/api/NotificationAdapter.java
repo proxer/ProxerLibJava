@@ -29,21 +29,21 @@ class NotificationAdapter {
         String id;
 
         @Json(name = "type")
-        private NotificationType type;
+        NotificationType type;
 
         @Json(name = "tid")
-        private String contentId;
+        String contentId;
 
         @Json(name = "link")
-        private String contentLink;
+        String contentLink;
 
         @Json(name = "linktext")
-        private String text;
+        String text;
 
         @Json(name = "time")
-        private Date date;
+        Date date;
 
         @Json(name = "description")
-        private String additionalDescription;
+        String additionalDescription;
     }
 }

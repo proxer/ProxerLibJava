@@ -4,8 +4,6 @@ import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 
-import javax.annotation.Nonnull;
-
 /**
  * Endpoint for logging out an user.
  *
@@ -16,7 +14,7 @@ public class LogoutEndpoint implements Endpoint<Void> {
 
     private final InternalApi internalApi;
 
-    LogoutEndpoint(@Nonnull final InternalApi internalApi) {
+    LogoutEndpoint(final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
@@ -24,7 +22,6 @@ public class LogoutEndpoint implements Endpoint<Void> {
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<Void> build() {
         return internalApi.logout();
     }

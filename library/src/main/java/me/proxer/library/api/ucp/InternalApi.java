@@ -8,11 +8,13 @@ import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
 import retrofit2.http.*;
 
+import javax.annotation.ParametersAreNullableByDefault;
 import java.util.List;
 
 /**
  * @author Ruben Gees
  */
+@ParametersAreNullableByDefault
 interface InternalApi {
 
     @FormUrlEncoded
@@ -27,10 +29,12 @@ interface InternalApi {
     ProxerCall<Integer> watchedEpisodes();
 
     @GET("ucp/history")
-    ProxerCall<List<UcpHistoryEntry>> history(@Query("p") Integer page, @Query("limit") Integer limit);
+    ProxerCall<List<UcpHistoryEntry>> history(@Query("p") Integer page,
+                                              @Query("limit") Integer limit);
 
     @GET("ucp/reminder")
-    ProxerCall<List<Bookmark>> bookmarks(@Query("kat") Category category, @Query("p") Integer page,
+    ProxerCall<List<Bookmark>> bookmarks(@Query("kat") Category category,
+                                         @Query("p") Integer page,
                                          @Query("limit") Integer limit);
 
     @GET("ucp/topten")
@@ -38,6 +42,8 @@ interface InternalApi {
 
     @FormUrlEncoded
     @POST("ucp/setreminder")
-    ProxerCall<Void> setBookmark(@Field("id") String id, @Field("episode") int episode,
-                                 @Field("language") MediaLanguage language, @Field("kat") Category category);
+    ProxerCall<Void> setBookmark(@Field("id") String id,
+                                 @Field("episode") int episode,
+                                 @Field("language") MediaLanguage language,
+                                 @Field("kat") Category category);
 }

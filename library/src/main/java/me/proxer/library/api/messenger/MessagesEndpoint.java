@@ -6,7 +6,6 @@ import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.messenger.Message;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -36,24 +35,24 @@ public final class MessagesEndpoint implements Endpoint<List<Message>> {
      * Sets the conference id of the conference to load.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private String conferenceId;
 
     /**
      * Sets the message id to load from.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private String messageId;
 
     /**
      * Sets if the conference should be marked as read. Defaults to true.
      */
     @Nullable
-    @Setter(onMethod = @__({@Nonnull}))
+    @Setter
     private Boolean markAsRead;
 
-    MessagesEndpoint(@Nonnull final InternalApi internalApi) {
+    MessagesEndpoint(final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
 
@@ -61,7 +60,6 @@ public final class MessagesEndpoint implements Endpoint<List<Message>> {
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<List<Message>> build() {
         return internalApi.messages(conferenceId, messageId, markAsRead);
     }

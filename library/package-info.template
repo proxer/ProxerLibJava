@@ -1,0 +1,3 @@
+@javax.annotation.ParametersAreNonnullByDefault
+@me.proxer.library.util.ReturnTypesAreNonNullByDefault
+package $packageName;

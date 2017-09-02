@@ -5,8 +5,6 @@ import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.info.Entry;
 
-import javax.annotation.Nonnull;
-
 /**
  * Endpoint for retrieving all information of an {@link Entry}.
  * <p>
@@ -21,7 +19,7 @@ public class EntryEndpoint implements Endpoint<Entry> {
 
     private final String id;
 
-    EntryEndpoint(@Nonnull final InternalApi internalApi, @Nonnull final String id) {
+    EntryEndpoint(final InternalApi internalApi, final String id) {
         this.internalApi = internalApi;
         this.id = id;
     }
@@ -30,7 +28,6 @@ public class EntryEndpoint implements Endpoint<Entry> {
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<Entry> build() {
         return internalApi.entry(id);
     }

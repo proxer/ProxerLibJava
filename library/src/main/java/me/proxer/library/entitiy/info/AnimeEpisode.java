@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import me.proxer.library.enums.MediaLanguage;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
 
@@ -24,18 +23,17 @@ public final class AnimeEpisode extends Episode {
     @Json(name = "typeimages")
     private final List<String> hosterImages;
 
-    public AnimeEpisode(int number, MediaLanguage language, Set<String> hosters, List<String> hosterImages) {
+    public AnimeEpisode(final int number, final MediaLanguage language, final Set<String> hosters,
+                        final List<String> hosterImages) {
         super(number, language);
         this.hosters = hosters;
         this.hosterImages = hosterImages;
     }
 
-    @Nonnull
     public Set<String> getHosters() {
         return hosters;
     }
 
-    @Nonnull
     public List<String> getHosterImages() {
         return hosterImages;
     }

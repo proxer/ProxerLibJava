@@ -1,6 +1,5 @@
 package me.proxer.library.entitiy;
 
-import javax.annotation.Nonnull;
 import java.util.Date;
 
 /**
@@ -13,6 +12,5 @@ public interface ProxerDateItem {
     /**
      * Returns the time.
      */
-    @Nonnull
     Date getDate();
 }

@@ -1,12 +1,10 @@
 package me.proxer.library.entitiy.info;
 
 import com.squareup.moshi.Json;
-import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entitiy.ProxerIdItem;
 import me.proxer.library.enums.*;
 
-import javax.annotation.Nonnull;
 import java.util.Set;
 
 /**
@@ -15,49 +13,42 @@ import java.util.Set;
  *
  * @author Desnoo
  */
-@SuppressWarnings("JavaDoc")
 @Value
 public class EntryCore implements ProxerIdItem {
 
     /**
      * Returns the id.
      */
-    @Getter(onMethod = @__({@Override, @Nonnull}))
     @Json(name = "id")
     private String id;
 
     /**
      * Returns the name.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "name")
     private String name;
 
     /**
      * Returns the genres.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "genre")
     private Set<Genre> genres;
 
     /**
      * Returns the fsk ratings.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "fsk")
     private Set<FskConstraint> fskConstraints;
 
     /**
      * Returns the description.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "description")
     private String description;
 
     /**
      * Returns the medium
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "medium")
     private Medium medium;
 
@@ -70,7 +61,6 @@ public class EntryCore implements ProxerIdItem {
     /**
      * Returns the current state.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "state")
     private MediaState state;
 
@@ -95,14 +85,12 @@ public class EntryCore implements ProxerIdItem {
     /**
      * Returns the category.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "kat")
     private Category category;
 
     /**
      * Returns the type of license.
      */
-    @Getter(onMethod = @__({@Nonnull}))
     @Json(name = "license")
     private License license;
 

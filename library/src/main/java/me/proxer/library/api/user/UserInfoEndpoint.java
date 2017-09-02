@@ -5,7 +5,6 @@ import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entitiy.user.UserInfo;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -18,10 +17,13 @@ public class UserInfoEndpoint implements Endpoint<UserInfo> {
 
     private final InternalApi internalApi;
 
+    @Nullable
     private final String userId;
+
+    @Nullable
     private final String username;
 
-    UserInfoEndpoint(@Nonnull final InternalApi internalApi, @Nullable final String userId,
+    UserInfoEndpoint(final InternalApi internalApi, @Nullable final String userId,
                      @Nullable final String username) {
         if (userId == null && username == null) {
             throw new IllegalArgumentException("You must pass either an userId or an username.");
@@ -36,7 +38,6 @@ public class UserInfoEndpoint implements Endpoint<UserInfo> {
      * {@inheritDoc}
      */
     @Override
-    @Nonnull
     public ProxerCall<UserInfo> build() {
         return internalApi.userInfo(userId, username);
     }
