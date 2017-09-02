@@ -14,7 +14,7 @@ import java.util.Date;
 class ConferenceAdapter {
 
     @FromJson
-    Conference fromJson(IntermediateConference json) {
+    Conference fromJson(final IntermediateConference json) {
         return new Conference(json.id, json.topic, json.customTopic, json.participantAmount, json.getImage(),
                 json.getImageType(), json.group, json.read, json.date, json.unreadMessageAmount,
                 json.lastReadMessageId);
@@ -56,7 +56,7 @@ class ConferenceAdapter {
         @Json(name = "image")
         String image;
 
-        String getImage() {
+        private String getImage() {
             final int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
 
             if (delimiterIndex < 0) {
@@ -66,7 +66,7 @@ class ConferenceAdapter {
             }
         }
 
-        String getImageType() {
+        private String getImageType() {
             final int delimiterIndex = image.indexOf(IMAGE_DELIMITER);
 
             if (delimiterIndex < 0) {

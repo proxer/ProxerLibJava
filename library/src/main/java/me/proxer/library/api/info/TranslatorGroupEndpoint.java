@@ -11,7 +11,7 @@ import me.proxer.library.entitiy.info.TranslatorGroup;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class TranslatorGroupEndpoint implements Endpoint<TranslatorGroup> {
+public final class TranslatorGroupEndpoint implements Endpoint<TranslatorGroup> {
 
     private final InternalApi internalApi;
 

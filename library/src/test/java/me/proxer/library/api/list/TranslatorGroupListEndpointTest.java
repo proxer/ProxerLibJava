@@ -42,8 +42,8 @@ public class TranslatorGroupListEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/translatorgroups?start=cd&contains=ab" +
-                "&country=jp&p=1&limit=100");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/translatorgroups?start=cd&contains=ab"
+                + "&country=jp&p=1&limit=100");
     }
 
     private TranslatorGroupCore buildTestGroup() {

@@ -12,7 +12,7 @@ import me.proxer.library.api.ProxerCall;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class LinkEndpoint implements Endpoint<String> {
+public final class LinkEndpoint implements Endpoint<String> {
 
     private final InternalApi internalApi;
 

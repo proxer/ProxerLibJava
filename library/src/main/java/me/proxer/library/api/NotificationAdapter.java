@@ -15,7 +15,7 @@ import java.util.Date;
 class NotificationAdapter {
 
     @FromJson
-    Notification fromJson(IntermediateNotification json) {
+    Notification fromJson(final IntermediateNotification json) {
         final String base = ProxerUrls.webBase().toString();
         final HttpUrl properContentLink = HttpUrl.parse(base.substring(0, base.length() - 1) + json.contentLink);
 

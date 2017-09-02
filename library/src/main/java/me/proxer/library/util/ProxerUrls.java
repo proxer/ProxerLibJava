@@ -19,7 +19,8 @@ import java.util.regex.Pattern;
 @Accessors(fluent = true)
 public final class ProxerUrls {
 
-    private static final Pattern proxerHostPattern = Pattern.compile("(manga[0-9]+|(s[0-9]+\\.)?stream)\\.proxer\\.me");
+    private static final Pattern PROXER_HOST_PATTERN = Pattern
+            .compile("(manga[0-9]+|(s[0-9]+\\.)?stream)\\.proxer\\.me");
 
     /**
      * Returns the base url for all web pages.
@@ -238,8 +239,8 @@ public final class ProxerUrls {
     /**
      * Returns if the passed url has a valid host of proxer.
      */
-    public boolean hasProxerHost(HttpUrl url) {
-        return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host()) ||
-                proxerHostPattern.matcher(url.host()).matches();
+    public boolean hasProxerHost(final HttpUrl url) {
+        return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host())
+                || PROXER_HOST_PATTERN.matcher(url.host()).matches();
     }
 }

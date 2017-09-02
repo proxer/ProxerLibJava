@@ -44,12 +44,12 @@ public class EntryCoreEndpointTest extends ProxerTest {
         return new EntryCore("6174", "LuCu LuCu",
                 EnumSet.of(Genre.COMEDY, Genre.FANTASY, Genre.SEINEN, Genre.SLICE_OF_LIFE),
                 EnumSet.of(FskConstraint.BAD_LANGUAGE),
-                "Humans are a despicable lot, committing sin after sin, filling the endless boundaries " +
-                        "of the underworld with tortured souls. Now, it would seem, Hell isn't so endless after all, " +
-                        "and it has become dangerously close to filling, and then overflowing into the human realm. " +
-                        "Princess Lucuha sees this imminent disaster and has a plan: save Hell by making humans " +
-                        "decent again. Of course, the angels can't simply allow demons to roam freely on Earth, " +
-                        "and they do their best to stop Lucu and her dastardly plans.",
+                "Humans are a despicable lot, committing sin after sin, filling the endless boundaries "
+                        + "of the underworld with tortured souls. Now, it would seem, Hell isn't so endless after all, "
+                        + "and it has become dangerously close to filling, and then overflowing into the human realm. "
+                        + "Princess Lucuha sees this imminent disaster and has a plan: save Hell by making humans "
+                        + "decent again. Of course, the angels can't simply allow demons to roam freely on Earth, "
+                        + "and they do their best to stop Lucu and her dastardly plans.",
                 Medium.MANGASERIES, 90, MediaState.FINISHED, 7, 1, 134,
                 Category.MANGA, License.NOT_LICENSED);
     }

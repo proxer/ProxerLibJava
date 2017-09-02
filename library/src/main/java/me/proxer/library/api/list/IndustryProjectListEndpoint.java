@@ -16,7 +16,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class IndustryProjectListEndpoint implements PagingLimitEndpoint<List<IndustryProject>> {
+public final class IndustryProjectListEndpoint implements PagingLimitEndpoint<List<IndustryProject>> {
 
     private final InternalApi internalApi;
 
@@ -59,6 +59,7 @@ public class IndustryProjectListEndpoint implements PagingLimitEndpoint<List<Ind
     /**
      * Sets if hentai should be included in the result.
      */
+    @SuppressWarnings("checkstyle:hiddenfield")
     public IndustryProjectListEndpoint includeHentai(@Nullable final Boolean includeHentai) {
         if (includeHentai == null) {
             this.includeHentai = null;

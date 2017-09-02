@@ -13,7 +13,7 @@ import me.proxer.library.entitiy.info.Entry;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class EntryEndpoint implements Endpoint<Entry> {
+public final class EntryEndpoint implements Endpoint<Entry> {
 
     private final InternalApi internalApi;
 

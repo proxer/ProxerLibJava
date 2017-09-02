@@ -33,7 +33,7 @@ public class ConferenceAdapterTest {
                 .isEqualTo(constructConference(false));
     }
 
-    private IntermediateConference constructIntermediateConference(boolean withImage) {
+    private IntermediateConference constructIntermediateConference(final boolean withImage) {
         IntermediateConference result = new IntermediateConference();
 
         result.id = "123";
@@ -50,7 +50,7 @@ public class ConferenceAdapterTest {
         return result;
     }
 
-    private Conference constructConference(boolean withImage) {
+    private Conference constructConference(final boolean withImage) {
         return new Conference("123", "something", "somethingElse", 13,
                 withImage ? "http://example.com/image.png" : "", withImage ? "avatar" : "", true, false,
                 new Date(123456L), 2, "321");

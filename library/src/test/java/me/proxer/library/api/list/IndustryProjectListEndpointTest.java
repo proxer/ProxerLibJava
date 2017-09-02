@@ -42,8 +42,8 @@ public class IndustryProjectListEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/industryprojects?id=543&type=record_label" +
-                "&isH=0&p=3&limit=12");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/industryprojects?id=543&type=record_label"
+                + "&isH=0&p=3&limit=12");
     }
 
     @Test
@@ -58,8 +58,8 @@ public class IndustryProjectListEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/industryprojects?id=543&type=record_label" +
-                "&isH=-1&p=3&limit=12");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/industryprojects?id=543&type=record_label"
+                + "&isH=-1&p=3&limit=12");
     }
 
     @Test

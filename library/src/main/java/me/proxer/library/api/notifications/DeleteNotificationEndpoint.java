@@ -8,7 +8,7 @@ import me.proxer.library.api.ProxerCall;
  *
  * @author Ruben Gees
  */
-public class DeleteNotificationEndpoint implements Endpoint<Void> {
+public final class DeleteNotificationEndpoint implements Endpoint<Void> {
 
     private final InternalApi internalApi;
 

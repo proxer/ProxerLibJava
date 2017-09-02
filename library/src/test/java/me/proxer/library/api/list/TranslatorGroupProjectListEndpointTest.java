@@ -42,8 +42,8 @@ public class TranslatorGroupProjectListEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/translatorgroupprojects?id=321&type=5" +
-                "&isH=0&p=3&limit=12");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/translatorgroupprojects?id=321&type=5"
+                + "&isH=0&p=3&limit=12");
     }
 
     @Test
@@ -58,8 +58,8 @@ public class TranslatorGroupProjectListEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/translatorgroupprojects?id=321&type=5" +
-                "&isH=-1&p=3&limit=12");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/translatorgroupprojects?id=321&type=5"
+                + "&isH=-1&p=3&limit=12");
     }
 
     @Test

@@ -13,17 +13,17 @@ import java.util.Date;
  */
 final class DateAdapter {
 
-    private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    // The API returns seconds so multiply by 1000.
+    private static final int DATE_MULTIPLICAND = 1000;
 
     @FromJson
     Date fromJson(final String date) throws ParseException {
         final Long dateAsLong = toLongOrNull(date);
 
         if (dateAsLong != null) {
-            // The API returns seconds
-            return new Date(dateAsLong * 1000);
+            return new Date(dateAsLong * DATE_MULTIPLICAND);
         } else {
-            return FORMAT.parse(date);
+            return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(date);
         }
     }
 
@@ -33,7 +33,7 @@ final class DateAdapter {
     }
 
     @Nullable
-    private Long toLongOrNull(String candidate) {
+    private Long toLongOrNull(final String candidate) {
         try {
             return Long.parseLong(candidate);
         } catch (NumberFormatException ignored) {

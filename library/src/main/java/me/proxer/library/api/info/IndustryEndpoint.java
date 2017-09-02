@@ -11,7 +11,7 @@ import me.proxer.library.entitiy.info.Industry;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class IndustryEndpoint implements Endpoint<Industry> {
+public final class IndustryEndpoint implements Endpoint<Industry> {
 
     private final InternalApi internalApi;
 

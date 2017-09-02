@@ -12,7 +12,7 @@ import me.proxer.library.enums.Language;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class ChapterEndpoint implements Endpoint<Chapter> {
+public final class ChapterEndpoint implements Endpoint<Chapter> {
 
     private final InternalApi internalApi;
 

@@ -47,7 +47,8 @@ public class UserCommentsEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/user/comments?uid=123&username=abc&kat=anime&p=3&limit=12&length=1234");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/user/comments?uid=123&username=abc&kat=anime"
+                + "&p=3&limit=12&length=1234");
     }
 
     @Test
@@ -64,11 +65,11 @@ public class UserCommentsEndpointTest extends ProxerTest {
     private UserComment buildTestComment() {
         return new UserComment("1106146", "4704", "Sakurasou no Pet na Kanojo", Medium.ANIMESERIES,
                 Category.ANIME, "62", UserMediaProgress.CANCELLED,
-                new RatingDetails(0, 0, 0, 0, 0), "Der Anfang ok... aber " +
-                "dann... schrecklich... Oh mein Gott der Anime ist meiner Meinung nach unschaubar D:\nHabe es nach " +
-                "10 Episoden abgebrochen... Habs einfach nicht mehr durchgehalten -_- Diese Beziehungsscheiße ist " +
-                "schlimmer als bei jeder Horror Anime... Sowas kann ich einfach nicht schauen. \n\n\nTut mir leid, " +
-                "I'm out.", 2, 9, 8, new Date(1391476364L * 1000), "genesis",
+                new RatingDetails(0, 0, 0, 0, 0), "Der Anfang ok... aber "
+                + "dann... schrecklich... Oh mein Gott der Anime ist meiner Meinung nach unschaubar D:\nHabe es nach "
+                + "10 Episoden abgebrochen... Habs einfach nicht mehr durchgehalten -_- Diese Beziehungsscheiße ist "
+                + "schlimmer als bei jeder Horror Anime... Sowas kann ich einfach nicht schauen. \n\n\nTut mir leid, "
+                + "I'm out.", 2, 9, 8, new Date(1391476364L * 1000), "genesis",
                 "62_L36C3N.png");
     }
 }

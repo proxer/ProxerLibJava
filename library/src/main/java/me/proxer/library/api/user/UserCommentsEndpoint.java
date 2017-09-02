@@ -16,7 +16,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class UserCommentsEndpoint implements PagingLimitEndpoint<List<UserComment>> {
+public final class UserCommentsEndpoint implements PagingLimitEndpoint<List<UserComment>> {
 
     private final InternalApi internalApi;
 

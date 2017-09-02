@@ -11,21 +11,25 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 final class ProxerResponse<T> {
 
+    @SuppressWarnings("unused")
     @Getter(AccessLevel.NONE)
     @Json(name = "error")
-    boolean error;
+    private boolean error;
 
+    @SuppressWarnings("unused")
     @Getter(AccessLevel.PACKAGE)
     @Json(name = "message")
-    String message;
+    private String message;
 
+    @SuppressWarnings("unused")
     @Getter(AccessLevel.PACKAGE)
     @Json(name = "code")
-    int code;
+    private int code;
 
+    @SuppressWarnings("unused")
     @Getter(AccessLevel.PACKAGE)
     @Json(name = "data")
-    T data;
+    private T data;
 
     boolean isSuccessful() {
         return !error;

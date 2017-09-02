@@ -118,11 +118,11 @@ public class Relation implements ProxerIdItem {
     /**
      * Returns the average of all ratings.
      */
-    public float getRating() {
+    public final float getRating() {
         if (ratingAmount <= 0) {
             return 0;
         } else {
-            return ratingSum / ratingAmount;
+            return ratingSum / (float) ratingAmount;
         }
     }
 }

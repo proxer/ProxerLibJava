@@ -44,10 +44,10 @@ public class LoggingInterceptorTest extends ProxerTest {
 
         loggerHandler.flush();
 
-        assertThat(loggerStream.toString()).isEqualTo("Requesting http://localhost:" + server.getPort() +
-                "/api/v1/notifications/news with method GET and these headers:\n" +
-                "proxer-api-key: mockKey\n" +
-                "User-Agent: ProxerLibJava/" + BuildConfig.VERSION);
+        assertThat(loggerStream.toString()).isEqualTo("Requesting http://localhost:" + server.getPort()
+                + "/api/v1/notifications/news with method GET and these headers:\n"
+                + "proxer-api-key: mockKey\n"
+                + "User-Agent: ProxerLibJava/" + BuildConfig.VERSION);
     }
 
     @Test
@@ -61,11 +61,11 @@ public class LoggingInterceptorTest extends ProxerTest {
 
         loggerHandler.flush();
 
-        assertThat(loggerStream.toString()).isEqualTo("Requesting http://localhost:" + server.getPort() +
-                "/api/v1/user/login with method POST, these headers:\n" +
-                "proxer-api-key: mockKey\n" +
-                "User-Agent: ProxerLibJava/" + BuildConfig.VERSION + "\nand this body:\n" +
-                "username=testerio&password=pass");
+        assertThat(loggerStream.toString()).isEqualTo("Requesting http://localhost:" + server.getPort()
+                + "/api/v1/user/login with method POST, these headers:\n"
+                + "proxer-api-key: mockKey\n"
+                + "User-Agent: ProxerLibJava/" + BuildConfig.VERSION + "\nand this body:\n"
+                + "username=testerio&password=pass");
     }
 
     @Test
@@ -79,10 +79,10 @@ public class LoggingInterceptorTest extends ProxerTest {
 
         loggerHandler.flush();
 
-        assertThat(loggerStream.toString()).isEqualTo("Requesting http://localhost:" + server.getPort() +
-                "/api/v1/user/logout with method POST, these headers:\n" +
-                "proxer-api-key: mockKey\n" +
-                "User-Agent: ProxerLibJava/" + BuildConfig.VERSION + "\nand a blank body.");
+        assertThat(loggerStream.toString()).isEqualTo("Requesting http://localhost:" + server.getPort()
+                + "/api/v1/user/logout with method POST, these headers:\n"
+                + "proxer-api-key: mockKey\n"
+                + "User-Agent: ProxerLibJava/" + BuildConfig.VERSION + "\nand a blank body.");
     }
 
     @Test
@@ -94,8 +94,8 @@ public class LoggingInterceptorTest extends ProxerTest {
 
         loggerHandler.flush();
 
-        assertThat(loggerStream.toString()).isEqualTo("Requesting http://localhost:" + server.getPort() +
-                "/test with method GET and no headers.");
+        assertThat(loggerStream.toString()).isEqualTo("Requesting http://localhost:" + server.getPort()
+                + "/test with method GET and no headers.");
     }
 
     @Test
@@ -125,7 +125,7 @@ public class LoggingInterceptorTest extends ProxerTest {
     private static class EchoFormatter extends Formatter {
 
         @Override
-        public String format(LogRecord record) {
+        public String format(final LogRecord record) {
             return record.getMessage();
         }
     }

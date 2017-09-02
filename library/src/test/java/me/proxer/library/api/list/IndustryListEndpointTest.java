@@ -43,8 +43,8 @@ public class IndustryListEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/industrys?start=test2&contains=test" +
-                "&country=de&p=3&limit=17");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/industrys?start=test2&contains=test"
+                + "&country=de&p=3&limit=17");
     }
 
     private IndustryCore buildTestGroup() {

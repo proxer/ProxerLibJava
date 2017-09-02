@@ -16,7 +16,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class IndustryListEndpoint implements PagingLimitEndpoint<List<IndustryCore>> {
+public final class IndustryListEndpoint implements PagingLimitEndpoint<List<IndustryCore>> {
 
     private final InternalApi internalApi;
 

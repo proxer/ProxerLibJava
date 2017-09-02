@@ -13,6 +13,7 @@ final class VoidAdapter {
 
     private static final String JSON_NULL = "null";
 
+    @Nullable
     @FromJson
     Void fromJson(final String json) {
         if (json.equals(JSON_NULL)) {

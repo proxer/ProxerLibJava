@@ -22,7 +22,7 @@ class EpisodeInfoAdapter {
     private static final String DELIMITER = ",";
 
     @FromJson
-    EpisodeInfo fromJson(IntermediateEpisodeInfo json) {
+    EpisodeInfo fromJson(final IntermediateEpisodeInfo json) {
         final List<Episode> episodes = new ArrayList<>(json.episodes.size());
 
         for (IntermediateEpisode episode : json.episodes) {

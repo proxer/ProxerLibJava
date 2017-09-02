@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class LoginEndpoint implements Endpoint<User> {
+public final class LoginEndpoint implements Endpoint<User> {
 
     private final InternalApi internalApi;
 

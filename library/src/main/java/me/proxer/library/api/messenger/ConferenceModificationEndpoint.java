@@ -18,7 +18,7 @@ import me.proxer.library.api.ProxerCall;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class ConferenceModificationEndpoint implements Endpoint<Void> {
+public final class ConferenceModificationEndpoint implements Endpoint<Void> {
 
     private final InternalApi internalApi;
 

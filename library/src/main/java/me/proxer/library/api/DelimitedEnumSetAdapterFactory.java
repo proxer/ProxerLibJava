@@ -90,7 +90,9 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
 
         @Override
         public void toJson(final JsonWriter writer, @Nullable final Set<T> value) throws IOException {
-            if (value == null) return;
+            if (value == null) {
+                return;
+            }
 
             StringBuilder result = new StringBuilder();
 

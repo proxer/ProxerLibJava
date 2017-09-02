@@ -27,9 +27,9 @@ class LoggingInterceptor implements Interceptor {
             final String headerMessage = buildHeaderMessage(requestCopy);
             final String bodyMessage = buildBodyMessage(requestCopy);
 
-            final String message = "Requesting " + requestCopy.url() + " with method " + requestCopy.method() +
-                    (bodyMessage.isEmpty() ? " and " : ", ") + headerMessage +
-                    (!headerMessage.contains("\n") && bodyMessage.isEmpty() ? "." : bodyMessage);
+            final String message = "Requesting " + requestCopy.url() + " with method " + requestCopy.method()
+                    + (bodyMessage.isEmpty() ? " and " : ", ") + headerMessage
+                    + (!headerMessage.contains("\n") && bodyMessage.isEmpty() ? "." : bodyMessage);
 
             Logger.getLogger("ProxerAndroid").info(message);
         }

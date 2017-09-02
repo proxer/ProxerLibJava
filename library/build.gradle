@@ -7,7 +7,10 @@ import java.util.regex.Pattern
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
 apply plugin: 'jacoco'
+apply plugin: 'pmd'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'de.fuerstenau.buildconfig'
 apply plugin: 'io.freefair.javadoc-links'
@@ -19,7 +22,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
     compileOnly deps.lombok
-    compileOnly deps.jsr305
+    compileOnly deps.findbugs
 
     api deps.retrofit
     api deps.retrofitMoshi
@@ -27,7 +30,7 @@ dependencies {
     api deps.moshi
 
     testCompileOnly deps.lombok
-    testCompileOnly deps.jsr305
+    testCompileOnly deps.findbugs
 
     testImplementation deps.junit
     testImplementation deps.assertj
@@ -132,6 +135,14 @@ jacocoTestReport {
         xml.enabled = true
         html.enabled = false
     }
+}
+
+checkstyle {
+    configDir = file("$projectDir/checkstyle")
+}
+
+findbugs {
+    sourceSets = [sourceSets.main]
 }
 
 publishing {

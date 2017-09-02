@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+        "http://checkstyle.sourceforge.net/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+
+    <!-- Ignore package protected visibility for intermediate classes in Moshi adapters. -->
+    <suppress checks="VisibilityModifier" files="ConferenceAdapter.java"/>
+    <suppress checks="VisibilityModifier" files="ConferenceInfoAdapter.java"/>
+    <suppress checks="VisibilityModifier" files="EpisodeInfoAdapter.java"/>
+    <suppress checks="VisibilityModifier" files="NotificationAdapter.java"/>
+
+    <!-- Ignore parameter count of API methods. -->
+    <suppress checks="ParameterNumber" files="InternalApi.java"/>
+
+    <!-- Ignore protected visibility of fields, used in subclasses -->
+    <suppress checks="VisibilityModifier" files="ProxerTest.java"/>
+
+    <!-- Ignore various checks in tests we do not care about. -->
+    <suppress checks="DesignForExtension" files=".*Test\.java"/>
+    <suppress checks="MagicNumber" files=".*Test\.java"/>
+
+</suppressions>

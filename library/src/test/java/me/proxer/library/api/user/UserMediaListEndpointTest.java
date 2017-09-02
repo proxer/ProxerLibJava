@@ -46,9 +46,9 @@ public class UserMediaListEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/user/list?uid=1&username=rubygee" +
-                "&kat=anime&p=0&limit=5&search=test&search_start=startTest" +
-                "&filter=stateFilter1&sort=stateChangeDateASC&isH=true");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/user/list?uid=1&username=rubygee"
+                + "&kat=anime&p=0&limit=5&search=test&search_start=startTest"
+                + "&filter=stateFilter1&sort=stateChangeDateASC&isH=true");
     }
 
     @Test
@@ -62,5 +62,4 @@ public class UserMediaListEndpointTest extends ProxerTest {
                 MediaState.FINISHED, "18301850", "", UserMediaProgress.WATCHED, 12,
                 0);
     }
-
 }

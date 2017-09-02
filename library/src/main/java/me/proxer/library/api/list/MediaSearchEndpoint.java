@@ -18,7 +18,7 @@ import java.util.Set;
  * @author Desnoo
  */
 @Accessors(fluent = true)
-public class MediaSearchEndpoint implements PagingLimitEndpoint<List<MediaListEntry>> {
+public final class MediaSearchEndpoint implements PagingLimitEndpoint<List<MediaListEntry>> {
 
     private static final String DELIMITER = " ";
 
@@ -131,7 +131,7 @@ public class MediaSearchEndpoint implements PagingLimitEndpoint<List<MediaListEn
     /**
      * Sets the tag ids a entry must have to be included in the result.
      */
-    public MediaSearchEndpoint tags(@Nullable Set<String> ids) {
+    public MediaSearchEndpoint tags(@Nullable final Set<String> ids) {
         if (ids != null) {
             this.tags = ProxerUtils.join(DELIMITER, ids);
         } else {
@@ -144,7 +144,7 @@ public class MediaSearchEndpoint implements PagingLimitEndpoint<List<MediaListEn
     /**
      * Sets the tag ids a entry must not have to be included in the result.
      */
-    public MediaSearchEndpoint excludedTags(@Nullable Set<String> excludedIds) {
+    public MediaSearchEndpoint excludedTags(@Nullable final Set<String> excludedIds) {
         if (excludedIds != null) {
             this.excludedTags = ProxerUtils.join(DELIMITER, excludedIds);
         } else {

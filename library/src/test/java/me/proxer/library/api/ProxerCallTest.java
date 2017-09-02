@@ -57,7 +57,8 @@ public class ProxerCallTest extends ProxerTest {
     public void testServerError() throws Exception {
         server.enqueue(new MockResponse().setBody(fromResource("conferences_error.json")));
 
-        assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.messenger().conferences().build().execute())
+        assertThatExceptionOfType(ProxerException.class)
+                .isThrownBy(() -> api.messenger().conferences().build().execute())
                 .matches(exception -> exception.getErrorType() == ErrorType.SERVER)
                 .matches(exception -> exception.getServerErrorType() == ServerErrorType.MESSAGES_LOGIN_REQUIRED)
                 .matches(exception -> exception.getMessage().equals("Du bist nicht eingeloggt."));

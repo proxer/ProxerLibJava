@@ -14,7 +14,7 @@ import java.util.List;
 class ConferenceInfoAdapter {
 
     @FromJson
-    ConferenceInfo fromJson(IntermediateConferenceInfoContainer json) {
+    ConferenceInfo fromJson(final IntermediateConferenceInfoContainer json) {
         return new ConferenceInfo(json.info.topic, json.info.participantAmount, json.info.firstMessageTime,
                 json.info.lastMessageTime, json.info.leaderId, json.participants);
     }

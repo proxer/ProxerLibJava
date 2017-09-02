@@ -7,7 +7,7 @@ import retrofit2.Retrofit;
  *
  * @author Desnoo.
  */
-public class ListApi {
+public final class ListApi {
 
     private final InternalApi internalApi;
 

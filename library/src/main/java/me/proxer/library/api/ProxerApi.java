@@ -112,7 +112,7 @@ public final class ProxerApi {
      * Moreover you can specify your own {@link LoginTokenManager} and user agent.
      */
     @Accessors(fluent = true)
-    public static class Builder {
+    public static final class Builder {
 
         private static final String DEFAULT_USER_AGENT = "ProxerLibJava/" + BuildConfig.VERSION;
 

@@ -14,7 +14,7 @@ import me.proxer.library.entitiy.info.EntryCore;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class EntryCoreEndpoint implements Endpoint<EntryCore> {
+public final class EntryCoreEndpoint implements Endpoint<EntryCore> {
 
     private final InternalApi internalApi;
 

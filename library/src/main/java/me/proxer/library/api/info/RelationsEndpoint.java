@@ -16,7 +16,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class RelationsEndpoint implements Endpoint<List<Relation>> {
+public final class RelationsEndpoint implements Endpoint<List<Relation>> {
 
     private final InternalApi internalApi;
 

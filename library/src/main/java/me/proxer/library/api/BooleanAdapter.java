@@ -33,7 +33,7 @@ class BooleanAdapter {
     }
 
     @Nullable
-    private Integer toIntOrNull(String candidate) {
+    private Integer toIntOrNull(final String candidate) {
         try {
             return (int) Float.parseFloat(candidate);
         } catch (NumberFormatException ignored) {

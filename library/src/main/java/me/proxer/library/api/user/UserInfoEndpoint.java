@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class UserInfoEndpoint implements Endpoint<UserInfo> {
+public final class UserInfoEndpoint implements Endpoint<UserInfo> {
 
     private final InternalApi internalApi;
 

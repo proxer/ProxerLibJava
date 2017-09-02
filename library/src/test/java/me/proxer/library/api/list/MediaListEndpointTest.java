@@ -46,8 +46,8 @@ public class MediaListEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/entrylist?kat=anime&medium=animeseries" +
-                "&isH=true&start=abc&sort=rating&sort_type=ASC&p=0&limit=10");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/entrylist?kat=anime&medium=animeseries"
+                + "&isH=true&start=abc&sort=rating&sort_type=ASC&p=0&limit=10");
     }
 
     private MediaListEntry buildTestEntryEntry() {

@@ -22,8 +22,8 @@ public class FixRatingDetailsAdapterTest {
 
     @Test
     public void testFromJson() throws IOException {
-        assertThat(adapter.fromJson("{\"genre\":\"5\",\"story\":\"5\",\"animation\":\"5\"," +
-                "\"characters\":\"5\",\"music\":\"5\"}"))
+        assertThat(adapter.fromJson("{\"genre\":\"5\",\"story\":\"5\",\"animation\":\"5\","
+                + "\"characters\":\"5\",\"music\":\"5\"}"))
                 .isEqualTo(new RatingDetails(5, 5, 5, 5, 5));
     }
 

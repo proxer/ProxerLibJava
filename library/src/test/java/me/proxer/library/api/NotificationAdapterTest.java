@@ -30,11 +30,13 @@ public class NotificationAdapterTest {
 
     @Test
     public void testFromJsonInvalidSizeTooSmall() throws IOException {
-        assertThatThrownBy(() -> adapter.fromJson(new int[]{1, 2, 3, 4, 5})).isInstanceOf(JsonDataException.class);
+        assertThatThrownBy(() -> adapter.fromJson(new int[]{1, 2, 3, 4, 5}))
+                .isInstanceOf(JsonDataException.class);
     }
 
     @Test
     public void testFromJsonInvalidSizeTooLarge() throws IOException {
-        assertThatThrownBy(() -> adapter.fromJson(new int[]{1, 2, 3, 4, 5, 6, 7})).isInstanceOf(JsonDataException.class);
+        assertThatThrownBy(() -> adapter.fromJson(new int[]{1, 2, 3, 4, 5, 6, 7}))
+                .isInstanceOf(JsonDataException.class);
     }
 }
