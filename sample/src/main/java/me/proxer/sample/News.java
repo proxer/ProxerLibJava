@@ -17,7 +17,7 @@ public class News {
         try {
             final String news = api.notifications().news()
                     .build()
-                    .execute()
+                    .safeExecute()
                     .stream()
                     .map(newsArticle -> newsArticle.getSubject() + " written by " + newsArticle.getAuthor())
                     .collect(Collectors.joining("\n"));

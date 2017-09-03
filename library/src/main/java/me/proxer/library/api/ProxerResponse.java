@@ -3,6 +3,8 @@ package me.proxer.library.api;
 import com.squareup.moshi.Json;
 import lombok.*;
 
+import javax.annotation.Nullable;
+
 /**
  * @author Ruben Gees
  */
@@ -27,6 +29,7 @@ final class ProxerResponse<T> {
     @Json(name = "code")
     private int code;
 
+    @Nullable
     @SuppressWarnings("unused")
     @Getter(AccessLevel.PACKAGE)
     @Json(name = "data")

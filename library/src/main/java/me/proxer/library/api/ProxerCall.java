@@ -33,6 +33,7 @@ public final class ProxerCall<T> implements Cloneable {
      * Upon success, the result entity is returned. If an error occurs, the respective {@link ProxerException} is
      * thrown.
      */
+    @Nullable
     public T execute() throws ProxerException {
         try {
             return processResponse(internalCall.execute());
@@ -40,6 +41,16 @@ public final class ProxerCall<T> implements Cloneable {
             throw error;
         } catch (final Throwable error) {
             throw processNonProxerError(error);
+        }
+    }
+
+    public T safeExecute() throws ProxerException {
+        final T result = execute();
+
+        if (result == null) {
+            throw processNonProxerError(new NullPointerException("Response is null."));
+        } else {
+            return result;
         }
     }
 
@@ -112,6 +123,7 @@ public final class ProxerCall<T> implements Cloneable {
         return internalCall.request();
     }
 
+    @Nullable
     private T processResponse(final Response<ProxerResponse<T>> response) throws ProxerException {
         if (response.isSuccessful()) {
             final ProxerResponse<T> proxerResponse = response.body();

@@ -1,5 +1,7 @@
 package me.proxer.library.api;
 
+import javax.annotation.Nullable;
+
 /**
  * A callback for a successful request.
  *
@@ -11,5 +13,5 @@ public interface ProxerCallback<T> {
     /**
      * Called upon success for each Request with the {@code result}.
      */
-    void onSuccess(T result);
+    void onSuccess(@Nullable T result);
 }

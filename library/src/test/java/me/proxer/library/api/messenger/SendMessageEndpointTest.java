@@ -66,11 +66,9 @@ public class SendMessageEndpointTest extends ProxerTest {
 
     @Test
     public void testInvalidAction() throws ProxerException, IOException, InterruptedException {
-        //noinspection CodeBlock2Expr
-        assertThatThrownBy(() -> {
-            api.messenger().sendMessage("id", MessageAction.NONE, "")
-                    .build()
-                    .execute();
-        }).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> api.messenger().sendMessage("id", MessageAction.NONE, "")
+                .build()
+                .execute())
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
