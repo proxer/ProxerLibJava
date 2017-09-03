@@ -118,6 +118,7 @@ public class Relation implements ProxerIdItem {
     @Json(name = "season")
     private Season season;
 
+    @SuppressWarnings("checkstyle:parameternumber")
     public Relation(final String id, final String name, final Set<Genre> genres,
                     final Set<FskConstraint> fskConstraints, final String description, final Medium medium,
                     final int episodeAmount, final MediaState state, final int ratingSum, final int ratingAmount,

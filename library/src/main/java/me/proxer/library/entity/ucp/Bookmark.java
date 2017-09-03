@@ -83,6 +83,7 @@ public class Bookmark implements ProxerIdItem {
     @Json(name = "available")
     private boolean available;
 
+    @SuppressWarnings("checkstyle:parameternumber")
     public Bookmark(final String id, final String entryId, final Category category, final String name,
                     final int episode, final MediaLanguage language, final Medium medium, final MediaState state,
                     @Nullable final String chapterName, final boolean available) {

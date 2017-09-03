@@ -70,6 +70,7 @@ public class TranslatorGroup implements ProxerIdItem, ProxerImageItem {
     @Json(name = "cprojects")
     private int projectAmount;
 
+    @SuppressWarnings("checkstyle:parameternumber")
     public TranslatorGroup(final String id, final String name, final Country country, final String image,
                            @Nullable final HttpUrl link, final String description, final int clicks,
                            final int projectAmount) {

@@ -79,6 +79,7 @@ public class Stream implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
     @Json(name = "tname")
     private String translatorGroupName;
 
+    @SuppressWarnings("checkstyle:parameternumber")
     public Stream(final String id, final String hoster, final String hosterName, final String image,
                   final String uploaderId, final String uploaderName, final Date date,
                   @Nullable final String translatorGroupId, @Nullable final String translatorGroupName) {
