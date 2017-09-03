@@ -58,7 +58,19 @@ public class Notification implements ProxerIdItem, ProxerDateItem {
     /**
      * Returns additional info, depending on the {@link #type}.
      */
-    @Getter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Getter
     @Json(name = "description")
     private String additionalDescription;
+
+    public Notification(final String id, final NotificationType type, final String contentId, final HttpUrl contentLink,
+                        final String text, final Date date, @Nullable final String additionalDescription) {
+        this.id = id;
+        this.type = type;
+        this.contentId = contentId;
+        this.contentLink = contentLink;
+        this.text = text;
+        this.date = date;
+        this.additionalDescription = additionalDescription;
+    }
 }

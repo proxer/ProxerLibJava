@@ -61,7 +61,8 @@ public class ProxerCallTest extends ProxerTest {
                 .isThrownBy(() -> api.messenger().conferences().build().execute())
                 .matches(exception -> exception.getErrorType() == ErrorType.SERVER)
                 .matches(exception -> exception.getServerErrorType() == ServerErrorType.MESSAGES_LOGIN_REQUIRED)
-                .matches(exception -> exception.getMessage().equals("Du bist nicht eingeloggt."));
+                .matches(exception -> exception.getMessage() != null
+                        && exception.getMessage().equals("Du bist nicht eingeloggt."));
     }
 
     @Test(timeout = 1000L)

@@ -72,7 +72,8 @@ public class Bookmark implements ProxerIdItem {
     /**
      * Returns the name of the chapter if the associated media is a manga and it is uploaded.
      */
-    @Getter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Getter
     @Json(name = "chapterName")
     private String chapterName;
 
@@ -81,4 +82,19 @@ public class Bookmark implements ProxerIdItem {
      */
     @Json(name = "available")
     private boolean available;
+
+    public Bookmark(final String id, final String entryId, final Category category, final String name,
+                    final int episode, final MediaLanguage language, final Medium medium, final MediaState state,
+                    @Nullable final String chapterName, final boolean available) {
+        this.id = id;
+        this.entryId = entryId;
+        this.category = category;
+        this.name = name;
+        this.episode = episode;
+        this.language = language;
+        this.medium = medium;
+        this.state = state;
+        this.chapterName = chapterName;
+        this.available = available;
+    }
 }

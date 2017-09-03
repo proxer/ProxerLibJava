@@ -46,7 +46,8 @@ public class Industry implements ProxerIdItem {
     /**
      * Returns the link to the homepage.
      */
-    @Getter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Getter
     @Json(name = "link")
     private HttpUrl link;
 
@@ -55,4 +56,14 @@ public class Industry implements ProxerIdItem {
      */
     @Json(name = "description")
     private String description;
+
+    public Industry(final String id, final String name, final IndustryType type, final Country country,
+                    @Nullable final HttpUrl link, final String description) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.country = country;
+        this.link = link;
+        this.description = description;
+    }
 }

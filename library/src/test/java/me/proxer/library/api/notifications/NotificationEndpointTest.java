@@ -49,8 +49,13 @@ public class NotificationEndpointTest extends ProxerTest {
     }
 
     private Notification buildTestNotification() {
-        return new Notification("10185686", NotificationType.REMINDER, "49815105",
-                HttpUrl.parse("https://proxer.me/chapter/2373/26/en#top"),
+        final HttpUrl url = HttpUrl.parse("https://proxer.me/chapter/2373/26/en#top");
+
+        if (url == null) {
+            throw new NullPointerException();
+        }
+
+        return new Notification("10185686", NotificationType.REMINDER, "49815105", url,
                 "Lesezeichen: <u>Test123 Manga #26</u> ist online!",
                 new Date(1494452692L * 1000L), "");
     }

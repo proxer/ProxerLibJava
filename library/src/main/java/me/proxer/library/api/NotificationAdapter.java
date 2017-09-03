@@ -2,6 +2,7 @@ package me.proxer.library.api;
 
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.Json;
+import com.squareup.moshi.JsonDataException;
 import me.proxer.library.entity.notifications.Notification;
 import me.proxer.library.enums.NotificationType;
 import me.proxer.library.util.ProxerUrls;
@@ -18,6 +19,10 @@ class NotificationAdapter {
     Notification fromJson(final IntermediateNotification json) {
         final String base = ProxerUrls.webBase().toString();
         final HttpUrl properContentLink = HttpUrl.parse(base.substring(0, base.length() - 1) + json.contentLink);
+
+        if (properContentLink == null) {
+            throw new JsonDataException("Invalid link: " + json.contentLink);
+        }
 
         return new Notification(json.id, json.type, json.contentId, properContentLink, json.text,
                 json.date, json.additionalDescription);

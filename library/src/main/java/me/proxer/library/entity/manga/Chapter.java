@@ -60,7 +60,7 @@ public class Chapter implements ProxerIdItem, ProxerDateItem {
      * Returns the id of the scan group if present.
      */
     @Nullable
-    @Getter(onMethod = @__({@Nullable}))
+    @Getter
     @Json(name = "tid")
     private String scanGroupId;
 
@@ -68,7 +68,7 @@ public class Chapter implements ProxerIdItem, ProxerDateItem {
      * Returns the name of the scan group if present.
      */
     @Nullable
-    @Getter(onMethod = @__({@Nullable}))
+    @Getter
     @Json(name = "tname")
     private String scanGroupName;
 
@@ -83,4 +83,19 @@ public class Chapter implements ProxerIdItem, ProxerDateItem {
      */
     @Json(name = "pages")
     private List<Page> pages;
+
+    public Chapter(final String id, final String entryId, final String title, final String uploaderId,
+                   final String uploaderName, final Date date, @Nullable final String scanGroupId,
+                   @Nullable final String scanGroupName, final String server, final List<Page> pages) {
+        this.id = id;
+        this.entryId = entryId;
+        this.title = title;
+        this.uploaderId = uploaderId;
+        this.uploaderName = uploaderName;
+        this.date = date;
+        this.scanGroupId = scanGroupId;
+        this.scanGroupName = scanGroupName;
+        this.server = server;
+        this.pages = pages;
+    }
 }

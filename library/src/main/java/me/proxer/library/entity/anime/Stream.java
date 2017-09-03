@@ -66,14 +66,30 @@ public class Stream implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
     /**
      * Returns the id of the translator group, if present.
      */
-    @Getter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Getter
     @Json(name = "tid")
     private String translatorGroupId;
 
     /**
      * Returns the name of the translator group, if present.
      */
-    @Getter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Getter
     @Json(name = "tname")
     private String translatorGroupName;
+
+    public Stream(final String id, final String hoster, final String hosterName, final String image,
+                  final String uploaderId, final String uploaderName, final Date date,
+                  @Nullable final String translatorGroupId, @Nullable final String translatorGroupName) {
+        this.id = id;
+        this.hoster = hoster;
+        this.hosterName = hosterName;
+        this.image = image;
+        this.uploaderId = uploaderId;
+        this.uploaderName = uploaderName;
+        this.date = date;
+        this.translatorGroupId = translatorGroupId;
+        this.translatorGroupName = translatorGroupName;
+    }
 }

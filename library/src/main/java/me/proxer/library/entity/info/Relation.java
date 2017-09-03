@@ -105,16 +105,41 @@ public class Relation implements ProxerIdItem {
     /**
      * Returns the year this media was aired or published.
      */
-    @Getter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Getter
     @Json(name = "year")
     private Integer year;
 
     /**
      * Returns the available languages.
      */
-    @Getter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Getter
     @Json(name = "season")
     private Season season;
+
+    public Relation(final String id, final String name, final Set<Genre> genres,
+                    final Set<FskConstraint> fskConstraints, final String description, final Medium medium,
+                    final int episodeAmount, final MediaState state, final int ratingSum, final int ratingAmount,
+                    final int clicks, final Category category, final License license,
+                    final Set<MediaLanguage> languages, @Nullable final Integer year, @Nullable final Season season) {
+        this.id = id;
+        this.name = name;
+        this.genres = genres;
+        this.fskConstraints = fskConstraints;
+        this.description = description;
+        this.medium = medium;
+        this.episodeAmount = episodeAmount;
+        this.state = state;
+        this.ratingSum = ratingSum;
+        this.ratingAmount = ratingAmount;
+        this.clicks = clicks;
+        this.category = category;
+        this.license = license;
+        this.languages = languages;
+        this.year = year;
+        this.season = season;
+    }
 
     /**
      * Returns the average of all ratings.

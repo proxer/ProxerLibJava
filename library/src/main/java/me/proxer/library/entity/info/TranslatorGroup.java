@@ -47,7 +47,8 @@ public class TranslatorGroup implements ProxerIdItem, ProxerImageItem {
     /**
      * Returns the link to the homepage.
      */
-    @Getter(onMethod = @__({@Nullable}))
+    @Nullable
+    @Getter
     @Json(name = "link")
     private HttpUrl link;
 
@@ -68,4 +69,17 @@ public class TranslatorGroup implements ProxerIdItem, ProxerImageItem {
      */
     @Json(name = "cprojects")
     private int projectAmount;
+
+    public TranslatorGroup(final String id, final String name, final Country country, final String image,
+                           @Nullable final HttpUrl link, final String description, final int clicks,
+                           final int projectAmount) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+        this.image = image;
+        this.link = link;
+        this.description = description;
+        this.clicks = clicks;
+        this.projectAmount = projectAmount;
+    }
 }
