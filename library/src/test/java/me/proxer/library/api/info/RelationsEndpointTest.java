@@ -2,7 +2,7 @@ package me.proxer.library.api.info;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.info.Relation;
+import me.proxer.library.entity.info.Relation;
 import me.proxer.library.enums.*;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;

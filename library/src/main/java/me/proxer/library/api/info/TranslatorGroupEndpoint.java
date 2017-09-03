@@ -3,7 +3,7 @@ package me.proxer.library.api.info;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.info.TranslatorGroup;
+import me.proxer.library.entity.info.TranslatorGroup;
 
 /**
  * Endpoint for retrieving all information of an {@link TranslatorGroup}.

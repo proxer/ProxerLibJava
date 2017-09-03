@@ -3,8 +3,8 @@ package me.proxer.library.api.info;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.info.Entry;
-import me.proxer.library.entitiy.info.EntryCore;
+import me.proxer.library.entity.info.Entry;
+import me.proxer.library.entity.info.EntryCore;
 
 /**
  * Endpoint for retrieving the most important information of an {@link Entry}.

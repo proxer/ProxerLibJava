@@ -1,7 +1,7 @@
 package me.proxer.library.enums;
 
 import com.squareup.moshi.Json;
-import me.proxer.library.entitiy.messenger.Message;
+import me.proxer.library.entity.messenger.Message;
 
 /**
  * Enum holding the possible actions of a {@link Message}.

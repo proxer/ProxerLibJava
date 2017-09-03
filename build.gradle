@@ -11,7 +11,7 @@ buildscript {
         freefairPluginsVersion = '1.0.0'
 
         lombokVersion = '1.16.18'
-        findbugsVersion = '3.0.1'
+        jsr305Version = '3.0.2'
 
         retrofitVersion = '2.3.0'
         okHttpVersion = '3.8.1'
@@ -24,7 +24,7 @@ buildscript {
         deps = [
                 errorprone        : "com.google.errorprone:error_prone_core:$errorproneVersion",
                 lombok            : "org.projectlombok:lombok:$lombokVersion",
-                findbugs          : "com.google.code.findbugs:annotations:$findbugsVersion",
+                jsr305            : "com.google.code.findbugs:jsr305:$jsr305Version",
 
                 retrofit          : "com.squareup.retrofit2:retrofit:$retrofitVersion",
                 retrofitMoshi     : "com.squareup.retrofit2:converter-moshi:$retrofitVersion",

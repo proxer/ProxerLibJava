@@ -2,7 +2,7 @@ package me.proxer.library.api;
 
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.Json;
-import me.proxer.library.entitiy.notifications.Notification;
+import me.proxer.library.entity.notifications.Notification;
 import me.proxer.library.enums.NotificationType;
 import me.proxer.library.util.ProxerUrls;
 import okhttp3.HttpUrl;

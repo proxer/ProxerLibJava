@@ -2,7 +2,7 @@ package me.proxer.library.api;
 
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.JsonDataException;
-import me.proxer.library.entitiy.notifications.NotificationInfo;
+import me.proxer.library.entity.notifications.NotificationInfo;
 
 /**
  * @author Ruben Gees

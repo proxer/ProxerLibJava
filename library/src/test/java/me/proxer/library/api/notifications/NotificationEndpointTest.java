@@ -2,7 +2,7 @@ package me.proxer.library.api.notifications;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.notifications.Notification;
+import me.proxer.library.entity.notifications.Notification;
 import me.proxer.library.enums.NotificationFilter;
 import me.proxer.library.enums.NotificationType;
 import okhttp3.HttpUrl;

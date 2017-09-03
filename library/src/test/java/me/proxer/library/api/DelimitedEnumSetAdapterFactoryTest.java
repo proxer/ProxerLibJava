@@ -3,7 +3,7 @@ package me.proxer.library.api;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import lombok.Value;
-import me.proxer.library.entitiy.info.Entry;
+import me.proxer.library.entity.info.Entry;
 import me.proxer.library.enums.FskConstraint;
 import me.proxer.library.enums.Genre;
 import org.junit.Before;

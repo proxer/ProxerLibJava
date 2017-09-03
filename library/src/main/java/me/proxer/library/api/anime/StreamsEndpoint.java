@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.anime.Stream;
+import me.proxer.library.entity.anime.Stream;
 import me.proxer.library.enums.AnimeLanguage;
 
 import javax.annotation.Nullable;

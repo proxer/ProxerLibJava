@@ -2,7 +2,7 @@ package me.proxer.library.api.anime;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.anime.Stream;
+import me.proxer.library.entity.anime.Stream;
 import me.proxer.library.enums.AnimeLanguage;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;

@@ -2,7 +2,7 @@ package me.proxer.library.api.user;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.user.UserInfo;
+import me.proxer.library.entity.user.UserInfo;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 

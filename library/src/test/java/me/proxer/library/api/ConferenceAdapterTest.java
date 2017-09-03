@@ -1,7 +1,7 @@
 package me.proxer.library.api;
 
 import me.proxer.library.api.ConferenceAdapter.IntermediateConference;
-import me.proxer.library.entitiy.messenger.Conference;
+import me.proxer.library.entity.messenger.Conference;
 import org.junit.Before;
 import org.junit.Test;
 

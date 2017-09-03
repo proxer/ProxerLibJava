@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.messenger.Message;
+import me.proxer.library.entity.messenger.Message;
 
 import javax.annotation.Nullable;
 import java.util.List;

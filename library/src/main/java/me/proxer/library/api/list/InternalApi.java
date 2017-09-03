@@ -1,7 +1,7 @@
 package me.proxer.library.api.list;
 
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.list.*;
+import me.proxer.library.entity.list.*;
 import me.proxer.library.enums.*;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

@@ -1,9 +1,9 @@
 package me.proxer.library.api.ucp;
 
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.ucp.Bookmark;
-import me.proxer.library.entitiy.ucp.UcpHistoryEntry;
-import me.proxer.library.entitiy.ucp.UcpTopTenEntry;
+import me.proxer.library.entity.ucp.Bookmark;
+import me.proxer.library.entity.ucp.UcpHistoryEntry;
+import me.proxer.library.entity.ucp.UcpTopTenEntry;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
 import retrofit2.http.*;

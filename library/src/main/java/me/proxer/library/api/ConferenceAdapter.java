@@ -4,7 +4,7 @@ import com.squareup.moshi.FromJson;
 import com.squareup.moshi.Json;
 import lombok.AccessLevel;
 import lombok.Getter;
-import me.proxer.library.entitiy.messenger.Conference;
+import me.proxer.library.entity.messenger.Conference;
 
 import java.util.Date;
 

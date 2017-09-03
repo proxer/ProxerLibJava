@@ -3,8 +3,8 @@ package me.proxer.library.api.messenger;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.messenger.Conference;
-import me.proxer.library.entitiy.messenger.ConferenceInfo;
+import me.proxer.library.entity.messenger.Conference;
+import me.proxer.library.entity.messenger.ConferenceInfo;
 
 /**
  * Endpoint for retrieving information concerning a {@link Conference}.

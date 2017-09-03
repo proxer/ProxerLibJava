@@ -2,7 +2,7 @@ package me.proxer.library.api.info;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.info.TranslatorGroup;
+import me.proxer.library.entity.info.TranslatorGroup;
 import me.proxer.library.enums.Country;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;

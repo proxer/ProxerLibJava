@@ -2,7 +2,7 @@ package me.proxer.library.api.ucp;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.ucp.UcpHistoryEntry;
+import me.proxer.library.entity.ucp.UcpHistoryEntry;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.enums.Medium;

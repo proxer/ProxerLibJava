@@ -2,8 +2,8 @@ package me.proxer.library.api;
 
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.Json;
-import me.proxer.library.entitiy.messenger.ConferenceInfo;
-import me.proxer.library.entitiy.messenger.ConferenceParticipant;
+import me.proxer.library.entity.messenger.ConferenceInfo;
+import me.proxer.library.entity.messenger.ConferenceParticipant;
 
 import java.util.Date;
 import java.util.List;

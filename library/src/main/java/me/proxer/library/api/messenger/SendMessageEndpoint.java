@@ -3,7 +3,7 @@ package me.proxer.library.api.messenger;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.messenger.Conference;
+import me.proxer.library.entity.messenger.Conference;
 
 /**
  * Endpoint for sending a single message in a {@link Conference}. This can be a

@@ -1,7 +1,7 @@
 package me.proxer.library.api.anime;
 
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.anime.Stream;
+import me.proxer.library.entity.anime.Stream;
 import me.proxer.library.enums.AnimeLanguage;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

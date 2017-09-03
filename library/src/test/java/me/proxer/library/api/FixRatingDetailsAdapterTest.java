@@ -1,6 +1,6 @@
 package me.proxer.library.api;
 
-import me.proxer.library.entitiy.info.RatingDetails;
+import me.proxer.library.entity.info.RatingDetails;
 import org.junit.Before;
 import org.junit.Test;
 

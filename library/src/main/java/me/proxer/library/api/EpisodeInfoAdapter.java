@@ -4,10 +4,10 @@ import com.squareup.moshi.FromJson;
 import com.squareup.moshi.Json;
 import com.squareup.moshi.ToJson;
 import me.proxer.library.api.EpisodeInfoAdapter.IntermediateEpisodeInfo.IntermediateEpisode;
-import me.proxer.library.entitiy.info.AnimeEpisode;
-import me.proxer.library.entitiy.info.Episode;
-import me.proxer.library.entitiy.info.EpisodeInfo;
-import me.proxer.library.entitiy.info.MangaEpisode;
+import me.proxer.library.entity.info.AnimeEpisode;
+import me.proxer.library.entity.info.Episode;
+import me.proxer.library.entity.info.EpisodeInfo;
+import me.proxer.library.entity.info.MangaEpisode;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
 

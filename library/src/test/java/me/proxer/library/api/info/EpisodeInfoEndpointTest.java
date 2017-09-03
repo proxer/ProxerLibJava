@@ -2,9 +2,9 @@ package me.proxer.library.api.info;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.info.AnimeEpisode;
-import me.proxer.library.entitiy.info.EpisodeInfo;
-import me.proxer.library.entitiy.info.MangaEpisode;
+import me.proxer.library.entity.info.AnimeEpisode;
+import me.proxer.library.entity.info.EpisodeInfo;
+import me.proxer.library.entity.info.MangaEpisode;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
 import okhttp3.mockwebserver.MockResponse;

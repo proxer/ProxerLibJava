@@ -3,7 +3,7 @@ package me.proxer.library.util;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import lombok.experimental.UtilityClass;
-import me.proxer.library.entitiy.notifications.NewsArticle;
+import me.proxer.library.entity.notifications.NewsArticle;
 import me.proxer.library.enums.Device;
 import okhttp3.HttpUrl;
 

@@ -2,8 +2,8 @@ package me.proxer.library.api.info;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.info.Comment;
-import me.proxer.library.entitiy.info.RatingDetails;
+import me.proxer.library.entity.info.Comment;
+import me.proxer.library.entity.info.RatingDetails;
 import me.proxer.library.enums.CommentSortCriteria;
 import me.proxer.library.enums.UserMediaProgress;
 import okhttp3.mockwebserver.MockResponse;

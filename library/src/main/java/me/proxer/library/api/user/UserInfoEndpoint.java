@@ -3,7 +3,7 @@ package me.proxer.library.api.user;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.user.UserInfo;
+import me.proxer.library.entity.user.UserInfo;
 
 import javax.annotation.Nullable;
 

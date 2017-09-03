@@ -1,7 +1,7 @@
 package me.proxer.library.api;
 
 import com.squareup.moshi.JsonDataException;
-import me.proxer.library.entitiy.manga.Page;
+import me.proxer.library.entity.manga.Page;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;

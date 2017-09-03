@@ -2,7 +2,7 @@ package me.proxer.library.api;
 
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.JsonDataException;
-import me.proxer.library.entitiy.manga.Page;
+import me.proxer.library.entity.manga.Page;
 
 import java.util.ArrayList;
 import java.util.List;

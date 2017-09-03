@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.PagingEndpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.messenger.Conference;
+import me.proxer.library.entity.messenger.Conference;
 import me.proxer.library.enums.ConferenceType;
 
 import javax.annotation.Nullable;

@@ -1,7 +1,7 @@
 package me.proxer.library.api;
 
 import com.squareup.moshi.Types;
-import me.proxer.library.entitiy.notifications.NewsArticle;
+import me.proxer.library.entity.notifications.NewsArticle;
 import org.junit.Before;
 import org.junit.Test;
 import retrofit2.Retrofit;

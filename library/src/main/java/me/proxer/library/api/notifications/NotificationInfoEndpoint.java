@@ -3,7 +3,7 @@ package me.proxer.library.api.notifications;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.notifications.NotificationInfo;
+import me.proxer.library.entity.notifications.NotificationInfo;
 
 /**
  * Endpoint for retrieving the notifications of an user.

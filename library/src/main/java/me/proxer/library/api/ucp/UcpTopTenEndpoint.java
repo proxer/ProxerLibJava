@@ -3,7 +3,7 @@ package me.proxer.library.api.ucp;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.ucp.UcpTopTenEntry;
+import me.proxer.library.entity.ucp.UcpTopTenEntry;
 
 import java.util.List;
 

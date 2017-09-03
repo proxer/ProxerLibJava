@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.PagingLimitEndpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.notifications.NewsArticle;
+import me.proxer.library.entity.notifications.NewsArticle;
 
 import javax.annotation.Nullable;
 import java.util.List;

@@ -3,7 +3,7 @@ package me.proxer.library.api;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import me.proxer.library.entitiy.info.RatingDetails;
+import me.proxer.library.entity.info.RatingDetails;
 
 import javax.annotation.Nullable;
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package me.proxer.library.api;
 
 import com.squareup.moshi.JsonDataException;
-import me.proxer.library.entitiy.notifications.NotificationInfo;
+import me.proxer.library.entity.notifications.NotificationInfo;
 import org.junit.Before;
 import org.junit.Test;
 

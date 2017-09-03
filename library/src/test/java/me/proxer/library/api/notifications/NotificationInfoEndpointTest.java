@@ -2,7 +2,7 @@ package me.proxer.library.api.notifications;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.notifications.NotificationInfo;
+import me.proxer.library.entity.notifications.NotificationInfo;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 

@@ -2,7 +2,7 @@ package me.proxer.library.api.messenger;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.messenger.Conference;
+import me.proxer.library.entity.messenger.Conference;
 import me.proxer.library.enums.ConferenceType;
 import okhttp3.mockwebserver.MockResponse;
 import org.assertj.core.api.Assertions;

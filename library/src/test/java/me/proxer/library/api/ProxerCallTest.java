@@ -3,7 +3,7 @@ package me.proxer.library.api;
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException.ErrorType;
 import me.proxer.library.api.ProxerException.ServerErrorType;
-import me.proxer.library.entitiy.notifications.NewsArticle;
+import me.proxer.library.entity.notifications.NewsArticle;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.SocketPolicy;
 import org.junit.Test;

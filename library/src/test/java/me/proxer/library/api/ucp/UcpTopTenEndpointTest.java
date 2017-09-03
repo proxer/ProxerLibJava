@@ -2,7 +2,7 @@ package me.proxer.library.api.ucp;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.ucp.UcpTopTenEntry;
+import me.proxer.library.entity.ucp.UcpTopTenEntry;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.Medium;
 import okhttp3.mockwebserver.MockResponse;

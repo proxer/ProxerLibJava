@@ -1,6 +1,6 @@
 package me.proxer.library.api;
 
-import me.proxer.library.entitiy.info.Entry;
+import me.proxer.library.entity.info.Entry;
 import me.proxer.library.enums.Genre;
 import org.junit.Before;
 import org.junit.Test;

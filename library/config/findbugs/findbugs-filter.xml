@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+
+    <!-- Suppress internal exposal of Lombok constructors. -->
+    <Match>
+        <Package name="~me\.proxer\.library\.entity.*"/>
+        <Method name="&lt;init&gt;"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- Suppress internal exposal of Lombok getters returning Date. -->
+    <Match>
+        <Package name="~me\.proxer\.library\.entity.*"/>
+        <Method returns="java.util.Date"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+
+    <!-- Suppress Lombok generated equals and hashcode methods. -->
+    <Match>
+        <Or>
+            <Package name="~me\.proxer\.library\.entity.*"/>
+            <Class name="me.proxer.library.api.ProxerResponse"/>
+        </Or>
+        <Or>
+            <Method name="equals" returns="boolean" params="java.lang.Object"/>
+            <Method name="hashCode" returns="int" params=""/>
+        </Or>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+    </Match>
+
+</FindBugsFilter>

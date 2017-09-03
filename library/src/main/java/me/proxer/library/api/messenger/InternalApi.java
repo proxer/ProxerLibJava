@@ -1,9 +1,9 @@
 package me.proxer.library.api.messenger;
 
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.messenger.Conference;
-import me.proxer.library.entitiy.messenger.ConferenceInfo;
-import me.proxer.library.entitiy.messenger.Message;
+import me.proxer.library.entity.messenger.Conference;
+import me.proxer.library.entity.messenger.ConferenceInfo;
+import me.proxer.library.entity.messenger.Message;
 import me.proxer.library.enums.ConferenceType;
 import retrofit2.http.*;
 

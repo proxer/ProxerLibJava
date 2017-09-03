@@ -2,7 +2,7 @@ package me.proxer.library.api.info;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.info.Industry;
+import me.proxer.library.entity.info.Industry;
 import me.proxer.library.enums.Country;
 import me.proxer.library.enums.IndustryType;
 import okhttp3.HttpUrl;

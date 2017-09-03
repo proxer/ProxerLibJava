@@ -2,7 +2,7 @@ package me.proxer.library.api.messenger;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.messenger.Message;
+import me.proxer.library.entity.messenger.Message;
 import me.proxer.library.enums.Device;
 import me.proxer.library.enums.MessageAction;
 import okhttp3.mockwebserver.MockResponse;

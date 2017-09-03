@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.user.User;
+import me.proxer.library.entity.user.User;
 
 import javax.annotation.Nullable;
 

@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.PagingLimitEndpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.list.IndustryCore;
+import me.proxer.library.entity.list.IndustryCore;
 import me.proxer.library.enums.Country;
 
 import javax.annotation.Nullable;

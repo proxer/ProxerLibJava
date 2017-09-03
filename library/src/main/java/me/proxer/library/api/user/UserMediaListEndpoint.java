@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.PagingLimitEndpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entitiy.user.UserMediaListEntry;
+import me.proxer.library.entity.user.UserMediaListEntry;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.UserMediaListFilterType;
 import me.proxer.library.enums.UserMediaListSortCriteria;

@@ -1,7 +1,7 @@
 package me.proxer.library.enums;
 
 import com.squareup.moshi.Json;
-import me.proxer.library.entitiy.info.Entry;
+import me.proxer.library.entity.info.Entry;
 
 /**
  * Enum holding the available progress types of an user at a media {@link Entry}.

@@ -2,8 +2,8 @@ package me.proxer.library.api.manga;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.manga.Chapter;
-import me.proxer.library.entitiy.manga.Page;
+import me.proxer.library.entity.manga.Chapter;
+import me.proxer.library.entity.manga.Page;
 import me.proxer.library.enums.Language;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;

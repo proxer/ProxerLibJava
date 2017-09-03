@@ -2,8 +2,8 @@ package me.proxer.library.api.messenger;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entitiy.messenger.ConferenceInfo;
-import me.proxer.library.entitiy.messenger.ConferenceParticipant;
+import me.proxer.library.entity.messenger.ConferenceInfo;
+import me.proxer.library.entity.messenger.ConferenceParticipant;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 
