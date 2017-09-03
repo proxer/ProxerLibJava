@@ -59,6 +59,7 @@ public class Chapter implements ProxerIdItem, ProxerDateItem {
     /**
      * Returns the id of the scan group if present.
      */
+    @Nullable
     @Getter(onMethod = @__({@Nullable}))
     @Json(name = "tid")
     private String scanGroupId;
@@ -66,6 +67,7 @@ public class Chapter implements ProxerIdItem, ProxerDateItem {
     /**
      * Returns the name of the scan group if present.
      */
+    @Nullable
     @Getter(onMethod = @__({@Nullable}))
     @Json(name = "tname")
     private String scanGroupName;
