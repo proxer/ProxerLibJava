@@ -7,7 +7,6 @@ import okhttp3.Request;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -54,13 +53,13 @@ public class LoggingInterceptorTest extends ProxerTest {
 
         loggerHandler.flush();
 
-        assertThat(loggerStream.toString()).isEqualTo("Requesting http://localhost:" + server.getPort()
+        assertThat(loggerStream.toString()).isEqualTo("Requesting http://"
+                + server.getHostName() + ":" + server.getPort()
                 + "/api/v1/notifications/news with method GET and these headers:\n"
                 + "proxer-api-key: mockKey\n"
                 + "User-Agent: ProxerLibJava/" + BuildConfig.VERSION);
     }
 
-    @Ignore("Somehow flaky")
     @Test
     public void testLogWithBody() throws IOException, ProxerException, InterruptedException {
         api = constructApi().loggingStrategy(LoggingStrategy.ALL).build();
@@ -72,7 +71,8 @@ public class LoggingInterceptorTest extends ProxerTest {
 
         loggerHandler.flush();
 
-        assertThat(loggerStream.toString()).isEqualTo("Requesting http://localhost:" + server.getPort()
+        assertThat(loggerStream.toString()).isEqualTo("Requesting http://"
+                + server.getHostName() + ":" + server.getPort()
                 + "/api/v1/user/login with method POST, these headers:\n"
                 + "proxer-api-key: mockKey\n"
                 + "User-Agent: ProxerLibJava/" + BuildConfig.VERSION + "\nand this body:\n"
@@ -90,7 +90,8 @@ public class LoggingInterceptorTest extends ProxerTest {
 
         loggerHandler.flush();
 
-        assertThat(loggerStream.toString()).isEqualTo("Requesting http://localhost:" + server.getPort()
+        assertThat(loggerStream.toString()).isEqualTo("Requesting http://"
+                + server.getHostName() + ":" + server.getPort()
                 + "/api/v1/user/logout with method POST, these headers:\n"
                 + "proxer-api-key: mockKey\n"
                 + "User-Agent: ProxerLibJava/" + BuildConfig.VERSION + "\nand a blank body.");
@@ -105,7 +106,8 @@ public class LoggingInterceptorTest extends ProxerTest {
 
         loggerHandler.flush();
 
-        assertThat(loggerStream.toString()).isEqualTo("Requesting http://localhost:" + server.getPort()
+        assertThat(loggerStream.toString()).isEqualTo("Requesting http://"
+                + server.getHostName() + ":" + server.getPort()
                 + "/test with method GET and no headers.");
     }
 

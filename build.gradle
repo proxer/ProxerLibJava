@@ -15,7 +15,7 @@ buildscript {
         javaxExtrasVersion = '0.1.0'
 
         retrofitVersion = '2.3.0'
-        okHttpVersion = '3.8.1'
+        okHttpVersion = '3.9.0'
         moshiVersion = '1.5.0'
 
         junitVersion = '4.12'
