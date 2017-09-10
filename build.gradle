@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        version = '3.2.1'
+        version = '4.0.0'
         group = 'com.github.proxer'
 
         errorpronePluginVersion = '0.0.11'
