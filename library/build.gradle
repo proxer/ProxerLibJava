@@ -27,6 +27,7 @@ dependencies {
 
     compileOnly deps.lombok
     compileOnly deps.jsr305
+    compileOnly deps.javaxExtras
 
     api deps.retrofit
     api deps.retrofitMoshi

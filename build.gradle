@@ -12,6 +12,7 @@ buildscript {
 
         lombokVersion = '1.16.18'
         jsr305Version = '3.0.2'
+        javaxExtrasVersion = '0.1.0'
 
         retrofitVersion = '2.3.0'
         okHttpVersion = '3.8.1'
@@ -25,6 +26,7 @@ buildscript {
                 errorprone        : "com.google.errorprone:error_prone_core:$errorproneVersion",
                 lombok            : "org.projectlombok:lombok:$lombokVersion",
                 jsr305            : "com.google.code.findbugs:jsr305:$jsr305Version",
+                javaxExtras       : "com.uber.javaxextras:javax-extras:$javaxExtrasVersion",
 
                 retrofit          : "com.squareup.retrofit2:retrofit:$retrofitVersion",
                 retrofitMoshi     : "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
