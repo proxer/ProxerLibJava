@@ -87,4 +87,11 @@ public final class InfoApi {
     public ModifyUserInfoEndpoint markAsFinished(final String entryId) {
         return new ModifyUserInfoEndpoint(internalApi, entryId, UserInfoType.FINISHED);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    public RecommendationsEndpoint recommendations(final String entryId) {
+        return new RecommendationsEndpoint(internalApi, entryId);
+    }
 }

@@ -217,6 +217,7 @@ public final class ProxerApi {
                     .add(new VoidAdapter())
                     .add(new DateAdapter())
                     .add(new BooleanAdapter())
+                    .add(new PrimitiveBooleanAdapter())
                     .add(new DelimitedEnumSetAdapterFactory())
                     .add(new HttpUrlAdapter())
                     .add(new NotificationAdapter())

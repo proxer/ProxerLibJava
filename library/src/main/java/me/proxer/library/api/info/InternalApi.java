@@ -45,4 +45,7 @@ interface InternalApi {
     @POST("info/setuserinfo")
     ProxerCall<Void> modifyUserInfo(@Field("id") String id,
                                     @Field("type") UserInfoType type);
+
+    @GET("info/recommendations")
+    ProxerCall<List<Recommendation>> recommendations(@Query("id") String id);
 }

@@ -1,0 +1,48 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": [
+    {
+      "id": "15023",
+      "name": "Boku no Hero Academia",
+      "genre": "Action",
+      "fsk": "fsk12",
+      "description": "Izuku ist ein schwächlicher „Normalo“.",
+      "medium": "animeseries",
+      "media_format": "tv",
+      "adaption_type": "entry",
+      "adaption_value": "10249",
+      "count": "13",
+      "state": "1",
+      "rate_sum": "29150",
+      "rate_count": "3412",
+      "clicks": "58005",
+      "kat": "anime",
+      "license": "2",
+      "count_positive": "65",
+      "count_negative": "1",
+      "positive": null
+    },
+    {
+      "id": "11825",
+      "name": "One Punch Man",
+      "genre": "Action Comedy Martial-Art SciFi Seinen Splatter Superpower Violence",
+      "fsk": "fsk12 bad_language violence fear",
+      "description": "Was tun, wenn’s mit der Arbeit nicht klappt? Genau, man wird ein Held! Saitama ist ein stinknormaler Typ ohne Job – bis er einen kleinen Jungen vor einem Krabben-Monster retten muss. Er kann die Krabbe besiegen und beschließt daraufhin, die Jobsuche hinzuschmeißen und Hobby-Held zu werden. Nach drei Jahren hartem Training ist auf seinem Kopf zwar kein Haar mehr übrig, aber dafür erledigt er jeden Gegner mit nur einem Schlag! Von seiner eigenen Kraft gelangweilt, sehnt sich Saitama aka One Punch Man nach härteren Gegnern. Zwar zollen ihm die Leute dafür keinen Respekt, doch das geht ihm an seinem Hobby-Helden-Hintern vorbei. Ihm reicht schon der demütige Cyborg Genos, der im gleichgültigen Saitama seinen Meister sieht und ihm nun ständig an den Hacken hängt …\n\n\n(Quelle: Covertext, Kaze)",
+      "medium": "animeseries",
+      "media_format": "tv",
+      "adaption_type": "entry",
+      "adaption_value": "5291",
+      "count": "12",
+      "state": "1",
+      "rate_sum": "54804",
+      "rate_count": "6139",
+      "clicks": "26991",
+      "kat": "anime",
+      "license": "2",
+      "count_positive": "70",
+      "count_negative": "5",
+      "positive": "1"
+    }
+  ]
+}
