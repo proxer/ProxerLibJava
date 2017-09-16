@@ -1,12 +1,14 @@
 package me.proxer.library.entity.info;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.entity.list.IndustryCore;
 import me.proxer.library.enums.*;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +19,7 @@ import java.util.Set;
  * @author Ruben Gees
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class Entry implements ProxerIdItem {
 
     /**

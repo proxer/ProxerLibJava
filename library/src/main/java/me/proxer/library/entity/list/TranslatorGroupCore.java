@@ -1,11 +1,14 @@
 package me.proxer.library.entity.list;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.entity.ProxerImageItem;
 import me.proxer.library.enums.Country;
+
+import javax.annotation.Nullable;
 
 /**
  * Entity containing the core information of a translator group.
@@ -13,6 +16,7 @@ import me.proxer.library.enums.Country;
  * @author Ruben Gees
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class TranslatorGroupCore implements ProxerIdItem, ProxerImageItem {
 
     /**

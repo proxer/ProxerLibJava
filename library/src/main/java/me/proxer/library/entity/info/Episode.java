@@ -2,9 +2,12 @@ package me.proxer.library.entity.info;
 
 import com.squareup.moshi.Json;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 import lombok.experimental.NonFinal;
 import me.proxer.library.enums.MediaLanguage;
+
+import javax.annotation.Nullable;
 
 /**
  * Base entity holding the common data of an {@link AnimeEpisode} and {@link MangaEpisode}.
@@ -14,6 +17,7 @@ import me.proxer.library.enums.MediaLanguage;
 @Value
 @NonFinal
 @AllArgsConstructor()
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public abstract class Episode {
 
     /**

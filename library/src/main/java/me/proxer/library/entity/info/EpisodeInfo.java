@@ -1,10 +1,12 @@
 package me.proxer.library.entity.info;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +16,7 @@ import java.util.Set;
  * @author Ruben Gees.
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class EpisodeInfo {
 
     /**

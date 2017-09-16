@@ -1,10 +1,13 @@
 package me.proxer.library.entity.info;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.enums.SynonymType;
+
+import javax.annotation.Nullable;
 
 /**
  * Entity holding the synonyms of an entry name.
@@ -12,6 +15,7 @@ import me.proxer.library.enums.SynonymType;
  * @author Desnoo
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class Synonym implements ProxerIdItem {
 
     /**

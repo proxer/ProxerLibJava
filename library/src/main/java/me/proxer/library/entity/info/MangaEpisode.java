@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.ToString;
 import me.proxer.library.enums.MediaLanguage;
 
+import javax.annotation.Nullable;
+
 /**
  * Entity holding the data of a single anime chapter.
  *
@@ -13,7 +15,7 @@ import me.proxer.library.enums.MediaLanguage;
  */
 @Getter
 @ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, onParam = @__({@Nullable}))
 public final class MangaEpisode extends Episode {
 
     @Json(name = "title")

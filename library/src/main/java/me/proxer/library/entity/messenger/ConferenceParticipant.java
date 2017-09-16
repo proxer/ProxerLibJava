@@ -1,10 +1,13 @@
 package me.proxer.library.entity.messenger;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.entity.ProxerImageItem;
+
+import javax.annotation.Nullable;
 
 /**
  * Entity that represents a participant in a {@link Conference}.
@@ -12,6 +15,7 @@ import me.proxer.library.entity.ProxerImageItem;
  * @author Desnoo
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class ConferenceParticipant implements ProxerIdItem, ProxerImageItem {
 
     /**

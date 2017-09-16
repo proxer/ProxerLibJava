@@ -1,10 +1,13 @@
 package me.proxer.library.entity.info;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.enums.Country;
+
+import javax.annotation.Nullable;
 
 /**
  * Entity containing the relevant info of a translator group, associated with an {@link Entry}.
@@ -12,6 +15,7 @@ import me.proxer.library.enums.Country;
  * @author Ruben Gees
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class EntryTranslatorGroup implements ProxerIdItem {
 
     /**

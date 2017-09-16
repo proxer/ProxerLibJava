@@ -1,8 +1,10 @@
 package me.proxer.library.entity.messenger;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 
+import javax.annotation.Nullable;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import java.util.List;
  * @author Desnoo
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class ConferenceInfo {
 
     /**

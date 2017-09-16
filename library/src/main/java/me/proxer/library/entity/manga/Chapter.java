@@ -1,6 +1,7 @@
 package me.proxer.library.entity.manga;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerDateItem;
@@ -16,6 +17,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class Chapter implements ProxerIdItem, ProxerDateItem {
 
     /**

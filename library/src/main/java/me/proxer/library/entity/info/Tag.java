@@ -1,11 +1,13 @@
 package me.proxer.library.entity.info;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerDateItem;
 import me.proxer.library.entity.ProxerIdItem;
 
+import javax.annotation.Nullable;
 import java.util.Date;
 
 /**
@@ -14,6 +16,7 @@ import java.util.Date;
  * @author Ruben Gees
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class Tag implements ProxerIdItem, ProxerDateItem {
 
     /**

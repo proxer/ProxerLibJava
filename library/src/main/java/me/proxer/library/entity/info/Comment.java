@@ -1,6 +1,7 @@
 package me.proxer.library.entity.info;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerDateItem;
@@ -8,6 +9,7 @@ import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.entity.ProxerImageItem;
 import me.proxer.library.enums.UserMediaProgress;
 
+import javax.annotation.Nullable;
 import java.util.Date;
 
 /**
@@ -16,6 +18,7 @@ import java.util.Date;
  * @author Desnoo
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class Comment implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
 
     /**

@@ -28,4 +28,10 @@
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
     </Match>
 
+    <!-- Suppress nullness warnings concerning the equals method. -->
+    <Match>
+        <Method name="equals" params="java.lang.Object"/>
+        <Bug pattern="NP_METHOD_PARAMETER_TIGHTENS_ANNOTATION"/>
+    </Match>
+
 </FindBugsFilter>

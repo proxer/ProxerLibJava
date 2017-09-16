@@ -1,6 +1,9 @@
 package me.proxer.library.entity.manga;
 
+import lombok.EqualsAndHashCode;
 import lombok.Value;
+
+import javax.annotation.Nullable;
 
 /**
  * Entity representing a single page from a {@link Chapter}.
@@ -8,6 +11,7 @@ import lombok.Value;
  * @author Ruben Gees
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class Page {
 
     /**

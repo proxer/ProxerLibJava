@@ -1,6 +1,7 @@
 package me.proxer.library.entity.ucp;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerIdItem;
@@ -18,6 +19,7 @@ import javax.annotation.Nullable;
  * @author Ruben Gees
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class Bookmark implements ProxerIdItem {
 
     /**

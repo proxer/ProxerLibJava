@@ -1,6 +1,7 @@
 package me.proxer.library.entity.user;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerIdItem;
@@ -10,6 +11,8 @@ import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
 import me.proxer.library.enums.UserMediaProgress;
 
+import javax.annotation.Nullable;
+
 /**
  * Entity holding all relevant information of an entry in the user's media list (Watched, watching).
  * This also includes comments by the user.
@@ -17,6 +20,7 @@ import me.proxer.library.enums.UserMediaProgress;
  * @author Ruben Gees
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class UserMediaListEntry implements ProxerIdItem {
 
     /**

@@ -1,6 +1,7 @@
 package me.proxer.library.entity.notifications;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerDateItem;
@@ -15,6 +16,7 @@ import java.util.Date;
  * @author Ruben Gees
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class Notification implements ProxerIdItem, ProxerDateItem {
 
     /**

@@ -1,6 +1,7 @@
 package me.proxer.library.entity.ucp;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerIdItem;
@@ -8,12 +9,15 @@ import me.proxer.library.entity.info.Entry;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.Medium;
 
+import javax.annotation.Nullable;
+
 /**
  * Entity representing a single entry in the history list.
  *
  * @author Ruben Gees
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class UcpTopTenEntry implements ProxerIdItem {
 
     /**

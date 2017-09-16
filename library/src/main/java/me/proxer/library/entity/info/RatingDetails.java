@@ -1,7 +1,10 @@
 package me.proxer.library.entity.info;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Value;
+
+import javax.annotation.Nullable;
 
 /**
  * Container for the single ratings. This ranges from 1 to 5 and is 0 if the user has not rated a
@@ -10,6 +13,7 @@ import lombok.Value;
  * @author Desnoo
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class RatingDetails {
 
     /**

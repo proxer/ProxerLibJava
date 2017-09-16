@@ -1,10 +1,13 @@
 package me.proxer.library.entity.info;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.enums.Season;
+
+import javax.annotation.Nullable;
 
 /**
  * Entity holding the season of an entry.
@@ -12,6 +15,7 @@ import me.proxer.library.enums.Season;
  * @author Ruben Gees
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class EntrySeasonInfo implements ProxerIdItem {
 
     /**

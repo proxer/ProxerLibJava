@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
  */
 @SuppressWarnings("TypeParameterUnusedInFormals")
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 final class ProxerResponse<T> {
 

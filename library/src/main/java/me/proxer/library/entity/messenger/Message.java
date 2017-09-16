@@ -1,6 +1,7 @@
 package me.proxer.library.entity.messenger;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerDateItem;
@@ -8,6 +9,7 @@ import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.enums.Device;
 import me.proxer.library.enums.MessageAction;
 
+import javax.annotation.Nullable;
 import java.util.Date;
 
 /**
@@ -16,6 +18,7 @@ import java.util.Date;
  * @author Ruben Gees
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class Message implements ProxerIdItem, ProxerDateItem {
 
     /**

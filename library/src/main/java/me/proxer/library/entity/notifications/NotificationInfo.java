@@ -1,11 +1,15 @@
 package me.proxer.library.entity.notifications;
 
+import lombok.EqualsAndHashCode;
 import lombok.Value;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Ruben Gees
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class NotificationInfo {
 
     /**

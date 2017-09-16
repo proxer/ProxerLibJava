@@ -1,6 +1,7 @@
 package me.proxer.library.entity.ucp;
 
 import com.squareup.moshi.Json;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerDateItem;
@@ -9,6 +10,7 @@ import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.enums.Medium;
 
+import javax.annotation.Nullable;
 import java.util.Date;
 
 /**
@@ -17,6 +19,7 @@ import java.util.Date;
  * @author Ruben Gees
  */
 @Value
+@EqualsAndHashCode(onParam = @__({@Nullable}))
 public class UcpHistoryEntry implements ProxerIdItem, ProxerDateItem {
 
     /**
