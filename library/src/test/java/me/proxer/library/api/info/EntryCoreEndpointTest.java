@@ -2,6 +2,7 @@ package me.proxer.library.api.info;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
+import me.proxer.library.entity.info.AdaptionInfo;
 import me.proxer.library.entity.info.EntryCore;
 import me.proxer.library.enums.*;
 import okhttp3.mockwebserver.MockResponse;
@@ -51,6 +52,7 @@ public class EntryCoreEndpointTest extends ProxerTest {
                         + "decent again. Of course, the angels can't simply allow demons to roam freely on Earth, "
                         + "and they do their best to stop Lucu and her dastardly plans.",
                 Medium.MANGASERIES, 90, MediaState.FINISHED, 7, 1, 134,
-                Category.MANGA, License.NOT_LICENSED);
+                Category.MANGA, License.NOT_LICENSED,
+                new AdaptionInfo("2793", "KissXsis", Medium.MANGASERIES));
     }
 }

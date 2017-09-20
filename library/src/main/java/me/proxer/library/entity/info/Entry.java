@@ -102,6 +102,12 @@ public class Entry implements ProxerIdItem {
     private License license;
 
     /**
+     * Returns information regarding the adaption of this entry.
+     */
+    @Json(name = "adaption_data")
+    private AdaptionInfo adaptionInfo;
+
+    /**
      * Returns true, if this entry is age restricted.
      */
     @Json(name = "ageRestricted")

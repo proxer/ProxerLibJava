@@ -100,6 +100,12 @@ public class EntryCore implements ProxerIdItem {
     private License license;
 
     /**
+     * Returns information regarding the adaption of this entry.
+     */
+    @Json(name = "adaption_data")
+    private AdaptionInfo adaptionInfo;
+
+    /**
      * Returns the average of all ratings.
      */
     public final float getRating() {
