@@ -80,19 +80,4 @@ public class Stream implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
     @Getter
     @Json(name = "tname")
     private String translatorGroupName;
-
-    @SuppressWarnings("checkstyle:parameternumber")
-    public Stream(final String id, final String hoster, final String hosterName, final String image,
-                  final String uploaderId, final String uploaderName, final Date date,
-                  @Nullable final String translatorGroupId, @Nullable final String translatorGroupName) {
-        this.id = id;
-        this.hoster = hoster;
-        this.hosterName = hosterName;
-        this.image = image;
-        this.uploaderId = uploaderId;
-        this.uploaderName = uploaderName;
-        this.date = date;
-        this.translatorGroupId = translatorGroupId;
-        this.translatorGroupName = translatorGroupName;
-    }
 }

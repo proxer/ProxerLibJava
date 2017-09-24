@@ -32,4 +32,11 @@ public class AdaptionInfo implements ProxerIdItem {
     @Nullable
     @Json(name = "medium")
     private Medium medium;
+
+    public AdaptionInfo(final String id, final String name, final Medium medium) {
+        // TODO: Remove once Kapt/Room can handle @Nullable in constructors.
+        this.id = id;
+        this.name = name;
+        this.medium = medium;
+    }
 }

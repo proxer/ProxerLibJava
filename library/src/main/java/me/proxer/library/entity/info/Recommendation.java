@@ -117,30 +117,6 @@ public class Recommendation implements ProxerIdItem {
     @Json(name = "positive")
     private Boolean userVote;
 
-    @SuppressWarnings("checkstyle:parameternumber")
-    public Recommendation(final String id, final String name, final Set<Genre> genres,
-                          final Set<FskConstraint> fskConstraints, final String description, final Medium medium,
-                          final int episodeAmount, final MediaState state, final int ratingSum, final int ratingAmount,
-                          final int clicks, final Category category, final License license, final int positiveVotes,
-                          final int negativeVotes, @Nullable final Boolean userVote) {
-        this.id = id;
-        this.name = name;
-        this.genres = genres;
-        this.fskConstraints = fskConstraints;
-        this.description = description;
-        this.medium = medium;
-        this.episodeAmount = episodeAmount;
-        this.state = state;
-        this.ratingSum = ratingSum;
-        this.ratingAmount = ratingAmount;
-        this.clicks = clicks;
-        this.category = category;
-        this.license = license;
-        this.positiveVotes = positiveVotes;
-        this.negativeVotes = negativeVotes;
-        this.userVote = userVote;
-    }
-
     /**
      * Returns the average of all ratings.
      */

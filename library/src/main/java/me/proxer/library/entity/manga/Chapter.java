@@ -85,20 +85,4 @@ public class Chapter implements ProxerIdItem, ProxerDateItem {
      */
     @Json(name = "pages")
     private List<Page> pages;
-
-    @SuppressWarnings("checkstyle:parameternumber")
-    public Chapter(final String id, final String entryId, final String title, final String uploaderId,
-                   final String uploaderName, final Date date, @Nullable final String scanGroupId,
-                   @Nullable final String scanGroupName, final String server, final List<Page> pages) {
-        this.id = id;
-        this.entryId = entryId;
-        this.title = title;
-        this.uploaderId = uploaderId;
-        this.uploaderName = uploaderName;
-        this.date = date;
-        this.scanGroupId = scanGroupId;
-        this.scanGroupName = scanGroupName;
-        this.server = server;
-        this.pages = pages;
-    }
 }
