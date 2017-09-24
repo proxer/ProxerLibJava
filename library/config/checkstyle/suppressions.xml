@@ -10,6 +10,7 @@
     <suppress checks="VisibilityModifier" files="ConferenceInfoAdapter.java"/>
     <suppress checks="VisibilityModifier" files="EpisodeInfoAdapter.java"/>
     <suppress checks="VisibilityModifier" files="NotificationAdapter.java"/>
+    <suppress checks="VisibilityModifier" files="AdaptionInfoAdapter.java"/>
 
     <!-- Ignore parameter count of API methods. -->
     <suppress checks="ParameterNumber" files="InternalApi.java"/>

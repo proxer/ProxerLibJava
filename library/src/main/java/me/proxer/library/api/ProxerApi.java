@@ -216,17 +216,18 @@ public final class ProxerApi {
             moshi = builder
                     .add(new VoidAdapter())
                     .add(new DateAdapter())
-                    .add(new BooleanAdapter())
-                    .add(new PrimitiveBooleanAdapter())
-                    .add(new DelimitedEnumSetAdapterFactory())
-                    .add(new HttpUrlAdapter())
-                    .add(new NotificationAdapter())
-                    .add(new ConferenceAdapter())
-                    .add(new ConferenceInfoAdapter())
-                    .add(new EpisodeInfoAdapter())
                     .add(new PageAdapter())
+                    .add(new BooleanAdapter())
+                    .add(new HttpUrlAdapter())
+                    .add(new ConferenceAdapter())
+                    .add(new EpisodeInfoAdapter())
+                    .add(new AdaptionInfoAdapter())
+                    .add(new NotificationAdapter())
+                    .add(new ConferenceInfoAdapter())
+                    .add(new PrimitiveBooleanAdapter())
                     .add(new NotificationInfoAdapter())
                     .add(new FixRatingDetailsAdapter())
+                    .add(new DelimitedEnumSetAdapterFactory())
                     .build();
         }
 

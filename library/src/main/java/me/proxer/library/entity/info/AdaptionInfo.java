@@ -29,6 +29,13 @@ public class AdaptionInfo implements ProxerIdItem {
     /**
      * Returns the medium
      */
+    @Nullable
     @Json(name = "medium")
     private Medium medium;
+
+    public AdaptionInfo(final String id, final String name, @Nullable final Medium medium) {
+        this.id = id;
+        this.name = name;
+        this.medium = medium;
+    }
 }
