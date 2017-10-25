@@ -40,8 +40,8 @@ public class MediaSearchEndpointTest extends ProxerTest {
                 .name("test")
                 .limit(10)
                 .page(3)
-                .genres(EnumSet.of(Genre.ADULT))
-                .excludedGenres(EnumSet.of(Genre.ACTION))
+                .genres(EnumSet.of(Genre.ADULT, Genre.ACTION))
+                .excludedGenres(EnumSet.of(Genre.DRAMA, Genre.FANTASY))
                 .tags(new HashSet<>(Arrays.asList("3", "7")))
                 .excludedTags(new HashSet<>(Arrays.asList("5", "20")))
                 .fskConstraints(EnumSet.of(FskConstraint.FEAR))
@@ -55,9 +55,10 @@ public class MediaSearchEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/entrysearch?name=test&language=en"
-                + "&type=all-manga&genre=Adult&nogenre=Action&fsk=fear&sort=clicks&length=300&length-limit=down"
-                + "&tags=3%207&notags=5%2020&tagratefilter=rate_1&tagspoilerfilter=spoiler_1&p=3&limit=10");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/entrysearch?name=test&language=en&"
+                + "type=all-manga&genre=ACTION%2BADULT&nogenre=DRAMA%2BFANTASY&fsk=FEAR&sort=clicks&length=300&"
+                + "length-limit=down&tags=3%2B7&notags=5%2B20&tagratefilter=rate_1&"
+                + "tagspoilerfilter=spoiler_1&p=3&limit=10");
     }
 
     @Test

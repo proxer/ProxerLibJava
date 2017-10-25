@@ -8,7 +8,6 @@ import retrofit2.http.Query;
 
 import javax.annotation.ParametersAreNullableByDefault;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Desnoo
@@ -30,9 +29,9 @@ interface InternalApi {
     ProxerCall<List<MediaListEntry>> mediaSearch(@Query("name") String name,
                                                  @Query("language") Language language,
                                                  @Query("type") MediaType type,
-                                                 @Query("genre") Set<Genre> genres,
-                                                 @Query("nogenre") Set<Genre> excludedGenres,
-                                                 @Query("fsk") Set<FskConstraint> fskConstraints,
+                                                 @Query("genre") String genres,
+                                                 @Query("nogenre") String excludedGenres,
+                                                 @Query("fsk") String fskConstraints,
                                                  @Query("sort") MediaSearchSortCriteria sort,
                                                  @Query("length") Integer length,
                                                  @Query("length-limit") LengthBound lengthLimit,

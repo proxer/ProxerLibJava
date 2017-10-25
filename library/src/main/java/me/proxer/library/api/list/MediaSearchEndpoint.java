@@ -20,7 +20,7 @@ import java.util.Set;
 @Accessors(fluent = true)
 public final class MediaSearchEndpoint implements PagingLimitEndpoint<List<MediaListEntry>> {
 
-    private static final String DELIMITER = " ";
+    private static final String DELIMITER = "+";
 
     private final InternalApi internalApi;
 
@@ -156,7 +156,11 @@ public final class MediaSearchEndpoint implements PagingLimitEndpoint<List<Media
 
     @Override
     public ProxerCall<List<MediaListEntry>> build() {
-        return internalApi.mediaSearch(name, language, type, genres, excludedGenres, fskConstraints,
+        String joinedGenres = genres == null ? null : ProxerUtils.join(DELIMITER, genres);
+        String joinedExcludedGenres = excludedGenres == null ? null : ProxerUtils.join(DELIMITER, excludedGenres);
+        String joinedFskConstraints = fskConstraints == null ? null : ProxerUtils.join(DELIMITER, fskConstraints);
+
+        return internalApi.mediaSearch(name, language, type, joinedGenres, joinedExcludedGenres, joinedFskConstraints,
                 sort, length, lengthBound, tags, excludedTags, tagRateFilter, tagSpoilerFilter, page, limit);
     }
 }
