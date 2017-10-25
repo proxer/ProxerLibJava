@@ -3,12 +3,13 @@ buildscript {
         version = '4.1.0'
         group = 'com.github.proxer'
 
-        errorpronePluginVersion = '0.0.11'
-        errorproneVersion = '2.0.19'
+        errorpronePluginVersion = '0.0.13'
+        errorproneVersion = '2.1.2'
 
         gradleVersionsPluginVersion = '0.15.0'
         buildConfigPluginVersion = '1.1.8'
         freefairPluginsVersion = '1.0.0'
+        jacocoVersion = '0.7.9'
 
         lombokVersion = '1.16.18'
         jsr305Version = '3.0.2'
@@ -63,5 +64,5 @@ allprojects {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
+    gradleVersion = '4.2'
 }
