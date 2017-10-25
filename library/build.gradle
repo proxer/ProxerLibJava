@@ -210,6 +210,8 @@ publishing {
     }
 }
 
+test { finalizedBy jacocoTestReport }
+
 gradle.projectsEvaluated {
     compileJava.dependsOn(generatePackageInfo)
 }
