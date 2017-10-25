@@ -26,6 +26,11 @@ public class ProxerUtilsTest {
     }
 
     @Test
+    public void testToApiEnumIgnoresCase() throws Exception {
+        assertThat(ProxerUtils.toApiEnum(Genre.class, "ACTION")).isEqualTo(Genre.ACTION);
+    }
+
+    @Test
     public void testToApiEnumInvalidString() {
         assertThat(ProxerUtils.toApiEnum(MediaLanguage.class, "invalid")).isNull();
     }
