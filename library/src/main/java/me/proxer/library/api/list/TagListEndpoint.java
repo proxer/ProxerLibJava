@@ -12,6 +12,11 @@ import me.proxer.library.enums.TagType;
 import javax.annotation.Nullable;
 import java.util.List;
 
+/**
+ * Endpoint for retrieving the available tags.
+ *
+ * @author Ruben Gees
+ */
 @Accessors(fluent = true)
 public final class TagListEndpoint implements Endpoint<List<Tag>> {
 
