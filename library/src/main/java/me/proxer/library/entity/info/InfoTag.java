@@ -11,13 +11,13 @@ import javax.annotation.Nullable;
 import java.util.Date;
 
 /**
- * Entity representing a single tag.
+ * Entity representing a single tag in the context of an {@link Entry}.
  *
  * @author Ruben Gees
  */
 @Value
 @EqualsAndHashCode(onParam = @__({@Nullable}))
-public class Tag implements ProxerIdItem, ProxerDateItem {
+public class InfoTag implements ProxerIdItem, ProxerDateItem {
 
     /**
      * Returns the id of the associated entry.

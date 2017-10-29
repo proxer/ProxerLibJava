@@ -69,4 +69,11 @@ interface InternalApi {
                                                           @Query("isH") Integer includeHentai,
                                                           @Query("p") Integer page,
                                                           @Query("limit") Integer limit);
+
+    @GET("list/tags")
+    ProxerCall<List<Tag>> tagList(@Query("search") String search,
+                                  @Query("type") TagType type,
+                                  @Query("sort") TagSortCriteria sort,
+                                  @Query("sort_type") TagSortType sortType,
+                                  @Query("subtype") TagSubType subType);
 }

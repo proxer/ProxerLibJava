@@ -147,7 +147,7 @@ public class Entry implements ProxerIdItem {
      * Returns the tags.
      */
     @Json(name = "tags")
-    private List<Tag> tags;
+    private List<InfoTag> tags;
 
     /**
      * Returns the average of all ratings.

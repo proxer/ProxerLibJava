@@ -1,0 +1,24 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": [
+    {
+      "id": "262",
+      "type": "entry_tag",
+      "subtype": "zeichnung",
+      "tag": "4-Koma",
+      "description": "Seitenaufteilung in vier gleich große Panels.",
+      "blacklist": "0",
+      "is_spoiler": "0"
+    },
+    {
+      "id": "175",
+      "type": "entry_genre",
+      "subtype": "misc",
+      "tag": "Action",
+      "description": "Dynamische Szenen, spannende Wettkämpfe und beeindruckende Kampfszenen prägen dieses Genre.",
+      "blacklist": "0",
+      "is_spoiler": "1"
+    }
+  ]
+}

@@ -56,4 +56,11 @@ public final class ListApi {
     public IndustryProjectListEndpoint industryProjectList(final String industryId) {
         return new IndustryProjectListEndpoint(internalApi, industryId);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    public TagListEndpoint tagList() {
+        return new TagListEndpoint(internalApi);
+    }
 }
