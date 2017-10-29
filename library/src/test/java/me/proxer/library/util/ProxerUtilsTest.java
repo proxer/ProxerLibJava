@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,6 +44,17 @@ public class ProxerUtilsTest {
     @Test
     public void testJoinEmpty() {
         assertThat(ProxerUtils.join(";", Collections.emptyList())).isEmpty();
+    }
+
+    @Test
+    public void testJoinEnums() {
+        assertThat(ProxerUtils.joinEnums(";", EnumSet.of(Genre.ADVENTURE, Genre.ACTION, Genre.DRAMA)))
+                .isEqualTo("Abenteuer;Action;Drama");
+    }
+
+    @Test
+    public void testJoinEnumsEmpty() {
+        assertThat(ProxerUtils.joinEnums(";", EnumSet.noneOf(Genre.class))).isEmpty();
     }
 
     @Test

@@ -9,6 +9,7 @@ import me.proxer.library.enums.*;
 import me.proxer.library.util.ProxerUtils;
 
 import javax.annotation.Nullable;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
@@ -88,21 +89,21 @@ public final class MediaSearchEndpoint implements PagingLimitEndpoint<List<Media
      */
     @Nullable
     @Setter
-    private Set<Genre> genres;
+    private EnumSet<Genre> genres;
 
     /**
      * Sets the excluded genres.
      */
     @Nullable
     @Setter
-    private Set<Genre> excludedGenres;
+    private EnumSet<Genre> excludedGenres;
 
     /**
      * Sets the required fsk ratings.
      */
     @Nullable
     @Setter
-    private Set<FskConstraint> fskConstraints;
+    private EnumSet<FskConstraint> fskConstraints;
 
     /**
      * {@inheritDoc}
@@ -156,9 +157,9 @@ public final class MediaSearchEndpoint implements PagingLimitEndpoint<List<Media
 
     @Override
     public ProxerCall<List<MediaListEntry>> build() {
-        String joinedGenres = genres == null ? null : ProxerUtils.join(DELIMITER, genres);
-        String joinedExcludedGenres = excludedGenres == null ? null : ProxerUtils.join(DELIMITER, excludedGenres);
-        String joinedFskConstraints = fskConstraints == null ? null : ProxerUtils.join(DELIMITER, fskConstraints);
+        String joinedGenres = genres == null ? null : ProxerUtils.joinEnums(DELIMITER, genres);
+        String joinedExcludedGenres = excludedGenres == null ? null : ProxerUtils.joinEnums(DELIMITER, excludedGenres);
+        String joinedFskConstraints = fskConstraints == null ? null : ProxerUtils.joinEnums(DELIMITER, fskConstraints);
 
         return internalApi.mediaSearch(name, language, type, joinedGenres, joinedExcludedGenres, joinedFskConstraints,
                 sort, length, lengthBound, tags, excludedTags, tagRateFilter, tagSpoilerFilter, page, limit);

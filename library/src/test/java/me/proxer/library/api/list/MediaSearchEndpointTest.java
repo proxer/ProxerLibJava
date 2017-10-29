@@ -56,7 +56,7 @@ public class MediaSearchEndpointTest extends ProxerTest {
                 .execute();
 
         assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/entrysearch?name=test&language=en&"
-                + "type=all-manga&genre=ACTION%2BADULT&nogenre=DRAMA%2BFANTASY&fsk=FEAR&sort=clicks&length=300&"
+                + "type=all-manga&genre=Action%2BAdult&nogenre=Drama%2BFantasy&fsk=fear&sort=clicks&length=300&"
                 + "length-limit=down&tags=3%2B7&notags=5%2B20&tagratefilter=rate_1&"
                 + "tagspoilerfilter=spoiler_1&p=3&limit=10");
     }

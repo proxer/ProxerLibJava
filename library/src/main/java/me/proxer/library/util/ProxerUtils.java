@@ -5,6 +5,8 @@ import lombok.experimental.UtilityClass;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.Iterator;
 
 /**
@@ -66,5 +68,22 @@ public class ProxerUtils {
         }
 
         return builder.toString();
+    }
+
+    /**
+     * Joins an Iterator of enums with a given delimiter to a {@link String} and returns the result.
+     * <p>
+     * For String conversion, the {@link #getApiEnumName(Enum)} method is used, so this method will only work with enums
+     * from this library.
+     */
+    @SuppressWarnings("checkstyle:designforextension") // Lombok makes it static.
+    public String joinEnums(final String delimiter, final EnumSet<?> enums) {
+        final ArrayList<String> convertedEnums = new ArrayList<>();
+
+        for (final Enum<?> value : enums) {
+            convertedEnums.add(ProxerUtils.getApiEnumName(value));
+        }
+
+        return join(delimiter, convertedEnums);
     }
 }
