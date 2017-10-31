@@ -40,7 +40,9 @@ public class ProxerUtils {
     @Nullable
     public <T extends Enum<T>> T toApiEnum(final Class<T> type, final String value) {
         for (final Field field : type.getFields()) {
-            if (field.getAnnotation(Json.class).name().equalsIgnoreCase(value)) {
+            Json annotation = field.getAnnotation(Json.class);
+
+            if (annotation != null && annotation.name().equalsIgnoreCase(value)) {
                 return Enum.valueOf(type, field.getName());
             }
         }

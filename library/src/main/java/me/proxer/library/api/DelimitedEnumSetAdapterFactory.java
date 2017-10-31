@@ -77,7 +77,9 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
 
             for (final String part : parts) {
                 for (final Field field : enumType.getFields()) {
-                    if (field.getAnnotation(Json.class).name().equals(part)) {
+                    Json annotation = field.getAnnotation(Json.class);
+
+                    if (annotation != null && annotation.name().equalsIgnoreCase(part)) {
                         result.add(Enum.valueOf(enumType, field.getName()));
 
                         break;
