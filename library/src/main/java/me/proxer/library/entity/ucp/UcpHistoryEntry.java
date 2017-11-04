@@ -26,8 +26,14 @@ public class UcpHistoryEntry implements ProxerIdItem, ProxerDateItem {
      * {@inheritDoc}
      */
     @Getter(onMethod = @__({@Override}))
-    @Json(name = "eid")
+    @Json(name = "id")
     private String id;
+
+    /**
+     * Returns the id of the associated {@link me.proxer.library.entity.info.Entry}.
+     */
+    @Json(name = "eid")
+    private String entryId;
 
     /**
      * Returns the name.
