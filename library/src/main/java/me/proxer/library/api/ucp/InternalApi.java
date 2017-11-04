@@ -35,7 +35,8 @@ interface InternalApi {
     @GET("ucp/reminder")
     ProxerCall<List<Bookmark>> bookmarks(@Query("kat") Category category,
                                          @Query("p") Integer page,
-                                         @Query("limit") Integer limit);
+                                         @Query("limit") Integer limit,
+                                         @Query("available") Boolean available);
 
     @GET("ucp/topten")
     ProxerCall<List<UcpTopTenEntry>> topTen();

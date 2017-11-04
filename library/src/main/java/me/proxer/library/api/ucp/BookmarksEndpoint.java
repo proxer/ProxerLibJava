@@ -41,6 +41,15 @@ public final class BookmarksEndpoint implements PagingLimitEndpoint<List<Bookmar
     @Setter(onMethod = @__({@Override}))
     private Integer limit;
 
+    /**
+     * Sets if only available or only not available bookmarks should be returned.
+     * <p>
+     * This field being null means that all bookmarks are returned.
+     */
+    @Nullable
+    @Setter
+    private Boolean filterAvailable;
+
     BookmarksEndpoint(final InternalApi internalApi) {
         this.internalApi = internalApi;
     }
@@ -50,6 +59,6 @@ public final class BookmarksEndpoint implements PagingLimitEndpoint<List<Bookmar
      */
     @Override
     public ProxerCall<List<Bookmark>> build() {
-        return internalApi.bookmarks(category, page, limit);
+        return internalApi.bookmarks(category, page, limit, filterAvailable);
     }
 }

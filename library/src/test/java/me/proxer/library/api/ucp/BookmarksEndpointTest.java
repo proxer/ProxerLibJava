@@ -40,10 +40,12 @@ public class BookmarksEndpointTest extends ProxerTest {
                 .category(Category.MANGA)
                 .page(12)
                 .limit(1)
+                .filterAvailable(true)
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/ucp/reminder?kat=manga&p=12&limit=1");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/ucp/reminder?kat=manga&p=12" +
+                "&limit=1&available=true");
     }
 
     private Bookmark buildTestBookmark() {
