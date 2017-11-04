@@ -44,8 +44,8 @@ public class BookmarksEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/ucp/reminder?kat=manga&p=12" +
-                "&limit=1&available=true");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/ucp/reminder?kat=manga&p=12"
+                + "&limit=1&available=true");
     }
 
     private Bookmark buildTestBookmark() {
