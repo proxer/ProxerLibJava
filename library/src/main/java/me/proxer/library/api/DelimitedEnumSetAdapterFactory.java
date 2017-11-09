@@ -1,6 +1,11 @@
 package me.proxer.library.api;
 
-import com.squareup.moshi.*;
+import com.squareup.moshi.Json;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.JsonReader;
+import com.squareup.moshi.JsonWriter;
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
 import me.proxer.library.enums.FskConstraint;
 import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.MediaLanguage;
@@ -12,7 +17,12 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Ruben Gees

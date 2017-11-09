@@ -5,7 +5,14 @@ import lombok.experimental.Accessors;
 import me.proxer.library.api.PagingLimitEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entity.list.MediaListEntry;
-import me.proxer.library.enums.*;
+import me.proxer.library.enums.FskConstraint;
+import me.proxer.library.enums.Genre;
+import me.proxer.library.enums.Language;
+import me.proxer.library.enums.LengthBound;
+import me.proxer.library.enums.MediaSearchSortCriteria;
+import me.proxer.library.enums.MediaType;
+import me.proxer.library.enums.TagRateFilter;
+import me.proxer.library.enums.TagSpoilerFilter;
 import me.proxer.library.util.ProxerUtils;
 
 import javax.annotation.Nullable;

@@ -4,7 +4,12 @@ import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.info.AdaptionInfo;
 import me.proxer.library.entity.info.EntryCore;
-import me.proxer.library.enums.*;
+import me.proxer.library.enums.Category;
+import me.proxer.library.enums.FskConstraint;
+import me.proxer.library.enums.Genre;
+import me.proxer.library.enums.License;
+import me.proxer.library.enums.MediaState;
+import me.proxer.library.enums.Medium;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 

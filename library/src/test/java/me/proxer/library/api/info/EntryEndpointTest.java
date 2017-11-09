@@ -2,9 +2,24 @@ package me.proxer.library.api.info;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entity.info.*;
+import me.proxer.library.entity.info.AdaptionInfo;
+import me.proxer.library.entity.info.Entry;
+import me.proxer.library.entity.info.EntrySeasonInfo;
+import me.proxer.library.entity.info.EntryTranslatorGroup;
+import me.proxer.library.entity.info.InfoTag;
+import me.proxer.library.entity.info.Synonym;
 import me.proxer.library.entity.list.IndustryCore;
-import me.proxer.library.enums.*;
+import me.proxer.library.enums.Category;
+import me.proxer.library.enums.Country;
+import me.proxer.library.enums.FskConstraint;
+import me.proxer.library.enums.Genre;
+import me.proxer.library.enums.IndustryType;
+import me.proxer.library.enums.License;
+import me.proxer.library.enums.MediaLanguage;
+import me.proxer.library.enums.MediaState;
+import me.proxer.library.enums.Medium;
+import me.proxer.library.enums.Season;
+import me.proxer.library.enums.SynonymType;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 

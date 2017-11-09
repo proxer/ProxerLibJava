@@ -1,7 +1,11 @@
 package me.proxer.library.api;
 
 import com.squareup.moshi.Json;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.annotation.Nullable;
 

@@ -5,7 +5,11 @@ import me.proxer.library.entity.notifications.NewsArticle;
 import me.proxer.library.entity.notifications.Notification;
 import me.proxer.library.entity.notifications.NotificationInfo;
 import me.proxer.library.enums.NotificationFilter;
-import retrofit2.http.*;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 import javax.annotation.ParametersAreNullableByDefault;
 import java.util.List;

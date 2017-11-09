@@ -5,7 +5,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerIdItem;
-import me.proxer.library.enums.*;
+import me.proxer.library.enums.Category;
+import me.proxer.library.enums.FskConstraint;
+import me.proxer.library.enums.Genre;
+import me.proxer.library.enums.License;
+import me.proxer.library.enums.MediaState;
+import me.proxer.library.enums.Medium;
 
 import javax.annotation.Nullable;
 import java.util.Set;

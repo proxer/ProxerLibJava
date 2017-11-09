@@ -3,7 +3,11 @@ package me.proxer.library.api.list;
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.list.IndustryProject;
-import me.proxer.library.enums.*;
+import me.proxer.library.enums.FskConstraint;
+import me.proxer.library.enums.Genre;
+import me.proxer.library.enums.IndustryType;
+import me.proxer.library.enums.MediaState;
+import me.proxer.library.enums.Medium;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 
