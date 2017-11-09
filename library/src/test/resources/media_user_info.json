@@ -1,0 +1,11 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": {
+    "marked": true,
+    "noted": false,
+    "finished": true,
+    "canceled": false,
+    "topten": true
+  }
+}

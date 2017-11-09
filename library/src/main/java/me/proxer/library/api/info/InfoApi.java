@@ -94,4 +94,11 @@ public final class InfoApi {
     public RecommendationsEndpoint recommendations(final String entryId) {
         return new RecommendationsEndpoint(internalApi, entryId);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    public MediaUserInfoEndpoint userInfo(final String entryId) {
+        return new MediaUserInfoEndpoint(internalApi, entryId);
+    }
 }

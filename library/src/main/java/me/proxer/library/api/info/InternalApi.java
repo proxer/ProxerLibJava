@@ -6,6 +6,7 @@ import me.proxer.library.entity.info.Entry;
 import me.proxer.library.entity.info.EntryCore;
 import me.proxer.library.entity.info.EpisodeInfo;
 import me.proxer.library.entity.info.Industry;
+import me.proxer.library.entity.info.MediaUserInfo;
 import me.proxer.library.entity.info.Recommendation;
 import me.proxer.library.entity.info.Relation;
 import me.proxer.library.entity.info.TranslatorGroup;
@@ -59,4 +60,7 @@ interface InternalApi {
 
     @GET("info/recommendations")
     ProxerCall<List<Recommendation>> recommendations(@Query("id") String id);
+
+    @GET("info/userinfo")
+    ProxerCall<MediaUserInfo> userInfo(@Query("id") String id);
 }
