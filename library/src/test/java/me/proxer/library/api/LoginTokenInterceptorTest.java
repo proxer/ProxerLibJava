@@ -2,6 +2,7 @@ package me.proxer.library.api;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException.ErrorType;
+import okhttp3.Request;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 
@@ -116,5 +117,14 @@ public class LoginTokenInterceptorTest extends ProxerTest {
         assertThatExceptionOfType(ProxerException.class)
                 .isThrownBy(() -> api.user().login("test", "secret").build().execute())
                 .matches(exception -> exception.getErrorType() == ErrorType.PARSING);
+    }
+
+    @Test
+    public void testNoBodyResponse() throws IOException, InterruptedException {
+        server.enqueue(new MockResponse());
+
+        api.client().newCall(new Request.Builder().url("https://proxer.me/fake").build()).execute();
+
+        assertThat(server.takeRequest().getHeaders().get("proxer-api-token")).isNull();
     }
 }

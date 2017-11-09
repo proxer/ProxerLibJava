@@ -21,7 +21,7 @@ import static java.util.regex.Pattern.DOTALL;
 final class LoginTokenInterceptor implements Interceptor {
 
     private static final String LOGIN_TOKEN_HEADER = "proxer-api-token";
-    private static final int MAX_PEEK_BYTE_COUNT = 1048576;
+    private static final int MAX_PEEK_BYTE_COUNT = 1024;
 
     private static final Pattern LOGIN_TOKEN_PATTERN = Pattern.compile("\"token\":.*?\"(.+?)\"", DOTALL);
     private static final Pattern ERROR_PATTERN = Pattern.compile("\"code\":.*?(\\d+\b?)", DOTALL);
@@ -59,36 +59,48 @@ final class LoginTokenInterceptor implements Interceptor {
             final Response response = chain.proceed(newRequestBuilder.build());
 
             if (response.isSuccessful()) {
-                final HttpUrl url = response.request().url();
-                final String responseBody = response.peekBody(MAX_PEEK_BYTE_COUNT).string();
-                final Matcher errorMatcher = ERROR_PATTERN.matcher(responseBody);
-
-                if (errorMatcher.find()) {
-                    final int errorCode = Integer.parseInt(errorMatcher.group(1));
-                    final ServerErrorType errorType = ServerErrorType.fromErrorCodeOrNull(errorCode);
-
-                    if (errorType != null && isLoginError(errorType)) {
-                        loginTokenManager.persist(null);
-                    }
-
-                    return response;
-                } else if (url.pathSegments().equals(LOGIN_PATH)) {
-                    final Matcher loginTokenMatcher = LOGIN_TOKEN_PATTERN.matcher(responseBody);
-
-                    if (loginTokenMatcher.find()) {
-                        loginTokenManager.persist(loginTokenMatcher.group(1).trim());
-                    } else {
-                        throw new JsonDataException("No token found after successful login.");
-                    }
-                } else if (url.pathSegments().equals(LOGOUT_PATH)) {
-                    loginTokenManager.persist(null);
-                }
+                if (handleResponse(response)) return response;
             }
 
             return response;
         } else {
             return chain.proceed(oldRequest);
         }
+    }
+
+    private boolean handleResponse(Response response) throws IOException {
+        final String responseBody = peekResponseBody(response);
+        final Matcher errorMatcher = ERROR_PATTERN.matcher(responseBody);
+        final HttpUrl url = response.request().url();
+
+        if (errorMatcher.find()) {
+            final int errorCode = Integer.parseInt(errorMatcher.group(1));
+            final ServerErrorType errorType = ServerErrorType.fromErrorCodeOrNull(errorCode);
+
+            if (errorType != null && isLoginError(errorType)) {
+                loginTokenManager.persist(null);
+            }
+
+            return true;
+        } else if (url.pathSegments().equals(LOGIN_PATH)) {
+            final Matcher loginTokenMatcher = LOGIN_TOKEN_PATTERN.matcher(responseBody);
+
+            if (loginTokenMatcher.find()) {
+                loginTokenManager.persist(loginTokenMatcher.group(1).trim());
+            } else {
+                throw new JsonDataException("No token found after successful login.");
+            }
+        } else if (url.pathSegments().equals(LOGOUT_PATH)) {
+            loginTokenManager.persist(null);
+        }
+
+        return false;
+    }
+
+    private String peekResponseBody(Response response) throws IOException {
+        final ResponseBody safeBody = response.body();
+
+        return safeBody != null && safeBody.contentLength() > 0 ? response.peekBody(MAX_PEEK_BYTE_COUNT).string() : "";
     }
 
     private boolean isLoginError(final ServerErrorType errorType) {
