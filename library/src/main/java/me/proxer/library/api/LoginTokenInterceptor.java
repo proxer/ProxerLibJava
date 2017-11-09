@@ -60,7 +60,7 @@ final class LoginTokenInterceptor implements Interceptor {
             final Response response = chain.proceed(newRequestBuilder.build());
 
             if (response.isSuccessful()) {
-                if (handleResponse(response)) return response;
+                handleResponse(response);
             }
 
             return response;
@@ -69,7 +69,7 @@ final class LoginTokenInterceptor implements Interceptor {
         }
     }
 
-    private boolean handleResponse(Response response) throws IOException {
+    private void handleResponse(final Response response) throws IOException {
         final String responseBody = peekResponseBody(response);
         final Matcher errorMatcher = ERROR_PATTERN.matcher(responseBody);
         final HttpUrl url = response.request().url();
@@ -81,8 +81,6 @@ final class LoginTokenInterceptor implements Interceptor {
             if (errorType != null && isLoginError(errorType)) {
                 loginTokenManager.persist(null);
             }
-
-            return true;
         } else if (url.pathSegments().equals(LOGIN_PATH)) {
             final Matcher loginTokenMatcher = LOGIN_TOKEN_PATTERN.matcher(responseBody);
 
@@ -94,11 +92,9 @@ final class LoginTokenInterceptor implements Interceptor {
         } else if (url.pathSegments().equals(LOGOUT_PATH)) {
             loginTokenManager.persist(null);
         }
-
-        return false;
     }
 
-    private String peekResponseBody(Response response) throws IOException {
+    private String peekResponseBody(final Response response) throws IOException {
         final ResponseBody safeBody = response.body();
 
         return safeBody != null && safeBody.contentLength() > 0 ? response.peekBody(MAX_PEEK_BYTE_COUNT).string() : "";
