@@ -97,7 +97,7 @@ final class LoginTokenInterceptor implements Interceptor {
     private String peekResponseBody(final Response response) throws IOException {
         final ResponseBody safeBody = response.body();
 
-        return safeBody != null && safeBody.contentLength() > 0 ? response.peekBody(MAX_PEEK_BYTE_COUNT).string() : "";
+        return safeBody != null && safeBody.contentLength() != 0 ? response.peekBody(MAX_PEEK_BYTE_COUNT).string() : "";
     }
 
     private boolean isLoginError(final ServerErrorType errorType) {
