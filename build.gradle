@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        version = '4.2.0'
+        version = '4.2.1'
         group = 'com.github.proxer'
 
         errorpronePluginVersion = '0.0.13'
@@ -65,5 +65,5 @@ allprojects {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.3'
+    gradleVersion = '4.3.1'
 }
