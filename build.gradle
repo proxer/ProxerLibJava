@@ -1,45 +1,5 @@
 buildscript {
-    ext {
-        version = '4.2.1'
-        group = 'com.github.proxer'
-
-        errorpronePluginVersion = '0.0.13'
-        errorproneVersion = '2.1.2'
-
-        gradleVersionsPluginVersion = '0.17.0'
-        buildConfigPluginVersion = '1.1.8'
-        freefairPluginsVersion = '1.0.0'
-        jacocoVersion = '0.7.10-SNAPSHOT'
-
-        lombokVersion = '1.16.18'
-        jsr305Version = '3.0.2'
-        javaxExtrasVersion = '0.1.0'
-
-        retrofitVersion = '2.3.0'
-        okHttpVersion = '3.9.0'
-        moshiVersion = '1.5.0'
-
-        junitVersion = '4.12'
-        assertjVersion = '3.8.0'
-        privateConstructorVersion = '1.2.0'
-
-        deps = [
-                errorprone        : "com.google.errorprone:error_prone_core:$errorproneVersion",
-                lombok            : "org.projectlombok:lombok:$lombokVersion",
-                jsr305            : "com.google.code.findbugs:jsr305:$jsr305Version",
-                javaxExtras       : "com.uber.javaxextras:javax-extras:$javaxExtrasVersion",
-
-                retrofit          : "com.squareup.retrofit2:retrofit:$retrofitVersion",
-                retrofitMoshi     : "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
-                okHttp            : "com.squareup.okhttp3:okhttp:$okHttpVersion",
-                moshi             : "com.squareup.moshi:moshi:$moshiVersion",
-
-                junit             : "junit:junit:$junitVersion",
-                assertj           : "org.assertj:assertj-core:$assertjVersion",
-                mockwebserver     : "com.squareup.okhttp3:mockwebserver:$okHttpVersion",
-                privateConstructor: "com.pushtorefresh.java-private-constructor-checker:checker:$privateConstructorVersion"
-        ]
-    }
+    apply from: 'gradle/versions.gradle'
 
     repositories {
         maven { url 'https://plugins.gradle.org/m2/' }
@@ -65,5 +25,5 @@ allprojects {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.3.1'
+    setGradleVersion(project.ext.gradleVersion)
 }
