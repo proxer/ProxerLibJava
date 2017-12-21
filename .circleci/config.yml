@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}-{{ checksum  "sample/build.gradle" }}
+          key: jars-{{ checksum "gradle/versions.gradle" }}-{{ checksum  ".circleci/config.yml" }}
       - run:
           name: Run Build
           command: ./gradlew build --console=plain
@@ -25,4 +25,4 @@ jobs:
       - save_cache:
           paths:
             - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "library/build.gradle" }}-{{ checksum  "sample/build.gradle" }}
+          key: jars-{{ checksum "gradle/versions.gradle" }}-{{ checksum  ".circleci/config.yml" }}
