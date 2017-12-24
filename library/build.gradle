@@ -191,27 +191,27 @@ publishing {
                 asNode().children().last() + {
                     resolveStrategy = DELEGATE_FIRST
 
-                    name = 'ProxerLibJava'
-                    description = 'An Java and Android library, implementing the API of the Proxer.me website'
-                    url = 'https://github.com/proxer/ProxerLibJava'
+                    name 'ProxerLibJava'
+                    description 'An Java and Android library, implementing the API of the Proxer.me website'
+                    url 'https://github.com/proxer/ProxerLibJava'
 
-                    scm = {
-                        url = 'https://github.com/proxer/ProxerLibJava'
-                        connection = 'scm:git:https://github.com/proxer/ProxerLibJava'
-                        developerConnection = 'scm:git:git@github.com/proxer/ProxerLibJava'
-                        tag = 'HEAD'
+                    scm {
+                        url 'https://github.com/proxer/ProxerLibJava'
+                        connection 'scm:git:https://github.com/proxer/ProxerLibJava'
+                        developerConnection 'scm:git:git@github.com/proxer/ProxerLibJava'
+                        tag 'HEAD'
                     }
 
-                    issueManagement = {
-                        system = 'GitHub Issues'
-                        url = 'https://github.com/proxer/ProxerLibJava/issues'
+                    issueManagement {
+                        system 'GitHub Issues'
+                        url 'https://github.com/proxer/ProxerLibJava/issues'
                     }
 
-                    licenses = {
-                        license = {
-                            name = 'MIT'
-                            url = 'https://opensource.org/licenses/MIT'
-                            distribution = 'repo'
+                    licenses {
+                        license {
+                            name 'MIT'
+                            url 'https://opensource.org/licenses/MIT'
+                            distribution 'repo'
                         }
                     }
                 }
