@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import me.proxer.library.BuildConfig;
 import me.proxer.library.api.anime.AnimeApi;
+import me.proxer.library.api.forum.ForumApi;
 import me.proxer.library.api.info.InfoApi;
 import me.proxer.library.api.list.ListApi;
 import me.proxer.library.api.manga.MangaApi;
@@ -90,6 +91,11 @@ public final class ProxerApi {
      */
     private final MangaApi manga;
 
+    /**
+     * Returns the respective API.
+     */
+    private final ForumApi forum;
+
     private ProxerApi(final Moshi moshi, final OkHttpClient client, final Retrofit retrofit) {
         this.moshi = moshi;
         this.client = client;
@@ -103,6 +109,7 @@ public final class ProxerApi {
         ucp = new UcpApi(retrofit);
         anime = new AnimeApi(retrofit);
         manga = new MangaApi(retrofit);
+        forum = new ForumApi(retrofit);
     }
 
     /**

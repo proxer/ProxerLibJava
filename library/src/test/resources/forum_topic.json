@@ -1,0 +1,40 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": {
+    "category_id": "19",
+    "category_name": "Proxer Umfragen",
+    "subject": "Wie lange guckt ihr Anime durchschnittlich /Tag",
+    "locked": "0",
+    "post_count": "14",
+    "hits": "101",
+    "first_post_time": "1513552953",
+    "last_post_time": "1514151527",
+    "posts": [
+      {
+        "id": "811201",
+        "pid": "0",
+        "uid": "613171",
+        "username": "SilverCrow00",
+        "time": "1513552953",
+        "modified_by": null,
+        "modified_name": null,
+        "modified_time": null,
+        "modified_reason": null,
+        "message": "Wie oft oder wie lange guckt ihr so Anime?"
+      },
+      {
+        "id": "811256",
+        "pid": "811201",
+        "uid": "139597",
+        "username": "Miss-Otaku",
+        "time": "1513626886",
+        "modified_by": "123",
+        "modified_name": "test",
+        "modified_time": "15135529123",
+        "modified_reason": "just a test",
+        "message": "Ich versuche, dass ganze im Rahmen zu halten. Meistens sind es so ungefähr 2-3 Folgen und über den Tag verteilt. Leider werde ich oft schwach, gerade bei besonders spannenden Anime, dass ich auch mehrere Folgen am Stück anschaue."
+      }
+    ]
+  }
+}
