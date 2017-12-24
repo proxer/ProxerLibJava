@@ -5,7 +5,7 @@ import me.proxer.library.api.Endpoint;
 import me.proxer.library.api.ProxerCall;
 
 /**
- * Endpoint for unmarking an entry as favorite.
+ * Endpoint for requesting the amount of watched episodes of the current user.
  *
  * @author Ruben Gees
  */

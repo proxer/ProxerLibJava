@@ -8,7 +8,7 @@ import me.proxer.library.entity.ucp.UcpTopTenEntry;
 import java.util.List;
 
 /**
- * Endpoint for unmarking an entry as favorite.
+ * Endpoint for requesting the top ten list of the current user.
  *
  * @author Ruben Gees
  */

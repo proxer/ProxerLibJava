@@ -69,4 +69,11 @@ public final class UcpApi {
                                            final Category category) {
         return new SetBookmarkEndpoint(internalApi, id, episode, language, category);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    public UcpMediaListEndpoint mediaList() {
+        return new UcpMediaListEndpoint(internalApi);
+    }
 }

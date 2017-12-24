@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * Endpoint for unmarking an entry as favorite.
+ * Endpoint for requesting the history of the current user.
  *
  * @author Ruben Gees
  */
