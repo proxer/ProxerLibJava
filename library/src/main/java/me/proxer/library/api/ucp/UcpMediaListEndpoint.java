@@ -4,7 +4,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import me.proxer.library.api.PagingLimitEndpoint;
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entity.ucp.UcpMediaListEntry;
+import me.proxer.library.entity.user.UserMediaListEntry;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.UserMediaListFilterType;
 import me.proxer.library.enums.UserMediaListSortCriteria;
@@ -18,7 +18,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class UcpMediaListEndpoint implements PagingLimitEndpoint<List<UcpMediaListEntry>> {
+public final class UcpMediaListEndpoint implements PagingLimitEndpoint<List<UserMediaListEntry>> {
 
     private final InternalApi internalApi;
 
@@ -86,7 +86,7 @@ public final class UcpMediaListEndpoint implements PagingLimitEndpoint<List<UcpM
      * {@inheritDoc}
      */
     @Override
-    public ProxerCall<List<UcpMediaListEntry>> build() {
+    public ProxerCall<List<UserMediaListEntry>> build() {
         return internalApi.mediaList(category, page, limit, search, searchStart, filter, sort, includeHentai);
     }
 }

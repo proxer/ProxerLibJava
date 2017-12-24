@@ -2,7 +2,7 @@ package me.proxer.library.api.ucp;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
-import me.proxer.library.entity.ucp.UcpMediaListEntry;
+import me.proxer.library.entity.user.UserMediaListEntry;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
@@ -24,9 +24,9 @@ public class UcpMediaListEndpointTest extends ProxerTest {
 
     @Test
     public void testDefault() throws ProxerException, IOException {
-        server.enqueue(new MockResponse().setBody(fromResource("ucp_media_list.json")));
+        server.enqueue(new MockResponse().setBody(fromResource("user_media_list.json")));
 
-        final List<UcpMediaListEntry> result = api.ucp()
+        final List<UserMediaListEntry> result = api.ucp()
                 .mediaList()
                 .build()
                 .execute();
@@ -36,7 +36,7 @@ public class UcpMediaListEndpointTest extends ProxerTest {
 
     @Test
     public void testPath() throws ProxerException, IOException, InterruptedException {
-        server.enqueue(new MockResponse().setBody(fromResource("ucp_media_list.json")));
+        server.enqueue(new MockResponse().setBody(fromResource("user_media_list.json")));
 
         api.ucp().mediaList()
                 .category(Category.ANIME)
@@ -54,8 +54,8 @@ public class UcpMediaListEndpointTest extends ProxerTest {
                 + "&search=test&search_start=startTest&filter=stateFilter1&sort=stateChangeDateASC&isH=true");
     }
 
-    private UcpMediaListEntry buildTestEntry() {
-        return new UcpMediaListEntry("16257", "91 Days", 12, Medium.ANIMESERIES,
+    private UserMediaListEntry buildTestEntry() {
+        return new UserMediaListEntry("16257", "91 Days", 12, Medium.ANIMESERIES,
                 MediaState.FINISHED, "18301850", "", UserMediaProgress.WATCHED, 12,
                 0);
     }
