@@ -49,7 +49,7 @@ final class LoginTokenInterceptor implements Interceptor {
     public Response intercept(final Chain chain) throws IOException {
         final Request oldRequest = chain.request();
 
-        if (ProxerUrls.hasProxerHost(oldRequest.url())) {
+        if (oldRequest.url().host().equals(ProxerUrls.webBase().host())) {
             final Request.Builder newRequestBuilder = oldRequest.newBuilder();
             final String loginToken = loginTokenManager.provide();
 

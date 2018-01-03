@@ -111,7 +111,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testMalformedResponse() throws IOException, InterruptedException, ProxerException {
+    public void testMalformedResponse() throws IOException {
         server.enqueue(new MockResponse().setBody(fromResource("login_malformed.json")));
 
         assertThatExceptionOfType(ProxerException.class)
@@ -124,6 +124,58 @@ public class LoginTokenInterceptorTest extends ProxerTest {
         server.enqueue(new MockResponse());
 
         api.client().newCall(new Request.Builder().url("https://proxer.me/fake").build()).execute();
+
+        assertThat(server.takeRequest().getHeaders().get("proxer-api-token")).isNull();
+    }
+
+    @Test
+    public void testTokenNotSetForInvalidHost() throws IOException, InterruptedException, ProxerException {
+        server.enqueue(new MockResponse().setBody(fromResource("login.json")));
+        server.enqueue(new MockResponse());
+
+        api.user().login("test", "secret").build().execute();
+        api.client().newCall(new Request.Builder().url("http://example.com").build()).execute();
+
+        server.takeRequest();
+
+        assertThat(server.takeRequest().getHeaders().get("proxer-api-token")).isNull();
+    }
+
+    @Test
+    public void testTokenNotSetForCdnHost() throws IOException, InterruptedException, ProxerException {
+        server.enqueue(new MockResponse().setBody(fromResource("login.json")));
+        server.enqueue(new MockResponse());
+
+        api.user().login("test", "secret").build().execute();
+        api.client().newCall(new Request.Builder().url("http://cdn.proxer.me").build()).execute();
+
+        server.takeRequest();
+
+        assertThat(server.takeRequest().getHeaders().get("proxer-api-token")).isNull();
+    }
+
+    @Test
+    public void testTokenNotSetForStreamHost() throws IOException, InterruptedException, ProxerException {
+        server.enqueue(new MockResponse().setBody(fromResource("login.json")));
+        server.enqueue(new MockResponse());
+
+        api.user().login("test", "secret").build().execute();
+        api.client().newCall(new Request.Builder().url("http://s3.stream.proxer.me").build()).execute();
+
+        server.takeRequest();
+
+        assertThat(server.takeRequest().getHeaders().get("proxer-api-token")).isNull();
+    }
+
+    @Test
+    public void testTokenNotSetForMangaHost() throws IOException, InterruptedException, ProxerException {
+        server.enqueue(new MockResponse().setBody(fromResource("login.json")));
+        server.enqueue(new MockResponse());
+
+        api.user().login("test", "secret").build().execute();
+        api.client().newCall(new Request.Builder().url("http://manga0.proxer.me").build()).execute();
+
+        server.takeRequest();
 
         assertThat(server.takeRequest().getHeaders().get("proxer-api-token")).isNull();
     }
