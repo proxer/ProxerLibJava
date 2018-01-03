@@ -29,11 +29,14 @@ final class HeaderInterceptor implements Interceptor {
         final Request oldRequest = chain.request();
 
         if (ProxerUrls.hasProxerHost(oldRequest.url())) {
-            final Request.Builder newRequestBuilder = chain.request().newBuilder().addHeader(API_KEY_HEADER, apiKey);
+            final Request.Builder newRequestBuilder = chain.request().newBuilder();
+
+            if (oldRequest.url().host().equals(ProxerUrls.webBase().host())) {
+                newRequestBuilder.header(API_KEY_HEADER, apiKey);
+            }
 
             if (userAgent != null) {
-                newRequestBuilder.removeHeader(USER_AGENT_HEADER);
-                newRequestBuilder.addHeader(USER_AGENT_HEADER, userAgent);
+                newRequestBuilder.header(USER_AGENT_HEADER, userAgent);
             }
 
             return chain.proceed(newRequestBuilder.build());

@@ -58,11 +58,11 @@ public class HeaderInterceptorTest extends ProxerTest {
         final Headers headers = server.takeRequest().getHeaders();
 
         assertThat(headers.get("proxer-api-key")).isNull();
-        assertThat(headers.get("User-Agent")).isNotEqualTo("ProxerLibJava/" + BuildConfig.VERSION);
+        assertThat(headers.get("User-Agent")).doesNotStartWith("ProxerLibJava/");
     }
 
     @Test
-    public void testHeadersArePresentForCdn() throws IOException, ProxerException, InterruptedException {
+    public void testCorrectHeadersForCdn() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
         api.client().newCall(new Request.Builder().url(ProxerUrls.cdnBase()
                 .newBuilder()
@@ -71,7 +71,40 @@ public class HeaderInterceptorTest extends ProxerTest {
 
         final Headers headers = server.takeRequest().getHeaders();
 
-        assertThat(headers.get("proxer-api-key")).isNotBlank();
-        assertThat(headers.get("User-Agent")).isNotBlank();
+        assertThat(headers.get("proxer-api-key")).isNull();
+        assertThat(headers.get("User-Agent")).startsWith("ProxerLibJava/");
+    }
+
+    @Test
+    public void testCorrectHeadersForStreamServer() throws IOException, InterruptedException {
+        server.enqueue(new MockResponse());
+        api.client().newCall(new Request.Builder().url("https://stream.proxer.me/test").build()).execute();
+
+        final Headers headers = server.takeRequest().getHeaders();
+
+        assertThat(headers.get("proxer-api-key")).isNull();
+        assertThat(headers.get("User-Agent")).startsWith("ProxerLibJava/");
+    }
+
+    @Test
+    public void testCorrectHeadersForSpecificStreamServer() throws IOException, InterruptedException {
+        server.enqueue(new MockResponse());
+        api.client().newCall(new Request.Builder().url("https://s3.stream.proxer.me/test").build()).execute();
+
+        final Headers headers = server.takeRequest().getHeaders();
+
+        assertThat(headers.get("proxer-api-key")).isNull();
+        assertThat(headers.get("User-Agent")).startsWith("ProxerLibJava/");
+    }
+
+    @Test
+    public void testCorrectHeadersForMangaServer() throws IOException, InterruptedException {
+        server.enqueue(new MockResponse());
+        api.client().newCall(new Request.Builder().url("https://manga0.proxer.me/test").build()).execute();
+
+        final Headers headers = server.takeRequest().getHeaders();
+
+        assertThat(headers.get("proxer-api-key")).isNull();
+        assertThat(headers.get("User-Agent")).startsWith("ProxerLibJava/");
     }
 }
