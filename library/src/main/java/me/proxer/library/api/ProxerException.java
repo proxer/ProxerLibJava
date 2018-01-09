@@ -166,7 +166,11 @@ public final class ProxerException extends Exception {
         USER_ACCOUNT_EXPIRED(3039),
         USER_ACCOUNT_BLOCKED(3040),
         USER(3041),
-        ERRORLOG_INVALID_INPUT(3042);
+        ERRORLOG_INVALID_INPUT(3042),
+        LIST_INVALID_SUBJECT(3043),
+        FORUM_INVALID_ID(3044),
+        APPS_INVALID_ID(3045),
+        LIST_TOP_ACCESS_RESET(3046);
 
         private final int code;
 
