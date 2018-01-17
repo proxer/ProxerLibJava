@@ -7,7 +7,7 @@ import retrofit2.Retrofit;
  *
  * @author Ruben Gees
  */
-public class ForumApi {
+public final class ForumApi {
 
     private final InternalApi internalApi;
 

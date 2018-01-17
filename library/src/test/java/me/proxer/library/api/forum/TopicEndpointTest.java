@@ -46,14 +46,17 @@ public class TopicEndpointTest extends ProxerTest {
 
     private Topic buildTestTopic() {
         final List<Post> posts = Arrays.asList(
-                new Post("811201", "0", "613171", "SilverCrow00", new Date(1513552953L * 1000),
-                        null, null, null, null,
-                        "Wie oft oder wie lange guckt ihr so Anime?"),
-                new Post("811256", "811201", "139597", "Miss-Otaku", new Date(1513626886L * 1000),
+                new Post("811201", "0", "613171", "SilverCrow00", "613171_Kxk7cM.jpg",
+                        new Date(1513552953L * 1000), null, null, null,
+                        null, null,
+                        "Wie oft oder wie lange guckt ihr so Anime?", 1),
+                new Post("811256", "811201", "139597", "Miss-Otaku", "139597_cKc2zC.png",
+                        new Date(1513626886L * 1000), "",
                         "123", "test", new Date(15135529123L * 1000), "just a test",
                         "Ich versuche, dass ganze im Rahmen zu halten. Meistens sind es so ungefähr 2-3 "
                                 + "Folgen und über den Tag verteilt. Leider werde ich oft schwach, gerade bei "
-                                + "besonders spannenden Anime, dass ich auch mehrere Folgen am Stück anschaue.")
+                                + "besonders spannenden Anime, dass ich auch mehrere Folgen am Stück anschaue.",
+                        0)
         );
 
         return new Topic("19", "Proxer Umfragen",

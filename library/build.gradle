@@ -140,7 +140,7 @@ javadoc {
 }
 
 jacoco {
-    setToolVersion(jacocoVersion)
+    setVersion(jacocoVersion)
 }
 
 jacocoTestReport {
@@ -151,18 +151,18 @@ jacocoTestReport {
 }
 
 checkstyle {
-    setToolVersion(checkstyleVersion)
+    setVersion(checkstyleVersion)
 }
 
 findbugs {
     excludeFilter = file('config/findbugs/findbugs-filter.xml')
     sourceSets = [sourceSets.main]
 
-    setToolVersion(findbugsVersion)
+    setVersion(findbugsVersion)
 }
 
 pmd {
-    setToolVersion(pmdVersion)
+    setVersion(pmdVersion)
 }
 
 tasks.withType(FindBugs) {

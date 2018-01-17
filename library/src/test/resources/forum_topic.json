@@ -16,24 +16,30 @@
         "pid": "0",
         "uid": "613171",
         "username": "SilverCrow00",
+        "avatar": "613171_Kxk7cM.jpg",
+        "signature": null,
         "time": "1513552953",
         "modified_by": null,
         "modified_name": null,
         "modified_time": null,
         "modified_reason": null,
-        "message": "Wie oft oder wie lange guckt ihr so Anime?"
+        "message": "Wie oft oder wie lange guckt ihr so Anime?",
+        "thank_you_count": "1"
       },
       {
         "id": "811256",
         "pid": "811201",
         "uid": "139597",
         "username": "Miss-Otaku",
+        "avatar": "139597_cKc2zC.png",
+        "signature": "",
         "time": "1513626886",
         "modified_by": "123",
         "modified_name": "test",
         "modified_time": "15135529123",
         "modified_reason": "just a test",
-        "message": "Ich versuche, dass ganze im Rahmen zu halten. Meistens sind es so ungefähr 2-3 Folgen und über den Tag verteilt. Leider werde ich oft schwach, gerade bei besonders spannenden Anime, dass ich auch mehrere Folgen am Stück anschaue."
+        "message": "Ich versuche, dass ganze im Rahmen zu halten. Meistens sind es so ungefähr 2-3 Folgen und über den Tag verteilt. Leider werde ich oft schwach, gerade bei besonders spannenden Anime, dass ich auch mehrere Folgen am Stück anschaue.",
+        "thank_you_count": "0"
       }
     ]
   }
