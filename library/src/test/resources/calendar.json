@@ -1,0 +1,38 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": [
+    {
+      "id": "8843",
+      "eid": "21638",
+      "episode": "18",
+      "episodeTitle": "",
+      "time": "1518251400",
+      "timezone": "+09:00",
+      "iid": "0",
+      "weekday": "sat",
+      "uptime": "1518266091",
+      "entryname": "Time Bokan: Gyakushuu no San Akunin",
+      "genre": "Abenteuer Comedy Mecha",
+      "rate_sum": "7",
+      "rate_count": "2",
+      "industryname": null
+    },
+    {
+      "id": "8830",
+      "eid": "19092",
+      "episode": "17",
+      "episodeTitle": "",
+      "time": "1518251700",
+      "timezone": "+09:00",
+      "iid": "308",
+      "weekday": "sat",
+      "uptime": "1518620676",
+      "entryname": "ClassicaLoid 2nd Season",
+      "genre": "Comedy Musik",
+      "rate_sum": "42",
+      "rate_count": "7",
+      "industryname": "NHK"
+    }
+  ]
+}

@@ -10,6 +10,7 @@ import me.proxer.library.api.forum.ForumApi;
 import me.proxer.library.api.info.InfoApi;
 import me.proxer.library.api.list.ListApi;
 import me.proxer.library.api.manga.MangaApi;
+import me.proxer.library.api.media.MediaApi;
 import me.proxer.library.api.messenger.MessengerApi;
 import me.proxer.library.api.notifications.NotificationsApi;
 import me.proxer.library.api.ucp.UcpApi;
@@ -96,6 +97,11 @@ public final class ProxerApi {
      */
     private final ForumApi forum;
 
+    /**
+     * Returns the respective API.
+     */
+    private final MediaApi media;
+
     private ProxerApi(final Moshi moshi, final OkHttpClient client, final Retrofit retrofit) {
         this.moshi = moshi;
         this.client = client;
@@ -110,6 +116,7 @@ public final class ProxerApi {
         anime = new AnimeApi(retrofit);
         manga = new MangaApi(retrofit);
         forum = new ForumApi(retrofit);
+        media = new MediaApi(retrofit);
     }
 
     /**

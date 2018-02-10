@@ -127,6 +127,7 @@ compileJava {
 
 buildConfig {
     packageName = 'me.proxer.library'
+    version = project.version
 }
 
 javadoc {
