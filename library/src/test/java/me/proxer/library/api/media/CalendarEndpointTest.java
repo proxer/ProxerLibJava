@@ -3,6 +3,7 @@ package me.proxer.library.api.media;
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.media.CalendarEntry;
+import me.proxer.library.enums.CalendarDay;
 import me.proxer.library.enums.Genre;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
@@ -46,14 +47,14 @@ public class CalendarEndpointTest extends ProxerTest {
     private CalendarEntry buildFirstTestCalendarEntry() {
         return new CalendarEntry("8843", "21638", "Time Bokan: Gyakushuu no San Akunin", 18,
                 "", new Date(1518251400L * 1000), "+09:00", "0", null,
-                "sat", new Date(1518266091L * 1000), EnumSet.of(Genre.ADVENTURE, Genre.COMEDY, Genre.MECHA),
-                7, 2);
+                CalendarDay.SATURDAY, new Date(1518266091L * 1000),
+                EnumSet.of(Genre.ADVENTURE, Genre.COMEDY, Genre.MECHA), 7, 2);
     }
 
     private CalendarEntry buildLastTestCalendarEntry() {
         return new CalendarEntry("8830", "19092", "ClassicaLoid 2nd Season", 17,
                 "", new Date(1518251700L * 1000), "+09:00", "308", "NHK",
-                "sat", new Date(1518620676L * 1000), EnumSet.of(Genre.COMEDY, Genre.MUSIC),
-                42, 7);
+                CalendarDay.SATURDAY, new Date(1518620676L * 1000),
+                EnumSet.of(Genre.COMEDY, Genre.MUSIC), 42, 7);
     }
 }

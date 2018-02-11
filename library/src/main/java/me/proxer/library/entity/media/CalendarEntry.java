@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Value;
 import me.proxer.library.entity.ProxerDateItem;
 import me.proxer.library.entity.ProxerIdItem;
+import me.proxer.library.enums.CalendarDay;
 import me.proxer.library.enums.Genre;
 
 import javax.annotation.Nullable;
@@ -82,7 +83,7 @@ public class CalendarEntry implements ProxerIdItem, ProxerDateItem {
      * Returns the day of the week, the episode is aired.
      */
     @Json(name = "weekday")
-    private String weekDay;
+    private CalendarDay weekDay;
 
     /**
      * Returns the date (and time), the episode will be uploaded.
