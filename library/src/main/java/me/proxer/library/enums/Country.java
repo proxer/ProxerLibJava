@@ -14,6 +14,7 @@ public enum Country {
     @Json(name = "jp") JAPAN,
     @Json(name = "kr") KOREA,
     @Json(name = "zh") CHINA,
+    @Json(name = "int") INTERNATIONAL,
     @Json(name = "misc") OTHER,
     @Json(name = "") NONE,
 }
