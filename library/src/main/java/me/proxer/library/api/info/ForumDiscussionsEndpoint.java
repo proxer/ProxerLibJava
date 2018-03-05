@@ -13,7 +13,7 @@ import java.util.List;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class ForumDiscussionsEndpoint implements Endpoint<List<ForumDiscussion>> {
+public final class ForumDiscussionsEndpoint implements Endpoint<List<ForumDiscussion>> {
 
     private final InternalApi internalApi;
 
