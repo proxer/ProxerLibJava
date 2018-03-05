@@ -2,7 +2,7 @@ ext {
     version = '4.2.1'
     group = 'com.github.proxer'
 
-    gradleVersion = '4.5.1'
+    gradleVersion = '4.6'
 
     errorpronePluginVersion = '0.0.13'
     gradleVersionsPluginVersion = '0.17.0'
@@ -10,21 +10,21 @@ ext {
     freefairPluginsVersion = '1.0.0'
 
     jacocoVersion = '0.8.0'
-    checkstyleVersion = '8.5'
+    checkstyleVersion = '8.8'
     errorproneVersion = '2.2.0'
     findbugsVersion = '3.0.1'
-    pmdVersion = '6.0.0'
+    pmdVersion = '6.1.0'
 
     lombokVersion = '1.16.20'
     jsr305Version = '3.0.2'
     javaxExtrasVersion = '0.1.0'
 
     retrofitVersion = '2.3.0'
-    okHttpVersion = '3.9.1'
+    okHttpVersion = '3.10.0'
     moshiVersion = '1.5.0'
 
     junitVersion = '4.12'
-    assertjVersion = '3.9.0'
+    assertjVersion = '3.9.1'
     privateConstructorVersion = '1.2.0'
 
     deps = [

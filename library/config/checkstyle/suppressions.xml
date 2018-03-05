@@ -12,6 +12,9 @@
     <suppress checks="VisibilityModifier" files="NotificationAdapter.java"/>
     <suppress checks="VisibilityModifier" files="AdaptionInfoAdapter.java"/>
 
+    <!-- Does not work properly. -->
+    <suppress checks="NewlineAtEndOfFile" files="package-info.java"/>
+
     <!-- Ignore parameter count of API methods. -->
     <suppress checks="ParameterNumber" files="InternalApi.java"/>
 

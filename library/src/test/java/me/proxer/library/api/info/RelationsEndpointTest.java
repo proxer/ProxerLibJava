@@ -3,14 +3,7 @@ package me.proxer.library.api.info;
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.info.Relation;
-import me.proxer.library.enums.Category;
-import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.Genre;
-import me.proxer.library.enums.License;
-import me.proxer.library.enums.MediaLanguage;
-import me.proxer.library.enums.MediaState;
-import me.proxer.library.enums.Medium;
-import me.proxer.library.enums.Season;
+import me.proxer.library.enums.*;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 
@@ -66,9 +59,10 @@ public class RelationsEndpointTest extends ProxerTest {
                                 + "Fantasy-Welt. Doch schon kurz nach der Eröffnung SAOs merken die Spieler, dass "
                                 + "etwas nicht stimmt: Im Menü gibt es keinen Logout-Button. Hinter dem Grund der "
                                 + "allgemeinen aufkommenden Panik scheint der Administrator des Spiels zu stecken "
-                                + "und die einzige Möglichkeit wieder in die reale Welt zurückzukehren besteht darin, "
-                                + "SAO erfolgreich abzuschließen. Doch das ist leichter gesagt als getan, denn der Tod "
-                                + "in der Fantasy-Welt bedeutet auch den richtigen Tod in der richtigen Welt.",
+                                + "und die einzige Möglichkeit wieder in die reale Welt zurückzukehren besteht "
+                                + "darin, SAO erfolgreich abzuschließen. Doch das ist leichter gesagt als getan, "
+                                + "denn der Tod in der Fantasy-Welt bedeutet auch den richtigen Tod in der "
+                                + "richtigen Welt.",
                         Medium.ANIMESERIES, 25, MediaState.FINISHED, 158782, 17935,
                         5968, Category.ANIME, License.LICENSED, EnumSet.of(MediaLanguage.ENGLISH_SUB,
                         MediaLanguage.ENGLISH_DUB, MediaLanguage.GERMAN_DUB), 2012, Season.SUMMER)
