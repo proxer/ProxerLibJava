@@ -32,6 +32,12 @@ public class ForumDiscussion implements ProxerIdItem {
     private String categoryId;
 
     /**
+     * Returns the of the category.
+     */
+    @Json(name = "category_name")
+    private String category;
+
+    /**
      * Returns the subject.
      */
     @Json(name = "subject")

@@ -42,13 +42,14 @@ public class ForumDiscussionsEndpointTest extends ProxerTest {
     }
 
     private ForumDiscussion buildFirstTestForumDiscussion() {
-        return new ForumDiscussion("384098", "281", "Overlord II - Diskussionsthread",
+        return new ForumDiscussion("384098", "281", "Airing-Anime",
+                "Overlord II - Diskussionsthread",
                 15, 749, new Date(1514199320 * 1000L), "351626", "Asuka..",
                 new Date(1517246199 * 1000L), "506979", "5devilz");
     }
 
     private ForumDiscussion buildLastTestForumDiscussion() {
-        return new ForumDiscussion("381421", "56",
+        return new ForumDiscussion("381421", "56", "Anime- und Manga-News",
                 "Overlord II – neues Visual, weitere Charaktere und Synchronsprecher enthüllt",
                 35, 32334, new Date(1489228544 * 1000L), "19328", "Moeface",
                 new Date(1514078674 * 1000L), "470614", "..Rhyanon.");
