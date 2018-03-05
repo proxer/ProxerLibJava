@@ -101,4 +101,11 @@ public final class InfoApi {
     public MediaUserInfoEndpoint userInfo(final String entryId) {
         return new MediaUserInfoEndpoint(internalApi, entryId);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    public ForumDiscussionsEndpoint forumDiscussions(final String entryId) {
+        return new ForumDiscussionsEndpoint(internalApi, entryId);
+    }
 }

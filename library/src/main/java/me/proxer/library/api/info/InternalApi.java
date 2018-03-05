@@ -1,21 +1,9 @@
 package me.proxer.library.api.info;
 
 import me.proxer.library.api.ProxerCall;
-import me.proxer.library.entity.info.Comment;
-import me.proxer.library.entity.info.Entry;
-import me.proxer.library.entity.info.EntryCore;
-import me.proxer.library.entity.info.EpisodeInfo;
-import me.proxer.library.entity.info.Industry;
-import me.proxer.library.entity.info.MediaUserInfo;
-import me.proxer.library.entity.info.Recommendation;
-import me.proxer.library.entity.info.Relation;
-import me.proxer.library.entity.info.TranslatorGroup;
+import me.proxer.library.entity.info.*;
 import me.proxer.library.enums.CommentSortCriteria;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 import javax.annotation.ParametersAreNullableByDefault;
 import java.util.List;
@@ -63,4 +51,7 @@ interface InternalApi {
 
     @GET("info/userinfo")
     ProxerCall<MediaUserInfo> userInfo(@Query("id") String id);
+
+    @GET("info/forum")
+    ProxerCall<List<ForumDiscussion>> forumDiscussions(@Query("id") String id);
 }

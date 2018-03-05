@@ -1,0 +1,34 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": [
+    {
+      "id": "384098",
+      "category_id": "281",
+      "subject": "Overlord II - Diskussionsthread",
+      "posts": "15",
+      "hits": "749",
+      "first_post_time": "1514199320",
+      "first_post_userid": "351626",
+      "first_post_guest_name": "Asuka..",
+      "last_post_time": "1517246199",
+      "last_post_userid": "506979",
+      "last_post_guest_name": "5devilz",
+      "category_name": "Airing-Anime"
+    },
+    {
+      "id": "381421",
+      "category_id": "56",
+      "subject": "Overlord II – neues Visual, weitere Charaktere und Synchronsprecher enthüllt",
+      "posts": "35",
+      "hits": "32334",
+      "first_post_time": "1489228544",
+      "first_post_userid": "19328",
+      "first_post_guest_name": "Moeface",
+      "last_post_time": "1514078674",
+      "last_post_userid": "470614",
+      "last_post_guest_name": "..Rhyanon.",
+      "category_name": "Anime- und Manga-News"
+    }
+  ]
+}
