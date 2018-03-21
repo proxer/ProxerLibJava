@@ -26,8 +26,10 @@ dependencies {
     errorprone deps.errorprone
 
     compileOnly deps.lombok
-    compileOnly deps.jsr305
-    compileOnly deps.javaxExtras
+
+    // Changed later to provided.
+    api deps.javaxExtras
+    api deps.jsr305
 
     api deps.retrofit
     api deps.retrofitMoshi
@@ -35,7 +37,6 @@ dependencies {
     api deps.moshi
 
     testCompileOnly deps.lombok
-    testCompileOnly deps.jsr305
 
     testImplementation deps.junit
     testImplementation deps.assertj
@@ -216,6 +217,10 @@ publishing {
                         }
                     }
                 }
+
+                asNode().dependencies.'*'
+                        .findAll() { it.artifactId.text() == "jsr305" || it.artifactId.text() == "javax-extras" }
+                        .each { it.scope*.value = 'provided' }
             }
         }
     }
