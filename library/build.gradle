@@ -25,6 +25,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 dependencies {
     errorprone deps.errorprone
 
+    annotationProcessor deps.lombok
     compileOnly deps.lombok
 
     // Changed later to provided.
@@ -36,6 +37,7 @@ dependencies {
     api deps.okHttp
     api deps.moshi
 
+    testAnnotationProcessor deps.lombok
     testCompileOnly deps.lombok
 
     testImplementation deps.junit
