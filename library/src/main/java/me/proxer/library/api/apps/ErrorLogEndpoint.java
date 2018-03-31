@@ -33,6 +33,9 @@ public final class ErrorLogEndpoint implements Endpoint<Void> {
         this.message = message;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ProxerCall<Void> build() {
         return internalApi.errorLog(id, message, anonym);
