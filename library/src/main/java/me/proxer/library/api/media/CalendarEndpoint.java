@@ -8,6 +8,8 @@ import me.proxer.library.entity.media.CalendarEntry;
 import java.util.List;
 
 /**
+ * Endpoint for retrieving the anime calendar/schedule.
+ *
  * @author Ruben Gees
  */
 @Accessors(fluent = true)

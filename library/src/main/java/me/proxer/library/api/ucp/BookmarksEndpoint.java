@@ -24,13 +24,6 @@ public final class BookmarksEndpoint implements PagingLimitEndpoint<List<Bookmar
      * {@inheritDoc}
      */
     @Nullable
-    @Setter
-    private Category category;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Nullable
     @Setter(onMethod = @__({@Override}))
     private Integer page;
 
@@ -40,6 +33,13 @@ public final class BookmarksEndpoint implements PagingLimitEndpoint<List<Bookmar
     @Nullable
     @Setter(onMethod = @__({@Override}))
     private Integer limit;
+
+    /**
+     * Sets the type of category to return.
+     */
+    @Nullable
+    @Setter
+    private Category category;
 
     /**
      * Sets if only available or only not available bookmarks should be returned.
