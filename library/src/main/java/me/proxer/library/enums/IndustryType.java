@@ -10,6 +10,7 @@ import com.squareup.moshi.Json;
 public enum IndustryType {
     @Json(name = "publisher") PUBLISHER,
     @Json(name = "studio") STUDIO,
+    @Json(name = "studio-secondary") STUDIO_SECONDARY,
     @Json(name = "producer") PRODUCER,
     @Json(name = "record_label") RECORD_LABEL,
     @Json(name = "talent_agent") TALENT_AGENT,
