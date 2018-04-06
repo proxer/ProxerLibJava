@@ -3,17 +3,7 @@ package me.proxer.library.api.list;
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.list.MediaListEntry;
-import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.Genre;
-import me.proxer.library.enums.Language;
-import me.proxer.library.enums.LengthBound;
-import me.proxer.library.enums.MediaLanguage;
-import me.proxer.library.enums.MediaSearchSortCriteria;
-import me.proxer.library.enums.MediaState;
-import me.proxer.library.enums.MediaType;
-import me.proxer.library.enums.Medium;
-import me.proxer.library.enums.TagRateFilter;
-import me.proxer.library.enums.TagSpoilerFilter;
+import me.proxer.library.enums.*;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 
@@ -50,10 +40,10 @@ public class MediaSearchEndpointTest extends ProxerTest {
                 .name("test")
                 .limit(10)
                 .page(3)
-                .genres(EnumSet.of(Genre.ADULT, Genre.ACTION))
-                .excludedGenres(EnumSet.of(Genre.DRAMA, Genre.FANTASY))
                 .tags(new HashSet<>(Arrays.asList("3", "7")))
                 .excludedTags(new HashSet<>(Arrays.asList("5", "20")))
+                .genreTags(new HashSet<>(Arrays.asList("22", "33")))
+                .excludedGenreTags(new HashSet<>(Arrays.asList("13", "17")))
                 .fskConstraints(EnumSet.of(FskConstraint.FEAR))
                 .language(Language.ENGLISH)
                 .length(300)
@@ -66,9 +56,8 @@ public class MediaSearchEndpointTest extends ProxerTest {
                 .execute();
 
         assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/entrysearch?name=test&language=en&"
-                + "type=all-manga&genre=Action%2BAdult&nogenre=Drama%2BFantasy&fsk=fear&sort=clicks&length=300&"
-                + "length-limit=down&tags=3%2B7&notags=5%2B20&tagratefilter=rate_1&"
-                + "tagspoilerfilter=spoiler_1&p=3&limit=10");
+                + "type=all-manga&fsk=fear&sort=clicks&length=300&length-limit=down&tags=3%2B7&notags=5%2B20&"
+                + "taggenre=22%2B33&notaggenre=13%2B17&tagratefilter=rate_1&tagspoilerfilter=spoiler_1&p=3&limit=10");
     }
 
     @Test
@@ -91,6 +80,32 @@ public class MediaSearchEndpointTest extends ProxerTest {
         api.list().mediaSearch()
                 .excludedTags(new HashSet<>(Arrays.asList("5", "20")))
                 .excludedTags(null)
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/entrysearch");
+    }
+
+    @Test
+    public void testGenreTagsNull() throws Exception {
+        server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
+
+        api.list().mediaSearch()
+                .genreTags(new HashSet<>(Arrays.asList("3", "7")))
+                .genreTags(null)
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/entrysearch");
+    }
+
+    @Test
+    public void testExcludedGenreTagsNull() throws Exception {
+        server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
+
+        api.list().mediaSearch()
+                .excludedGenreTags(new HashSet<>(Arrays.asList("5", "20")))
+                .excludedGenreTags(null)
                 .build()
                 .execute();
 
