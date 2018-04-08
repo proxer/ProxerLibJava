@@ -10,5 +10,6 @@ import com.squareup.moshi.Json;
 public enum TagType {
     @Json(name = "entry_genre") GENRE,
     @Json(name = "entry_tag") TAG,
-    @Json(name = "entry_tag_h") H_TAG
+    @Json(name = "entry_tag_h") H_TAG,
+    @Json(name = "character") CHARACTER
 }
