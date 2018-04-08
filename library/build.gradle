@@ -135,8 +135,8 @@ buildConfig {
 
 javadoc {
     dependsOn delombok
-    failOnError false
 
+    failOnError = false
     source = delombok.outputDir
 
     options.memberLevel = JavadocMemberLevel.PUBLIC

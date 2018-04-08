@@ -66,6 +66,11 @@
         <module name="UnusedImports">
             <property name="processJavadoc" value="true"/>
         </module>
+        <!-- Added specifically for this project -->
+        <module name="AvoidStarImport">
+            <property name="allowClassImports" value="false"/>
+            <property name="allowStaticMemberImports" value="false"/>
+        </module>
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->

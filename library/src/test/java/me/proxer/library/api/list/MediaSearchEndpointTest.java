@@ -3,7 +3,17 @@ package me.proxer.library.api.list;
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.list.MediaListEntry;
-import me.proxer.library.enums.*;
+import me.proxer.library.enums.FskConstraint;
+import me.proxer.library.enums.Genre;
+import me.proxer.library.enums.Language;
+import me.proxer.library.enums.LengthBound;
+import me.proxer.library.enums.MediaLanguage;
+import me.proxer.library.enums.MediaSearchSortCriteria;
+import me.proxer.library.enums.MediaState;
+import me.proxer.library.enums.MediaType;
+import me.proxer.library.enums.Medium;
+import me.proxer.library.enums.TagRateFilter;
+import me.proxer.library.enums.TagSpoilerFilter;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 
