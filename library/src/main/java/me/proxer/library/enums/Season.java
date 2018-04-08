@@ -1,5 +1,6 @@
 package me.proxer.library.enums;
 
+import com.serjltt.moshi.adapters.FallbackEnum;
 import com.squareup.moshi.Json;
 
 /**
@@ -7,8 +8,8 @@ import com.squareup.moshi.Json;
  *
  * @author Ruben Gees
  */
+@FallbackEnum(name = "UNSPECIFIED")
 public enum Season {
-    @Json(name = "0") UNSPECIFIED_ALT,
     @Json(name = "1") WINTER,
     @Json(name = "2") SPRING,
     @Json(name = "3") SUMMER,

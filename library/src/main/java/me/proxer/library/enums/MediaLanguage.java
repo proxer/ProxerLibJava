@@ -1,5 +1,6 @@
 package me.proxer.library.enums;
 
+import com.serjltt.moshi.adapters.FallbackEnum;
 import com.squareup.moshi.Json;
 import me.proxer.library.entity.info.Entry;
 
@@ -8,6 +9,7 @@ import me.proxer.library.entity.info.Entry;
  *
  * @author Ruben Gees
  */
+@FallbackEnum(name = "OTHER")
 public enum MediaLanguage {
     @Json(name = "de") GERMAN,
     @Json(name = "en") ENGLISH,

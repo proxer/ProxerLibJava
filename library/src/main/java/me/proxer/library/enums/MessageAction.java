@@ -1,5 +1,6 @@
 package me.proxer.library.enums;
 
+import com.serjltt.moshi.adapters.FallbackEnum;
 import com.squareup.moshi.Json;
 import me.proxer.library.entity.messenger.Message;
 
@@ -8,6 +9,7 @@ import me.proxer.library.entity.messenger.Message;
  *
  * @author Ruben Gees
  */
+@FallbackEnum(name = "NONE")
 public enum MessageAction {
     @Json(name = "") NONE,
     @Json(name = "addUser") ADD_USER,

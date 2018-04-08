@@ -1,7 +1,9 @@
 package me.proxer.library.api;
 
+import com.serjltt.moshi.adapters.FallbackEnum;
 import com.squareup.moshi.Json;
 import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.JsonReader;
 import com.squareup.moshi.JsonWriter;
 import com.squareup.moshi.Moshi;
@@ -14,7 +16,6 @@ import me.proxer.library.util.ProxerUtils;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -65,39 +66,9 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
 
         @Override
         public Set<T> fromJson(final JsonReader reader) throws IOException {
-            final EnumSet<T> result = EnumSet.noneOf(enumType);
-            final JsonReader.Token nextToken = reader.peek();
-            final List<String> parts;
+            final List<String> parts = parseParts(reader);
 
-            if (nextToken == JsonReader.Token.BEGIN_ARRAY) {
-                parts = new ArrayList<>();
-
-                reader.beginArray();
-                while (reader.hasNext()) {
-                    parts.add(reader.nextString());
-                }
-                reader.endArray();
-            } else if (nextToken == JsonReader.Token.NULL) {
-                reader.nextNull();
-
-                parts = Collections.emptyList();
-            } else {
-                parts = Arrays.asList(reader.nextString().split(delimiter));
-            }
-
-            for (final String part : parts) {
-                for (final Field field : enumType.getFields()) {
-                    Json annotation = field.getAnnotation(Json.class);
-
-                    if (annotation != null && annotation.name().equalsIgnoreCase(part)) {
-                        result.add(Enum.valueOf(enumType, field.getName()));
-
-                        break;
-                    }
-                }
-            }
-
-            return result;
+            return convertToEnumConstants(reader, parts);
         }
 
         @Override
@@ -118,6 +89,76 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
             }
 
             writer.value(result.toString());
+        }
+
+        private List<String> parseParts(final JsonReader reader) throws IOException {
+            final JsonReader.Token nextToken = reader.peek();
+
+            if (nextToken == JsonReader.Token.BEGIN_ARRAY) {
+                final List<String> result = new ArrayList<>();
+
+                reader.beginArray();
+
+                while (reader.hasNext()) {
+                    result.add(reader.nextString());
+                }
+
+                reader.endArray();
+
+                return result;
+            } else if (nextToken == JsonReader.Token.NULL) {
+                reader.nextNull();
+
+                return Collections.emptyList();
+            } else {
+                final String value = reader.nextString();
+
+                if (value.isEmpty()) {
+                    return Collections.emptyList();
+                } else {
+                    return Arrays.asList(value.split(delimiter));
+                }
+            }
+        }
+
+        private Set<T> convertToEnumConstants(final JsonReader reader, final List<String> parts) {
+            final EnumSet<T> result = EnumSet.noneOf(enumType);
+
+            for (final String part : parts) {
+                final T[] constants = enumType.getEnumConstants();
+                final String[] nameStrings = new String[constants.length];
+                T value = null;
+
+                try {
+                    for (int i = 0; i < constants.length; i++) {
+                        final T constant = constants[i];
+                        final Json annotation = enumType.getField(constant.name()).getAnnotation(Json.class);
+                        final String name = annotation != null ? annotation.name() : constant.name();
+                        nameStrings[i] = name;
+
+                        if (name.equalsIgnoreCase(part)) {
+                            value = constant;
+                        }
+                    }
+                } catch (NoSuchFieldException e) {
+                    throw new AssertionError("Missing field in " + enumType.getName(), e);
+                }
+
+                if (value == null) {
+                    final FallbackEnum fallbackAnnotation = enumType.getAnnotation(FallbackEnum.class);
+
+                    if (fallbackAnnotation != null) {
+                        value = Enum.valueOf(enumType, fallbackAnnotation.name());
+                    } else {
+                        throw new JsonDataException("Expected one of " + Arrays.asList(nameStrings)
+                                + " but was " + part + " at path " + reader.getPath());
+                    }
+                }
+
+                result.add(value);
+            }
+
+            return result;
         }
     }
 }

@@ -22,6 +22,7 @@ ext {
     retrofitVersion = '2.4.0'
     okHttpVersion = '3.10.0'
     moshiVersion = '1.5.0'
+    moshiLazyAdaptersVersion = '2.1'
 
     junitVersion = '4.12'
     assertjVersion = '3.9.1'
@@ -37,6 +38,7 @@ ext {
             retrofitMoshi     : "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
             okHttp            : "com.squareup.okhttp3:okhttp:$okHttpVersion",
             moshi             : "com.squareup.moshi:moshi:$moshiVersion",
+            moshiLazyAdapters : "com.serjltt.moshi:moshi-lazy-adapters:$moshiLazyAdaptersVersion",
 
             junit             : "junit:junit:$junitVersion",
             assertj           : "org.assertj:assertj-core:$assertjVersion",

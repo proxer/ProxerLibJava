@@ -36,6 +36,7 @@ dependencies {
     api deps.retrofitMoshi
     api deps.okHttp
     api deps.moshi
+    api deps.moshiLazyAdapters
 
     testAnnotationProcessor deps.lombok
     testCompileOnly deps.lombok

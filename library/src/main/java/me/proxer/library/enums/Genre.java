@@ -1,5 +1,6 @@
 package me.proxer.library.enums;
 
+import com.serjltt.moshi.adapters.FallbackEnum;
 import com.squareup.moshi.Json;
 
 /**
@@ -7,6 +8,7 @@ import com.squareup.moshi.Json;
  *
  * @author Ruben Gees
  */
+@FallbackEnum(name = "UNKNOWN")
 public enum Genre {
     @Json(name = "Abenteuer") ADVENTURE,
     @Json(name = "Action") ACTION,
@@ -46,5 +48,6 @@ public enum Genre {
     @Json(name = "Vampire") VAMPIRE,
     @Json(name = "Violence") VIOLENCE,
     @Json(name = "Yaoi") YAOI,
-    @Json(name = "Yuri") YURI
+    @Json(name = "Yuri") YURI,
+    @Json(name = "") UNKNOWN
 }

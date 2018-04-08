@@ -1,5 +1,6 @@
 package me.proxer.library.enums;
 
+import com.serjltt.moshi.adapters.FallbackEnum;
 import com.squareup.moshi.Json;
 
 /**
@@ -7,6 +8,7 @@ import com.squareup.moshi.Json;
  *
  * @author Ruben Gees
  */
+@FallbackEnum(name = "OTHER")
 public enum TagSubType {
     @Json(name = "misc") MISCELLANEOUS,
     @Json(name = "persoenlichkeiten") PERSONALITIES,
@@ -17,5 +19,6 @@ public enum TagSubType {
     @Json(name = "menschen") PEOPLE,
     @Json(name = "zukunft") FUTURE,
     @Json(name = "story") STORY,
-    @Json(name = "prota") PROTAGONIST
+    @Json(name = "prota") PROTAGONIST,
+    @Json(name = "") OTHER
 }

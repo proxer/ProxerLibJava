@@ -78,8 +78,8 @@ public class EntryEndpointTest extends ProxerTest {
                 new Synonym("44662", "6174", SynonymType.ORIGINAL_ALTERNATIVE, "Lucu Lucu"),
                 new Synonym("44663", "6174", SynonymType.ORIGINAL_ALTERNATIVE, "LuCuLuCu")
         ), Collections.singleton(MediaLanguage.ENGLISH), Arrays.asList(
-                new EntrySeasonInfo("1061", 2002, Season.UNSPECIFIED_ALT),
-                new EntrySeasonInfo("15776", 2009, Season.UNSPECIFIED_ALT)
+                new EntrySeasonInfo("1061", 2002, Season.UNSPECIFIED),
+                new EntrySeasonInfo("15776", 2009, Season.UNSPECIFIED)
         ), Arrays.asList(
                 new EntryTranslatorGroup("215", "SnoopyCool", Country.ENGLAND),
                 new EntryTranslatorGroup("294", "FoOlRulez", Country.ENGLAND)

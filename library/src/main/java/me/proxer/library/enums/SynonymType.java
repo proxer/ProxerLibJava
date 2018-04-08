@@ -1,5 +1,6 @@
 package me.proxer.library.enums;
 
+import com.serjltt.moshi.adapters.FallbackEnum;
 import com.squareup.moshi.Json;
 
 /**
@@ -7,6 +8,7 @@ import com.squareup.moshi.Json;
  *
  * @author Ruben Gees
  */
+@FallbackEnum(name = "OTHER")
 public enum SynonymType {
     @Json(name = "name") ORIGINAL,
     @Json(name = "nameeng") ENGLISH,
@@ -15,4 +17,5 @@ public enum SynonymType {
     @Json(name = "namekor") KOREAN,
     @Json(name = "namezhn") CHINESE,
     @Json(name = "syn") ORIGINAL_ALTERNATIVE,
+    @Json(name = "") OTHER
 }

@@ -1,5 +1,6 @@
 package me.proxer.library.enums;
 
+import com.serjltt.moshi.adapters.FallbackEnum;
 import com.squareup.moshi.Json;
 
 /**
@@ -7,6 +8,7 @@ import com.squareup.moshi.Json;
  *
  * @author Ruben Gees
  */
+@FallbackEnum(name = "OTHER")
 public enum NotificationType {
     @Json(name = "user_boardmessage") BOARD_MESSAGE,
     @Json(name = "user_boardreply") BOARD_REPLY,
@@ -21,5 +23,6 @@ public enum NotificationType {
     @Json(name = "gallery2_album") GALLERY_ALBUM,
     @Json(name = "apps_release") APPS_RELEASE,
     @Json(name = "apps_state") APPS_STATE,
-    @Json(name = "podcast") PODCAST
+    @Json(name = "podcast") PODCAST,
+    @Json(name = "") OTHER
 }

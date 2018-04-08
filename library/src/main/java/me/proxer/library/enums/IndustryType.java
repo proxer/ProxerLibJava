@@ -1,5 +1,6 @@
 package me.proxer.library.enums;
 
+import com.serjltt.moshi.adapters.FallbackEnum;
 import com.squareup.moshi.Json;
 
 /**
@@ -7,6 +8,7 @@ import com.squareup.moshi.Json;
  *
  * @author Ruben Gees
  */
+@FallbackEnum(name = "UNKNOWN")
 public enum IndustryType {
     @Json(name = "publisher") PUBLISHER,
     @Json(name = "studio") STUDIO,

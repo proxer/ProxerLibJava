@@ -1,5 +1,6 @@
 package me.proxer.library.api;
 
+import com.serjltt.moshi.adapters.FallbackEnum;
 import com.squareup.moshi.Moshi;
 import lombok.Getter;
 import lombok.Setter;
@@ -249,6 +250,7 @@ public final class ProxerApi {
                     .add(new NotificationInfoAdapter())
                     .add(new FixRatingDetailsAdapter())
                     .add(new DelimitedEnumSetAdapterFactory())
+                    .add(FallbackEnum.ADAPTER_FACTORY)
                     .build();
         }
 
