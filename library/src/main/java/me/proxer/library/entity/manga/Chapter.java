@@ -81,8 +81,10 @@ public class Chapter implements ProxerIdItem, ProxerDateItem {
     private String server;
 
     /**
-     * Returns the actual pages of the chapter..
+     * Returns the actual pages of the chapter.
+     * This being null means either that the server has problems or the media has been removed.
      */
+    @Nullable
     @Json(name = "pages")
     private List<Page> pages;
 }
