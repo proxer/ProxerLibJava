@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Base class for all tests. It provides a ready to use {@link MockWebServer}, an OkHttp client, configured to change
@@ -38,7 +39,11 @@ public abstract class ProxerTest {
                             .build();
 
                     return chain.proceed(chain.request().newBuilder().url(newUrl).build());
-                }).build();
+                })
+                .connectTimeout(500, TimeUnit.MILLISECONDS)
+                .writeTimeout(500, TimeUnit.MILLISECONDS)
+                .readTimeout(500, TimeUnit.MILLISECONDS)
+                .build();
         api = constructApi().build();
 
         server.start();
