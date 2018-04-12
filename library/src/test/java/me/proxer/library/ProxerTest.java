@@ -4,11 +4,13 @@ import me.proxer.library.api.ProxerApi;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.internal.tls.SslClient;
 import okio.Okio;
 import org.junit.After;
 import org.junit.Before;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -25,27 +27,15 @@ public abstract class ProxerTest {
     protected OkHttpClient client;
     protected ProxerApi api;
 
+    private final SslClient sslClient = SslClient.localhost();
+
     @Before
-    public void setUp() throws IOException {
-        server = new MockWebServer();
-        client = new OkHttpClient.Builder()
-                .addInterceptor(chain -> {
-                    final HttpUrl oldUrl = chain.request().url();
-                    final HttpUrl serverUrl = server.url(oldUrl.encodedPath());
-                    final HttpUrl newUrl = oldUrl.newBuilder()
-                            .scheme(serverUrl.scheme())
-                            .host(serverUrl.host())
-                            .port(serverUrl.port())
-                            .build();
-
-                    return chain.proceed(chain.request().newBuilder().url(newUrl).build());
-                })
-                .connectTimeout(500, TimeUnit.MILLISECONDS)
-                .writeTimeout(500, TimeUnit.MILLISECONDS)
-                .readTimeout(500, TimeUnit.MILLISECONDS)
-                .build();
+    public void setUp() throws IOException, GeneralSecurityException {
         api = constructApi().build();
+        client = api.client();
+        server = new MockWebServer();
 
+        server.useHttps(sslClient.socketFactory, false);
         server.start();
     }
 
@@ -60,6 +50,31 @@ public abstract class ProxerTest {
 
     protected ProxerApi.Builder constructApi() {
         return new ProxerApi.Builder("mockKey")
-                .client(client);
+                .client(new OkHttpClient.Builder()
+                        .addInterceptor(chain -> {
+                            final HttpUrl oldUrl = chain.request().url();
+                            final HttpUrl serverUrl = server.url(oldUrl.encodedPath());
+                            final HttpUrl newUrl = oldUrl.newBuilder()
+                                    .scheme(oldUrl.scheme())
+                                    .host(serverUrl.host())
+                                    .port(serverUrl.port())
+                                    .build();
+
+                            return chain.proceed(chain.request().newBuilder().url(newUrl).build());
+                        })
+                        .hostnameVerifier((s, sslSession) -> true)
+                        .sslSocketFactory(sslClient.socketFactory, sslClient.trustManager)
+                        .connectTimeout(500, TimeUnit.MILLISECONDS)
+                        .writeTimeout(500, TimeUnit.MILLISECONDS)
+                        .readTimeout(500, TimeUnit.MILLISECONDS)
+                        .build());
+    }
+
+    protected void startHttpOnlyServer() throws IOException {
+        server.shutdown();
+
+        server = new MockWebServer();
+
+        server.start();
     }
 }

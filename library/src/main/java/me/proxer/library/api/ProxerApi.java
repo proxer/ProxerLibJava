@@ -18,6 +18,7 @@ import me.proxer.library.api.notifications.NotificationsApi;
 import me.proxer.library.api.ucp.UcpApi;
 import me.proxer.library.api.user.UserApi;
 import me.proxer.library.util.ProxerUrls;
+import okhttp3.CertificatePinner;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -135,6 +136,11 @@ public final class ProxerApi {
      */
     @Accessors(fluent = true)
     public static final class Builder {
+
+        private static final String[] CERTIFICATES = new String[]{
+                "sha256/58qRu/uxh4gFezqAcERupSkRYBlBAvfcw7mEjGPLnNU=",
+                "sha256/grX4Ta9HpZx6tSHkmCrvpApTQGo67CYDnvprLg5yRME="
+        };
 
         private static final String DEFAULT_USER_AGENT = "ProxerLibJava/" + BuildConfig.VERSION;
 
@@ -271,6 +277,9 @@ public final class ProxerApi {
 
             existingInterceptors.add(0, new HeaderInterceptor(apiKey, userAgent));
             existingInterceptors.add(1, new LoginTokenInterceptor(loginTokenManager));
+            existingInterceptors.add(2, new HttpsEnforcingInterceptor());
+
+            builder.certificatePinner(constructCertificatePinner());
 
             client = builder.build();
         }
@@ -290,6 +299,16 @@ public final class ProxerApi {
                     .addConverterFactory(MoshiConverterFactory.create(moshi))
                     .addConverterFactory(new EnumRetrofitConverterFactory())
                     .build();
+        }
+
+        private CertificatePinner constructCertificatePinner() {
+            final CertificatePinner.Builder builder = new CertificatePinner.Builder();
+
+            for (String certificate : CERTIFICATES) {
+                builder.add(ProxerUrls.webBase().host(), certificate);
+            }
+
+            return builder.build();
         }
 
         /**

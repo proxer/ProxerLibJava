@@ -131,12 +131,14 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     @Test
     public void testTokenNotSetForInvalidHost() throws IOException, InterruptedException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
-        server.enqueue(new MockResponse());
 
         api.user().login("test", "secret").build().execute();
-        api.client().newCall(new Request.Builder().url("http://example.com").build()).execute();
 
-        server.takeRequest();
+        startHttpOnlyServer();
+
+        server.enqueue(new MockResponse());
+
+        api.client().newCall(new Request.Builder().url("http://example.com").build()).execute();
 
         assertThat(server.takeRequest().getHeaders().get("proxer-api-token")).isNull();
     }

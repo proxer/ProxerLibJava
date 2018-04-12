@@ -49,6 +49,8 @@ public class HeaderInterceptorTest extends ProxerTest {
 
     @Test
     public void testHeadersOnlyForProxerHost() throws Exception {
+        startHttpOnlyServer();
+
         server.enqueue(new MockResponse());
 
         //noinspection ConstantConditions
