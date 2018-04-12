@@ -63,4 +63,11 @@ public final class UserApi {
     public UserCommentsEndpoint comments(@Nullable final String userId, @Nullable final String username) {
         return new UserCommentsEndpoint(internalApi, userId, username);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    public UserHistoryEndpoint history(@Nullable final String userId, @Nullable final String username) {
+        return new UserHistoryEndpoint(internalApi, userId, username);
+    }
 }

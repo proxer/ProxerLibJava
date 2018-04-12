@@ -51,5 +51,4 @@ public class UserInfoEndpointTest extends ProxerTest {
                 "Ihr könnt mich jederzeit anschreiben, Skype oder ProxerPn!", new Date(1485372334L * 1000),
                 983, 38, 4201, 548, 8, 1700);
     }
-
 }

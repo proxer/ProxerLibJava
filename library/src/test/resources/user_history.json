@@ -1,0 +1,24 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": [
+    {
+      "id": "457484352",
+      "eid": "16209",
+      "name": "Kono Subarashii Sekai ni Shukufuku wo! 2",
+      "language": "engsub",
+      "episode": "2",
+      "medium": "animeseries",
+      "kat": "anime"
+    },
+    {
+      "id": "456582967",
+      "eid": "3088",
+      "name": "Girls of the Wild's",
+      "language": "en",
+      "episode": "182",
+      "medium": "mangaseries",
+      "kat": "manga"
+    }
+  ]
+}

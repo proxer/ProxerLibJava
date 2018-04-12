@@ -4,6 +4,7 @@ import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entity.user.TopTenEntry;
 import me.proxer.library.entity.user.User;
 import me.proxer.library.entity.user.UserComment;
+import me.proxer.library.entity.user.UserHistoryEntry;
 import me.proxer.library.entity.user.UserInfo;
 import me.proxer.library.entity.user.UserMediaListEntry;
 import me.proxer.library.enums.Category;
@@ -62,4 +63,11 @@ interface InternalApi {
                                            @Query("p") Integer page,
                                            @Query("limit") Integer limit,
                                            @Query("length") Integer minimumLength);
+
+    @GET("user/history")
+    ProxerCall<List<UserHistoryEntry>> history(@Query("uid") String userId,
+                                               @Query("username") String username,
+                                               @Query("p") Integer page,
+                                               @Query("limit") Integer limit,
+                                               @Query("isH") Boolean includeHentai);
 }
