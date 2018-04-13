@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import me.proxer.library.BuildConfig;
 import me.proxer.library.api.anime.AnimeApi;
 import me.proxer.library.api.apps.AppsApi;
+import me.proxer.library.api.chat.ChatApi;
 import me.proxer.library.api.forum.ForumApi;
 import me.proxer.library.api.info.InfoApi;
 import me.proxer.library.api.list.ListApi;
@@ -78,6 +79,11 @@ public final class ProxerApi {
     /**
      * Returns the respective API.
      */
+    private final ChatApi chat;
+
+    /**
+     * Returns the respective API.
+     */
     private final ListApi list;
 
     /**
@@ -119,6 +125,7 @@ public final class ProxerApi {
         user = new UserApi(retrofit);
         info = new InfoApi(retrofit);
         messenger = new MessengerApi(retrofit);
+        chat = new ChatApi(retrofit);
         list = new ListApi(retrofit);
         ucp = new UcpApi(retrofit);
         anime = new AnimeApi(retrofit);
