@@ -7,7 +7,7 @@ ext {
     errorpronePluginVersion = '0.0.13'
     gradleVersionsPluginVersion = '0.17.0'
     buildConfigPluginVersion = '1.1.8'
-    freefairPluginsVersion = '1.0.0'
+    freefairPluginsVersion = '2.4.2'
 
     jacocoVersion = '0.8.0'
     checkstyleVersion = '8.8'
