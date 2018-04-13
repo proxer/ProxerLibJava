@@ -1,0 +1,24 @@
+{
+    "error": 0,
+    "message": "Abfrage erfolgreich.",
+    "data": [
+        {
+            "id": "777191",
+            "fromid": "62",
+            "message": "testttt",
+            "timestamp": "1523608207",
+            "action": "",
+            "username": "genesis",
+            "avatar": "62_RvGnYl.png"
+        },
+        {
+            "id": "777189",
+            "fromid": "62",
+            "message": "777186",
+            "timestamp": "1523608185",
+            "action": "removeMessage",
+            "username": "genesis",
+            "avatar": "62_RvGnYl.png"
+        }
+    ]
+}
