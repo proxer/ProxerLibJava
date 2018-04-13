@@ -7,14 +7,14 @@ max_line_length = 120
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{xml,json}]
-continuation_indent_size = 4
+[*.json]
+indent_size = 2
 
-[*.{java,gradle}]
+[*.{java,gradle,xml}]
 continuation_indent_size = 8
 
 [*.{yml}]
 indent_size = 2
 
-[*.{md}]
+[*.md]
 trim_trailing_whitespace = false

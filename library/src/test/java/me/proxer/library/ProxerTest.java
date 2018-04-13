@@ -23,11 +23,11 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class ProxerTest {
 
+    private final SslClient sslClient = SslClient.localhost();
+
     protected MockWebServer server;
     protected OkHttpClient client;
     protected ProxerApi api;
-
-    private final SslClient sslClient = SslClient.localhost();
 
     @Before
     public void setUp() throws IOException, GeneralSecurityException {
