@@ -41,10 +41,4 @@ public class ChatRoom implements ProxerIdItem {
      */
     @Json(name = "flag_readonly")
     private boolean isReadOnly;
-
-    /**
-     * Returns if this chat room is disabled.
-     */
-    @Json(name = "flag_disabled")
-    private boolean isDisabled;
 }

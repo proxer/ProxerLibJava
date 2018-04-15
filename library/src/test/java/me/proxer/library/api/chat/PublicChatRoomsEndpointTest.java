@@ -41,12 +41,10 @@ public class PublicChatRoomsEndpointTest extends ProxerTest {
     }
 
     private ChatRoom buildFirstTestRoom() {
-        return new ChatRoom("1", "Proxer.Me Hauptchat", "Willkommen im Proxer-Chat!",
-                false, false);
+        return new ChatRoom("1", "Proxer.Me Hauptchat", "Willkommen im Proxer-Chat!", false);
     }
 
     private ChatRoom buildLastTestRoom() {
-        return new ChatRoom("6", "Chat-Ankündigungen (21.03.18)", "",
-                true, false);
+        return new ChatRoom("6", "Chat-Ankündigungen (21.03.18)", "", true);
     }
 }
