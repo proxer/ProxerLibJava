@@ -21,6 +21,9 @@ public interface InternalApi {
     @GET("chat/publicrooms")
     ProxerCall<List<ChatRoom>> publicRooms();
 
+    @GET("chat/myrooms")
+    ProxerCall<List<ChatRoom>> userRooms();
+
     @GET("chat/messages")
     ProxerCall<List<ChatMessage>> messages(@Query("room_id") String roomId,
                                            @Query("message_id") String messageId);

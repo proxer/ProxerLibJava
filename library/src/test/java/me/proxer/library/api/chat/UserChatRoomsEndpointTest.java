@@ -14,14 +14,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class PublicChatRoomsEndpointTest extends ProxerTest {
+public class UserChatRoomsEndpointTest extends ProxerTest {
 
     @Test
     public void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("chat_rooms.json")));
 
         final List<ChatRoom> result = api.chat()
-                .publicRooms()
+                .userRooms()
                 .build()
                 .execute();
 
@@ -33,11 +33,11 @@ public class PublicChatRoomsEndpointTest extends ProxerTest {
     public void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("chat_rooms.json")));
 
-        api.chat().publicRooms()
+        api.chat().userRooms()
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/chat/publicrooms");
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/chat/myrooms");
     }
 
     private ChatRoom buildFirstTestRoom() {

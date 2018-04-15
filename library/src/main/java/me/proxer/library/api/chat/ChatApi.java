@@ -28,6 +28,13 @@ public final class ChatApi {
     /**
      * Returns the respective endpoint.
      */
+    public UserChatRoomsEndpoint userRooms() {
+        return new UserChatRoomsEndpoint(internalApi);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
     public ChatMessagesEndpoint messages(final String roomId) {
         return new ChatMessagesEndpoint(internalApi, roomId);
     }
