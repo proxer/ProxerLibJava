@@ -3,6 +3,7 @@ package me.proxer.library.api.chat;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entity.chat.ChatMessage;
 import me.proxer.library.entity.chat.ChatRoom;
+import me.proxer.library.entity.chat.ChatRoomUser;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -32,4 +33,7 @@ public interface InternalApi {
     @POST("chat/newmessage")
     ProxerCall<String> sendMessage(@Field("room_id") String roomId,
                                    @Field("message") String message);
+
+    @GET("chat/roomusers")
+    ProxerCall<List<ChatRoomUser>> roomUsers(@Query("room_id") String roomId);
 }

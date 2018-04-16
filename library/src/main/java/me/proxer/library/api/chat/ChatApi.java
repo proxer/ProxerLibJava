@@ -45,4 +45,11 @@ public final class ChatApi {
     public SendChatMessageEndpoint sendMessage(final String roomId, final String message) {
         return new SendChatMessageEndpoint(internalApi, roomId, message);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    public ChatRoomUsersEndpoint roomUsers(final String roomId) {
+        return new ChatRoomUsersEndpoint(internalApi, roomId);
+    }
 }
