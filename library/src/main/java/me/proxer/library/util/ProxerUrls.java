@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 @Accessors(fluent = true)
 public final class ProxerUrls {
 
-    private static final Pattern PROXER_STREAM_HOST_PATTERN = Pattern.compile("(s[0-9]+\\.)?stream\\.proxer\\.me");
+    private static final Pattern PROXER_STREAM_FILE_HOST_PATTERN = Pattern.compile("s[0-9]+\\.stream\\.proxer\\.me");
     private static final Pattern PROXER_MANGA_HOST_PATTERN = Pattern.compile("manga[0-9]+\\.proxer\\.me");
 
     /**
@@ -49,6 +49,16 @@ public final class ProxerUrls {
     private final HttpUrl cdnBase = new HttpUrl.Builder()
             .scheme("https")
             .host("cdn.proxer.me")
+            .addPathSegment("")
+            .build();
+
+    /**
+     * Returns the base url for all image links.
+     */
+    @Getter
+    private final HttpUrl streamBase = new HttpUrl.Builder()
+            .scheme("https")
+            .host("stream.proxer.me")
             .addPathSegment("")
             .build();
 
@@ -240,21 +250,22 @@ public final class ProxerUrls {
      * Returns if the passed url has a valid host of proxer.
      */
     public boolean hasProxerHost(final HttpUrl url) {
-        return hasProxerWebOrCdnHost(url) || hasProxerStreamHost(url) || hasProxerMangaHost(url);
+        return hasProxerWebOrCdnOrStreamHost(url) || hasProxerStreamFileHost(url) || hasProxerMangaHost(url);
     }
 
     /**
      * Returns if the passed url has a valid host of proxer or the proxer cdn..
      */
-    public boolean hasProxerWebOrCdnHost(final HttpUrl url) {
-        return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host());
+    public boolean hasProxerWebOrCdnOrStreamHost(final HttpUrl url) {
+        return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host())
+                || url.host().equals(streamBase.host());
     }
 
     /**
      * Returns if the passed url has a valid proxer stream host.
      */
-    public boolean hasProxerStreamHost(final HttpUrl url) {
-        return PROXER_STREAM_HOST_PATTERN.matcher(url.host()).matches();
+    public boolean hasProxerStreamFileHost(final HttpUrl url) {
+        return PROXER_STREAM_FILE_HOST_PATTERN.matcher(url.host()).matches();
     }
 
     /**
