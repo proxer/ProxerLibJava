@@ -1,8 +1,8 @@
 ext {
-    version = '4.4.0'
+    version = '4.4.1'
     group = 'com.github.proxer'
 
-    gradleVersion = '4.6'
+    gradleVersion = '4.7'
 
     errorpronePluginVersion = '0.0.13'
     gradleVersionsPluginVersion = '0.17.0'
