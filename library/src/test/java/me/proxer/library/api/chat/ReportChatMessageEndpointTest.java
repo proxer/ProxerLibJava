@@ -18,7 +18,7 @@ public class ReportChatMessageEndpointTest extends ProxerTest {
     public void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
-        final String result = api.chat()
+        final Void result = api.chat()
                 .reportMessage("123", "message")
                 .build()
                 .execute();

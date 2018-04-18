@@ -36,8 +36,8 @@ public interface InternalApi {
 
     @FormUrlEncoded
     @POST("chat/reportmessage")
-    ProxerCall<String> reportMessage(@Field("message_id") String messageId,
-                                     @Field("message") String message);
+    ProxerCall<Void> reportMessage(@Field("message_id") String messageId,
+                                   @Field("message") String message);
 
     @GET("chat/roomusers")
     ProxerCall<List<ChatRoomUser>> roomUsers(@Query("room_id") String roomId);

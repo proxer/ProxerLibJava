@@ -10,7 +10,7 @@ import me.proxer.library.api.ProxerCall;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public final class ReportChatMessageEndpoint implements Endpoint<String> {
+public final class ReportChatMessageEndpoint implements Endpoint<Void> {
 
     private final InternalApi internalApi;
 
@@ -27,7 +27,7 @@ public final class ReportChatMessageEndpoint implements Endpoint<String> {
      * {@inheritDoc}
      */
     @Override
-    public ProxerCall<String> build() {
+    public ProxerCall<Void> build() {
         return internalApi.reportMessage(messageId, message);
     }
 }
