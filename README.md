@@ -245,19 +245,12 @@ If you are using ProGuard, the following config is required:
     public *;
 }
 
-# Config for OkHttp and Okio
+# OkHttp/Okio/Retrofit/Moshi
 -dontwarn okio.**
 -dontwarn javax.annotation.**
-
-# Config for Moshi
--keepclassmembers class ** {
-    @com.squareup.moshi.FromJson *;
-    @com.squareup.moshi.ToJson *;
-}
-
-# Config for Retrofit
 -dontnote retrofit2.Platform
 -dontwarn retrofit2.Platform$Java8
+-dontwarn okhttp3.internal.platform.ConscryptPlatform
 
 -keepclasseswithmembers class * {
     @retrofit2.http.* <methods>;
@@ -265,6 +258,13 @@ If you are using ProGuard, the following config is required:
 
 -keepclasseswithmembers interface * {
     @retrofit2.http.* <methods>;
+}
+
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+
+-keepclassmembers class ** {
+    @com.squareup.moshi.FromJson *;
+    @com.squareup.moshi.ToJson *;
 }
 ```
 
