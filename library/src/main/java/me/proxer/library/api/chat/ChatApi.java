@@ -49,6 +49,13 @@ public final class ChatApi {
     /**
      * Returns the respective endpoint.
      */
+    public ReportChatMessageEndpoint reportMessage(final String messageId, final String message) {
+        return new ReportChatMessageEndpoint(internalApi, messageId, message);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
     public ChatRoomUsersEndpoint roomUsers(final String roomId) {
         return new ChatRoomUsersEndpoint(internalApi, roomId);
     }
