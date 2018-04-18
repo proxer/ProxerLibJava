@@ -16,7 +16,10 @@ class HttpsEnforcingInterceptor implements Interceptor {
     public Response intercept(final Chain chain) throws IOException {
         final Request request = chain.request();
 
-        if (ProxerUrls.hasProxerHost(request.url()) && !request.isHttps()) {
+        final boolean appliesToUrl = ProxerUrls.hasProxerWebOrCdnHost(request.url())
+                || ProxerUrls.hasProxerMangaHost(request.url());
+
+        if (appliesToUrl && !request.isHttps()) {
             return chain.proceed(request.newBuilder()
                     .url(request.url().newBuilder()
                             .scheme("https")

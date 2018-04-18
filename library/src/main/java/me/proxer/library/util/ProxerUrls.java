@@ -19,8 +19,8 @@ import java.util.regex.Pattern;
 @Accessors(fluent = true)
 public final class ProxerUrls {
 
-    private static final Pattern PROXER_SUB_HOST_PATTERN = Pattern
-            .compile("(manga[0-9]+|(s[0-9]+\\.)?stream)\\.proxer\\.me");
+    private static final Pattern PROXER_STREAM_HOST_PATTERN = Pattern.compile("(s[0-9]+\\.)?stream\\.proxer\\.me");
+    private static final Pattern PROXER_MANGA_HOST_PATTERN = Pattern.compile("manga[0-9]+\\.proxer\\.me");
 
     /**
      * Returns the base url for all web pages.
@@ -240,7 +240,27 @@ public final class ProxerUrls {
      * Returns if the passed url has a valid host of proxer.
      */
     public boolean hasProxerHost(final HttpUrl url) {
-        return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host())
-                || PROXER_SUB_HOST_PATTERN.matcher(url.host()).matches();
+        return hasProxerWebOrCdnHost(url) || hasProxerStreamHost(url) || hasProxerMangaHost(url);
+    }
+
+    /**
+     * Returns if the passed url has a valid host of proxer or the proxer cdn..
+     */
+    public boolean hasProxerWebOrCdnHost(final HttpUrl url) {
+        return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host());
+    }
+
+    /**
+     * Returns if the passed url has a valid proxer stream host.
+     */
+    public boolean hasProxerStreamHost(final HttpUrl url) {
+        return PROXER_STREAM_HOST_PATTERN.matcher(url.host()).matches();
+    }
+
+    /**
+     * Returns if the passed url has a valid proxer manga host.
+     */
+    public boolean hasProxerMangaHost(final HttpUrl url) {
+        return PROXER_MANGA_HOST_PATTERN.matcher(url.host()).matches();
     }
 }
