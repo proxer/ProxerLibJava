@@ -11,14 +11,14 @@ public class NotificationTypeTest extends ProxerTest {
 
     @Test
     public void testDefault() throws IOException {
-        NotificationType notificationType = api.moshi().adapter(NotificationType.class).fromJson("\"ticket\"");
+        final NotificationType notificationType = api.moshi().adapter(NotificationType.class).fromJson("\"ticket\"");
 
         assertThat(notificationType).isSameAs(NotificationType.TICKET);
     }
 
     @Test
     public void testFallback() throws IOException {
-        NotificationType notificationType = api.moshi().adapter(NotificationType.class).fromJson("\"xyz\"");
+        final NotificationType notificationType = api.moshi().adapter(NotificationType.class).fromJson("\"xyz\"");
 
         assertThat(notificationType).isSameAs(NotificationType.OTHER);
     }

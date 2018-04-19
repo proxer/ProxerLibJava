@@ -11,14 +11,14 @@ public class CountryTest extends ProxerTest {
 
     @Test
     public void testDefault() throws IOException {
-        Country country = api.moshi().adapter(Country.class).fromJson("\"de\"");
+        final Country country = api.moshi().adapter(Country.class).fromJson("\"de\"");
 
         assertThat(country).isSameAs(Country.GERMANY);
     }
 
     @Test
     public void testFallback() throws IOException {
-        Country country = api.moshi().adapter(Country.class).fromJson("\"xyz\"");
+        final Country country = api.moshi().adapter(Country.class).fromJson("\"xyz\"");
 
         assertThat(country).isSameAs(Country.OTHER);
     }

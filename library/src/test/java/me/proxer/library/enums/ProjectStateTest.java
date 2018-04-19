@@ -11,14 +11,14 @@ public class ProjectStateTest extends ProxerTest {
 
     @Test
     public void testDefault() throws IOException {
-        ProjectState projectState = api.moshi().adapter(ProjectState.class).fromJson("\"1\"");
+        final ProjectState projectState = api.moshi().adapter(ProjectState.class).fromJson("\"1\"");
 
         assertThat(projectState).isSameAs(ProjectState.FINISHED);
     }
 
     @Test
     public void testFallback() throws IOException {
-        ProjectState projectState = api.moshi().adapter(ProjectState.class).fromJson("\"xyz\"");
+        final ProjectState projectState = api.moshi().adapter(ProjectState.class).fromJson("\"xyz\"");
 
         assertThat(projectState).isSameAs(ProjectState.UNKNOWN);
     }

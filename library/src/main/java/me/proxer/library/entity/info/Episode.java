@@ -18,7 +18,8 @@ import javax.annotation.Nullable;
 @NonFinal
 @AllArgsConstructor()
 @EqualsAndHashCode(onParam = @__({@Nullable}))
-public abstract class Episode {
+@SuppressWarnings({"pmd:AbstractClassWithoutAbstractMethod", "pmd:AbstractClassWithoutAnyMethod"})
+public class Episode {
 
     /**
      * Returns the number of this episode.

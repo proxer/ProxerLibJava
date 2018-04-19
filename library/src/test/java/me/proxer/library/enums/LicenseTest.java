@@ -11,14 +11,14 @@ public class LicenseTest extends ProxerTest {
 
     @Test
     public void testDefault() throws IOException {
-        License license = api.moshi().adapter(License.class).fromJson("\"2\"");
+        final License license = api.moshi().adapter(License.class).fromJson("\"2\"");
 
         assertThat(license).isSameAs(License.LICENSED);
     }
 
     @Test
     public void testFallback() throws IOException {
-        License license = api.moshi().adapter(License.class).fromJson("\"xyz\"");
+        final License license = api.moshi().adapter(License.class).fromJson("\"xyz\"");
 
         assertThat(license).isSameAs(License.UNKNOWN);
     }

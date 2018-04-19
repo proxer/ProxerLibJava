@@ -11,14 +11,14 @@ public class GenreTest extends ProxerTest {
 
     @Test
     public void testDefault() throws IOException {
-        Genre genre = api.moshi().adapter(Genre.class).fromJson("\"Action\"");
+        final Genre genre = api.moshi().adapter(Genre.class).fromJson("\"Action\"");
 
         assertThat(genre).isSameAs(Genre.ACTION);
     }
 
     @Test
     public void testFallback() throws IOException {
-        Genre genre = api.moshi().adapter(Genre.class).fromJson("\"xyz\"");
+        final Genre genre = api.moshi().adapter(Genre.class).fromJson("\"xyz\"");
 
         assertThat(genre).isSameAs(Genre.UNKNOWN);
     }

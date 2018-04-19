@@ -34,7 +34,7 @@ public class ConferenceAdapterTest {
     }
 
     private IntermediateConference constructIntermediateConference(final boolean withImage) {
-        IntermediateConference result = new IntermediateConference();
+        final IntermediateConference result = new IntermediateConference();
 
         result.id = "123";
         result.topic = "something";

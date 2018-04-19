@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ProxerUtilsTest {
 
     @Test
-    public void testGetEnumName() throws NoSuchFieldException {
+    public void testGetEnumName() {
         assertThat(ProxerUtils.getApiEnumName(Genre.COMEDY)).isEqualTo("Comedy");
     }
 
@@ -27,7 +27,7 @@ public class ProxerUtilsTest {
     }
 
     @Test
-    public void testToApiEnumIgnoresCase() throws Exception {
+    public void testToApiEnumIgnoresCase() {
         assertThat(ProxerUtils.toApiEnum(Genre.class, "ACTION")).isEqualTo(Genre.ACTION);
     }
 
@@ -55,6 +55,23 @@ public class ProxerUtilsTest {
     @Test
     public void testJoinEnumsEmpty() {
         assertThat(ProxerUtils.joinEnums(";", EnumSet.noneOf(Genre.class))).isEmpty();
+    }
+
+    @Test
+    public void testIsBlank() {
+        assertThat(ProxerUtils.isBlank("   ")).isTrue();
+    }
+
+    @Test
+    public void testIsBlankEmpty() {
+        assertThat(ProxerUtils.isBlank("")).isTrue();
+    }
+
+    @Test
+    public void testIsBlankFalse() {
+        assertThat(ProxerUtils.isBlank(" a ")).isFalse();
+        assertThat(ProxerUtils.isBlank(" a")).isFalse();
+        assertThat(ProxerUtils.isBlank("a ")).isFalse();
     }
 
     @Test

@@ -17,6 +17,7 @@ class NotificationInfoAdapter {
     private static final int NOTIFICATIONS_FIELD_LOCATION = 5;
 
     @FromJson
+    @SuppressWarnings("PMD.UseVarargs")
     NotificationInfo fromJson(final int[] json) {
         if (json.length != FIELD_AMOUNT) {
             throw new JsonDataException("Invalid json array size: " + json.length);

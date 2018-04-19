@@ -3,6 +3,7 @@ package me.proxer.library.api;
 import lombok.AllArgsConstructor;
 import me.proxer.library.api.ProxerApi.Builder.LoggingStrategy;
 import me.proxer.library.util.ProxerUrls;
+import me.proxer.library.util.ProxerUtils;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -63,7 +64,7 @@ class LoggingInterceptor implements Interceptor {
 
         if (bodyContent == null) {
             return "";
-        } else if (bodyContent.trim().isEmpty()) {
+        } else if (ProxerUtils.isBlank(bodyContent)) {
             return "\nand a blank body.";
         } else {
             return "\nand this body:\n" + bodyContent;

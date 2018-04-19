@@ -11,14 +11,14 @@ public class IndustryTypeTest extends ProxerTest {
 
     @Test
     public void testDefault() throws IOException {
-        IndustryType industryType = api.moshi().adapter(IndustryType.class).fromJson("\"publisher\"");
+        final IndustryType industryType = api.moshi().adapter(IndustryType.class).fromJson("\"publisher\"");
 
         assertThat(industryType).isSameAs(IndustryType.PUBLISHER);
     }
 
     @Test
     public void testFallback() throws IOException {
-        IndustryType industryType = api.moshi().adapter(IndustryType.class).fromJson("\"xyz\"");
+        final IndustryType industryType = api.moshi().adapter(IndustryType.class).fromJson("\"xyz\"");
 
         assertThat(industryType).isSameAs(IndustryType.UNKNOWN);
     }

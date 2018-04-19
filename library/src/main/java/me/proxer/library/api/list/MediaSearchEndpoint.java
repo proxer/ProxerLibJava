@@ -198,9 +198,14 @@ public final class MediaSearchEndpoint implements PagingLimitEndpoint<List<Media
 
     @Override
     public ProxerCall<List<MediaListEntry>> build() {
-        String joinedGenres = genres == null ? null : ProxerUtils.joinEnums(DELIMITER, genres);
-        String joinedExcludedGenres = excludedGenres == null ? null : ProxerUtils.joinEnums(DELIMITER, excludedGenres);
-        String joinedFskConstraints = fskConstraints == null ? null : ProxerUtils.joinEnums(DELIMITER, fskConstraints);
+        final String joinedGenres = genres == null ? null
+                : ProxerUtils.joinEnums(DELIMITER, genres);
+
+        final String joinedExcludedGenres = excludedGenres == null ? null
+                : ProxerUtils.joinEnums(DELIMITER, excludedGenres);
+
+        final String joinedFskConstraints = fskConstraints == null ? null
+                : ProxerUtils.joinEnums(DELIMITER, fskConstraints);
 
         return internalApi.mediaSearch(name, language, type, joinedGenres, joinedExcludedGenres, joinedFskConstraints,
                 sort, length, lengthBound, tags, excludedTags, tagGenres, excludedTagGenres,

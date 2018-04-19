@@ -26,7 +26,8 @@ public class ProxerCallTest extends ProxerTest {
                 .setSocketPolicy(SocketPolicy.NO_RESPONSE));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
-                .matches(exception -> exception.getErrorType() == ErrorType.TIMEOUT);
+                .matches(exception -> exception.getErrorType() == ErrorType.TIMEOUT,
+                        "Exception should have the TIMEOUT ErrorType");
     }
 
     @Test
@@ -34,7 +35,8 @@ public class ProxerCallTest extends ProxerTest {
         server.enqueue(new MockResponse().setBody(fromResource("news.json")).setResponseCode(404));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
-                .matches(exception -> exception.getErrorType() == ErrorType.IO);
+                .matches(exception -> exception.getErrorType() == ErrorType.IO,
+                        "Exception should have the IO ErrorType");
     }
 
     @Test
@@ -42,7 +44,8 @@ public class ProxerCallTest extends ProxerTest {
         server.enqueue(new MockResponse().setBody(fromResource("news.json").replace(":", "invalid")));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
-                .matches(exception -> exception.getErrorType() == ErrorType.IO);
+                .matches(exception -> exception.getErrorType() == ErrorType.IO,
+                        "Exception should have the IO ErrorType");
     }
 
     @Test
@@ -50,7 +53,8 @@ public class ProxerCallTest extends ProxerTest {
         server.enqueue(new MockResponse().setBody(fromResource("news.json").replace("256", "invalid")));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
-                .matches(exception -> exception.getErrorType() == ErrorType.PARSING);
+                .matches(exception -> exception.getErrorType() == ErrorType.PARSING,
+                        "Exception should have the PARSING ErrorType");
     }
 
     @Test
@@ -59,10 +63,13 @@ public class ProxerCallTest extends ProxerTest {
 
         assertThatExceptionOfType(ProxerException.class)
                 .isThrownBy(() -> api.messenger().conferences().build().execute())
-                .matches(exception -> exception.getErrorType() == ErrorType.SERVER)
-                .matches(exception -> exception.getServerErrorType() == ServerErrorType.MESSAGES_LOGIN_REQUIRED)
+                .matches(exception -> exception.getErrorType() == ErrorType.SERVER,
+                        "Exception should have the SERVER ErrorType")
+                .matches(exception -> exception.getServerErrorType() == ServerErrorType.MESSAGES_LOGIN_REQUIRED,
+                        "Exception should have the MESSAGES_LOGIN_REQUIRED ServerErrorType")
                 .matches(exception -> exception.getMessage() != null
-                        && exception.getMessage().equals("Du bist nicht eingeloggt."));
+                                && exception.getMessage().equals("Du bist nicht eingeloggt."),
+                        "Exception should have the correct message");
     }
 
     @Test(timeout = 1000L)

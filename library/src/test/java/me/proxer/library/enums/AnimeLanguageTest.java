@@ -11,14 +11,14 @@ public class AnimeLanguageTest extends ProxerTest {
 
     @Test
     public void testDefault() throws IOException {
-        AnimeLanguage animeLanguage = api.moshi().adapter(AnimeLanguage.class).fromJson("\"gersub\"");
+        final AnimeLanguage animeLanguage = api.moshi().adapter(AnimeLanguage.class).fromJson("\"gersub\"");
 
         assertThat(animeLanguage).isSameAs(AnimeLanguage.GERMAN_SUB);
     }
 
     @Test
     public void testFallback() throws IOException {
-        AnimeLanguage animeLanguage = api.moshi().adapter(AnimeLanguage.class).fromJson("\"xyz\"");
+        final AnimeLanguage animeLanguage = api.moshi().adapter(AnimeLanguage.class).fromJson("\"xyz\"");
 
         assertThat(animeLanguage).isSameAs(AnimeLanguage.OTHER);
     }

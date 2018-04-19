@@ -29,7 +29,7 @@ class EpisodeInfoAdapter {
     EpisodeInfo fromJson(final IntermediateEpisodeInfo json) {
         final List<Episode> episodes = new ArrayList<>(json.episodes.size());
 
-        for (IntermediateEpisode episode : json.episodes) {
+        for (final IntermediateEpisode episode : json.episodes) {
             if (json.category == Category.ANIME) {
                 episodes.add(new AnimeEpisode(episode.number, episode.language,
                         new HashSet<>(Arrays.asList(episode.hosters.split(DELIMITER))),

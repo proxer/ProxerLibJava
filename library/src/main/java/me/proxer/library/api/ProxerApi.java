@@ -142,6 +142,7 @@ public final class ProxerApi {
      * Moreover you can specify your own {@link LoginTokenManager} and user agent.
      */
     @Accessors(fluent = true)
+    @SuppressWarnings("PMD.ImmutableField")
     public static final class Builder {
 
         private static final String[] CERTIFICATES = new String[]{
@@ -311,7 +312,7 @@ public final class ProxerApi {
         private CertificatePinner constructCertificatePinner() {
             final CertificatePinner.Builder builder = new CertificatePinner.Builder();
 
-            for (String certificate : CERTIFICATES) {
+            for (final String certificate : CERTIFICATES) {
                 builder.add(ProxerUrls.webBase().host(), certificate);
             }
 

@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Ruben Gees
  */
+@SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
 public abstract class ProxerTest {
 
     private final SslClient sslClient = SslClient.localhost();

@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -87,11 +88,11 @@ public class EntryEndpointTest extends ProxerTest {
                 new IndustryCore("19", "Kodansha", IndustryType.PUBLISHER, Country.JAPAN)
         ), Arrays.asList(
                 new InfoTag("93", "2027",
-                        new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2016-06-18 14:14:22"), false,
-                        false, "Dämonen", "In diesem Werk kommen Dämonen vor."),
+                        new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2016-06-18 14:14:22"),
+                        false, false, "Dämonen", "In diesem Werk kommen Dämonen vor."),
                 new InfoTag("299", "2028",
-                        new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2016-06-18 14:14:30"), false,
-                        false, "Slapstick", "Situationskomik, kommt ohne Worte aus.")
+                        new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2016-06-18 14:14:30"),
+                        false, false, "Slapstick", "Situationskomik, kommt ohne Worte aus.")
         ));
     }
 }

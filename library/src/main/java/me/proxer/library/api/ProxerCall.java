@@ -34,12 +34,13 @@ public final class ProxerCall<T> implements Cloneable {
      * thrown.
      */
     @Nullable
+    @SuppressWarnings({"PMD.AvoidRethrowingException", "PMD.AvoidCatchingGenericException"})
     public T execute() throws ProxerException {
         try {
             return processResponse(internalCall.execute());
         } catch (final ProxerException error) {
             throw error;
-        } catch (final Throwable error) {
+        } catch (final Exception error) {
             throw processNonProxerError(error);
         }
     }
@@ -80,8 +81,8 @@ public final class ProxerCall<T> implements Cloneable {
 
             @Override
             public void onFailure(final Call<ProxerResponse<T>> call, final Throwable error) {
-                if (errorCallback != null) {
-                    errorCallback.onError(processNonProxerError(error));
+                if (error instanceof Exception && errorCallback != null) {
+                    errorCallback.onError(processNonProxerError((Exception) error));
                 }
             }
         });
@@ -112,6 +113,7 @@ public final class ProxerCall<T> implements Cloneable {
      * Clones the call for reuse.
      */
     @Override
+    @SuppressWarnings({"MethodDoesntCallSuperMethod", "PMD.ProperCloneImplementation"})
     public ProxerCall<T> clone() {
         return new ProxerCall<>(internalCall.clone());
     }
@@ -143,7 +145,7 @@ public final class ProxerCall<T> implements Cloneable {
         }
     }
 
-    private ProxerException processNonProxerError(final Throwable error) {
+    private ProxerException processNonProxerError(final Exception error) {
         if (error instanceof SocketTimeoutException) {
             return new ProxerException(ProxerException.ErrorType.TIMEOUT, error);
         } else if (error instanceof IOException) {

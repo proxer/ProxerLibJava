@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,6 +50,6 @@ public class UcpHistoryEndpointTest extends ProxerTest {
     private UcpHistoryEntry buildTestEntry() throws ParseException {
         return new UcpHistoryEntry("407661627", "14701", "Nejimaki Seirei Senki: Tenkyou no Alderamin",
                 MediaLanguage.ENGLISH_SUB, Medium.ANIMESERIES, Category.ANIME, 1,
-                new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2017-03-13 23:16:36"));
+                new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2017-03-13 23:16:36"));
     }
 }

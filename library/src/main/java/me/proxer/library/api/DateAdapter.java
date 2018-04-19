@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * @author Ruben Gees
@@ -23,7 +24,7 @@ final class DateAdapter {
         if (dateAsLong != null) {
             return new Date(dateAsLong * DATE_MULTIPLICAND);
         } else {
-            return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(date);
+            return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse(date);
         }
     }
 

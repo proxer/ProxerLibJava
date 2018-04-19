@@ -7,7 +7,7 @@ import com.squareup.moshi.FromJson;
  */
 class BooleanAdapter {
 
-    private PrimitiveBooleanAdapter delegate = new PrimitiveBooleanAdapter();
+    private final PrimitiveBooleanAdapter delegate = new PrimitiveBooleanAdapter();
 
     @FromJson
     Boolean fromJson(final Object json) {

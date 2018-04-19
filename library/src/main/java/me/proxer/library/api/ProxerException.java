@@ -41,7 +41,7 @@ public final class ProxerException extends Exception {
      * Constructs an instance from the passed {@code error}, {@code serverError}, {@code message} and {@code cause}.
      */
     public ProxerException(final ErrorType errorType, @Nullable final ServerErrorType serverErrorType,
-                           @Nullable final String message, @Nullable final Throwable cause) {
+                           @Nullable final String message, @Nullable final Exception cause) {
         super(cause);
 
         this.errorType = errorType;
@@ -76,7 +76,7 @@ public final class ProxerException extends Exception {
      * <p>
      * {@link #getServerErrorType()} and {@link #getMessage()} will return null.
      */
-    public ProxerException(final ErrorType errorType, @Nullable final Throwable cause) {
+    public ProxerException(final ErrorType errorType, @Nullable final Exception cause) {
         super(cause);
 
         this.errorType = errorType;

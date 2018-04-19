@@ -40,7 +40,7 @@ public class ProxerUtils {
     @Nullable
     public <T extends Enum<T>> T toApiEnum(final Class<T> type, final String value) {
         for (final Field field : type.getFields()) {
-            Json annotation = field.getAnnotation(Json.class);
+            final Json annotation = field.getAnnotation(Json.class);
 
             if (annotation != null && annotation.name().equalsIgnoreCase(value)) {
                 return Enum.valueOf(type, field.getName());
@@ -87,5 +87,19 @@ public class ProxerUtils {
         }
 
         return join(delimiter, convertedEnums);
+    }
+
+    /**
+     * Checks if a String is blank, as in that it only contains whitespace characters or is empty.
+     */
+    @SuppressWarnings("checkstyle:designforextension") // Lombok makes it static.
+    public boolean isBlank(final String subject) {
+        for (int i = 0; i < subject.length(); i++) {
+            if (!Character.isWhitespace(subject.charAt(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

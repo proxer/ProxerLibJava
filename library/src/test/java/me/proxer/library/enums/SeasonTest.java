@@ -11,14 +11,14 @@ public class SeasonTest extends ProxerTest {
 
     @Test
     public void testDefault() throws IOException {
-        Season season = api.moshi().adapter(Season.class).fromJson("\"1\"");
+        final Season season = api.moshi().adapter(Season.class).fromJson("\"1\"");
 
         assertThat(season).isSameAs(Season.WINTER);
     }
 
     @Test
     public void testFallback() throws IOException {
-        Season season = api.moshi().adapter(Season.class).fromJson("\"xyz\"");
+        final Season season = api.moshi().adapter(Season.class).fromJson("\"xyz\"");
 
         assertThat(season).isSameAs(Season.UNSPECIFIED);
     }

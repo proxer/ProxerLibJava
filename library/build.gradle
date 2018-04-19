@@ -160,13 +160,16 @@ checkstyle {
 }
 
 findbugs {
-    excludeFilter = file('config/findbugs/findbugs-filter.xml')
+    excludeFilter = rootProject.file('config/findbugs/findbugs-filter.xml')
     sourceSets = [sourceSets.main]
 
     setToolVersion(findbugsVersion)
 }
 
 pmd {
+    ruleSetFiles = rootProject.files("config/pmd/pmd-rulesets.xml")
+    ruleSets = []
+
     setToolVersion(pmdVersion)
 }
 

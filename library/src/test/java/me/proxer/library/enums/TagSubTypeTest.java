@@ -11,14 +11,14 @@ public class TagSubTypeTest extends ProxerTest {
 
     @Test
     public void testDefault() throws IOException {
-        TagSubType tagSubType = api.moshi().adapter(TagSubType.class).fromJson("\"story\"");
+        final TagSubType tagSubType = api.moshi().adapter(TagSubType.class).fromJson("\"story\"");
 
         assertThat(tagSubType).isSameAs(TagSubType.STORY);
     }
 
     @Test
     public void testFallback() throws IOException {
-        TagSubType tagSubType = api.moshi().adapter(TagSubType.class).fromJson("\"xyz\"");
+        final TagSubType tagSubType = api.moshi().adapter(TagSubType.class).fromJson("\"xyz\"");
 
         assertThat(tagSubType).isSameAs(TagSubType.OTHER);
     }
