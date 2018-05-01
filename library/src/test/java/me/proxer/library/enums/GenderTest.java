@@ -23,6 +23,6 @@ public class GenderTest extends ProxerTest {
     public void testFallback() throws IOException {
         final Gender gender = api.moshi().adapter(Gender.class).fromJson("\"xyz\"");
 
-        assertThat(gender).isSameAs(Gender.OTHER);
+        assertThat(gender).isSameAs(Gender.UNKNOWN);
     }
 }

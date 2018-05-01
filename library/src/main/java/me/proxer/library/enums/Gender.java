@@ -8,9 +8,10 @@ import com.squareup.moshi.Json;
  *
  * @author Ruben Gees
  */
-@FallbackEnum(name = "OTHER")
+@FallbackEnum(name = "UNKNOWN")
 public enum Gender {
     @Json(name = "m") MALE,
     @Json(name = "f") FEMALE,
-    @Json(name = "o") OTHER
+    @Json(name = "o") OTHER,
+    @Json(name = "") UNKNOWN
 }
