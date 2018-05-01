@@ -53,6 +53,13 @@ public final class UserApi {
     /**
      * Returns the respective endpoint.
      */
+    public UserAboutEndpoint about(@Nullable final String userId, @Nullable final String username) {
+        return new UserAboutEndpoint(internalApi, userId, username);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
     public UserMediaListEndpoint mediaList(@Nullable final String userId, @Nullable final String username) {
         return new UserMediaListEndpoint(internalApi, userId, username);
     }

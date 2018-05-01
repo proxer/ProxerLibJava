@@ -35,6 +35,18 @@ public class DateAdapterTest {
     }
 
     @Test
+    public void testFromJsonIsoNoTime() throws ParseException {
+        assertThat(adapter.fromJson("2010-01-01"))
+                .isEqualTo(new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).parse("2010-01-01"));
+    }
+
+    @Test
+    public void testFromJsonIsoNoTimeEmpty() throws ParseException {
+        assertThat(adapter.fromJson("0000-00-00"))
+                .isEqualTo(new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).parse("0000-00-00"));
+    }
+
+    @Test
     public void testFromJsonMalformed() {
         assertThatExceptionOfType(ParseException.class).isThrownBy(() -> adapter.fromJson("malformed"));
     }

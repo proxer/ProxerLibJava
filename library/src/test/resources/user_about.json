@@ -1,0 +1,21 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": {
+    "info_website": "",
+    "info_occupation": "Developer",
+    "info_interests": "Anime",
+    "info_city": "A City",
+    "info_country": "Some Country",
+    "info_about": "<p>Hello there",
+    "info_facebook": "",
+    "info_youtube": "",
+    "info_chatango": "",
+    "info_twitter": "",
+    "info_skype": "skypeTest",
+    "info_deviantart": "",
+    "info_birthday": "0000-06-02",
+    "info_gender": "m",
+    "info_relationshipstatus": ""
+  }
+}

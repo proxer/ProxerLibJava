@@ -3,6 +3,7 @@ package me.proxer.library.api.user;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entity.user.TopTenEntry;
 import me.proxer.library.entity.user.User;
+import me.proxer.library.entity.user.UserAbout;
 import me.proxer.library.entity.user.UserComment;
 import me.proxer.library.entity.user.UserHistoryEntry;
 import me.proxer.library.entity.user.UserInfo;
@@ -43,6 +44,10 @@ interface InternalApi {
     @GET("user/userinfo")
     ProxerCall<UserInfo> userInfo(@Query("uid") String userId,
                                   @Query("username") String username);
+
+    @GET("user/about")
+    ProxerCall<UserAbout> userAbout(@Query("uid") String userId,
+                                    @Query("username") String username);
 
     @GET("user/list")
     ProxerCall<List<UserMediaListEntry>> userMediaList(@Query("uid") String userId,

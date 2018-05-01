@@ -24,7 +24,12 @@ final class DateAdapter {
         if (dateAsLong != null) {
             return new Date(dateAsLong * DATE_MULTIPLICAND);
         } else {
-            return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse(date);
+            // Distinguish between dates with time and dates without.
+            if (date.contains(":")) {
+                return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse(date);
+            } else {
+                return new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).parse(date);
+            }
         }
     }
 
