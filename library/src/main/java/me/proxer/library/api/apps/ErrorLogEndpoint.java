@@ -27,6 +27,13 @@ public final class ErrorLogEndpoint implements Endpoint<Void> {
     @Setter
     private Boolean anonym;
 
+    /**
+     * Sets if the developer should get a notification. If not set, this behaves as true.
+     */
+    @Nullable
+    @Setter
+    private Boolean silent;
+
     ErrorLogEndpoint(final InternalApi internalApi, final String id, final String message) {
         this.internalApi = internalApi;
         this.id = id;
@@ -38,6 +45,6 @@ public final class ErrorLogEndpoint implements Endpoint<Void> {
      */
     @Override
     public ProxerCall<Void> build() {
-        return internalApi.errorLog(id, message, anonym);
+        return internalApi.errorLog(id, message, anonym, silent);
     }
 }

@@ -17,5 +17,6 @@ public interface InternalApi {
     @POST("apps/errorlog")
     ProxerCall<Void> errorLog(@Field("id") String id,
                               @Field("message") String message,
-                              @Field("anonym") Boolean anonym);
+                              @Field("anonym") Boolean anonym,
+                              @Field("silent") Boolean silent);
 }

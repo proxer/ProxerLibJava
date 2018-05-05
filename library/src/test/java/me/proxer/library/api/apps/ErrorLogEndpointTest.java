@@ -40,9 +40,11 @@ public class ErrorLogEndpointTest extends ProxerTest {
 
         api.apps().errorLog("3", "test message")
                 .anonym(false)
+                .silent(false)
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getBody().readUtf8()).isEqualTo("id=3&message=test%20message&anonym=false");
+        assertThat(server.takeRequest().getBody().readUtf8())
+                .isEqualTo("id=3&message=test%20message&anonym=false&silent=false");
     }
 }
