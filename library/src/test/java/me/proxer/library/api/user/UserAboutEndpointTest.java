@@ -9,9 +9,6 @@ import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -22,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 public class UserAboutEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException, ParseException {
+    public void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("user_about.json")));
 
         final UserAbout result = api.user()
@@ -50,10 +47,9 @@ public class UserAboutEndpointTest extends ProxerTest {
                 .isThrownBy(() -> api.user().info(null, null));
     }
 
-    private UserAbout buildTestAbout() throws ParseException {
+    private UserAbout buildTestAbout() {
         return new UserAbout("", "Developer", "Anime", "A City", "Some Country",
                 "<p>Hello there", "", "", "", "", "skypeTest",
-                "", new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).parse("0000-06-02"),
-                Gender.MALE, RelationshipStatus.UNKNOWN);
+                "", "0000-06-02", Gender.MALE, RelationshipStatus.UNKNOWN);
     }
 }

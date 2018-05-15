@@ -7,7 +7,6 @@ import me.proxer.library.enums.Gender;
 import me.proxer.library.enums.RelationshipStatus;
 
 import javax.annotation.Nullable;
-import java.util.Date;
 
 /**
  * Entity holding all info of a user.
@@ -94,7 +93,7 @@ public class UserAbout {
      * Returns the birthday of the user. Can be an actual date or 00.00.0000. The format is dd.MM.yyyy.
      */
     @Json(name = "info_birthday")
-    private Date birthday;
+    private String birthday;
 
     /**
      * Returns the gender of the user.
