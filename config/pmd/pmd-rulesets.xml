@@ -36,13 +36,6 @@
     <rule ref="category/java/design.xml/CollapsibleIfStatements"/>
     <rule ref="category/java/design.xml/SimplifiedTernary"/>
 
-    <!-- Braces -->
-
-    <rule ref="category/java/codestyle.xml/ForLoopsMustUseBraces"/>
-    <rule ref="category/java/codestyle.xml/IfElseStmtsMustUseBraces"/>
-    <rule ref="category/java/codestyle.xml/IfStmtsMustUseBraces"/>
-    <rule ref="category/java/codestyle.xml/WhileLoopsMustUseBraces"/>
-
     <!-- Clone -->
 
     <rule ref="category/java/errorprone.xml/CloneMethodMustBePublic"/>

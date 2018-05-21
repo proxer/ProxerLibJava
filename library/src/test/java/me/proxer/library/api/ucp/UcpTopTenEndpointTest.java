@@ -9,7 +9,6 @@ import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UcpTopTenEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException, ParseException {
+    public void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("ucp_top_ten.json")));
 
         final List<UcpTopTenEntry> result = api.ucp()

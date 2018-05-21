@@ -65,7 +65,7 @@ public class SendMessageEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testInvalidAction() throws ProxerException, IOException, InterruptedException {
+    public void testInvalidAction() {
         assertThatThrownBy(() -> api.messenger().sendMessage("id", MessageAction.NONE, "")
                 .build()
                 .execute())

@@ -130,6 +130,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
         assertThat(result.genres).containsExactly(Genre.ACTION, Genre.UNKNOWN);
     }
 
+    @SuppressWarnings({"CheckReturnValue", "ResultOfMethodCallIgnored"})
     @Test
     public void testFromJsonNoFallback() {
         final JsonAdapter<FskConstrainsTestClass> adapter = moshi.adapter(FskConstrainsTestClass.class);

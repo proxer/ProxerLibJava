@@ -52,12 +52,13 @@ public class UserCommentsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testIllegalArguments() throws Exception {
+    public void testIllegalArguments() {
         final InternalApi internalApi = new Retrofit.Builder()
                 .baseUrl("http://example.com")
                 .build()
                 .create(InternalApi.class);
 
+        //noinspection ConstantConditions
         assertThatThrownBy(() -> new UserCommentsEndpoint(internalApi, null, null))
                 .isInstanceOf(IllegalArgumentException.class);
     }

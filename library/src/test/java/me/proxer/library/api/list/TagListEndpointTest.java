@@ -49,6 +49,23 @@ public class TagListEndpointTest extends ProxerTest {
                 + "&sort=id&sort_type=ASC&subtype=zukunft");
     }
 
+    @Test
+    public void testPathDescending() throws ProxerException, IOException, InterruptedException {
+        server.enqueue(new MockResponse().setBody(fromResource("tags.json")));
+
+        api.list().tagList()
+                .name("xyz")
+                .type(TagType.GENRE)
+                .sortCriteria(TagSortCriteria.SUBTYPE)
+                .sortDescending()
+                .subType(TagSubType.PEOPLE)
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/tags?search=xyz&type=entry_genre"
+                + "&sort=subtype&sort_type=DESC&subtype=menschen");
+    }
+
     private Tag buildTestEntry() {
         return new Tag("262", TagType.TAG, "4-Koma", "Seitenaufteilung in vier gleich große Panels.",
                 TagSubType.DRAWING, false);

@@ -14,22 +14,22 @@ public class HttpUrlAdapterTest {
     private HttpUrlAdapter adapter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         adapter = new HttpUrlAdapter();
     }
 
     @Test
-    public void testNormal() throws Exception {
+    public void testNormal() {
         assertThat(adapter.fromJson("https://www.example.com")).isEqualTo(HttpUrl.parse("https://www.example.com"));
     }
 
     @Test
-    public void testSchemaLess() throws Exception {
+    public void testSchemaLess() {
         assertThat(adapter.fromJson("//www.example.com")).isEqualTo(HttpUrl.parse("http://www.example.com"));
     }
 
     @Test
-    public void testInvalid() throws Exception {
+    public void testInvalid() {
         assertThat(adapter.fromJson("example.com")).isNull();
     }
 }
