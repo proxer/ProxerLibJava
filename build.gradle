@@ -24,6 +24,6 @@ allprojects {
     }
 }
 
-task wrapper(type: Wrapper) {
-    setGradleVersion(project.ext.gradleVersion)
+wrapper {
+    gradleVersion = project.ext.gradleVersion
 }

@@ -2,10 +2,10 @@ ext {
     version = '4.4.2'
     group = 'com.github.proxer'
 
-    gradleVersion = '4.7'
+    gradleVersion = '4.8.1'
 
     errorpronePluginVersion = '0.0.13'
-    gradleVersionsPluginVersion = '0.17.0'
+    gradleVersionsPluginVersion = '0.20.0'
     buildConfigPluginVersion = '1.1.8'
     freefairPluginsVersion = '2.4.2'
 
@@ -15,7 +15,7 @@ ext {
     findbugsVersion = '3.0.1'
     pmdVersion = '6.3.0'
 
-    lombokVersion = '1.16.20'
+    lombokVersion = '1.18.0'
     jsr305Version = '3.0.2'
     javaxExtrasVersion = '0.1.0'
 
