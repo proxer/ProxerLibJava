@@ -147,7 +147,8 @@ public final class ProxerApi {
 
         private static final String[] CERTIFICATES = new String[]{
                 "sha256/58qRu/uxh4gFezqAcERupSkRYBlBAvfcw7mEjGPLnNU=",
-                "sha256/grX4Ta9HpZx6tSHkmCrvpApTQGo67CYDnvprLg5yRME="
+                "sha256/grX4Ta9HpZx6tSHkmCrvpApTQGo67CYDnvprLg5yRME=",
+                "sha256/Vjs8r4z+80wjNcr1YKepWQboSIRi63WsWXhIMN+eWys="
         };
 
         private static final String DEFAULT_USER_AGENT = "ProxerLibJava/" + BuildConfig.VERSION;
