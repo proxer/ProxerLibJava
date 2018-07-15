@@ -10,6 +10,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -18,6 +19,9 @@ import java.util.logging.Logger;
  */
 @AllArgsConstructor
 class LoggingInterceptor implements Interceptor {
+
+    @Nullable
+    private final CustomLogger customLogger;
 
     private final LoggingStrategy loggingStrategy;
     private final String loggingTag;
@@ -33,7 +37,11 @@ class LoggingInterceptor implements Interceptor {
                     + (bodyMessage.isEmpty() ? " and " : ", ") + headerMessage
                     + (!headerMessage.contains("\n") && bodyMessage.isEmpty() ? "." : bodyMessage);
 
-            Logger.getLogger(loggingTag).info(message);
+            if (customLogger != null) {
+                customLogger.log(message);
+            } else {
+                Logger.getLogger(loggingTag).info(message);
+            }
         }
 
         return chain.proceed(chain.request());

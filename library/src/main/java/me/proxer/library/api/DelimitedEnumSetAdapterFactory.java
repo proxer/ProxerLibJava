@@ -33,6 +33,7 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
     private static final String DELIMITER = " ";
     private static final String COMMA_DELIMITER = ",";
 
+    @Nullable
     @Override
     public JsonAdapter<?> create(final Type type, final Set<? extends Annotation> annotations, final Moshi moshi) {
         final Type rawType = Types.getRawType(type);

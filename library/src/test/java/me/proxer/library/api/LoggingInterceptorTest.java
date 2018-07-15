@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.concurrent.CountDownLatch;
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
@@ -150,6 +151,30 @@ public class LoggingInterceptorTest extends ProxerTest {
         loggerHandler.flush();
 
         assertThat(loggerStream.toString()).isEmpty();
+    }
+
+    @Test
+    public void testLogWithCustomLogger() throws IOException, InterruptedException {
+        final CountDownLatch lock = new CountDownLatch(1);
+        final String expectedMessage = "Requesting https://"
+                + server.getHostName() + ":" + server.getPort()
+                + "/test with method GET and no headers.";
+
+        final CustomLogger logger = message -> {
+            if (message.equals(expectedMessage)) {
+                lock.countDown();
+            }
+
+            // Failed: Not the message we want. The lock will never be counted down and timeout.
+        };
+
+        api = constructApi().customLogger(logger).loggingStrategy(LoggingStrategy.ALL).build();
+
+        server.enqueue(new MockResponse());
+
+        api.client().newCall(new Request.Builder().url("https://example.com/test").build()).execute();
+
+        lock.await();
     }
 
     private static class EchoFormatter extends Formatter {

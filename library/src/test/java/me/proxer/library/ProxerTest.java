@@ -4,7 +4,8 @@ import me.proxer.library.api.ProxerApi;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.internal.tls.SslClient;
+import okhttp3.tls.HandshakeCertificates;
+import okhttp3.tls.internal.TlsUtil;
 import okio.Okio;
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
 public abstract class ProxerTest {
 
-    private final SslClient sslClient = SslClient.localhost();
+    private final HandshakeCertificates tls = TlsUtil.localhost();
 
     protected MockWebServer server;
     protected OkHttpClient client;
@@ -36,7 +37,7 @@ public abstract class ProxerTest {
         client = api.client();
         server = new MockWebServer();
 
-        server.useHttps(sslClient.socketFactory, false);
+        server.useHttps(tls.sslSocketFactory(), false);
         server.start();
     }
 
@@ -64,7 +65,7 @@ public abstract class ProxerTest {
                             return chain.proceed(chain.request().newBuilder().url(newUrl).build());
                         })
                         .hostnameVerifier((s, sslSession) -> true)
-                        .sslSocketFactory(sslClient.socketFactory, sslClient.trustManager)
+                        .sslSocketFactory(tls.sslSocketFactory(), tls.trustManager())
                         .connectTimeout(500, TimeUnit.MILLISECONDS)
                         .writeTimeout(500, TimeUnit.MILLISECONDS)
                         .readTimeout(500, TimeUnit.MILLISECONDS)

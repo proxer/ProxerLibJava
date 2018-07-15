@@ -197,6 +197,12 @@ public final class ProxerApi {
         private Retrofit retrofit;
 
         /**
+         * Sets a custom logger to use instead of the system default.
+         */
+        @Setter
+        private CustomLogger customLogger;
+
+        /**
          * Sets the logging strategy. You can either disable logging, enable it for everything concerning the api, or
          * for all traffic, sent through the OkHttp instance.
          */
@@ -278,7 +284,7 @@ public final class ProxerApi {
             }
 
             if (loggingStrategy != LoggingStrategy.NONE) {
-                builder.addInterceptor(new LoggingInterceptor(loggingStrategy, loggingTag));
+                builder.addInterceptor(new LoggingInterceptor(customLogger, loggingStrategy, loggingTag));
             }
 
             final List<Interceptor> existingInterceptors = builder.interceptors();

@@ -20,7 +20,7 @@ ext {
     javaxExtrasVersion = '0.1.0'
 
     retrofitVersion = '2.4.0'
-    okHttpVersion = '3.10.0'
+    okHttpVersion = '3.11.0'
     moshiVersion = '1.6.0'
     moshiLazyAdaptersVersion = '2.2'
 
@@ -42,6 +42,7 @@ ext {
 
             junit             : "junit:junit:$junitVersion",
             assertj           : "org.assertj:assertj-core:$assertjVersion",
+            okhttpTls         : "com.squareup.okhttp3:okhttp-tls:$okHttpVersion",
             mockwebserver     : "com.squareup.okhttp3:mockwebserver:$okHttpVersion",
             privateConstructor: "com.pushtorefresh.java-private-constructor-checker:checker:$privateConstructorVersion"
     ]
