@@ -15,7 +15,7 @@ ext {
     findbugsVersion = '3.0.1'
     pmdVersion = '6.3.0'
 
-    lombokVersion = '1.18.0'
+    lombokVersion = '1.18.2'
     jsr305Version = '3.0.2'
     javaxExtrasVersion = '0.1.0'
 
