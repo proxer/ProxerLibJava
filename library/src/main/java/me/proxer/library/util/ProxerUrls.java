@@ -254,7 +254,7 @@ public final class ProxerUrls {
     }
 
     /**
-     * Returns if the passed url has a valid host of proxer or the proxer cdn.
+     * Returns if the passed url has a valid host of proxer or the proxer cdn..
      */
     public boolean hasProxerWebOrCdnOrStreamHost(final HttpUrl url) {
         return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host())

@@ -48,12 +48,14 @@ public class HttpsEnforcingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testHttpsUpgradeStreamFile() throws IOException, InterruptedException {
+    public void testHttpsFileStreamUntouched() throws IOException, InterruptedException {
+        startHttpOnlyServer();
+
         server.enqueue(new MockResponse());
 
         client.newCall(new Request.Builder().url("http://s1.stream.proxer.me").build()).execute();
 
-        assertThat(server.takeRequest().getRequestUrl().isHttps()).isEqualTo(true);
+        assertThat(server.takeRequest().getRequestUrl().isHttps()).isEqualTo(false);
     }
 
     @Test

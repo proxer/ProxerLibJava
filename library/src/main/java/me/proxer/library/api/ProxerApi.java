@@ -320,7 +320,6 @@ public final class ProxerApi {
 
             for (final String certificate : CERTIFICATES) {
                 builder.add(ProxerUrls.webBase().host(), certificate);
-                builder.add("*." + ProxerUrls.webBase().host(), certificate);
             }
 
             return builder.build();
