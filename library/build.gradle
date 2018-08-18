@@ -1,13 +1,14 @@
 import groovy.io.FileType
 import groovy.text.SimpleTemplateEngine
+import net.ltgt.gradle.errorprone.javacplugin.CheckSeverity
 
-import java.util.regex.Matcher
+import java.nio.file.Files
 import java.util.regex.Pattern
 
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 
-apply plugin: 'net.ltgt.errorprone'
+apply plugin: 'net.ltgt.errorprone-javacplugin'
 apply plugin: 'checkstyle'
 apply plugin: 'findbugs'
 apply plugin: 'jacoco'
@@ -48,10 +49,6 @@ dependencies {
     testImplementation deps.privateConstructor
 }
 
-tasks.withType(JavaCompile) {
-    options.compilerArgs += [ '-Xep:ParameterName:OFF' ]
-}
-
 task generatePackageInfo {
     File generatedPackageInfoDir = file("$buildDir/generated")
 
@@ -72,15 +69,11 @@ task generatePackageInfo {
         sourceSets.main.java.srcDirs.each {
             it.eachFileRecurse(FileType.FILES) {
                 if (it.name.endsWith('.java')) {
-                    List<String> fileLines = it.readLines()
-
-                    if (!fileLines.isEmpty()) {
-                        Matcher matcher = packagePattern.matcher(fileLines.first())
-
-                        if (matcher.matches()) {
-                            packages += matcher.group(1)
-                        }
-                    }
+                    Files.lines(it.toPath())
+                            .map { line -> packagePattern.matcher(line) }
+                            .filter { matcher -> matcher.matches() }
+                            .findFirst()
+                            .ifPresent { matcher -> packages += matcher.group(1) }
                 }
             }
         }
@@ -128,10 +121,6 @@ task sourceJar(type: Jar, dependsOn: delombok) {
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
-}
-
-compileJava {
-    options.compilerArgs << "-Werror" << "-Xep:ParameterName:OFF"
 }
 
 buildConfig {
@@ -201,7 +190,7 @@ publishing {
             }
 
             pom {
-                name =  'ProxerLibJava'
+                name = 'ProxerLibJava'
                 description = 'An Java and Android library, implementing the API of the Proxer.me website'
                 url = 'https://github.com/proxer/ProxerLibJava'
 
@@ -235,8 +224,21 @@ publishing {
     }
 }
 
-test { finalizedBy jacocoTestReport }
+afterEvaluate {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Werror"
+        options.encoding = 'UTF-8'
 
-gradle.projectsEvaluated {
+        // Something seems to add a JavaCompile type task which does not has the errorprone property.
+        if (options.hasProperty("errorprone")) {
+            options.errorprone {
+                disableWarningsInGeneratedCode = true
+
+                check("ParameterName", CheckSeverity.OFF)
+            }
+        }
+    }
+
     compileJava.dependsOn(generatePackageInfo)
+    test { finalizedBy jacocoTestReport }
 }

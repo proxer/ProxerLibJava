@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "net.ltgt.gradle:gradle-errorprone-plugin:$errorpronePluginVersion"
+        classpath "net.ltgt.gradle:gradle-errorprone-javacplugin-plugin:$errorpronePluginVersion"
 
         classpath "gradle.plugin.de.fuerstenau:BuildConfigPlugin:$buildConfigPluginVersion"
         classpath "com.github.ben-manes:gradle-versions-plugin:$gradleVersionsPluginVersion"
