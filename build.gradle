@@ -7,6 +7,7 @@ buildscript {
 
     dependencies {
         classpath "net.ltgt.gradle:gradle-errorprone-javacplugin-plugin:$errorpronePluginVersion"
+        classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:$spotbugsPluginVersion"
 
         classpath "gradle.plugin.de.fuerstenau:BuildConfigPlugin:$buildConfigPluginVersion"
         classpath "com.github.ben-manes:gradle-versions-plugin:$gradleVersionsPluginVersion"
@@ -25,5 +26,5 @@ allprojects {
 }
 
 wrapper {
-    gradleVersion = project.ext.gradleVersion
+    setGradleVersion(project.ext.gradleVersion)
 }

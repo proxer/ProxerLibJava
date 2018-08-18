@@ -5,6 +5,7 @@ import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerApi.Builder.LoggingStrategy;
 import okhttp3.Request;
 import okhttp3.mockwebserver.MockResponse;
+import org.graalvm.compiler.core.common.SuppressFBWarnings;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +29,12 @@ public class LoggingInterceptorTest extends ProxerTest {
 
     private ByteArrayOutputStream loggerStream;
     private Handler loggerHandler;
+    private Logger logger;
 
+    @SuppressFBWarnings(
+            value = "LG_LOST_LOGGER_DUE_TO_WEAK_REFERENCE",
+            justification = "False positive? Logger has a hard reference."
+    )
     @Override
     @Before
     public void setUp() throws IOException, GeneralSecurityException {
@@ -36,14 +42,15 @@ public class LoggingInterceptorTest extends ProxerTest {
 
         loggerStream = new ByteArrayOutputStream();
         loggerHandler = new StreamHandler(loggerStream, new EchoFormatter());
+        logger = Logger.getLogger("ProxerLibJava");
 
-        Logger.getLogger("ProxerLibJava").addHandler(loggerHandler);
+        logger.addHandler(loggerHandler);
     }
 
     @Override
     @After
     public void tearDown() throws IOException {
-        Logger.getLogger("ProxerLibJava").removeHandler(loggerHandler);
+        logger.removeHandler(loggerHandler);
 
         super.tearDown();
     }
@@ -59,8 +66,9 @@ public class LoggingInterceptorTest extends ProxerTest {
                 .execute();
 
         loggerHandler.flush();
+        loggerStream.flush();
 
-        assertThat(loggerStream.toString()).isEqualTo("Requesting https://"
+        assertThat(loggerStream.toString("UTF-8")).isEqualTo("Requesting https://"
                 + server.getHostName() + ":" + server.getPort()
                 + "/api/v1/notifications/news with method GET and these headers:\n"
                 + "proxer-api-key: mockKey\n"
@@ -78,8 +86,9 @@ public class LoggingInterceptorTest extends ProxerTest {
                 .execute();
 
         loggerHandler.flush();
+        loggerStream.flush();
 
-        assertThat(loggerStream.toString()).isEqualTo("Requesting https://"
+        assertThat(loggerStream.toString("UTF-8")).isEqualTo("Requesting https://"
                 + server.getHostName() + ":" + server.getPort()
                 + "/api/v1/user/login with method POST, these headers:\n"
                 + "proxer-api-key: mockKey\n"
@@ -98,8 +107,9 @@ public class LoggingInterceptorTest extends ProxerTest {
                 .execute();
 
         loggerHandler.flush();
+        loggerStream.flush();
 
-        assertThat(loggerStream.toString()).isEqualTo("Requesting https://"
+        assertThat(loggerStream.toString("UTF-8")).isEqualTo("Requesting https://"
                 + server.getHostName() + ":" + server.getPort()
                 + "/api/v1/user/logout with method POST, these headers:\n"
                 + "proxer-api-key: mockKey\n"
@@ -117,8 +127,9 @@ public class LoggingInterceptorTest extends ProxerTest {
         api.client().newCall(new Request.Builder().url("http://example.com/test").build()).execute();
 
         loggerHandler.flush();
+        loggerStream.flush();
 
-        assertThat(loggerStream.toString()).isEqualTo("Requesting http://"
+        assertThat(loggerStream.toString("UTF-8")).isEqualTo("Requesting http://"
                 + server.getHostName() + ":" + server.getPort()
                 + "/test with method GET and no headers.");
     }
@@ -134,8 +145,9 @@ public class LoggingInterceptorTest extends ProxerTest {
         api.client().newCall(new Request.Builder().url("http://example.com/test").build()).execute();
 
         loggerHandler.flush();
+        loggerStream.flush();
 
-        assertThat(loggerStream.toString()).isEmpty();
+        assertThat(loggerStream.toString("UTF-8")).isEmpty();
     }
 
     @Test
@@ -149,8 +161,9 @@ public class LoggingInterceptorTest extends ProxerTest {
         api.client().newCall(new Request.Builder().url("http://example.com/test").build()).execute();
 
         loggerHandler.flush();
+        loggerStream.flush();
 
-        assertThat(loggerStream.toString()).isEmpty();
+        assertThat(loggerStream.toString("UTF-8")).isEmpty();
     }
 
     @Test
@@ -160,7 +173,7 @@ public class LoggingInterceptorTest extends ProxerTest {
                 + server.getHostName() + ":" + server.getPort()
                 + "/test with method GET and no headers.";
 
-        final CustomLogger logger = message -> {
+        final CustomLogger customLogger = message -> {
             if (message.equals(expectedMessage)) {
                 lock.countDown();
             }
@@ -168,7 +181,7 @@ public class LoggingInterceptorTest extends ProxerTest {
             // Failed: Not the message we want. The lock will never be counted down and timeout.
         };
 
-        api = constructApi().customLogger(logger).loggingStrategy(LoggingStrategy.ALL).build();
+        api = constructApi().customLogger(customLogger).loggingStrategy(LoggingStrategy.ALL).build();
 
         server.enqueue(new MockResponse());
 

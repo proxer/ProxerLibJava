@@ -20,6 +20,7 @@
         <Or>
             <Package name="~me\.proxer\.library\.entity.*"/>
             <Class name="me.proxer.library.api.ProxerResponse"/>
+            <Class name="~.*TestClass"/>
         </Or>
         <Or>
             <Method name="equals" returns="boolean" params="java.lang.Object"/>

@@ -1,3 +1,4 @@
+import com.github.spotbugs.SpotBugsTask
 import groovy.io.FileType
 import groovy.text.SimpleTemplateEngine
 import net.ltgt.gradle.errorprone.javacplugin.CheckSeverity
@@ -9,8 +10,8 @@ apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 
 apply plugin: 'net.ltgt.errorprone-javacplugin'
+apply plugin: 'com.github.spotbugs'
 apply plugin: 'checkstyle'
-apply plugin: 'findbugs'
 apply plugin: 'jacoco'
 apply plugin: 'pmd'
 
@@ -153,11 +154,17 @@ checkstyle {
     setToolVersion(checkstyleVersion)
 }
 
-findbugs {
-    excludeFilter = rootProject.file('config/findbugs/findbugs-filter.xml')
-    sourceSets = [sourceSets.main]
+spotbugs {
+    setToolVersion(spotbugsVersion)
 
-    setToolVersion(findbugsVersion)
+    excludeFilter = rootProject.file('config/spotbugs/spotbugs-filter.xml')
+}
+
+tasks.withType(SpotBugsTask) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
 }
 
 pmd {
