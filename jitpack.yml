@@ -1,4 +1,4 @@
 jdk:
-  - openjdk8
+  - openjdk9
 install:
   - ./gradlew clean -xcheck library:publishToMavenLocal
