@@ -17,7 +17,6 @@ apply plugin: 'pmd'
 
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'de.fuerstenau.buildconfig'
-apply plugin: 'io.freefair.javadoc-links'
 
 apply plugin: 'idea'
 
