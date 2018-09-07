@@ -35,6 +35,13 @@ public final class EpisodeInfoEndpoint implements PagingLimitEndpoint<EpisodeInf
     @Setter(onMethod = @__({@Override}))
     private Integer limit;
 
+    /**
+     * Sets if episodes should be included which are linked, but not uploaded yet.
+     */
+    @Nullable
+    @Setter
+    private Boolean includeNotAvailableEpisodes;
+
     EpisodeInfoEndpoint(final InternalApi internalApi, final String id) {
         this.internalApi = internalApi;
         this.id = id;
@@ -45,6 +52,6 @@ public final class EpisodeInfoEndpoint implements PagingLimitEndpoint<EpisodeInf
      */
     @Override
     public ProxerCall<EpisodeInfo> build() {
-        return internalApi.episodeInfo(id, page, limit);
+        return internalApi.episodeInfo(id, page, limit, includeNotAvailableEpisodes);
     }
 }

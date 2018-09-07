@@ -36,7 +36,8 @@ interface InternalApi {
     @GET("info/listinfo")
     ProxerCall<EpisodeInfo> episodeInfo(@Query("id") String id,
                                         @Query("p") Integer page,
-                                        @Query("limit") Integer limit);
+                                        @Query("limit") Integer limit,
+                                        @Query("includeNotAvailableChapters") Boolean includeNotAvailableChapters);
 
     @GET("info/comments")
     ProxerCall<List<Comment>> comments(@Query("id") String id,

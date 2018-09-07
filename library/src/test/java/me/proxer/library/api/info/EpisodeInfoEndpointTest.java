@@ -53,10 +53,12 @@ public class EpisodeInfoEndpointTest extends ProxerTest {
         api.info().episodeInfo("17")
                 .page(0)
                 .limit(10)
+                .includeNotAvailableEpisodes(true)
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/info/listinfo?id=17&p=0&limit=10");
+        assertThat(server.takeRequest().getPath())
+                .isEqualTo("/api/v1/info/listinfo?id=17&p=0&limit=10&includeNotAvailableChapters=true");
     }
 
     private EpisodeInfo buildTestInfo() {
