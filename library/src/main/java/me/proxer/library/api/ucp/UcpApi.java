@@ -37,6 +37,13 @@ public final class UcpApi {
     /**
      * Returns the respective endpoint.
      */
+    public DeleteCommentEndpoint deleteComment(final String id) {
+        return new DeleteCommentEndpoint(internalApi, id);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
     public WatchedEpisodesEndpoint watchedEpisodes() {
         return new WatchedEpisodesEndpoint(internalApi);
     }

@@ -9,11 +9,7 @@ import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.enums.UserMediaListFilterType;
 import me.proxer.library.enums.UserMediaListSortCriteria;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 import javax.annotation.ParametersAreNullableByDefault;
 import java.util.List;
@@ -31,6 +27,10 @@ interface InternalApi {
     @FormUrlEncoded
     @POST("ucp/deletereminder")
     ProxerCall<Void> deleteBookmark(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("ucp/deletecomment")
+    ProxerCall<Void> deleteComment(@Field("id") String id);
 
     @GET("ucp/listsum")
     ProxerCall<Integer> watchedEpisodes();
