@@ -80,4 +80,11 @@ public class Stream implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
     @Getter
     @Json(name = "tname")
     private String translatorGroupName;
+
+    /**
+     * Returns if the stream is hosted at an official hoster like Crunchyroll.
+     */
+    @Getter
+    @Json(name = "legal")
+    public boolean isOfficial;
 }
