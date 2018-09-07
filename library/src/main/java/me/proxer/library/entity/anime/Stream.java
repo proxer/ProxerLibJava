@@ -86,5 +86,5 @@ public class Stream implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
      */
     @Getter
     @Json(name = "legal")
-    public boolean isOfficial;
+    private boolean isOfficial;
 }
