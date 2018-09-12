@@ -7,6 +7,7 @@ import me.proxer.library.entity.notifications.NewsArticle;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.SocketPolicy;
 import org.junit.Test;
+import retrofit2.Call;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.concurrent.CountDownLatch;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Ruben Gees
@@ -171,5 +174,19 @@ public class ProxerCallTest extends ProxerTest {
     @Test
     public void testRequest() {
         assertThat(api.notifications().news().build().request()).isNotNull();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testRequestThrowingErrorWithoutMessage() throws IOException {
+        final Call<ProxerResponse<NewsArticle>> mockedCall = mock(Call.class);
+        final ProxerCall<NewsArticle> call = new ProxerCall<>(mockedCall);
+
+        when(mockedCall.execute()).thenThrow(new IOException());
+
+        assertThatExceptionOfType(ProxerException.class)
+                .isThrownBy(call::execute)
+                .withCauseExactlyInstanceOf(IOException.class)
+                .matches(it -> it.getErrorType() == ErrorType.IO);
     }
 }

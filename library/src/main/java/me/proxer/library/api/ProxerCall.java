@@ -149,7 +149,7 @@ public final class ProxerCall<T> implements Cloneable {
         if (error instanceof SocketTimeoutException) {
             return new ProxerException(ProxerException.ErrorType.TIMEOUT, error);
         } else if (error instanceof IOException) {
-            if (error.getMessage().equals("Canceled")) {
+            if (error.getMessage() != null && error.getMessage().equals("Canceled")) {
                 return new ProxerException(ProxerException.ErrorType.CANCELLED, error);
             } else {
                 return new ProxerException(ProxerException.ErrorType.IO, error);

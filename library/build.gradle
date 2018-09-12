@@ -44,6 +44,7 @@ dependencies {
 
     testImplementation deps.junit
     testImplementation deps.assertj
+    testImplementation deps.mockito
     testImplementation deps.okhttpTls
     testImplementation deps.mockwebserver
     testImplementation deps.privateConstructor

@@ -26,6 +26,7 @@ ext {
 
     junitVersion = '4.12'
     assertjVersion = '3.11.0'
+    mockitoVersion = '2.22.0'
     privateConstructorVersion = '1.2.0'
 
     deps = [
@@ -42,6 +43,7 @@ ext {
 
             junit             : "junit:junit:$junitVersion",
             assertj           : "org.assertj:assertj-core:$assertjVersion",
+            mockito           : "org.mockito:mockito-android:$mockitoVersion",
             okhttpTls         : "com.squareup.okhttp3:okhttp-tls:$okHttpVersion",
             mockwebserver     : "com.squareup.okhttp3:mockwebserver:$okHttpVersion",
             privateConstructor: "com.pushtorefresh.java-private-constructor-checker:checker:$privateConstructorVersion"
