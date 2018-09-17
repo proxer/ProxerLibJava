@@ -13,7 +13,7 @@ class AdaptionInfoAdapter {
 
     @FromJson
     AdaptionInfo fromJson(final IntermediateAdaptionInfo json) {
-        return new AdaptionInfo(json.id, json.name, ProxerUtils.toSafeApiEnum(Medium.class, json.medium));
+        return new AdaptionInfo(json.id, json.name, ProxerUtils.toApiEnum(Medium.class, json.medium));
     }
 
     static class IntermediateAdaptionInfo {
