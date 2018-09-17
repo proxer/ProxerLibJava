@@ -18,7 +18,7 @@ import java.util.HashSet;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * @author Ruben Gees.
+ * @author Ruben Gees
  */
 public class EpisodeInfoEndpointTest extends ProxerTest {
 

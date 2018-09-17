@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
- * @author Ruben Gees.
+ * @author Ruben Gees
  */
 @AllArgsConstructor
 class LoggingInterceptor implements Interceptor {

@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 /**
  * Entity holding the data of a single anime chapter.
  *
- * @author Ruben Gees.
+ * @author Ruben Gees
  */
 @Getter
 @ToString(callSuper = true)

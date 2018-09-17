@@ -16,7 +16,7 @@ final class EnumRetrofitConverterFactory extends Converter.Factory {
     public Converter<?, String> stringConverter(final Type type, final Annotation[] annotations,
                                                 final Retrofit retrofit) {
         if (((Class<?>) type).isEnum()) {
-            return (Converter<Enum<?>, String>) ProxerUtils::getApiEnumName;
+            return (Converter<Enum<?>, String>) ProxerUtils::getSafeApiEnumName;
         }
 
         return null;

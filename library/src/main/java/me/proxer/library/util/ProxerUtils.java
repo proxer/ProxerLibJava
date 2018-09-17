@@ -31,6 +31,21 @@ public class ProxerUtils {
     }
 
     /**
+     * Returns the name of the passed enum instance (Using that specified in the {@code @Json} annotation).
+     */
+    @SuppressWarnings("checkstyle:designforextension") // Lombok makes it static.
+    public String getSafeApiEnumName(final Enum<?> it) {
+        final String result = getApiEnumName(it);
+
+        if (result != null) {
+            return result;
+        } else {
+            throw new IllegalStateException("Field " + it.name() + " not found in Enum "
+                    + it.getDeclaringClass().getName());
+        }
+    }
+
+    /**
      * Converts the passed {@code value} string to an instance of the passed enum {@code type}.
      * <p>
      * If the conversion is not possible, because the passed string was invalid, null is returned.
@@ -48,6 +63,23 @@ public class ProxerUtils {
         }
 
         return null;
+    }
+
+    /**
+     * Converts the passed {@code value} string to an instance of the passed enum {@code type}.
+     * <p>
+     * If the conversion is not possible, because the passed string was invalid, null is returned.
+     * If an invalid enum type is passed (one that is not in this library), an exception is thrown.
+     */
+    @SuppressWarnings("checkstyle:designforextension") // Lombok makes it static.
+    public <T extends Enum<T>> T toSafeApiEnum(final Class<T> type, final String value) {
+        final T result = toApiEnum(type, value);
+
+        if (result != null) {
+            return result;
+        } else {
+            throw new IllegalStateException("Value " + value + " not found for Enum " + type.getName());
+        }
     }
 
     /**
@@ -83,7 +115,7 @@ public class ProxerUtils {
         final ArrayList<String> convertedEnums = new ArrayList<>();
 
         for (final Enum<?> value : enums) {
-            convertedEnums.add(ProxerUtils.getApiEnumName(value));
+            convertedEnums.add(ProxerUtils.getSafeApiEnumName(value));
         }
 
         return join(delimiter, convertedEnums);

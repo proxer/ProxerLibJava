@@ -20,7 +20,7 @@ import java.util.Set;
 /**
  * Entity representing a single relation of an {@link Entry}.
  *
- * @author Ruben Gees.
+ * @author Ruben Gees
  */
 @Value
 @EqualsAndHashCode(onParam = @__({@Nullable}))

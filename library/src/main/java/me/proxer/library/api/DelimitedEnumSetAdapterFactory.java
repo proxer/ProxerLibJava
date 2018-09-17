@@ -81,7 +81,7 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
             StringBuilder result = new StringBuilder();
 
             for (final T item : value) {
-                result.append(ProxerUtils.getApiEnumName(item));
+                result.append(ProxerUtils.getSafeApiEnumName(item));
                 result.append(delimiter);
             }
 

@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * Entity containing information about the available episodes or chapters of an media entry.
  *
- * @author Ruben Gees.
+ * @author Ruben Gees
  */
 @Value
 @EqualsAndHashCode(onParam = @__({@Nullable}))

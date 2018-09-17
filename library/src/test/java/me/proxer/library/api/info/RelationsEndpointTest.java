@@ -22,7 +22,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * @author Ruben Gees.
+ * @author Ruben Gees
  */
 public class RelationsEndpointTest extends ProxerTest {
 

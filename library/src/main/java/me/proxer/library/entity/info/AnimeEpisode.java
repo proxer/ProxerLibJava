@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Entity holding the data of a single anime episode.
  *
- * @author Ruben Gees.
+ * @author Ruben Gees
  */
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)

@@ -121,6 +121,6 @@ public final class MessengerApi {
             throw new IllegalArgumentException("Invalid action: " + action);
         }
 
-        return "/" + ProxerUtils.getApiEnumName(action) + " " + subject;
+        return "/" + ProxerUtils.getSafeApiEnumName(action) + " " + subject;
     }
 }

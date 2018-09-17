@@ -1,7 +1,9 @@
 package me.proxer.library.util;
 
 import com.pushtorefresh.private_constructor_checker.PrivateConstructorChecker;
+import me.proxer.library.enums.AnimeLanguage;
 import me.proxer.library.enums.Genre;
+import me.proxer.library.enums.LengthBound;
 import me.proxer.library.enums.MediaLanguage;
 import org.junit.Test;
 
@@ -22,8 +24,18 @@ public class ProxerUtilsTest {
     }
 
     @Test
+    public void testGetSafeEnumName() {
+        assertThat(ProxerUtils.getApiEnumName(LengthBound.HIGHER)).isEqualTo("up");
+    }
+
+    @Test
     public void testToApiEnum() {
         assertThat(ProxerUtils.toApiEnum(MediaLanguage.class, "gersub")).isEqualTo(MediaLanguage.GERMAN_SUB);
+    }
+
+    @Test
+    public void testToSafeApiEnum() {
+        assertThat(ProxerUtils.toSafeApiEnum(AnimeLanguage.class, "gersub")).isEqualTo(AnimeLanguage.GERMAN_SUB);
     }
 
     @Test

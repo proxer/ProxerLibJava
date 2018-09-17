@@ -12,7 +12,7 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * @author Ruben Gees.
+ * @author Ruben Gees
  */
 public class SetBookmarkEndpointTest extends ProxerTest {
 
