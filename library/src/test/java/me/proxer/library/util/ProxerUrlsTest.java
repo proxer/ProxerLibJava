@@ -186,6 +186,11 @@ public class ProxerUrlsTest {
     }
 
     @Test
+    public void testRegisterWeb() {
+        assertThat(ProxerUrls.registerWeb().toString()).isEqualTo("https://proxer.me/register?device=default");
+    }
+
+    @Test
     public void testCaptchaWeb() {
         assertThat(ProxerUrls.captchaWeb().toString()).isEqualTo("https://proxer.me/misc/captcha?device=default");
     }

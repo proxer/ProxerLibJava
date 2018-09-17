@@ -346,6 +346,16 @@ public final class ProxerUrls {
     }
 
     /**
+     * Returns the link for the web page to register.
+     */
+    public HttpUrl registerWeb() {
+        return webBase.newBuilder()
+                .addPathSegment("register")
+                .addQueryParameter("device", ProxerUtils.getSafeApiEnumName(Device.DEFAULT))
+                .build();
+    }
+
+    /**
      * Returns the link for the web page to solve the captcha.
      */
     public HttpUrl captchaWeb() {
