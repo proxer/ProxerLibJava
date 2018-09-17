@@ -2,18 +2,18 @@ ext {
     version = '4.5.0'
     group = 'com.github.proxer'
 
-    gradleVersion = '4.9'
+    gradleVersion = '4.10.1'
 
     errorpronePluginVersion = '0.3'
     gradleVersionsPluginVersion = '0.20.0'
     buildConfigPluginVersion = '1.1.8'
-    spotbugsPluginVersion = '1.6.2'
+    spotbugsPluginVersion = '1.6.3'
 
-    jacocoVersion = '0.8.1'
-    checkstyleVersion = '8.10'
+    jacocoVersion = '0.8.2'
+    checkstyleVersion = '8.12'
     errorproneVersion = '2.3.1'
     spotbugsVersion = '3.1.6'
-    pmdVersion = '6.3.0'
+    pmdVersion = '6.7.0'
 
     lombokVersion = '1.18.2'
     jsr305Version = '3.0.2'
@@ -25,7 +25,7 @@ ext {
     moshiLazyAdaptersVersion = '2.2'
 
     junitVersion = '4.12'
-    assertjVersion = '3.11.0'
+    assertjVersion = '3.11.1'
     mockitoVersion = '2.22.0'
     privateConstructorVersion = '1.2.0'
 

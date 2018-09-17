@@ -148,11 +148,8 @@
     <rule ref="category/java/codestyle.xml/ClassNamingConventions"/>
     <rule ref="category/java/codestyle.xml/GenericsNaming"/>
     <rule ref="category/java/codestyle.xml/MethodNamingConventions"/>
-    <rule ref="category/java/codestyle.xml/MIsLeadingVariableName"/>
     <rule ref="category/java/codestyle.xml/NoPackage"/>
     <rule ref="category/java/codestyle.xml/PackageCase"/>
-    <rule ref="category/java/codestyle.xml/SuspiciousConstantFieldName"/>
-    <rule ref="category/java/codestyle.xml/VariableNamingConventions"/>
 
     <!-- Optimizations -->
 
