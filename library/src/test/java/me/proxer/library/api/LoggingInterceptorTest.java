@@ -2,6 +2,7 @@ package me.proxer.library.api;
 
 import me.proxer.library.BuildConfig;
 import me.proxer.library.ProxerTest;
+import me.proxer.library.api.ProxerApi.Builder.LoggingConstraints;
 import me.proxer.library.api.ProxerApi.Builder.LoggingStrategy;
 import okhttp3.Request;
 import okhttp3.mockwebserver.MockResponse;
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Formatter;
@@ -63,7 +65,7 @@ public class LoggingInterceptorTest extends ProxerTest {
         loggerHandler.flush();
         loggerStream.flush();
 
-        assertThat(loggerStream.toString("UTF-8")).isEqualTo("Requesting https://"
+        assertThat(loggerStream.toString(StandardCharsets.UTF_8)).isEqualTo("Requesting https://"
                 + server.getHostName() + ":" + server.getPort()
                 + "/api/v1/notifications/news with method GET and these headers:\n"
                 + "proxer-api-key: mockKey\n"
@@ -83,7 +85,7 @@ public class LoggingInterceptorTest extends ProxerTest {
         loggerHandler.flush();
         loggerStream.flush();
 
-        assertThat(loggerStream.toString("UTF-8")).isEqualTo("Requesting https://"
+        assertThat(loggerStream.toString(StandardCharsets.UTF_8)).isEqualTo("Requesting https://"
                 + server.getHostName() + ":" + server.getPort()
                 + "/api/v1/user/login with method POST, these headers:\n"
                 + "proxer-api-key: mockKey\n"
@@ -104,7 +106,7 @@ public class LoggingInterceptorTest extends ProxerTest {
         loggerHandler.flush();
         loggerStream.flush();
 
-        assertThat(loggerStream.toString("UTF-8")).isEqualTo("Requesting https://"
+        assertThat(loggerStream.toString(StandardCharsets.UTF_8)).isEqualTo("Requesting https://"
                 + server.getHostName() + ":" + server.getPort()
                 + "/api/v1/user/logout with method POST, these headers:\n"
                 + "proxer-api-key: mockKey\n"
@@ -124,7 +126,7 @@ public class LoggingInterceptorTest extends ProxerTest {
         loggerHandler.flush();
         loggerStream.flush();
 
-        assertThat(loggerStream.toString("UTF-8")).isEqualTo("Requesting http://"
+        assertThat(loggerStream.toString(StandardCharsets.UTF_8)).isEqualTo("Requesting http://"
                 + server.getHostName() + ":" + server.getPort()
                 + "/test with method GET and no headers.");
     }
@@ -142,7 +144,7 @@ public class LoggingInterceptorTest extends ProxerTest {
         loggerHandler.flush();
         loggerStream.flush();
 
-        assertThat(loggerStream.toString("UTF-8")).isEmpty();
+        assertThat(loggerStream.toString(StandardCharsets.UTF_8)).isEmpty();
     }
 
     @Test
@@ -158,7 +160,28 @@ public class LoggingInterceptorTest extends ProxerTest {
         loggerHandler.flush();
         loggerStream.flush();
 
-        assertThat(loggerStream.toString("UTF-8")).isEmpty();
+        assertThat(loggerStream.toString(StandardCharsets.UTF_8)).isEmpty();
+    }
+
+    @Test
+    public void testLogRequestOnly() throws IOException {
+        startHttpOnlyServer();
+
+        api = constructApi()
+                .loggingStrategy(LoggingStrategy.ALL)
+                .loggingConstraints(LoggingConstraints.URL_ONLY)
+                .build();
+
+        server.enqueue(new MockResponse());
+
+        api.client().newCall(new Request.Builder().url("http://example.com/test").build()).execute();
+
+        loggerHandler.flush();
+        loggerStream.flush();
+
+        assertThat(loggerStream.toString(StandardCharsets.UTF_8)).isEqualTo("Requesting http://"
+                + server.getHostName() + ":" + server.getPort()
+                + "/test with method GET.");
     }
 
     @Test

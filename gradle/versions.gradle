@@ -43,7 +43,7 @@ ext {
 
             junit             : "junit:junit:$junitVersion",
             assertj           : "org.assertj:assertj-core:$assertjVersion",
-            mockito           : "org.mockito:mockito-android:$mockitoVersion",
+            mockito           : "org.mockito:mockito-core:$mockitoVersion",
             okhttpTls         : "com.squareup.okhttp3:okhttp-tls:$okHttpVersion",
             mockwebserver     : "com.squareup.okhttp3:mockwebserver:$okHttpVersion",
             privateConstructor: "com.pushtorefresh.java-private-constructor-checker:checker:$privateConstructorVersion"

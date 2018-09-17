@@ -210,6 +210,13 @@ public final class ProxerApi {
         private LoggingStrategy loggingStrategy = LoggingStrategy.NONE;
 
         /**
+         * Sets the logging constraints. These allow for logging only parts of the request.
+         * By default, every part is logged.
+         */
+        @Setter
+        private LoggingConstraints loggingConstraints = LoggingConstraints.NONE;
+
+        /**
          * Sets the tag to use for logs.
          */
         @Setter
@@ -284,7 +291,8 @@ public final class ProxerApi {
             }
 
             if (loggingStrategy != LoggingStrategy.NONE) {
-                builder.addInterceptor(new LoggingInterceptor(customLogger, loggingStrategy, loggingTag));
+                builder.addInterceptor(new LoggingInterceptor(customLogger, loggingStrategy,
+                        loggingConstraints, loggingTag));
             }
 
             final List<Interceptor> existingInterceptors = builder.interceptors();
@@ -344,6 +352,19 @@ public final class ProxerApi {
              * All network traffic shall be logged.
              */
             ALL
+        }
+
+        public enum LoggingConstraints {
+
+            /**
+             * Only the requested url shall be logged.
+             */
+            URL_ONLY,
+
+            /**
+             * Everything including url, body and headers shall be logged.
+             */
+            NONE
         }
     }
 }

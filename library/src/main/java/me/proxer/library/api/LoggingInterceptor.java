@@ -1,6 +1,7 @@
 package me.proxer.library.api;
 
 import lombok.AllArgsConstructor;
+import me.proxer.library.api.ProxerApi.Builder.LoggingConstraints;
 import me.proxer.library.api.ProxerApi.Builder.LoggingStrategy;
 import me.proxer.library.util.ProxerUrls;
 import me.proxer.library.util.ProxerUtils;
@@ -24,23 +25,30 @@ class LoggingInterceptor implements Interceptor {
     private final CustomLogger customLogger;
 
     private final LoggingStrategy loggingStrategy;
+    private final LoggingConstraints loggingConstraints;
     private final String loggingTag;
 
     @Override
     public Response intercept(final Chain chain) throws IOException {
         if (loggingStrategy == LoggingStrategy.ALL || ProxerUrls.hasProxerHost(chain.request().url())) {
             final Request requestCopy = chain.request().newBuilder().build();
-            final String headerMessage = buildHeaderMessage(requestCopy);
-            final String bodyMessage = buildBodyMessage(requestCopy);
+            final String resultMessage;
 
-            final String message = "Requesting " + requestCopy.url() + " with method " + requestCopy.method()
-                    + (bodyMessage.isEmpty() ? " and " : ", ") + headerMessage
-                    + (!headerMessage.contains("\n") && bodyMessage.isEmpty() ? "." : bodyMessage);
+            if (loggingConstraints == LoggingConstraints.URL_ONLY) {
+                resultMessage = "Requesting " + requestCopy.url() + " with method " + requestCopy.method() + ".";
+            } else {
+                final String headerMessage = buildHeaderMessage(requestCopy);
+                final String bodyMessage = buildBodyMessage(requestCopy);
+
+                resultMessage = "Requesting " + requestCopy.url() + " with method " + requestCopy.method()
+                        + (bodyMessage.isEmpty() ? " and " : ", ") + headerMessage
+                        + (!headerMessage.contains("\n") && bodyMessage.isEmpty() ? "." : bodyMessage);
+            }
 
             if (customLogger != null) {
-                customLogger.log(message);
+                customLogger.log(resultMessage);
             } else {
-                Logger.getLogger(loggingTag).info(message);
+                Logger.getLogger(loggingTag).info(resultMessage);
             }
         }
 

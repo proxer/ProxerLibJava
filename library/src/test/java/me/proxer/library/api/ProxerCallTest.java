@@ -8,8 +8,10 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.SocketPolicy;
 import org.junit.Test;
 import retrofit2.Call;
+import retrofit2.Response;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
@@ -73,6 +75,59 @@ public class ProxerCallTest extends ProxerTest {
                 .matches(exception -> exception.getMessage() != null
                                 && exception.getMessage().equals("Du bist nicht eingeloggt."),
                         "Exception should have the correct message");
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testUnknownError() throws Exception {
+        final Call<ProxerResponse<?>> internalCall = mock(Call.class);
+        final ProxerCall<?> call = new ProxerCall(internalCall);
+
+        when(internalCall.execute()).thenThrow(IllegalStateException.class);
+
+        assertThatExceptionOfType(ProxerException.class)
+                .isThrownBy(call::execute)
+                .matches(exception -> exception.getErrorType() == ErrorType.UNKNOWN,
+                        "Exception should have the UNKNOWN ErrorType")
+                .withCauseExactlyInstanceOf(IllegalStateException.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testSafeExecute() throws IOException, ProxerException {
+        final Call<ProxerResponse<List<NewsArticle>>> internalCall = mock(Call.class);
+        final ProxerCall<List<NewsArticle>> call = new ProxerCall<>(internalCall);
+        final Response<ProxerResponse<List<NewsArticle>>> internalResponse = mock(Response.class);
+        final ProxerResponse<List<NewsArticle>> response = mock(ProxerResponse.class);
+
+        when(internalResponse.isSuccessful()).thenReturn(true);
+        when(response.isSuccessful()).thenReturn(true);
+        when(internalResponse.body()).thenReturn(response);
+        when(response.getData()).thenReturn(Collections.emptyList());
+        when(internalCall.execute()).thenReturn(internalResponse);
+
+        assertThat(call.safeExecute()).isNotNull();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testSafeExecuteNull() throws IOException {
+        final Call<ProxerResponse<List<NewsArticle>>> internalCall = mock(Call.class);
+        final ProxerCall<List<NewsArticle>> call = new ProxerCall<>(internalCall);
+        final Response<ProxerResponse<List<NewsArticle>>> internalResponse = mock(Response.class);
+        final ProxerResponse<List<NewsArticle>> response = mock(ProxerResponse.class);
+
+        when(internalResponse.isSuccessful()).thenReturn(true);
+        when(response.isSuccessful()).thenReturn(true);
+        when(internalResponse.body()).thenReturn(response);
+        when(response.getData()).thenReturn(null);
+        when(internalCall.execute()).thenReturn(internalResponse);
+
+        assertThatExceptionOfType(ProxerException.class)
+                .isThrownBy(call::safeExecute)
+                .matches(exception -> exception.getErrorType() == ErrorType.UNKNOWN,
+                        "Exception should have the UNKNOWN ErrorType")
+                .withCauseExactlyInstanceOf(NullPointerException.class);
     }
 
     @Test(timeout = 1000L)
