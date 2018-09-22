@@ -60,8 +60,8 @@ public class ProxerUtilsTest {
 
     @Test
     public void testJoinEnums() {
-        assertThat(ProxerUtils.joinEnums(";", EnumSet.of(Genre.ADVENTURE, Genre.ACTION, Genre.DRAMA)))
-                .isEqualTo("Abenteuer;Action;Drama");
+        assertThat(ProxerUtils.joinEnums(";", EnumSet.of(Genre.ACTION, Genre.ADVENTURE, Genre.SLICE_OF_LIFE)))
+                .isEqualTo("Action;Adventure;Slice of Life");
     }
 
     @Test

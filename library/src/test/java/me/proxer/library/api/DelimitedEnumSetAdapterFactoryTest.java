@@ -79,7 +79,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
     @Test
     public void testFromJsonSingle() throws IOException {
         final GenresTestClass result = moshi.adapter(GenresTestClass.class)
-                .fromJson("{\"genres\":\"Abenteuer\"}");
+                .fromJson("{\"genres\":\"Adventure\"}");
 
         assertThat(result).isNotNull();
         assertThat(result.genres).containsExactly(Genre.ADVENTURE);
@@ -88,16 +88,16 @@ public class DelimitedEnumSetAdapterFactoryTest {
     @Test
     public void testFromJsonMultiple() throws IOException {
         final GenresTestClass result = moshi.adapter(GenresTestClass.class)
-                .fromJson("{\"genres\":\"Abenteuer Action\"}");
+                .fromJson("{\"genres\":\"Adventure Action\"}");
 
         assertThat(result).isNotNull();
-        assertThat(result.genres).containsExactly(Genre.ADVENTURE, Genre.ACTION);
+        assertThat(result.genres).containsExactly(Genre.ACTION, Genre.ADVENTURE);
     }
 
     @Test
     public void testFromJsonInvalidDelimiter() throws IOException {
         final GenresTestClass result = moshi.adapter(GenresTestClass.class)
-                .fromJson("{\"genres\":\"Abenteuer;Action\"}");
+                .fromJson("{\"genres\":\"Action;Adventure\"}");
 
         assertThat(result).isNotNull();
         assertThat(result.genres).containsExactly(Genre.UNKNOWN);
@@ -154,7 +154,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
         final GenresTestClass testSubject = new GenresTestClass(EnumSet.of(Genre.ADVENTURE, Genre.ACTION));
         final String result = moshi.adapter(GenresTestClass.class).toJson(testSubject);
 
-        assertThat(result).isEqualTo("{\"genres\":\"Abenteuer Action\"}");
+        assertThat(result).isEqualTo("{\"genres\":\"Action Adventure\"}");
     }
 
     @Value

@@ -10,9 +10,9 @@ import com.squareup.moshi.Json;
  */
 @FallbackEnum(name = "UNKNOWN")
 public enum Genre {
-    @Json(name = "Abenteuer") ADVENTURE,
     @Json(name = "Action") ACTION,
     @Json(name = "Adult") ADULT,
+    @Json(name = "Adventure") ADVENTURE,
     @Json(name = "Comedy") COMEDY,
     @Json(name = "Cyberpunk") CYBERPUNK,
     @Json(name = "Drama") DRAMA,
@@ -39,13 +39,13 @@ public enum Genre {
     @Json(name = "Shoujou-Ai") SHOUJOU_AI,
     @Json(name = "Shounen") SHOUNEN,
     @Json(name = "Shounen-Ai") SHOUNEN_AI,
-    @Json(name = "Slice_of_Life") SLICE_OF_LIFE,
+    @Json(name = "Slice of Life") SLICE_OF_LIFE,
     @Json(name = "Smut") SMUT,
     @Json(name = "Splatter") SPLATTER,
     @Json(name = "Sport") SPORT,
+    @Json(name = "Steampunk") STEAMPUNK,
     @Json(name = "Supernatural") SUPERNATURAL,
     @Json(name = "Superpower") SUPERPOWER,
-    @Json(name = "Vampire") VAMPIRE,
     @Json(name = "Violence") VIOLENCE,
     @Json(name = "Yaoi") YAOI,
     @Json(name = "Yuri") YURI,

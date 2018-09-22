@@ -40,6 +40,6 @@ public class EnumRetrofitConverterFactoryTest {
     @Test
     public void testConvert() throws IOException {
         assertThat(((Converter<Enum<?>, String>) factory.stringConverter(Genre.class, new Annotation[0], retrofit))
-                .convert(Genre.ADVENTURE)).isEqualTo("Abenteuer");
+                .convert(Genre.ADVENTURE)).isEqualTo("Adventure");
     }
 }
