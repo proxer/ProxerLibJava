@@ -11,7 +11,7 @@ ext {
 
     jacocoVersion = '0.8.2'
     checkstyleVersion = '8.12'
-    errorproneVersion = '2.3.1'
+    errorproneVersion = '2.3.2'
     spotbugsVersion = '3.1.6'
     pmdVersion = '6.7.0'
 
@@ -21,12 +21,12 @@ ext {
 
     retrofitVersion = '2.4.0'
     okHttpVersion = '3.11.0'
-    moshiVersion = '1.6.0'
+    moshiVersion = '1.7.0'
     moshiLazyAdaptersVersion = '2.2'
 
     junitVersion = '4.12'
     assertjVersion = '3.11.1'
-    mockitoVersion = '2.22.0'
+    mockitoVersion = '2.23.0'
     privateConstructorVersion = '1.2.0'
 
     deps = [
