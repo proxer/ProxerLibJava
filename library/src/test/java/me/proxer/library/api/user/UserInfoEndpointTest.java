@@ -47,7 +47,7 @@ public class UserInfoEndpointTest extends ProxerTest {
     }
 
     private UserInfo buildTestInfo() {
-        return new UserInfo("121658", "RubyGee", "121658_cEBC8F.png",
+        return new UserInfo("121658", "RubyGee", "121658_cEBC8F.png", false, false,
                 "Ihr könnt mich jederzeit anschreiben, Skype oder ProxerPn!", new Date(1485372334L * 1000),
                 983, 38, 4201, 548, 8, 1700);
     }

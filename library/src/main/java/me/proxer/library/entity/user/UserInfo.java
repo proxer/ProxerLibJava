@@ -40,6 +40,20 @@ public class UserInfo implements ProxerIdItem, ProxerImageItem {
     private String image;
 
     /**
+     * Returns if the user is a team member.
+     */
+    @Getter
+    @Json(name = "isTeam")
+    private boolean isTeamMember;
+
+    /**
+     * Returns if the user is currently a donator.
+     */
+    @Getter
+    @Json(name = "isDonator")
+    private boolean isDonator;
+
+    /**
      * Returns the current status message.
      */
     @Json(name = "status")

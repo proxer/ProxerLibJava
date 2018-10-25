@@ -12,6 +12,8 @@
     "points_info": "8",
     "points_misc": "1700",
     "points_forum": "38",
-    "username": "RubyGee"
+    "username": "RubyGee",
+    "isTeam": false,
+    "isDonator": false
   }
 }
