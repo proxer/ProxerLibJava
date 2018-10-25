@@ -3,6 +3,7 @@ package me.proxer.library.api.ucp;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entity.ucp.Bookmark;
 import me.proxer.library.entity.ucp.UcpHistoryEntry;
+import me.proxer.library.entity.ucp.UcpSettings;
 import me.proxer.library.entity.ucp.UcpTopTenEntry;
 import me.proxer.library.entity.user.UserMediaListEntry;
 import me.proxer.library.enums.Category;
@@ -68,4 +69,7 @@ interface InternalApi {
                                                    @Query("filter") UserMediaListFilterType filter,
                                                    @Query("sort") UserMediaListSortCriteria sortCriteria,
                                                    @Query("isH") Boolean includeHentai);
+
+    @GET("ucp/settings")
+    ProxerCall<UcpSettings> settings();
 }

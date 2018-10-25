@@ -83,4 +83,11 @@ public final class UcpApi {
     public UcpMediaListEndpoint mediaList() {
         return new UcpMediaListEndpoint(internalApi);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    public SettingsEndpoint settings() {
+        return new SettingsEndpoint(internalApi);
+    }
 }

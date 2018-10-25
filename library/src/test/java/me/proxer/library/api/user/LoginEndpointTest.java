@@ -52,8 +52,8 @@ public class LoginEndpointTest extends ProxerTest {
 
     private User buildTestUser() {
         return new User("121658", "121658_VHuZqz.jpg", true, true,
-                "OmSjyOzMeyICUnErDD04lsDta7REW2fIn6ZWUxG96mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCY" +
-                        "cdWQ0Xv2TFvTUoD8XGHOHP11Uc46rF4BSXrZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlw" +
-                        "K9DHlLxqS83rl6VPD9bqXabkKTsYBOslW61fOwFFDI7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6");
+                "OmSjyOzMeyICUnErDD04lsDta7REW2fIn6ZWUxG96mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCY"
+                        + "cdWQ0Xv2TFvTUoD8XGHOHP11Uc46rF4BSXrZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlw"
+                        + "K9DHlLxqS83rl6VPD9bqXabkKTsYBOslW61fOwFFDI7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6");
     }
 }
