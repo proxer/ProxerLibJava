@@ -232,6 +232,11 @@ public class ProxerUrlsTest {
     }
 
     @Test
+    public void testHasProxerHostFileStreamAlternative() {
+        assertThat(ProxerUrls.hasProxerHost(HttpUrl.get("https://s39.ps.proxer.me/files/test.mp4"))).isTrue();
+    }
+
+    @Test
     public void testHasProxerHostFalse() {
         assertThat(ProxerUrls.hasProxerHost(HttpUrl.get("https://example.me/test"))).isFalse();
     }
