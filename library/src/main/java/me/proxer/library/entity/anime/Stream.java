@@ -87,4 +87,11 @@ public class Stream implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
     @Getter
     @Json(name = "legal")
     private boolean isOfficial;
+
+    /**
+     * Returns if the stream is public and should be shown to guests.
+     */
+    @Getter
+    @Json(name = "public")
+    private boolean isPublic;
 }

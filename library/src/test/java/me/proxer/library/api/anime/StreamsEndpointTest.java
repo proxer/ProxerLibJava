@@ -83,12 +83,12 @@ public class StreamsEndpointTest extends ProxerTest {
     private Stream buildTestStream() {
         return new Stream("565484", "dailymotion", "Dailymotion", "dailymotion.png",
                 "217857", "kollenbad", new Date(1454414911L * 1000), "698",
-                "Grim-Subs", false);
+                "Grim-Subs", false, false);
     }
 
     private Stream buildOfficialTestStream() {
         return new Stream("565924", "novamov", "Auroravid/Novamov", "novamov.png",
                 "66", "ProxerBot", new Date(1454767407L * 1000), "92",
-                "Chinurarete-Subs", true);
+                "Chinurarete-Subs", true, true);
     }
 }
