@@ -4,6 +4,7 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
+import me.proxer.library.api.NumberBasedBoolean;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.entity.info.Entry;
 import me.proxer.library.enums.Category;
@@ -82,6 +83,7 @@ public class Bookmark implements ProxerIdItem {
     /**
      * Returns if this episode is available yet.
      */
+    @NumberBasedBoolean
     @Json(name = "available")
     private boolean available;
 

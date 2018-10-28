@@ -1,5 +1,6 @@
 package me.proxer.library.api.ucp;
 
+import me.proxer.library.entity.ucp.UcpSettings;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
 import retrofit2.Retrofit;
@@ -89,5 +90,12 @@ public final class UcpApi {
      */
     public SettingsEndpoint settings() {
         return new SettingsEndpoint(internalApi);
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    public SetSettingsEndpoint setSettings(final UcpSettings settings) {
+        return new SetSettingsEndpoint(internalApi, settings);
     }
 }

@@ -4,6 +4,7 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
+import me.proxer.library.api.NumberBasedBoolean;
 import me.proxer.library.entity.ProxerIdItem;
 
 import javax.annotation.Nullable;
@@ -39,6 +40,7 @@ public class ChatRoom implements ProxerIdItem {
     /**
      * Returns if this chat room is read only.
      */
+    @NumberBasedBoolean
     @Json(name = "flag_readonly")
     private boolean isReadOnly;
 }

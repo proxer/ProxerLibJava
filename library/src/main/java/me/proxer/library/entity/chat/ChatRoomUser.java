@@ -4,6 +4,7 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
+import me.proxer.library.api.NumberBasedBoolean;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.entity.ProxerImageItem;
 
@@ -47,6 +48,7 @@ public class ChatRoomUser implements ProxerIdItem, ProxerImageItem {
     /**
      * Returns if this user is a moderator.
      */
+    @NumberBasedBoolean
     @Json(name = "mod")
     private boolean isModerator;
 }

@@ -4,6 +4,7 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
+import me.proxer.library.api.NumberBasedBoolean;
 import me.proxer.library.entity.ProxerDateItem;
 import me.proxer.library.entity.ProxerIdItem;
 
@@ -42,12 +43,14 @@ public class InfoTag implements ProxerIdItem, ProxerDateItem {
     /**
      * Returns true, if this tag has been rated.
      */
+    @NumberBasedBoolean
     @Json(name = "rate_flag")
     private boolean rated;
 
     /**
      * Returns true, if this tag is a spoiler.
      */
+    @NumberBasedBoolean
     @Json(name = "spoiler_flag")
     private boolean spoiler;
 

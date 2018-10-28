@@ -19,6 +19,7 @@ import javax.annotation.Nullable;
 final class ProxerResponse<T> {
 
     @SuppressWarnings("unused")
+    @NumberBasedBoolean
     @Getter(AccessLevel.NONE)
     @Json(name = "error")
     private boolean error;

@@ -20,23 +20,35 @@ class BooleanAdapterFactory implements JsonAdapter.Factory {
     @Nullable
     @Override
     public JsonAdapter<?> create(final Type type, final Set<? extends Annotation> annotations, final Moshi moshi) {
-        if (type != boolean.class && type != Boolean.class) {
+        if (type == boolean.class || type == Boolean.class) {
+            if (isNumberBased(annotations)) {
+                return new NumberBasedBooleanAdapter();
+            } else {
+                return moshi.nextAdapter(this, type, annotations);
+            }
+        } else {
             return null;
         }
-
-        return new BooleanAdapter();
     }
 
-    private static class BooleanAdapter extends JsonAdapter<Boolean> {
+    private boolean isNumberBased(final Set<? extends Annotation> annotations) {
+        for (final Annotation annotation : annotations) {
+            if (annotation.annotationType() == NumberBasedBoolean.class) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static class NumberBasedBooleanAdapter extends JsonAdapter<Boolean> {
 
         @Nullable
         @Override
         public Boolean fromJson(final JsonReader reader) throws IOException {
             final JsonReader.Token nextToken = reader.peek();
 
-            if (nextToken == JsonReader.Token.BOOLEAN) {
-                return reader.nextBoolean();
-            } else if (nextToken == JsonReader.Token.NUMBER) {
+            if (nextToken == JsonReader.Token.NUMBER) {
                 final int number = reader.nextInt();
 
                 return intToBoolean(number, reader.getPath());
@@ -52,14 +64,14 @@ class BooleanAdapterFactory implements JsonAdapter.Factory {
             } else if (nextToken == JsonReader.Token.NULL) {
                 return reader.nextNull();
             } else {
-                throw new JsonDataException("Expected a boolean, number, string or null but was " + nextToken.name()
+                throw new JsonDataException("Expected a number, string or null but was " + nextToken.name()
                         + " at path " + reader.getPath());
             }
         }
 
         @Override
         public void toJson(final JsonWriter writer, @Nullable final Boolean value) throws IOException {
-            writer.value(value);
+            writer.value(value == null ? null : value ? 1 : 0);
         }
 
         private int toIntOrNull(final String candidate) {

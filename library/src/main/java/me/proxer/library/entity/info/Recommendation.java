@@ -4,6 +4,7 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
+import me.proxer.library.api.NumberBasedBoolean;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.FskConstraint;
@@ -119,6 +120,7 @@ public class Recommendation implements ProxerIdItem {
      * Returns the vote of the user if present when calling the respective api.
      */
     @Nullable
+    @NumberBasedBoolean
     @Json(name = "positive")
     private Boolean userVote;
 

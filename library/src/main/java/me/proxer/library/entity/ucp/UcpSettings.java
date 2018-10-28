@@ -3,6 +3,7 @@ package me.proxer.library.entity.ucp;
 import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
+import me.proxer.library.api.NumberBasedBoolean;
 import me.proxer.library.enums.UcpSettingConstraint;
 
 import javax.annotation.Nullable;
@@ -103,12 +104,14 @@ public class UcpSettings {
     /**
      * Returns if tags should be shown or not on media detail pages.
      */
+    @NumberBasedBoolean
     @Json(name = "hide_tags")
     private boolean hideTags;
 
     /**
      * Returns if ads in general should be shown.
      */
+    @NumberBasedBoolean
     @Json(name = "ads_active")
     private boolean showAds;
 

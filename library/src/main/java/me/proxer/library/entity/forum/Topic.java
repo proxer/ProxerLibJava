@@ -3,6 +3,7 @@ package me.proxer.library.entity.forum;
 import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
+import me.proxer.library.api.NumberBasedBoolean;
 
 import javax.annotation.Nullable;
 import java.util.Date;
@@ -36,6 +37,7 @@ public class Topic {
     /**
      * Returns if this topic is locked.
      */
+    @NumberBasedBoolean
     @Json(name = "locked")
     private boolean locked;
 

@@ -10,6 +10,7 @@ import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.enums.UserMediaListFilterType;
 import me.proxer.library.enums.UserMediaListSortCriteria;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -72,4 +73,7 @@ interface InternalApi {
 
     @GET("ucp/settings")
     ProxerCall<UcpSettings> settings();
+
+    @POST("ucp/setsettings")
+    ProxerCall<Void> setSettings(@Body UcpSettings settings);
 }

@@ -4,6 +4,7 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
+import me.proxer.library.api.NumberBasedBoolean;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.enums.TagSubType;
 import me.proxer.library.enums.TagType;
@@ -53,6 +54,7 @@ public class Tag implements ProxerIdItem {
     /**
      * Returns the type.
      */
+    @NumberBasedBoolean
     @Json(name = "is_spoiler")
     private boolean isSpoiler;
 }

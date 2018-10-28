@@ -4,6 +4,7 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
+import me.proxer.library.api.NumberBasedBoolean;
 import me.proxer.library.entity.ProxerDateItem;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.entity.ProxerImageItem;
@@ -85,6 +86,7 @@ public class Stream implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
      * Returns if the stream is hosted at an official hoster like Crunchyroll.
      */
     @Getter
+    @NumberBasedBoolean
     @Json(name = "legal")
     private boolean isOfficial;
 
@@ -92,6 +94,7 @@ public class Stream implements ProxerIdItem, ProxerImageItem, ProxerDateItem {
      * Returns if the stream is public and should be shown to guests.
      */
     @Getter
+    @NumberBasedBoolean
     @Json(name = "public")
     private boolean isPublic;
 }
