@@ -98,4 +98,11 @@ public final class UcpApi {
     public SetSettingsEndpoint setSettings(final UcpSettings settings) {
         return new SetSettingsEndpoint(internalApi, settings);
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    public SetSettingsEndpoint setSettings() {
+        return new SetSettingsEndpoint(internalApi);
+    }
 }

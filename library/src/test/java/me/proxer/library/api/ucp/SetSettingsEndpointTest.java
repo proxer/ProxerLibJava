@@ -48,11 +48,65 @@ public class SetSettingsEndpointTest extends ProxerTest {
                 .execute();
 
         assertThat(server.takeRequest().getBody().readUtf8())
-                .isEqualTo("{\"ads_active\":1,\"ads_interval\":7,\"hide_tags\":0,\"profil\":3,\"profil_about\":0,"
-                        + "\"profil_anime\":1,\"profil_article\":2,\"profil_board\":2,\"profil_board_post\":3,"
-                        + "\"profil_chronik\":4,\"profil_connections\":2,\"profil_connections_new\":0,"
-                        + "\"profil_forum\":3,\"profil_gallery\":1,\"profil_latestcomments\":3,\"profil_manga\":2,"
-                        + "\"profil_topten\":2}");
+                .isEqualTo("profile=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3"
+                        + "&profil_forum=3&profil_connections=2&profil_connections_new=0&profil_about=0"
+                        + "&profil_chronik=4&profil_board=2&profil_board_post=3&profil_gallery=1&profil_article=2"
+                        + "&hide_tags=0&ads_active=1&ads_interval=7");
+    }
+
+    @Test
+    public void testParametersSetters() throws IOException, ProxerException, InterruptedException {
+        server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
+
+        api.ucp().setSettings()
+                .profileVisibility(UcpSettingConstraint.EVERYONE)
+                .topTenVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
+                .animeVisibility(UcpSettingConstraint.FRIENDS)
+                .mangaVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
+                .commentVisibility(UcpSettingConstraint.EVERYONE)
+                .forumVisibility(UcpSettingConstraint.EVERYONE)
+                .friendVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
+                .friendRequestConstraint(UcpSettingConstraint.DEFAULT)
+                .aboutVisibility(UcpSettingConstraint.DEFAULT)
+                .historyVisibility(UcpSettingConstraint.PRIVATE)
+                .guestBookVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
+                .guestBookEntryConstraint(UcpSettingConstraint.EVERYONE)
+                .galleryVisibility(UcpSettingConstraint.FRIENDS)
+                .articleVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
+                .hideTags(true)
+                .showAds(false)
+                .adInterval(1)
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getBody().readUtf8())
+                .isEqualTo("profile=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3"
+                        + "&profil_forum=3&profil_connections=2&profil_connections_new=0&profil_about=0"
+                        + "&profil_chronik=4&profil_board=2&profil_board_post=3&profil_gallery=1&profil_article=2"
+                        + "&hide_tags=1&ads_active=0&ads_interval=1");
+    }
+
+    @Test
+    public void testParametersSettersPartial() throws IOException, ProxerException, InterruptedException {
+        server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
+
+        api.ucp().setSettings()
+                .profileVisibility(UcpSettingConstraint.FRIENDS)
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getBody().readUtf8()).isEqualTo("profile=1");
+    }
+
+    @Test
+    public void testParametersSettersNone() throws IOException, ProxerException, InterruptedException {
+        server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
+
+        api.ucp().setSettings()
+                .build()
+                .execute();
+
+        assertThat(server.takeRequest().getBody().readUtf8()).isEmpty();
     }
 
     private UcpSettings buildTestSettings() {

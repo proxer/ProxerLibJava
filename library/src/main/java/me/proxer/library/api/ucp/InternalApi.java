@@ -8,9 +8,9 @@ import me.proxer.library.entity.ucp.UcpTopTenEntry;
 import me.proxer.library.entity.user.UserMediaListEntry;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
+import me.proxer.library.enums.UcpSettingConstraint;
 import me.proxer.library.enums.UserMediaListFilterType;
 import me.proxer.library.enums.UserMediaListSortCriteria;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -74,6 +74,23 @@ interface InternalApi {
     @GET("ucp/settings")
     ProxerCall<UcpSettings> settings();
 
+    @FormUrlEncoded
     @POST("ucp/setsettings")
-    ProxerCall<Void> setSettings(@Body UcpSettings settings);
+    ProxerCall<Void> setSettings(@Field("profile") UcpSettingConstraint profileVisibility,
+                                 @Field("profil_topten") UcpSettingConstraint topTenVisibility,
+                                 @Field("profil_anime") UcpSettingConstraint animeVisibility,
+                                 @Field("profil_manga") UcpSettingConstraint mangaVisibility,
+                                 @Field("profil_latestcomments") UcpSettingConstraint commentVisibility,
+                                 @Field("profil_forum") UcpSettingConstraint forumVisibility,
+                                 @Field("profil_connections") UcpSettingConstraint friendVisibility,
+                                 @Field("profil_connections_new") UcpSettingConstraint friendRequestConstraint,
+                                 @Field("profil_about") UcpSettingConstraint aboutVisibility,
+                                 @Field("profil_chronik") UcpSettingConstraint historyVisibility,
+                                 @Field("profil_board") UcpSettingConstraint guestBookVisibility,
+                                 @Field("profil_board_post") UcpSettingConstraint guestBookEntryConstraint,
+                                 @Field("profil_gallery") UcpSettingConstraint galleryVisibility,
+                                 @Field("profil_article") UcpSettingConstraint articleVisibility,
+                                 @Field("hide_tags") Integer hideTags,
+                                 @Field("ads_active") Integer showAds,
+                                 @Field("ads_interval") Integer adInterval);
 }
