@@ -63,7 +63,7 @@ public class ProxerCallTest extends ProxerTest {
     }
 
     @Test
-    public void testServerError() throws Exception {
+    public void testServerError() throws IOException {
         server.enqueue(new MockResponse().setBody(fromResource("conferences_error.json")));
 
         assertThatExceptionOfType(ProxerException.class)
@@ -74,6 +74,17 @@ public class ProxerCallTest extends ProxerTest {
                         "Exception should have the MESSAGES_LOGIN_REQUIRED ServerErrorType")
                 .matches(exception -> exception.getMessage() != null
                                 && exception.getMessage().equals("Du bist nicht eingeloggt."),
+                        "Exception should have the correct message");
+    }
+
+    @Test
+    public void testServerErrorWithMessage() throws IOException {
+        server.enqueue(new MockResponse().setBody(fromResource("ucp_settings_error.json")));
+
+        assertThatExceptionOfType(ProxerException.class)
+                .isThrownBy(() -> api.ucp().setSettings().build().execute())
+                .matches(exception -> exception.getMessage() != null
+                                && exception.getMessage().equals("Ungültige Eingabe für Felder.\n[profil]"),
                         "Exception should have the correct message");
     }
 
