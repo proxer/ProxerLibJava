@@ -8,8 +8,11 @@ import okhttp3.mockwebserver.MockResponse;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
 
+import static me.proxer.library.api.ProxerException.ServerErrorType;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  * @author Ruben Gees
@@ -20,7 +23,7 @@ public class SetSettingsEndpointTest extends ProxerTest {
     public void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
-        final Void result = api.ucp()
+        final List<String> result = api.ucp()
                 .setSettings(buildTestSettings())
                 .build()
                 .execute();
@@ -48,7 +51,7 @@ public class SetSettingsEndpointTest extends ProxerTest {
                 .execute();
 
         assertThat(server.takeRequest().getBody().readUtf8())
-                .isEqualTo("profile=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3"
+                .isEqualTo("profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3"
                         + "&profil_forum=3&profil_connections=2&profil_connections_new=0&profil_about=0"
                         + "&profil_chronik=4&profil_board=2&profil_board_post=3&profil_gallery=1&profil_article=2"
                         + "&hide_tags=0&ads_active=1&ads_interval=7");
@@ -80,7 +83,7 @@ public class SetSettingsEndpointTest extends ProxerTest {
                 .execute();
 
         assertThat(server.takeRequest().getBody().readUtf8())
-                .isEqualTo("profile=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3"
+                .isEqualTo("profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3"
                         + "&profil_forum=3&profil_connections=2&profil_connections_new=0&profil_about=0"
                         + "&profil_chronik=4&profil_board=2&profil_board_post=3&profil_gallery=1&profil_article=2"
                         + "&hide_tags=1&ads_active=0&ads_interval=1");
@@ -95,7 +98,7 @@ public class SetSettingsEndpointTest extends ProxerTest {
                 .build()
                 .execute();
 
-        assertThat(server.takeRequest().getBody().readUtf8()).isEqualTo("profile=1");
+        assertThat(server.takeRequest().getBody().readUtf8()).isEqualTo("profil=1");
     }
 
     @Test
@@ -107,6 +110,18 @@ public class SetSettingsEndpointTest extends ProxerTest {
                 .execute();
 
         assertThat(server.takeRequest().getBody().readUtf8()).isEmpty();
+    }
+
+    @Test
+    public void testError() throws IOException {
+        server.enqueue(new MockResponse().setBody(fromResource("ucp_settings_error.json")));
+
+        assertThatExceptionOfType(ProxerException.class)
+                .isThrownBy(() -> api.ucp()
+                        .setSettings(buildTestSettings())
+                        .build()
+                        .execute())
+                .matches(exception -> exception.getServerErrorType() == ServerErrorType.UCP_INVALID_SETTINGS);
     }
 
     private UcpSettings buildTestSettings() {

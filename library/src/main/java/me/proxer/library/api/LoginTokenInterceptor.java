@@ -76,7 +76,7 @@ final class LoginTokenInterceptor implements Interceptor {
 
         if (errorMatcher.find()) {
             final int errorCode = Integer.parseInt(errorMatcher.group(1));
-            final ServerErrorType errorType = ServerErrorType.fromErrorCodeOrNull(errorCode);
+            final ServerErrorType errorType = ServerErrorType.fromErrorCode(errorCode);
 
             if (errorType != null && isLoginError(errorType)) {
                 loginTokenManager.persist(null);

@@ -1,6 +1,5 @@
 package me.proxer.library.api;
 
-import com.squareup.moshi.JsonDataException;
 import lombok.Getter;
 
 import javax.annotation.Nullable;
@@ -183,7 +182,13 @@ public final class ProxerException extends Exception {
         CHAT_USER_ON_BLACKLIST(3056),
         CHAT_NO_PERMISSIONS(3057),
         CHAT_INVALID_THANK_YOU(3058),
-        CHAT_INVALID_INPUT(3059);
+        CHAT_INVALID_INPUT(3059),
+        FORUM_INVALID_PERMISSIONS(3060),
+        INFO_DELETE_COMMENT_INVALID_INPUT(3061),
+        UCP_INVALID_SETTINGS(3062),
+        ANIME_LOGIN_REQUIRED(3063),
+
+        UNKNOWN(10_000);
 
         private final int code;
 
@@ -203,22 +208,7 @@ public final class ProxerException extends Exception {
                 }
             }
 
-            throw new JsonDataException("No value found for the code: " + errorCode);
-        }
-
-        @Nullable
-        static ServerErrorType fromErrorCodeOrNull(@Nullable final Integer errorCode) {
-            if (errorCode == null) {
-                return null;
-            }
-
-            for (final ServerErrorType type : values()) {
-                if (type.code == errorCode) {
-                    return type;
-                }
-            }
-
-            return null;
+            return ServerErrorType.UNKNOWN;
         }
     }
 }

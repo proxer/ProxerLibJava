@@ -8,6 +8,7 @@ import me.proxer.library.entity.ucp.UcpSettings;
 import me.proxer.library.enums.UcpSettingConstraint;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * Endpoint for updating the settings of the user.
@@ -15,7 +16,7 @@ import javax.annotation.Nullable;
  * @author Ruben Gees
  */
 @Accessors(fluent = true)
-public class SetSettingsEndpoint implements Endpoint<Void> {
+public class SetSettingsEndpoint implements Endpoint<List<String>> {
 
     private final InternalApi internalApi;
 
@@ -169,7 +170,7 @@ public class SetSettingsEndpoint implements Endpoint<Void> {
      * {@inheritDoc}
      */
     @Override
-    public ProxerCall<Void> build() {
+    public ProxerCall<List<String>> build() {
         return internalApi.setSettings(profileVisibility, topTenVisibility, animeVisibility, mangaVisibility,
                 commentVisibility, forumVisibility, friendVisibility, friendRequestConstraint, aboutVisibility,
                 historyVisibility, guestBookVisibility, guestBookEntryConstraint, galleryVisibility, articleVisibility,

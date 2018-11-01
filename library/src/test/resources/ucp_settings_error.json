@@ -1,0 +1,8 @@
+{
+  "error": 1,
+  "message": "Ungültige Eingabe für Felder.",
+  "code": 3062,
+  "data": [
+    "profil"
+  ]
+}

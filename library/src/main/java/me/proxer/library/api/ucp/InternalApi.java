@@ -76,21 +76,21 @@ interface InternalApi {
 
     @FormUrlEncoded
     @POST("ucp/setsettings")
-    ProxerCall<Void> setSettings(@Field("profile") UcpSettingConstraint profileVisibility,
-                                 @Field("profil_topten") UcpSettingConstraint topTenVisibility,
-                                 @Field("profil_anime") UcpSettingConstraint animeVisibility,
-                                 @Field("profil_manga") UcpSettingConstraint mangaVisibility,
-                                 @Field("profil_latestcomments") UcpSettingConstraint commentVisibility,
-                                 @Field("profil_forum") UcpSettingConstraint forumVisibility,
-                                 @Field("profil_connections") UcpSettingConstraint friendVisibility,
-                                 @Field("profil_connections_new") UcpSettingConstraint friendRequestConstraint,
-                                 @Field("profil_about") UcpSettingConstraint aboutVisibility,
-                                 @Field("profil_chronik") UcpSettingConstraint historyVisibility,
-                                 @Field("profil_board") UcpSettingConstraint guestBookVisibility,
-                                 @Field("profil_board_post") UcpSettingConstraint guestBookEntryConstraint,
-                                 @Field("profil_gallery") UcpSettingConstraint galleryVisibility,
-                                 @Field("profil_article") UcpSettingConstraint articleVisibility,
-                                 @Field("hide_tags") Integer hideTags,
-                                 @Field("ads_active") Integer showAds,
-                                 @Field("ads_interval") Integer adInterval);
+    ProxerCall<List<String>> setSettings(@Field("profil") UcpSettingConstraint profileVisibility,
+                                         @Field("profil_topten") UcpSettingConstraint topTenVisibility,
+                                         @Field("profil_anime") UcpSettingConstraint animeVisibility,
+                                         @Field("profil_manga") UcpSettingConstraint mangaVisibility,
+                                         @Field("profil_latestcomments") UcpSettingConstraint commentVisibility,
+                                         @Field("profil_forum") UcpSettingConstraint forumVisibility,
+                                         @Field("profil_connections") UcpSettingConstraint friendVisibility,
+                                         @Field("profil_connections_new") UcpSettingConstraint friendRequestConstraint,
+                                         @Field("profil_about") UcpSettingConstraint aboutVisibility,
+                                         @Field("profil_chronik") UcpSettingConstraint historyVisibility,
+                                         @Field("profil_board") UcpSettingConstraint guestBookVisibility,
+                                         @Field("profil_board_post") UcpSettingConstraint guestBookEntryConstraint,
+                                         @Field("profil_gallery") UcpSettingConstraint galleryVisibility,
+                                         @Field("profil_article") UcpSettingConstraint articleVisibility,
+                                         @Field("hide_tags") Integer hideTags,
+                                         @Field("ads_active") Integer showAds,
+                                         @Field("ads_interval") Integer adInterval);
 }
