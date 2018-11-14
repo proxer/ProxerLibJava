@@ -377,7 +377,7 @@ public final class ProxerUrls {
      */
     public boolean hasProxerWebOrCdnOrStreamHost(final HttpUrl url) {
         return url.host().equals(webBase.host()) || url.host().equals(cdnBase.host())
-                || url.host().equals(proxyBase.host()) || url.host().equals(streamBase.host());
+                || url.host().equals(streamBase.host());
     }
 
     /**

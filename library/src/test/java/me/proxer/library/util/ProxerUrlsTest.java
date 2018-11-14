@@ -213,7 +213,7 @@ public class ProxerUrlsTest {
 
     @Test
     public void testHasProxerHostProxy() {
-        assertThat(ProxerUrls.hasProxerHost(HttpUrl.get("https://prxr.me/test"))).isTrue();
+        assertThat(ProxerUrls.hasProxerHost(HttpUrl.get("https://prxr.me/test"))).isFalse();
     }
 
     @Test

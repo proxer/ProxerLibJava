@@ -31,11 +31,13 @@ public class HttpsEnforcingInterceptorTest extends ProxerTest {
 
     @Test
     public void testHttpsUpgradeProxy() throws IOException, InterruptedException {
+        startHttpOnlyServer();
+
         server.enqueue(new MockResponse());
 
         client.newCall(new Request.Builder().url("http://prxr.me").build()).execute();
 
-        assertThat(server.takeRequest().getRequestUrl().isHttps()).isEqualTo(true);
+        assertThat(server.takeRequest().getRequestUrl().isHttps()).isEqualTo(false);
     }
 
     @Test
