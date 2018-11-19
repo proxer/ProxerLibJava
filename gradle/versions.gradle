@@ -15,13 +15,13 @@ ext {
     spotbugsVersion = '3.1.6'
     pmdVersion = '6.7.0'
 
-    lombokVersion = '1.18.2'
+    lombokVersion = '1.18.4'
     jsr305Version = '3.0.2'
     javaxExtrasVersion = '0.1.0'
 
-    retrofitVersion = '2.4.0'
-    okHttpVersion = '3.11.0'
-    moshiVersion = '1.7.0'
+    retrofitVersion = '2.5.0'
+    okHttpVersion = '3.12.0'
+    moshiVersion = '1.8.0'
     moshiLazyAdaptersVersion = '2.2'
 
     junitVersion = '4.12'
