@@ -15,7 +15,7 @@ import me.proxer.library.enums.Medium;
 import javax.annotation.Nullable;
 
 /**
- * Entity representing a single entry in the history list.
+ * Entity representing a bookmark of the user.
  *
  * @author Ruben Gees
  */
