@@ -50,7 +50,7 @@ public class HttpsEnforcingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testHttpsUpgradeStream() throws IOException, InterruptedException {
+    public void testHttpsUpgradeStreamHtml() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
 
         client.newCall(new Request.Builder().url("http://stream.proxer.me").build()).execute();
@@ -59,12 +59,30 @@ public class HttpsEnforcingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testHttpsFileStreamUntouched() throws IOException, InterruptedException {
+    public void testHttpsUpgradeStream() throws IOException, InterruptedException {
+        server.enqueue(new MockResponse());
+
+        client.newCall(new Request.Builder().url("http://s1.stream.proxer.me").build()).execute();
+
+        assertThat(server.takeRequest().getRequestUrl().isHttps()).isEqualTo(true);
+    }
+
+    @Test
+    public void testHttpsUpgradeStreamAlternative() throws IOException, InterruptedException {
+        server.enqueue(new MockResponse());
+
+        client.newCall(new Request.Builder().url("http://s1.ps.proxer.me").build()).execute();
+
+        assertThat(server.takeRequest().getRequestUrl().isHttps()).isEqualTo(true);
+    }
+
+    @Test
+    public void testHttpsUpgradeStreamSimilarUntouched() throws IOException, InterruptedException {
         startHttpOnlyServer();
 
         server.enqueue(new MockResponse());
 
-        client.newCall(new Request.Builder().url("http://s1.stream.proxer.me").build()).execute();
+        client.newCall(new Request.Builder().url("http://s1.pss.proxer.me").build()).execute();
 
         assertThat(server.takeRequest().getRequestUrl().isHttps()).isEqualTo(false);
     }

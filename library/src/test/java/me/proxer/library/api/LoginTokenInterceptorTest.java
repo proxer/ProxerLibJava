@@ -162,8 +162,6 @@ public class LoginTokenInterceptorTest extends ProxerTest {
 
         api.user().login("test", "secret").build().execute();
 
-        startHttpOnlyServer();
-
         server.enqueue(new MockResponse());
 
         api.client().newCall(new Request.Builder().url("http://s3.stream.proxer.me").build()).execute();
