@@ -91,7 +91,7 @@ public class HeaderInterceptorTest extends ProxerTest {
     @Test
     public void testCorrectHeadersForSpecificStreamServer() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
-        api.client().newCall(new Request.Builder().url("https://s3.stream.proxer.me/test").build()).execute();
+        api.client().newCall(new Request.Builder().url("https://s3-ps.proxer.me/test").build()).execute();
 
         final Headers headers = server.takeRequest().getHeaders();
 

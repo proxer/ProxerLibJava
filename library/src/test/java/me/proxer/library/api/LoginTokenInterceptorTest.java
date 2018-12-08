@@ -164,7 +164,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
 
         server.enqueue(new MockResponse());
 
-        api.client().newCall(new Request.Builder().url("http://s3.stream.proxer.me").build()).execute();
+        api.client().newCall(new Request.Builder().url("http://s3-ps.proxer.me").build()).execute();
 
         assertThat(server.takeRequest().getHeaders().get("proxer-api-token")).isNull();
     }
