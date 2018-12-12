@@ -7,8 +7,8 @@ import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.tls.HandshakeCertificates;
 import okhttp3.tls.internal.TlsUtil;
 import okio.Okio;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -31,8 +31,8 @@ public abstract class ProxerTest {
     protected OkHttpClient client;
     protected ProxerApi api;
 
-    @Before
-    public void setUp() throws IOException, GeneralSecurityException {
+    @BeforeEach
+    protected void setUp() throws IOException, GeneralSecurityException {
         api = constructApi().build();
         client = api.client();
         server = new MockWebServer();
@@ -41,8 +41,8 @@ public abstract class ProxerTest {
         server.start();
     }
 
-    @After
-    public void tearDown() throws IOException {
+    @AfterEach
+    protected void tearDown() throws IOException {
         server.shutdown();
     }
 

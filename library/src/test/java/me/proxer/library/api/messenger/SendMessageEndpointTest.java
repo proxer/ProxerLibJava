@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.enums.MessageAction;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -14,10 +14,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * @author Ruben Gees
  */
-public class SendMessageEndpointTest extends ProxerTest {
+class SendMessageEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         final String result = api.messenger()
@@ -29,7 +29,7 @@ public class SendMessageEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.messenger().sendMessage("123", "message")
@@ -41,7 +41,7 @@ public class SendMessageEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testParameters() throws ProxerException, IOException, InterruptedException {
+    void testParameters() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.messenger().sendMessage("id", "someMessage")
@@ -53,7 +53,7 @@ public class SendMessageEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testActionParameters() throws ProxerException, IOException, InterruptedException {
+    void testActionParameters() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.messenger().sendMessage("id", MessageAction.REMOVE_USER, "Testerio")
@@ -65,7 +65,7 @@ public class SendMessageEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testInvalidAction() {
+    void testInvalidAction() {
         assertThatThrownBy(() -> api.messenger().sendMessage("id", MessageAction.NONE, "")
                 .build()
                 .execute())

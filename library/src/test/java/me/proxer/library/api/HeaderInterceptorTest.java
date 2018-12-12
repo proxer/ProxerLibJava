@@ -7,7 +7,7 @@ import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -16,10 +16,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class HeaderInterceptorTest extends ProxerTest {
+class HeaderInterceptorTest extends ProxerTest {
 
     @Test
-    public void testApiKey() throws IOException, ProxerException, InterruptedException {
+    void testApiKey() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
         api.notifications().news().build().execute();
 
@@ -27,7 +27,7 @@ public class HeaderInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testDefaultUserAgent() throws IOException, ProxerException, InterruptedException {
+    void testDefaultUserAgent() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
         api.notifications().news().build().execute();
 
@@ -36,7 +36,7 @@ public class HeaderInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testCustomUserAgent() throws IOException, ProxerException, InterruptedException {
+    void testCustomUserAgent() throws IOException, ProxerException, InterruptedException {
         api = constructApi()
                 .userAgent("test")
                 .build();
@@ -48,7 +48,7 @@ public class HeaderInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testHeadersOnlyForProxerHost() throws Exception {
+    void testHeadersOnlyForProxerHost() throws Exception {
         startHttpOnlyServer();
 
         server.enqueue(new MockResponse());
@@ -64,7 +64,7 @@ public class HeaderInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testCorrectHeadersForCdn() throws IOException, InterruptedException {
+    void testCorrectHeadersForCdn() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
         api.client().newCall(new Request.Builder().url(ProxerUrls.cdnBase()
                 .newBuilder()
@@ -78,7 +78,7 @@ public class HeaderInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testCorrectHeadersForStreamServer() throws IOException, InterruptedException {
+    void testCorrectHeadersForStreamServer() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
         api.client().newCall(new Request.Builder().url("https://stream.proxer.me/test").build()).execute();
 
@@ -89,7 +89,7 @@ public class HeaderInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testCorrectHeadersForSpecificStreamServer() throws IOException, InterruptedException {
+    void testCorrectHeadersForSpecificStreamServer() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
         api.client().newCall(new Request.Builder().url("https://s3-ps.proxer.me/test").build()).execute();
 
@@ -100,7 +100,7 @@ public class HeaderInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testCorrectHeadersForMangaServer() throws IOException, InterruptedException {
+    void testCorrectHeadersForMangaServer() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
         api.client().newCall(new Request.Builder().url("https://manga0.proxer.me/test").build()).execute();
 

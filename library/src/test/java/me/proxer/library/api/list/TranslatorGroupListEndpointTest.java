@@ -5,7 +5,7 @@ import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.list.TranslatorGroupCore;
 import me.proxer.library.enums.Country;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class TranslatorGroupListEndpointTest extends ProxerTest {
+class TranslatorGroupListEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("translator_group_list.json")));
 
         final List<TranslatorGroupCore> result = api.list()
@@ -30,7 +30,7 @@ public class TranslatorGroupListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("translator_group_list.json")));
 
         api.list().translatorGroupList()

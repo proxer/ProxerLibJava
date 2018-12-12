@@ -7,7 +7,7 @@ import me.proxer.library.enums.TagSortCriteria;
 import me.proxer.library.enums.TagSubType;
 import me.proxer.library.enums.TagType;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,10 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class TagListEndpointTest extends ProxerTest {
+class TagListEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("tags.json")));
 
         final List<Tag> result = api.list()
@@ -33,7 +33,7 @@ public class TagListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("tags.json")));
 
         api.list().tagList()
@@ -50,7 +50,7 @@ public class TagListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPathDescending() throws ProxerException, IOException, InterruptedException {
+    void testPathDescending() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("tags.json")));
 
         api.list().tagList()

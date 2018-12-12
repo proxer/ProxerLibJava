@@ -7,7 +7,7 @@ import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.enums.Medium;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -20,10 +20,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class UcpHistoryEndpointTest extends ProxerTest {
+class UcpHistoryEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException, ParseException {
+    void testDefault() throws ProxerException, IOException, ParseException {
         server.enqueue(new MockResponse().setBody(fromResource("ucp_history.json")));
 
         final List<UcpHistoryEntry> result = api.ucp()
@@ -35,7 +35,7 @@ public class UcpHistoryEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("ucp_history.json")));
 
         api.ucp().history()

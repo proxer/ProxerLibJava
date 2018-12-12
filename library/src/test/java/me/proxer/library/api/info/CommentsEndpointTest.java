@@ -7,7 +7,7 @@ import me.proxer.library.entity.info.RatingDetails;
 import me.proxer.library.enums.CommentSortCriteria;
 import me.proxer.library.enums.UserMediaProgress;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Date;
@@ -18,10 +18,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class CommentsEndpointTest extends ProxerTest {
+class CommentsEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("comment_manga.json")));
 
         final List<Comment> result = api.info()
@@ -33,7 +33,7 @@ public class CommentsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testEmptyRatingDetails() throws ProxerException, IOException {
+    void testEmptyRatingDetails() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("comment_anime.json")));
 
         final List<Comment> result = api.info()
@@ -45,7 +45,7 @@ public class CommentsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testEmptyRatingDetailsOther() throws ProxerException, IOException {
+    void testEmptyRatingDetailsOther() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("comment_anime_other.json")));
 
         final List<Comment> result = api.info()
@@ -57,7 +57,7 @@ public class CommentsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("comment_manga.json")));
 
         api.info().comments("1")

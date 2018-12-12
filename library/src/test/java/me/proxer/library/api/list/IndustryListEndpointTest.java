@@ -6,7 +6,7 @@ import me.proxer.library.entity.list.IndustryCore;
 import me.proxer.library.enums.Country;
 import me.proxer.library.enums.IndustryType;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,10 +16,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class IndustryListEndpointTest extends ProxerTest {
+class IndustryListEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("industry_list.json")));
 
         final List<IndustryCore> result = api.list()
@@ -31,7 +31,7 @@ public class IndustryListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("industry_list.json")));
 
         api.list().industryList()

@@ -3,16 +3,16 @@ package me.proxer.library.api.apps;
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ErrorLogEndpointTest extends ProxerTest {
+class ErrorLogEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         final Void result = api.apps()
@@ -24,7 +24,7 @@ public class ErrorLogEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.apps().errorLog("3", "test message")
@@ -35,7 +35,7 @@ public class ErrorLogEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testParameters() throws IOException, ProxerException, InterruptedException {
+    void testParameters() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.apps().errorLog("3", "test message")

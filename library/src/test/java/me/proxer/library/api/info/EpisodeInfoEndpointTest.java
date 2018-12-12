@@ -8,7 +8,7 @@ import me.proxer.library.entity.info.MangaEpisode;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -20,10 +20,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class EpisodeInfoEndpointTest extends ProxerTest {
+class EpisodeInfoEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("episode_info_anime.json")));
 
         final EpisodeInfo result = api.info()
@@ -35,7 +35,7 @@ public class EpisodeInfoEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testManga() throws IOException, ProxerException {
+    void testManga() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("episode_info_manga.json")));
 
         final EpisodeInfo result = api.info()
@@ -47,7 +47,7 @@ public class EpisodeInfoEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("episode_info_anime.json")));
 
         api.info().episodeInfo("17")

@@ -8,7 +8,7 @@ import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,10 +18,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class BookmarksEndpointTest extends ProxerTest {
+class BookmarksEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("bookmarks.json")));
 
         final List<Bookmark> result = api.ucp()
@@ -33,7 +33,7 @@ public class BookmarksEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("bookmarks.json")));
 
         api.ucp().bookmarks()

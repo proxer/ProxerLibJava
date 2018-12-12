@@ -6,7 +6,7 @@ import me.proxer.library.entity.messenger.Conference;
 import me.proxer.library.enums.ConferenceType;
 import okhttp3.mockwebserver.MockResponse;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Date;
@@ -17,10 +17,10 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class ConferencesEndpointTest extends ProxerTest {
+class ConferencesEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("conferences.json")));
 
         final List<Conference> result = api.messenger()
@@ -32,7 +32,7 @@ public class ConferencesEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("conferences.json")));
 
         api.messenger().conferences()

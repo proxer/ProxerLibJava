@@ -3,7 +3,7 @@ package me.proxer.library.api.info;
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class ModifyUserInfoEndpointTest extends ProxerTest {
+class ModifyUserInfoEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         final Void result = api.info()
@@ -27,7 +27,7 @@ public class ModifyUserInfoEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.info().note("321")
@@ -38,7 +38,7 @@ public class ModifyUserInfoEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testNoteParameter() throws IOException, ProxerException, InterruptedException {
+    void testNoteParameter() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.info().note("321")
@@ -49,7 +49,7 @@ public class ModifyUserInfoEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testFavoriteParameter() throws IOException, ProxerException, InterruptedException {
+    void testFavoriteParameter() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.info().markAsFavorite("321")
@@ -60,7 +60,7 @@ public class ModifyUserInfoEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testFinishedParameter() throws IOException, ProxerException, InterruptedException {
+    void testFinishedParameter() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.info().markAsFinished("321")

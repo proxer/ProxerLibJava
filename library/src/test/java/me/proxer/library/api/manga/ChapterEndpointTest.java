@@ -6,7 +6,7 @@ import me.proxer.library.entity.manga.Chapter;
 import me.proxer.library.entity.manga.Page;
 import me.proxer.library.enums.Language;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -17,10 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class ChapterEndpointTest extends ProxerTest {
+class ChapterEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("chapter.json")));
 
         final Chapter result = api.manga()
@@ -32,7 +32,7 @@ public class ChapterEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("chapter.json")));
 
         api.manga().chapter("4523", 1, Language.GERMAN)

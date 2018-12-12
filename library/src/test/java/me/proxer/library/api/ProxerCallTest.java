@@ -6,27 +6,29 @@ import me.proxer.library.api.ProxerException.ServerErrorType;
 import me.proxer.library.entity.notifications.NewsArticle;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.SocketPolicy;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import retrofit2.Call;
 import retrofit2.Response;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
  * @author Ruben Gees
  */
-public class ProxerCallTest extends ProxerTest {
+class ProxerCallTest extends ProxerTest {
 
     @Test
-    public void testTimeoutError() throws IOException {
+    void testTimeoutError() throws IOException {
         server.enqueue(new MockResponse().setBody(fromResource("news.json"))
                 .setSocketPolicy(SocketPolicy.NO_RESPONSE));
 
@@ -36,7 +38,7 @@ public class ProxerCallTest extends ProxerTest {
     }
 
     @Test
-    public void testIOError() {
+    void testIOError() {
         server.enqueue(new MockResponse().setResponseCode(404));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
@@ -47,7 +49,7 @@ public class ProxerCallTest extends ProxerTest {
     }
 
     @Test
-    public void testIOErrorWithBody() {
+    void testIOErrorWithBody() {
         server.enqueue(new MockResponse().setBody("error!").setResponseCode(404));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
@@ -58,7 +60,7 @@ public class ProxerCallTest extends ProxerTest {
     }
 
     @Test
-    public void testInvalidEncodingError() throws IOException {
+    void testInvalidEncodingError() throws IOException {
         server.enqueue(new MockResponse().setBody(fromResource("news.json").replace(":", "invalid")));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
@@ -67,7 +69,7 @@ public class ProxerCallTest extends ProxerTest {
     }
 
     @Test
-    public void testInvalidDataError() throws IOException {
+    void testInvalidDataError() throws IOException {
         server.enqueue(new MockResponse().setBody(fromResource("news.json").replace("256", "invalid")));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
@@ -76,7 +78,7 @@ public class ProxerCallTest extends ProxerTest {
     }
 
     @Test
-    public void testServerError() throws IOException {
+    void testServerError() throws IOException {
         server.enqueue(new MockResponse().setBody(fromResource("conferences_error.json")));
 
         assertThatExceptionOfType(ProxerException.class)
@@ -91,7 +93,7 @@ public class ProxerCallTest extends ProxerTest {
     }
 
     @Test
-    public void testServerErrorWithMessage() throws IOException {
+    void testServerErrorWithMessage() throws IOException {
         server.enqueue(new MockResponse().setBody(fromResource("ucp_settings_error.json")));
 
         assertThatExceptionOfType(ProxerException.class)
@@ -103,7 +105,7 @@ public class ProxerCallTest extends ProxerTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void testUnknownError() throws Exception {
+    void testUnknownError() throws Exception {
         final Call<ProxerResponse<?>> internalCall = mock(Call.class);
         final ProxerCall<?> call = new ProxerCall(internalCall);
 
@@ -118,7 +120,7 @@ public class ProxerCallTest extends ProxerTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void testSafeExecute() throws IOException, ProxerException {
+    void testSafeExecute() throws IOException, ProxerException {
         final Call<ProxerResponse<List<NewsArticle>>> internalCall = mock(Call.class);
         final ProxerCall<List<NewsArticle>> call = new ProxerCall<>(internalCall);
         final Response<ProxerResponse<List<NewsArticle>>> internalResponse = mock(Response.class);
@@ -135,7 +137,7 @@ public class ProxerCallTest extends ProxerTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void testSafeExecuteNull() throws IOException {
+    void testSafeExecuteNull() throws IOException {
         final Call<ProxerResponse<List<NewsArticle>>> internalCall = mock(Call.class);
         final ProxerCall<List<NewsArticle>> call = new ProxerCall<>(internalCall);
         final Response<ProxerResponse<List<NewsArticle>>> internalResponse = mock(Response.class);
@@ -154,8 +156,8 @@ public class ProxerCallTest extends ProxerTest {
                 .withCauseExactlyInstanceOf(NullPointerException.class);
     }
 
-    @Test(timeout = 1000L)
-    public void testEnqueue() throws IOException, InterruptedException {
+    @Test
+    void testEnqueue() throws IOException {
         final CountDownLatch lock = new CountDownLatch(1);
 
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
@@ -165,11 +167,12 @@ public class ProxerCallTest extends ProxerTest {
                     // Failed. The lock will never be counted down and timeout.
                 });
 
-        lock.await();
+
+        assertTimeout(Duration.ofSeconds(1000), () -> lock.await());
     }
 
     @Test
-    public void testEnqueueError() throws IOException, InterruptedException {
+    void testEnqueueError() throws IOException, InterruptedException {
         final CountDownLatch lock = new CountDownLatch(1);
 
         server.enqueue(new MockResponse().setBody(fromResource("news.json")).setResponseCode(404));
@@ -189,7 +192,7 @@ public class ProxerCallTest extends ProxerTest {
     }
 
     @Test
-    public void testIsExecuted() throws IOException, ProxerException {
+    void testIsExecuted() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
 
         final ProxerCall<List<NewsArticle>> call = api.notifications().news().build();
@@ -199,8 +202,8 @@ public class ProxerCallTest extends ProxerTest {
         assertThat(call.isExecuted()).isTrue();
     }
 
-    @Test(timeout = 1000L)
-    public void testCancel() throws IOException, InterruptedException {
+    @Test
+    void testCancel() throws IOException {
         final CountDownLatch lock = new CountDownLatch(1);
 
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
@@ -216,11 +219,11 @@ public class ProxerCallTest extends ProxerTest {
         });
 
         call.cancel();
-        lock.await();
+        assertTimeout(Duration.ofSeconds(1000), () -> lock.await());
     }
 
-    @Test(timeout = 1000L)
-    public void testIsCanceled() throws IOException, InterruptedException {
+    @Test
+    void testIsCanceled() throws IOException {
         final CountDownLatch lock = new CountDownLatch(1);
 
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
@@ -232,13 +235,13 @@ public class ProxerCallTest extends ProxerTest {
         }, exception -> lock.countDown());
 
         call.cancel();
-        lock.await();
+        assertTimeout(Duration.ofSeconds(1000), () -> lock.await());
 
         assertThat(call.isCanceled()).isTrue();
     }
 
     @Test
-    public void testClone() throws ProxerException, IOException {
+    void testClone() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
 
         final ProxerCall<List<NewsArticle>> call = api.notifications().news().build();
@@ -251,13 +254,13 @@ public class ProxerCallTest extends ProxerTest {
     }
 
     @Test
-    public void testRequest() {
+    void testRequest() {
         assertThat(api.notifications().news().build().request()).isNotNull();
     }
 
     @SuppressWarnings("unchecked")
     @Test
-    public void testRequestThrowingErrorWithoutMessage() throws IOException {
+    void testRequestThrowingErrorWithoutMessage() throws IOException {
         final Call<ProxerResponse<NewsArticle>> mockedCall = mock(Call.class);
         final ProxerCall<NewsArticle> call = new ProxerCall<>(mockedCall);
 

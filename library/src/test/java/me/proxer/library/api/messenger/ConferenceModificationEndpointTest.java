@@ -3,7 +3,7 @@ package me.proxer.library.api.messenger;
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class ConferenceModificationEndpointTest extends ProxerTest {
+class ConferenceModificationEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("conference_modification.json")));
 
         final Void result = api.messenger()
@@ -27,7 +27,7 @@ public class ConferenceModificationEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPathRead() throws ProxerException, IOException, InterruptedException {
+    void testPathRead() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("conference_modification.json")));
 
         api.messenger().markConferenceAsRead("123")
@@ -38,7 +38,7 @@ public class ConferenceModificationEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPathUnread() throws ProxerException, IOException, InterruptedException {
+    void testPathUnread() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("conference_modification.json")));
 
         api.messenger().unmarkConferenceAsRead("123")
@@ -49,7 +49,7 @@ public class ConferenceModificationEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPathBlock() throws ProxerException, IOException, InterruptedException {
+    void testPathBlock() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("conference_modification.json")));
 
         api.messenger().markConferenceAsBlocked("123")
@@ -60,7 +60,7 @@ public class ConferenceModificationEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPathUnblock() throws ProxerException, IOException, InterruptedException {
+    void testPathUnblock() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("conference_modification.json")));
 
         api.messenger().unmarkConferenceAsBlocked("123")
@@ -71,7 +71,7 @@ public class ConferenceModificationEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPathFavour() throws ProxerException, IOException, InterruptedException {
+    void testPathFavour() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("conference_modification.json")));
 
         api.messenger().markConferenceAsFavorite("123")
@@ -82,7 +82,7 @@ public class ConferenceModificationEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPathUnfavour() throws ProxerException, IOException, InterruptedException {
+    void testPathUnfavour() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("conference_modification.json")));
 
         api.messenger().unmarkConferenceAsFavorite("123")
@@ -93,7 +93,7 @@ public class ConferenceModificationEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testParameters() throws IOException, ProxerException, InterruptedException {
+    void testParameters() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("conference_modification.json")));
 
         api.messenger().markConferenceAsRead("321")

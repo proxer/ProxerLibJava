@@ -5,7 +5,7 @@ import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.ucp.UcpSettings;
 import me.proxer.library.enums.UcpSettingConstraint;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -14,10 +14,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class SettingsEndpointTest extends ProxerTest {
+class SettingsEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("ucp_settings.json")));
 
         final UcpSettings result = api.ucp()
@@ -29,7 +29,7 @@ public class SettingsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("ucp_settings.json")));
 
         api.ucp().settings()

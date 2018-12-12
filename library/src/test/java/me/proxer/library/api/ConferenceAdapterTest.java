@@ -2,8 +2,8 @@ package me.proxer.library.api;
 
 import me.proxer.library.api.ConferenceAdapter.IntermediateConference;
 import me.proxer.library.entity.messenger.Conference;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 
@@ -12,23 +12,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class ConferenceAdapterTest {
+class ConferenceAdapterTest {
 
     private ConferenceAdapter adapter;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         adapter = new ConferenceAdapter();
     }
 
     @Test
-    public void testFromJson() {
+    void testFromJson() {
         assertThat(adapter.fromJson(constructIntermediateConference(true)))
                 .isEqualTo(constructConference(true));
     }
 
     @Test
-    public void testFromJsonWithNoImage() {
+    void testFromJsonWithNoImage() {
         assertThat(adapter.fromJson(constructIntermediateConference(false)))
                 .isEqualTo(constructConference(false));
     }

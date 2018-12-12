@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.notifications.NewsArticle;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Date;
@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class NewsEndpointTest extends ProxerTest {
+class NewsEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
 
         final List<NewsArticle> result = api.notifications()
@@ -30,7 +30,7 @@ public class NewsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
 
         api.notifications().news()

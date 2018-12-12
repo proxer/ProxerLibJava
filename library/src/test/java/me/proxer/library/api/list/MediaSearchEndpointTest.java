@@ -15,7 +15,7 @@ import me.proxer.library.enums.Medium;
 import me.proxer.library.enums.TagRateFilter;
 import me.proxer.library.enums.TagSpoilerFilter;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -28,10 +28,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Desnoo
  */
-public class MediaSearchEndpointTest extends ProxerTest {
+class MediaSearchEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
 
         final List<MediaListEntry> result = api.list()
@@ -43,7 +43,7 @@ public class MediaSearchEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
 
         api.list().mediaSearch()
@@ -71,7 +71,7 @@ public class MediaSearchEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testTagsNull() throws Exception {
+    void testTagsNull() throws Exception {
         server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
 
         api.list().mediaSearch()
@@ -84,7 +84,7 @@ public class MediaSearchEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testExcludedTagsNull() throws Exception {
+    void testExcludedTagsNull() throws Exception {
         server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
 
         api.list().mediaSearch()
@@ -97,7 +97,7 @@ public class MediaSearchEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testGenreTagsNull() throws Exception {
+    void testGenreTagsNull() throws Exception {
         server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
 
         api.list().mediaSearch()
@@ -110,7 +110,7 @@ public class MediaSearchEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testExcludedGenreTagsNull() throws Exception {
+    void testExcludedGenreTagsNull() throws Exception {
         server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
 
         api.list().mediaSearch()

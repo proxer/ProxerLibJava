@@ -1,36 +1,36 @@
 package me.proxer.library.api;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 /**
  * @author Ruben Gees
  */
-public class DefaultLoginTokenManagerTest {
+class DefaultLoginTokenManagerTest {
 
     private DefaultLoginTokenManager loginTokenManager;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         loginTokenManager = new DefaultLoginTokenManager();
     }
 
     @Test
-    public void testProvideBeforePersist() {
+    void testProvideBeforePersist() {
         assertThat(loginTokenManager.provide()).isNull();
     }
 
     @Test
-    public void testProvideAfterPersist() {
+    void testProvideAfterPersist() {
         loginTokenManager.persist("test");
 
         assertThat(loginTokenManager.provide()).isEqualTo("test");
     }
 
     @Test
-    public void testPersistNull() {
+    void testPersistNull() {
         loginTokenManager.persist("test");
         loginTokenManager.persist(null);
 

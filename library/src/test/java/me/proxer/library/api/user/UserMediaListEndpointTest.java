@@ -10,7 +10,7 @@ import me.proxer.library.enums.UserMediaListFilterType;
 import me.proxer.library.enums.UserMediaListSortCriteria;
 import me.proxer.library.enums.UserMediaProgress;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,10 +21,10 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 /**
  * @author Ruben Gees
  */
-public class UserMediaListEndpointTest extends ProxerTest {
+class UserMediaListEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("user_media_list.json")));
 
         final List<UserMediaListEntry> result = api.user()
@@ -36,7 +36,7 @@ public class UserMediaListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("user_media_list.json")));
 
         api.user().mediaList("1", "rubygee")
@@ -57,7 +57,7 @@ public class UserMediaListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testUserIdAndUsernameNull() {
+    void testUserIdAndUsernameNull() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> api.user().mediaList(null, null));
     }

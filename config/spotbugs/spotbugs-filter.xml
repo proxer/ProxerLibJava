@@ -34,12 +34,4 @@
         <Method name="equals" params="java.lang.Object"/>
         <Bug pattern="NP_METHOD_PARAMETER_TIGHTENS_ANNOTATION"/>
     </Match>
-
-    <!-- Suppress false positive(?) -->
-    <Match>
-        <Class name="me.proxer.library.api.LoggingInterceptorTest"/>
-        <Method name="setUp"/>
-        <Bug pattern="LG_LOST_LOGGER_DUE_TO_WEAK_REFERENCE"/>
-    </Match>
-
 </FindBugsFilter>

@@ -5,7 +5,7 @@ import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.anime.Stream;
 import me.proxer.library.enums.AnimeLanguage;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Date;
@@ -16,10 +16,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class StreamsEndpointTest extends ProxerTest {
+class StreamsEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("streams.json")));
 
         final List<Stream> result = api.anime()
@@ -31,7 +31,7 @@ public class StreamsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testOfficial() throws IOException, ProxerException {
+    void testOfficial() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("streams.json")));
 
         final List<Stream> result = api.anime()
@@ -43,7 +43,7 @@ public class StreamsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("streams.json")));
 
         api.anime().streams("33", 3, AnimeLanguage.GERMAN_DUB)
@@ -55,7 +55,7 @@ public class StreamsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testProxerStreamPath() throws ProxerException, IOException, InterruptedException {
+    void testProxerStreamPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("streams.json")));
 
         api.anime().streams("35", 1, AnimeLanguage.ENGLISH_DUB)
@@ -68,7 +68,7 @@ public class StreamsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testProxerStreamFalse() throws ProxerException, IOException, InterruptedException {
+    void testProxerStreamFalse() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("streams.json")));
 
         api.anime().streams("43", 3, AnimeLanguage.GERMAN_SUB)

@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.notifications.NotificationInfo;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -13,10 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class NotificationInfoEndpointTest extends ProxerTest {
+class NotificationInfoEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("notification_info.json")));
 
         final NotificationInfo result = api.notifications()
@@ -28,7 +28,7 @@ public class NotificationInfoEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("notification_info.json")));
 
         api.notifications()

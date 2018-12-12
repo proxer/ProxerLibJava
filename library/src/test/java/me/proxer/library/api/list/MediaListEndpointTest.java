@@ -11,7 +11,7 @@ import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
 import me.proxer.library.enums.SortType;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.EnumSet;
@@ -22,10 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Desnoo
  */
-public class MediaListEndpointTest extends ProxerTest {
+class MediaListEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
 
         final List<MediaListEntry> result = api.list()
@@ -37,7 +37,7 @@ public class MediaListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
 
         api.list().mediaList()

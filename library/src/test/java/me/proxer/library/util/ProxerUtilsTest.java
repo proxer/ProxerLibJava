@@ -5,7 +5,7 @@ import me.proxer.library.enums.AnimeLanguage;
 import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.LengthBound;
 import me.proxer.library.enums.MediaLanguage;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,78 +16,78 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class ProxerUtilsTest {
+class ProxerUtilsTest {
 
     @Test
-    public void testGetEnumName() {
+    void testGetEnumName() {
         assertThat(ProxerUtils.getApiEnumName(Genre.COMEDY)).isEqualTo("Comedy");
     }
 
     @Test
-    public void testGetSafeEnumName() {
+    void testGetSafeEnumName() {
         assertThat(ProxerUtils.getApiEnumName(LengthBound.HIGHER)).isEqualTo("up");
     }
 
     @Test
-    public void testToApiEnum() {
+    void testToApiEnum() {
         assertThat(ProxerUtils.toApiEnum(MediaLanguage.class, "gersub")).isEqualTo(MediaLanguage.GERMAN_SUB);
     }
 
     @Test
-    public void testToSafeApiEnum() {
+    void testToSafeApiEnum() {
         assertThat(ProxerUtils.toSafeApiEnum(AnimeLanguage.class, "gersub")).isEqualTo(AnimeLanguage.GERMAN_SUB);
     }
 
     @Test
-    public void testToApiEnumIgnoresCase() {
+    void testToApiEnumIgnoresCase() {
         assertThat(ProxerUtils.toApiEnum(Genre.class, "ACTION")).isEqualTo(Genre.ACTION);
     }
 
     @Test
-    public void testToApiEnumInvalidString() {
+    void testToApiEnumInvalidString() {
         assertThat(ProxerUtils.toApiEnum(MediaLanguage.class, "invalid")).isNull();
     }
 
     @Test
-    public void testJoin() {
+    void testJoin() {
         assertThat(ProxerUtils.join(";", Arrays.asList("a", "b", "c"))).isEqualTo("a;b;c");
     }
 
     @Test
-    public void testJoinEmpty() {
+    void testJoinEmpty() {
         assertThat(ProxerUtils.join(";", Collections.emptyList())).isEmpty();
     }
 
     @Test
-    public void testJoinEnums() {
+    void testJoinEnums() {
         assertThat(ProxerUtils.joinEnums(";", EnumSet.of(Genre.ACTION, Genre.ADVENTURE, Genre.SLICE_OF_LIFE)))
                 .isEqualTo("Action;Adventure;Slice of Life");
     }
 
     @Test
-    public void testJoinEnumsEmpty() {
+    void testJoinEnumsEmpty() {
         assertThat(ProxerUtils.joinEnums(";", EnumSet.noneOf(Genre.class))).isEmpty();
     }
 
     @Test
-    public void testIsBlank() {
+    void testIsBlank() {
         assertThat(ProxerUtils.isBlank("   ")).isTrue();
     }
 
     @Test
-    public void testIsBlankEmpty() {
+    void testIsBlankEmpty() {
         assertThat(ProxerUtils.isBlank("")).isTrue();
     }
 
     @Test
-    public void testIsBlankFalse() {
+    void testIsBlankFalse() {
         assertThat(ProxerUtils.isBlank(" a ")).isFalse();
         assertThat(ProxerUtils.isBlank(" a")).isFalse();
         assertThat(ProxerUtils.isBlank("a ")).isFalse();
     }
 
     @Test
-    public void testIsUtilityClass() {
+    void testIsUtilityClass() {
         PrivateConstructorChecker
                 .forClass(ProxerUtils.class)
                 .expectedTypeOfException(UnsupportedOperationException.class)

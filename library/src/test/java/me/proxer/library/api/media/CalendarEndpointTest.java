@@ -6,7 +6,7 @@ import me.proxer.library.entity.media.CalendarEntry;
 import me.proxer.library.enums.CalendarDay;
 import me.proxer.library.enums.Genre;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Date;
@@ -18,10 +18,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class CalendarEndpointTest extends ProxerTest {
+class CalendarEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("calendar.json")));
 
         final List<CalendarEntry> result = api.media()
@@ -34,7 +34,7 @@ public class CalendarEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("calendar.json")));
 
         api.media().calendar()

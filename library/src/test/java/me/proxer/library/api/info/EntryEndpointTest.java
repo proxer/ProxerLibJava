@@ -21,7 +21,7 @@ import me.proxer.library.enums.Medium;
 import me.proxer.library.enums.Season;
 import me.proxer.library.enums.SynonymType;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -36,10 +36,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class EntryEndpointTest extends ProxerTest {
+class EntryEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException, ParseException {
+    void testDefault() throws IOException, ProxerException, ParseException {
         server.enqueue(new MockResponse().setBody(fromResource("entry.json")));
 
         final Entry result = api.info()
@@ -51,7 +51,7 @@ public class EntryEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("entry.json")));
 
         api.info().entry("1")

@@ -1,7 +1,7 @@
 package me.proxer.library.api;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,45 +14,45 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 /**
  * @author Ruben Gees
  */
-public class DateAdapterTest {
+class DateAdapterTest {
 
     private DateAdapter adapter;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         adapter = new DateAdapter();
     }
 
     @Test
-    public void testFromJsonTimestamp() throws ParseException {
+    void testFromJsonTimestamp() throws ParseException {
         assertThat(adapter.fromJson("12345")).isEqualTo(new Date(12345 * 1000));
     }
 
     @Test
-    public void testFromJsonIso() throws ParseException {
+    void testFromJsonIso() throws ParseException {
         assertThat(adapter.fromJson("2010-01-01 23:12:10"))
                 .isEqualTo(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2010-01-01 23:12:10"));
     }
 
     @Test
-    public void testFromJsonIsoNoTime() throws ParseException {
+    void testFromJsonIsoNoTime() throws ParseException {
         assertThat(adapter.fromJson("2010-01-01"))
                 .isEqualTo(new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).parse("2010-01-01"));
     }
 
     @Test
-    public void testFromJsonIsoNoTimeEmpty() throws ParseException {
+    void testFromJsonIsoNoTimeEmpty() throws ParseException {
         assertThat(adapter.fromJson("0000-00-00"))
                 .isEqualTo(new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).parse("0000-00-00"));
     }
 
     @Test
-    public void testFromJsonMalformed() {
+    void testFromJsonMalformed() {
         assertThatExceptionOfType(ParseException.class).isThrownBy(() -> adapter.fromJson("malformed"));
     }
 
     @Test
-    public void testToJson() {
+    void testToJson() {
         assertThat(adapter.toJson(new Date(123))).isEqualTo(123);
     }
 }

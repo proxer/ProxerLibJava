@@ -8,8 +8,8 @@ import lombok.Value;
 import me.proxer.library.entity.info.Entry;
 import me.proxer.library.enums.FskConstraint;
 import me.proxer.library.enums.Genre;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
@@ -24,13 +24,13 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 /**
  * @author Ruben Gees
  */
-public class DelimitedEnumSetAdapterFactoryTest {
+class DelimitedEnumSetAdapterFactoryTest {
 
     private DelimitedEnumSetAdapterFactory factory;
     private Moshi moshi;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         factory = new DelimitedEnumSetAdapterFactory();
         moshi = new Moshi.Builder()
                 .add(factory)
@@ -38,7 +38,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
     }
 
     @Test
-    public void testCreateGenre() {
+    void testCreateGenre() {
         final ParameterizedType type = Types.newParameterizedType(Set.class, Genre.class);
         final JsonAdapter<?> adapter = factory.create(type, Collections.emptySet(), moshi);
 
@@ -46,7 +46,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
     }
 
     @Test
-    public void testCreateFskConstraint() {
+    void testCreateFskConstraint() {
         final ParameterizedType type = Types.newParameterizedType(Set.class, FskConstraint.class);
         final JsonAdapter<?> adapter = factory.create(type, Collections.emptySet(), moshi);
 
@@ -54,7 +54,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
     }
 
     @Test
-    public void testCreateInvalidType() {
+    void testCreateInvalidType() {
         final ParameterizedType type = Types.newParameterizedType(List.class, Genre.class);
         final JsonAdapter<?> adapter = factory.create(type, Collections.emptySet(), moshi);
 
@@ -62,7 +62,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
     }
 
     @Test
-    public void testCreateInvalidParameterType() {
+    void testCreateInvalidParameterType() {
         final ParameterizedType type = Types.newParameterizedType(Set.class, Entry.class);
         final JsonAdapter<?> adapter = factory.create(type, Collections.emptySet(), moshi);
 
@@ -70,14 +70,14 @@ public class DelimitedEnumSetAdapterFactoryTest {
     }
 
     @Test
-    public void testCreateNoParameterType() {
+    void testCreateNoParameterType() {
         final JsonAdapter<?> adapter = factory.create(Set.class, Collections.emptySet(), moshi);
 
         assertThat(adapter).isNull();
     }
 
     @Test
-    public void testFromJsonSingle() throws IOException {
+    void testFromJsonSingle() throws IOException {
         final GenresTestClass result = moshi.adapter(GenresTestClass.class)
                 .fromJson("{\"genres\":\"Adventure\"}");
 
@@ -86,7 +86,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
     }
 
     @Test
-    public void testFromJsonMultiple() throws IOException {
+    void testFromJsonMultiple() throws IOException {
         final GenresTestClass result = moshi.adapter(GenresTestClass.class)
                 .fromJson("{\"genres\":\"Adventure Action\"}");
 
@@ -95,7 +95,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
     }
 
     @Test
-    public void testFromJsonInvalidDelimiter() throws IOException {
+    void testFromJsonInvalidDelimiter() throws IOException {
         final GenresTestClass result = moshi.adapter(GenresTestClass.class)
                 .fromJson("{\"genres\":\"Action;Adventure\"}");
 
@@ -104,7 +104,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
     }
 
     @Test
-    public void testFromJsonEmpty() throws IOException {
+    void testFromJsonEmpty() throws IOException {
         final FskConstrainsTestClass result = moshi.adapter(FskConstrainsTestClass.class)
                 .fromJson("{\"fskConstraints\":\"\"}");
 
@@ -113,7 +113,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
     }
 
     @Test
-    public void testFromJsonNull() throws IOException {
+    void testFromJsonNull() throws IOException {
         final GenresTestClass result = moshi.adapter(GenresTestClass.class)
                 .fromJson("{\"genres\":null}");
 
@@ -122,7 +122,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
     }
 
     @Test
-    public void testFromJsonFallback() throws IOException {
+    void testFromJsonFallback() throws IOException {
         final GenresTestClass result = moshi.adapter(GenresTestClass.class)
                 .fromJson("{\"genres\":\"Action xyz zyx\"}");
 
@@ -132,7 +132,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
 
     @SuppressWarnings({"CheckReturnValue", "ResultOfMethodCallIgnored"})
     @Test
-    public void testFromJsonNoFallback() {
+    void testFromJsonNoFallback() {
         final JsonAdapter<FskConstrainsTestClass> adapter = moshi.adapter(FskConstrainsTestClass.class);
 
         assertThatExceptionOfType(JsonDataException.class)
@@ -142,7 +142,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
     }
 
     @Test
-    public void testToJsonSingle() {
+    void testToJsonSingle() {
         final GenresTestClass testSubject = new GenresTestClass(EnumSet.of(Genre.ACTION));
         final String result = moshi.adapter(GenresTestClass.class).toJson(testSubject);
 
@@ -150,7 +150,7 @@ public class DelimitedEnumSetAdapterFactoryTest {
     }
 
     @Test
-    public void testToJsonMultiple() {
+    void testToJsonMultiple() {
         final GenresTestClass testSubject = new GenresTestClass(EnumSet.of(Genre.ADVENTURE, Genre.ACTION));
         final String result = moshi.adapter(GenresTestClass.class).toJson(testSubject);
 

@@ -1,8 +1,8 @@
 package me.proxer.library.api;
 
 import com.squareup.moshi.JsonDataException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -10,27 +10,27 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 /**
  * @author Ruben Gees
  */
-public class VoidAdapterTest {
+class VoidAdapterTest {
 
     private VoidAdapter adapter;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         adapter = new VoidAdapter();
     }
 
     @Test
-    public void testFromJsonNull() {
+    void testFromJsonNull() {
         assertThat(adapter.fromJson("null")).isNull();
     }
 
     @Test
-    public void testFromJsonInvalid() {
+    void testFromJsonInvalid() {
         assertThatExceptionOfType(JsonDataException.class).isThrownBy(() -> adapter.fromJson("value"));
     }
 
     @Test
-    public void testToJson() {
+    void testToJson() {
         assertThat(adapter.toJson(null)).isEqualTo("null");
     }
 }

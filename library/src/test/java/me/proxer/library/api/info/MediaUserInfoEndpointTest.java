@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.info.MediaUserInfo;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -13,10 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class MediaUserInfoEndpointTest extends ProxerTest {
+class MediaUserInfoEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("media_user_info.json")));
 
         final MediaUserInfo result = api.info()
@@ -28,7 +28,7 @@ public class MediaUserInfoEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("media_user_info.json")));
 
         api.info().userInfo("321")

@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException.ErrorType;
 import okhttp3.Request;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -14,10 +14,10 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 /**
  * @author Ruben Gees
  */
-public class LoginTokenInterceptorTest extends ProxerTest {
+class LoginTokenInterceptorTest extends ProxerTest {
 
     @Test
-    public void testTokenSetAfterLogin() throws IOException, ProxerException, InterruptedException {
+    void testTokenSetAfterLogin() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
 
@@ -33,7 +33,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testTokenRemovedAfterLogout() throws IOException, ProxerException, InterruptedException {
+    void testTokenRemovedAfterLogout() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
         server.enqueue(new MockResponse().setBody(fromResource("logout.json")));
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
@@ -49,7 +49,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testTokenNotSetOnError() throws IOException, ProxerException, InterruptedException {
+    void testTokenNotSetOnError() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("login_error.json")));
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
 
@@ -66,7 +66,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testTokenNotRemovedOnError() throws IOException, ProxerException, InterruptedException {
+    void testTokenNotRemovedOnError() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
         server.enqueue(new MockResponse().setBody(fromResource("logout_error.json")));
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
@@ -90,7 +90,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testTokenRemovedOnLoginError() throws IOException, ProxerException, InterruptedException {
+    void testTokenRemovedOnLoginError() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
         server.enqueue(new MockResponse().setBody(fromResource("conferences_error.json")));
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
@@ -111,7 +111,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testMalformedResponse() throws IOException {
+    void testMalformedResponse() throws IOException {
         server.enqueue(new MockResponse().setBody(fromResource("login_malformed.json")));
 
         assertThatExceptionOfType(ProxerException.class)
@@ -120,7 +120,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testNoBodyResponse() throws IOException, InterruptedException {
+    void testNoBodyResponse() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
 
         api.client().newCall(new Request.Builder().url("https://proxer.me/fake").build()).execute();
@@ -129,7 +129,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testTokenNotSetForInvalidHost() throws IOException, InterruptedException, ProxerException {
+    void testTokenNotSetForInvalidHost() throws IOException, InterruptedException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
 
         api.user().login("test", "secret").build().execute();
@@ -144,7 +144,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testTokenNotSetForCdnHost() throws IOException, InterruptedException, ProxerException {
+    void testTokenNotSetForCdnHost() throws IOException, InterruptedException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
         server.enqueue(new MockResponse());
 
@@ -157,7 +157,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testTokenNotSetForStreamHost() throws IOException, InterruptedException, ProxerException {
+    void testTokenNotSetForStreamHost() throws IOException, InterruptedException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
 
         api.user().login("test", "secret").build().execute();
@@ -170,7 +170,7 @@ public class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testTokenNotSetForMangaHost() throws IOException, InterruptedException, ProxerException {
+    void testTokenNotSetForMangaHost() throws IOException, InterruptedException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
         server.enqueue(new MockResponse());
 

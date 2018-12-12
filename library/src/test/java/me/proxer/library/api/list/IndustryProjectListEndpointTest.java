@@ -9,7 +9,7 @@ import me.proxer.library.enums.IndustryType;
 import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.EnumSet;
@@ -20,10 +20,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class IndustryProjectListEndpointTest extends ProxerTest {
+class IndustryProjectListEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("industry_project_list.json")));
 
         final List<IndustryProject> result = api.list()
@@ -35,7 +35,7 @@ public class IndustryProjectListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("industry_project_list.json")));
 
         api.list().industryProjectList("543")
@@ -51,7 +51,7 @@ public class IndustryProjectListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPathNoHentai() throws ProxerException, IOException, InterruptedException {
+    void testPathNoHentai() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("industry_project_list.json")));
 
         api.list().industryProjectList("543")
@@ -67,7 +67,7 @@ public class IndustryProjectListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testHentaiNull() throws Exception {
+    void testHentaiNull() throws Exception {
         server.enqueue(new MockResponse().setBody(fromResource("industry_project_list.json")));
 
         api.list().industryProjectList("543")

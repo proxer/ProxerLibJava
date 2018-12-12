@@ -3,7 +3,7 @@ package me.proxer.library.api.ucp;
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class DeleteBookmarkEndpointTest extends ProxerTest {
+class DeleteBookmarkEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         final Void result = api.ucp()
@@ -27,7 +27,7 @@ public class DeleteBookmarkEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.ucp().deleteBookmark("321")
@@ -38,7 +38,7 @@ public class DeleteBookmarkEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testParameter() throws IOException, ProxerException, InterruptedException {
+    void testParameter() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.ucp().deleteBookmark("321")

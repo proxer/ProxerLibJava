@@ -3,16 +3,16 @@ package me.proxer.library.api;
 import me.proxer.library.ProxerTest;
 import okhttp3.Request;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HttpsEnforcingInterceptorTest extends ProxerTest {
+class HttpsEnforcingInterceptorTest extends ProxerTest {
 
     @Test
-    public void testHttpsUpgradeWeb() throws IOException, InterruptedException {
+    void testHttpsUpgradeWeb() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
 
         client.newCall(new Request.Builder().url("http://proxer.me").build()).execute();
@@ -21,7 +21,7 @@ public class HttpsEnforcingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testHttpsUpgradeCdn() throws IOException, InterruptedException {
+    void testHttpsUpgradeCdn() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
 
         client.newCall(new Request.Builder().url("http://cdn.proxer.me").build()).execute();
@@ -30,7 +30,7 @@ public class HttpsEnforcingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testHttpsUpgradeProxy() throws IOException, InterruptedException {
+    void testHttpsUpgradeProxy() throws IOException, InterruptedException {
         startHttpOnlyServer();
 
         server.enqueue(new MockResponse());
@@ -41,7 +41,7 @@ public class HttpsEnforcingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testHttpsUpgradeManga() throws IOException, InterruptedException {
+    void testHttpsUpgradeManga() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
 
         client.newCall(new Request.Builder().url("http://manga1.proxer.me").build()).execute();
@@ -50,7 +50,7 @@ public class HttpsEnforcingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testHttpsUpgradeStreamHtml() throws IOException, InterruptedException {
+    void testHttpsUpgradeStreamHtml() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
 
         client.newCall(new Request.Builder().url("http://stream.proxer.me").build()).execute();
@@ -59,7 +59,7 @@ public class HttpsEnforcingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testHttpsUpgradeStreamAlternative() throws IOException, InterruptedException {
+    void testHttpsUpgradeStreamAlternative() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
 
         client.newCall(new Request.Builder().url("http://s1-ps.proxer.me").build()).execute();
@@ -68,7 +68,7 @@ public class HttpsEnforcingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testHttpsUpgradeStreamSimilarUntouched() throws IOException, InterruptedException {
+    void testHttpsUpgradeStreamSimilarUntouched() throws IOException, InterruptedException {
         startHttpOnlyServer();
 
         server.enqueue(new MockResponse());
@@ -79,7 +79,7 @@ public class HttpsEnforcingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testHttpsUntouched() throws IOException, InterruptedException {
+    void testHttpsUntouched() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
 
         client.newCall(new Request.Builder().url("https://proxer.me").build()).execute();
@@ -88,7 +88,7 @@ public class HttpsEnforcingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testOtherHostUntouched() throws IOException, InterruptedException {
+    void testOtherHostUntouched() throws IOException, InterruptedException {
         startHttpOnlyServer();
 
         server.enqueue(new MockResponse());

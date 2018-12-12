@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.user.UserInfo;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Date;
@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 /**
  * @author Ruben Gees
  */
-public class UserInfoEndpointTest extends ProxerTest {
+class UserInfoEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("user_info.json")));
 
         final UserInfo result = api.user()
@@ -30,7 +30,7 @@ public class UserInfoEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("user_info.json")));
 
         api.user().info("123", "rubygee")
@@ -41,7 +41,7 @@ public class UserInfoEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testUserIdAndUsernameNull() {
+    void testUserIdAndUsernameNull() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> api.user().info(null, null));
     }

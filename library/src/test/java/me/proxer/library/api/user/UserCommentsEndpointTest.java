@@ -8,7 +8,7 @@ import me.proxer.library.enums.Category;
 import me.proxer.library.enums.Medium;
 import me.proxer.library.enums.UserMediaProgress;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import retrofit2.Retrofit;
 
 import java.io.IOException;
@@ -21,10 +21,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * @author Ruben Gees
  */
-public class UserCommentsEndpointTest extends ProxerTest {
+class UserCommentsEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("user_comment.json")));
 
         final List<UserComment> result = api.user()
@@ -36,7 +36,7 @@ public class UserCommentsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("user_comment.json")));
 
         api.user().comments("123", "abc")
@@ -52,7 +52,7 @@ public class UserCommentsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testIllegalArguments() {
+    void testIllegalArguments() {
         final InternalApi internalApi = new Retrofit.Builder()
                 .baseUrl("http://example.com")
                 .build()

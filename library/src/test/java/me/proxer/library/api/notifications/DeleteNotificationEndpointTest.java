@@ -3,7 +3,7 @@ package me.proxer.library.api.notifications;
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class DeleteNotificationEndpointTest extends ProxerTest {
+class DeleteNotificationEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         final Void result = api.notifications()
@@ -27,7 +27,7 @@ public class DeleteNotificationEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPathDefault() throws ProxerException, IOException, InterruptedException {
+    void testPathDefault() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.notifications().deleteNotification("123")
@@ -38,7 +38,7 @@ public class DeleteNotificationEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testParameterDefault() throws IOException, ProxerException, InterruptedException {
+    void testParameterDefault() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.notifications().deleteNotification("123")
@@ -49,7 +49,7 @@ public class DeleteNotificationEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPathAll() throws ProxerException, IOException, InterruptedException {
+    void testPathAll() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.notifications().deleteAllNotifications()
@@ -60,7 +60,7 @@ public class DeleteNotificationEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testParameterAll() throws IOException, ProxerException, InterruptedException {
+    void testParameterAll() throws IOException, ProxerException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.notifications().deleteAllNotifications()

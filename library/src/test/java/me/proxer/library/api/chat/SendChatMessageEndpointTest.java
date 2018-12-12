@@ -3,7 +3,7 @@ package me.proxer.library.api.chat;
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class SendChatMessageEndpointTest extends ProxerTest {
+class SendChatMessageEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         final String result = api.chat()
@@ -27,7 +27,7 @@ public class SendChatMessageEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.chat().sendMessage("123", "message")
@@ -39,7 +39,7 @@ public class SendChatMessageEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testParameters() throws ProxerException, IOException, InterruptedException {
+    void testParameters() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("empty.json")));
 
         api.chat().sendMessage("312", "someMessage")

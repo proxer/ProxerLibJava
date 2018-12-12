@@ -10,7 +10,7 @@ import me.proxer.library.enums.UserMediaListFilterType;
 import me.proxer.library.enums.UserMediaListSortCriteria;
 import me.proxer.library.enums.UserMediaProgress;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,10 +20,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class UcpMediaListEndpointTest extends ProxerTest {
+class UcpMediaListEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("user_media_list.json")));
 
         final List<UserMediaListEntry> result = api.ucp()
@@ -35,7 +35,7 @@ public class UcpMediaListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("user_media_list.json")));
 
         api.ucp().mediaList()

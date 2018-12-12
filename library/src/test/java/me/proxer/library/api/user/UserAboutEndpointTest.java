@@ -6,7 +6,7 @@ import me.proxer.library.entity.user.UserAbout;
 import me.proxer.library.enums.Gender;
 import me.proxer.library.enums.RelationshipStatus;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -16,10 +16,10 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 /**
  * @author Ruben Gees
  */
-public class UserAboutEndpointTest extends ProxerTest {
+class UserAboutEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("user_about.json")));
 
         final UserAbout result = api.user()
@@ -31,7 +31,7 @@ public class UserAboutEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("user_about.json")));
 
         api.user().about("123", "rubygee")
@@ -42,7 +42,7 @@ public class UserAboutEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testUserIdAndUsernameNull() {
+    void testUserIdAndUsernameNull() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> api.user().info(null, null));
     }

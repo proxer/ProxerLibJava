@@ -9,7 +9,7 @@ import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
 import me.proxer.library.enums.ProjectState;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.EnumSet;
@@ -20,10 +20,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class TranslatorGroupProjectListEndpointTest extends ProxerTest {
+class TranslatorGroupProjectListEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("translator_group_project_list.json")));
 
         final List<TranslatorGroupProject> result = api.list()
@@ -35,7 +35,7 @@ public class TranslatorGroupProjectListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("translator_group_project_list.json")));
 
         api.list().translatorGroupProjectList("321")
@@ -51,7 +51,7 @@ public class TranslatorGroupProjectListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPathNoHentai() throws ProxerException, IOException, InterruptedException {
+    void testPathNoHentai() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("translator_group_project_list.json")));
 
         api.list().translatorGroupProjectList("321")
@@ -67,7 +67,7 @@ public class TranslatorGroupProjectListEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testHentaiNull() throws Exception {
+    void testHentaiNull() throws Exception {
         server.enqueue(new MockResponse().setBody(fromResource("translator_group_project_list.json")));
 
         api.list().translatorGroupProjectList("654")

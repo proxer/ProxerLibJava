@@ -42,12 +42,14 @@ dependencies {
     testAnnotationProcessor deps.lombok
     testCompileOnly deps.lombok
 
-    testImplementation deps.junit
+    testImplementation deps.junitApi
     testImplementation deps.assertj
     testImplementation deps.mockito
     testImplementation deps.okhttpTls
     testImplementation deps.mockwebserver
     testImplementation deps.privateConstructor
+
+    testRuntime deps.junitEngine
 }
 
 task generatePackageInfo {

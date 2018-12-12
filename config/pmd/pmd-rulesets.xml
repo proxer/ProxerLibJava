@@ -135,7 +135,6 @@
     <rule ref="category/java/errorprone.xml/ImportFromSamePackage"/>
     <rule ref="category/java/codestyle.xml/DontImportJavaLang"/>
     <rule ref="category/java/codestyle.xml/DuplicateImports"/>
-    <rule ref="category/java/codestyle.xml/TooManyStaticImports"/>
     <rule ref="category/java/codestyle.xml/UnnecessaryFullyQualifiedName"/>
 
     <!-- Naming -->

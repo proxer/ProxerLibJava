@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.user.User;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -13,10 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class LoginEndpointTest extends ProxerTest {
+class LoginEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
 
         final User result = api.user().login("test", "supersecret")
@@ -27,7 +27,7 @@ public class LoginEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
 
         api.user().login("test", "supersecret")
@@ -38,7 +38,7 @@ public class LoginEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testParameters() throws ProxerException, IOException, InterruptedException {
+    void testParameters() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
 
         api.user().login("test", "supersecret")

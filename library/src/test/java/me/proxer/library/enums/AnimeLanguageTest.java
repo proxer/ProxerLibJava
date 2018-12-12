@@ -1,23 +1,23 @@
 package me.proxer.library.enums;
 
 import me.proxer.library.ProxerTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AnimeLanguageTest extends ProxerTest {
+class AnimeLanguageTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException {
+    void testDefault() throws IOException {
         final AnimeLanguage animeLanguage = api.moshi().adapter(AnimeLanguage.class).fromJson("\"gersub\"");
 
         assertThat(animeLanguage).isSameAs(AnimeLanguage.GERMAN_SUB);
     }
 
     @Test
-    public void testFallback() throws IOException {
+    void testFallback() throws IOException {
         final AnimeLanguage animeLanguage = api.moshi().adapter(AnimeLanguage.class).fromJson("\"xyz\"");
 
         assertThat(animeLanguage).isSameAs(AnimeLanguage.OTHER);

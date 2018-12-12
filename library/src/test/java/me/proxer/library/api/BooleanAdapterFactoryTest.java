@@ -2,8 +2,8 @@ package me.proxer.library.api;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.lang.annotation.Annotation;
 import java.util.Collections;
@@ -14,15 +14,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class BooleanAdapterFactoryTest {
+class BooleanAdapterFactoryTest {
 
     private BooleanAdapterFactory factory;
     private Moshi moshi;
 
     private Annotation numberBasedBooleanAnnotation;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         factory = new BooleanAdapterFactory();
         moshi = new Moshi.Builder().add(factory).build();
 
@@ -30,7 +30,7 @@ public class BooleanAdapterFactoryTest {
     }
 
     @Test
-    public void testCreatePrimitive() {
+    void testCreatePrimitive() {
         final JsonAdapter<?> defaultBooleanAdapter = new Moshi.Builder().build().adapter(boolean.class);
 
         assertThat(factory.create(boolean.class, Collections.emptySet(), moshi))
@@ -39,7 +39,7 @@ public class BooleanAdapterFactoryTest {
     }
 
     @Test
-    public void testCreateBoxed() {
+    void testCreateBoxed() {
         final JsonAdapter<?> defaultBooleanAdapter = new Moshi.Builder().build().adapter(Boolean.class);
 
         assertThat(factory.create(Boolean.class, Collections.emptySet(), moshi))
@@ -48,7 +48,7 @@ public class BooleanAdapterFactoryTest {
     }
 
     @Test
-    public void testCreatePrimitiveNumberBased() {
+    void testCreatePrimitiveNumberBased() {
         final JsonAdapter<?> defaultBooleanAdapter = new Moshi.Builder().build().adapter(boolean.class);
 
         assertThat(factory.create(boolean.class, Collections.singleton(numberBasedBooleanAnnotation), moshi))
@@ -57,7 +57,7 @@ public class BooleanAdapterFactoryTest {
     }
 
     @Test
-    public void testCreateBoxedNumberBased() {
+    void testCreateBoxedNumberBased() {
         final JsonAdapter<?> defaultBooleanAdapter = new Moshi.Builder().build().adapter(Boolean.class);
 
         assertThat(factory.create(Boolean.class, Collections.singleton(numberBasedBooleanAnnotation), moshi))
@@ -66,7 +66,7 @@ public class BooleanAdapterFactoryTest {
     }
 
     @Test
-    public void testCreateNonBoolean() {
+    void testCreateNonBoolean() {
         assertThat(factory.create(String.class, new HashSet<>(), moshi)).isNull();
     }
 

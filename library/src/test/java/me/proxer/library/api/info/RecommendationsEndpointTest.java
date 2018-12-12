@@ -10,7 +10,7 @@ import me.proxer.library.enums.License;
 import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.EnumSet;
@@ -18,10 +18,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RecommendationsEndpointTest extends ProxerTest {
+class RecommendationsEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("recommendations.json")));
 
         final List<Recommendation> result = api.info()
@@ -33,7 +33,7 @@ public class RecommendationsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testManga() throws IOException, ProxerException {
+    void testManga() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("recommendations.json")));
 
         final List<Recommendation> result = api.info()
@@ -45,7 +45,7 @@ public class RecommendationsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("recommendations.json")));
 
         api.info().recommendations("17175")

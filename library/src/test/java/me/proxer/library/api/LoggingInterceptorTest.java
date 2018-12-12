@@ -6,9 +6,9 @@ import me.proxer.library.api.ProxerApi.Builder.LoggingConstraints;
 import me.proxer.library.api.ProxerApi.Builder.LoggingStrategy;
 import okhttp3.Request;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,15 +26,15 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Ruben Gees
  */
 @SuppressWarnings("CharsetObjectCanBeUsed")
-public class LoggingInterceptorTest extends ProxerTest {
+class LoggingInterceptorTest extends ProxerTest {
 
     private ByteArrayOutputStream loggerStream;
     private Handler loggerHandler;
     private Logger logger;
 
     @Override
-    @Before
-    public void setUp() throws IOException, GeneralSecurityException {
+    @BeforeEach
+    protected void setUp() throws IOException, GeneralSecurityException {
         super.setUp();
 
         loggerStream = new ByteArrayOutputStream();
@@ -45,15 +45,15 @@ public class LoggingInterceptorTest extends ProxerTest {
     }
 
     @Override
-    @After
-    public void tearDown() throws IOException {
+    @AfterEach
+    protected void tearDown() throws IOException {
         logger.removeHandler(loggerHandler);
 
         super.tearDown();
     }
 
     @Test
-    public void testLog() throws IOException, ProxerException {
+    void testLog() throws IOException, ProxerException {
         api = constructApi().loggingStrategy(LoggingStrategy.ALL).build();
 
         server.enqueue(new MockResponse().setBody(fromResource("news.json")));
@@ -73,7 +73,7 @@ public class LoggingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testLogWithBody() throws IOException, ProxerException {
+    void testLogWithBody() throws IOException, ProxerException {
         api = constructApi().loggingStrategy(LoggingStrategy.ALL).build();
 
         server.enqueue(new MockResponse().setBody(fromResource("login.json")));
@@ -94,7 +94,7 @@ public class LoggingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testLogWithEmptyBody() throws IOException, ProxerException {
+    void testLogWithEmptyBody() throws IOException, ProxerException {
         api = constructApi().loggingStrategy(LoggingStrategy.ALL).build();
 
         server.enqueue(new MockResponse().setBody(fromResource("logout.json")));
@@ -114,7 +114,7 @@ public class LoggingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testLogAllOtherHost() throws IOException {
+    void testLogAllOtherHost() throws IOException {
         startHttpOnlyServer();
 
         api = constructApi().loggingStrategy(LoggingStrategy.ALL).build();
@@ -132,7 +132,7 @@ public class LoggingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testLogApiOnly() throws IOException {
+    void testLogApiOnly() throws IOException {
         startHttpOnlyServer();
 
         api = constructApi().loggingStrategy(LoggingStrategy.API).build();
@@ -148,7 +148,7 @@ public class LoggingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testLogNone() throws IOException {
+    void testLogNone() throws IOException {
         startHttpOnlyServer();
 
         api = constructApi().loggingStrategy(LoggingStrategy.NONE).build();
@@ -164,7 +164,7 @@ public class LoggingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testLogRequestOnly() throws IOException {
+    void testLogRequestOnly() throws IOException {
         startHttpOnlyServer();
 
         api = constructApi()
@@ -185,7 +185,7 @@ public class LoggingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    public void testLogWithCustomLogger() throws IOException, InterruptedException {
+    void testLogWithCustomLogger() throws IOException, InterruptedException {
         final CountDownLatch lock = new CountDownLatch(1);
         final String expectedMessage = "Requesting https://"
                 + server.getHostName() + ":" + server.getPort()

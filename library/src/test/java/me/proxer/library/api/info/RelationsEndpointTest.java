@@ -12,7 +12,7 @@ import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
 import me.proxer.library.enums.Season;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -24,10 +24,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class RelationsEndpointTest extends ProxerTest {
+class RelationsEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws IOException, ProxerException {
+    void testDefault() throws IOException, ProxerException {
         server.enqueue(new MockResponse().setBody(fromResource("relations.json")));
 
         final List<Relation> result = api.info()
@@ -39,7 +39,7 @@ public class RelationsEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("relations.json")));
 
         api.info().relations("115")

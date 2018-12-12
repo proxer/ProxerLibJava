@@ -7,7 +7,7 @@ import me.proxer.library.enums.NotificationFilter;
 import me.proxer.library.enums.NotificationType;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Date;
@@ -18,10 +18,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Ruben Gees
  */
-public class NotificationEndpointTest extends ProxerTest {
+class NotificationEndpointTest extends ProxerTest {
 
     @Test
-    public void testDefault() throws ProxerException, IOException {
+    void testDefault() throws ProxerException, IOException {
         server.enqueue(new MockResponse().setBody(fromResource("notification.json")));
 
         final List<Notification> result = api.notifications()
@@ -33,7 +33,7 @@ public class NotificationEndpointTest extends ProxerTest {
     }
 
     @Test
-    public void testPath() throws ProxerException, IOException, InterruptedException {
+    void testPath() throws ProxerException, IOException, InterruptedException {
         server.enqueue(new MockResponse().setBody(fromResource("notification.json")));
 
         api.notifications().notifications()
