@@ -29,8 +29,8 @@ public final class ProxerException extends Exception {
     private final ServerErrorType serverErrorType;
 
     /**
-     * Returns a error message from the server if, and only if, {@link #getErrorType()} returns
-     * {@link ErrorType#SERVER}.
+     * Returns a error message from the server.
+     * This can be null or a message from the server or the error body of the response.
      */
     @Nullable
     @Getter(onMethod = @__({@Override}))

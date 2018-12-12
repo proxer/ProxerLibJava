@@ -36,12 +36,25 @@ public class ProxerCallTest extends ProxerTest {
     }
 
     @Test
-    public void testIOError() throws IOException {
-        server.enqueue(new MockResponse().setBody(fromResource("news.json")).setResponseCode(404));
+    public void testIOError() {
+        server.enqueue(new MockResponse().setResponseCode(404));
 
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
                 .matches(exception -> exception.getErrorType() == ErrorType.IO,
-                        "Exception should have the IO ErrorType");
+                        "Exception should have the IO ErrorType")
+                .matches(exception -> exception.getMessage() == null,
+                        "Exception should have no message");
+    }
+
+    @Test
+    public void testIOErrorWithBody() {
+        server.enqueue(new MockResponse().setBody("error!").setResponseCode(404));
+
+        assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
+                .matches(exception -> exception.getErrorType() == ErrorType.IO,
+                        "Exception should have the IO ErrorType")
+                .matches(exception -> exception.getMessage() != null && exception.getMessage().equals("error!"),
+                        "Exception should have error body as message");
     }
 
     @Test
