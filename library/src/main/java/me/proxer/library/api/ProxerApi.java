@@ -278,6 +278,7 @@ public final class ProxerApi {
                     .add(new FixRatingDetailsAdapter())
                     .add(new UcpSettingConstraintAdapter())
                     .add(new DelimitedEnumSetAdapterFactory())
+                    .add(new DelimitedStringSetAdapterFactory())
                     .add(FallbackEnum.ADAPTER_FACTORY)
                     .build();
         }

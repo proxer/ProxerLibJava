@@ -1,7 +1,7 @@
 package me.proxer.library.api;
 
 import me.proxer.library.entity.info.Entry;
-import me.proxer.library.enums.Genre;
+import me.proxer.library.enums.MediaLanguage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import retrofit2.Converter;
@@ -28,7 +28,7 @@ class EnumRetrofitConverterFactoryTest {
 
     @Test
     void testCreate() {
-        assertThat(factory.stringConverter(Genre.class, new Annotation[0], retrofit)).isNotNull();
+        assertThat(factory.stringConverter(MediaLanguage.class, new Annotation[0], retrofit)).isNotNull();
     }
 
     @Test
@@ -39,7 +39,9 @@ class EnumRetrofitConverterFactoryTest {
     @SuppressWarnings({"unchecked", "ConstantConditions"})
     @Test
     void testConvert() throws IOException {
-        assertThat(((Converter<Enum<?>, String>) factory.stringConverter(Genre.class, new Annotation[0], retrofit))
-                .convert(Genre.ADVENTURE)).isEqualTo("Adventure");
+        final Converter<Enum<?>, String> converter = (Converter<Enum<?>, String>)
+                factory.stringConverter(MediaLanguage.class, new Annotation[0], retrofit);
+
+        assertThat(converter.convert(MediaLanguage.GERMAN)).isEqualTo("de");
     }
 }

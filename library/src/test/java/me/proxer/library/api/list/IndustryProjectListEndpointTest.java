@@ -4,7 +4,6 @@ import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.list.IndustryProject;
 import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.IndustryType;
 import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
@@ -12,7 +11,9 @@ import okhttp3.mockwebserver.MockResponse;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -80,7 +81,7 @@ class IndustryProjectListEndpointTest extends ProxerTest {
     }
 
     private IndustryProject buildTestProject() {
-        return new IndustryProject("10198", "&Dropout", EnumSet.of(Genre.COMEDY, Genre.SCI_FI, Genre.YURI),
+        return new IndustryProject("10198", "&Dropout", new HashSet<>(Arrays.asList("Comedy", "SciFi", "Yuri")),
                 EnumSet.noneOf(FskConstraint.class), Medium.ONESHOT, IndustryType.PUBLISHER, MediaState.FINISHED,
                 109, 23);
     }

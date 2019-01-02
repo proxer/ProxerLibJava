@@ -4,7 +4,6 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
-import me.proxer.library.api.NumberBasedBoolean;
 import me.proxer.library.entity.ProxerDateItem;
 import me.proxer.library.entity.ProxerIdItem;
 
@@ -12,16 +11,16 @@ import javax.annotation.Nullable;
 import java.util.Date;
 
 /**
- * Entity representing a single tag in the context of an {@link Entry}.
+ * Entity representing a single genre in the context of an {@link Entry}.
  *
  * @author Ruben Gees
  */
 @Value
 @EqualsAndHashCode(onParam = @__({@Nullable}))
-public class InfoTag implements ProxerIdItem, ProxerDateItem {
+public class InfoGenre implements ProxerIdItem, ProxerDateItem {
 
     /**
-     * Returns the id of the connection between this tag and the entry.
+     * Returns the id of the connection between this genre and the entry.
      */
     @Getter(onMethod = @__({@Override}))
     @Json(name = "id")
@@ -39,20 +38,6 @@ public class InfoTag implements ProxerIdItem, ProxerDateItem {
     @Getter(onMethod = @__({@Override}))
     @Json(name = "timestamp")
     private Date date;
-
-    /**
-     * Returns true, if this tag has been rated.
-     */
-    @NumberBasedBoolean
-    @Json(name = "rate_flag")
-    private boolean rated;
-
-    /**
-     * Returns true, if this tag is a spoiler.
-     */
-    @NumberBasedBoolean
-    @Json(name = "spoiler_flag")
-    private boolean spoiler;
 
     /**
      * Returns the name.

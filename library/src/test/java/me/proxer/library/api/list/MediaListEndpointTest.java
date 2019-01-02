@@ -4,7 +4,6 @@ import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.list.MediaListEntry;
 import me.proxer.library.enums.Category;
-import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.enums.MediaListSortCriteria;
 import me.proxer.library.enums.MediaState;
@@ -14,7 +13,9 @@ import okhttp3.mockwebserver.MockResponse;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -57,7 +58,7 @@ class MediaListEndpointTest extends ProxerTest {
     }
 
     private MediaListEntry buildTestEntryEntry() {
-        return new MediaListEntry("3637", "+ A Channel", EnumSet.of(Genre.COMEDY, Genre.SCHOOL),
+        return new MediaListEntry("3637", "+ A Channel", new HashSet<>(Arrays.asList("Comedy", "School")),
                 Medium.OVA, 11, MediaState.FINISHED, 774, 115,
                 EnumSet.of(MediaLanguage.ENGLISH_SUB, MediaLanguage.GERMAN_SUB));
     }

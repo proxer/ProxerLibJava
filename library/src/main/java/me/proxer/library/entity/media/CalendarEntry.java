@@ -4,10 +4,10 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
+import me.proxer.library.api.DelimitedStringSet;
 import me.proxer.library.entity.ProxerDateItem;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.enums.CalendarDay;
-import me.proxer.library.enums.Genre;
 
 import javax.annotation.Nullable;
 import java.util.Date;
@@ -95,8 +95,9 @@ public class CalendarEntry implements ProxerIdItem, ProxerDateItem {
     /**
      * Returns the genres.
      */
+    @DelimitedStringSet(valuesToKeep = "Slice of Life")
     @Json(name = "genre")
-    private Set<Genre> genres;
+    private Set<String> genres;
 
     /**
      * Returns the sum of all ratings.

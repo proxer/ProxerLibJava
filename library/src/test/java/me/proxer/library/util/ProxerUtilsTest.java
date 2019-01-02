@@ -2,7 +2,7 @@ package me.proxer.library.util;
 
 import com.pushtorefresh.private_constructor_checker.PrivateConstructorChecker;
 import me.proxer.library.enums.AnimeLanguage;
-import me.proxer.library.enums.Genre;
+import me.proxer.library.enums.Gender;
 import me.proxer.library.enums.LengthBound;
 import me.proxer.library.enums.MediaLanguage;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ class ProxerUtilsTest {
 
     @Test
     void testGetEnumName() {
-        assertThat(ProxerUtils.getApiEnumName(Genre.COMEDY)).isEqualTo("Comedy");
+        assertThat(ProxerUtils.getApiEnumName(MediaLanguage.GERMAN_SUB)).isEqualTo("gersub");
     }
 
     @Test
@@ -40,7 +40,7 @@ class ProxerUtilsTest {
 
     @Test
     void testToApiEnumIgnoresCase() {
-        assertThat(ProxerUtils.toApiEnum(Genre.class, "ACTION")).isEqualTo(Genre.ACTION);
+        assertThat(ProxerUtils.toApiEnum(MediaLanguage.class, "ENGSUB")).isEqualTo(MediaLanguage.ENGLISH_SUB);
     }
 
     @Test
@@ -60,13 +60,13 @@ class ProxerUtilsTest {
 
     @Test
     void testJoinEnums() {
-        assertThat(ProxerUtils.joinEnums(";", EnumSet.of(Genre.ACTION, Genre.ADVENTURE, Genre.SLICE_OF_LIFE)))
-                .isEqualTo("Action;Adventure;Slice of Life");
+        assertThat(ProxerUtils.joinEnums(";", EnumSet.of(Gender.MALE, Gender.FEMALE, Gender.OTHER)))
+                .isEqualTo("m;f;o");
     }
 
     @Test
     void testJoinEnumsEmpty() {
-        assertThat(ProxerUtils.joinEnums(";", EnumSet.noneOf(Genre.class))).isEmpty();
+        assertThat(ProxerUtils.joinEnums(";", EnumSet.noneOf(Gender.class))).isEmpty();
     }
 
     @Test

@@ -4,10 +4,10 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
+import me.proxer.library.api.DelimitedStringSet;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.License;
 import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
@@ -41,8 +41,9 @@ public class EntryCore implements ProxerIdItem {
     /**
      * Returns the genres.
      */
+    @DelimitedStringSet(valuesToKeep = "Slice of Life")
     @Json(name = "genre")
-    private Set<Genre> genres;
+    private Set<String> genres;
 
     /**
      * Returns the fsk ratings.

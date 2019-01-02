@@ -5,7 +5,6 @@ import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.info.Relation;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.License;
 import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.enums.MediaState;
@@ -16,7 +15,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,11 +54,12 @@ class RelationsEndpointTest extends ProxerTest {
     private List<Relation> buildTestRelations() {
         return Arrays.asList(
                 new Relation("18598", "Sword Art Online dj - Asuna Kouryakubon",
-                        EnumSet.of(Genre.ADULT), EnumSet.of(FskConstraint.FSK_18, FskConstraint.SEX), "N/A",
+                        new HashSet<>(Collections.singletonList("Adult")),
+                        EnumSet.of(FskConstraint.FSK_18, FskConstraint.SEX), "N/A",
                         Medium.DOUJIN, 1, MediaState.FINISHED, 14, 3, 122,
                         Category.MANGA, License.UNKNOWN, EnumSet.of(MediaLanguage.ENGLISH), null, null),
-                new Relation("4167", "Sword Art Online", EnumSet.of(Genre.ADVENTURE, Genre.ACTION,
-                        Genre.COMEDY, Genre.DRAMA, Genre.FANTASY, Genre.ROMANCE, Genre.SCI_FI),
+                new Relation("4167", "Sword Art Online",
+                        new HashSet<>(Arrays.asList("Adventure", "Action", "Comedy", "Drama", "Fantasy", "SciFi")),
                         EnumSet.of(FskConstraint.FSK_12, FskConstraint.BAD_LANGUAGE, FskConstraint.VIOLENCE),
                         "Kazuto Kirigaya testet als einer der ersten einen neuen Hightech-Helm, welcher "
                                 + "die Psyche des Nutzers komplett in die Welt des MMORPGs „Sword Art Online“ "

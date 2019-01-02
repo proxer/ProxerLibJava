@@ -6,13 +6,13 @@ import me.proxer.library.entity.info.AdaptionInfo;
 import me.proxer.library.entity.info.Entry;
 import me.proxer.library.entity.info.EntrySeasonInfo;
 import me.proxer.library.entity.info.EntryTranslatorGroup;
+import me.proxer.library.entity.info.InfoGenre;
 import me.proxer.library.entity.info.InfoTag;
 import me.proxer.library.entity.info.Synonym;
 import me.proxer.library.entity.list.IndustryCore;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.Country;
 import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.IndustryType;
 import me.proxer.library.enums.License;
 import me.proxer.library.enums.MediaLanguage;
@@ -63,7 +63,6 @@ class EntryEndpointTest extends ProxerTest {
 
     private Entry buildTestEntry() throws ParseException {
         return new Entry("6174", "LuCu LuCu",
-                EnumSet.of(Genre.COMEDY, Genre.FANTASY, Genre.SEINEN, Genre.SLICE_OF_LIFE),
                 EnumSet.noneOf(FskConstraint.class),
                 "Humans are a despicable lot, committing sin after sin, filling the endless boundaries "
                         + "of the underworld with tortured souls. Now, it would seem, Hell isn't so endless after all, "
@@ -87,12 +86,21 @@ class EntryEndpointTest extends ProxerTest {
         ), Collections.singletonList(
                 new IndustryCore("19", "Kodansha", IndustryType.PUBLISHER, Country.JAPAN)
         ), Arrays.asList(
-                new InfoTag("93", "2027",
+                new InfoTag("2027", "93",
                         new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2016-06-18 14:14:22"),
                         false, false, "Dämonen", "In diesem Werk kommen Dämonen vor."),
-                new InfoTag("299", "2028",
+                new InfoTag("2028", "299",
                         new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2016-06-18 14:14:30"),
                         false, false, "Slapstick", "Situationskomik, kommt ohne Worte aus.")
+        ), Arrays.asList(
+                new InfoGenre("120694", "175",
+                        new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2018-03-07 23:17:44"),
+                        "Action", "Dynamische Szenen, spannende Wettkämpfe und beeindruckende " +
+                        "Kampfszenen prägen dieses Genre."),
+                new InfoGenre("120695", "174",
+                        new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2018-03-07 23:17:44"),
+                        "Adventure", "Es handelt sich meist um eine Geschichte über eine Reise " +
+                        "oder Suche. Kurzum ein Abenteuer, das es zu bestehen gilt.")
         ));
     }
 }

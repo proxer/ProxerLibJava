@@ -4,7 +4,6 @@ import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.list.MediaListEntry;
 import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.Language;
 import me.proxer.library.enums.LengthBound;
 import me.proxer.library.enums.MediaLanguage;
@@ -52,8 +51,8 @@ class MediaSearchEndpointTest extends ProxerTest {
                 .page(3)
                 .tags(new HashSet<>(Arrays.asList("3", "7")))
                 .excludedTags(new HashSet<>(Arrays.asList("5", "20")))
-                .genreTags(new HashSet<>(Arrays.asList("22", "33")))
-                .excludedGenreTags(new HashSet<>(Arrays.asList("13", "17")))
+                .genres(new HashSet<>(Arrays.asList("22", "33")))
+                .excludedGenres(new HashSet<>(Arrays.asList("13", "17")))
                 .fskConstraints(EnumSet.of(FskConstraint.FEAR))
                 .language(Language.ENGLISH)
                 .length(300)
@@ -101,8 +100,8 @@ class MediaSearchEndpointTest extends ProxerTest {
         server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
 
         api.list().mediaSearch()
-                .genreTags(new HashSet<>(Arrays.asList("3", "7")))
-                .genreTags(null)
+                .genres(new HashSet<>(Arrays.asList("3", "7")))
+                .genres(null)
                 .build()
                 .execute();
 
@@ -114,8 +113,8 @@ class MediaSearchEndpointTest extends ProxerTest {
         server.enqueue(new MockResponse().setBody(fromResource("media_list_entry.json")));
 
         api.list().mediaSearch()
-                .excludedGenreTags(new HashSet<>(Arrays.asList("5", "20")))
-                .excludedGenreTags(null)
+                .excludedGenres(new HashSet<>(Arrays.asList("5", "20")))
+                .excludedGenres(null)
                 .build()
                 .execute();
 
@@ -123,7 +122,7 @@ class MediaSearchEndpointTest extends ProxerTest {
     }
 
     private MediaListEntry buildTestEntry() {
-        return new MediaListEntry("3637", "+ A Channel", EnumSet.of(Genre.COMEDY, Genre.SCHOOL),
+        return new MediaListEntry("3637", "+ A Channel", new HashSet<>(Arrays.asList("Comedy", "School")),
                 Medium.OVA, 11, MediaState.FINISHED, 774, 115,
                 EnumSet.of(MediaLanguage.ENGLISH_SUB, MediaLanguage.GERMAN_SUB));
     }

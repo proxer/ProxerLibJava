@@ -5,7 +5,6 @@ import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.info.Recommendation;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.License;
 import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
@@ -13,7 +12,9 @@ import okhttp3.mockwebserver.MockResponse;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,7 +57,7 @@ class RecommendationsEndpointTest extends ProxerTest {
     }
 
     private Recommendation buildTestRecommendation() {
-        return new Recommendation("15023", "Boku no Hero Academia", EnumSet.of(Genre.ACTION),
+        return new Recommendation("15023", "Boku no Hero Academia", new HashSet<>(Collections.singletonList("Action")),
                 EnumSet.of(FskConstraint.FSK_12), "Izuku ist ein schwächlicher „Normalo“.", Medium.ANIMESERIES,
                 13, MediaState.FINISHED, 29150, 3412, 58005, Category.ANIME,
                 License.LICENSED, 65, 1, null);

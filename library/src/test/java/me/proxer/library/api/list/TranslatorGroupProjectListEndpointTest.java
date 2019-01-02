@@ -4,7 +4,6 @@ import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException;
 import me.proxer.library.entity.list.TranslatorGroupProject;
 import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
 import me.proxer.library.enums.ProjectState;
@@ -12,7 +11,9 @@ import okhttp3.mockwebserver.MockResponse;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -81,7 +82,7 @@ class TranslatorGroupProjectListEndpointTest extends ProxerTest {
 
     private TranslatorGroupProject buildTestProject() {
         return new TranslatorGroupProject("15775", "12-Sai: Chiccha na Mune no Tokimeki",
-                EnumSet.of(Genre.COMEDY, Genre.ROMANCE), EnumSet.of(FskConstraint.FSK_0), Medium.ANIMESERIES,
+                new HashSet<>(Arrays.asList("Comedy", "Romance")), EnumSet.of(FskConstraint.FSK_0), Medium.ANIMESERIES,
                 ProjectState.ONGOING, MediaState.FINISHED, 942, 136);
     }
 }

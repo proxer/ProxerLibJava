@@ -9,7 +9,6 @@ import com.squareup.moshi.JsonWriter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.util.ProxerUtils;
 
@@ -18,10 +17,11 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumSet;
-import java.util.List;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -33,6 +33,7 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
     private static final String DELIMITER = " ";
     private static final String COMMA_DELIMITER = ",";
 
+    @SuppressWarnings("Duplicates")
     @Nullable
     @Override
     public JsonAdapter<?> create(final Type type, final Set<? extends Annotation> annotations, final Moshi moshi) {
@@ -44,9 +45,7 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
 
         final Type parameterType = ((ParameterizedType) type).getActualTypeArguments()[0];
 
-        if (parameterType == Genre.class) {
-            return new DelimitedEnumSetAdapter<>(Genre.class, DELIMITER);
-        } else if (parameterType == FskConstraint.class) {
+        if (parameterType == FskConstraint.class) {
             return new DelimitedEnumSetAdapter<>(FskConstraint.class, DELIMITER);
         } else if (parameterType == MediaLanguage.class) {
             return new DelimitedEnumSetAdapter<>(MediaLanguage.class, COMMA_DELIMITER);
@@ -95,7 +94,7 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
 
         @Override
         public Set<T> fromJson(final JsonReader reader) throws IOException {
-            final String parts = parseParts(reader);
+            final Set<String> parts = parseParts(reader);
 
             return convertToEnumConstants(reader, parts);
         }
@@ -120,80 +119,59 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
             writer.value(result.toString());
         }
 
-        private String parseParts(final JsonReader reader) throws IOException {
+        private Set<String> parseParts(final JsonReader reader) throws IOException {
             final JsonReader.Token nextToken = reader.peek();
 
             if (nextToken == JsonReader.Token.BEGIN_ARRAY) {
-                final List<String> result = new ArrayList<>();
+                final Set<String> result = new LinkedHashSet<>();
 
                 reader.beginArray();
 
                 while (reader.hasNext()) {
-                    result.add(reader.nextString());
+                    result.add(reader.nextString().trim().toLowerCase(Locale.US));
                 }
 
                 reader.endArray();
 
-                return ProxerUtils.join(delimiter, result);
+                return result;
             } else if (nextToken == JsonReader.Token.NULL) {
                 reader.nextNull();
 
-                return "";
+                return Collections.emptySet();
             } else {
-                return reader.nextString();
+                final String rawParts = reader.nextString().trim().toLowerCase(Locale.US);
+
+                if (rawParts.isEmpty()) {
+                    return Collections.emptySet();
+                } else {
+                    final String[] splitParts = rawParts.split(delimiter);
+
+                    return new HashSet<>(Arrays.asList(splitParts));
+                }
             }
         }
 
-        private Set<T> convertToEnumConstants(final JsonReader reader, final String parts) {
+        private Set<T> convertToEnumConstants(final JsonReader reader, final Set<String> parts) {
             final EnumSet<T> result = EnumSet.noneOf(enumType);
 
-            String currentParts = parts.toLowerCase(Locale.US);
-
-            while (currentParts.length() > 0) {
+            for (final String part : parts) {
                 boolean found = false;
 
                 for (int i = 0; i < enumNames.length; i++) {
                     final String name = enumNames[i];
 
-                    if (currentParts.startsWith(name)) {
-                        final boolean isLast = currentParts.length() == name.length();
-                        final boolean matches = isLast || currentParts.startsWith(delimiter, name.length());
+                    if (part.equals(name)) {
+                        result.add(enumConstants[i]);
 
-                        if (matches) {
-                            result.add(enumConstants[i]);
-
-                            if (isLast) {
-                                currentParts = "";
-                            } else {
-                                currentParts = currentParts.substring(name.length() + delimiter.length());
-                            }
-
-                            found = true;
-                            break;
-                        }
+                        found = true;
+                        break;
                     }
                 }
 
                 if (!found) {
-                    final int nextDelimiter = currentParts.indexOf(delimiter);
-
                     if (fallbackEnum != null) {
                         result.add(fallbackEnum);
-
-                        if (nextDelimiter >= 0 && currentParts.length() > nextDelimiter + delimiter.length()) {
-                            currentParts = currentParts.substring(nextDelimiter + delimiter.length());
-                        } else {
-                            currentParts = "";
-                        }
                     } else {
-                        final String part;
-
-                        if (nextDelimiter >= 0) {
-                            part = currentParts.substring(0, nextDelimiter);
-                        } else {
-                            part = currentParts;
-                        }
-
                         throw new JsonDataException("Expected one of " + Arrays.asList(enumNames)
                                 + " but was " + part + " at path " + reader.getPath());
                     }

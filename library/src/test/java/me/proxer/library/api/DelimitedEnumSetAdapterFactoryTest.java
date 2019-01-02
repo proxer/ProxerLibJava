@@ -7,7 +7,7 @@ import com.squareup.moshi.Types;
 import lombok.Value;
 import me.proxer.library.entity.info.Entry;
 import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.Genre;
+import me.proxer.library.enums.MediaLanguage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +39,7 @@ class DelimitedEnumSetAdapterFactoryTest {
 
     @Test
     void testCreateGenre() {
-        final ParameterizedType type = Types.newParameterizedType(Set.class, Genre.class);
+        final ParameterizedType type = Types.newParameterizedType(Set.class, FskConstraint.class);
         final JsonAdapter<?> adapter = factory.create(type, Collections.emptySet(), moshi);
 
         assertThat(adapter).isNotNull();
@@ -55,7 +55,7 @@ class DelimitedEnumSetAdapterFactoryTest {
 
     @Test
     void testCreateInvalidType() {
-        final ParameterizedType type = Types.newParameterizedType(List.class, Genre.class);
+        final ParameterizedType type = Types.newParameterizedType(List.class, FskConstraint.class);
         final JsonAdapter<?> adapter = factory.create(type, Collections.emptySet(), moshi);
 
         assertThat(adapter).isNull();
@@ -78,29 +78,29 @@ class DelimitedEnumSetAdapterFactoryTest {
 
     @Test
     void testFromJsonSingle() throws IOException {
-        final GenresTestClass result = moshi.adapter(GenresTestClass.class)
-                .fromJson("{\"genres\":\"Adventure\"}");
+        final FskConstrainsTestClass result = moshi.adapter(FskConstrainsTestClass.class)
+                .fromJson("{\"fskConstraints\":\"fsk6\"}");
 
         assertThat(result).isNotNull();
-        assertThat(result.genres).containsExactly(Genre.ADVENTURE);
+        assertThat(result.fskConstraints).containsExactly(FskConstraint.FSK_6);
     }
 
     @Test
     void testFromJsonMultiple() throws IOException {
-        final GenresTestClass result = moshi.adapter(GenresTestClass.class)
-                .fromJson("{\"genres\":\"Adventure Action\"}");
+        final FskConstrainsTestClass result = moshi.adapter(FskConstrainsTestClass.class)
+                .fromJson("{\"fskConstraints\":\"fsk0 fsk6\"}");
 
         assertThat(result).isNotNull();
-        assertThat(result.genres).containsExactly(Genre.ACTION, Genre.ADVENTURE);
+        assertThat(result.fskConstraints).containsExactly(FskConstraint.FSK_0, FskConstraint.FSK_6);
     }
 
     @Test
     void testFromJsonInvalidDelimiter() throws IOException {
-        final GenresTestClass result = moshi.adapter(GenresTestClass.class)
-                .fromJson("{\"genres\":\"Action;Adventure\"}");
+        final MediaLanguageTestClass result = moshi.adapter(MediaLanguageTestClass.class)
+                .fromJson("{\"mediaLanguages\":\"de;en\"}");
 
         assertThat(result).isNotNull();
-        assertThat(result.genres).containsExactly(Genre.UNKNOWN);
+        assertThat(result.mediaLanguages).containsExactly(MediaLanguage.OTHER);
     }
 
     @Test
@@ -114,20 +114,20 @@ class DelimitedEnumSetAdapterFactoryTest {
 
     @Test
     void testFromJsonNull() throws IOException {
-        final GenresTestClass result = moshi.adapter(GenresTestClass.class)
-                .fromJson("{\"genres\":null}");
+        final FskConstrainsTestClass result = moshi.adapter(FskConstrainsTestClass.class)
+                .fromJson("{\"fskConstraints\":null}");
 
         assertThat(result).isNotNull();
-        assertThat(result.genres).isEmpty();
+        assertThat(result.fskConstraints).isEmpty();
     }
 
     @Test
     void testFromJsonFallback() throws IOException {
-        final GenresTestClass result = moshi.adapter(GenresTestClass.class)
-                .fromJson("{\"genres\":\"Action xyz zyx\"}");
+        final MediaLanguageTestClass result = moshi.adapter(MediaLanguageTestClass.class)
+                .fromJson("{\"mediaLanguages\":\"de, xyz, zyx\"}");
 
         assertThat(result).isNotNull();
-        assertThat(result.genres).containsExactly(Genre.ACTION, Genre.UNKNOWN);
+        assertThat(result.mediaLanguages).containsExactly(MediaLanguage.GERMAN, MediaLanguage.OTHER);
     }
 
     @SuppressWarnings({"CheckReturnValue", "ResultOfMethodCallIgnored"})
@@ -143,27 +143,30 @@ class DelimitedEnumSetAdapterFactoryTest {
 
     @Test
     void testToJsonSingle() {
-        final GenresTestClass testSubject = new GenresTestClass(EnumSet.of(Genre.ACTION));
-        final String result = moshi.adapter(GenresTestClass.class).toJson(testSubject);
+        final FskConstrainsTestClass testSubject = new FskConstrainsTestClass(EnumSet.of(FskConstraint.FSK_0));
+        final String result = moshi.adapter(FskConstrainsTestClass.class).toJson(testSubject);
 
-        assertThat(result).isEqualTo("{\"genres\":\"Action\"}");
+        assertThat(result).isEqualTo("{\"fskConstraints\":\"fsk0\"}");
     }
 
     @Test
     void testToJsonMultiple() {
-        final GenresTestClass testSubject = new GenresTestClass(EnumSet.of(Genre.ADVENTURE, Genre.ACTION));
-        final String result = moshi.adapter(GenresTestClass.class).toJson(testSubject);
+        final MediaLanguageTestClass testSubject = new MediaLanguageTestClass(EnumSet.of(
+                MediaLanguage.GERMAN, MediaLanguage.ENGLISH
+        ));
 
-        assertThat(result).isEqualTo("{\"genres\":\"Action Adventure\"}");
-    }
+        final String result = moshi.adapter(MediaLanguageTestClass.class).toJson(testSubject);
 
-    @Value
-    private static class GenresTestClass {
-        private Set<Genre> genres;
+        assertThat(result).isEqualTo("{\"mediaLanguages\":\"de,en\"}");
     }
 
     @Value
     private static class FskConstrainsTestClass {
         private Set<FskConstraint> fskConstraints;
+    }
+
+    @Value
+    private static class MediaLanguageTestClass {
+        private Set<MediaLanguage> mediaLanguages;
     }
 }

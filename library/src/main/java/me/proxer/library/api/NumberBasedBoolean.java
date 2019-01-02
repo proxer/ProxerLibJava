@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
  *
  * @author Ruben Gees
  */
-@Retention(RetentionPolicy.RUNTIME)
 @JsonQualifier
+@Retention(RetentionPolicy.RUNTIME)
 public @interface NumberBasedBoolean {
 }

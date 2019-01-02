@@ -8,7 +8,6 @@ import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.entity.list.IndustryCore;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.License;
 import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.enums.MediaState;
@@ -40,12 +39,6 @@ public class Entry implements ProxerIdItem {
      */
     @Json(name = "name")
     private String name;
-
-    /**
-     * Returns the genres.
-     */
-    @Json(name = "genre")
-    private Set<Genre> genres;
 
     /**
      * Returns the fsk ratings.
@@ -154,6 +147,12 @@ public class Entry implements ProxerIdItem {
      */
     @Json(name = "tags")
     private List<InfoTag> tags;
+
+    /**
+     * Returns the genres.
+     */
+    @Json(name = "genres")
+    private List<InfoGenre> genres;
 
     /**
      * Returns the average of all ratings.

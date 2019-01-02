@@ -4,8 +4,8 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
+import me.proxer.library.api.DelimitedStringSet;
 import me.proxer.library.entity.ProxerIdItem;
-import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
@@ -38,8 +38,9 @@ public class MediaListEntry implements ProxerIdItem {
     /**
      * Returns the selected genres.
      */
+    @DelimitedStringSet(valuesToKeep = "Slice of Life")
     @Json(name = "genre")
-    private Set<Genre> genres;
+    private Set<String> genres;
 
     /**
      * Returns the selected medium.

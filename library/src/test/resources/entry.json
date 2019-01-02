@@ -104,6 +104,22 @@
         "tag": "Slapstick",
         "description": "Situationskomik, kommt ohne Worte aus."
       }
+    ],
+    "genres": [
+      {
+        "id": "120694",
+        "tid": "175",
+        "timestamp": "2018-03-07 23:17:44",
+        "tag": "Action",
+        "description": "Dynamische Szenen, spannende Wettkämpfe und beeindruckende Kampfszenen prägen dieses Genre."
+      },
+      {
+        "id": "120695",
+        "tid": "174",
+        "timestamp": "2018-03-07 23:17:44",
+        "tag": "Adventure",
+        "description": "Es handelt sich meist um eine Geschichte über eine Reise oder Suche. Kurzum ein Abenteuer, das es zu bestehen gilt."
+      }
     ]
   }
 }

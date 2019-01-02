@@ -6,7 +6,6 @@ import me.proxer.library.api.PagingLimitEndpoint;
 import me.proxer.library.api.ProxerCall;
 import me.proxer.library.entity.list.MediaListEntry;
 import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.Language;
 import me.proxer.library.enums.LengthBound;
 import me.proxer.library.enums.MediaSearchSortCriteria;
@@ -92,22 +91,6 @@ public final class MediaSearchEndpoint implements PagingLimitEndpoint<List<Media
     private TagSpoilerFilter tagSpoilerFilter;
 
     /**
-     * Sets the required genres.
-     */
-    @Deprecated
-    @Nullable
-    @Setter
-    private EnumSet<Genre> genres;
-
-    /**
-     * Sets the excluded genres.
-     */
-    @Deprecated
-    @Nullable
-    @Setter
-    private EnumSet<Genre> excludedGenres;
-
-    /**
      * Sets the required fsk ratings.
      */
     @Nullable
@@ -135,10 +118,10 @@ public final class MediaSearchEndpoint implements PagingLimitEndpoint<List<Media
     private String excludedTags;
 
     @Nullable
-    private String tagGenres;
+    private String genres;
 
     @Nullable
-    private String excludedTagGenres;
+    private String excludedGenres;
 
     MediaSearchEndpoint(final InternalApi internalApi) {
         this.internalApi = internalApi;
@@ -173,11 +156,11 @@ public final class MediaSearchEndpoint implements PagingLimitEndpoint<List<Media
     /**
      * Sets the genre tag ids a entry must have to be included in the result.
      */
-    public MediaSearchEndpoint genreTags(@Nullable final Set<String> ids) {
+    public MediaSearchEndpoint genres(@Nullable final Set<String> ids) {
         if (ids != null) {
-            this.tagGenres = ProxerUtils.join(DELIMITER, ids);
+            this.genres = ProxerUtils.join(DELIMITER, ids);
         } else {
-            this.tagGenres = null;
+            this.genres = null;
         }
 
         return this;
@@ -186,11 +169,11 @@ public final class MediaSearchEndpoint implements PagingLimitEndpoint<List<Media
     /**
      * Sets the genre tag ids a entry must not have to be included in the result.
      */
-    public MediaSearchEndpoint excludedGenreTags(@Nullable final Set<String> excludedIds) {
+    public MediaSearchEndpoint excludedGenres(@Nullable final Set<String> excludedIds) {
         if (excludedIds != null) {
-            this.excludedTagGenres = ProxerUtils.join(DELIMITER, excludedIds);
+            this.excludedGenres = ProxerUtils.join(DELIMITER, excludedIds);
         } else {
-            this.excludedTagGenres = null;
+            this.excludedGenres = null;
         }
 
         return this;
@@ -198,17 +181,10 @@ public final class MediaSearchEndpoint implements PagingLimitEndpoint<List<Media
 
     @Override
     public ProxerCall<List<MediaListEntry>> build() {
-        final String joinedGenres = genres == null ? null
-                : ProxerUtils.joinEnums(DELIMITER, genres);
-
-        final String joinedExcludedGenres = excludedGenres == null ? null
-                : ProxerUtils.joinEnums(DELIMITER, excludedGenres);
-
         final String joinedFskConstraints = fskConstraints == null ? null
                 : ProxerUtils.joinEnums(DELIMITER, fskConstraints);
 
-        return internalApi.mediaSearch(name, language, type, joinedGenres, joinedExcludedGenres, joinedFskConstraints,
-                sort, length, lengthBound, tags, excludedTags, tagGenres, excludedTagGenres,
-                tagRateFilter, tagSpoilerFilter, page, limit);
+        return internalApi.mediaSearch(name, language, type, joinedFskConstraints, sort, length, lengthBound,
+                tags, excludedTags, genres, excludedGenres, tagRateFilter, tagSpoilerFilter, page, limit);
     }
 }

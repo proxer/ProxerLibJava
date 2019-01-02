@@ -6,7 +6,6 @@ import me.proxer.library.entity.info.AdaptionInfo;
 import me.proxer.library.entity.info.EntryCore;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.Genre;
 import me.proxer.library.enums.License;
 import me.proxer.library.enums.MediaState;
 import me.proxer.library.enums.Medium;
@@ -14,7 +13,9 @@ import okhttp3.mockwebserver.MockResponse;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.HashSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -48,7 +49,7 @@ class EntryCoreEndpointTest extends ProxerTest {
 
     private EntryCore buildTestEntry() {
         return new EntryCore("6174", "LuCu LuCu",
-                EnumSet.of(Genre.COMEDY, Genre.FANTASY, Genre.SEINEN, Genre.SLICE_OF_LIFE),
+                new HashSet<>(Arrays.asList("Comedy", "Fantasy", "Seinen", "Slice of Life")),
                 EnumSet.of(FskConstraint.BAD_LANGUAGE),
                 "Humans are a despicable lot, committing sin after sin, filling the endless boundaries "
                         + "of the underworld with tortured souls. Now, it would seem, Hell isn't so endless after all, "

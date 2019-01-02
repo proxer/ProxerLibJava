@@ -27,7 +27,7 @@ dependencies {
     errorprone deps.errorprone
 
     annotationProcessor deps.lombok
-    compileOnly deps.lombok
+    api deps.lombok
 
     // Changed later to provided.
     api deps.javaxExtras
