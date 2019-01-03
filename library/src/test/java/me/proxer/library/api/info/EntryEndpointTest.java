@@ -95,12 +95,12 @@ class EntryEndpointTest extends ProxerTest {
         ), Arrays.asList(
                 new InfoGenre("120694", "175",
                         new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2018-03-07 23:17:44"),
-                        "Action", "Dynamische Szenen, spannende Wettkämpfe und beeindruckende " +
-                        "Kampfszenen prägen dieses Genre."),
+                        "Action", "Dynamische Szenen, spannende Wettkämpfe und beeindruckende "
+                        + "Kampfszenen prägen dieses Genre."),
                 new InfoGenre("120695", "174",
                         new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2018-03-07 23:17:44"),
-                        "Adventure", "Es handelt sich meist um eine Geschichte über eine Reise " +
-                        "oder Suche. Kurzum ein Abenteuer, das es zu bestehen gilt.")
+                        "Adventure", "Es handelt sich meist um eine Geschichte über eine Reise "
+                        + "oder Suche. Kurzum ein Abenteuer, das es zu bestehen gilt.")
         ));
     }
 }

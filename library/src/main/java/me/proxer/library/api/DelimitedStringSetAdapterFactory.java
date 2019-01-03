@@ -66,7 +66,7 @@ class DelimitedStringSetAdapterFactory implements JsonAdapter.Factory {
         private final String delimiter;
         private final List<Set<String>> valuesToKeep;
 
-        DelimitedStringSetAdapter(final String delimiter, final String[] valuesToKeep) {
+        DelimitedStringSetAdapter(final String delimiter, final String... valuesToKeep) {
             this.delimiter = delimiter;
             this.valuesToKeep = new ArrayList<>();
 

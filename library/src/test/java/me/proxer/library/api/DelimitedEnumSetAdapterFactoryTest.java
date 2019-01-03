@@ -7,7 +7,7 @@ import com.squareup.moshi.Types;
 import lombok.Value;
 import me.proxer.library.entity.info.Entry;
 import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.MediaLanguage;
+import me.proxer.library.enums.Gender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,102 +38,123 @@ class DelimitedEnumSetAdapterFactoryTest {
     }
 
     @Test
-    void testCreateGenre() {
-        final ParameterizedType type = Types.newParameterizedType(Set.class, FskConstraint.class);
-        final JsonAdapter<?> adapter = factory.create(type, Collections.emptySet(), moshi);
+    void testCreate() throws NoSuchFieldException {
+        final DelimitedEnumSet annotation = GenderTestClass.class.getField("genders")
+                .getAnnotation(DelimitedEnumSet.class);
+
+        final ParameterizedType type = Types.newParameterizedType(Set.class, Gender.class);
+        final JsonAdapter<?> adapter = factory.create(type, Collections.singleton(annotation), moshi);
 
         assertThat(adapter).isNotNull();
     }
 
     @Test
-    void testCreateFskConstraint() {
-        final ParameterizedType type = Types.newParameterizedType(Set.class, FskConstraint.class);
-        final JsonAdapter<?> adapter = factory.create(type, Collections.emptySet(), moshi);
+    void testCreateInvalidType() throws NoSuchFieldException {
+        final DelimitedEnumSet annotation = GenderTestClass.class.getField("genders")
+                .getAnnotation(DelimitedEnumSet.class);
 
-        assertThat(adapter).isNotNull();
-    }
-
-    @Test
-    void testCreateInvalidType() {
         final ParameterizedType type = Types.newParameterizedType(List.class, FskConstraint.class);
-        final JsonAdapter<?> adapter = factory.create(type, Collections.emptySet(), moshi);
+        final JsonAdapter<?> adapter = factory.create(type, Collections.singleton(annotation), moshi);
 
         assertThat(adapter).isNull();
     }
 
     @Test
-    void testCreateInvalidParameterType() {
+    void testCreateInvalidParameterType() throws NoSuchFieldException {
+        final DelimitedEnumSet annotation = GenderTestClass.class.getField("genders")
+                .getAnnotation(DelimitedEnumSet.class);
+
         final ParameterizedType type = Types.newParameterizedType(Set.class, Entry.class);
-        final JsonAdapter<?> adapter = factory.create(type, Collections.emptySet(), moshi);
+        final JsonAdapter<?> adapter = factory.create(type, Collections.singleton(annotation), moshi);
 
         assertThat(adapter).isNull();
     }
 
     @Test
-    void testCreateNoParameterType() {
-        final JsonAdapter<?> adapter = factory.create(Set.class, Collections.emptySet(), moshi);
+    void testCreateNoParameterType() throws NoSuchFieldException {
+        final DelimitedEnumSet annotation = GenderTestClass.class.getField("genders")
+                .getAnnotation(DelimitedEnumSet.class);
+
+        final JsonAdapter<?> adapter = factory.create(Set.class, Collections.singleton(annotation), moshi);
+
+        assertThat(adapter).isNull();
+    }
+
+    @Test
+    void testCreateNoAnnotation() {
+        final ParameterizedType type = Types.newParameterizedType(Set.class, Gender.class);
+        final JsonAdapter<?> adapter = factory.create(type, Collections.emptySet(), moshi);
 
         assertThat(adapter).isNull();
     }
 
     @Test
     void testFromJsonSingle() throws IOException {
-        final FskConstrainsTestClass result = moshi.adapter(FskConstrainsTestClass.class)
-                .fromJson("{\"fskConstraints\":\"fsk6\"}");
+        final GenderTestClass result = moshi.adapter(GenderTestClass.class)
+                .fromJson("{\"genders\":\"f\"}");
 
         assertThat(result).isNotNull();
-        assertThat(result.fskConstraints).containsExactly(FskConstraint.FSK_6);
+        assertThat(result.genders).containsExactly(Gender.FEMALE);
     }
 
     @Test
     void testFromJsonMultiple() throws IOException {
-        final FskConstrainsTestClass result = moshi.adapter(FskConstrainsTestClass.class)
-                .fromJson("{\"fskConstraints\":\"fsk0 fsk6\"}");
+        final GenderTestClass result = moshi.adapter(GenderTestClass.class)
+                .fromJson("{\"genders\":\"f m\"}");
 
         assertThat(result).isNotNull();
-        assertThat(result.fskConstraints).containsExactly(FskConstraint.FSK_0, FskConstraint.FSK_6);
+        assertThat(result.genders).containsExactly(Gender.MALE, Gender.FEMALE);
     }
 
     @Test
     void testFromJsonInvalidDelimiter() throws IOException {
-        final MediaLanguageTestClass result = moshi.adapter(MediaLanguageTestClass.class)
-                .fromJson("{\"mediaLanguages\":\"de;en\"}");
+        final GenderTestClass result = moshi.adapter(GenderTestClass.class)
+                .fromJson("{\"genders\":\"f,m\"}");
 
         assertThat(result).isNotNull();
-        assertThat(result.mediaLanguages).containsExactly(MediaLanguage.OTHER);
+        assertThat(result.genders).containsExactly(Gender.UNKNOWN);
     }
 
     @Test
     void testFromJsonEmpty() throws IOException {
-        final FskConstrainsTestClass result = moshi.adapter(FskConstrainsTestClass.class)
-                .fromJson("{\"fskConstraints\":\"\"}");
+        final GenderTestClass result = moshi.adapter(GenderTestClass.class)
+                .fromJson("{\"genders\":\"\"}");
 
         assertThat(result).isNotNull();
-        assertThat(result.fskConstraints).isEmpty();
+        assertThat(result.genders).isEmpty();
     }
 
     @Test
     void testFromJsonNull() throws IOException {
-        final FskConstrainsTestClass result = moshi.adapter(FskConstrainsTestClass.class)
-                .fromJson("{\"fskConstraints\":null}");
+        final GenderTestClass result = moshi.adapter(GenderTestClass.class)
+                .fromJson("{\"genders\":null}");
 
         assertThat(result).isNotNull();
-        assertThat(result.fskConstraints).isEmpty();
+        assertThat(result.genders).isEmpty();
+    }
+
+    @Test
+    void testFromJsonDifferentDelimiter() throws IOException {
+        final GenderWithDelimiterTestClass result = moshi.adapter(GenderWithDelimiterTestClass.class)
+                .fromJson("{\"genders\":\"f, m\"}");
+
+        assertThat(result).isNotNull();
+        assertThat(result.genders).containsExactly(Gender.MALE, Gender.FEMALE);
     }
 
     @Test
     void testFromJsonFallback() throws IOException {
-        final MediaLanguageTestClass result = moshi.adapter(MediaLanguageTestClass.class)
-                .fromJson("{\"mediaLanguages\":\"de, xyz, zyx\"}");
+        final GenderTestClass result = moshi.adapter(GenderTestClass.class)
+                .fromJson("{\"genders\":\"f m xyz\"}");
 
         assertThat(result).isNotNull();
-        assertThat(result.mediaLanguages).containsExactly(MediaLanguage.GERMAN, MediaLanguage.OTHER);
+        assertThat(result.genders).containsExactly(Gender.MALE, Gender.FEMALE, Gender.UNKNOWN);
     }
 
     @SuppressWarnings({"CheckReturnValue", "ResultOfMethodCallIgnored"})
     @Test
     void testFromJsonNoFallback() {
-        final JsonAdapter<FskConstrainsTestClass> adapter = moshi.adapter(FskConstrainsTestClass.class);
+        final JsonAdapter<FskConstrainTestClass> adapter = moshi.adapter(FskConstrainTestClass.class);
 
         assertThatExceptionOfType(JsonDataException.class)
                 .isThrownBy(() -> adapter.fromJson("{\"fskConstraints\":\"fsk0 xyz\"}"))
@@ -143,30 +164,48 @@ class DelimitedEnumSetAdapterFactoryTest {
 
     @Test
     void testToJsonSingle() {
-        final FskConstrainsTestClass testSubject = new FskConstrainsTestClass(EnumSet.of(FskConstraint.FSK_0));
-        final String result = moshi.adapter(FskConstrainsTestClass.class).toJson(testSubject);
+        final GenderTestClass testSubject = new GenderTestClass(EnumSet.of(Gender.FEMALE));
+        final String result = moshi.adapter(GenderTestClass.class).toJson(testSubject);
 
-        assertThat(result).isEqualTo("{\"fskConstraints\":\"fsk0\"}");
+        assertThat(result).isEqualTo("{\"genders\":\"f\"}");
     }
 
     @Test
     void testToJsonMultiple() {
-        final MediaLanguageTestClass testSubject = new MediaLanguageTestClass(EnumSet.of(
-                MediaLanguage.GERMAN, MediaLanguage.ENGLISH
-        ));
+        final EnumSet<Gender> values = EnumSet.of(Gender.FEMALE, Gender.MALE);
+        final GenderTestClass testSubject = new GenderTestClass(values);
+        final String result = moshi.adapter(GenderTestClass.class).toJson(testSubject);
 
-        final String result = moshi.adapter(MediaLanguageTestClass.class).toJson(testSubject);
+        assertThat(result).isEqualTo("{\"genders\":\"m f\"}");
+    }
 
-        assertThat(result).isEqualTo("{\"mediaLanguages\":\"de,en\"}");
+    @Test
+    void testToJsonMultipleDifferentDelimiter() {
+        final EnumSet<Gender> values = EnumSet.of(Gender.FEMALE, Gender.MALE);
+        final GenderWithDelimiterTestClass testSubject = new GenderWithDelimiterTestClass(values);
+        final String result = moshi.adapter(GenderWithDelimiterTestClass.class).toJson(testSubject);
+
+        assertThat(result).isEqualTo("{\"genders\":\"m, f\"}");
     }
 
     @Value
-    private static class FskConstrainsTestClass {
-        private Set<FskConstraint> fskConstraints;
+    private static class GenderTestClass {
+
+        @DelimitedEnumSet
+        public Set<Gender> genders;
     }
 
     @Value
-    private static class MediaLanguageTestClass {
-        private Set<MediaLanguage> mediaLanguages;
+    private static class GenderWithDelimiterTestClass {
+
+        @DelimitedEnumSet(delimiter = ", ")
+        public Set<Gender> genders;
+    }
+
+    @Value
+    private static class FskConstrainTestClass {
+
+        @DelimitedEnumSet
+        public Set<FskConstraint> fskConstraints;
     }
 }

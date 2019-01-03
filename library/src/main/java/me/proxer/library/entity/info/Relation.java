@@ -4,6 +4,7 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
+import me.proxer.library.api.DelimitedEnumSet;
 import me.proxer.library.api.DelimitedStringSet;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.enums.Category;
@@ -49,6 +50,7 @@ public class Relation implements ProxerIdItem {
     /**
      * Returns the fsk ratings.
      */
+    @DelimitedEnumSet
     @Json(name = "fsk")
     private Set<FskConstraint> fskConstraints;
 
@@ -109,6 +111,7 @@ public class Relation implements ProxerIdItem {
     /**
      * Returns the available languages.
      */
+    @DelimitedEnumSet(delimiter = ",")
     @Json(name = "language")
     private Set<MediaLanguage> languages;
 

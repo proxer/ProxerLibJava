@@ -8,8 +8,6 @@ import com.squareup.moshi.JsonReader;
 import com.squareup.moshi.JsonWriter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
-import me.proxer.library.enums.FskConstraint;
-import me.proxer.library.enums.MediaLanguage;
 import me.proxer.library.util.ProxerUtils;
 
 import javax.annotation.Nullable;
@@ -20,8 +18,6 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -30,10 +26,7 @@ import java.util.Set;
  */
 class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
 
-    private static final String DELIMITER = " ";
-    private static final String COMMA_DELIMITER = ",";
-
-    @SuppressWarnings("Duplicates")
+    @SuppressWarnings({"Duplicates", "unchecked"})
     @Nullable
     @Override
     public JsonAdapter<?> create(final Type type, final Set<? extends Annotation> annotations, final Moshi moshi) {
@@ -45,10 +38,25 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
 
         final Type parameterType = ((ParameterizedType) type).getActualTypeArguments()[0];
 
-        if (parameterType == FskConstraint.class) {
-            return new DelimitedEnumSetAdapter<>(FskConstraint.class, DELIMITER);
-        } else if (parameterType == MediaLanguage.class) {
-            return new DelimitedEnumSetAdapter<>(MediaLanguage.class, COMMA_DELIMITER);
+        if (!(parameterType instanceof Class<?>) || !((Class) parameterType).isEnum()) {
+            return null;
+        }
+
+        final DelimitedEnumSet annotation = findAnnotation(annotations);
+
+        if (annotation == null) {
+            return null;
+        }
+
+        return new DelimitedEnumSetAdapter((Class<?>) parameterType, annotation.delimiter());
+    }
+
+    @Nullable
+    private DelimitedEnumSet findAnnotation(final Set<? extends Annotation> annotations) {
+        for (final Annotation annotation : annotations) {
+            if (annotation.annotationType() == DelimitedEnumSet.class) {
+                return (DelimitedEnumSet) annotation;
+            }
         }
 
         return null;
@@ -94,47 +102,7 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
 
         @Override
         public Set<T> fromJson(final JsonReader reader) throws IOException {
-            final Set<String> parts = parseParts(reader);
-
-            return convertToEnumConstants(reader, parts);
-        }
-
-        @Override
-        public void toJson(final JsonWriter writer, @Nullable final Set<T> value) throws IOException {
-            if (value == null) {
-                return;
-            }
-
-            StringBuilder result = new StringBuilder();
-
-            for (final T item : value) {
-                result.append(ProxerUtils.getSafeApiEnumName(item));
-                result.append(delimiter);
-            }
-
-            if (result.length() > 0) {
-                result = new StringBuilder(result.substring(0, result.length() - delimiter.length()));
-            }
-
-            writer.value(result.toString());
-        }
-
-        private Set<String> parseParts(final JsonReader reader) throws IOException {
-            final JsonReader.Token nextToken = reader.peek();
-
-            if (nextToken == JsonReader.Token.BEGIN_ARRAY) {
-                final Set<String> result = new LinkedHashSet<>();
-
-                reader.beginArray();
-
-                while (reader.hasNext()) {
-                    result.add(reader.nextString().trim().toLowerCase(Locale.US));
-                }
-
-                reader.endArray();
-
-                return result;
-            } else if (nextToken == JsonReader.Token.NULL) {
+            if (reader.peek() == JsonReader.Token.NULL) {
                 reader.nextNull();
 
                 return Collections.emptySet();
@@ -146,12 +114,17 @@ class DelimitedEnumSetAdapterFactory implements JsonAdapter.Factory {
                 } else {
                     final String[] splitParts = rawParts.split(delimiter);
 
-                    return new HashSet<>(Arrays.asList(splitParts));
+                    return convertToEnumConstants(reader, splitParts);
                 }
             }
         }
 
-        private Set<T> convertToEnumConstants(final JsonReader reader, final Set<String> parts) {
+        @Override
+        public void toJson(final JsonWriter writer, @Nullable final Set<T> value) throws IOException {
+            writer.value(value == null ? null : ProxerUtils.joinEnums(delimiter, EnumSet.copyOf(value)));
+        }
+
+        private Set<T> convertToEnumConstants(final JsonReader reader, final String... parts) {
             final EnumSet<T> result = EnumSet.noneOf(enumType);
 
             for (final String part : parts) {

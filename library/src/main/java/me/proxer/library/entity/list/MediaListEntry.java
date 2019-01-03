@@ -4,6 +4,7 @@ import com.squareup.moshi.Json;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
+import me.proxer.library.api.DelimitedEnumSet;
 import me.proxer.library.api.DelimitedStringSet;
 import me.proxer.library.entity.ProxerIdItem;
 import me.proxer.library.enums.MediaLanguage;
@@ -75,6 +76,7 @@ public class MediaListEntry implements ProxerIdItem {
     /**
      * Returns the languages, this entry is available in.
      */
+    @DelimitedEnumSet(delimiter = ",")
     @Json(name = "language")
     private Set<MediaLanguage> languages;
 

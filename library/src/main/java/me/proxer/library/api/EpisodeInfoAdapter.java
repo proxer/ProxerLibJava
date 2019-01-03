@@ -2,7 +2,6 @@ package me.proxer.library.api;
 
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.Json;
-import com.squareup.moshi.ToJson;
 import me.proxer.library.api.EpisodeInfoAdapter.IntermediateEpisodeInfo.IntermediateEpisode;
 import me.proxer.library.entity.info.AnimeEpisode;
 import me.proxer.library.entity.info.Episode;
@@ -11,7 +10,6 @@ import me.proxer.library.entity.info.MangaEpisode;
 import me.proxer.library.enums.Category;
 import me.proxer.library.enums.MediaLanguage;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -41,13 +39,6 @@ class EpisodeInfoAdapter {
 
         return new EpisodeInfo(json.firstEpisode, json.lastEpisode, json.category, json.availableLanguages,
                 json.userState, episodes);
-    }
-
-    @SuppressWarnings("unused")
-    @ToJson
-    String toJson(@SuppressWarnings("unused") @Nullable final EpisodeInfo episodeInfo) {
-        // Moshi somehow needs this method for this case, we don't use it though.
-        throw new UnsupportedOperationException();
     }
 
     static class IntermediateEpisodeInfo {
