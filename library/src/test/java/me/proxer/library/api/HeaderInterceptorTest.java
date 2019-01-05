@@ -4,7 +4,7 @@ import me.proxer.library.BuildConfig;
 import me.proxer.library.ProxerTest;
 import me.proxer.library.util.ProxerUrls;
 import okhttp3.Headers;
-import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.jupiter.api.Test;
@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Ruben Gees
@@ -45,22 +48,6 @@ class HeaderInterceptorTest extends ProxerTest {
         api.notifications().news().build().execute();
 
         assertThat(server.takeRequest().getHeaders().get("User-Agent")).isEqualTo("test");
-    }
-
-    @Test
-    void testHeadersOnlyForProxerHost() throws Exception {
-        startHttpOnlyServer();
-
-        server.enqueue(new MockResponse());
-
-        //noinspection ConstantConditions
-        api.client().newCall(new Request.Builder().url(HttpUrl.parse("http://example.com" + server.getPort() + "test"))
-                .build()).execute();
-
-        final Headers headers = server.takeRequest().getHeaders();
-
-        assertThat(headers.get("proxer-api-key")).isNull();
-        assertThat(headers.get("User-Agent")).doesNotStartWith("ProxerLibJava/");
     }
 
     @Test
@@ -108,5 +95,15 @@ class HeaderInterceptorTest extends ProxerTest {
 
         assertThat(headers.get("proxer-api-key")).isNull();
         assertThat(headers.get("User-Agent")).startsWith("ProxerLibJava/");
+    }
+
+    @Test
+    void testOtherHostThrows() {
+        HeaderInterceptor interceptor = new HeaderInterceptor("mock-key", "mock-user-agent");
+        Interceptor.Chain chain = mock(Interceptor.Chain.class);
+
+        when(chain.request()).thenReturn(new Request.Builder().url("https://example.com").build());
+
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> interceptor.intercept(chain));
     }
 }

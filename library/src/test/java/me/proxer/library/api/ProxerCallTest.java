@@ -44,8 +44,8 @@ class ProxerCallTest extends ProxerTest {
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
                 .matches(exception -> exception.getErrorType() == ErrorType.IO,
                         "Exception should have the IO ErrorType")
-                .matches(exception -> exception.getMessage() == null,
-                        "Exception should have no message");
+                .matches(exception -> "Unsuccessful request: 404".equals(exception.getMessage()),
+                        "Exception should have message with HTTP error code");
     }
 
     @Test
@@ -55,8 +55,8 @@ class ProxerCallTest extends ProxerTest {
         assertThatExceptionOfType(ProxerException.class).isThrownBy(() -> api.notifications().news().build().execute())
                 .matches(exception -> exception.getErrorType() == ErrorType.IO,
                         "Exception should have the IO ErrorType")
-                .matches(exception -> exception.getMessage() != null && exception.getMessage().equals("error!"),
-                        "Exception should have error body as message");
+                .matches(exception -> "Unsuccessful request: 404".equals(exception.getMessage()),
+                        "Exception should have message with HTTP error code");
     }
 
     @Test

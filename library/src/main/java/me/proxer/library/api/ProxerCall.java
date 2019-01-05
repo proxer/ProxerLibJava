@@ -2,7 +2,6 @@ package me.proxer.library.api;
 
 import com.squareup.moshi.JsonDataException;
 import okhttp3.Request;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -148,21 +147,12 @@ public final class ProxerCall<T> implements Cloneable {
                         message.toString());
             }
         } else {
-            final ResponseBody errorBody = response.errorBody();
-            String message = null;
-
-            if (errorBody != null) {
-                try {
-                    message = errorBody.string();
-                } catch (IOException ignored) {
-                }
+            if (response.errorBody() != null) {
+                response.errorBody().close();
             }
 
-            if (message != null && message.isEmpty()) {
-                message = null;
-            }
-
-            throw new ProxerException(ProxerException.ErrorType.IO, (Integer) null, message);
+            throw new ProxerException(ProxerException.ErrorType.IO, (Integer) null,
+                    "Unsuccessful request: " + response.code());
         }
     }
 

@@ -2,14 +2,21 @@ package me.proxer.library.api;
 
 import me.proxer.library.ProxerTest;
 import me.proxer.library.api.ProxerException.ErrorType;
+import okhttp3.Interceptor;
 import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.ArgumentMatchers.notNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Ruben Gees
@@ -129,18 +136,22 @@ class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
-    void testTokenNotSetForInvalidHost() throws IOException, InterruptedException, ProxerException {
-        server.enqueue(new MockResponse().setBody(fromResource("login.json")));
+    void testTokenNotSetForInvalidHost() throws IOException {
+        final DefaultLoginTokenManager tokenManager = new DefaultLoginTokenManager();
+        final LoginTokenInterceptor interceptor = Mockito.spy(new LoginTokenInterceptor(tokenManager));
+        final Interceptor.Chain chain = mock(Interceptor.Chain.class);
 
-        api.user().login("test", "secret").build().execute();
+        final Request request = new Request.Builder().url("https://example.com").build();
+        final Response response = mock(Response.class);
 
-        startHttpOnlyServer();
+        tokenManager.persist("mock-token");
 
-        server.enqueue(new MockResponse());
+        when(chain.request()).thenReturn(request);
+        when(chain.proceed(notNull())).thenReturn(response);
 
-        api.client().newCall(new Request.Builder().url("http://example.com").build()).execute();
+        interceptor.intercept(chain);
 
-        assertThat(server.takeRequest().getHeaders().get("proxer-api-token")).isNull();
+        verify(chain).proceed(request);
     }
 
     @Test

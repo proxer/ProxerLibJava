@@ -31,7 +31,7 @@ final class HeaderInterceptor implements Interceptor {
         if (ProxerUrls.hasProxerHost(oldRequest.url())) {
             final Request.Builder newRequestBuilder = chain.request().newBuilder();
 
-            if (oldRequest.url().host().equals(ProxerUrls.webBase().host())) {
+            if (oldRequest.url().host().equals(ProxerUrls.apiBase().host())) {
                 newRequestBuilder.header(API_KEY_HEADER, apiKey);
             }
 
@@ -41,7 +41,7 @@ final class HeaderInterceptor implements Interceptor {
 
             return chain.proceed(newRequestBuilder.build());
         } else {
-            return chain.proceed(oldRequest);
+            throw new IllegalArgumentException("Only use ProxerLib's OkHttp instance with Proxer.Me URLs!");
         }
     }
 }

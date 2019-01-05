@@ -1,6 +1,7 @@
 package me.proxer.library.api;
 
 import me.proxer.library.ProxerTest;
+import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class HttpsEnforcingInterceptorTest extends ProxerTest {
 
@@ -27,17 +31,6 @@ class HttpsEnforcingInterceptorTest extends ProxerTest {
         client.newCall(new Request.Builder().url("http://cdn.proxer.me").build()).execute();
 
         assertThat(server.takeRequest().getRequestUrl().isHttps()).isEqualTo(true);
-    }
-
-    @Test
-    void testHttpsUpgradeProxy() throws IOException, InterruptedException {
-        startHttpOnlyServer();
-
-        server.enqueue(new MockResponse());
-
-        client.newCall(new Request.Builder().url("http://prxr.me").build()).execute();
-
-        assertThat(server.takeRequest().getRequestUrl().isHttps()).isEqualTo(false);
     }
 
     @Test
@@ -68,17 +61,6 @@ class HttpsEnforcingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    void testHttpsUpgradeStreamSimilarUntouched() throws IOException, InterruptedException {
-        startHttpOnlyServer();
-
-        server.enqueue(new MockResponse());
-
-        client.newCall(new Request.Builder().url("http://s1-pss.proxer.me").build()).execute();
-
-        assertThat(server.takeRequest().getRequestUrl().isHttps()).isEqualTo(false);
-    }
-
-    @Test
     void testHttpsUntouched() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
 
@@ -88,13 +70,12 @@ class HttpsEnforcingInterceptorTest extends ProxerTest {
     }
 
     @Test
-    void testOtherHostUntouched() throws IOException, InterruptedException {
-        startHttpOnlyServer();
+    void testOtherHostThrows() {
+        final HttpsEnforcingInterceptor interceptor = new HttpsEnforcingInterceptor();
+        final Interceptor.Chain chain = mock(Interceptor.Chain.class);
 
-        server.enqueue(new MockResponse());
+        when(chain.request()).thenReturn(new Request.Builder().url("https://example.com").build());
 
-        client.newCall(new Request.Builder().url("http://example.com").build()).execute();
-
-        assertThat(server.takeRequest().getRequestUrl().isHttps()).isEqualTo(false);
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> interceptor.intercept(chain));
     }
 }
