@@ -98,6 +98,13 @@ public final class MediaSearchEndpoint implements PagingLimitEndpoint<List<Media
     private EnumSet<FskConstraint> fskConstraints;
 
     /**
+     * Sets if already finished media of the current user should be hidden from the result.
+     */
+    @Nullable
+    @Setter
+    private Boolean hideFinished;
+
+    /**
      * {@inheritDoc}
      */
     @Nullable
@@ -185,6 +192,7 @@ public final class MediaSearchEndpoint implements PagingLimitEndpoint<List<Media
                 : ProxerUtils.joinEnums(DELIMITER, fskConstraints);
 
         return internalApi.mediaSearch(name, language, type, joinedFskConstraints, sort, length, lengthBound,
-                tags, excludedTags, genres, excludedGenres, tagRateFilter, tagSpoilerFilter, page, limit);
+                tags, excludedTags, genres, excludedGenres, tagRateFilter, tagSpoilerFilter,
+                hideFinished == null ? null : hideFinished ? 1 : 0, page, limit);
     }
 }

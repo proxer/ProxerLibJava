@@ -61,12 +61,14 @@ class MediaSearchEndpointTest extends ProxerTest {
                 .tagSpoilerFilter(TagSpoilerFilter.ONLY_SPOILERS)
                 .type(MediaType.ALL_MANGA)
                 .sort(MediaSearchSortCriteria.CLICKS)
+                .hideFinished(true)
                 .build()
                 .execute();
 
         assertThat(server.takeRequest().getPath()).isEqualTo("/api/v1/list/entrysearch?name=test&language=en&"
                 + "type=all-manga&fsk=fear&sort=clicks&length=300&length-limit=down&tags=3%2B7&notags=5%2B20&"
-                + "taggenre=22%2B33&notaggenre=13%2B17&tagratefilter=rate_1&tagspoilerfilter=spoiler_1&p=3&limit=10");
+                + "taggenre=22%2B33&notaggenre=13%2B17&tagratefilter=rate_1&tagspoilerfilter=spoiler_1&hide_finished=1&"
+                + "p=3&limit=10");
     }
 
     @Test

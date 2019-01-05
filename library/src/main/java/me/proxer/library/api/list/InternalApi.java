@@ -59,6 +59,7 @@ interface InternalApi {
                                                  @Query("notaggenre") String excludedGenres,
                                                  @Query("tagratefilter") TagRateFilter tagRateFilter,
                                                  @Query("tagspoilerfilter") TagSpoilerFilter tagSpoilerFilter,
+                                                 @Query("hide_finished") Integer hideFinished,
                                                  @Query("p") Integer page,
                                                  @Query("limit") Integer limit);
 
