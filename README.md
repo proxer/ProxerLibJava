@@ -47,8 +47,6 @@ Method              | Description
 `moshi`             | Sets a custom `Moshi` instance, used for parsing. Note, that various adapters are still applied, to make the API work properly.
 `client`            | Sets a custom `OkHttpClient` instance, used for Http requests. Note, that various interceptors are still applied, to make the API work properly.
 `retrofit`          | Sets a custom `Retrofit` instance.
-`logginStrategy`    | Allows for simple logging of Http requests, sent through the API. Available strategies are: `NONE`, `API`, `ALL`.
-`loggingTag`        | Sets a custom tag for logging.
 
 ### Sending a request
 

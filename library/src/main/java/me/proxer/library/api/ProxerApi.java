@@ -197,32 +197,6 @@ public final class ProxerApi {
         private Retrofit retrofit;
 
         /**
-         * Sets a custom logger to use instead of the system default.
-         */
-        @Setter
-        private CustomLogger customLogger;
-
-        /**
-         * Sets the logging strategy. You can either disable logging, enable it for everything concerning the api, or
-         * for all traffic, sent through the OkHttp instance.
-         */
-        @Setter
-        private LoggingStrategy loggingStrategy = LoggingStrategy.NONE;
-
-        /**
-         * Sets the logging constraints. These allow for logging only parts of the request.
-         * By default, every part is logged.
-         */
-        @Setter
-        private LoggingConstraints loggingConstraints = LoggingConstraints.NONE;
-
-        /**
-         * Sets the tag to use for logs.
-         */
-        @Setter
-        private String loggingTag = "ProxerLibJava";
-
-        /**
          * Constructs a new instance of the builder, with the passed {@code apiKey}.
          */
         public Builder(final String apiKey) {
@@ -292,11 +266,6 @@ public final class ProxerApi {
                 builder = client.newBuilder();
             }
 
-            if (loggingStrategy != LoggingStrategy.NONE) {
-                builder.addInterceptor(new LoggingInterceptor(customLogger, loggingStrategy,
-                        loggingConstraints, loggingTag));
-            }
-
             final List<Interceptor> existingInterceptors = builder.interceptors();
 
             existingInterceptors.add(0, new HeaderInterceptor(apiKey, userAgent));
@@ -333,40 +302,6 @@ public final class ProxerApi {
             }
 
             return builder.build();
-        }
-
-        /**
-         * Enum with the available strategies for http logging.
-         */
-        public enum LoggingStrategy {
-
-            /**
-             * Nothing shall be logged.
-             */
-            NONE,
-
-            /**
-             * Everything concerning the api shall be logged.
-             */
-            API,
-
-            /**
-             * All network traffic shall be logged.
-             */
-            ALL
-        }
-
-        public enum LoggingConstraints {
-
-            /**
-             * Only the requested url shall be logged.
-             */
-            URL_ONLY,
-
-            /**
-             * Everything including url, body and headers shall be logged.
-             */
-            NONE
         }
     }
 }

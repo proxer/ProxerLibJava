@@ -99,8 +99,8 @@ class HeaderInterceptorTest extends ProxerTest {
 
     @Test
     void testOtherHostThrows() {
-        HeaderInterceptor interceptor = new HeaderInterceptor("mock-key", "mock-user-agent");
-        Interceptor.Chain chain = mock(Interceptor.Chain.class);
+        final HeaderInterceptor interceptor = new HeaderInterceptor("mock-key", "mock-user-agent");
+        final Interceptor.Chain chain = mock(Interceptor.Chain.class);
 
         when(chain.request()).thenReturn(new Request.Builder().url("https://example.com").build());
 
