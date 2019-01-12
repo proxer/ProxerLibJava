@@ -2,7 +2,7 @@ ext {
     version = '5.0.0'
     group = 'com.github.proxer'
 
-    gradleVersion = '5.0'
+    gradleVersion = '5.1.1'
 
     errorpronePluginVersion = '0.3'
     gradleVersionsPluginVersion = '0.20.0'
@@ -20,7 +20,7 @@ ext {
     javaxExtrasVersion = '0.1.0'
 
     retrofitVersion = '2.5.0'
-    okHttpVersion = '3.12.0'
+    okHttpVersion = '3.12.1'
     moshiVersion = '1.8.0'
     moshiLazyAdaptersVersion = '2.2'
 
