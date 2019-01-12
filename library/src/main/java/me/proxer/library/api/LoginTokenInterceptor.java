@@ -8,9 +8,9 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okio.BufferedSource;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,24 +22,24 @@ import static java.util.regex.Pattern.DOTALL;
 final class LoginTokenInterceptor implements Interceptor {
 
     private static final String LOGIN_TOKEN_HEADER = "proxer-api-token";
-    private static final int MAX_PEEK_BYTE_COUNT = 1024;
+    private static final int MAX_PEEK_BYTE_COUNT = 512;
 
-    private static final Pattern LOGIN_TOKEN_PATTERN = Pattern.compile("\"token\":.*?\"(.+?)\"", DOTALL);
+    private static final Pattern LOGIN_TOKEN_PATTERN = Pattern.compile("\"token\":.*?\"(.{255})\"", DOTALL);
     private static final Pattern ERROR_PATTERN = Pattern.compile("\"code\":.*?(\\d+\b?)", DOTALL);
 
-    private static final List<String> LOGIN_PATH = ProxerUrls.apiBase().newBuilder()
+    private static final HttpUrl LOGIN_URL = ProxerUrls.apiBase().newBuilder()
             .addPathSegment("user")
             .addPathSegment("login")
-            .build()
-            .pathSegments();
+            .build();
 
-    private static final List<String> LOGOUT_PATH = ProxerUrls.apiBase().newBuilder()
+    private static final HttpUrl LOGOUT_URL = ProxerUrls.apiBase().newBuilder()
             .addPathSegment("user")
             .addPathSegment("logout")
-            .build()
-            .pathSegments();
+            .build();
 
     private final LoginTokenManager loginTokenManager;
+
+    private final Object lock = new Object();
 
     LoginTokenInterceptor(final LoginTokenManager loginTokenManager) {
         this.loginTokenManager = loginTokenManager;
@@ -51,10 +51,17 @@ final class LoginTokenInterceptor implements Interceptor {
 
         if (oldRequest.url().host().equals(ProxerUrls.apiBase().host())) {
             final Request.Builder newRequestBuilder = oldRequest.newBuilder();
-            final String loginToken = loginTokenManager.provide();
 
-            if (loginToken != null) {
-                newRequestBuilder.addHeader(LOGIN_TOKEN_HEADER, loginToken);
+            if (!oldRequest.url().equals(LOGIN_URL)) {
+                final String loginToken;
+
+                synchronized (lock) {
+                    loginToken = loginTokenManager.provide();
+                }
+
+                if (loginToken != null) {
+                    newRequestBuilder.addHeader(LOGIN_TOKEN_HEADER, loginToken);
+                }
             }
 
             final Response response = chain.proceed(newRequestBuilder.build());
@@ -74,30 +81,42 @@ final class LoginTokenInterceptor implements Interceptor {
         final Matcher errorMatcher = ERROR_PATTERN.matcher(responseBody);
         final HttpUrl url = response.request().url();
 
-        if (errorMatcher.find()) {
-            final int errorCode = Integer.parseInt(errorMatcher.group(1));
-            final ServerErrorType errorType = ServerErrorType.fromErrorCode(errorCode);
+        synchronized (lock) {
+            final String existingLoginToken = loginTokenManager.provide();
 
-            if (errorType != null && isLoginError(errorType)) {
+            if (errorMatcher.find()) {
+                final int errorCode = Integer.parseInt(errorMatcher.group(1));
+                final ServerErrorType errorType = ServerErrorType.fromErrorCode(errorCode);
+
+                if (errorType != null && existingLoginToken != null && isLoginError(errorType)) {
+                    loginTokenManager.persist(null);
+                }
+            } else if (url.pathSegments().equals(LOGIN_URL.pathSegments())) {
+                final Matcher loginTokenMatcher = LOGIN_TOKEN_PATTERN.matcher(responseBody);
+
+                if (loginTokenMatcher.find()) {
+                    loginTokenManager.persist(loginTokenMatcher.group(1));
+                } else {
+                    throw new JsonDataException("No token found after successful login.");
+                }
+            } else if (url.pathSegments().equals(LOGOUT_URL.pathSegments())) {
                 loginTokenManager.persist(null);
             }
-        } else if (url.pathSegments().equals(LOGIN_PATH)) {
-            final Matcher loginTokenMatcher = LOGIN_TOKEN_PATTERN.matcher(responseBody);
-
-            if (loginTokenMatcher.find()) {
-                loginTokenManager.persist(loginTokenMatcher.group(1).trim());
-            } else {
-                throw new JsonDataException("No token found after successful login.");
-            }
-        } else if (url.pathSegments().equals(LOGOUT_PATH)) {
-            loginTokenManager.persist(null);
         }
     }
 
     private String peekResponseBody(final Response response) throws IOException {
         final ResponseBody safeBody = response.body();
 
-        return safeBody != null && safeBody.contentLength() != 0 ? response.peekBody(MAX_PEEK_BYTE_COUNT).string() : "";
+        if (safeBody != null) {
+            final BufferedSource source = safeBody.source();
+
+            source.request(MAX_PEEK_BYTE_COUNT);
+
+            return source.getBuffer().snapshot().utf8();
+        }
+
+        return "";
     }
 
     private boolean isLoginError(final ServerErrorType errorType) {
@@ -111,6 +130,7 @@ final class LoginTokenInterceptor implements Interceptor {
             case MESSAGES_LOGIN_REQUIRED:
             case CHAT_LOGIN_REQUIRED:
             case USER_2FA_SECRET_REQUIRED:
+            case ANIME_LOGIN_REQUIRED:
                 return true;
             default:
                 return false;

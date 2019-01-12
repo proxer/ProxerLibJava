@@ -127,12 +127,34 @@ class LoginTokenInterceptorTest extends ProxerTest {
     }
 
     @Test
+    void testEmptyResponse() {
+        server.enqueue(new MockResponse());
+
+        assertThatExceptionOfType(ProxerException.class)
+                .isThrownBy(() -> api.user().login("test", "secret").build().execute())
+                .matches(exception -> exception.getErrorType() == ErrorType.PARSING);
+    }
+
+    @Test
     void testNoBodyResponse() throws IOException, InterruptedException {
         server.enqueue(new MockResponse());
 
         api.client().newCall(new Request.Builder().url("https://proxer.me/fake").build()).execute();
 
         assertThat(server.takeRequest().getHeaders().get("proxer-api-token")).isNull();
+    }
+
+    @Test
+    void testTokenNotSetForLogin() throws IOException, ProxerException, InterruptedException {
+        server.enqueue(new MockResponse().setBody(fromResource("login.json")));
+        server.enqueue(new MockResponse().setBody(fromResource("login.json")));
+
+        api.user().login("test", "secret").build().execute();
+        api.user().login("test", "secret").build().execute();
+
+        server.takeRequest();
+
+        assertThat(server.takeRequest().getHeader("proxer-api-token")).isNull();
     }
 
     @Test
