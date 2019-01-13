@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 public final class ProxerUrls {
 
     private static final Pattern PROXER_STREAM_FILE_HOST_PATTERN = Pattern
-            .compile("s[0-9]+-ps\\.proxer\\.me");
+            .compile("s[0-9]+(-ps|\\.stream)\\.proxer\\.me");
 
     private static final Pattern PROXER_MANGA_HOST_PATTERN = Pattern
             .compile("manga[0-9]+\\.proxer\\.me");
