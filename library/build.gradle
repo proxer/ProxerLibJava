@@ -1,144 +1,45 @@
-import com.github.spotbugs.SpotBugsTask
-import groovy.io.FileType
-import groovy.text.SimpleTemplateEngine
-import net.ltgt.gradle.errorprone.javacplugin.CheckSeverity
+import org.jetbrains.dokka.gradle.DokkaTask
 
-import java.nio.file.Files
-import java.util.regex.Pattern
+apply plugin: "kotlin"
+apply plugin: "kotlin-kapt"
+apply plugin: "java-library"
+apply plugin: "maven-publish"
+apply plugin: "org.jetbrains.dokka"
 
-apply plugin: 'java-library'
-apply plugin: 'maven-publish'
+apply plugin: "jacoco"
 
-apply plugin: 'net.ltgt.errorprone-javacplugin'
-apply plugin: 'com.github.spotbugs'
-apply plugin: 'checkstyle'
-apply plugin: 'jacoco'
-apply plugin: 'pmd'
+apply plugin: "com.github.ben-manes.versions"
+apply plugin: "de.fuerstenau.buildconfig"
 
-apply plugin: 'com.github.ben-manes.versions'
-apply plugin: 'de.fuerstenau.buildconfig'
+apply plugin: "idea"
 
-apply plugin: 'idea'
+apply from: "${rootDir}/gradle/dependencies.gradle"
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
-
-dependencies {
-    errorprone deps.errorprone
-
-    annotationProcessor deps.lombok
-    compileOnly deps.lombok
-
-    // Changed later to provided.
-    api deps.javaxExtras
-    api deps.jsr305
-
-    api deps.retrofit
-    api deps.retrofitMoshi
-    api deps.okHttp
-    api deps.moshi
-    api deps.moshiLazyAdapters
-
-    testAnnotationProcessor deps.lombok
-    testCompileOnly deps.lombok
-
-    testImplementation deps.junitApi
-    testImplementation deps.assertj
-    testImplementation deps.mockito
-    testImplementation deps.okhttpTls
-    testImplementation deps.mockwebserver
-    testImplementation deps.privateConstructor
-
-    testRuntime deps.junitEngine
+task dokkaJavadoc(type: DokkaTask) {
+    outputFormat = "javadoc"
+    outputDirectory = javadoc.destinationDir
+    enabled = JavaVersion.current().isJava8()
 }
 
-task generatePackageInfo {
-    File generatedPackageInfoDir = file("$buildDir/generated")
+task sourceJar(type: Jar) {
+    archiveClassifier = "sources"
 
-    sourceSets.main.java.srcDirs -= generatedPackageInfoDir
-    sourceSets.main.java.srcDirs.each { inputs.dir(it.absolutePath) }
-    outputs.dir(generatedPackageInfoDir)
-
-    sourceSets.main.java.srcDirs += generatedPackageInfoDir
-
-    doLast {
-        Pattern packagePattern = Pattern.compile('package (.*?);', Pattern.DOTALL)
-        String templateText = new File(projectDir, 'package-info.template').text
-        Set<String> packages = []
-
-        generatedPackageInfoDir.deleteDir()
-        generatedPackageInfoDir.mkdirs()
-
-        sourceSets.main.java.srcDirs.each {
-            it.eachFileRecurse(FileType.FILES) {
-                if (it.name.endsWith('.java')) {
-                    Files.lines(it.toPath())
-                            .map { line -> packagePattern.matcher(line) }
-                            .filter { matcher -> matcher.matches() }
-                            .findFirst()
-                            .ifPresent { matcher -> packages += matcher.group(1) }
-                }
-            }
-        }
-
-        packages.each {
-            File outputDirectory = mkdir(new File(generatedPackageInfoDir, it.replaceAll('\\.', '/')))
-            File outputFile = new File(outputDirectory.absolutePath, 'package-info.java')
-
-            String templateOutput = new SimpleTemplateEngine()
-                    .createTemplate(templateText)
-                    .make(['packageName': it])
-                    .toString()
-
-            outputFile << templateOutput
-        }
-    }
+    from sourceSets.main.allSource
 }
 
-task delombok(type: JavaExec, dependsOn: compileJava) {
-    String buildConfigInputDir = "$buildDir/gen/buildconfig/src/main"
+task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+    archiveClassifier = "javadoc"
 
-    ext.outputDir = 'build/delombok'
-    outputs.dir(outputDir)
-    inputs.dir(buildConfigInputDir)
-
-    args += "delombok"
-
-    sourceSets.main.java.srcDirs.each {
-        inputs.dir(it)
-
-        args += it
-    }
-
-    args += buildConfigInputDir
-    args += "--target=$outputDir"
-    args += "--classpath=$configurations.compileClasspath.asPath"
-
-    classpath configurations.compileOnly.asPath
-    main = "lombok.launch.Main"
-}
-
-task sourceJar(type: Jar, dependsOn: delombok) {
-    from delombok.outputDir
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
-buildConfig {
-    packageName = 'me.proxer.library'
-    version = project.version
+test {
+    useJUnitPlatform()
 }
 
-javadoc {
-    dependsOn delombok
-
-    failOnError = false
-    source = delombok.outputDir
-
-    options.memberLevel = JavadocMemberLevel.PUBLIC
-    options.addBooleanOption('Xdoclint:-missing', true)
+buildConfig {
+    packageName = "me.proxer.library"
+    version = project.version
 }
 
 jacoco {
@@ -152,102 +53,41 @@ jacocoTestReport {
     }
 }
 
-checkstyle {
-    setToolVersion(checkstyleVersion)
-}
-
-spotbugs {
-    setToolVersion(spotbugsVersion)
-
-    excludeFilter = rootProject.file('config/spotbugs/spotbugs-filter.xml')
-}
-
-tasks.withType(SpotBugsTask) {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}
-
-pmd {
-    ruleSetFiles = rootProject.files("config/pmd/pmd-rulesets.xml")
-    ruleSets = []
-
-    setToolVersion(pmdVersion)
-}
-
-tasks.withType(FindBugs) {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId = 'ProxerLibJava'
+            artifactId = "ProxerLibJava"
 
             from components.java
 
-            artifact sourceJar {
-                classifier "sources"
-            }
-
-            artifact javadocJar {
-                classifier "javadoc"
-            }
+            artifact sourceJar
+            artifact javadocJar
 
             pom {
-                name = 'ProxerLibJava'
-                description = 'An Java and Android library, implementing the API of the Proxer.me website'
-                url = 'https://github.com/proxer/ProxerLibJava'
+                name = "ProxerLibJava"
+                description = "A JVM and Android library, implementing the API of the Proxer.Me website"
+                url = "https://github.com/proxer/ProxerLibJava"
 
                 scm {
-                    url = 'https://github.com/proxer/ProxerLibJava'
-                    connection = 'scm:git:https://github.com/proxer/ProxerLibJava'
-                    developerConnection = 'scm:git:git@github.com/proxer/ProxerLibJava'
-                    tag = 'HEAD'
+                    url = "https://github.com/proxer/ProxerLibJava"
+                    connection = "scm:git:https://github.com/proxer/ProxerLibJava"
+                    developerConnection = "scm:git:git@github.com/proxer/ProxerLibJava"
+                    tag = "HEAD"
                 }
 
                 issueManagement {
-                    system = 'GitHub Issues'
-                    url = 'https://github.com/proxer/ProxerLibJava/issues'
+                    system = "GitHub Issues"
+                    url = "https://github.com/proxer/ProxerLibJava/issues"
                 }
 
                 licenses {
                     license {
-                        name = 'MIT'
-                        url = 'https://opensource.org/licenses/MIT'
-                        distribution = 'repo'
+                        name = "MIT"
+                        url = "https://opensource.org/licenses/MIT"
+                        distribution = "repo"
                     }
                 }
             }
-
-            pom.withXml {
-                asNode().dependencies.'*'
-                        .findAll() { it.artifactId.text() == "jsr305" || it.artifactId.text() == "javax-extras" }
-                        .each { it.scope*.value = 'provided' }
-            }
         }
     }
-}
-
-afterEvaluate {
-    tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Werror"
-        options.encoding = 'UTF-8'
-
-        // Something seems to add a JavaCompile type task which does not has the errorprone property.
-        if (options.hasProperty("errorprone")) {
-            options.errorprone {
-                disableWarningsInGeneratedCode = true
-
-                check("ParameterName", CheckSeverity.OFF)
-            }
-        }
-    }
-
-    compileJava.dependsOn(generatePackageInfo)
-    test { finalizedBy jacocoTestReport }
 }

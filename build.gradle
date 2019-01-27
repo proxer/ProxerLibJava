@@ -1,14 +1,14 @@
 buildscript {
-    apply from: 'gradle/versions.gradle'
+    apply from: "gradle/versions.gradle"
 
     repositories {
-        maven { url = 'https://plugins.gradle.org/m2/' }
+        gradlePluginPortal()
     }
 
     dependencies {
-        classpath "net.ltgt.gradle:gradle-errorprone-javacplugin-plugin:$errorpronePluginVersion"
-        classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:$spotbugsPluginVersion"
-
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokkaVersion"
+        
         classpath "gradle.plugin.de.fuerstenau:BuildConfigPlugin:$buildConfigPluginVersion"
         classpath "com.github.ben-manes:gradle-versions-plugin:$gradleVersionsPluginVersion"
     }
@@ -20,10 +20,9 @@ allprojects {
 
     repositories {
         jcenter()
-        maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
     }
 }
 
 wrapper {
-    setGradleVersion(project.ext.gradleVersion)
+    gradleVersion = project.ext.gradleVersion
 }

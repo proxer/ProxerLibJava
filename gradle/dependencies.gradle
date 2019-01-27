@@ -1,0 +1,19 @@
+dependencies {
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    api "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    api "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    api "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    api "com.squareup.moshi:moshi:$moshiVersion"
+    api "com.serjltt.moshi:moshi-lazy-adapters:$moshiLazyAdaptersVersion"
+
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "com.squareup.okhttp3:okhttp-tls:$okHttpVersion"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
+
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+}

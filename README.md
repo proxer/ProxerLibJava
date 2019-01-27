@@ -2,7 +2,7 @@
 
 ## What is this?
 
-This is an `Java` and `Android` library, implementing the API of the [Proxer.me](https://proxer.me/) website. This is currently `v1`. Built on [Retrofit](https://github.com/square/retrofit), [OkHttp](https://github.com/square/okhttp) and [Moshi](https://github.com/square/moshi), it offers great performance and flexability.
+This is a `JVM` (`Java`, `Kotlin`) and `Android` library, implementing the API of the [Proxer.Me](https://proxer.me/) website. This is currently `v1`. Built on [Retrofit](https://github.com/square/retrofit), [OkHttp](https://github.com/square/okhttp) and [Moshi](https://github.com/square/moshi), it offers great performance and flexibility.
 
 ## Including in your project
 
@@ -230,41 +230,10 @@ The other way around is also available:
 Genre genreAsEnum = ProxerUtils.toApiEnum(Genre.class, "Action");
 ```
 
-### ProGuard
+### ProGuard/R8
 
-If you are using ProGuard, the following config is required:
-
-```proguard
-# Config for ProxerLibJava itself
--dontwarn com.uber.javaxextras.**
-
--keep enum me.proxer.library.** {
-    **[] $VALUES;
-    public *;
-}
-
-# OkHttp/Okio/Retrofit/Moshi
--dontwarn okio.**
--dontwarn javax.annotation.**
--dontnote retrofit2.Platform
--dontwarn retrofit2.Platform$Java8
--dontwarn okhttp3.internal.platform.ConscryptPlatform
-
--keepclasseswithmembers class * {
-    @retrofit2.http.* <methods>;
-}
-
--keepclasseswithmembers interface * {
-    @retrofit2.http.* <methods>;
-}
-
--keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
-
--keepclassmembers class ** {
-    @com.squareup.moshi.FromJson *;
-    @com.squareup.moshi.ToJson *;
-}
-```
+In recent versions of the library, the required config is bundled in the jar.<br>
+If you need to provide the config yourself (e.g. when using an older ProGuard version), see the config [here](https://github.com/proxer/ProxerLibJava/blob/master/library/src/main/resources/META-INF/proguard/proxerlibjava.pro) and also look for the configs of the used libraries.
 
 ### More
 
@@ -273,11 +242,11 @@ You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/Proxer
 ## Working on the library
 
 Recommended development environment is [IntelliJ IDEA](https://www.jetbrains.com/idea/).<br>
-As this project uses [Lombok](https://projectlombok.org/), you will also need the plugin. Remember to turn on annotation processing to make compilation work correctly.
+Make sure to run `./gradlew build` before importing, so the IDE can pick up generated code.
 
 ## Dependencies
 
-This library highly relies on [Retrofit](https://github.com/square/retrofit) and [OkHttp](http://square.github.io/okhttp/) by [Square](https://github.com/square) for the network communication.<br>
+This library is written in [Kotlin](https://kotlinlang.org/) and highly relies on [Retrofit](https://github.com/square/retrofit) and [OkHttp](http://square.github.io/okhttp/) by [Square](https://github.com/square) for the network communication.<br>
 Moreover it uses [Moshi](https://github.com/square/moshi) for response parsing.
 
 ## Contributions and contributors

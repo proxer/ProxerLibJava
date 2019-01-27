@@ -13,7 +13,7 @@ indent_size = 2
 [*.{java,gradle,xml}]
 continuation_indent_size = 8
 
-[*.{yml}]
+[*.yml]
 indent_size = 2
 
 [*.md]

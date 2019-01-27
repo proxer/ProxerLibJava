@@ -1,7 +1,7 @@
-apply plugin: 'java'
-apply plugin: 'application'
+apply plugin: "java"
+apply plugin: "application"
 
-apply plugin: 'idea'
+apply plugin: "idea"
 
 mainClassName = "me.proxer.sample.News"
 
@@ -10,5 +10,5 @@ run {
 }
 
 dependencies {
-    implementation project(':library')
+    implementation project(":library")
 }
