@@ -3,7 +3,6 @@ package me.proxer.library.entity.ucp
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import me.proxer.library.entity.ProxerIdItem
-import me.proxer.library.entity.info.Entry
 import me.proxer.library.enums.Category
 import me.proxer.library.enums.MediaLanguage
 import me.proxer.library.enums.MediaState
@@ -13,13 +12,13 @@ import me.proxer.library.internal.adapter.NumberBasedBoolean
 /**
  * Entity representing a bookmark of the user.
  *
- * @property entryId The id of the associated [Entry].
+ * @property entryId The id of the associated [me.proxer.library.entity.info.Entry].
  * @property category The category.
  * @property name The name.
  * @property episode The episode.
  * @property language The language.
  * @property medium The medium.
- * @property state The state of the associated [Entry].
+ * @property state The state of the associated [me.proxer.library.entity.info.Entry].
  * @property chapterName The name of the chapter if the associated media is a manga and it is uploaded.
  * @property isAvailable If this episode is available yet.
  *

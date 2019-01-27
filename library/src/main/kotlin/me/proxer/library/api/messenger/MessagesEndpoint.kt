@@ -41,9 +41,6 @@ class MessagesEndpoint internal constructor(private val internalApi: InternalApi
      */
     fun markAsRead(markAsRead: Boolean? = true) = this.apply { this.markAsRead = markAsRead }
 
-    /**
-     * {@inheritDoc}
-     */
     override fun build(): ProxerCall<List<Message>> {
         return internalApi.messages(conferenceId, messageId, markAsRead)
     }

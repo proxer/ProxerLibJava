@@ -4,7 +4,7 @@ import me.proxer.library.ProxerCall
 import me.proxer.library.api.Endpoint
 
 /**
- * Endpoint for deleting a comment. Does also delete the associated {link [me.proxer.library.entity.info.Entry]}
+ * Endpoint for deleting a comment. Does also delete the associated [me.proxer.library.entity.info.Entry]
  * from the list of the user.
  *
  * @author Ruben Gees

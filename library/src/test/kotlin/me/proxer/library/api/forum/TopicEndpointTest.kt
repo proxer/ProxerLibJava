@@ -50,9 +50,9 @@ class TopicEndpointTest : ProxerTest() {
                 "811256", "811201", "139597", "Miss-Otaku", "139597_cKc2zC.png",
                 Date(1513626886L * 1000), "",
                 "123", "test", Date(15135529123L * 1000), "just a test",
-                "Ich versuche, dass ganze im Rahmen zu halten. Meistens sind es so ungefähr 2-3 "
-                    + "Folgen und über den Tag verteilt. Leider werde ich oft schwach, gerade bei "
-                    + "besonders spannenden Anime, dass ich auch mehrere Folgen am Stück anschaue.",
+                "Ich versuche, dass ganze im Rahmen zu halten. Meistens sind es so ungefähr 2-3 " +
+                    "Folgen und über den Tag verteilt. Leider werde ich oft schwach, gerade bei " +
+                    "besonders spannenden Anime, dass ich auch mehrere Folgen am Stück anschaue.",
                 0
             )
         )

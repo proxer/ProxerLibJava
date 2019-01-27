@@ -58,12 +58,12 @@ class EntryEndpointTest : ProxerTest() {
     private fun buildTestEntry(): Entry {
         return Entry(
             "6174", "LuCu LuCu", EnumSet.noneOf(FskConstraint::class.java),
-            "Humans are a despicable lot, committing sin after sin, filling the endless boundaries "
-                + "of the underworld with tortured souls. Now, it would seem, Hell isn't so endless after all, "
-                + "and it has become dangerously close to filling, and then overflowing into the human realm. "
-                + "Princess Lucuha sees this imminent disaster and has a plan: save Hell by making humans "
-                + "decent again. Of course, the angels can't simply allow demons to roam freely on Earth, "
-                + "and they do their best to stop Lucu and her dastardly plans.",
+            "Humans are a despicable lot, committing sin after sin, filling the endless boundaries " +
+                "of the underworld with tortured souls. Now, it would seem, Hell isn't so endless after all, " +
+                "and it has become dangerously close to filling, and then overflowing into the human realm. " +
+                "Princess Lucuha sees this imminent disaster and has a plan: save Hell by making humans " +
+                "decent again. Of course, the angels can't simply allow demons to roam freely on Earth, " +
+                "and they do their best to stop Lucu and her dastardly plans.",
             Medium.MANGASERIES, 90, MediaState.FINISHED, 7, 1, 134,
             Category.MANGA, License.NOT_LICENSED, AdaptionInfo("2793", "KissXsis", Medium.MANGASERIES), false,
             listOf(
@@ -99,15 +99,15 @@ class EntryEndpointTest : ProxerTest() {
                     "120694", "175",
                     SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2018-03-07 23:17:44"),
                     "Action",
-                    "Dynamische Szenen, spannende Wettkämpfe und beeindruckende "
-                        + "Kampfszenen prägen dieses Genre."
+                    "Dynamische Szenen, spannende Wettkämpfe und beeindruckende " +
+                        "Kampfszenen prägen dieses Genre."
                 ),
                 InfoGenre(
                     "120695", "174",
                     SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2018-03-07 23:17:44"),
                     "Adventure",
-                    "Es handelt sich meist um eine Geschichte über eine Reise oder Suche. "
-                        + "Kurzum ein Abenteuer, das es zu bestehen gilt."
+                    "Es handelt sich meist um eine Geschichte über eine Reise oder Suche. " +
+                        "Kurzum ein Abenteuer, das es zu bestehen gilt."
                 )
             )
         )

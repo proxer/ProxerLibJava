@@ -48,10 +48,10 @@ class SetSettingsEndpointTest : ProxerTest() {
             .execute()
 
         assertThat(server.takeRequest().body.readUtf8()).isEqualTo(
-            "profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3"
-                + "&profil_forum=3&profil_connections=2&profil_connections_new=0&profil_about=0"
-                + "&profil_chronik=4&profil_board=2&profil_board_post=3&profil_gallery=1&profil_article=2"
-                + "&hide_tags=0&ads_active=1&ads_interval=7"
+            "profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3" +
+                "&profil_forum=3&profil_connections=2&profil_connections_new=0&profil_about=0" +
+                "&profil_chronik=4&profil_board=2&profil_board_post=3&profil_gallery=1&profil_article=2" +
+                "&hide_tags=0&ads_active=1&ads_interval=7"
         )
     }
 
@@ -81,10 +81,10 @@ class SetSettingsEndpointTest : ProxerTest() {
             .execute()
 
         assertThat(server.takeRequest().body.readUtf8()).isEqualTo(
-            "profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3"
-                + "&profil_forum=3&profil_connections=2&profil_connections_new=0&profil_about=0"
-                + "&profil_chronik=4&profil_board=2&profil_board_post=3&profil_gallery=1&profil_article=2"
-                + "&hide_tags=1&ads_active=0&ads_interval=1"
+            "profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3" +
+                "&profil_forum=3&profil_connections=2&profil_connections_new=0&profil_about=0" +
+                "&profil_chronik=4&profil_board=2&profil_board_post=3&profil_gallery=1&profil_article=2" +
+                "&hide_tags=1&ads_active=0&ads_interval=1"
         )
     }
 

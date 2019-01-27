@@ -42,8 +42,8 @@ class NewsEndpointTest : ProxerTest() {
     private fun buildTestArticle(): NewsArticle {
         return NewsArticle(
             "7709", Date(1488654000L * 1000),
-            "In der diesjährigen 14. Ausgabe von Shueishas Weekly Shounen Jump-Magazin soll angekündigt "
-                + "werden, dass der Manga To Love-Ru Trouble Darkness eine neue OVA erhält.",
+            "In der diesjährigen 14. Ausgabe von Shueishas Weekly Shounen Jump-Magazin soll angekündigt " +
+                "werden, dass der Manga To Love-Ru Trouble Darkness eine neue OVA erhält.",
             "723465714977", "To Love-Ru Trouble " + "Darkness – OVA zum zehnjährigen Jubiläum angekündigt",
             549, "381362", "101731", "SilentGray", 1, "56", "Anime- und Manga-News"
         )

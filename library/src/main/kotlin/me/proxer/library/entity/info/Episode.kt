@@ -10,7 +10,7 @@ import me.proxer.library.enums.MediaLanguage
  *
  * @author Ruben Gees
  */
-abstract class Episode(
+open class Episode protected constructor(
     open val number: Int,
     open val language: MediaLanguage
 )

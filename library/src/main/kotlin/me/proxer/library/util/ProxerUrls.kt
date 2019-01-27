@@ -311,8 +311,7 @@ object ProxerUrls {
      * Returns if the passed url has a valid host of proxer or the proxer cdn.
      */
     fun hasProxerWebOrCdnOrStreamHost(url: HttpUrl): Boolean {
-        return (url.host() == webBase.host() || url.host() == cdnBase.host()
-            || url.host() == streamBase.host())
+        return url.host() == webBase.host() || url.host() == cdnBase.host() || url.host() == streamBase.host()
     }
 
     /**

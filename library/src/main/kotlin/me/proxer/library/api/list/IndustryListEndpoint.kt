@@ -41,6 +41,5 @@ class IndustryListEndpoint internal constructor(
 
     override fun build(): ProxerCall<List<IndustryCore>> {
         return internalApi.industryList(searchStart, search, country, page, limit)
-
     }
 }

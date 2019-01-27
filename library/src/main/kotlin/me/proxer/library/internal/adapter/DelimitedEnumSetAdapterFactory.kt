@@ -106,5 +106,6 @@ internal class DelimitedEnumSetAdapterFactory : JsonAdapter.Factory {
         }
     }
 
+    @Suppress("UnusedPrivateClass")
     private enum class PlaceHolderEnum
 }

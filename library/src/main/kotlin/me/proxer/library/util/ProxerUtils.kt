@@ -14,11 +14,9 @@ object ProxerUtils {
     /**
      * Returns the name of the passed enum instance (Using that specified in the `@Json` annotation).
      */
-    inline fun getApiEnumName(it: Enum<*>) = try {
-        it.javaClass.getDeclaredField(it.name)?.getAnnotation(Json::class.java)?.name
-    } catch (ignored: NoSuchFieldException) {
-        null
-    }
+    inline fun getApiEnumName(it: Enum<*>) = it.javaClass.getDeclaredField(it.name)
+        ?.getAnnotation(Json::class.java)
+        ?.name
 
     /**
      * Returns the name of the passed enum instance (Using that specified in the `@Json` annotation).

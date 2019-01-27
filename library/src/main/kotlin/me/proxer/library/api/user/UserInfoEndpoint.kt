@@ -10,7 +10,8 @@ import me.proxer.library.entity.user.UserInfo
  * @author Ruben Gees
  */
 class UserInfoEndpoint internal constructor(
-    private val internalApi: InternalApi, private val userId: String?,
+    private val internalApi: InternalApi,
+    private val userId: String?,
     private val username: String?
 ) : Endpoint<UserInfo> {
 

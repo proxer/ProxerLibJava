@@ -10,8 +10,7 @@ import me.proxer.library.entity.messenger.ConferenceInfo
  *
  * @author Ruben Gees
  */
-class ConferenceInfoEndpoint internal constructor
-    (
+class ConferenceInfoEndpoint internal constructor(
     private val internalApi: InternalApi,
     private val id: String
 ) : Endpoint<ConferenceInfo> {

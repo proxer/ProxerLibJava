@@ -17,13 +17,13 @@ class StreamsEndpoint internal constructor(
     private val language: AnimeLanguage
 ) : Endpoint<List<Stream>> {
 
+    private var includeProxerStreams: Boolean? = null
+
     /**
      * Sets if the Proxer streams should be included in the result.
      *
      * Note, that those require higher access levels.
      */
-    private var includeProxerStreams: Boolean? = null
-
     fun includeProxerStreams(includeProxerStreams: Boolean? = true) = this.apply {
         this.includeProxerStreams = includeProxerStreams
     }

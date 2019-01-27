@@ -6,7 +6,7 @@ import me.proxer.library.internal.adapter.NumberBasedBoolean
 /**
  * @author Ruben Gees
  */
-internal class ProxerResponse<T>(
+internal data class ProxerResponse<T>(
     @field:NumberBasedBoolean @Json(name = "error") val error: Boolean,
     @Json(name = "message") val message: String,
     @Json(name = "code") val code: Int,

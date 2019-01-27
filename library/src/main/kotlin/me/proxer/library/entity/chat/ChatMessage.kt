@@ -6,7 +6,6 @@ import me.proxer.library.entity.ProxerDateItem
 import me.proxer.library.entity.ProxerIdItem
 import me.proxer.library.entity.ProxerImageItem
 import me.proxer.library.enums.ChatMessageAction
-import me.proxer.library.enums.MessageAction
 import java.util.Date
 
 /**
@@ -15,7 +14,7 @@ import java.util.Date
  * @property userId The id of the associated user.
  * @property username The username of the author.
  * @property message The actual content of the message.
- * @property action The action of this message. If the action is not [MessageAction.NONE],
+ * @property action The action of this message. If the action is not [me.proxer.library.enums.ChatMessageAction.NONE],
  * [message] returns associated information, like the name of the user, performing the action.
  *
  * @author Ruben Gees

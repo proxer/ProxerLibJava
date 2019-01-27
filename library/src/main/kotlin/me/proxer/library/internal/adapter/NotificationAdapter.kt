@@ -29,7 +29,7 @@ internal class NotificationAdapter {
     }
 
     @JsonClass(generateAdapter = true)
-    internal class IntermediateNotification(
+    internal data class IntermediateNotification(
         @Json(name = "id") val id: String,
         @Json(name = "type") val type: NotificationType,
         @Json(name = "tid") val contentId: String,

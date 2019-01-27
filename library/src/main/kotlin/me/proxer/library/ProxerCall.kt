@@ -38,6 +38,7 @@ class ProxerCall<T> internal constructor(private val internalCall: Call<ProxerRe
      * Upon success, the result entity is returned. If an error occurs, the respective [ProxerException] is
      * thrown.
      */
+    @Suppress("TooGenericExceptionCaught", "RethrowCaughtException")
     @Throws(ProxerException::class)
     fun execute(): T? {
         return try {
@@ -49,6 +50,12 @@ class ProxerCall<T> internal constructor(private val internalCall: Call<ProxerRe
         }
     }
 
+    /**
+     * Executes the request synchronous.
+     *
+     * Upon success, the result entity is returned. If an error occurs or the response is `null`,
+     * the respective [ProxerException] is thrown.
+     */
     @Throws(ProxerException::class)
     fun safeExecute(): T {
         return execute() ?: throw processNonProxerError(NullPointerException("Response is null."))

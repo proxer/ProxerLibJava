@@ -22,13 +22,13 @@ internal class ConferenceInfoAdapter {
     }
 
     @JsonClass(generateAdapter = true)
-    internal class IntermediateConferenceInfoContainer(
+    internal data class IntermediateConferenceInfoContainer(
         @Json(name = "conference") internal val info: IntermediateConferenceInfo,
         @Json(name = "users") internal val participants: List<ConferenceParticipant>
     ) {
 
         @JsonClass(generateAdapter = true)
-        internal class IntermediateConferenceInfo(
+        internal data class IntermediateConferenceInfo(
             @Json(name = "topic") val topic: String,
             @Json(name = "count") val participantAmount: Int,
             @Json(name = "timestamp_start") val firstMessageTime: Date,

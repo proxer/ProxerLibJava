@@ -118,7 +118,9 @@ class ProxerCallTest : ProxerTest() {
         assertThatExceptionOfType(ProxerException::class.java)
             .isThrownBy { api.ucp.setSettings().build().execute() }
             .matches(
-                { exception -> exception.message != null && exception.message == "Ungültige Eingabe für Felder.\n[profil]" },
+                { exception ->
+                    exception.message != null && exception.message == "Ungültige Eingabe für Felder.\n[profil]"
+                },
                 "Exception should have the correct message"
             )
     }

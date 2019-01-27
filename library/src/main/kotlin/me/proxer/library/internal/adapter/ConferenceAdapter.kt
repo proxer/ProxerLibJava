@@ -24,7 +24,7 @@ internal class ConferenceAdapter {
     }
 
     @JsonClass(generateAdapter = true)
-    internal class IntermediateConference(
+    internal data class IntermediateConference(
         @Json(name = "id") val id: String,
         @Json(name = "topic") val topic: String,
         @Json(name = "topic_custom") val customTopic: String,

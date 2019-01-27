@@ -7,6 +7,7 @@ import retrofit2.http.GET
 /**
  * @author Ruben Gees
  */
+@Suppress("UndocumentedPublicFunction")
 interface InternalApi {
 
     @GET("media/calendar")

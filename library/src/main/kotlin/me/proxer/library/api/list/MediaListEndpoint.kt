@@ -64,4 +64,3 @@ class MediaListEndpoint internal constructor(
         return internalApi.mediaList(category, medium, includeHentai, searchStart, sort, sortType, page, limit)
     }
 }
-

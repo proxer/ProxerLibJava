@@ -1,0 +1,48 @@
+failFast: true
+
+complexity:
+  ComplexCondition:
+    active: false
+  ComplexInterface:
+    active: false
+  ComplexMethod:
+    active: false
+  LabeledExpression:
+    active: false
+  LargeClass:
+    active: false
+  LongParameterList:
+    active: false
+  NestedBlockDepth:
+    active: false
+  StringLiteralDuplication:
+    active: false
+  TooManyFunctions:
+    active: false
+
+naming:
+  FunctionMaxLength:
+    maximumFunctionNameLength: 40
+
+performance:
+  SpreadOperator:
+    active: false
+
+potential-bugs:
+  UnsafeCast:
+    active: false
+
+style:
+  ExpressionBodySyntax:
+    active: false
+  ForbiddenComment:
+    active: true
+    values: 'FIXME:,STOPSHIP:'
+  MagicNumber:
+    active: false
+  ReturnCount:
+    active: false
+  ThrowsCount:
+    active: false
+  UnnecessaryApply:
+    active: false

@@ -34,10 +34,10 @@ class LoginTokenInterceptorTest : ProxerTest() {
         server.takeRequest()
 
         assertThat(server.takeRequest().headers.get("proxer-api-token")).isEqualTo(
-            "OmSjyOzMeyICUnErDD04lsDta7"
-                + "REW2fIn6ZWUxG96mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCYcdWQ0Xv2TFvTUoD8XGHOHP11Uc46rF4BSXr"
-                + "ZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlwK9DHlLxqS83rl6VPD9bqXabkKTsYBOslW61fOwFFDI"
-                + "7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6"
+            "OmSjyOzMeyICUnErDD04lsDta7" +
+                "REW2fIn6ZWUxG96mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCYcdWQ0Xv2TFvTUoD8XGHOHP11Uc46rF4BSXr" +
+                "ZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlwK9DHlLxqS83rl6VPD9bqXabkKTsYBOslW61fOwFFDI" +
+                "7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6"
         )
     }
 
@@ -93,9 +93,9 @@ class LoginTokenInterceptorTest : ProxerTest() {
         server.takeRequest()
 
         assertThat(server.takeRequest().headers.get("proxer-api-token")).isEqualTo(
-            "OmSjyOzMeyICUnErDD04lsDta7REW2fIn6ZWUxG96mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCYcdWQ0Xv2TFvT"
-                + "UoD8XGHOHP11Uc46rF4BSXrZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlwK9DHlLxqS83r"
-                + "l6VPD9bqXabkKTsYBOslW61fOwFFDI7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6"
+            "OmSjyOzMeyICUnErDD04lsDta7REW2fIn6ZWUxG96mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCYcdWQ0Xv2TFvT" +
+                "UoD8XGHOHP11Uc46rF4BSXrZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlwK9DHlLxqS83r" +
+                "l6VPD9bqXabkKTsYBOslW61fOwFFDI7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6"
         )
     }
 

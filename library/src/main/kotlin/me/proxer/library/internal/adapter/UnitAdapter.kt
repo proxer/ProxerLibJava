@@ -17,8 +17,9 @@ internal class UnitAdapter {
         }
     }
 
+    @Suppress("FunctionOnlyReturningConstant")
     @ToJson
-    fun toJson(@Suppress("UNUSED_PARAMETER") nothingness: Unit?): String {
+    fun toJson(@Suppress("UNUSED_PARAMETER", "UnusedPrivateMember") nothingness: Unit?): String {
         return "null"
     }
 }

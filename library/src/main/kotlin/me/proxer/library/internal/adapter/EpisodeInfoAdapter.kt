@@ -69,7 +69,7 @@ internal class EpisodeInfoAdapter {
     }
 
     @JsonClass(generateAdapter = true)
-    internal class IntermediateEpisodeInfo(
+    internal data class IntermediateEpisodeInfo(
         @Json(name = "start") val firstEpisode: Int,
         @Json(name = "end") val lastEpisode: Int,
         @Json(name = "kat") val category: Category,
@@ -79,7 +79,7 @@ internal class EpisodeInfoAdapter {
     ) {
 
         @JsonClass(generateAdapter = true)
-        internal class IntermediateEpisode(
+        internal data class IntermediateEpisode(
             @Json(name = "no") val number: Int,
             @Json(name = "typ") val language: MediaLanguage,
             @Json(name = "title") val title: String?,
