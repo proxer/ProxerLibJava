@@ -2,10 +2,10 @@ package me.proxer.library.entity.anime
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import me.proxer.library.api.NumberBasedBoolean
 import me.proxer.library.entity.ProxerDateItem
 import me.proxer.library.entity.ProxerIdItem
 import me.proxer.library.entity.ProxerImageItem
+import me.proxer.library.internal.adapter.NumberBasedBoolean
 import java.util.Date
 
 /**

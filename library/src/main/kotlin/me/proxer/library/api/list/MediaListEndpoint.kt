@@ -1,7 +1,7 @@
 package me.proxer.library.api.list
 
+import me.proxer.library.ProxerCall
 import me.proxer.library.api.PagingLimitEndpoint
-import me.proxer.library.api.ProxerCall
 import me.proxer.library.entity.list.MediaListEntry
 import me.proxer.library.enums.Category
 import me.proxer.library.enums.MediaListSortCriteria

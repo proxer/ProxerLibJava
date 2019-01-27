@@ -2,7 +2,6 @@ package me.proxer.library.entity.info
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import me.proxer.library.api.DelimitedEnumSet
 import me.proxer.library.entity.ProxerIdItem
 import me.proxer.library.entity.list.IndustryCore
 import me.proxer.library.enums.Category
@@ -11,6 +10,7 @@ import me.proxer.library.enums.License
 import me.proxer.library.enums.MediaLanguage
 import me.proxer.library.enums.MediaState
 import me.proxer.library.enums.Medium
+import me.proxer.library.internal.adapter.DelimitedEnumSet
 
 /**
  * Entity holding all info of an entry. This is everything what [EntryCore] contains and some

@@ -2,9 +2,9 @@ package me.proxer.library.entity.chat
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import me.proxer.library.api.NumberBasedBoolean
 import me.proxer.library.entity.ProxerIdItem
 import me.proxer.library.entity.ProxerImageItem
+import me.proxer.library.internal.adapter.NumberBasedBoolean
 
 /**
  * Entity representing a user, active in a [ChatRoom].

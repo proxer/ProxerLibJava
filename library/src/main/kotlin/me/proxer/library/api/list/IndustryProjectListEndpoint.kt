@@ -1,10 +1,10 @@
 package me.proxer.library.api.list
 
+import me.proxer.library.ProxerCall
 import me.proxer.library.api.PagingLimitEndpoint
-import me.proxer.library.api.ProxerCall
 import me.proxer.library.entity.list.IndustryProject
 import me.proxer.library.enums.IndustryType
-import me.proxer.library.util.toIntOrNull
+import me.proxer.library.internal.util.toIntOrNull
 
 /**
  * Endpoint for retrieving a list of projects of an industry.

@@ -62,9 +62,3 @@ object ProxerUtils {
      */
     inline fun <reified T : Enum<T>> toSafeApiEnum(value: String) = toSafeApiEnum(T::class.java, value)
 }
-
-internal inline fun Boolean?.toIntOrNull() = when (this) {
-    true -> 1
-    false -> 0
-    null -> null
-}

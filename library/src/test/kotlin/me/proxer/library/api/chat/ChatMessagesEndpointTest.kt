@@ -1,7 +1,7 @@
 package me.proxer.library.api.chat
 
+import me.proxer.library.ProxerException
 import me.proxer.library.ProxerTest
-import me.proxer.library.api.ProxerException
 import me.proxer.library.entity.chat.ChatMessage
 import me.proxer.library.enums.ChatMessageAction
 import me.proxer.library.fromResource

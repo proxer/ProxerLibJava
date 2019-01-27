@@ -51,8 +51,8 @@ class TopicEndpointTest : ProxerTest() {
                 Date(1513626886L * 1000), "",
                 "123", "test", Date(15135529123L * 1000), "just a test",
                 "Ich versuche, dass ganze im Rahmen zu halten. Meistens sind es so ungefähr 2-3 "
-                        + "Folgen und über den Tag verteilt. Leider werde ich oft schwach, gerade bei "
-                        + "besonders spannenden Anime, dass ich auch mehrere Folgen am Stück anschaue.",
+                    + "Folgen und über den Tag verteilt. Leider werde ich oft schwach, gerade bei "
+                    + "besonders spannenden Anime, dass ich auch mehrere Folgen am Stück anschaue.",
                 0
             )
         )

@@ -1,7 +1,7 @@
 package me.proxer.library.api.messenger
 
+import me.proxer.library.ProxerCall
 import me.proxer.library.api.Endpoint
-import me.proxer.library.api.ProxerCall
 
 /**
  * Endpoint for creating a new conference with a single other user.

@@ -1,6 +1,5 @@
 package me.proxer.library
 
-import me.proxer.library.api.ProxerApi
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.tls.HandshakeCertificates

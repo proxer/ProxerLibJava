@@ -1,6 +1,6 @@
 package me.proxer.library.api.notifications
 
-import me.proxer.library.api.ProxerCall
+import me.proxer.library.ProxerCall
 import me.proxer.library.entity.notifications.NewsArticle
 import me.proxer.library.entity.notifications.Notification
 import me.proxer.library.entity.notifications.NotificationInfo

@@ -1,7 +1,7 @@
 package me.proxer.library.api.messenger
 
+import me.proxer.library.ProxerCall
 import me.proxer.library.api.Endpoint
-import me.proxer.library.api.ProxerCall
 import me.proxer.library.api.messenger.ConferenceModificationEndpoint.ConferenceModification.BLOCK
 import me.proxer.library.api.messenger.ConferenceModificationEndpoint.ConferenceModification.FAVOUR
 import me.proxer.library.api.messenger.ConferenceModificationEndpoint.ConferenceModification.READ

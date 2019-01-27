@@ -1,6 +1,6 @@
 package me.proxer.library.api.manga
 
-import me.proxer.library.api.ProxerCall
+import me.proxer.library.ProxerCall
 import me.proxer.library.entity.manga.Chapter
 import me.proxer.library.enums.Language
 import retrofit2.http.GET

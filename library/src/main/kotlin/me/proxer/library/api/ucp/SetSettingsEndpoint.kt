@@ -1,10 +1,10 @@
 package me.proxer.library.api.ucp
 
+import me.proxer.library.ProxerCall
 import me.proxer.library.api.Endpoint
-import me.proxer.library.api.ProxerCall
 import me.proxer.library.entity.ucp.UcpSettings
 import me.proxer.library.enums.UcpSettingConstraint
-import me.proxer.library.util.toIntOrNull
+import me.proxer.library.internal.util.toIntOrNull
 
 /**
  * Endpoint for updating the settings of the user.

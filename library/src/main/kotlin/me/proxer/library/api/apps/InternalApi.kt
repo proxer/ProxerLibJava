@@ -1,6 +1,6 @@
 package me.proxer.library.api.apps
 
-import me.proxer.library.api.ProxerCall
+import me.proxer.library.ProxerCall
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST

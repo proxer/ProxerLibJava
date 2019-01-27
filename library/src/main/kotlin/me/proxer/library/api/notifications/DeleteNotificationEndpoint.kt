@@ -1,7 +1,7 @@
 package me.proxer.library.api.notifications
 
+import me.proxer.library.ProxerCall
 import me.proxer.library.api.Endpoint
-import me.proxer.library.api.ProxerCall
 
 /**
  * Endpoint for deleting a single or all notifications.

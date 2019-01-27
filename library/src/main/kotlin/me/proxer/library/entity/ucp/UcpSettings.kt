@@ -2,8 +2,8 @@ package me.proxer.library.entity.ucp
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import me.proxer.library.api.NumberBasedBoolean
 import me.proxer.library.enums.UcpSettingConstraint
+import me.proxer.library.internal.adapter.NumberBasedBoolean
 
 /**
  * Entity representing the settings of the user.

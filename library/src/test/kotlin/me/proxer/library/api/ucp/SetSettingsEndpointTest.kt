@@ -1,8 +1,8 @@
 package me.proxer.library.api.ucp
 
+import me.proxer.library.ProxerException
+import me.proxer.library.ProxerException.ServerErrorType
 import me.proxer.library.ProxerTest
-import me.proxer.library.api.ProxerException
-import me.proxer.library.api.ProxerException.ServerErrorType
 import me.proxer.library.entity.ucp.UcpSettings
 import me.proxer.library.enums.UcpSettingConstraint
 import me.proxer.library.fromResource
@@ -49,9 +49,9 @@ class SetSettingsEndpointTest : ProxerTest() {
 
         assertThat(server.takeRequest().body.readUtf8()).isEqualTo(
             "profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3"
-                    + "&profil_forum=3&profil_connections=2&profil_connections_new=0&profil_about=0"
-                    + "&profil_chronik=4&profil_board=2&profil_board_post=3&profil_gallery=1&profil_article=2"
-                    + "&hide_tags=0&ads_active=1&ads_interval=7"
+                + "&profil_forum=3&profil_connections=2&profil_connections_new=0&profil_about=0"
+                + "&profil_chronik=4&profil_board=2&profil_board_post=3&profil_gallery=1&profil_article=2"
+                + "&hide_tags=0&ads_active=1&ads_interval=7"
         )
     }
 
@@ -82,9 +82,9 @@ class SetSettingsEndpointTest : ProxerTest() {
 
         assertThat(server.takeRequest().body.readUtf8()).isEqualTo(
             "profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3"
-                    + "&profil_forum=3&profil_connections=2&profil_connections_new=0&profil_about=0"
-                    + "&profil_chronik=4&profil_board=2&profil_board_post=3&profil_gallery=1&profil_article=2"
-                    + "&hide_tags=1&ads_active=0&ads_interval=1"
+                + "&profil_forum=3&profil_connections=2&profil_connections_new=0&profil_about=0"
+                + "&profil_chronik=4&profil_board=2&profil_board_post=3&profil_gallery=1&profil_article=2"
+                + "&hide_tags=1&ads_active=0&ads_interval=1"
         )
     }
 

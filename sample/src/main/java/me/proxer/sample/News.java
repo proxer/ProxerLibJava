@@ -1,7 +1,7 @@
 package me.proxer.sample;
 
-import me.proxer.library.api.ProxerApi;
-import me.proxer.library.api.ProxerException;
+import me.proxer.library.ProxerApi;
+import me.proxer.library.ProxerException;
 
 import java.util.Scanner;
 import java.util.stream.Collectors;

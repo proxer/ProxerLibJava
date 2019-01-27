@@ -1,5 +1,7 @@
 package me.proxer.library.api
 
+import me.proxer.library.ProxerCall
+
 /**
  * Interface for all endpoints.
  *

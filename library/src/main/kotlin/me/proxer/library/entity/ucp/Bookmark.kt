@@ -2,13 +2,13 @@ package me.proxer.library.entity.ucp
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import me.proxer.library.api.NumberBasedBoolean
 import me.proxer.library.entity.ProxerIdItem
 import me.proxer.library.entity.info.Entry
 import me.proxer.library.enums.Category
 import me.proxer.library.enums.MediaLanguage
 import me.proxer.library.enums.MediaState
 import me.proxer.library.enums.Medium
+import me.proxer.library.internal.adapter.NumberBasedBoolean
 
 /**
  * Entity representing a bookmark of the user.

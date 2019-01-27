@@ -1,7 +1,7 @@
 package me.proxer.library.api.user
 
+import me.proxer.library.ProxerCall
 import me.proxer.library.api.PagingLimitEndpoint
-import me.proxer.library.api.ProxerCall
 import me.proxer.library.entity.user.UserComment
 import me.proxer.library.enums.Category
 

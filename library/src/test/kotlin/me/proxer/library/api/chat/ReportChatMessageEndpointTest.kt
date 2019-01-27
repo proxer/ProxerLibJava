@@ -1,7 +1,7 @@
 package me.proxer.library.api.chat
 
+import me.proxer.library.ProxerException
 import me.proxer.library.ProxerTest
-import me.proxer.library.api.ProxerException
 import me.proxer.library.fromResource
 import okhttp3.mockwebserver.MockResponse
 import org.assertj.core.api.Assertions.assertThat

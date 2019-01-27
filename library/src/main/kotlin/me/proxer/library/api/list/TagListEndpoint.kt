@@ -1,7 +1,7 @@
 package me.proxer.library.api.list
 
+import me.proxer.library.ProxerCall
 import me.proxer.library.api.Endpoint
-import me.proxer.library.api.ProxerCall
 import me.proxer.library.entity.list.Tag
 import me.proxer.library.enums.TagSortCriteria
 import me.proxer.library.enums.TagSubType

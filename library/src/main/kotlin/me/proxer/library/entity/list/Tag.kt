@@ -2,10 +2,10 @@ package me.proxer.library.entity.list
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import me.proxer.library.api.NumberBasedBoolean
 import me.proxer.library.entity.ProxerIdItem
 import me.proxer.library.enums.TagSubType
 import me.proxer.library.enums.TagType
+import me.proxer.library.internal.adapter.NumberBasedBoolean
 
 /**
  * Entity representing a single tag.

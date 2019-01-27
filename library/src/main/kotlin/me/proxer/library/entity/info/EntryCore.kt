@@ -2,14 +2,14 @@ package me.proxer.library.entity.info
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import me.proxer.library.api.DelimitedEnumSet
-import me.proxer.library.api.DelimitedStringSet
 import me.proxer.library.entity.ProxerIdItem
 import me.proxer.library.enums.Category
 import me.proxer.library.enums.FskConstraint
 import me.proxer.library.enums.License
 import me.proxer.library.enums.MediaState
 import me.proxer.library.enums.Medium
+import me.proxer.library.internal.adapter.DelimitedEnumSet
+import me.proxer.library.internal.adapter.DelimitedStringSet
 
 /**
  * Entity holding the detail data of an Entry (Anime, Manga). These are only the basics.

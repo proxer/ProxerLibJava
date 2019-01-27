@@ -2,10 +2,10 @@ package me.proxer.library.entity.media
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import me.proxer.library.api.DelimitedStringSet
 import me.proxer.library.entity.ProxerDateItem
 import me.proxer.library.entity.ProxerIdItem
 import me.proxer.library.enums.CalendarDay
+import me.proxer.library.internal.adapter.DelimitedStringSet
 import java.util.Date
 
 /**

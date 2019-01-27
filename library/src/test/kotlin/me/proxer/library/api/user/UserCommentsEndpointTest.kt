@@ -64,9 +64,9 @@ class UserCommentsEndpointTest : ProxerTest() {
             Category.ANIME, "62", UserMediaProgress.CANCELLED,
             RatingDetails(0, 0, 0, 0, 0),
             "Der Anfang ok... aber dann... schrecklich... Oh mein Gott der Anime ist meiner Meinung nach "
-                    + "unschaubar D:\nHabe es nach 10 Episoden abgebrochen... Habs einfach nicht mehr "
-                    + "durchgehalten -_- Diese Beziehungsscheiße ist schlimmer als bei jeder Horror Anime... "
-                    + "Sowas kann ich einfach nicht schauen. \n\n\nTut mir leid, I'm out.",
+                + "unschaubar D:\nHabe es nach 10 Episoden abgebrochen... Habs einfach nicht mehr "
+                + "durchgehalten -_- Diese Beziehungsscheiße ist schlimmer als bei jeder Horror Anime... "
+                + "Sowas kann ich einfach nicht schauen. \n\n\nTut mir leid, I'm out.",
             2, 9, 8, Date(1391476364L * 1000), "genesis", "62_L36C3N.png"
         )
     }

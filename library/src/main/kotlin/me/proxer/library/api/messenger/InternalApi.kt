@@ -1,6 +1,6 @@
 package me.proxer.library.api.messenger
 
-import me.proxer.library.api.ProxerCall
+import me.proxer.library.ProxerCall
 import me.proxer.library.entity.messenger.Conference
 import me.proxer.library.entity.messenger.ConferenceInfo
 import me.proxer.library.entity.messenger.Message

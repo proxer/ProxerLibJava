@@ -1,6 +1,6 @@
 package me.proxer.library.api.media
 
-import me.proxer.library.api.ProxerCall
+import me.proxer.library.ProxerCall
 import me.proxer.library.entity.media.CalendarEntry
 import retrofit2.http.GET
 

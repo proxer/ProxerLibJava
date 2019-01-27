@@ -1,7 +1,7 @@
 package me.proxer.library.api.info
 
+import me.proxer.library.ProxerCall
 import me.proxer.library.api.PagingLimitEndpoint
-import me.proxer.library.api.ProxerCall
 import me.proxer.library.entity.info.Entry
 import me.proxer.library.entity.info.EpisodeInfo
 

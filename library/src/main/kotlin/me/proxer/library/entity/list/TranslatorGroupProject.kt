@@ -2,13 +2,13 @@ package me.proxer.library.entity.list
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import me.proxer.library.api.DelimitedEnumSet
-import me.proxer.library.api.DelimitedStringSet
 import me.proxer.library.entity.ProxerIdItem
 import me.proxer.library.enums.FskConstraint
 import me.proxer.library.enums.MediaState
 import me.proxer.library.enums.Medium
 import me.proxer.library.enums.ProjectState
+import me.proxer.library.internal.adapter.DelimitedEnumSet
+import me.proxer.library.internal.adapter.DelimitedStringSet
 
 /**
  * Entity holding all relevant info about a single entry in a translator group's project list.

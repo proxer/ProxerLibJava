@@ -1,6 +1,6 @@
 package me.proxer.library.api.ucp
 
-import me.proxer.library.api.ProxerCall
+import me.proxer.library.ProxerCall
 import me.proxer.library.entity.ucp.Bookmark
 import me.proxer.library.entity.ucp.UcpHistoryEntry
 import me.proxer.library.entity.ucp.UcpSettings

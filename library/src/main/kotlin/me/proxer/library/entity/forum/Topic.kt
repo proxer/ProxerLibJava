@@ -2,7 +2,7 @@ package me.proxer.library.entity.forum
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import me.proxer.library.api.NumberBasedBoolean
+import me.proxer.library.internal.adapter.NumberBasedBoolean
 import java.util.Date
 
 /**

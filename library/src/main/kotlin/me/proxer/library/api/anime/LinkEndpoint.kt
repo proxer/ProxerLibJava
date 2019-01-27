@@ -1,7 +1,7 @@
 package me.proxer.library.api.anime
 
+import me.proxer.library.ProxerCall
 import me.proxer.library.api.Endpoint
-import me.proxer.library.api.ProxerCall
 
 /**
  * Endpoint for retrieving the link to the uploaded anime. This may be null, if the link is broken or has been deleted.

@@ -1,6 +1,6 @@
 package me.proxer.library.api.chat
 
-import me.proxer.library.api.ProxerCall
+import me.proxer.library.ProxerCall
 import me.proxer.library.entity.chat.ChatMessage
 import me.proxer.library.entity.chat.ChatRoom
 import me.proxer.library.entity.chat.ChatRoomUser
