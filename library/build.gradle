@@ -1,4 +1,6 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType 
 
 apply plugin: "kotlin"
 apply plugin: "kotlin-kapt"
@@ -35,6 +37,10 @@ task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
     from javadoc.destinationDir
 }
 
+tasks.withType(KotlinCompile).all {
+    kotlinOptions { freeCompilerArgs = ["-progressive"] }
+}
+
 test {
     useJUnitPlatform()
 }
@@ -53,6 +59,10 @@ jacocoTestReport {
         xml.enabled = true
         html.enabled = false
     }
+}
+
+ktlint {
+    reporters = [ReporterType.CHECKSTYLE]
 }
 
 detekt {

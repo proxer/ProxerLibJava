@@ -7,10 +7,11 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: jars-{{ checksum "gradle/versions.gradle" }}-{{ checksum  ".circleci/config.yml" }}
+          key: lib-{{ checksum ".circleci/config.yml" }}-{{ checksum "gradle/versions.gradle" }}
       - run:
           name: Run Build
-          command: ./gradlew build --console=plain
+          command: ./gradlew detekt ktlintCheck build -Pkotlin.incremental=false
+            -Dkotlin.compiler.execution.strategy="in-process" --console=plain --stacktrace
       - store_test_results:
           path: library/build/test-results/test
       - store_artifacts:
@@ -25,4 +26,4 @@ jobs:
       - save_cache:
           paths:
             - ~/.gradle
-          key: jars-{{ checksum "gradle/versions.gradle" }}-{{ checksum  ".circleci/config.yml" }}
+          key: lib-{{ checksum ".circleci/config.yml" }}-{{ checksum "gradle/versions.gradle" }}
