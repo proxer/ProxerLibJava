@@ -26,7 +26,7 @@ class EpisodeInfoEndpoint internal constructor(
     /**
      * Sets if episodes should be included which are linked, but not uploaded yet.
      */
-    fun includeNotAvailableEpisodes(includeNotAvailableEpisodes: Boolean?) = this.apply {
+    fun includeNotAvailableEpisodes(includeNotAvailableEpisodes: Boolean? = true) = this.apply {
         this.includeNotAvailableEpisodes = includeNotAvailableEpisodes
     }
 

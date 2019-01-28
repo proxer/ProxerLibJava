@@ -97,7 +97,7 @@ class MediaSearchEndpoint internal constructor(
     /**
      * Sets if already finished media of the current user should be hidden from the result.
      */
-    fun hideFinished(hideFinished: Boolean?) = this.apply { this.hideFinished = hideFinished }
+    fun hideFinished(hideFinished: Boolean? = true) = this.apply { this.hideFinished = hideFinished }
 
     /**
      * Sets the tag ids a entry must have to be included in the result.

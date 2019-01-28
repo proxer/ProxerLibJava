@@ -34,7 +34,7 @@ class BookmarksEndpoint internal constructor(
      *
      * This field being null means that all bookmarks are returned.
      */
-    fun filterAvailable(filterAvailable: Boolean?) = this.apply { this.filterAvailable = filterAvailable }
+    fun filterAvailable(filterAvailable: Boolean? = true) = this.apply { this.filterAvailable = filterAvailable }
 
     override fun build(): ProxerCall<List<Bookmark>> {
         return internalApi.bookmarks(category, page, limit, filterAvailable)

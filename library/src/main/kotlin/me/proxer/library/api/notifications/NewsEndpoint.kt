@@ -22,7 +22,7 @@ class NewsEndpoint internal constructor(private val internalApi: InternalApi) : 
     /**
      * Sets if the news should be marked as read. Defaults to false.
      */
-    fun markAsRead(markAsRead: Boolean?) = this.apply { this.markAsRead = markAsRead }
+    fun markAsRead(markAsRead: Boolean? = true) = this.apply { this.markAsRead = markAsRead }
 
     override fun build(): ProxerCall<List<NewsArticle>> {
         return internalApi.news(page, limit, markAsRead)
