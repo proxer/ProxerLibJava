@@ -31,8 +31,8 @@ data class Stream(
     @Json(name = "uploader") val uploaderId: String,
     @Json(name = "username") val uploaderName: String,
     @Json(name = "timestamp") override val date: Date,
-    @Json(name = "tid") val translatorGroupId: String,
-    @Json(name = "tname") val translatorGroupName: String,
+    @Json(name = "tid") val translatorGroupId: String?,
+    @Json(name = "tname") val translatorGroupName: String?,
     @field:NumberBasedBoolean @Json(name = "legal") val isOfficial: Boolean,
     @field:NumberBasedBoolean @Json(name = "public") val isPublic: Boolean
 ) : ProxerIdItem, ProxerImageItem, ProxerDateItem

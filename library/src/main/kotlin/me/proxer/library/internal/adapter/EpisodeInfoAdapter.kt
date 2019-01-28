@@ -74,7 +74,7 @@ internal class EpisodeInfoAdapter {
         @Json(name = "end") val lastEpisode: Int,
         @Json(name = "kat") val category: Category,
         @Json(name = "lang") val availableLanguages: Set<MediaLanguage>,
-        @Json(name = "state") val userProgress: Int,
+        @Json(name = "state") val userProgress: Int?,
         @Json(name = "episodes") val episodes: List<IntermediateEpisode>
     ) {
 
