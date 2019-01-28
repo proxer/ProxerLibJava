@@ -2,6 +2,7 @@ package me.proxer.library.enums
 
 import com.serjltt.moshi.adapters.FallbackEnum
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import me.proxer.library.entity.chat.ChatMessage
 
 /**
@@ -9,6 +10,7 @@ import me.proxer.library.entity.chat.ChatMessage
  *
  * @author Ruben Gees
  */
+@JsonClass(generateAdapter = false)
 @FallbackEnum(name = "NONE")
 enum class ChatMessageAction {
 

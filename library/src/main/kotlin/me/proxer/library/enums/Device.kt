@@ -1,6 +1,7 @@
 package me.proxer.library.enums
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 /**
  * Simple enum for the available types of devices, supported by Proxer.
@@ -9,7 +10,9 @@ import com.squareup.moshi.Json
  *
  * @author Ruben Gees
  */
+@JsonClass(generateAdapter = false)
 enum class Device {
+
     @Json(name = "")
     UNSPECIFIED,
 

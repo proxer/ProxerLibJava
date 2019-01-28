@@ -1,6 +1,7 @@
 package me.proxer.library.enums
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import me.proxer.library.entity.info.Entry
 
 /**
@@ -8,6 +9,7 @@ import me.proxer.library.entity.info.Entry
  *
  * @author Ruben Gees
  */
+@JsonClass(generateAdapter = false)
 enum class UserMediaProgress {
 
     @Json(name = "0")

@@ -1,12 +1,14 @@
 package me.proxer.library.enums
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 /**
  * Enum of the available media types. Similar to [Medium].
  *
  * @author Desnoo
  */
+@JsonClass(generateAdapter = false)
 enum class MediaType {
 
     @Json(name = "animeseries")
