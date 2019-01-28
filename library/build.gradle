@@ -42,6 +42,8 @@ tasks.withType(KotlinCompile).all {
 }
 
 test {
+    finalizedBy jacocoTestReport
+
     useJUnitPlatform()
 }
 
