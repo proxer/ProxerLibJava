@@ -5,9 +5,9 @@ import com.squareup.moshi.JsonQualifier
 /**
  * @author Ruben Gees
  */
-@Retention(AnnotationRetention.RUNTIME)
 @JsonQualifier
-annotation class DelimitedStringSet(
+@Retention(AnnotationRetention.RUNTIME)
+internal annotation class DelimitedStringSet(
     val delimiter: String = " ",
     val valuesToKeep: Array<String> = []
 )

@@ -5,6 +5,6 @@ import com.squareup.moshi.JsonQualifier
 /**
  * @author Ruben Gees
  */
-@Retention(AnnotationRetention.RUNTIME)
 @JsonQualifier
-annotation class DelimitedEnumSet(val delimiter: String = " ")
+@Retention(AnnotationRetention.RUNTIME)
+internal annotation class DelimitedEnumSet(val delimiter: String = " ")

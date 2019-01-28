@@ -24,7 +24,7 @@ class ProxerException : Exception {
     val serverErrorType: ServerErrorType?
 
     /**
-     * Constructs an instance from the passed [error], [serverError], [message] and [cause].
+     * Constructs an instance from the passed [error], [serverErrorType], [message] and [cause].
      */
     @JvmOverloads
     constructor(

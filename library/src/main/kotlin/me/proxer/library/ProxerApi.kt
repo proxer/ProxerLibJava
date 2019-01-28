@@ -16,23 +16,7 @@ import me.proxer.library.api.notifications.NotificationsApi
 import me.proxer.library.api.ucp.UcpApi
 import me.proxer.library.api.user.UserApi
 import me.proxer.library.internal.DefaultLoginTokenManager
-import me.proxer.library.internal.adapter.AdaptionInfoAdapter
-import me.proxer.library.internal.adapter.BooleanAdapterFactory
-import me.proxer.library.internal.adapter.ConferenceAdapter
-import me.proxer.library.internal.adapter.ConferenceInfoAdapter
-import me.proxer.library.internal.adapter.DateAdapter
-import me.proxer.library.internal.adapter.DelimitedEnumSetAdapterFactory
-import me.proxer.library.internal.adapter.DelimitedStringSetAdapterFactory
-import me.proxer.library.internal.adapter.EnumRetrofitConverterFactory
-import me.proxer.library.internal.adapter.EpisodeInfoAdapter
-import me.proxer.library.internal.adapter.FixRatingDetailsAdapter
-import me.proxer.library.internal.adapter.HttpUrlAdapter
-import me.proxer.library.internal.adapter.NotificationAdapter
-import me.proxer.library.internal.adapter.NotificationInfoAdapter
-import me.proxer.library.internal.adapter.PageAdapter
-import me.proxer.library.internal.adapter.ProxerResponseCallAdapterFactory
-import me.proxer.library.internal.adapter.UcpSettingConstraintAdapter
-import me.proxer.library.internal.adapter.UnitAdapter
+import me.proxer.library.internal.adapter.*
 import me.proxer.library.internal.interceptor.HeaderInterceptor
 import me.proxer.library.internal.interceptor.HttpsEnforcingInterceptor
 import me.proxer.library.internal.interceptor.LoginTokenInterceptor
@@ -141,7 +125,7 @@ class ProxerApi private constructor(retrofit: Retrofit) {
      * You can set customized instances of the internally used libraries: Moshi, OkHttp and Retrofit.
      * Moreover you can specify your own [LoginTokenManager] and user agent.
      *
-     * @constructor Constructs a new instance of the builder, with the passed [apiKey].
+     * @constructor Constructs a new instance of the builder, with the passed api key.
      */
     class Builder(private val apiKey: String) {
 
