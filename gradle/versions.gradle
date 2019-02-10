@@ -15,7 +15,7 @@ ext {
     buildConfigPluginVersion = "1.1.8"
 
     retrofitVersion = "2.5.0"
-    okHttpVersion = "3.12.1"
+    okHttpVersion = "3.13.1"
     moshiVersion = "1.8.0"
     moshiLazyAdaptersVersion = "2.2"
 
