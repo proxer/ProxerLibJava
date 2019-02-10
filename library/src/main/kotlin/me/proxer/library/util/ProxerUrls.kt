@@ -14,7 +14,7 @@ import okhttp3.HttpUrl
  */
 object ProxerUrls {
 
-    private val PROXER_STREAM_FILE_HOST_PATTERN = Regex("s[0-9]+(-psc?|\\.stream)\\.proxer\\.me")
+    private val PROXER_STREAM_FILE_HOST_PATTERN = Regex("s[0-9]+(?:(?:.|-)psc?|\\.stream)\\.proxer\\.me")
     private val PROXER_MANGA_HOST_PATTERN = Regex("manga[0-9]+\\.proxer\\.me")
 
     /**

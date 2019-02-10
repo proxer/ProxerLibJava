@@ -230,6 +230,11 @@ class ProxerUrlsTest {
     }
 
     @Test
+    fun testHasDotSeparatedProxerHostFileStream() {
+        assertThat(ProxerUrls.hasProxerHost(HttpUrl.get("https://s39.ps.proxer.me/files/test.mp4"))).isTrue()
+    }
+
+    @Test
     fun testHasNewProxerHostFileStream() {
         assertThat(ProxerUrls.hasProxerHost(HttpUrl.get("https://s39-psc.proxer.me/files/test.mp4"))).isTrue()
     }
