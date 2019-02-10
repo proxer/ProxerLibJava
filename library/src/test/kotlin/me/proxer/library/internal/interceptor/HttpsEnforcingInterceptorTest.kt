@@ -83,6 +83,19 @@ class HttpsEnforcingInterceptorTest {
     }
 
     @Test
+    fun testHttpsUpgradeProxy() {
+        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
+
+        `when`(chain.request()).thenReturn(Request.Builder().url("http://proxy.proxer.me").build())
+        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+
+        interceptor.intercept(chain)
+
+        verify(chain).proceed(requestCaptor.capture())
+        assertThat(requestCaptor.value.url().toString()).isEqualTo("https://proxy.proxer.me/")
+    }
+
+    @Test
     fun testHttpsUntouched() {
         val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
 

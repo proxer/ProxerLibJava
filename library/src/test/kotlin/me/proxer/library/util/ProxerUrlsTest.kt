@@ -48,13 +48,13 @@ class ProxerUrlsTest {
     @Test
     fun testProxyImage() {
         assertThat(ProxerUrls.proxyImage(HttpUrl.get("https://example.com/image.png")).toString())
-            .isEqualTo("https://prxr.me/img/?url=https%3A%2F%2Fexample.com%2Fimage.png")
+            .isEqualTo("https://proxy.proxer.me/index.php?url=https%3A%2F%2Fexample.com%2Fimage.png")
     }
 
     @Test
     fun testProxyImageString() {
         assertThat(ProxerUrls.proxyImage("https://example.com/image.png").toString())
-            .isEqualTo("https://prxr.me/img/?url=https%3A%2F%2Fexample.com%2Fimage.png")
+            .isEqualTo("https://proxy.proxer.me/index.php?url=https%3A%2F%2Fexample.com%2Fimage.png")
     }
 
     @Test
@@ -211,7 +211,7 @@ class ProxerUrlsTest {
 
     @Test
     fun testHasProxerHostProxy() {
-        assertThat(ProxerUrls.hasProxerHost(HttpUrl.get("https://prxr.me/test"))).isFalse()
+        assertThat(ProxerUrls.hasProxerHost(HttpUrl.get("https://proxy.proxer.me/index.php?url=test"))).isTrue()
     }
 
     @Test

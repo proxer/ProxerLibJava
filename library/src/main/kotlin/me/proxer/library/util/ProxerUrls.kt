@@ -58,9 +58,7 @@ object ProxerUrls {
      */
     val proxyBase: HttpUrl = HttpUrl.Builder()
         .scheme("https")
-        .host("prxr.me")
-        .addPathSegment("img")
-        .addPathSegment("")
+        .host("proxy.proxer.me")
         .build()
 
     /**
@@ -98,19 +96,18 @@ object ProxerUrls {
     /**
      * Returns the link to the image behind the proxy.
      */
-    fun proxyImage(url: HttpUrl): HttpUrl {
+    fun proxyImage(url: String): HttpUrl {
         return proxyBase.newBuilder()
-            .addQueryParameter("url", url.toString())
+            .addPathSegment("index.php")
+            .addQueryParameter("url", url)
             .build()
     }
 
     /**
      * Returns the link to the image behind the proxy.
      */
-    fun proxyImage(url: String): HttpUrl {
-        return proxyBase.newBuilder()
-            .addQueryParameter("url", url)
-            .build()
+    fun proxyImage(url: HttpUrl): HttpUrl {
+        return ProxerUrls.proxyImage(url.toString())
     }
 
     /**
@@ -304,7 +301,8 @@ object ProxerUrls {
      * Returns if the passed url has a valid host of proxer.
      */
     fun hasProxerHost(url: HttpUrl): Boolean {
-        return hasProxerWebOrCdnOrStreamHost(url) || hasProxerStreamFileHost(url) || hasProxerMangaHost(url)
+        return hasProxerWebOrCdnOrStreamHost(url) || hasProxerStreamFileHost(url) || hasProxerMangaHost(url) ||
+            hasProxerProxyHost(url)
     }
 
     /**
@@ -326,5 +324,12 @@ object ProxerUrls {
      */
     fun hasProxerMangaHost(url: HttpUrl): Boolean {
         return PROXER_MANGA_HOST_PATTERN.matches(url.host())
+    }
+
+    /**
+     * Returns if the passed url has a valid proxer image proxy host.
+     */
+    fun hasProxerProxyHost(url: HttpUrl): Boolean {
+        return url.host() == proxyBase.host()
     }
 }
