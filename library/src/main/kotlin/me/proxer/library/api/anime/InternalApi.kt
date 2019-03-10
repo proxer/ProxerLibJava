@@ -1,6 +1,7 @@
 package me.proxer.library.api.anime
 
 import me.proxer.library.ProxerCall
+import me.proxer.library.entity.anime.LinkContainer
 import me.proxer.library.entity.anime.Stream
 import me.proxer.library.enums.AnimeLanguage
 import retrofit2.http.GET
@@ -26,6 +27,9 @@ internal interface InternalApi {
         @Query("language") language: AnimeLanguage?
     ): ProxerCall<List<Stream>>
 
-    @GET("anime/link")
-    fun link(@Query("id") id: String?): ProxerCall<String>
+    @GET("anime/link2")
+    fun link(
+        @Query("id") id: String?,
+        @Query("adFlag") adFlag: Int?
+    ): ProxerCall<LinkContainer>
 }
