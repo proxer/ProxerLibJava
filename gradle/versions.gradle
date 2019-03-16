@@ -15,11 +15,11 @@ ext {
     buildConfigPluginVersion = "1.1.8"
 
     retrofitVersion = "2.5.0"
-    okHttpVersion = "3.13.1"
+    okHttpVersion = "3.14.0"
     moshiVersion = "1.8.0"
     moshiLazyAdaptersVersion = "2.2"
 
     junitVersion = "5.4.0"
     assertjVersion = "3.11.1"
-    mockitoVersion = "2.24.0"
+    mockitoVersion = "2.25.1"
 }

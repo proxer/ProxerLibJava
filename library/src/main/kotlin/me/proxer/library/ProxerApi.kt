@@ -36,6 +36,7 @@ import me.proxer.library.internal.adapter.UnitAdapter
 import me.proxer.library.internal.interceptor.HeaderInterceptor
 import me.proxer.library.internal.interceptor.HttpsEnforcingInterceptor
 import me.proxer.library.internal.interceptor.LoginTokenInterceptor
+import me.proxer.library.internal.interceptor.OneShotInterceptor
 import me.proxer.library.util.ProxerUrls
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
@@ -214,7 +215,8 @@ class ProxerApi private constructor(retrofit: Retrofit) {
                             0, listOf(
                                 HeaderInterceptor(apiKey, buildUserAgent()),
                                 LoginTokenInterceptor(buildLoginTokenManager()),
-                                HttpsEnforcingInterceptor()
+                                HttpsEnforcingInterceptor(),
+                                OneShotInterceptor()
                             )
                         )
                     }
