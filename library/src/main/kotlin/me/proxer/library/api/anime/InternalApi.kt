@@ -27,9 +27,13 @@ internal interface InternalApi {
         @Query("language") language: AnimeLanguage?
     ): ProxerCall<List<Stream>>
 
-    @GET("anime/link2")
+    @GET("anime/link")
     fun link(
-        @Query("id") id: String?,
-        @Query("adFlag") adFlag: Int?
+        @Query("id") id: String?
+    ): ProxerCall<String>
+
+    @GET("anime/linkvast")
+    fun vastLink(
+        @Query("id") id: String?
     ): ProxerCall<LinkContainer>
 }

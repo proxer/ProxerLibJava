@@ -25,4 +25,11 @@ class AnimeApi internal constructor(retrofit: Retrofit) {
     fun link(streamId: String): LinkEndpoint {
         return LinkEndpoint(internalApi, streamId)
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    fun vastLink(streamId: String): VastLinkEndpoint {
+        return VastLinkEndpoint(internalApi, streamId)
+    }
 }

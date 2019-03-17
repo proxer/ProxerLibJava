@@ -1,8 +1,5 @@
 {
   "error": 0,
   "message": "Abfrage erfolgreich",
-  "data": {
-    "link": "//www.dailymotion.com/embed/video/k4D1tfdhKG",
-    "adFlag": true
-  }
+  "data": "//www.dailymotion.com/embed/video/k4D1tfdhKG"
 }

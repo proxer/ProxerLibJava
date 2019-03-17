@@ -1,7 +1,6 @@
 package me.proxer.library.api.anime
 
 import me.proxer.library.ProxerTest
-import me.proxer.library.entity.anime.LinkContainer
 import me.proxer.library.fromResource
 import okhttp3.mockwebserver.MockResponse
 import org.assertj.core.api.Assertions.assertThat
@@ -21,7 +20,7 @@ class LinkEndpointTest : ProxerTest() {
             .build()
             .execute()
 
-        assertThat(result).isEqualTo(buildTestLink())
+        assertThat(result).isEqualTo("//www.dailymotion.com/embed/video/k4D1tfdhKG")
     }
 
     @Test
@@ -29,14 +28,9 @@ class LinkEndpointTest : ProxerTest() {
         server.enqueue(MockResponse().setBody(fromResource("link.json")))
 
         api.anime.link("13")
-            .enableAds(true)
             .build()
             .execute()
 
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/anime/link2?id=13&adFlag=1")
-    }
-
-    private fun buildTestLink(): LinkContainer {
-        return LinkContainer("//www.dailymotion.com/embed/video/k4D1tfdhKG", true)
+        assertThat(server.takeRequest().path).isEqualTo("/api/v1/anime/link?id=13")
     }
 }
