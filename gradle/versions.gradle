@@ -1,5 +1,5 @@
 ext {
-    version = "5.0.0"
+    version = "5.0.1"
     group = "com.github.proxer"
 
     gradleVersion = "5.3"

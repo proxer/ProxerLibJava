@@ -19,7 +19,7 @@ And this to your module build.gradle:
 
 ```groovy
 dependencies {
-    compile 'com.github.proxer:ProxerLibJava:5.0.0'
+    compile 'com.github.proxer:ProxerLibJava:5.0.1'
 }
 ```
 
