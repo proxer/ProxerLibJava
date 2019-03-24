@@ -19,11 +19,11 @@ And this to your module build.gradle:
 
 ```groovy
 dependencies {
-    compile 'com.github.proxer:ProxerLibJava:4.5.2'
+    compile 'com.github.proxer:ProxerLibJava:5.0.0'
 }
 ```
 
-You can also download the `jar` directly from [here](https://jitpack.io/com/github/proxer/ProxerLibJava/4.5.2/ProxerLibJava-4.5.2.jar), if you prefer.
+You can also download the `jar` directly from [here](https://jitpack.io/com/github/proxer/ProxerLibJava/5.0.1/ProxerLibJava-5.0.1.jar), if you prefer.
 
 > Note that this jar does not come with the required dependencies. You have to include those manually in that case.
 
@@ -237,7 +237,7 @@ If you need to provide the config yourself (e.g. when using an older ProGuard ve
 
 ### More
 
-You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/ProxerLibJava/4.5.2/javadoc/).
+You can find detailed JavaDoc [here](https://jitpack.io/com/github/proxer/ProxerLibJava/5.0.1/javadoc/).
 
 ## Working on the library
 
