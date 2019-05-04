@@ -1,4 +1,4 @@
-apply plugin: "java"
+apply plugin: "kotlin"
 apply plugin: "application"
 
 apply plugin: "idea"
@@ -11,4 +11,10 @@ run {
 
 dependencies {
     implementation project(":library")
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict", "-progressive"]
+    }
 }

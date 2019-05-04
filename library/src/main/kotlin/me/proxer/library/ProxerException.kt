@@ -143,7 +143,7 @@ class ProxerException : Exception {
         ANIME_LOGIN_REQUIRED(3063),
         IP_AUTHENTICATION_REQUIRED(3064),
 
-        UNKNOWN(10000);
+        UNKNOWN(10_000);
 
         companion object {
             internal fun fromErrorCode(errorCode: Int?): ServerErrorType {

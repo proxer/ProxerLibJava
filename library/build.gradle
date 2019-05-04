@@ -1,7 +1,3 @@
-import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
-
 apply plugin: "kotlin"
 apply plugin: "kotlin-kapt"
 apply plugin: "java-library"
@@ -19,7 +15,7 @@ apply plugin: "idea"
 
 apply from: "${rootDir}/gradle/dependencies.gradle"
 
-task dokkaJavadoc(type: DokkaTask) {
+task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
     outputFormat = "html"
     outputDirectory = javadoc.destinationDir
     enabled = JavaVersion.current().isJava8()
@@ -49,8 +45,10 @@ task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
     from javadoc.destinationDir
 }
 
-tasks.withType(KotlinCompile).all {
-    kotlinOptions { freeCompilerArgs = ["-progressive"] }
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions { 
+        freeCompilerArgs = ["-Xjsr305=strict", "-progressive"] 
+    }
 }
 
 test {
@@ -76,11 +74,12 @@ jacocoTestReport {
 }
 
 ktlint {
-    reporters = [ReporterType.CHECKSTYLE]
+    reporters = [org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE]
 }
 
 detekt {
     config = files("$rootDir/config/detekt.yml")
+    failFast = true
 }
 
 publishing {
