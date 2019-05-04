@@ -55,7 +55,10 @@ import retrofit2.converter.moshi.MoshiConverterFactory
  */
 class ProxerApi private constructor(retrofit: Retrofit) {
 
-    private companion object {
+    companion object {
+        /** Special api key to enable the test mode. */
+        const val TEST_KEY = "test"
+
         private val CERTIFICATES = arrayOf(
             "sha256/58qRu/uxh4gFezqAcERupSkRYBlBAvfcw7mEjGPLnNU=",
             "sha256/grX4Ta9HpZx6tSHkmCrvpApTQGo67CYDnvprLg5yRME=",

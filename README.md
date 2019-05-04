@@ -48,6 +48,9 @@ Method              | Description
 `client`            | Sets a custom `OkHttpClient` instance, used for Http requests. Note, that various interceptors are still applied, to make the API work properly.
 `retrofit`          | Sets a custom `Retrofit` instance.
 
+> The API feature a test mode, which does not require a key. For most calls, this returns a predefined result and
+> ignores the actual input. To enable the test mode, pass `ProxerApi.Test_KEY` or simply `"test"` to the constructor.
+
 ### Sending a request
 
 The API is divided in classes for the various request, similar to the actual REST-API.<br>

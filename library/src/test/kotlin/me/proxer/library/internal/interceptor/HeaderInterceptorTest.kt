@@ -1,6 +1,7 @@
 package me.proxer.library.internal.interceptor
 
 import me.proxer.library.BuildConfig.VERSION
+import me.proxer.library.ProxerApi
 import me.proxer.library.ProxerTest
 import me.proxer.library.fromResource
 import me.proxer.library.util.ProxerUrls
@@ -41,6 +42,48 @@ class HeaderInterceptorTest : ProxerTest() {
         api.notifications.news().build().execute()
 
         assertThat(server.takeRequest().headers.get("User-Agent")).isEqualTo("ProxerLibJava/$VERSION")
+    }
+
+    @Test
+    fun testApiKeyHeaderNotSetForOtherUrl() {
+        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
+
+        `when`(chain.request()).thenReturn(Request.Builder().url(ProxerUrls.cdnBase).build())
+        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+
+        interceptor.intercept(chain)
+
+        verify(chain).proceed(requestCaptor.capture())
+        assertThat(requestCaptor.value.header("proxer-api-key")).isNull()
+    }
+
+    @Test
+    fun testCorrectHeadersForTestMode() {
+        val testInterceptor = HeaderInterceptor(ProxerApi.TEST_KEY, "mock-user-agent")
+        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
+
+        `when`(chain.request()).thenReturn(Request.Builder().url(ProxerUrls.apiBase).build())
+        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+
+        testInterceptor.intercept(chain)
+
+        verify(chain).proceed(requestCaptor.capture())
+        assertThat(requestCaptor.value.header("proxer-api-key")).isNull()
+        assertThat(requestCaptor.value.header("proxer-api-testmode")).isEqualTo("1")
+    }
+
+    @Test
+    fun testTestModeHeaderNotSerForOtherUrl() {
+        val testInterceptor = HeaderInterceptor(ProxerApi.TEST_KEY, "mock-user-agent")
+        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
+
+        `when`(chain.request()).thenReturn(Request.Builder().url(ProxerUrls.cdnBase).build())
+        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+
+        testInterceptor.intercept(chain)
+
+        verify(chain).proceed(requestCaptor.capture())
+        assertThat(requestCaptor.value.header("proxer-api-testmode")).isNull()
     }
 
     @Test
