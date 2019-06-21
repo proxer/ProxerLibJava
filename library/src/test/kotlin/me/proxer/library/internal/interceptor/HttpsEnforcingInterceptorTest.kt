@@ -1,118 +1,53 @@
 package me.proxer.library.internal.interceptor
 
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.slot
 import okhttp3.Interceptor
 import okhttp3.Request
-import okhttp3.Response
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldBe
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentCaptor
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.notNull
-import org.mockito.Mockito.verify
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
+/**
+ * @author Ruben Gees
+ */
 class HttpsEnforcingInterceptorTest {
 
     private val interceptor = HttpsEnforcingInterceptor()
-    private val chain = mock(Interceptor.Chain::class.java)
+    private val requestSlot = slot<Request>()
 
-    @Test
-    fun testHttpsUpgradeWeb() {
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
-
-        `when`(chain.request()).thenReturn(Request.Builder().url("http://proxer.me").build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
-
-        interceptor.intercept(chain)
-
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.url().toString()).isEqualTo("https://proxer.me/")
+    private val chain = mockk<Interceptor.Chain>().apply {
+        every { proceed(capture(requestSlot)) } returns mockk()
     }
 
-    @Test
-    fun testHttpsUpgradeCdn() {
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
-
-        `when`(chain.request()).thenReturn(Request.Builder().url("http://cdn.proxer.me").build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
-
-        interceptor.intercept(chain)
-
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.url().toString()).isEqualTo("https://cdn.proxer.me/")
-    }
-
-    @Test
-    fun testHttpsUpgradeManga() {
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
-
-        `when`(chain.request()).thenReturn(Request.Builder().url("http://manga1.proxer.me").build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+    @ParameterizedTest(name = "{2}")
+    @CsvSource(
+        "http://proxer.me, https://proxer.me/, Web",
+        "http://cdn.proxer.me, https://cdn.proxer.me/, Cdn",
+        "http://manga1.proxer.me, https://manga1.proxer.me/, Manga",
+        "http://stream.proxer.me, https://stream.proxer.me/, Stream Html",
+        "http://s1-ps.proxer.me, https://s1-ps.proxer.me/, Stream Alternative",
+        "http://proxy.proxer.me, https://proxy.proxer.me/, Proxy",
+        "https://proxer.me, https://proxer.me/, Already Https"
+    )
+    fun testHttpsUpgrade(input: String, expected: String, @Suppress("UNUSED_PARAMETER") name: String) {
+        every { chain.request() } returns Request.Builder().url(input).build()
 
         interceptor.intercept(chain)
 
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.url().toString()).isEqualTo("https://manga1.proxer.me/")
-    }
-
-    @Test
-    fun testHttpsUpgradeStreamHtml() {
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
-
-        `when`(chain.request()).thenReturn(Request.Builder().url("http://stream.proxer.me").build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
-
-        interceptor.intercept(chain)
-
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.url().toString()).isEqualTo("https://stream.proxer.me/")
-    }
-
-    @Test
-    fun testHttpsUpgradeStreamAlternative() {
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
-
-        `when`(chain.request()).thenReturn(Request.Builder().url("http://s1-ps.proxer.me").build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
-
-        interceptor.intercept(chain)
-
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.url().toString()).isEqualTo("https://s1-ps.proxer.me/")
-    }
-
-    @Test
-    fun testHttpsUpgradeProxy() {
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
-
-        `when`(chain.request()).thenReturn(Request.Builder().url("http://proxy.proxer.me").build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
-
-        interceptor.intercept(chain)
-
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.url().toString()).isEqualTo("https://proxy.proxer.me/")
-    }
-
-    @Test
-    fun testHttpsUntouched() {
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
-
-        `when`(chain.request()).thenReturn(Request.Builder().url("https://proxer.me").build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
-
-        interceptor.intercept(chain)
-
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.url().toString()).isEqualTo("https://proxer.me/")
+        requestSlot.isCaptured shouldBe true
+        requestSlot.captured.url().toString() shouldEqual expected
     }
 
     @Test
     fun testOtherHostThrows() {
-        `when`(chain.request()).thenReturn(Request.Builder().url("https://example.com").build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+        every { chain.request() } returns Request.Builder().url("https://example.com").build()
 
-        assertThatExceptionOfType(IllegalArgumentException::class.java).isThrownBy { interceptor.intercept(chain) }
+        invoking { interceptor.intercept(chain) } shouldThrow IllegalArgumentException::class
     }
 }

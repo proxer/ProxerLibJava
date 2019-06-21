@@ -1,22 +1,28 @@
 package me.proxer.library.internal.interceptor
 
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.slot
+import io.mockk.spyk
+import io.mockk.verify
 import me.proxer.library.ProxerException
 import me.proxer.library.ProxerException.ErrorType
 import me.proxer.library.ProxerTest
-import me.proxer.library.fromResource
 import me.proxer.library.internal.DefaultLoginTokenManager
+import me.proxer.library.runRequest
+import me.proxer.library.runRequestIgnoringError
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldBe
+import org.amshove.kluent.shouldBeNull
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentMatchers.notNull
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.spy
-import org.mockito.Mockito.verify
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
 /**
  * @author Ruben Gees
@@ -25,214 +31,133 @@ class LoginTokenInterceptorTest : ProxerTest() {
 
     @Test
     fun testTokenSetAfterLogin() {
-        server.enqueue(MockResponse().setBody(fromResource("login.json")))
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
+        server.runRequest("login.json") { api.user.login("test", "secret").build().execute() }
 
-        api.user.login("test", "secret").build().execute()
-        api.notifications.news().build().execute()
+        val (_, request) = server.runRequest("news.json") { api.notifications.news().build().execute() }
 
-        server.takeRequest()
-
-        assertThat(server.takeRequest().headers.get("proxer-api-token")).isEqualTo(
-            "OmSjyOzMeyICUnErDD04lsDta7" +
-                "REW2fIn6ZWUxG96mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCYcdWQ0Xv2TFvTUoD8XGHOHP11Uc46rF4BSXr" +
-                "ZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlwK9DHlLxqS83rl6VPD9bqXabkKTsYBOslW61fOwFFDI" +
-                "7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6"
-        )
+        request.headers.get("proxer-api-token") shouldEqual """
+            OmSjyOzMeyICUnErDD04lsDta7REW2fIn6ZWUxG96mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCYcdWQ0Xv2TFvTUo
+            D8XGHOHP11Uc46rF4BSXrZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlwK9DHlLxqS83rl6VPD9bqXabkKT
+            sYBOslW61fOwFFDI7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6
+        """.trimIndent().replace("\n", "")
     }
 
     @Test
     fun testTokenRemovedAfterLogout() {
-        server.enqueue(MockResponse().setBody(fromResource("login.json")))
-        server.enqueue(MockResponse().setBody(fromResource("logout.json")))
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
+        server.runRequest("login.json") { api.user.login("test", "secret").build().execute() }
+        server.runRequest("logout.json") { api.user.logout().build().execute() }
 
-        api.user.login("test", "secret").build().execute()
-        api.user.logout().build().execute()
-        api.notifications.news().build().execute()
+        val (_, request) = server.runRequest("news.json") { api.notifications.news().build().execute() }
 
-        server.takeRequest()
-        server.takeRequest()
-
-        assertThat(server.takeRequest().headers.get("proxer-api-token")).isNull()
+        request.headers.get("proxer-api-token").shouldBeNull()
     }
 
     @Test
     fun testTokenNotSetOnError() {
-        server.enqueue(MockResponse().setBody(fromResource("login_error.json")))
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
-
-        try {
+        server.runRequestIgnoringError("login_error.json") {
             api.user.login("test", "secret").build().execute()
-        } catch (error: ProxerException) {
         }
 
-        api.notifications.news().build().execute()
+        val (_, request) = server.runRequest("news.json") { api.notifications.news().build().execute() }
 
-        server.takeRequest()
-
-        assertThat(server.takeRequest().headers.get("proxer-api-token")).isNull()
+        request.headers.get("proxer-api-token").shouldBeNull()
     }
 
     @Test
     fun testTokenNotRemovedOnError() {
-        server.enqueue(MockResponse().setBody(fromResource("login.json")))
-        server.enqueue(MockResponse().setBody(fromResource("logout_error.json")))
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
+        server.runRequest("login.json") { api.user.login("test", "secret").build().execute() }
+        server.runRequestIgnoringError("news.json") { api.notifications.news().build().execute() }
 
-        api.user.login("test", "secret").build().execute()
-
-        try {
-            api.user.logout().build().execute()
-        } catch (error: ProxerException) {
+        val (_, request) = server.runRequest("news.json") {
+            api.notifications.news().build().execute()
         }
 
-        api.notifications.news().build().execute()
-
-        server.takeRequest()
-        server.takeRequest()
-
-        assertThat(server.takeRequest().headers.get("proxer-api-token")).isEqualTo(
-            "OmSjyOzMeyICUnErDD04lsDta7REW2fIn6ZWUxG96mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCYcdWQ0Xv2TFvT" +
-                "UoD8XGHOHP11Uc46rF4BSXrZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlwK9DHlLxqS83r" +
-                "l6VPD9bqXabkKTsYBOslW61fOwFFDI7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6"
-        )
+        request.headers.get("proxer-api-token") shouldEqual """
+            OmSjyOzMeyICUnErDD04lsDta7REW2fIn6ZWUxG96mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCYcdWQ0Xv2TFvTUo
+            D8XGHOHP11Uc46rF4BSXrZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlwK9DHlLxqS83rl6VPD9bqXabkKT
+            sYBOslW61fOwFFDI7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6
+        """.trimIndent().replace("\n", "")
     }
 
     @Test
     fun testTokenRemovedOnLoginError() {
-        server.enqueue(MockResponse().setBody(fromResource("login.json")))
-        server.enqueue(MockResponse().setBody(fromResource("conferences_error.json")))
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
+        server.runRequest("login.json") { api.user.login("test", "secret").build().execute() }
+        server.runRequestIgnoringError("conferences_error.json") { api.messenger.conferences().build().execute() }
 
-        api.user.login("test", "secret").build().execute()
-
-        try {
-            api.messenger.conferences().build().execute()
-        } catch (error: ProxerException) {
+        val (_, request) = server.runRequest("news.json") {
+            api.notifications.news().build().execute()
         }
 
-        api.notifications.news().build().execute()
-
-        server.takeRequest()
-        server.takeRequest()
-
-        assertThat(server.takeRequest().headers.get("proxer-api-token")).isNull()
+        request.headers.get("proxer-api-token").shouldBeNull()
     }
 
     @Test
     fun testMalformedResponse() {
-        server.enqueue(MockResponse().setBody(fromResource("login_malformed.json")))
+        server.runRequest("login_malformed.json") {
+            val result = invoking {
+                api.user.login("test", "secret").build().execute()
+            } shouldThrow ProxerException::class
 
-        assertThatExceptionOfType(ProxerException::class.java)
-            .isThrownBy { api.user.login("test", "secret").build().execute() }
-            .matches { exception -> exception.errorType === ErrorType.PARSING }
+            result.exception.errorType shouldBe ErrorType.PARSING
+        }
     }
 
     @Test
     fun testEmptyResponse() {
-        server.enqueue(MockResponse())
+        server.runRequest(MockResponse()) {
+            val result = invoking {
+                api.user.login("test", "secret").build().execute()
+            } shouldThrow ProxerException::class
 
-        assertThatExceptionOfType(ProxerException::class.java)
-            .isThrownBy { api.user.login("test", "secret").build().execute() }
-            .matches { exception -> exception.errorType === ErrorType.PARSING }
+            result.exception.errorType shouldBe ErrorType.PARSING
+        }
     }
 
     @Test
     fun testNoBodyResponse() {
-        server.enqueue(MockResponse())
+        val (_, request) = server.runRequest(MockResponse()) {
+            client.newCall(Request.Builder().url("https://proxer.me/fake").build()).execute()
+        }
 
-        client.newCall(Request.Builder().url("https://proxer.me/fake").build()).execute()
-
-        assertThat(server.takeRequest().headers.get("proxer-api-token")).isNull()
+        request.headers.get("proxer-api-token").shouldBeNull()
     }
 
     @Test
     fun testTokenNotSetForLogin() {
-        server.enqueue(MockResponse().setBody(fromResource("login.json")))
-        server.enqueue(MockResponse().setBody(fromResource("login.json")))
+        server.runRequest("login.json") { api.user.login("test", "secret").build().execute() }
 
-        api.user.login("test", "secret").build().execute()
-        api.user.login("test", "secret").build().execute()
+        val (_, request) = server.runRequest("login.json") {
+            api.user.login("test", "secret").build().execute()
+        }
 
-        server.takeRequest()
-
-        assertThat(server.takeRequest().getHeader("proxer-api-token")).isNull()
+        request.getHeader("proxer-api-token").shouldBeNull()
     }
 
-    @Test
-    fun testTokenNotSetForInvalidHost() {
+    @ParameterizedTest(name = "{1}")
+    @CsvSource(
+        "http://cdn.proxer.me, Cdn Host",
+        "http://s3-ps.proxer.me, Stream Host",
+        "http://manga0.proxer.me, Manga Host",
+        "https://example.com, Invalid Host"
+    )
+    fun testTokenNotSetFor(input: String, @Suppress("UNUSED_PARAMETER") name: String) {
         val tokenManager = DefaultLoginTokenManager()
-        val interceptor = spy(LoginTokenInterceptor(tokenManager))
-        val chain = mock(Interceptor.Chain::class.java)
+        val interceptor = spyk(LoginTokenInterceptor(tokenManager))
+        val chain = mockk<Interceptor.Chain>()
 
-        val request = Request.Builder().url("https://example.com").build()
-        val response = mock(Response::class.java)
+        val request = Request.Builder().url(input).build()
+        val modifiedRequestSlot = slot<Request>()
+        val response = mockk<Response>()
 
         tokenManager.persist("mock-token")
 
-        `when`(chain.request()).thenReturn(request)
-        `when`(chain.proceed(notNull())).thenReturn(response)
+        every { chain.request() } returns request
+        every { chain.proceed(capture(modifiedRequestSlot)) } returns response
 
         interceptor.intercept(chain)
 
-        verify(chain).proceed(request)
-    }
-
-    @Test
-    fun testTokenNotSetForCdnHost() {
-        val tokenManager = DefaultLoginTokenManager()
-        val interceptor = spy(LoginTokenInterceptor(tokenManager))
-        val chain = mock(Interceptor.Chain::class.java)
-
-        val request = Request.Builder().url("http://cdn.proxer.me").build()
-        val response = mock(Response::class.java)
-
-        tokenManager.persist("mock-token")
-
-        `when`(chain.request()).thenReturn(request)
-        `when`(chain.proceed(notNull())).thenReturn(response)
-
-        interceptor.intercept(chain)
-
-        verify(chain).proceed(request)
-    }
-
-    @Test
-    fun testTokenNotSetForStreamHost() {
-        val tokenManager = DefaultLoginTokenManager()
-        val interceptor = spy(LoginTokenInterceptor(tokenManager))
-        val chain = mock(Interceptor.Chain::class.java)
-
-        val request = Request.Builder().url("http://s3-ps.proxer.me").build()
-        val response = mock(Response::class.java)
-
-        tokenManager.persist("mock-token")
-
-        `when`(chain.request()).thenReturn(request)
-        `when`(chain.proceed(notNull())).thenReturn(response)
-
-        interceptor.intercept(chain)
-
-        verify(chain).proceed(request)
-    }
-
-    @Test
-    fun testTokenNotSetForMangaHost() {
-        val tokenManager = DefaultLoginTokenManager()
-        val interceptor = spy(LoginTokenInterceptor(tokenManager))
-        val chain = mock(Interceptor.Chain::class.java)
-
-        val request = Request.Builder().url("http://manga0.proxer.me").build()
-        val response = mock(Response::class.java)
-
-        tokenManager.persist("mock-token")
-
-        `when`(chain.request()).thenReturn(request)
-        `when`(chain.proceed(notNull())).thenReturn(response)
-
-        interceptor.intercept(chain)
-
-        verify(chain).proceed(request)
+        verify(exactly = 1) { chain.proceed(request) }
+        modifiedRequestSlot.isCaptured shouldBe true
+        modifiedRequestSlot.captured.header("proxer-api-token").shouldBeNull()
     }
 }

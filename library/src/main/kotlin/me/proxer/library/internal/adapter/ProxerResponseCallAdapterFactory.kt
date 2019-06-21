@@ -15,7 +15,7 @@ import java.lang.reflect.Type
 internal class ProxerResponseCallAdapterFactory : CallAdapter.Factory() {
 
     override fun get(returnType: Type, annotations: Array<Annotation>, retrofit: Retrofit): CallAdapter<*, *>? {
-        if (CallAdapter.Factory.getRawType(returnType) != ProxerCall::class.java) {
+        if (getRawType(returnType) != ProxerCall::class.java) {
             return null
         }
 

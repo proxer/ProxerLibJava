@@ -3,9 +3,8 @@ package me.proxer.library.api.forum
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.forum.Post
 import me.proxer.library.entity.forum.Topic
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -14,53 +13,54 @@ import java.util.Date
  */
 class TopicEndpointTest : ProxerTest() {
 
+    private val expectedPosts = listOf(
+        Post(
+            id = "811201", parentId = "0", userId = "613171", username = "SilverCrow00", image = "613171_Kxk7cM.jpg",
+            date = Date(1513552953L * 1000), signature = null, modifiedById = null, modifiedByName = null,
+            modifiedDate = null, modifiedReason = null, message = "Wie oft oder wie lange guckt ihr so Anime?",
+            thankYouAmount = 1
+        ),
+        Post(
+            id = "811256", parentId = "811201", userId = "139597", username = "Miss-Otaku", image = "139597_cKc2zC.png",
+            date = Date(1513626886L * 1000), signature = "", modifiedById = "123", modifiedByName = "test",
+            modifiedDate = Date(15135529123L * 1000), modifiedReason = "just a test",
+            message = """
+                Ich versuche, dass ganze im Rahmen zu halten. Meistens sind es so ungefähr 2-3 Folgen und über 
+                den Tag verteilt. Leider werde ich oft schwach, gerade bei besonders spannenden Anime, dass ich auch 
+                mehrere Folgen am Stück anschaue.
+            """.trimIndent().replace("\n", ""),
+            thankYouAmount = 0
+        )
+    )
+
+    private val expectedTopic = Topic(
+        categoryId = "19", categoryName = "Proxer Umfragen",
+        subject = "Wie lange guckt ihr Anime durchschnittlich /Tag", isLocked = false, postAmount = 14, hits = 101,
+        firstPostDate = Date(1513552953L * 1000), lastPostDate = Date(1514151527L * 1000), posts = expectedPosts
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("forum_topic.json")))
+        val (result, _) = server.runRequest("forum_topic.json") {
+            api.forum
+                .topic("1")
+                .build()
+                .execute()
+        }
 
-        val result = api.forum
-            .topic("1")
-            .build()
-            .execute()
-
-        assertThat(result).isEqualTo(buildTestTopic())
+        result shouldEqual expectedTopic
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("forum_topic.json")))
+        val (_, request) = server.runRequest("forum_topic.json") {
+            api.forum.topic("123")
+                .page(0)
+                .limit(10)
+                .build()
+                .execute()
+        }
 
-        api.forum.topic("123")
-            .page(0)
-            .limit(10)
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/forum/topic?id=123&p=0&limit=10")
-    }
-
-    private fun buildTestTopic(): Topic {
-        val posts = listOf(
-            Post(
-                "811201", "0", "613171", "SilverCrow00", "613171_Kxk7cM.jpg",
-                Date(1513552953L * 1000), null, null, null, null, null,
-                "Wie oft oder wie lange guckt ihr so Anime?", 1
-            ),
-            Post(
-                "811256", "811201", "139597", "Miss-Otaku", "139597_cKc2zC.png",
-                Date(1513626886L * 1000), "",
-                "123", "test", Date(15135529123L * 1000), "just a test",
-                "Ich versuche, dass ganze im Rahmen zu halten. Meistens sind es so ungefähr 2-3 " +
-                    "Folgen und über den Tag verteilt. Leider werde ich oft schwach, gerade bei " +
-                    "besonders spannenden Anime, dass ich auch mehrere Folgen am Stück anschaue.",
-                0
-            )
-        )
-
-        return Topic(
-            "19", "Proxer Umfragen",
-            "Wie lange guckt ihr Anime durchschnittlich /Tag", false, 14, 101,
-            Date(1513552953L * 1000), Date(1514151527L * 1000), posts
-        )
+        request.path shouldEqual "/api/v1/forum/topic?id=123&p=0&limit=10"
     }
 }

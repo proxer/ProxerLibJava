@@ -2,9 +2,8 @@ package me.proxer.library.api.info
 
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.info.ForumDiscussion
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -13,44 +12,42 @@ import java.util.Date
  */
 class ForumDiscussionsEndpointTest : ProxerTest() {
 
+    private val expectedFirstForumDiscussion = ForumDiscussion(
+        id = "384098", categoryId = "281", categoryName = "Airing-Anime", subject = "Overlord II - Diskussionsthread",
+        postAmount = 15, hits = 749, firstPostDate = Date(1514199320 * 1000L), firstPostUserId = "351626",
+        firstPostUsername = "Asuka..", lastPostDate = Date(1517246199 * 1000L), lastPostUserId = "506979",
+        lastPostUsername = "5devilz"
+    )
+
+    private val expectedLastForumDiscussion = ForumDiscussion(
+        id = "381421", categoryId = "56", categoryName = "Anime- und Manga-News",
+        subject = "Overlord II – neues Visual, weitere Charaktere und Synchronsprecher enthüllt", postAmount = 35,
+        hits = 32334, firstPostDate = Date(1489228544 * 1000L), firstPostUserId = "19328",
+        firstPostUsername = "Moeface", lastPostDate = Date(1514078674 * 1000L), lastPostUserId = "470614",
+        lastPostUsername = "..Rhyanon."
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("info_forum.json")))
+        val (result, _) = server.runRequest("info_forum.json") {
+            api.info
+                .forumDiscussions("1")
+                .build()
+                .safeExecute()
+        }
 
-        val result = api.info
-            .forumDiscussions("1")
-            .build()
-            .execute()
-
-        assertThat(result).first().isEqualTo(buildFirstTestForumDiscussion())
-        assertThat(result).last().isEqualTo(buildLastTestForumDiscussion())
+        result.first() shouldEqual expectedFirstForumDiscussion
+        result.last() shouldEqual expectedLastForumDiscussion
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("info_forum.json")))
+        val (_, request) = server.runRequest("info_forum.json") {
+            api.info.forumDiscussions("3")
+                .build()
+                .execute()
+        }
 
-        api.info.forumDiscussions("3")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/info/forum?id=3")
-    }
-
-    private fun buildFirstTestForumDiscussion(): ForumDiscussion {
-        return ForumDiscussion(
-            "384098", "281", "Airing-Anime", "Overlord II - Diskussionsthread",
-            15, 749, Date(1514199320 * 1000L), "351626", "Asuka..",
-            Date(1517246199 * 1000L), "506979", "5devilz"
-        )
-    }
-
-    private fun buildLastTestForumDiscussion(): ForumDiscussion {
-        return ForumDiscussion(
-            "381421", "56", "Anime- und Manga-News",
-            "Overlord II – neues Visual, weitere Charaktere und Synchronsprecher enthüllt",
-            35, 32334, Date(1489228544 * 1000L), "19328", "Moeface",
-            Date(1514078674 * 1000L), "470614", "..Rhyanon."
-        )
+        request.path shouldEqual "/api/v1/info/forum?id=3"
     }
 }

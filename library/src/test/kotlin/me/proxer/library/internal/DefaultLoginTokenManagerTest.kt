@@ -1,6 +1,7 @@
 package me.proxer.library.internal
 
-import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
+import org.amshove.kluent.shouldBeNull
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -12,14 +13,14 @@ class DefaultLoginTokenManagerTest {
 
     @Test
     fun testProvideBeforePersist() {
-        assertThat(loginTokenManager.provide()).isNull()
+        loginTokenManager.provide().shouldBeNull()
     }
 
     @Test
     fun testProvideAfterPersist() {
         loginTokenManager.persist("test")
 
-        assertThat(loginTokenManager.provide()).isEqualTo("test")
+        loginTokenManager.provide() shouldEqual "test"
     }
 
     @Test
@@ -27,6 +28,6 @@ class DefaultLoginTokenManagerTest {
         loginTokenManager.persist("test")
         loginTokenManager.persist(null)
 
-        assertThat(loginTokenManager.provide()).isNull()
+        loginTokenManager.provide().shouldBeNull()
     }
 }

@@ -6,83 +6,80 @@ import me.proxer.library.entity.info.EpisodeInfo
 import me.proxer.library.entity.info.MangaEpisode
 import me.proxer.library.enums.Category
 import me.proxer.library.enums.MediaLanguage
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
-import java.util.Arrays
-import java.util.EnumSet
 
 /**
  * @author Ruben Gees
  */
 class EpisodeInfoEndpointTest : ProxerTest() {
 
+    private val expectedEpisodeInfo = EpisodeInfo(
+        firstEpisode = 1, lastEpisode = 12, category = Category.ANIME,
+        availableLanguages = setOf(MediaLanguage.GERMAN_SUB, MediaLanguage.ENGLISH_SUB), userProgress = 0,
+        episodes = listOf(
+            AnimeEpisode(
+                number = 1, language = MediaLanguage.ENGLISH_SUB,
+                hosters = setOf("proxer-stream", "mp4upload", "videoweed", "novamov", "streamcloud2"),
+                hosterImages = listOf(
+                    "proxer-stream.png", "mp4upload.png", "videoweed.png", "novamov.png", "streamcloud.png"
+                )
+            ),
+            AnimeEpisode(
+                number = 2, language = MediaLanguage.ENGLISH_SUB,
+                hosters = setOf("proxer-stream", "mp4upload", "videoweed", "novamov", "streamcloud2"),
+                hosterImages = listOf(
+                    "proxer-stream.png", "mp4upload.png", "videoweed.png", "novamov.png", "streamcloud.png"
+                )
+            )
+        )
+    )
+
+    private val expectedEpisodeInfoManga = EpisodeInfo(
+        firstEpisode = 1, lastEpisode = 50, category = Category.MANGA,
+        availableLanguages = setOf(MediaLanguage.ENGLISH), userProgress = 12,
+        episodes = listOf(
+            MangaEpisode(number = 1, language = MediaLanguage.ENGLISH, title = "Chapter 1"),
+            MangaEpisode(number = 2, language = MediaLanguage.ENGLISH, title = "Chapter 2")
+        )
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("episode_info_anime.json")))
+        val (result, _) = server.runRequest("episode_info_anime.json") {
+            api.info
+                .episodeInfo("1")
+                .build()
+                .execute()
+        }
 
-        val result = api.info
-            .episodeInfo("1")
-            .build()
-            .execute()
-
-        assertThat(result).isEqualTo(buildTestInfo())
+        result shouldEqual expectedEpisodeInfo
     }
 
     @Test
     fun testManga() {
-        server.enqueue(MockResponse().setBody(fromResource("episode_info_manga.json")))
+        val (result, _) = server.runRequest("episode_info_manga.json") {
+            api.info
+                .episodeInfo("12")
+                .build()
+                .execute()
+        }
 
-        val result = api.info
-            .episodeInfo("12")
-            .build()
-            .execute()
-
-        assertThat(result).isEqualTo(buildTestInfoManga())
+        result shouldEqual expectedEpisodeInfoManga
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("episode_info_anime.json")))
+        val (_, request) = server.runRequest("episode_info_anime.json") {
+            api.info.episodeInfo("17")
+                .page(0)
+                .limit(10)
+                .includeNotAvailableEpisodes(true)
+                .build()
+                .execute()
+        }
 
-        api.info.episodeInfo("17")
-            .page(0)
-            .limit(10)
-            .includeNotAvailableEpisodes(true)
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path)
-            .isEqualTo("/api/v1/info/listinfo?id=17&p=0&limit=10&includeNotAvailableChapters=true")
-    }
-
-    private fun buildTestInfo(): EpisodeInfo {
-        return EpisodeInfo(
-            1, 12, Category.ANIME,
-            EnumSet.of(MediaLanguage.GERMAN_SUB, MediaLanguage.ENGLISH_SUB), 0,
-            listOf(
-                AnimeEpisode(
-                    1, MediaLanguage.ENGLISH_SUB,
-                    setOf("proxer-stream", "mp4upload", "videoweed", "novamov", "streamcloud2"),
-                    listOf("proxer-stream.png", "mp4upload.png", "videoweed.png", "novamov.png", "streamcloud.png")
-                ),
-                AnimeEpisode(
-                    2, MediaLanguage.ENGLISH_SUB,
-                    setOf("proxer-stream", "mp4upload", "videoweed", "novamov", "streamcloud2"),
-                    listOf("proxer-stream.png", "mp4upload.png", "videoweed.png", "novamov.png", "streamcloud.png")
-                )
-            )
-        )
-    }
-
-    private fun buildTestInfoManga(): EpisodeInfo {
-        return EpisodeInfo(
-            1, 50, Category.MANGA,
-            EnumSet.of(MediaLanguage.ENGLISH), 12, Arrays.asList(
-                MangaEpisode(1, MediaLanguage.ENGLISH, "Chapter 1"),
-                MangaEpisode(2, MediaLanguage.ENGLISH, "Chapter 2")
-            )
-        )
+        request.path shouldEqual "/api/v1/info/listinfo?id=17&p=0&limit=10&includeNotAvailableChapters=true"
     }
 }

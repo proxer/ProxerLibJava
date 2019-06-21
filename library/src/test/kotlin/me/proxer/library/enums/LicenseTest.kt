@@ -2,9 +2,12 @@ package me.proxer.library.enums
 
 import com.serjltt.moshi.adapters.FallbackEnum
 import com.squareup.moshi.Moshi
-import org.assertj.core.api.Assertions.assertThat
+import org.amshove.kluent.shouldBe
 import org.junit.jupiter.api.Test
 
+/**
+ * @author Ruben Gees
+ */
 class LicenseTest {
 
     private val adapter = Moshi.Builder()
@@ -14,11 +17,11 @@ class LicenseTest {
 
     @Test
     fun testDefault() {
-        assertThat(adapter.fromJson("\"2\"")).isSameAs(License.LICENSED)
+        adapter.fromJson("\"2\"") shouldBe License.LICENSED
     }
 
     @Test
     fun testFallback() {
-        assertThat(adapter.fromJson("\"xyz\"")).isSameAs(License.UNKNOWN)
+        adapter.fromJson("\"xyz\"") shouldBe License.UNKNOWN
     }
 }

@@ -4,10 +4,8 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.messenger.Message
 import me.proxer.library.enums.Device
 import me.proxer.library.enums.MessageAction
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions
-import org.assertj.core.api.Java6Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -16,37 +14,34 @@ import java.util.Date
  */
 class MessagesEndpointTest : ProxerTest() {
 
+    private val expectedMessage = Message(
+        id = "5193325", conferenceId = "131029", userId = "121658", username = "RubyGee", message = "RubyGee",
+        action = MessageAction.ADD_USER, date = Date(1480260735L * 1000), device = Device.UNSPECIFIED
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("messages.json")))
+        val (result, _) = server.runRequest("messages.json") {
+            api.messenger
+                .messages()
+                .build()
+                .safeExecute()
+        }
 
-        val result = api.messenger
-            .messages()
-            .build()
-            .execute()
-
-        assertThat(result).first().isEqualTo(buildTestMessage())
+        result.first() shouldEqual expectedMessage
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("messages.json")))
+        val (_, request) = server.runRequest("messages.json") {
+            api.messenger.messages()
+                .conferenceId("123")
+                .messageId("321")
+                .markAsRead(false)
+                .build()
+                .execute()
+        }
 
-        api.messenger.messages()
-            .conferenceId("123")
-            .messageId("321")
-            .markAsRead(false)
-            .build()
-            .execute()
-
-        Assertions.assertThat(server.takeRequest().path)
-            .isEqualTo("/api/v1/messenger/messages?conference_id=123&message_id=321&read=false")
-    }
-
-    private fun buildTestMessage(): Message {
-        return Message(
-            "5193325", "131029", "121658", "RubyGee", "RubyGee",
-            MessageAction.ADD_USER, Date(1480260735L * 1000), Device.UNSPECIFIED
-        )
+        request.path shouldEqual "/api/v1/messenger/messages?conference_id=123&message_id=321&read=false"
     }
 }

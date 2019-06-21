@@ -5,9 +5,8 @@ import me.proxer.library.entity.list.Tag
 import me.proxer.library.enums.TagSortCriteria
 import me.proxer.library.enums.TagSubType
 import me.proxer.library.enums.TagType
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -15,65 +14,63 @@ import org.junit.jupiter.api.Test
  */
 class TagListEndpointTest : ProxerTest() {
 
+    private val firstExpectedTag = Tag(
+        id = "262", type = TagType.TAG, name = "4-Koma", description = "Seitenaufteilung in vier gleich große Panels.",
+        subType = TagSubType.DRAWING, isSpoiler = false
+    )
+
+    private val secondExpectedTag = Tag(
+        id = "175", type = TagType.GENRE, name = "Action",
+        description = "Dynamische Szenen, spannende Wettkämpfe und beeindruckende Kampfszenen prägen dieses Genre.",
+        subType = TagSubType.MISCELLANEOUS, isSpoiler = true
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("tags.json")))
+        val (result, _) = server.runRequest("tags.json") {
+            api.list
+                .tagList()
+                .build()
+                .safeExecute()
+        }
 
-        val result = api.list
-            .tagList()
-            .build()
-            .execute()
-
-        assertThat(result).first().isEqualTo(buildTestEntry())
-        assertThat(result).element(1).isEqualTo(buildSecondTestEntry())
+        result.first() shouldEqual firstExpectedTag
+        result[1] shouldEqual secondExpectedTag
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("tags.json")))
+        val (_, request) = server.runRequest("tags.json") {
+            api.list.tagList()
+                .name("abc")
+                .type(TagType.H_TAG)
+                .sortCriteria(TagSortCriteria.ID)
+                .sortAscending()
+                .subType(TagSubType.FUTURE)
+                .build()
+                .execute()
+        }
 
-        api.list.tagList()
-            .name("abc")
-            .type(TagType.H_TAG)
-            .sortCriteria(TagSortCriteria.ID)
-            .sortAscending()
-            .subType(TagSubType.FUTURE)
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path)
-            .isEqualTo("/api/v1/list/tags?search=abc&type=entry_tag_h&sort=id&sort_type=ASC&subtype=zukunft")
+        request.path shouldEqual """
+            /api/v1/list/tags?search=abc&type=entry_tag_h&sort=id&sort_type=ASC&subtype=zukunft
+        """.trimIndent()
     }
 
     @Test
     fun testPathDescending() {
-        server.enqueue(MockResponse().setBody(fromResource("tags.json")))
+        val (_, request) = server.runRequest("tags.json") {
+            api.list.tagList()
+                .name("xyz")
+                .type(TagType.GENRE)
+                .sortCriteria(TagSortCriteria.SUBTYPE)
+                .sortDescending()
+                .subType(TagSubType.PEOPLE)
+                .build()
+                .execute()
+        }
 
-        api.list.tagList()
-            .name("xyz")
-            .type(TagType.GENRE)
-            .sortCriteria(TagSortCriteria.SUBTYPE)
-            .sortDescending()
-            .subType(TagSubType.PEOPLE)
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path)
-            .isEqualTo("/api/v1/list/tags?search=xyz&type=entry_genre&sort=subtype&sort_type=DESC&subtype=menschen")
-    }
-
-    private fun buildTestEntry(): Tag {
-        return Tag(
-            "262", TagType.TAG, "4-Koma", "Seitenaufteilung in vier gleich große Panels.",
-            TagSubType.DRAWING, false
-        )
-    }
-
-    private fun buildSecondTestEntry(): Tag {
-        return Tag(
-            "175", TagType.GENRE, "Action",
-            "Dynamische Szenen, spannende Wettkämpfe " + "und beeindruckende Kampfszenen prägen dieses Genre.",
-            TagSubType.MISCELLANEOUS, true
-        )
+        request.path shouldEqual """
+            /api/v1/list/tags?search=xyz&type=entry_genre&sort=subtype&sort_type=DESC&subtype=menschen
+        """.trimIndent()
     }
 }

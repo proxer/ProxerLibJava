@@ -1,9 +1,11 @@
 package me.proxer.library.internal.adapter
 
 import com.squareup.moshi.Moshi
-import org.assertj.core.api.Assertions.assertThat
+import org.amshove.kluent.shouldBeInstanceOf
+import org.amshove.kluent.shouldBeNull
+import org.amshove.kluent.shouldNotBeInstanceOf
+import org.amshove.kluent.shouldNotBeNull
 import org.junit.jupiter.api.Test
-import java.util.HashSet
 
 /**
  * @author Ruben Gees
@@ -21,42 +23,42 @@ class BooleanAdapterFactoryTest {
     @Test
     fun testCreatePrimitive() {
         val defaultBooleanAdapter = Moshi.Builder().build().adapter(primitiveBoolean)
+        val createdAdapter = factory.create(primitiveBoolean, emptySet(), moshi)
 
-        assertThat(factory.create(primitiveBoolean, emptySet(), moshi))
-            .isNotNull
-            .isInstanceOf(defaultBooleanAdapter.javaClass)
+        createdAdapter.shouldNotBeNull()
+        createdAdapter shouldBeInstanceOf defaultBooleanAdapter.javaClass
     }
 
     @Test
     fun testCreateBoxed() {
         val defaultBooleanAdapter = Moshi.Builder().build().adapter(boxedBoolean)
+        val createdAdapter = factory.create(Boolean::class.java, emptySet(), moshi)
 
-        assertThat(factory.create(Boolean::class.java, emptySet(), moshi))
-            .isNotNull
-            .isInstanceOf(defaultBooleanAdapter.javaClass)
+        createdAdapter.shouldNotBeNull()
+        createdAdapter shouldBeInstanceOf defaultBooleanAdapter.javaClass
     }
 
     @Test
     fun testCreatePrimitiveNumberBased() {
         val defaultBooleanAdapter = Moshi.Builder().build().adapter(primitiveBoolean)
+        val createdAdapter = factory.create(primitiveBoolean, setOf(numberBasedBooleanAnnotation), moshi)
 
-        assertThat(factory.create(primitiveBoolean, setOf<Annotation>(numberBasedBooleanAnnotation), moshi))
-            .isNotNull
-            .isNotInstanceOf(defaultBooleanAdapter.javaClass)
+        createdAdapter.shouldNotBeNull()
+        createdAdapter.shouldNotBeInstanceOf(defaultBooleanAdapter.javaClass)
     }
 
     @Test
     fun testCreateBoxedNumberBased() {
         val defaultBooleanAdapter = Moshi.Builder().build().adapter(boxedBoolean)
+        val createdAdapter = factory.create(boxedBoolean, setOf(numberBasedBooleanAnnotation), moshi)
 
-        assertThat(factory.create(boxedBoolean, setOf<Annotation>(numberBasedBooleanAnnotation), moshi))
-            .isNotNull
-            .isNotInstanceOf(defaultBooleanAdapter.javaClass)
+        createdAdapter.shouldNotBeNull()
+        createdAdapter.shouldNotBeInstanceOf(defaultBooleanAdapter.javaClass)
     }
 
     @Test
     fun testCreateNonBoolean() {
-        assertThat(factory.create(String::class.java, HashSet(), moshi)).isNull()
+        factory.create(String::class.java, emptySet(), moshi).shouldBeNull()
     }
 
     @NumberBasedBoolean

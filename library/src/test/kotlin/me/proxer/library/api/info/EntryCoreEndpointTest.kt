@@ -8,56 +8,49 @@ import me.proxer.library.enums.FskConstraint
 import me.proxer.library.enums.License
 import me.proxer.library.enums.MediaState
 import me.proxer.library.enums.Medium
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
-import java.util.Arrays
-import java.util.EnumSet
-import java.util.HashSet
 
 /**
  * @author Ruben Gees
  */
 class EntryCoreEndpointTest : ProxerTest() {
 
+    private val expectedEntry = EntryCore(
+        id = "6174", name = "LuCu LuCu", genres = setOf("Comedy", "Fantasy", "Seinen", "Slice of Life"),
+        fskConstraints = setOf(FskConstraint.BAD_LANGUAGE),
+        description = "Humans are a despicable lot, committing sin after sin, filling the endless boundaries " +
+            "of the underworld with tortured souls. Now, it would seem, Hell isn't so endless after all, " +
+            "and it has become dangerously close to filling, and then overflowing into the human realm. " +
+            "Princess Lucuha sees this imminent disaster and has a plan: save Hell by making humans " +
+            "decent again. Of course, the angels can't simply allow demons to roam freely on Earth, " +
+            "and they do their best to stop Lucu and her dastardly plans.",
+        medium = Medium.MANGASERIES, episodeAmount = 90, state = MediaState.FINISHED, ratingSum = 7,
+        ratingAmount = 1, clicks = 134, category = Category.MANGA, license = License.NOT_LICENSED,
+        adaptionInfo = AdaptionInfo(id = "2793", name = "KissXsis", medium = Medium.MANGASERIES)
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("entry_core.json")))
+        val (result, _) = server.runRequest("entry_core.json") {
+            api.info
+                .entryCore("1")
+                .build()
+                .execute()
+        }
 
-        val result = api.info
-            .entryCore("1")
-            .build()
-            .execute()
-
-        assertThat(result).isEqualTo(buildTestEntry())
+        result shouldEqual expectedEntry
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("entry.json")))
+        val (_, request) = server.runRequest("entry.json") {
+            api.info.entryCore("1")
+                .build()
+                .execute()
+        }
 
-        api.info.entryCore("1")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/info/entry?id=1")
-    }
-
-    private fun buildTestEntry(): EntryCore {
-        return EntryCore(
-            "6174", "LuCu LuCu",
-            HashSet(Arrays.asList("Comedy", "Fantasy", "Seinen", "Slice of Life")),
-            EnumSet.of(FskConstraint.BAD_LANGUAGE),
-            "Humans are a despicable lot, committing sin after sin, filling the endless boundaries " +
-                "of the underworld with tortured souls. Now, it would seem, Hell isn't so endless after all, " +
-                "and it has become dangerously close to filling, and then overflowing into the human realm. " +
-                "Princess Lucuha sees this imminent disaster and has a plan: save Hell by making humans " +
-                "decent again. Of course, the angels can't simply allow demons to roam freely on Earth, " +
-                "and they do their best to stop Lucu and her dastardly plans.",
-            Medium.MANGASERIES, 90, MediaState.FINISHED, 7, 1, 134,
-            Category.MANGA, License.NOT_LICENSED,
-            AdaptionInfo("2793", "KissXsis", Medium.MANGASERIES)
-        )
+        request.path shouldEqual "/api/v1/info/entry?id=1"
     }
 }

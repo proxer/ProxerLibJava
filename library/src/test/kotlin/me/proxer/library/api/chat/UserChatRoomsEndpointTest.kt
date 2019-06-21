@@ -2,9 +2,8 @@ package me.proxer.library.api.chat
 
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.chat.ChatRoom
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -12,35 +11,35 @@ import org.junit.jupiter.api.Test
  */
 class UserChatRoomsEndpointTest : ProxerTest() {
 
+    private val firstExpectedChatRoom = ChatRoom(
+        id = "1", name = "Proxer.Me Hauptchat", topic = "Willkommen im Proxer-Chat!", isReadOnly = false
+    )
+
+    private val lastExpectedChatRoom = ChatRoom(
+        id = "6", name = "Chat-Ankündigungen (21.03.18)", topic = "", isReadOnly = true
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("chat_rooms.json")))
+        val (result, _) = server.runRequest("chat_rooms.json") {
+            api.chat
+                .userRooms()
+                .build()
+                .safeExecute()
+        }
 
-        val result = api.chat
-            .userRooms()
-            .build()
-            .execute()
-
-        assertThat(result).first().isEqualTo(buildFirstTestRoom())
-        assertThat(result).last().isEqualTo(buildLastTestRoom())
+        result.first() shouldEqual firstExpectedChatRoom
+        result.last() shouldEqual lastExpectedChatRoom
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("chat_rooms.json")))
+        val (_, request) = server.runRequest("chat_rooms.json") {
+            api.chat.userRooms()
+                .build()
+                .execute()
+        }
 
-        api.chat.userRooms()
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/chat/myrooms")
-    }
-
-    private fun buildFirstTestRoom(): ChatRoom {
-        return ChatRoom("1", "Proxer.Me Hauptchat", "Willkommen im Proxer-Chat!", false)
-    }
-
-    private fun buildLastTestRoom(): ChatRoom {
-        return ChatRoom("6", "Chat-Ankündigungen (21.03.18)", "", true)
+        request.path shouldEqual "/api/v1/chat/myrooms"
     }
 }

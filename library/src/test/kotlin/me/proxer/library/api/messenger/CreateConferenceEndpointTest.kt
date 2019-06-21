@@ -1,9 +1,8 @@
 package me.proxer.library.api.messenger
 
 import me.proxer.library.ProxerTest
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -13,35 +12,35 @@ class CreateConferenceEndpointTest : ProxerTest() {
 
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("create_conference.json")))
+        val (result, _) = server.runRequest("create_conference.json") {
+            api.messenger
+                .createConference("message", "someUser")
+                .build()
+                .execute()
+        }
 
-        val result = api.messenger
-            .createConference("message", "someUser")
-            .build()
-            .execute()
-
-        assertThat(result).isEqualTo("abcTest")
+        result shouldEqual "abcTest"
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("create_conference.json")))
+        val (_, request) = server.runRequest("create_conference.json") {
+            api.messenger.createConference("a", "b")
+                .build()
+                .execute()
+        }
 
-        api.messenger.createConference("a", "b")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/messenger/newconference")
+        request.path shouldEqual "/api/v1/messenger/newconference"
     }
 
     @Test
     fun testParameters() {
-        server.enqueue(MockResponse().setBody(fromResource("create_conference.json")))
+        val (_, request) = server.runRequest("create_conference.json") {
+            api.messenger.createConference("test", "testUser")
+                .build()
+                .execute()
+        }
 
-        api.messenger.createConference("test", "testUser")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().body.readUtf8()).isEqualTo("text=test&username=testUser")
+        request.body.readUtf8() shouldEqual "text=test&username=testUser"
     }
 }

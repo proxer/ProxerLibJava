@@ -16,8 +16,8 @@ class UserInfoEndpoint internal constructor(
 ) : Endpoint<UserInfo> {
 
     init {
-        if (userId.isNullOrBlank() && username.isNullOrBlank()) {
-            throw IllegalArgumentException("You must pass either an userId or an username.")
+        require(userId.isNullOrBlank().not() || username.isNullOrBlank().not()) {
+            "You must pass either an userId or an username."
         }
     }
 

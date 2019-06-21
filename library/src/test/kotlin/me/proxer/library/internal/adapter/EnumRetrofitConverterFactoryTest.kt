@@ -2,7 +2,9 @@ package me.proxer.library.internal.adapter
 
 import me.proxer.library.entity.info.Entry
 import me.proxer.library.enums.MediaLanguage
-import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
+import org.amshove.kluent.shouldBeNull
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldNotBeNull
 import org.junit.jupiter.api.Test
 import retrofit2.Retrofit
 
@@ -16,18 +18,19 @@ class EnumRetrofitConverterFactoryTest {
 
     @Test
     fun testCreate() {
-        assertThat(factory.stringConverter(MediaLanguage::class.java, emptyArray(), retrofit)).isNotNull
+        factory.stringConverter(MediaLanguage::class.java, emptyArray(), retrofit).shouldNotBeNull()
     }
 
     @Test
     fun testCreateNoEnum() {
-        assertThat(factory.stringConverter(Entry::class.java, emptyArray(), retrofit)).isNull()
+        factory.stringConverter(Entry::class.java, emptyArray(), retrofit).shouldBeNull()
     }
 
     @Test
     fun testConvert() {
         val converter = factory.stringConverter(MediaLanguage::class.java, emptyArray(), retrofit)
 
-        assertThat(converter?.convert(MediaLanguage.GERMAN)).isEqualTo("de")
+        converter.shouldNotBeNull()
+        converter.convert(MediaLanguage.GERMAN) shouldEqual "de"
     }
 }

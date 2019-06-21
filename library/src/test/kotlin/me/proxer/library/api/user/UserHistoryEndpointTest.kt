@@ -5,51 +5,48 @@ import me.proxer.library.entity.user.UserHistoryEntry
 import me.proxer.library.enums.Category
 import me.proxer.library.enums.MediaLanguage
 import me.proxer.library.enums.Medium
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
+/**
+ * @author Ruben Gees
+ */
 class UserHistoryEndpointTest : ProxerTest() {
+
+    private val firstExpectedEntry = UserHistoryEntry(
+        id = "457484352", entryId = "16209", name = "Kono Subarashii Sekai ni Shukufuku wo! 2",
+        language = MediaLanguage.ENGLISH_SUB, medium = Medium.ANIMESERIES, category = Category.ANIME, episode = 2
+    )
+
+    private val secondExpectedEntry = UserHistoryEntry(
+        id = "456582967", entryId = "3088", name = "Girls of the Wild's",
+        language = MediaLanguage.ENGLISH, medium = Medium.MANGASERIES, category = Category.MANGA, episode = 182
+    )
 
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("user_history.json")))
+        val (result, _) = server.runRequest("user_history.json") {
+            api.user.history("test", "supersecret")
+                .build()
+                .safeExecute()
+        }
 
-        val result = api.user.history("test", "supersecret")
-            .build()
-            .execute()
-
-        assertThat(result).first().isEqualTo(buildFirstTestEntry())
-        assertThat(result).last().isEqualTo(buildLastTestEntry())
+        result.first() shouldEqual firstExpectedEntry
+        result.last() shouldEqual secondExpectedEntry
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("user_history.json")))
+        val (_, request) = server.runRequest("user_history.json") {
+            api.user.history("test", "supersecret")
+                .page(1)
+                .limit(12)
+                .includeHentai(true)
+                .build()
+                .execute()
+        }
 
-        api.user.history("test", "supersecret")
-            .page(1)
-            .limit(12)
-            .includeHentai(true)
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path)
-            .isEqualTo("/api/v1/user/history?uid=test&username=supersecret&p=1&limit=12&isH=true")
-    }
-
-    private fun buildFirstTestEntry(): UserHistoryEntry {
-        return UserHistoryEntry(
-            "457484352", "16209", "Kono Subarashii Sekai ni Shukufuku wo! 2",
-            MediaLanguage.ENGLISH_SUB, Medium.ANIMESERIES, Category.ANIME, 2
-        )
-    }
-
-    private fun buildLastTestEntry(): UserHistoryEntry {
-        return UserHistoryEntry(
-            "456582967", "3088", "Girls of the Wild's",
-            MediaLanguage.ENGLISH, Medium.MANGASERIES, Category.MANGA, 182
-        )
+        request.path shouldEqual "/api/v1/user/history?uid=test&username=supersecret&p=1&limit=12&isH=true"
     }
 }

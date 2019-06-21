@@ -2,10 +2,12 @@ package me.proxer.library.enums
 
 import com.serjltt.moshi.adapters.FallbackEnum
 import com.squareup.moshi.Moshi
-import org.assertj.core.api.Assertions.assertThat
+import org.amshove.kluent.shouldBe
 import org.junit.jupiter.api.Test
-import java.io.IOException
 
+/**
+ * @author Ruben Gees
+ */
 class TagSubTypeTest {
 
     private val adapter = Moshi.Builder()
@@ -15,12 +17,11 @@ class TagSubTypeTest {
 
     @Test
     fun testDefault() {
-        assertThat(adapter.fromJson("\"story\"")).isSameAs(TagSubType.STORY)
+        adapter.fromJson("\"story\"") shouldBe TagSubType.STORY
     }
 
     @Test
-    @Throws(IOException::class)
     fun testFallback() {
-        assertThat(adapter.fromJson("\"xyz\"")).isSameAs(TagSubType.OTHER)
+        adapter.fromJson("\"xyz\"") shouldBe TagSubType.OTHER
     }
 }

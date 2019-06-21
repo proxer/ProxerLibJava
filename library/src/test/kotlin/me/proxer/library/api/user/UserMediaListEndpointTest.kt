@@ -8,10 +8,10 @@ import me.proxer.library.enums.Medium
 import me.proxer.library.enums.UserMediaListFilterType
 import me.proxer.library.enums.UserMediaListSortCriteria
 import me.proxer.library.enums.UserMediaProgress
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import me.proxer.library.runRequest
+import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
 /**
@@ -19,50 +19,48 @@ import org.junit.jupiter.api.Test
  */
 class UserMediaListEndpointTest : ProxerTest() {
 
+    private val expectedEntry = UserMediaListEntry(
+        id = "16257", name = "91 Days", episodeAmount = 12, medium = Medium.ANIMESERIES, state = MediaState.FINISHED,
+        commentId = "18301850", commentContent = "", mediaProgress = UserMediaProgress.WATCHED, episode = 12,
+        rating = 0
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("user_media_list.json")))
+        val (result, _) = server.runRequest("user_media_list.json") {
+            api.user
+                .mediaList(null, "rubygee")
+                .build()
+                .safeExecute()
+        }
 
-        val result = api.user
-            .mediaList(null, "rubygee")
-            .build()
-            .execute()
-
-        assertThat(result).first().isEqualTo(buildTestEntry())
+        result.first() shouldEqual expectedEntry
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("user_media_list.json")))
+        val (_, request) = server.runRequest("user_media_list.json") {
+            api.user.mediaList("1", "rubygee")
+                .category(Category.ANIME)
+                .page(0)
+                .limit(5)
+                .search("test")
+                .searchStart("startTest")
+                .filter(UserMediaListFilterType.WATCHING)
+                .sort(UserMediaListSortCriteria.STATE_CHANGE_DATE_ASCENDING)
+                .includeHentai(true)
+                .build()
+                .execute()
+        }
 
-        api.user.mediaList("1", "rubygee")
-            .category(Category.ANIME)
-            .page(0)
-            .limit(5)
-            .search("test")
-            .searchStart("startTest")
-            .filter(UserMediaListFilterType.WATCHING)
-            .sort(UserMediaListSortCriteria.STATE_CHANGE_DATE_ASCENDING)
-            .includeHentai(true)
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo(
-            "/api/v1/user/list?uid=1&username=rubygee&kat=anime&p=0&limit=5&search=test&search_start=startTest" +
-                "&filter=stateFilter1&sort=stateChangeDateASC&isH=true"
-        )
+        request.path shouldEqual """
+            /api/v1/user/list?uid=1&username=rubygee&kat=anime&p=0&limit=5&search=test&search_start=startTest
+            &filter=stateFilter1&sort=stateChangeDateASC&isH=true
+        """.trimIndent().replace("\n", "")
     }
 
     @Test
     fun testUserIdAndUsernameNull() {
-        assertThatExceptionOfType(IllegalArgumentException::class.java)
-            .isThrownBy { api.user.mediaList(null, null) }
-    }
-
-    private fun buildTestEntry(): UserMediaListEntry {
-        return UserMediaListEntry(
-            "16257", "91 Days", 12, Medium.ANIMESERIES, MediaState.FINISHED,
-            "18301850", "", UserMediaProgress.WATCHED, 12, 0
-        )
+        invoking { api.user.mediaList(null, null) } shouldThrow IllegalArgumentException::class
     }
 }

@@ -2,10 +2,10 @@ package me.proxer.library.api.user
 
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.user.UserInfo
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import me.proxer.library.runRequest
+import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -14,40 +14,38 @@ import java.util.Date
  */
 class UserInfoEndpointTest : ProxerTest() {
 
+    private val expectedInfo = UserInfo(
+        id = "121658", username = "RubyGee", image = "121658_cEBC8F.png", isTeamMember = false, isDonator = false,
+        status = "Ihr könnt mich jederzeit anschreiben, Skype oder ProxerPn!",
+        lastStatusChange = Date(1485372334L * 1000), uploadPoints = 983, forumPoints = 38, animePoints = 4201,
+        mangaPoints = 548, infoPoints = 8, miscPoints = 1700
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("user_info.json")))
+        val (result, _) = server.runRequest("user_info.json") {
+            api.user
+                .info(null, "rubygee")
+                .build()
+                .execute()
+        }
 
-        val result = api.user
-            .info(null, "rubygee")
-            .build()
-            .execute()
-
-        assertThat(result).isEqualTo(buildTestInfo())
+        result shouldEqual expectedInfo
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("user_info.json")))
+        val (_, request) = server.runRequest("user_info.json") {
+            api.user.info("123", "rubygee")
+                .build()
+                .execute()
+        }
 
-        api.user.info("123", "rubygee")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/user/userinfo?uid=123&username=rubygee")
+        request.path shouldEqual "/api/v1/user/userinfo?uid=123&username=rubygee"
     }
 
     @Test
     fun testUserIdAndUsernameNull() {
-        assertThatExceptionOfType(IllegalArgumentException::class.java)
-            .isThrownBy { api.user.info(null, null) }
-    }
-
-    private fun buildTestInfo(): UserInfo {
-        return UserInfo(
-            "121658", "RubyGee", "121658_cEBC8F.png", false, false,
-            "Ihr könnt mich jederzeit anschreiben, Skype oder ProxerPn!", Date(1485372334L * 1000),
-            983, 38, 4201, 548, 8, 1700
-        )
+        invoking { api.user.info(null, null) } shouldThrow IllegalArgumentException::class
     }
 }

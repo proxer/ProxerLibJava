@@ -3,9 +3,8 @@ package me.proxer.library.api.media
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.media.CalendarEntry
 import me.proxer.library.enums.CalendarDay
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -14,43 +13,41 @@ import java.util.Date
  */
 class CalendarEndpointTest : ProxerTest() {
 
+    private val firstExpectedEntry = CalendarEntry(
+        id = "8843", entryId = "21638", name = "Time Bokan: Gyakushuu no San Akunin", episode = 18, episodeTitle = "",
+        date = Date(1518251400L * 1000), timezone = "+09:00", industryId = "0", industryName = null,
+        weekDay = CalendarDay.SATURDAY, uploadDate = Date(1518266091L * 1000),
+        genres = setOf("Adventure", "Comedy", "Mecha"), ratingSum = 7, ratingAmount = 2
+    )
+
+    private val secondExpectedEntry = CalendarEntry(
+        id = "8830", entryId = "19092", name = "ClassicaLoid 2nd Season", episode = 17, episodeTitle = "",
+        date = Date(1518251700L * 1000), timezone = "+09:00", industryId = "308", industryName = "NHK",
+        weekDay = CalendarDay.SATURDAY, uploadDate = Date(1518620676L * 1000), genres = setOf("Comedy", "Musik"),
+        ratingSum = 42, ratingAmount = 7
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("calendar.json")))
+        val (result, _) = server.runRequest("calendar.json") {
+            api.media
+                .calendar()
+                .build()
+                .safeExecute()
+        }
 
-        val result = api.media
-            .calendar()
-            .build()
-            .execute()
-
-        assertThat(result).first().isEqualTo(buildFirstTestCalendarEntry())
-        assertThat(result).last().isEqualTo(buildLastTestCalendarEntry())
+        result.first() shouldEqual firstExpectedEntry
+        result.last() shouldEqual secondExpectedEntry
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("calendar.json")))
+        val (_, request) = server.runRequest("calendar.json") {
+            api.media.calendar()
+                .build()
+                .execute()
+        }
 
-        api.media.calendar()
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/media/calendar")
-    }
-
-    private fun buildFirstTestCalendarEntry(): CalendarEntry {
-        return CalendarEntry(
-            "8843", "21638", "Time Bokan: Gyakushuu no San Akunin", 18,
-            "", Date(1518251400L * 1000), "+09:00", "0", null,
-            CalendarDay.SATURDAY, Date(1518266091L * 1000), setOf("Adventure", "Comedy", "Mecha"), 7, 2
-        )
-    }
-
-    private fun buildLastTestCalendarEntry(): CalendarEntry {
-        return CalendarEntry(
-            "8830", "19092", "ClassicaLoid 2nd Season", 17,
-            "", Date(1518251700L * 1000), "+09:00", "308", "NHK",
-            CalendarDay.SATURDAY, Date(1518620676L * 1000), setOf("Comedy", "Musik"), 42, 7
-        )
+        request.path shouldEqual "/api/v1/media/calendar"
     }
 }

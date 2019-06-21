@@ -5,10 +5,13 @@ import me.proxer.library.ProxerException.ServerErrorType
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.ucp.UcpSettings
 import me.proxer.library.enums.UcpSettingConstraint
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import me.proxer.library.runRequest
+import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldBe
+import org.amshove.kluent.shouldBeEmpty
+import org.amshove.kluent.shouldBeNull
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
 /**
@@ -16,123 +19,121 @@ import org.junit.jupiter.api.Test
  */
 class SetSettingsEndpointTest : ProxerTest() {
 
+    private val settings = UcpSettings(
+        profileVisibility = UcpSettingConstraint.EVERYONE, topTenVisibility = UcpSettingConstraint.LOGGED_IN_USERS,
+        animeVisibility = UcpSettingConstraint.FRIENDS, mangaVisibility = UcpSettingConstraint.LOGGED_IN_USERS,
+        commentVisibility = UcpSettingConstraint.EVERYONE, forumVisibility = UcpSettingConstraint.EVERYONE,
+        friendVisibility = UcpSettingConstraint.LOGGED_IN_USERS, friendRequestConstraint = UcpSettingConstraint.DEFAULT,
+        aboutVisibility = UcpSettingConstraint.DEFAULT, historyVisibility = UcpSettingConstraint.PRIVATE,
+        guestBookVisibility = UcpSettingConstraint.LOGGED_IN_USERS,
+        guestBookEntryConstraint = UcpSettingConstraint.EVERYONE, galleryVisibility = UcpSettingConstraint.FRIENDS,
+        articleVisibility = UcpSettingConstraint.LOGGED_IN_USERS, isHideTags = false, isShowAds = true, adInterval = 7
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (result, _) = server.runRequest("empty.json") {
+            api.ucp
+                .setSettings(settings)
+                .build()
+                .execute()
+        }
 
-        val result = api.ucp
-            .setSettings(buildTestSettings())
-            .build()
-            .execute()
-
-        assertThat(result).isNull()
+        result.shouldBeNull()
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (_, request) = server.runRequest("empty.json") {
+            api.ucp.setSettings(settings)
+                .build()
+                .execute()
+        }
 
-        api.ucp.setSettings(buildTestSettings())
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/ucp/setsettings")
+        request.path shouldEqual "/api/v1/ucp/setsettings"
     }
 
     @Test
     fun testParameters() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (_, request) = server.runRequest("empty.json") {
+            api.ucp.setSettings(settings)
+                .build()
+                .execute()
+        }
 
-        api.ucp.setSettings(buildTestSettings())
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().body.readUtf8()).isEqualTo(
-            "profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3" +
-                "&profil_forum=3&profil_connections=2&profil_connections_new=0&profil_about=0" +
-                "&profil_chronik=4&profil_board=2&profil_board_post=3&profil_gallery=1&profil_article=2" +
-                "&hide_tags=0&ads_active=1&ads_interval=7"
-        )
+        request.body.readUtf8() shouldEqual """
+            profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3&profil_forum=3
+            &profil_connections=2&profil_connections_new=0&profil_about=0&profil_chronik=4&profil_board=2
+            &profil_board_post=3&profil_gallery=1&profil_article=2&hide_tags=0&ads_active=1&ads_interval=7
+        """.trimIndent().replace("\n", "")
     }
 
     @Test
     fun testParametersSetters() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (_, request) = server.runRequest("empty.json") {
+            api.ucp.setSettings()
+                .profileVisibility(UcpSettingConstraint.EVERYONE)
+                .topTenVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
+                .animeVisibility(UcpSettingConstraint.FRIENDS)
+                .mangaVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
+                .commentVisibility(UcpSettingConstraint.EVERYONE)
+                .forumVisibility(UcpSettingConstraint.EVERYONE)
+                .friendVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
+                .friendRequestConstraint(UcpSettingConstraint.DEFAULT)
+                .aboutVisibility(UcpSettingConstraint.DEFAULT)
+                .historyVisibility(UcpSettingConstraint.PRIVATE)
+                .guestBookVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
+                .guestBookEntryConstraint(UcpSettingConstraint.EVERYONE)
+                .galleryVisibility(UcpSettingConstraint.FRIENDS)
+                .articleVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
+                .hideTags(true)
+                .showAds(false)
+                .adInterval(1)
+                .build()
+                .execute()
+        }
 
-        api.ucp.setSettings()
-            .profileVisibility(UcpSettingConstraint.EVERYONE)
-            .topTenVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
-            .animeVisibility(UcpSettingConstraint.FRIENDS)
-            .mangaVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
-            .commentVisibility(UcpSettingConstraint.EVERYONE)
-            .forumVisibility(UcpSettingConstraint.EVERYONE)
-            .friendVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
-            .friendRequestConstraint(UcpSettingConstraint.DEFAULT)
-            .aboutVisibility(UcpSettingConstraint.DEFAULT)
-            .historyVisibility(UcpSettingConstraint.PRIVATE)
-            .guestBookVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
-            .guestBookEntryConstraint(UcpSettingConstraint.EVERYONE)
-            .galleryVisibility(UcpSettingConstraint.FRIENDS)
-            .articleVisibility(UcpSettingConstraint.LOGGED_IN_USERS)
-            .hideTags(true)
-            .showAds(false)
-            .adInterval(1)
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().body.readUtf8()).isEqualTo(
-            "profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3" +
-                "&profil_forum=3&profil_connections=2&profil_connections_new=0&profil_about=0" +
-                "&profil_chronik=4&profil_board=2&profil_board_post=3&profil_gallery=1&profil_article=2" +
-                "&hide_tags=1&ads_active=0&ads_interval=1"
-        )
+        request.body.readUtf8() shouldEqual """
+            profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3&profil_forum=3
+            &profil_connections=2&profil_connections_new=0&profil_about=0&profil_chronik=4&profil_board=2
+            &profil_board_post=3&profil_gallery=1&profil_article=2&hide_tags=1&ads_active=0&ads_interval=1
+        """.trimIndent().replace("\n", "")
     }
 
     @Test
     fun testParametersSettersPartial() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (_, request) = server.runRequest("empty.json") {
+            api.ucp.setSettings()
+                .profileVisibility(UcpSettingConstraint.FRIENDS)
+                .build()
+                .execute()
+        }
 
-        api.ucp.setSettings()
-            .profileVisibility(UcpSettingConstraint.FRIENDS)
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().body.readUtf8()).isEqualTo("profil=1")
+        request.body.readUtf8() shouldEqual "profil=1"
     }
 
     @Test
     fun testParametersSettersNone() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (_, request) = server.runRequest("empty.json") {
+            api.ucp.setSettings()
+                .build()
+                .execute()
+        }
 
-        api.ucp.setSettings()
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().body.readUtf8()).isEmpty()
+        request.body.readUtf8().shouldBeEmpty()
     }
 
     @Test
     fun testError() {
-        server.enqueue(MockResponse().setBody(fromResource("ucp_settings_error.json")))
-
-        assertThatExceptionOfType(ProxerException::class.java)
-            .isThrownBy {
+        val result = invoking {
+            server.runRequest("ucp_settings_error.json") {
                 api.ucp
-                    .setSettings(buildTestSettings())
+                    .setSettings(settings)
                     .build()
                     .execute()
             }
-            .matches { exception -> exception.serverErrorType === ServerErrorType.UCP_INVALID_SETTINGS }
-    }
+        } shouldThrow ProxerException::class
 
-    private fun buildTestSettings(): UcpSettings {
-        return UcpSettings(
-            UcpSettingConstraint.EVERYONE, UcpSettingConstraint.LOGGED_IN_USERS,
-            UcpSettingConstraint.FRIENDS, UcpSettingConstraint.LOGGED_IN_USERS, UcpSettingConstraint.EVERYONE,
-            UcpSettingConstraint.EVERYONE, UcpSettingConstraint.LOGGED_IN_USERS, UcpSettingConstraint.DEFAULT,
-            UcpSettingConstraint.DEFAULT, UcpSettingConstraint.PRIVATE, UcpSettingConstraint.LOGGED_IN_USERS,
-            UcpSettingConstraint.EVERYONE, UcpSettingConstraint.FRIENDS, UcpSettingConstraint.LOGGED_IN_USERS,
-            false, true, 7
-        )
+        result.exception.serverErrorType shouldBe ServerErrorType.UCP_INVALID_SETTINGS
     }
 }

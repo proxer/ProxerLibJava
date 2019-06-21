@@ -4,9 +4,8 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.manga.Chapter
 import me.proxer.library.entity.manga.Page
 import me.proxer.library.enums.Language
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -15,37 +14,35 @@ import java.util.Date
  */
 class ChapterEndpointTest : ProxerTest() {
 
+    private val expectedChapter = Chapter(
+        id = "1954", entryId = "2784", title = "Chapter 1", uploaderId = "0", uploaderName = "nobody",
+        date = Date(1318716000L * 1000), scanGroupId = null, scanGroupName = null, server = "0",
+        pages = listOf(
+            Page(name = "fairy-001-01.jpg", height = 1100, width = 765),
+            Page(name = "fairy-001-02-03.jpg", height = 641, width = 900)
+        )
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("chapter.json")))
+        val (result, _) = server.runRequest("chapter.json") {
+            api.manga
+                .chapter("15", 1, Language.ENGLISH)
+                .build()
+                .execute()
+        }
 
-        val result = api.manga
-            .chapter("15", 1, Language.ENGLISH)
-            .build()
-            .execute()
-
-        assertThat(result).isEqualTo(buildTestChapter())
+        result shouldEqual expectedChapter
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("chapter.json")))
+        val (_, request) = server.runRequest("chapter.json") {
+            api.manga.chapter("4523", 1, Language.GERMAN)
+                .build()
+                .execute()
+        }
 
-        api.manga.chapter("4523", 1, Language.GERMAN)
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/manga/chapter?id=4523&episode=1&language=de")
-    }
-
-    private fun buildTestChapter(): Chapter {
-        return Chapter(
-            "1954", "2784", "Chapter 1", "0", "nobody",
-            Date(1318716000L * 1000), null, null, "0",
-            listOf(
-                Page("fairy-001-01.jpg", 1100, 765),
-                Page("fairy-001-02-03.jpg", 641, 900)
-            )
-        )
+        request.path shouldEqual "/api/v1/manga/chapter?id=4523&episode=1&language=de"
     }
 }

@@ -120,10 +120,7 @@ class MediaSearchEndpoint internal constructor(
     fun excludedGenres(excludedIds: Set<String>?) = this.apply { this.excludedGenres = excludedIds }
 
     override fun build(): ProxerCall<List<MediaListEntry>> {
-        val joinedFskConstraints = fskConstraints
-            ?.map { ProxerUtils.getSafeApiEnumName(it) }
-            ?.joinToString(DELIMITER)
-
+        val joinedFskConstraints = fskConstraints?.joinToString(DELIMITER) { ProxerUtils.getSafeApiEnumName(it) }
         val joinedTags = tags?.joinToString(DELIMITER)
         val joinedExcludedTags = excludedTags?.joinToString(DELIMITER)
         val joinedGenres = genres?.joinToString(DELIMITER)

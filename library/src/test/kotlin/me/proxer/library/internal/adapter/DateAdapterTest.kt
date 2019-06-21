@@ -1,12 +1,13 @@
 package me.proxer.library.internal.adapter
 
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import me.proxer.library.toProxerDate
+import me.proxer.library.toProxerDateTime
+import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 
 /**
  * @author Ruben Gees
@@ -17,34 +18,31 @@ class DateAdapterTest {
 
     @Test
     fun testFromJsonTimestamp() {
-        assertThat(adapter.fromJson("12345")).isEqualTo(Date((12345 * 1000).toLong()))
+        adapter.fromJson("12345") shouldEqual Date((12345 * 1000).toLong())
     }
 
     @Test
     fun testFromJsonIso() {
-        assertThat(adapter.fromJson("2010-01-01 23:12:10"))
-            .isEqualTo(SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2010-01-01 23:12:10"))
+        adapter.fromJson("2010-01-01 23:12:10") shouldEqual "2010-01-01 23:12:10".toProxerDateTime()
     }
 
     @Test
     fun testFromJsonIsoNoTime() {
-        assertThat(adapter.fromJson("2010-01-01"))
-            .isEqualTo(SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).parse("2010-01-01"))
+        adapter.fromJson("2010-01-01") shouldEqual "2010-01-01".toProxerDate()
     }
 
     @Test
     fun testFromJsonIsoNoTimeEmpty() {
-        assertThat(adapter.fromJson("0000-00-00"))
-            .isEqualTo(SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).parse("0000-00-00"))
+        adapter.fromJson("0000-00-00") shouldEqual "0000-00-00".toProxerDate()
     }
 
     @Test
     fun testFromJsonMalformed() {
-        assertThatExceptionOfType(ParseException::class.java).isThrownBy { adapter.fromJson("malformed") }
+        invoking { adapter.fromJson("malformed") } shouldThrow ParseException::class
     }
 
     @Test
     fun testToJson() {
-        assertThat(adapter.toJson(Date(123))).isEqualTo(123)
+        adapter.toJson(Date(123)) shouldEqual 123
     }
 }

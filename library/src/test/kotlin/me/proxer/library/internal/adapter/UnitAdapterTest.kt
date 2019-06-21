@@ -1,8 +1,10 @@
 package me.proxer.library.internal.adapter
 
 import com.squareup.moshi.JsonDataException
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldBeNull
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
 /**
@@ -14,16 +16,16 @@ class UnitAdapterTest {
 
     @Test
     fun testFromJsonNull() {
-        assertThat(adapter.fromJson("null")).isNull()
+        adapter.fromJson("null").shouldBeNull()
     }
 
     @Test
     fun testFromJsonInvalid() {
-        assertThatExceptionOfType(JsonDataException::class.java).isThrownBy { adapter.fromJson("value") }
+        invoking { adapter.fromJson("value") } shouldThrow JsonDataException::class
     }
 
     @Test
     fun testToJson() {
-        assertThat(adapter.toJson(null)).isEqualTo("null")
+        adapter.toJson(null) shouldEqual "null"
     }
 }

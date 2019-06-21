@@ -7,56 +7,43 @@ import me.proxer.library.enums.FskConstraint
 import me.proxer.library.enums.License
 import me.proxer.library.enums.MediaState
 import me.proxer.library.enums.Medium
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
-import java.util.EnumSet
-import java.util.HashSet
 
+/**
+ * @author Ruben Gees
+ */
 class RecommendationsEndpointTest : ProxerTest() {
+
+    private val expectedRecommendation = Recommendation(
+        id = "15023", name = "Boku no Hero Academia", genres = setOf("Action"),
+        fskConstraints = setOf(FskConstraint.FSK_12), description = "Izuku ist ein schwächlicher „Normalo“.",
+        medium = Medium.ANIMESERIES, episodeAmount = 13, state = MediaState.FINISHED, ratingSum = 29150,
+        ratingAmount = 3412, clicks = 58005, category = Category.ANIME, license = License.LICENSED, positiveVotes = 65,
+        negativeVotes = 1, userVote = null
+    )
 
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("recommendations.json")))
+        val (result, _) = server.runRequest("recommendations.json") {
+            api.info
+                .recommendations("17175")
+                .build()
+                .safeExecute()
+        }
 
-        val result = api.info
-            .recommendations("17175")
-            .build()
-            .execute()
-
-        assertThat(result).first().isEqualTo(buildTestRecommendation())
-    }
-
-    @Test
-    fun testManga() {
-        server.enqueue(MockResponse().setBody(fromResource("recommendations.json")))
-
-        val result = api.info
-            .recommendations("17175")
-            .build()
-            .execute()
-
-        assertThat(result).first().isEqualTo(buildTestRecommendation())
+        result.first() shouldEqual expectedRecommendation
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("recommendations.json")))
+        val (_, request) = server.runRequest("recommendations.json") {
+            api.info.recommendations("17175")
+                .build()
+                .execute()
+        }
 
-        api.info.recommendations("17175")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/info/recommendations?id=17175")
-    }
-
-    private fun buildTestRecommendation(): Recommendation {
-        return Recommendation(
-            "15023", "Boku no Hero Academia", HashSet(listOf("Action")),
-            EnumSet.of(FskConstraint.FSK_12), "Izuku ist ein schwächlicher „Normalo“.", Medium.ANIMESERIES,
-            13, MediaState.FINISHED, 29150, 3412, 58005, Category.ANIME,
-            License.LICENSED, 65, 1, null
-        )
+        request.path shouldEqual "/api/v1/info/recommendations?id=17175"
     }
 }

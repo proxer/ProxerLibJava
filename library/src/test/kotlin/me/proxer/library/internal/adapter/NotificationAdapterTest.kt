@@ -2,8 +2,9 @@ package me.proxer.library.internal.adapter
 
 import com.squareup.moshi.JsonDataException
 import me.proxer.library.entity.notifications.NotificationInfo
-import org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy
-import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
+import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
 /**
@@ -15,19 +16,18 @@ class NotificationAdapterTest {
 
     @Test
     fun testFromJson() {
-        assertThat(adapter.fromJson(intArrayOf(0, 0, 1, 2, 3, 4)))
-            .isEqualTo(NotificationInfo(1, 2, 3, 4))
+        adapter.fromJson(intArrayOf(0, 0, 1, 2, 3, 4)) shouldEqual NotificationInfo(
+            messageAmount = 1, friendRequestAmount = 2, newsAmount = 3, notificationAmount = 4
+        )
     }
 
     @Test
     fun testFromJsonInvalidSizeTooSmall() {
-        assertThatThrownBy { adapter.fromJson(intArrayOf(1, 2, 3, 4, 5)) }
-            .isInstanceOf(JsonDataException::class.java)
+        invoking { adapter.fromJson(intArrayOf(1, 2, 3, 4, 5)) } shouldThrow JsonDataException::class
     }
 
     @Test
     fun testFromJsonInvalidSizeTooLarge() {
-        assertThatThrownBy { adapter.fromJson(intArrayOf(1, 2, 3, 4, 5, 6, 7)) }
-            .isInstanceOf(JsonDataException::class.java)
+        invoking { adapter.fromJson(intArrayOf(1, 2, 3, 4, 5, 6, 7)) } shouldThrow JsonDataException::class
     }
 }

@@ -3,9 +3,12 @@ package me.proxer.library.enums
 import com.serjltt.moshi.adapters.FallbackEnum
 import com.squareup.moshi.Moshi
 import me.proxer.library.ProxerTest
-import org.assertj.core.api.Assertions.assertThat
+import org.amshove.kluent.shouldBe
 import org.junit.jupiter.api.Test
 
+/**
+ * @author Ruben Gees
+ */
 class CountryTest : ProxerTest() {
 
     private val adapter = Moshi.Builder()
@@ -15,11 +18,11 @@ class CountryTest : ProxerTest() {
 
     @Test
     fun testDefault() {
-        assertThat(adapter.fromJson("\"de\"")).isSameAs(Country.GERMANY)
+        adapter.fromJson("\"de\"") shouldBe Country.GERMANY
     }
 
     @Test
     fun testFallback() {
-        assertThat(adapter.fromJson("\"xyz\"")).isSameAs(Country.OTHER)
+        adapter.fromJson("\"xyz\"") shouldBe Country.OTHER
     }
 }

@@ -9,7 +9,6 @@ import com.squareup.moshi.JsonWriter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import me.proxer.library.util.ProxerUtils
-import java.io.IOException
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import java.util.EnumSet
@@ -33,16 +32,14 @@ internal class DelimitedEnumSetAdapterFactory : JsonAdapter.Factory {
             return null
         }
 
+        val annotation = annotations.filterIsInstance(DelimitedEnumSet::class.java).firstOrNull() ?: return null
+
         // There is no other way in Kotlin to instantiate a generic class with an enum type parameter, when not
         // statically knowing the exact enum.
         // Idea from here: https://stackoverflow.com/a/46422600/4279995
         @Suppress("UNCHECKED_CAST")
-        parameterType as Class<PlaceHolderEnum>
-
-        val annotation = annotations.filterIsInstance(DelimitedEnumSet::class.java).firstOrNull() ?: return null
-
         return DelimitedEnumSetAdapter(
-            parameterType,
+            parameterType as Class<PlaceHolderEnum>,
             annotation.delimiter
         )
     }
@@ -69,7 +66,6 @@ internal class DelimitedEnumSetAdapterFactory : JsonAdapter.Factory {
             java.lang.Enum.valueOf(enumType, it.name)
         }
 
-        @Throws(IOException::class)
         override fun fromJson(reader: JsonReader): Set<T> {
             return if (reader.peek() == JsonReader.Token.NULL) {
                 reader.nextNull<Any>()
@@ -86,7 +82,6 @@ internal class DelimitedEnumSetAdapterFactory : JsonAdapter.Factory {
             }
         }
 
-        @Throws(IOException::class)
         override fun toJson(writer: JsonWriter, value: Set<T>?) {
             if (value == null) {
                 writer.nullValue()

@@ -11,7 +11,6 @@ import me.proxer.library.entity.info.Synonym
 import me.proxer.library.entity.list.IndustryCore
 import me.proxer.library.enums.Category
 import me.proxer.library.enums.Country
-import me.proxer.library.enums.FskConstraint
 import me.proxer.library.enums.IndustryType
 import me.proxer.library.enums.License
 import me.proxer.library.enums.MediaLanguage
@@ -19,97 +18,96 @@ import me.proxer.library.enums.MediaState
 import me.proxer.library.enums.Medium
 import me.proxer.library.enums.Season
 import me.proxer.library.enums.SynonymType
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import me.proxer.library.toProxerDateTime
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
-import java.text.SimpleDateFormat
-import java.util.EnumSet
-import java.util.Locale
 
 /**
  * @author Ruben Gees
  */
 class EntryEndpointTest : ProxerTest() {
 
+    private val expectedEntry = Entry(
+        id = "6174", name = "LuCu LuCu", fskConstraints = setOf(),
+        description = """
+            Humans are a despicable lot, committing sin after sin, filling the endless boundaries of the 
+            underworld with tortured souls. Now, it would seem, Hell isn't so endless after all, and it has become 
+            dangerously close to filling, and then overflowing into the human realm. Princess Lucuha sees this 
+            imminent disaster and has a plan: save Hell by making humans decent again. Of course, the angels can't 
+            simply allow demons to roam freely on Earth, and they do their best to stop Lucu and her 
+            dastardly plans.
+        """.trimIndent().replace("\n", ""),
+        medium = Medium.MANGASERIES, episodeAmount = 90, state = MediaState.FINISHED, ratingSum = 7, ratingAmount = 1,
+        clicks = 134, category = Category.MANGA, license = License.NOT_LICENSED,
+        adaptionInfo = AdaptionInfo(id = "2793", name = "KissXsis", medium = Medium.MANGASERIES),
+        isAgeRestricted = false,
+        synonyms = listOf(
+            Synonym(id = "12322", entryId = "6174", type = SynonymType.ORIGINAL, name = "LuCu LuCu"),
+            Synonym(id = "12323", entryId = "6174", type = SynonymType.JAPANESE, name = "るくるく"),
+            Synonym(id = "44662", entryId = "6174", type = SynonymType.ORIGINAL_ALTERNATIVE, name = "Lucu Lucu"),
+            Synonym(id = "44663", entryId = "6174", type = SynonymType.ORIGINAL_ALTERNATIVE, name = "LuCuLuCu")
+        ),
+        languages = setOf(MediaLanguage.ENGLISH),
+        seasons = listOf(
+            EntrySeasonInfo(id = "1061", year = 2002, season = Season.UNSPECIFIED),
+            EntrySeasonInfo(id = "15776", year = 2009, season = Season.UNSPECIFIED)
+        ),
+        translatorGroups = listOf(
+            EntryTranslatorGroup(id = "215", name = "SnoopyCool", country = Country.ENGLAND),
+            EntryTranslatorGroup(id = "294", name = "FoOlRulez", country = Country.ENGLAND)
+        ),
+        industries = listOf(
+            IndustryCore(id = "19", name = "Kodansha", type = IndustryType.PUBLISHER, country = Country.JAPAN)
+        ),
+        tags = listOf(
+            InfoTag(
+                id = "2027", entryTagId = "93", date = "2016-06-18 14:14:22".toProxerDateTime(), isRated = false,
+                isSpoiler = false, name = "Dämonen", description = "In diesem Werk kommen Dämonen vor."
+            ),
+            InfoTag(
+                id = "2028", entryTagId = "299", date = "2016-06-18 14:14:30".toProxerDateTime(), isRated = false,
+                isSpoiler = false, name = "Slapstick", description = "Situationskomik, kommt ohne Worte aus."
+            )
+        ),
+        genres = listOf(
+            InfoGenre(
+                id = "120694", entryTagId = "175", date = "2018-03-07 23:17:44".toProxerDateTime(), name = "Action",
+                description = """
+                    Dynamische Szenen, spannende Wettkämpfe und beeindruckende Kampfszenen prägen 
+                    dieses Genre.
+                """.trimIndent().replace("\n", "")
+            ),
+            InfoGenre(
+                id = "120695", entryTagId = "174", date = "2018-03-07 23:17:44".toProxerDateTime(), name = "Adventure",
+                description = """
+                    Es handelt sich meist um eine Geschichte über eine Reise oder Suche. 
+                    Kurzum ein Abenteuer, das es zu bestehen gilt.
+                """.trimIndent().replace("\n", "")
+            )
+        )
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("entry.json")))
+        val (result, _) = server.runRequest("entry.json") {
+            api.info
+                .entry("1")
+                .build()
+                .execute()
+        }
 
-        val result = api.info
-            .entry("1")
-            .build()
-            .execute()
-
-        assertThat(result).isEqualTo(buildTestEntry())
+        result shouldEqual expectedEntry
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("entry.json")))
+        val (_, request) = server.runRequest("entry.json") {
+            api.info.entry("1")
+                .build()
+                .execute()
+        }
 
-        api.info.entry("1")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/info/fullentry?id=1")
-    }
-
-    private fun buildTestEntry(): Entry {
-        return Entry(
-            "6174", "LuCu LuCu", EnumSet.noneOf(FskConstraint::class.java),
-            "Humans are a despicable lot, committing sin after sin, filling the endless boundaries " +
-                "of the underworld with tortured souls. Now, it would seem, Hell isn't so endless after all, " +
-                "and it has become dangerously close to filling, and then overflowing into the human realm. " +
-                "Princess Lucuha sees this imminent disaster and has a plan: save Hell by making humans " +
-                "decent again. Of course, the angels can't simply allow demons to roam freely on Earth, " +
-                "and they do their best to stop Lucu and her dastardly plans.",
-            Medium.MANGASERIES, 90, MediaState.FINISHED, 7, 1, 134,
-            Category.MANGA, License.NOT_LICENSED, AdaptionInfo("2793", "KissXsis", Medium.MANGASERIES), false,
-            listOf(
-                Synonym("12322", "6174", SynonymType.ORIGINAL, "LuCu LuCu"),
-                Synonym("12323", "6174", SynonymType.JAPANESE, "るくるく"),
-                Synonym("44662", "6174", SynonymType.ORIGINAL_ALTERNATIVE, "Lucu Lucu"),
-                Synonym("44663", "6174", SynonymType.ORIGINAL_ALTERNATIVE, "LuCuLuCu")
-            ),
-            setOf(MediaLanguage.ENGLISH),
-            listOf(
-                EntrySeasonInfo("1061", 2002, Season.UNSPECIFIED),
-                EntrySeasonInfo("15776", 2009, Season.UNSPECIFIED)
-            ),
-            listOf(
-                EntryTranslatorGroup("215", "SnoopyCool", Country.ENGLAND),
-                EntryTranslatorGroup("294", "FoOlRulez", Country.ENGLAND)
-            ),
-            listOf(IndustryCore("19", "Kodansha", IndustryType.PUBLISHER, Country.JAPAN)),
-            listOf(
-                InfoTag(
-                    "2027", "93",
-                    SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2016-06-18 14:14:22"),
-                    false, false, "Dämonen", "In diesem Werk kommen Dämonen vor."
-                ),
-                InfoTag(
-                    "2028", "299",
-                    SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2016-06-18 14:14:30"),
-                    false, false, "Slapstick", "Situationskomik, kommt ohne Worte aus."
-                )
-            ),
-            listOf(
-                InfoGenre(
-                    "120694", "175",
-                    SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2018-03-07 23:17:44"),
-                    "Action",
-                    "Dynamische Szenen, spannende Wettkämpfe und beeindruckende " +
-                        "Kampfszenen prägen dieses Genre."
-                ),
-                InfoGenre(
-                    "120695", "174",
-                    SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.GERMANY).parse("2018-03-07 23:17:44"),
-                    "Adventure",
-                    "Es handelt sich meist um eine Geschichte über eine Reise oder Suche. " +
-                        "Kurzum ein Abenteuer, das es zu bestehen gilt."
-                )
-            )
-        )
+        request.path shouldEqual "/api/v1/info/fullentry?id=1"
     }
 }

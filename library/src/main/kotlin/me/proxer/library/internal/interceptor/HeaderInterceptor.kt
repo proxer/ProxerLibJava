@@ -19,22 +19,22 @@ internal class HeaderInterceptor(private val apiKey: String, private val userAge
     override fun intercept(chain: Interceptor.Chain): Response {
         val oldRequest = chain.request()
 
-        if (ProxerUrls.hasProxerHost(oldRequest.url())) {
-            val newRequestBuilder = oldRequest.newBuilder()
-
-            if (oldRequest.url().host() == ProxerUrls.apiBase.host()) {
-                if (apiKey == ProxerApi.TEST_KEY) {
-                    newRequestBuilder.header(TEST_MODE_HEADER, "1")
-                } else {
-                    newRequestBuilder.header(API_KEY_HEADER, apiKey)
-                }
-            }
-
-            newRequestBuilder.header(USER_AGENT_HEADER, userAgent)
-
-            return chain.proceed(newRequestBuilder.build())
-        } else {
-            throw IllegalArgumentException("Only use ProxerLib's OkHttp instance with Proxer.Me URLs!")
+        require(ProxerUrls.hasProxerHost(oldRequest.url())) {
+            "Only use ProxerLib's OkHttp instance with Proxer.Me URLs!"
         }
+
+        val newRequestBuilder = oldRequest.newBuilder()
+
+        if (oldRequest.url().host() == ProxerUrls.apiBase.host()) {
+            if (apiKey == ProxerApi.TEST_KEY) {
+                newRequestBuilder.header(TEST_MODE_HEADER, "1")
+            } else {
+                newRequestBuilder.header(API_KEY_HEADER, apiKey)
+            }
+        }
+
+        newRequestBuilder.header(USER_AGENT_HEADER, userAgent)
+
+        return chain.proceed(newRequestBuilder.build())
     }
 }

@@ -2,9 +2,8 @@ package me.proxer.library.api.notifications
 
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.notifications.NewsArticle
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -13,39 +12,41 @@ import java.util.Date
  */
 class NewsEndpointTest : ProxerTest() {
 
+    private val expectedNews = NewsArticle(
+        id = "7709", date = Date(1488654000L * 1000),
+        description = """
+            In der diesjährigen 14. Ausgabe von Shueishas Weekly Shounen Jump-Magazin soll angekündigt werden, 
+            dass der Manga To Love-Ru Trouble Darkness eine neue OVA erhält.
+        """.trimIndent().replace("\n", ""),
+        image = "723465714977",
+        subject = "To Love-Ru Trouble " + "Darkness – OVA zum zehnjährigen Jubiläum angekündigt", hits = 549,
+        threadId = "381362", authorId = "101731", author = "SilentGray", commentAmount = 1, categoryId = "56",
+        category = "Anime- und Manga-News"
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
-
-        val result = api.notifications
+        val (result, _) = server.runRequest("news.json") {
+            api.notifications
             .news()
             .build()
-            .execute()
+                .safeExecute()
+        }
 
-        assertThat(result).first().isEqualTo(buildTestArticle())
+        result.first() shouldEqual expectedNews
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
-
-        api.notifications.news()
+        val (_, request) = server.runRequest("news.json") {
+            api.notifications.news()
             .page(0)
             .limit(10)
             .markAsRead(false)
             .build()
             .execute()
+        }
 
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/notifications/news?p=0&limit=10&set_read=false")
-    }
-
-    private fun buildTestArticle(): NewsArticle {
-        return NewsArticle(
-            "7709", Date(1488654000L * 1000),
-            "In der diesjährigen 14. Ausgabe von Shueishas Weekly Shounen Jump-Magazin soll angekündigt " +
-                "werden, dass der Manga To Love-Ru Trouble Darkness eine neue OVA erhält.",
-            "723465714977", "To Love-Ru Trouble " + "Darkness – OVA zum zehnjährigen Jubiläum angekündigt",
-            549, "381362", "101731", "SilentGray", 1, "56", "Anime- und Manga-News"
-        )
+        request.path shouldEqual "/api/v1/notifications/news?p=0&limit=10&set_read=false"
     }
 }

@@ -2,37 +2,39 @@ package me.proxer.library.api.anime
 
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.anime.LinkContainer
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
+/**
+ * @author Ruben Gees
+ */
 class VastLinkEndpointTest : ProxerTest() {
+
+    private val expectedLinkContainer = LinkContainer(
+        link = "//www.dailymotion.com/embed/video/k4D1tLdhKG", adTag = "https://example.com"
+    )
 
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("link_vast.json")))
+        val (result, _) = server.runRequest("link_vast.json") {
+            api.anime
+                .vastLink("4")
+                .build()
+                .execute()
+        }
 
-        val result = api.anime
-            .vastLink("4")
-            .build()
-            .execute()
-
-        assertThat(result).isEqualTo(buildTestLinkContainer())
+        result shouldEqual expectedLinkContainer
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("link_vast.json")))
+        val (_, request) = server.runRequest("link_vast.json") {
+            api.anime.vastLink("9")
+                .build()
+                .execute()
+        }
 
-        api.anime.vastLink("9")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/anime/linkvast?id=9")
-    }
-
-    private fun buildTestLinkContainer(): LinkContainer {
-        return LinkContainer("//www.dailymotion.com/embed/video/k4D1tLdhKG", "https://example.com")
+        request.path shouldEqual "/api/v1/anime/linkvast?id=9"
     }
 }

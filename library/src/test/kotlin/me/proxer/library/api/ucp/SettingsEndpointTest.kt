@@ -3,9 +3,8 @@ package me.proxer.library.api.ucp
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.ucp.UcpSettings
 import me.proxer.library.enums.UcpSettingConstraint
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -13,37 +12,37 @@ import org.junit.jupiter.api.Test
  */
 class SettingsEndpointTest : ProxerTest() {
 
+    private val expectedSettings = UcpSettings(
+        profileVisibility = UcpSettingConstraint.EVERYONE, topTenVisibility = UcpSettingConstraint.LOGGED_IN_USERS,
+        animeVisibility = UcpSettingConstraint.FRIENDS, mangaVisibility = UcpSettingConstraint.LOGGED_IN_USERS,
+        commentVisibility = UcpSettingConstraint.EVERYONE, forumVisibility = UcpSettingConstraint.EVERYONE,
+        friendVisibility = UcpSettingConstraint.LOGGED_IN_USERS, friendRequestConstraint = UcpSettingConstraint.DEFAULT,
+        aboutVisibility = UcpSettingConstraint.DEFAULT, historyVisibility = UcpSettingConstraint.PRIVATE,
+        guestBookVisibility = UcpSettingConstraint.LOGGED_IN_USERS,
+        guestBookEntryConstraint = UcpSettingConstraint.EVERYONE, galleryVisibility = UcpSettingConstraint.FRIENDS,
+        articleVisibility = UcpSettingConstraint.LOGGED_IN_USERS, isHideTags = false, isShowAds = true, adInterval = 7
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("ucp_settings.json")))
+        val (result, _) = server.runRequest("ucp_settings.json") {
+            api.ucp
+                .settings()
+                .build()
+                .execute()
+        }
 
-        val result = api.ucp
-            .settings()
-            .build()
-            .execute()
-
-        assertThat(result).isEqualTo(buildTestSettings())
+        result shouldEqual expectedSettings
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("ucp_settings.json")))
+        val (_, request) = server.runRequest("ucp_settings.json") {
+            api.ucp.settings()
+                .build()
+                .execute()
+        }
 
-        api.ucp.settings()
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/ucp/settings")
-    }
-
-    private fun buildTestSettings(): UcpSettings {
-        return UcpSettings(
-            UcpSettingConstraint.EVERYONE, UcpSettingConstraint.LOGGED_IN_USERS,
-            UcpSettingConstraint.FRIENDS, UcpSettingConstraint.LOGGED_IN_USERS, UcpSettingConstraint.EVERYONE,
-            UcpSettingConstraint.EVERYONE, UcpSettingConstraint.LOGGED_IN_USERS, UcpSettingConstraint.DEFAULT,
-            UcpSettingConstraint.DEFAULT, UcpSettingConstraint.PRIVATE, UcpSettingConstraint.LOGGED_IN_USERS,
-            UcpSettingConstraint.EVERYONE, UcpSettingConstraint.FRIENDS, UcpSettingConstraint.LOGGED_IN_USERS,
-            false, true, 7
-        )
+        request.path shouldEqual "/api/v1/ucp/settings"
     }
 }

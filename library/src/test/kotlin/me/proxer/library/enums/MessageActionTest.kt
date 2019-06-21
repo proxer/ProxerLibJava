@@ -2,9 +2,12 @@ package me.proxer.library.enums
 
 import com.serjltt.moshi.adapters.FallbackEnum
 import com.squareup.moshi.Moshi
-import org.assertj.core.api.Assertions.assertThat
+import org.amshove.kluent.shouldBe
 import org.junit.jupiter.api.Test
 
+/**
+ * @author Ruben Gees
+ */
 class MessageActionTest {
 
     private val adapter = Moshi.Builder()
@@ -14,11 +17,11 @@ class MessageActionTest {
 
     @Test
     fun testDefault() {
-        assertThat(adapter.fromJson("\"addUser\"")).isSameAs(MessageAction.ADD_USER)
+        adapter.fromJson("\"addUser\"") shouldBe MessageAction.ADD_USER
     }
 
     @Test
     fun testFallback() {
-        assertThat(adapter.fromJson("\"xyz\"")).isSameAs(MessageAction.NONE)
+        adapter.fromJson("\"xyz\"") shouldBe MessageAction.NONE
     }
 }

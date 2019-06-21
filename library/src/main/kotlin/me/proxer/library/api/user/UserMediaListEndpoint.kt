@@ -31,6 +31,12 @@ class UserMediaListEndpoint internal constructor(
     override fun page(page: Int?) = this.apply { this.page = page }
     override fun limit(limit: Int?) = this.apply { this.limit = limit }
 
+    init {
+        require(userId.isNullOrBlank().not() || username.isNullOrBlank().not()) {
+            "You must pass either an userId or an username."
+        }
+    }
+
     /**
      * Sets the category to filter by.
      */
@@ -60,12 +66,6 @@ class UserMediaListEndpoint internal constructor(
      * Set the criteria for sorting.
      */
     fun sort(sort: UserMediaListSortCriteria?) = this.apply { this.sort = sort }
-
-    init {
-        if (userId.isNullOrBlank() && username.isNullOrBlank()) {
-            throw IllegalArgumentException("You must pass either an userId or an username.")
-        }
-    }
 
     override fun build(): ProxerCall<List<UserMediaListEntry>> {
         return internalApi.userMediaList(

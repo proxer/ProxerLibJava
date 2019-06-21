@@ -4,10 +4,10 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.user.UserAbout
 import me.proxer.library.enums.Gender
 import me.proxer.library.enums.RelationshipStatus
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import me.proxer.library.runRequest
+import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
 /**
@@ -15,40 +15,37 @@ import org.junit.jupiter.api.Test
  */
 class UserAboutEndpointTest : ProxerTest() {
 
+    private val expectedAbout = UserAbout(
+        website = "", occupation = "Developer", interests = "Anime", city = "A City", country = "Some Country",
+        about = "<p>Hello there", facebook = "", youtube = "", chatango = "", twitter = "", skype = "skypeTest",
+        deviantart = "", birthday = "0000-06-02", gender = Gender.MALE, relationshipStatus = RelationshipStatus.UNKNOWN
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("user_about.json")))
+        val (result, _) = server.runRequest("user_about.json") {
+            api.user
+                .about(null, "rubygee")
+                .build()
+                .execute()
+        }
 
-        val result = api.user
-            .about(null, "rubygee")
-            .build()
-            .execute()
-
-        assertThat(result).isEqualTo(buildTestAbout())
+        result shouldEqual expectedAbout
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("user_about.json")))
+        val (_, request) = server.runRequest("user_about.json") {
+            api.user.about("123", "rubygee")
+                .build()
+                .execute()
+        }
 
-        api.user.about("123", "rubygee")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/user/about?uid=123&username=rubygee")
+        request.path shouldEqual "/api/v1/user/about?uid=123&username=rubygee"
     }
 
     @Test
     fun testUserIdAndUsernameNull() {
-        assertThatExceptionOfType(IllegalArgumentException::class.java)
-            .isThrownBy { api.user.info(null, null) }
-    }
-
-    private fun buildTestAbout(): UserAbout {
-        return UserAbout(
-            "", "Developer", "Anime", "A City", "Some Country",
-            "<p>Hello there", "", "", "", "", "skypeTest",
-            "", "0000-06-02", Gender.MALE, RelationshipStatus.UNKNOWN
-        )
+        invoking { api.user.info(null, null) } shouldThrow IllegalArgumentException::class
     }
 }

@@ -3,7 +3,8 @@ package me.proxer.library.util
 import me.proxer.library.enums.AnimeLanguage
 import me.proxer.library.enums.LengthBound
 import me.proxer.library.enums.MediaLanguage
-import org.assertj.core.api.Assertions.assertThat
+import org.amshove.kluent.shouldBeNull
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -13,31 +14,31 @@ class ProxerUtilsTest {
 
     @Test
     fun testGetEnumName() {
-        assertThat(ProxerUtils.getApiEnumName(MediaLanguage.GERMAN_SUB)).isEqualTo("gersub")
+        ProxerUtils.getApiEnumName(MediaLanguage.GERMAN_SUB) shouldEqual "gersub"
     }
 
     @Test
     fun testGetSafeEnumName() {
-        assertThat(ProxerUtils.getApiEnumName(LengthBound.HIGHER)).isEqualTo("up")
+        ProxerUtils.getApiEnumName(LengthBound.HIGHER) shouldEqual "up"
     }
 
     @Test
     fun testToApiEnum() {
-        assertThat(ProxerUtils.toApiEnum<MediaLanguage>("gersub")).isEqualTo(MediaLanguage.GERMAN_SUB)
+        ProxerUtils.toApiEnum<MediaLanguage>("gersub") shouldEqual MediaLanguage.GERMAN_SUB
     }
 
     @Test
     fun testToSafeApiEnum() {
-        assertThat(ProxerUtils.toSafeApiEnum<AnimeLanguage>("gersub")).isEqualTo(AnimeLanguage.GERMAN_SUB)
+        ProxerUtils.toSafeApiEnum<AnimeLanguage>("gersub") shouldEqual AnimeLanguage.GERMAN_SUB
     }
 
     @Test
     fun testToApiEnumIgnoresCase() {
-        assertThat(ProxerUtils.toApiEnum<MediaLanguage>("ENGSUB")).isEqualTo(MediaLanguage.ENGLISH_SUB)
+        ProxerUtils.toApiEnum<MediaLanguage>("ENGSUB") shouldEqual MediaLanguage.ENGLISH_SUB
     }
 
     @Test
     fun testToApiEnumInvalidString() {
-        assertThat(ProxerUtils.toApiEnum<MediaLanguage>("invalid")).isNull()
+        ProxerUtils.toApiEnum<MediaLanguage>("invalid").shouldBeNull()
     }
 }

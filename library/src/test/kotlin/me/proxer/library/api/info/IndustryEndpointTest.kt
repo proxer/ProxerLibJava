@@ -4,10 +4,9 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.info.Industry
 import me.proxer.library.enums.Country
 import me.proxer.library.enums.IndustryType
-import me.proxer.library.fromResource
+import me.proxer.library.runRequest
 import okhttp3.HttpUrl
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -15,34 +14,32 @@ import org.junit.jupiter.api.Test
  */
 class IndustryEndpointTest : ProxerTest() {
 
+    private val expectedIndustry = Industry(
+        id = "123", name = "Hoods Entertainment", type = IndustryType.STUDIO, country = Country.JAPAN,
+        link = HttpUrl.parse("http://www.hoods.co.jp/"),
+        description = "Anfang 2009 gegründetes Animations-Studio mit Sitz in Tokio."
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("industry.json")))
+        val (result, _) = server.runRequest("industry.json") {
+            api.info
+                .industry("1")
+                .build()
+                .execute()
+        }
 
-        val result = api.info
-            .industry("1")
-            .build()
-            .execute()
-
-        assertThat(result).isEqualTo(buildTestIndustry())
+        result shouldEqual expectedIndustry
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("industry.json")))
+        val (_, request) = server.runRequest("industry.json") {
+            api.info.industry("3")
+                .build()
+                .execute()
+        }
 
-        api.info.industry("3")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/info/industry?id=3")
-    }
-
-    private fun buildTestIndustry(): Industry {
-        return Industry(
-            "123", "Hoods Entertainment", IndustryType.STUDIO, Country.JAPAN,
-            HttpUrl.parse("http://www.hoods.co.jp/"),
-            "Anfang 2009 gegründetes Animations-Studio mit Sitz in Tokio."
-        )
+        request.path shouldEqual "/api/v1/info/industry?id=3"
     }
 }

@@ -2,8 +2,9 @@ package me.proxer.library.internal.adapter
 
 import com.squareup.moshi.JsonDataException
 import me.proxer.library.entity.manga.Page
-import org.assertj.core.api.Assertions
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
 /**
@@ -15,21 +16,19 @@ class PageAdapterTest {
 
     @Test
     fun testFromJson() {
-        Assertions.assertThat(adapter.fromJson(arrayOf(arrayOf("a", "1", "2"), arrayOf("b", "5", "3"))))
-            .containsExactly(Page("a", 1, 2), Page("b", 5, 3))
+        adapter.fromJson(arrayOf(arrayOf("a", "1", "2"), arrayOf("b", "5", "3"))) shouldEqual listOf(
+            Page(name = "a", height = 1, width = 2),
+            Page(name = "b", height = 5, width = 3)
+        )
     }
 
     @Test
     fun testFromJsonInvalidSize() {
-        assertThatExceptionOfType(JsonDataException::class.java).isThrownBy {
-            adapter.fromJson(arrayOf(arrayOf("a", "1", "2"), emptyArray()))
-        }
+        invoking { adapter.fromJson(arrayOf(arrayOf("a", "1"))) } shouldThrow JsonDataException::class
     }
 
     @Test
     fun testFromJsonNoNumber() {
-        assertThatExceptionOfType(NumberFormatException::class.java).isThrownBy {
-            adapter.fromJson(arrayOf(arrayOf("a", "invalid", "2")))
-        }
+        invoking { adapter.fromJson(arrayOf(arrayOf("a", "invalid", "2"))) } shouldThrow JsonDataException::class
     }
 }

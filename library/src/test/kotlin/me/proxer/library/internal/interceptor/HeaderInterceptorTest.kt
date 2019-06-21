@@ -1,22 +1,21 @@
 package me.proxer.library.internal.interceptor
 
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.slot
 import me.proxer.library.BuildConfig.VERSION
 import me.proxer.library.ProxerApi
 import me.proxer.library.ProxerTest
-import me.proxer.library.fromResource
+import me.proxer.library.runRequest
 import me.proxer.library.util.ProxerUrls
 import okhttp3.Interceptor
 import okhttp3.Request
-import okhttp3.Response
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldBe
+import org.amshove.kluent.shouldBeNull
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentCaptor
-import org.mockito.ArgumentMatchers.notNull
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
 
 /**
  * @author Ruben Gees
@@ -24,138 +23,115 @@ import org.mockito.Mockito.verify
 class HeaderInterceptorTest : ProxerTest() {
 
     private val interceptor = HeaderInterceptor("mock-key", "mock-user-agent")
-    private val chain = mock(Interceptor.Chain::class.java)
+    private val requestSlot = slot<Request>()
+
+    private val chain = mockk<Interceptor.Chain>().apply {
+        every { proceed(capture(requestSlot)) } returns mockk()
+    }
 
     @Test
     fun testApiKey() {
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
+        val (_, request) = server.runRequest("news.json") {
+            api.notifications.news().build().execute()
+        }
 
-        api.notifications.news().build().execute()
-
-        assertThat(server.takeRequest().headers.get("proxer-api-key")).isEqualTo("mock-key")
+        request.headers.get("proxer-api-key") shouldEqual "mock-key"
     }
 
     @Test
     fun testDefaultUserAgent() {
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
+        val (_, request) = server.runRequest("news.json") {
+            api.notifications.news().build().execute()
+        }
 
-        api.notifications.news().build().execute()
-
-        assertThat(server.takeRequest().headers.get("User-Agent")).isEqualTo("ProxerLibJava/$VERSION")
+        request.headers.get("User-Agent") shouldEqual "ProxerLibJava/$VERSION"
     }
 
     @Test
     fun testApiKeyHeaderNotSetForOtherUrl() {
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
-
-        `when`(chain.request()).thenReturn(Request.Builder().url(ProxerUrls.cdnBase).build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+        every { chain.request() } returns Request.Builder().url(ProxerUrls.cdnBase).build()
 
         interceptor.intercept(chain)
 
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.header("proxer-api-key")).isNull()
+        requestSlot.isCaptured shouldBe true
+        requestSlot.captured.header("proxer-api-key").shouldBeNull()
     }
 
     @Test
     fun testCorrectHeadersForTestMode() {
-        val testInterceptor = HeaderInterceptor(ProxerApi.TEST_KEY, "mock-user-agent")
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
+        every { chain.request() } returns Request.Builder().url(ProxerUrls.apiBase).build()
 
-        `when`(chain.request()).thenReturn(Request.Builder().url(ProxerUrls.apiBase).build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+        HeaderInterceptor(ProxerApi.TEST_KEY, "mock-user-agent").intercept(chain)
 
-        testInterceptor.intercept(chain)
-
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.header("proxer-api-key")).isNull()
-        assertThat(requestCaptor.value.header("proxer-api-testmode")).isEqualTo("1")
+        requestSlot.isCaptured shouldBe true
+        requestSlot.captured.header("proxer-api-key").shouldBeNull()
+        requestSlot.captured.header("proxer-api-testmode") shouldEqual "1"
     }
 
     @Test
     fun testTestModeHeaderNotSerForOtherUrl() {
-        val testInterceptor = HeaderInterceptor(ProxerApi.TEST_KEY, "mock-user-agent")
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
+        every { chain.request() } returns Request.Builder().url(ProxerUrls.cdnBase).build()
 
-        `when`(chain.request()).thenReturn(Request.Builder().url(ProxerUrls.cdnBase).build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+        HeaderInterceptor(ProxerApi.TEST_KEY, "mock-user-agent").intercept(chain)
 
-        testInterceptor.intercept(chain)
-
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.header("proxer-api-testmode")).isNull()
+        requestSlot.isCaptured shouldBe true
+        requestSlot.captured.header("proxer-api-testmode").shouldBeNull()
     }
 
     @Test
     fun testCorrectHeadersForCdn() {
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
-
-        `when`(chain.request()).thenReturn(Request.Builder().url(ProxerUrls.cdnBase).build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+        every { chain.request() } returns Request.Builder().url(ProxerUrls.cdnBase).build()
 
         interceptor.intercept(chain)
 
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.header("User-Agent").toString()).isEqualTo("mock-user-agent")
+        requestSlot.isCaptured shouldBe true
+        requestSlot.captured.header("User-Agent").toString() shouldEqual "mock-user-agent"
     }
 
     @Test
     fun testCorrectHeadersForStreamServer() {
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
-
-        `when`(chain.request()).thenReturn(Request.Builder().url(ProxerUrls.streamBase).build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+        every { chain.request() } returns Request.Builder().url(ProxerUrls.streamBase).build()
 
         interceptor.intercept(chain)
 
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.header("User-Agent").toString()).isEqualTo("mock-user-agent")
+        requestSlot.isCaptured shouldBe true
+        requestSlot.captured.header("User-Agent").toString() shouldEqual "mock-user-agent"
     }
 
     @Test
     fun testCorrectHeadersForSpecificStreamServer() {
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
-
-        `when`(chain.request()).thenReturn(Request.Builder().url("https://s3-ps.proxer.me").build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+        every { chain.request() } returns Request.Builder().url("https://s3-ps.proxer.me").build()
 
         interceptor.intercept(chain)
 
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.header("User-Agent").toString()).isEqualTo("mock-user-agent")
+        requestSlot.isCaptured shouldBe true
+        requestSlot.captured.header("User-Agent").toString() shouldEqual "mock-user-agent"
     }
 
     @Test
     fun testCorrectHeadersForMangaServer() {
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
-
-        `when`(chain.request()).thenReturn(Request.Builder().url("https://manga0.proxer.me").build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+        every { chain.request() } returns Request.Builder().url("https://manga0.proxer.me").build()
 
         interceptor.intercept(chain)
 
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.header("User-Agent").toString()).isEqualTo("mock-user-agent")
+        requestSlot.isCaptured shouldBe true
+        requestSlot.captured.header("User-Agent").toString() shouldEqual "mock-user-agent"
     }
 
     @Test
     fun testCorrectHeadersForProxy() {
-        val requestCaptor = ArgumentCaptor.forClass(Request::class.java)
-
-        `when`(chain.request()).thenReturn(Request.Builder().url("https://proxy.proxer.me").build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+        every { chain.request() } returns Request.Builder().url("https://proxy.proxer.me").build()
 
         interceptor.intercept(chain)
 
-        verify(chain).proceed(requestCaptor.capture())
-        assertThat(requestCaptor.value.header("User-Agent").toString()).isEqualTo("mock-user-agent")
+        requestSlot.isCaptured shouldBe true
+        requestSlot.captured.header("User-Agent").toString() shouldEqual "mock-user-agent"
     }
 
     @Test
     fun testOtherHostThrows() {
-        `when`(chain.request()).thenReturn(Request.Builder().url("https://example.com").build())
-        `when`(chain.proceed(notNull())).thenReturn(mock(Response::class.java))
+        every { chain.request() } returns Request.Builder().url("https://example.com").build()
 
-        assertThatExceptionOfType(IllegalArgumentException::class.java).isThrownBy { interceptor.intercept(chain) }
+        invoking { interceptor.intercept(chain) } shouldThrow IllegalArgumentException::class
     }
 }

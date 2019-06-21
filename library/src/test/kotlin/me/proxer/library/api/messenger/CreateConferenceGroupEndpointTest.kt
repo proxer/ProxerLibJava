@@ -1,9 +1,8 @@
 package me.proxer.library.api.messenger
 
 import me.proxer.library.ProxerTest
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -13,41 +12,39 @@ class CreateConferenceGroupEndpointTest : ProxerTest() {
 
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("create_conference.json")))
+        val (result, _) = server.runRequest("create_conference.json") {
+            api.messenger
+                .createConferenceGroup("topic", "message", listOf("someUser", "anotherUser"))
+                .build()
+                .execute()
+        }
 
-        val result = api.messenger
-            .createConferenceGroup("topic", "message", listOf("someUser", "anotherUser"))
-            .build()
-            .execute()
-
-        assertThat(result).isEqualTo("abcTest")
+        result shouldEqual "abcTest"
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("create_conference.json")))
+        val (_, request) = server.runRequest("create_conference.json") {
+            api.messenger.createConferenceGroup("a", "b", listOf("user"))
+                .build()
+                .execute()
+        }
 
-        api.messenger.createConferenceGroup("a", "b", listOf("user"))
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path)
-            .isEqualTo("/api/v1/messenger/newconferencegroup")
+        request.path shouldEqual "/api/v1/messenger/newconferencegroup"
     }
 
     @Test
     fun testParameters() {
-        server.enqueue(MockResponse().setBody(fromResource("create_conference.json")))
+        val (_, request) = server.runRequest("create_conference.json") {
+            api.messenger
+                .createConferenceGroup(
+                    topic = "topic", firstMessage = "message",
+                    participants = listOf("someUser", "anotherUser", "testUser")
+                )
+                .build()
+                .execute()
+        }
 
-        api.messenger
-            .createConferenceGroup(
-                "topic", "message",
-                listOf("someUser", "anotherUser", "testUser")
-            )
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().body.readUtf8())
-            .isEqualTo("topic=topic&text=message&users=someUser&users=anotherUser&users=testUser")
+        request.body.readUtf8() shouldEqual "topic=topic&text=message&users=someUser&users=anotherUser&users=testUser"
     }
 }

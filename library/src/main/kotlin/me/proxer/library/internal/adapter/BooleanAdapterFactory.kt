@@ -15,7 +15,7 @@ internal class BooleanAdapterFactory : JsonAdapter.Factory {
     override fun create(type: Type, annotations: Set<Annotation>, moshi: Moshi): JsonAdapter<*>? {
         return if (type === Boolean::class.javaPrimitiveType || type === Boolean::class.javaObjectType) {
             if (annotations.any { it is NumberBasedBoolean }) {
-                NumberBasedBooleanAdapter()
+                NumberBasedBooleanAdapter().nullSafe()
             } else {
                 moshi.nextAdapter<Any>(this, type, annotations)
             }
@@ -35,7 +35,6 @@ internal class BooleanAdapterFactory : JsonAdapter.Factory {
 
                     jsonNumber?.toBoolean(reader) ?: jsonString.toBoolean(reader)
                 }
-                JsonReader.Token.NULL -> reader.nextNull<Boolean>()
                 else -> throw JsonDataException(
                     "Expected a number, string or null but was ${nextToken.name} at path ${reader.path}"
                 )

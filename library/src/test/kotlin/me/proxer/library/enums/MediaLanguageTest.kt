@@ -2,9 +2,12 @@ package me.proxer.library.enums
 
 import com.serjltt.moshi.adapters.FallbackEnum
 import com.squareup.moshi.Moshi
-import org.assertj.core.api.Assertions.assertThat
+import org.amshove.kluent.shouldBe
 import org.junit.jupiter.api.Test
 
+/**
+ * @author Ruben Gees
+ */
 class MediaLanguageTest {
 
     private val adapter = Moshi.Builder()
@@ -14,11 +17,11 @@ class MediaLanguageTest {
 
     @Test
     fun testDefault() {
-        assertThat(adapter.fromJson("\"de\"")).isSameAs(MediaLanguage.GERMAN)
+        adapter.fromJson("\"de\"") shouldBe MediaLanguage.GERMAN
     }
 
     @Test
     fun testFallback() {
-        assertThat(adapter.fromJson("\"xyz\"")).isSameAs(MediaLanguage.OTHER)
+        adapter.fromJson("\"xyz\"") shouldBe MediaLanguage.OTHER
     }
 }

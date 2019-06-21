@@ -4,11 +4,10 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.user.TopTenEntry
 import me.proxer.library.enums.Category
 import me.proxer.library.enums.Medium
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
-import org.assertj.core.api.Java6Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
 /**
@@ -16,57 +15,55 @@ import org.junit.jupiter.api.Test
  */
 class UserTopTenEndpointTest : ProxerTest() {
 
+    private val expectedEntryAnime = TopTenEntry(
+        id = "13633", name = "Boku dake ga Inai Machi", category = Category.ANIME, medium = Medium.ANIMESERIES
+    )
+
+    private val expectedEntryManga = TopTenEntry(
+        id = "6015", name = "Citrus (Saburouta)", category = Category.MANGA, medium = Medium.MANGASERIES
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("user_top_ten_anime.json")))
+        val (result, _) = server.runRequest("user_top_ten_anime.json") {
+            api.user
+                .topTen(null, "rubygee")
+                .category(Category.ANIME)
+                .build()
+                .safeExecute()
+        }
 
-        val result = api.user
-            .topTen(null, "rubygee")
-            .category(Category.ANIME)
-            .build()
-            .execute()
-
-        assertThat(result).first().isEqualTo(buildTestEntry())
+        result.first() shouldEqual expectedEntryAnime
     }
 
     @Test
     fun testManga() {
-        server.enqueue(MockResponse().setBody(fromResource("user_top_ten_manga.json")))
+        val (result, _) = server.runRequest("user_top_ten_manga.json") {
+            api.user
+                .topTen(null, "rubygee")
+                .category(Category.MANGA)
+                .build()
+                .safeExecute()
+        }
 
-        val result = api.user
-            .topTen(null, "rubygee")
-            .category(Category.MANGA)
-            .build()
-            .execute()
-
-        assertThat(result).first().isEqualTo(buildMangaTestEntry())
+        result.first() shouldEqual expectedEntryManga
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("user_top_ten_manga.json")))
+        val (_, request) = server.runRequest("user_top_ten_manga.json") {
+            api.user.topTen("123", "rubygee")
+                .category(Category.ANIME)
+                .includeHentai(true)
+                .build()
+                .execute()
+        }
 
-        api.user.topTen("123", "rubygee")
-            .category(Category.ANIME)
-            .includeHentai(true)
-            .build()
-            .execute()
-
-        Assertions.assertThat(server.takeRequest().path)
-            .isEqualTo("/api/v1/user/topten?uid=123&username=rubygee&kat=anime&isH=true")
+        request.path shouldEqual "/api/v1/user/topten?uid=123&username=rubygee&kat=anime&isH=true"
     }
 
     @Test
     fun testUserIdAndUsernameNull() {
-        assertThatExceptionOfType(IllegalArgumentException::class.java)
-            .isThrownBy { api.user.topTen(null, null) }
-    }
-
-    private fun buildTestEntry(): TopTenEntry {
-        return TopTenEntry("13633", "Boku dake ga Inai Machi", Category.ANIME, Medium.ANIMESERIES)
-    }
-
-    private fun buildMangaTestEntry(): TopTenEntry {
-        return TopTenEntry("6015", "Citrus (Saburouta)", Category.MANGA, Medium.MANGASERIES)
+        invoking { api.user.topTen(null, null) } shouldThrow IllegalArgumentException::class
     }
 }

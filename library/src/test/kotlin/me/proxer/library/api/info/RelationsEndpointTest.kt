@@ -9,68 +9,66 @@ import me.proxer.library.enums.MediaLanguage
 import me.proxer.library.enums.MediaState
 import me.proxer.library.enums.Medium
 import me.proxer.library.enums.Season
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
-import java.util.EnumSet
 
 /**
  * @author Ruben Gees
  */
 class RelationsEndpointTest : ProxerTest() {
 
+    private val expectedRelations = listOf(
+        Relation(
+            id = "18598", name = "Sword Art Online dj - Asuna Kouryakubon", genres = setOf("Adult"),
+            fskConstraints = setOf(FskConstraint.FSK_18, FskConstraint.SEX), description = "N/A",
+            medium = Medium.DOUJIN, episodeAmount = 1, state = MediaState.FINISHED, ratingSum = 14, ratingAmount = 3,
+            clicks = 122, category = Category.MANGA, license = License.UNKNOWN,
+            languages = setOf(MediaLanguage.ENGLISH), year = null, season = null
+        ),
+        Relation(
+            id = "4167", name = "Sword Art Online",
+            genres = setOf("Adventure", "Action", "Comedy", "Drama", "Fantasy", "SciFi"),
+            fskConstraints = setOf(FskConstraint.FSK_12, FskConstraint.BAD_LANGUAGE, FskConstraint.VIOLENCE),
+            description = """
+                Kazuto Kirigaya testet als einer der ersten einen neuen Hightech-Helm, welcher die Psyche 
+                des Nutzers komplett in die Welt des MMORPGs „Sword Art Online“ transferiert. Als Tester der 
+                Beta-Version besitzt er bereits einiges an Erfahrung und kämpfte sich mehr als erfolgreich als 
+                „Kirito“ durch die ersten Ebenen der Fantasy-Welt. Doch schon kurz nach der Eröffnung SAOs merken 
+                die Spieler, dass etwas nicht stimmt: Im Menü gibt es keinen Logout-Button. Hinter dem Grund der 
+                allgemeinen aufkommenden Panik scheint der Administrator des Spiels zu stecken und die einzige 
+                Möglichkeit wieder in die reale Welt zurückzukehren besteht darin, SAO erfolgreich abzuschließen. 
+                Doch das ist leichter gesagt als getan, denn der Tod in der Fantasy-Welt bedeutet auch den richtigen 
+                Tod in der richtigen Welt.
+            """.trimIndent().replace("\n", ""),
+            medium = Medium.ANIMESERIES, episodeAmount = 25, state = MediaState.FINISHED, ratingSum = 158782,
+            ratingAmount = 17935, clicks = 5968, category = Category.ANIME, license = License.LICENSED,
+            languages = setOf(MediaLanguage.ENGLISH_SUB, MediaLanguage.ENGLISH_DUB, MediaLanguage.GERMAN_DUB),
+            year = 2012, season = Season.SUMMER
+        )
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("relations.json")))
+        val (result, _) = server.runRequest("relations.json") {
+            api.info
+                .relations("1")
+                .build()
+                .execute()
+        }
 
-        val result = api.info
-            .relations("1")
-            .build()
-            .execute()
-
-        assertThat(result).isEqualTo(buildTestRelations())
+        result shouldEqual expectedRelations
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("relations.json")))
+        val (_, request) = server.runRequest("relations.json") {
+            api.info.relations("115")
+                .includeHentai(true)
+                .build()
+                .execute()
+        }
 
-        api.info.relations("115")
-            .includeHentai(true)
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/info/relations?id=115&isH=true")
-    }
-
-    private fun buildTestRelations(): List<Relation> {
-        return listOf(
-            Relation(
-                "18598", "Sword Art Online dj - Asuna Kouryakubon",
-                setOf("Adult"), EnumSet.of(FskConstraint.FSK_18, FskConstraint.SEX), "N/A",
-                Medium.DOUJIN, 1, MediaState.FINISHED, 14, 3, 122,
-                Category.MANGA, License.UNKNOWN, EnumSet.of(MediaLanguage.ENGLISH), null, null
-            ),
-            Relation(
-                "4167", "Sword Art Online",
-                setOf("Adventure", "Action", "Comedy", "Drama", "Fantasy", "SciFi"),
-                EnumSet.of(FskConstraint.FSK_12, FskConstraint.BAD_LANGUAGE, FskConstraint.VIOLENCE),
-                "Kazuto Kirigaya testet als einer der ersten einen neuen Hightech-Helm, welcher " +
-                    "die Psyche des Nutzers komplett in die Welt des MMORPGs „Sword Art Online“ " +
-                    "transferiert. Als Tester der Beta-Version besitzt er bereits einiges an Erfahrung " +
-                    "und kämpfte sich mehr als erfolgreich als „Kirito“ durch die ersten Ebenen der " +
-                    "Fantasy-Welt. Doch schon kurz nach der Eröffnung SAOs merken die Spieler, dass " +
-                    "etwas nicht stimmt: Im Menü gibt es keinen Logout-Button. Hinter dem Grund der " +
-                    "allgemeinen aufkommenden Panik scheint der Administrator des Spiels zu stecken " +
-                    "und die einzige Möglichkeit wieder in die reale Welt zurückzukehren besteht " +
-                    "darin, SAO erfolgreich abzuschließen. Doch das ist leichter gesagt als getan, " +
-                    "denn der Tod in der Fantasy-Welt bedeutet auch den richtigen Tod in der richtigen Welt.",
-                Medium.ANIMESERIES, 25, MediaState.FINISHED, 158782, 17935,
-                5968, Category.ANIME, License.LICENSED,
-                EnumSet.of(MediaLanguage.ENGLISH_SUB, MediaLanguage.ENGLISH_DUB, MediaLanguage.GERMAN_DUB),
-                2012, Season.SUMMER
-            )
-        )
+        request.path shouldEqual "/api/v1/info/relations?id=115&isH=true"
     }
 }

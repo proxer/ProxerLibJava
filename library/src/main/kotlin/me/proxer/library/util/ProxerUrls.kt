@@ -107,7 +107,7 @@ object ProxerUrls {
      * Returns the link to the image behind the proxy.
      */
     fun proxyImage(url: HttpUrl): HttpUrl {
-        return ProxerUrls.proxyImage(url.toString())
+        return proxyImage(url.toString())
     }
 
     /**

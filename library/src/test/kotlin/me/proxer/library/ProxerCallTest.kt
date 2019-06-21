@@ -1,22 +1,24 @@
 package me.proxer.library
 
+import io.mockk.every
+import io.mockk.mockk
 import me.proxer.library.ProxerException.ErrorType
 import me.proxer.library.ProxerException.ServerErrorType
 import me.proxer.library.entity.notifications.NewsArticle
 import me.proxer.library.internal.ProxerResponse
+import net.jodah.concurrentunit.Waiter
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.SocketPolicy
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
-import org.junit.jupiter.api.Assertions.assertTimeout
+import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldBe
+import org.amshove.kluent.shouldBeInstanceOf
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldNotBeNull
+import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
 import retrofit2.Call
 import retrofit2.Response
 import java.io.IOException
-import java.time.Duration
-import java.util.concurrent.CountDownLatch
 
 /**
  * @author Ruben Gees
@@ -25,278 +27,246 @@ class ProxerCallTest : ProxerTest() {
 
     @Test
     fun testTimeoutError() {
-        server.enqueue(MockResponse().setBody(fromResource("news.json")).setSocketPolicy(SocketPolicy.NO_RESPONSE))
+        val response = MockResponse().setBody(fromResource("news.json")).setSocketPolicy(SocketPolicy.NO_RESPONSE)
 
-        assertThatExceptionOfType(ProxerException::class.java)
-            .isThrownBy { api.notifications.news().build().execute() }
-            .matches(
-                { exception -> exception.errorType === ErrorType.TIMEOUT },
-                "Exception should have the TIMEOUT ErrorType"
-            )
+        server.runRequest(response) {
+            val result = invoking {
+                api.notifications.news().build().execute()
+            } shouldThrow ProxerException::class
+
+            result.exception.errorType shouldBe ErrorType.TIMEOUT
+        }
     }
 
     @Test
     fun testIOError() {
-        server.enqueue(MockResponse().setResponseCode(404))
+        server.runRequest(MockResponse().setResponseCode(404)) {
+            val result = invoking {
+                api.notifications.news().build().execute()
+            } shouldThrow ProxerException::class
 
-        assertThatExceptionOfType(ProxerException::class.java)
-            .isThrownBy { api.notifications.news().build().execute() }
-            .matches(
-                { exception -> exception.errorType === ErrorType.IO },
-                "Exception should have the IO ErrorType"
-            )
-            .matches(
-                { exception -> "Unsuccessful request: 404" == exception.message },
-                "Exception should have message with HTTP error code"
-            )
+            result.exception.errorType shouldBe ErrorType.IO
+            result.exceptionMessage shouldEqual "Unsuccessful request: 404"
+        }
     }
 
     @Test
     fun testIOErrorWithBody() {
-        server.enqueue(MockResponse().setBody("error!").setResponseCode(404))
+        server.runRequest(MockResponse().setBody("Error!").setResponseCode(404)) {
+            val result = invoking {
+                api.notifications.news().build().execute()
+            } shouldThrow ProxerException::class
 
-        assertThatExceptionOfType(ProxerException::class.java)
-            .isThrownBy { api.notifications.news().build().execute() }
-            .matches(
-                { exception -> exception.errorType === ErrorType.IO },
-                "Exception should have the IO ErrorType"
-            )
-            .matches(
-                { exception -> "Unsuccessful request: 404" == exception.message },
-                "Exception should have message with HTTP error code"
-            )
+            result.exception.errorType shouldBe ErrorType.IO
+            result.exceptionMessage shouldEqual "Unsuccessful request: 404"
+        }
+
+        server.enqueue(MockResponse().setBody("Error!").setResponseCode(404))
     }
 
     @Test
     fun testInvalidEncodingError() {
-        server.enqueue(MockResponse().setBody(fromResource("news.json").replace(":", "invalid")))
+        val response = MockResponse().setBody(fromResource("news.json").replace(":", "invalid"))
 
-        assertThatExceptionOfType(ProxerException::class.java)
-            .isThrownBy { api.notifications.news().build().execute() }
-            .matches(
-                { exception -> exception.errorType === ErrorType.IO },
-                "Exception should have the IO ErrorType"
-            )
+        server.runRequest(response) {
+            val result = invoking {
+                api.notifications.news().build().execute()
+            } shouldThrow ProxerException::class
+
+            result.exception.errorType shouldBe ErrorType.IO
+        }
     }
 
     @Test
     fun testInvalidDataError() {
-        server.enqueue(MockResponse().setBody(fromResource("news.json").replace("256", "invalid")))
+        val response = MockResponse().setBody(fromResource("news.json").replace("256", "invalid"))
 
-        assertThatExceptionOfType(ProxerException::class.java)
-            .isThrownBy { api.notifications.news().build().execute() }
-            .matches(
-                { exception -> exception.errorType === ErrorType.PARSING },
-                "Exception should have the PARSING ErrorType"
-            )
+        server.runRequest(response) {
+            val result = invoking {
+                api.notifications.news().build().execute()
+            } shouldThrow ProxerException::class
+
+            result.exception.errorType shouldBe ErrorType.PARSING
+        }
     }
 
     @Test
     fun testServerError() {
-        server.enqueue(MockResponse().setBody(fromResource("conferences_error.json")))
+        server.runRequest("conferences_error.json") {
+            val result = invoking {
+                api.messenger.conferences().build().execute()
+            } shouldThrow ProxerException::class
 
-        assertThatExceptionOfType(ProxerException::class.java)
-            .isThrownBy { api.messenger.conferences().build().execute() }
-            .matches(
-                { exception -> exception.errorType === ErrorType.SERVER },
-                "Exception should have the SERVER ErrorType"
-            )
-            .matches(
-                { exception -> exception.serverErrorType === ServerErrorType.MESSAGES_LOGIN_REQUIRED },
-                "Exception should have the MESSAGES_LOGIN_REQUIRED ServerErrorType"
-            )
-            .matches(
-                { exception -> exception.message != null && exception.message == "Du bist nicht eingeloggt." },
-                "Exception should have the correct message"
-            )
+            result.exception.errorType shouldBe ErrorType.SERVER
+            result.exception.serverErrorType shouldBe ServerErrorType.MESSAGES_LOGIN_REQUIRED
+            result.exceptionMessage shouldEqual "Du bist nicht eingeloggt."
+        }
     }
 
     @Test
     fun testServerErrorWithMessage() {
-        server.enqueue(MockResponse().setBody(fromResource("ucp_settings_error.json")))
+        server.runRequest("ucp_settings_error.json") {
+            val result = invoking {
+                api.ucp.setSettings().build().execute()
+            } shouldThrow ProxerException::class
 
-        assertThatExceptionOfType(ProxerException::class.java)
-            .isThrownBy { api.ucp.setSettings().build().execute() }
-            .matches(
-                { exception ->
-                    exception.message != null && exception.message == "Ungültige Eingabe für Felder.\n[profil]"
-                },
-                "Exception should have the correct message"
-            )
+            result.exception.errorType shouldBe ErrorType.SERVER
+            result.exception.serverErrorType shouldBe ServerErrorType.UCP_INVALID_SETTINGS
+            result.exceptionMessage shouldEqual "Ungültige Eingabe für Felder.\n[profil]"
+        }
     }
 
-    @Suppress("UNCHECKED_CAST")
     @Test
     fun testUnknownError() {
-        val internalCall = mock(Call::class.java) as Call<ProxerResponse<String>>
+        val internalCall = mockk<Call<ProxerResponse<String>>>()
         val call = ProxerCall(internalCall)
+        val error = IllegalStateException()
 
-        `when`(internalCall.execute()).thenThrow(IllegalStateException::class.java)
+        every { internalCall.execute() } throws error
 
-        assertThatExceptionOfType(ProxerException::class.java)
-            .isThrownBy { call.execute() }
-            .matches(
-                { exception -> exception.errorType === ErrorType.UNKNOWN },
-                "Exception should have the UNKNOWN ErrorType"
-            )
-            .withCauseExactlyInstanceOf(IllegalStateException::class.java)
+        val result = invoking { call.execute() } shouldThrow ProxerException::class
+
+        result.exception.errorType shouldBe ErrorType.UNKNOWN
+        result.exceptionCause.shouldBe(error)
     }
 
-    @Suppress("UNCHECKED_CAST")
     @Test
     fun testSafeExecute() {
-        val internalCall = mock(Call::class.java) as Call<ProxerResponse<List<NewsArticle>>>
+        val response = mockk<ProxerResponse<List<NewsArticle>>>().apply {
+            every { isSuccessful } returns true
+            every { data } returns emptyList()
+        }
+
+        val internalResponse = mockk<Response<ProxerResponse<List<NewsArticle>>>>().apply {
+            every { isSuccessful } returns true
+            every { body() } returns response
+        }
+
+        val internalCall = mockk<Call<ProxerResponse<List<NewsArticle>>>>()
         val call = ProxerCall(internalCall)
-        val internalResponse = mock(Response::class.java) as Response<ProxerResponse<List<NewsArticle>>>
-        val response = mock(ProxerResponse::class.java) as ProxerResponse<List<NewsArticle>>
 
-        `when`(internalResponse.isSuccessful).thenReturn(true)
-        `when`(response.isSuccessful).thenReturn(true)
-        `when`(internalResponse.body()).thenReturn(response)
-        `when`(response.data).thenReturn(emptyList())
-        `when`(internalCall.execute()).thenReturn(internalResponse)
+        every { internalCall.execute() } returns internalResponse
 
-        assertThat(call.safeExecute()).isNotNull
+        call.execute().shouldNotBeNull()
     }
 
-    @Suppress("UNCHECKED_CAST")
     @Test
     fun testSafeExecuteNull() {
-        val internalCall = mock(Call::class.java) as Call<ProxerResponse<String>>
+        val response = mockk<ProxerResponse<List<NewsArticle>>>().apply {
+            every { isSuccessful } returns true
+            every { data } returns null
+        }
+
+        val internalResponse = mockk<Response<ProxerResponse<List<NewsArticle>>>>().apply {
+            every { isSuccessful } returns true
+            every { body() } returns response
+        }
+
+        val internalCall = mockk<Call<ProxerResponse<List<NewsArticle>>>>()
         val call = ProxerCall(internalCall)
-        val internalResponse = mock(Response::class.java) as Response<ProxerResponse<String>>
-        val response = mock(ProxerResponse::class.java) as ProxerResponse<String>
 
-        `when`(internalResponse.isSuccessful).thenReturn(true)
-        `when`(response.isSuccessful).thenReturn(true)
-        `when`(internalResponse.body()).thenReturn(response)
-        `when`(response.data).thenReturn(null)
-        `when`(internalCall.execute()).thenReturn(internalResponse)
+        every { internalCall.execute() } returns internalResponse
 
-        assertThatExceptionOfType(ProxerException::class.java)
-            .isThrownBy { call.safeExecute() }
-            .matches(
-                { exception -> exception.errorType === ErrorType.UNKNOWN },
-                "Exception should have the UNKNOWN ErrorType"
-            )
-            .withCauseExactlyInstanceOf(NullPointerException::class.java)
+        val result = invoking { call.safeExecute() } shouldThrow ProxerException::class
+
+        result.exception.errorType shouldBe ErrorType.UNKNOWN
+        result.exceptionCause shouldBeInstanceOf NullPointerException::class
     }
 
     @Test
     fun testEnqueue() {
-        val lock = CountDownLatch(1)
+        val waiter = Waiter()
 
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
+        server.runRequest("news.json") {
+            api.notifications.news().build().enqueue(
+                {
+                    waiter.assertTrue(it != null && it.isNotEmpty())
+                    waiter.resume()
+                },
+                { waiter.fail(it) }
+            )
+        }
 
-        api.notifications.news().build().enqueue(
-            { lock.countDown() },
-            { /* Failed. The lock will never be counted down and timeout. */ }
-        )
-
-        assertTimeout(Duration.ofSeconds(1000)) { lock.await() }
+        waiter.await(1_000)
     }
 
     @Test
     fun testEnqueueError() {
-        val lock = CountDownLatch(1)
+        val waiter = Waiter()
 
-        server.enqueue(MockResponse().setBody(fromResource("news.json")).setResponseCode(404))
-
-        api.notifications.news().build().enqueue(
-            { /* Failed. The lock will never be counted down and timeout. */ },
-            { exception ->
-                if (exception.errorType === ErrorType.IO) {
-                    lock.countDown()
-                } else {
-                    // Failed: Not the exception we want. The lock will never be counted down and timeout.
+        server.runRequest(MockResponse().setBody(fromResource("news.json")).setResponseCode(404)) {
+            api.notifications.news().build().enqueue(
+                { waiter.fail("Expected error") },
+                { exception ->
+                    waiter.assertTrue(exception.errorType === ErrorType.IO)
+                    waiter.resume()
                 }
-            }
-        )
+            )
+        }
 
-        assertTimeout(Duration.ofSeconds(1000)) { lock.await() }
+        waiter.await(1_000)
     }
 
     @Test
     fun testIsExecuted() {
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
+        server.runRequest("news.json") {
+            val call = api.notifications.news().build().apply {
+                execute()
+            }
 
-        val call = api.notifications.news().build()
-
-        call.execute()
-
-        assertThat(call.isExecuted).isTrue()
+            call.isExecuted shouldBe true
+        }
     }
 
     @Test
     fun testCancel() {
-        val lock = CountDownLatch(1)
-
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
-
+        val waiter = Waiter()
         val call = api.notifications.news().build()
 
-        call.enqueue(
-            { /* Failed. The lock will never be counted down and timeout. */ },
-            { exception ->
-                assertThat(exception.errorType).isEqualTo(ErrorType.CANCELLED)
-
-                lock.countDown()
-            }
-        )
+        server.runRequest(MockResponse().setBody(fromResource("news.json")).setResponseCode(404)) {
+            call.enqueue(
+                { waiter.fail("Expected error") },
+                { exception ->
+                    waiter.assertTrue(exception.errorType === ErrorType.CANCELLED)
+                    waiter.resume()
+                }
+            )
+        }
 
         call.cancel()
 
-        assertTimeout(Duration.ofSeconds(1000)) { lock.await() }
-    }
+        waiter.await(1_000)
 
-    @Test
-    fun testIsCanceled() {
-        val lock = CountDownLatch(1)
-
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
-
-        val call = api.notifications.news().build()
-
-        call.enqueue(
-            { /* Failed. The lock will never be counted down and timeout. */ },
-            { lock.countDown() }
-        )
-
-        call.cancel()
-
-        assertTimeout(Duration.ofSeconds(1000)) { lock.await() }
-        assertThat(call.isCanceled).isTrue()
+        call.isCanceled shouldBe true
     }
 
     @Test
     fun testClone() {
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
-
         val call = api.notifications.news().build()
 
-        call.execute()
+        server.runRequest("news.json") { call.execute() }
 
-        server.enqueue(MockResponse().setBody(fromResource("news.json")))
+        val (result, _) = server.runRequest("news.json") { call.clone().execute() }
 
-        assertThat(call.clone().execute()).isNotNull
+        result.shouldNotBeNull()
     }
 
     @Test
     fun testRequest() {
-        assertThat(api.notifications.news().build().request()).isNotNull
+        api.notifications.news().build().request().shouldNotBeNull()
     }
 
-    @Suppress("UNCHECKED_CAST")
     @Test
     fun testRequestThrowingErrorWithoutMessage() {
-        val mockedCall = mock(Call::class.java) as Call<ProxerResponse<String>>
-        val call = ProxerCall(mockedCall)
+        val internalCall = mockk<Call<ProxerResponse<String>>>()
+        val call = ProxerCall(internalCall)
+        val error = IOException()
 
-        `when`(mockedCall.execute()).thenThrow(IOException())
+        every { internalCall.execute() } throws error
 
-        assertThatExceptionOfType(ProxerException::class.java)
-            .isThrownBy { call.execute() }
-            .withCauseExactlyInstanceOf(IOException::class.java)
-            .matches { it -> it.errorType === ErrorType.IO }
+        val result = invoking { call.execute() } shouldThrow ProxerException::class
+
+        result.exception.errorType shouldBe ErrorType.IO
+        result.exceptionCause shouldBe error
     }
 }

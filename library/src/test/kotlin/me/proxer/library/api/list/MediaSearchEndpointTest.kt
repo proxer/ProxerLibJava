@@ -12,9 +12,8 @@ import me.proxer.library.enums.MediaType
 import me.proxer.library.enums.Medium
 import me.proxer.library.enums.TagRateFilter
 import me.proxer.library.enums.TagSpoilerFilter
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 import java.util.EnumSet
 
@@ -23,23 +22,28 @@ import java.util.EnumSet
  */
 class MediaSearchEndpointTest : ProxerTest() {
 
+    private val expectedEntry = MediaListEntry(
+        id = "3637", name = "+ A Channel", genres = setOf("Comedy", "School"), medium = Medium.OVA, episodeAmount = 11,
+        state = MediaState.FINISHED, ratingSum = 774, ratingAmount = 115,
+        languages = setOf(MediaLanguage.ENGLISH_SUB, MediaLanguage.GERMAN_SUB)
+    )
+
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("media_list_entry.json")))
+        val (result, _) = server.runRequest("media_list_entry.json") {
+            api.list
+                .mediaSearch()
+                .build()
+                .safeExecute()
+        }
 
-        val result = api.list
-            .mediaSearch()
-            .build()
-            .execute()
-
-        assertThat(result).first().isEqualTo(buildTestEntry())
+        result.first() shouldEqual expectedEntry
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("media_list_entry.json")))
-
-        api.list.mediaSearch()
+        val (_, request) = server.runRequest("media_list_entry.json") {
+            api.list.mediaSearch()
             .name("test")
             .limit(10)
             .page(3)
@@ -58,71 +62,64 @@ class MediaSearchEndpointTest : ProxerTest() {
             .hideFinished(true)
             .build()
             .execute()
+        }
 
-        assertThat(server.takeRequest().path).isEqualTo(
-            "/api/v1/list/entrysearch?name=test&language=en&type=all-manga&fsk=fear&sort=clicks&length=300" +
-                "&length-limit=down&tags=3%2B7&notags=5%2B20&taggenre=22%2B33&notaggenre=13%2B17&tagratefilter=rate_1" +
-                "&tagspoilerfilter=spoiler_1&hide_finished=1&p=3&limit=10"
-        )
+        request.path shouldEqual """
+            /api/v1/list/entrysearch?name=test&language=en&type=all-manga&fsk=fear&sort=clicks&length=300
+            &length-limit=down&tags=3%2B7&notags=5%2B20&taggenre=22%2B33&notaggenre=13%2B17&tagratefilter=rate_1
+            &tagspoilerfilter=spoiler_1&hide_finished=1&p=3&limit=10
+        """.trimIndent().replace("\n", "")
     }
 
     @Test
     fun testTagsNull() {
-        server.enqueue(MockResponse().setBody(fromResource("media_list_entry.json")))
-
-        api.list.mediaSearch()
+        val (_, request) = server.runRequest("media_list_entry.json") {
+            api.list.mediaSearch()
             .tags(setOf("3", "7"))
             .tags(null)
             .build()
             .execute()
+        }
 
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/list/entrysearch")
+        request.path shouldEqual "/api/v1/list/entrysearch"
     }
 
     @Test
     fun testExcludedTagsNull() {
-        server.enqueue(MockResponse().setBody(fromResource("media_list_entry.json")))
-
-        api.list.mediaSearch()
+        val (_, request) = server.runRequest("media_list_entry.json") {
+            api.list.mediaSearch()
             .excludedTags(setOf("5", "20"))
             .excludedTags(null)
             .build()
             .execute()
+        }
 
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/list/entrysearch")
+        request.path shouldEqual "/api/v1/list/entrysearch"
     }
 
     @Test
     fun testGenreTagsNull() {
-        server.enqueue(MockResponse().setBody(fromResource("media_list_entry.json")))
-
-        api.list.mediaSearch()
+        val (_, request) = server.runRequest("media_list_entry.json") {
+            api.list.mediaSearch()
             .genres(setOf("3", "7"))
             .genres(null)
             .build()
             .execute()
+        }
 
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/list/entrysearch")
+        request.path shouldEqual "/api/v1/list/entrysearch"
     }
 
     @Test
     fun testExcludedGenreTagsNull() {
-        server.enqueue(MockResponse().setBody(fromResource("media_list_entry.json")))
-
-        api.list.mediaSearch()
+        val (_, request) = server.runRequest("media_list_entry.json") {
+            api.list.mediaSearch()
             .excludedGenres(setOf("5", "20"))
             .excludedGenres(null)
             .build()
             .execute()
+        }
 
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/list/entrysearch")
-    }
-
-    private fun buildTestEntry(): MediaListEntry {
-        return MediaListEntry(
-            "3637", "+ A Channel", setOf("Comedy", "School"),
-            Medium.OVA, 11, MediaState.FINISHED, 774, 115,
-            EnumSet.of(MediaLanguage.ENGLISH_SUB, MediaLanguage.GERMAN_SUB)
-        )
+        request.path shouldEqual "/api/v1/list/entrysearch"
     }
 }

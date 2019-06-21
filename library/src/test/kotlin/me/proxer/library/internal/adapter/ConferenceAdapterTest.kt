@@ -2,8 +2,7 @@ package me.proxer.library.internal.adapter
 
 import me.proxer.library.entity.messenger.Conference
 import me.proxer.library.internal.adapter.ConferenceAdapter.IntermediateConference
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -12,38 +11,30 @@ import java.util.Date
  */
 class ConferenceAdapterTest {
 
-    private lateinit var adapter: ConferenceAdapter
+    private val intermediateConferenceWithImage = IntermediateConference(
+        id = "123", topic = "something", customTopic = "somethingElse", participantAmount = 13, isGroup = true,
+        isRead = false, date = Date(123456L), unreadMessageAmount = 2, lastReadMessageId = "321",
+        rawImage = "avatar:http://example.com/image.png"
+    )
 
-    @BeforeEach
-    fun setUp() {
-        adapter = ConferenceAdapter()
-    }
+    private val conferenceWithImage = Conference(
+        id = "123", topic = "something", customTopic = "somethingElse", participantAmount = 13,
+        image = "http://example.com/image.png", imageType = "avatar", isGroup = true, isRead = false,
+        date = Date(123456L), unreadMessageAmount = 2, lastReadMessageId = "321"
+    )
+
+    private val intermediateConferenceWithoutImage = intermediateConferenceWithImage.copy(rawImage = "")
+    private val conferenceWithoutImage = conferenceWithImage.copy(image = "", imageType = "")
+
+    private val adapter = ConferenceAdapter()
 
     @Test
     fun testFromJson() {
-        assertThat(adapter.fromJson(constructIntermediateConference(true)))
-            .isEqualTo(constructConference(true))
+        adapter.fromJson(intermediateConferenceWithImage) shouldEqual conferenceWithImage
     }
 
     @Test
-    fun testFromJsonWithNoImage() {
-        assertThat(adapter.fromJson(constructIntermediateConference(false)))
-            .isEqualTo(constructConference(false))
-    }
-
-    private fun constructIntermediateConference(withImage: Boolean): IntermediateConference {
-        return IntermediateConference(
-            "123", "something", "somethingElse", 13, true, false,
-            Date(123456L), 2, "321",
-            if (withImage) "avatar:http://example.com/image.png" else ""
-        )
-    }
-
-    private fun constructConference(withImage: Boolean): Conference {
-        return Conference(
-            "123", "something", "somethingElse", 13,
-            if (withImage) "http://example.com/image.png" else "", if (withImage) "avatar" else "", true, false,
-            Date(123456L), 2, "321"
-        )
+    fun testFromJsonWithoutImage() {
+        adapter.fromJson(intermediateConferenceWithoutImage) shouldEqual conferenceWithoutImage
     }
 }

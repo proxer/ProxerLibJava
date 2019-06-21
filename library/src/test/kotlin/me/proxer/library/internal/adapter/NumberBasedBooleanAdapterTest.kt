@@ -2,8 +2,11 @@ package me.proxer.library.internal.adapter
 
 import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.Moshi
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldBe
+import org.amshove.kluent.shouldBeNull
+import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
 /**
@@ -11,98 +14,100 @@ import org.junit.jupiter.api.Test
  */
 class NumberBasedBooleanAdapterTest {
 
-    private val adapter = Moshi.Builder().add(BooleanAdapterFactory()).build()
+    private val adapter = Moshi.Builder()
+        .add(BooleanAdapterFactory())
+        .build()
         .adapter<Boolean>(Boolean::class.java, NumberBasedBoolean::class.java)
 
     @Test
     fun testFromBoolean() {
-        assertThatExceptionOfType(JsonDataException::class.java)
-            .isThrownBy { adapter.fromJson("true") }
-            .withMessage("Expected a number, string or null but was BOOLEAN at path $")
+        val result = invoking { adapter.fromJson("true") } shouldThrow JsonDataException::class
+
+        result.exceptionMessage shouldEqual "Expected a number, string or null but was BOOLEAN at path $"
     }
 
     @Test
     fun testFromBooleanFalse() {
-        assertThatExceptionOfType(JsonDataException::class.java)
-            .isThrownBy { adapter.fromJson("false") }
-            .withMessage("Expected a number, string or null but was BOOLEAN at path $")
+        val result = invoking { adapter.fromJson("false") } shouldThrow JsonDataException::class
+
+        result.exceptionMessage shouldEqual "Expected a number, string or null but was BOOLEAN at path $"
     }
 
     @Test
     fun testFromInt() {
-        assertThat(adapter.fromJson("1")).isTrue()
+        adapter.fromJson("1") shouldBe true
     }
 
     @Test
     fun testFromIntFalse() {
-        assertThat(adapter.fromJson("0")).isFalse()
+        adapter.fromJson("0") shouldBe false
     }
 
     @Test
     fun testFromIntInvalid() {
-        assertThatExceptionOfType(JsonDataException::class.java)
-            .isThrownBy { adapter.fromJson("3") }
-            .withMessage("Expected a 1 or 0 but was 3 at path $")
+        val result = invoking { adapter.fromJson("3") } shouldThrow JsonDataException::class
+
+        result.exceptionMessage shouldEqual "Expected a 1 or 0 but was 3 at path $"
     }
 
     @Test
     fun testFromString() {
-        assertThat(adapter.fromJson("\"true\"")).isTrue()
+        adapter.fromJson(""""true"""") shouldBe true
     }
 
     @Test
     fun testFromStringFalse() {
-        assertThat(adapter.fromJson("\"false\"")).isFalse()
+        adapter.fromJson(""""false"""") shouldBe false
     }
 
     @Test
     fun testFromStringInvalid() {
-        assertThatExceptionOfType(JsonDataException::class.java)
-            .isThrownBy { adapter.fromJson("\"invalid\"") }
-            .withMessage("Expected a true or false but was invalid at path $")
+        val result = invoking { adapter.fromJson(""""invalid"""") } shouldThrow JsonDataException::class
+
+        result.exceptionMessage shouldEqual "Expected a true or false but was invalid at path $"
     }
 
     @Test
     fun testFromStringInt() {
-        assertThat(adapter.fromJson("\"1\"")).isTrue()
+        adapter.fromJson(""""1"""") shouldBe true
     }
 
     @Test
     fun testFromStringIntFalse() {
-        assertThat(adapter.fromJson("\"0\"")).isFalse()
+        adapter.fromJson(""""0"""") shouldBe false
     }
 
     @Test
     fun testFromStringIntInvalid() {
-        assertThatExceptionOfType(JsonDataException::class.java)
-            .isThrownBy { adapter.fromJson("\"3\"") }
-            .withMessage("Expected a 1 or 0 but was 3 at path $")
+        val result = invoking { adapter.fromJson(""""3"""") } shouldThrow JsonDataException::class
+
+        result.exceptionMessage shouldEqual "Expected a 1 or 0 but was 3 at path $"
     }
 
     @Test
     fun testFromNull() {
-        assertThat(adapter.fromJson("null")).isNull()
+        adapter.fromJson("null").shouldBeNull()
     }
 
     @Test
     fun testFromInvalid() {
-        assertThatExceptionOfType(JsonDataException::class.java)
-            .isThrownBy { adapter.fromJson("[]") }
-            .withMessage("Expected a number, string or null but was BEGIN_ARRAY at path $")
+        val result = invoking { adapter.fromJson("[]") } shouldThrow JsonDataException::class
+
+        result.exceptionMessage shouldEqual "Expected a number, string or null but was BEGIN_ARRAY at path $"
     }
 
     @Test
     fun testToJson() {
-        assertThat(adapter.toJson(true)).isEqualTo("1")
+        adapter.toJson(true) shouldEqual "1"
     }
 
     @Test
     fun testToJsonFalse() {
-        assertThat(adapter.toJson(false)).isEqualTo("0")
+        adapter.toJson(false) shouldEqual "0"
     }
 
     @Test
     fun testToJsonNull() {
-        assertThat(adapter.toJson(null)).isEqualTo("null")
+        adapter.toJson(null) shouldEqual "null"
     }
 }

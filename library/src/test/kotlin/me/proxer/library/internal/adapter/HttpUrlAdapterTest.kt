@@ -1,7 +1,8 @@
 package me.proxer.library.internal.adapter
 
 import okhttp3.HttpUrl
-import org.assertj.core.api.Assertions.assertThat
+import org.amshove.kluent.shouldBeNull
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -13,16 +14,16 @@ class HttpUrlAdapterTest {
 
     @Test
     fun testNormal() {
-        assertThat(adapter.fromJson("https://www.example.com")).isEqualTo(HttpUrl.parse("https://www.example.com"))
+        adapter.fromJson("https://www.example.com") shouldEqual HttpUrl.parse("https://www.example.com")
     }
 
     @Test
     fun testSchemaLess() {
-        assertThat(adapter.fromJson("//www.example.com")).isEqualTo(HttpUrl.parse("http://www.example.com"))
+        adapter.fromJson("//www.example.com") shouldEqual HttpUrl.parse("http://www.example.com")
     }
 
     @Test
     fun testInvalid() {
-        assertThat(adapter.fromJson("example.com")).isNull()
+        adapter.fromJson("example.com").shouldBeNull()
     }
 }

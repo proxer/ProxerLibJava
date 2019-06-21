@@ -24,11 +24,15 @@ internal class PageAdapter {
                 throw JsonDataException("Page array length is " + json.size + " instead of 3.")
             }
 
-            Page(
-                jsonPage[NAME_FIELD_LOCATION],
-                jsonPage[HEIGHT_FIELD_LOCATION].toInt(),
-                jsonPage[WIDTH_FIELD_LOCATION].toInt()
-            )
+            val height = jsonPage[HEIGHT_FIELD_LOCATION].let {
+                it.toIntOrNull() ?: throw JsonDataException("Expected an Int for the height but was $it")
+            }
+
+            val width = jsonPage[WIDTH_FIELD_LOCATION].let {
+                it.toIntOrNull() ?: throw JsonDataException("Expected an Int for the width but was $it")
+            }
+
+            Page(jsonPage[NAME_FIELD_LOCATION], height, width)
         }
     }
 }

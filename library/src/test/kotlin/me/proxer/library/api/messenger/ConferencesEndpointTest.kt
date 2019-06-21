@@ -1,15 +1,11 @@
 package me.proxer.library.api.messenger
 
-import me.proxer.library.ProxerException
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.messenger.Conference
 import me.proxer.library.enums.ConferenceType
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
-import java.io.IOException
 import java.util.Date
 
 /**
@@ -17,37 +13,34 @@ import java.util.Date
  */
 class ConferencesEndpointTest : ProxerTest() {
 
+    private val expectedConference = Conference(
+        id = "133663", topic = "Novus4K", customTopic = "", participantAmount = 2, image = "513596_5DoIo2.png",
+        imageType = "avatar", isGroup = false, isRead = true, date = Date(1488810726L * 1000),
+        unreadMessageAmount = 0, lastReadMessageId = "0"
+    )
+
     @Test
-    @Throws(ProxerException::class, IOException::class)
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("conferences.json")))
+        val (result, _) = server.runRequest("conferences.json") {
+            api.messenger
+                .conferences()
+                .build()
+                .safeExecute()
+        }
 
-        val result = api.messenger
-            .conferences()
-            .build()
-            .execute()
-
-        assertThat(result).first().isEqualTo(buildTestConference())
+        result.first() shouldEqual expectedConference
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("conferences.json")))
+        val (_, request) = server.runRequest("conferences.json") {
+            api.messenger.conferences()
+                .page(0)
+                .type(ConferenceType.GROUP)
+                .build()
+                .execute()
+        }
 
-        api.messenger.conferences()
-            .page(0)
-            .type(ConferenceType.GROUP)
-            .build()
-            .execute()
-
-        Assertions.assertThat(server.takeRequest().path)
-            .isEqualTo("/api/v1/messenger/conferences?p=0&type=group")
-    }
-
-    private fun buildTestConference(): Conference {
-        return Conference(
-            "133663", "Novus4K", "", 2, "513596_5DoIo2.png",
-            "avatar", false, true, Date(1488810726L * 1000), 0, "0"
-        )
+        request.path shouldEqual "/api/v1/messenger/conferences?p=0&type=group"
     }
 }

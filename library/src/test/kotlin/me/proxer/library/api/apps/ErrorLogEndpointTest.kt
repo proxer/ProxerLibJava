@@ -1,47 +1,49 @@
 package me.proxer.library.api.apps
 
 import me.proxer.library.ProxerTest
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldBeNull
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
+/**
+ * @author Ruben Gees
+ */
 class ErrorLogEndpointTest : ProxerTest() {
 
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (result, _) = server.runRequest("empty.json") {
+            api.apps
+                .errorLog("3", "test message")
+                .build()
+                .execute()
+        }
 
-        val result = api.apps
-            .errorLog("3", "test message")
-            .build()
-            .execute()
-
-        assertThat(result).isNull()
+        result.shouldBeNull()
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (_, request) = server.runRequest("empty.json") {
+            api.apps.errorLog("3", "test message")
+                .build()
+                .execute()
+        }
 
-        api.apps.errorLog("3", "test message")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/apps/errorlog")
+        request.path shouldEqual "/api/v1/apps/errorlog"
     }
 
     @Test
     fun testParameters() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (_, request) = server.runRequest("empty.json") {
+            api.apps.errorLog("3", "test message")
+                .anonym(false)
+                .silent(false)
+                .build()
+                .execute()
+        }
 
-        api.apps.errorLog("3", "test message")
-            .anonym(false)
-            .silent(false)
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().body.readUtf8())
-            .isEqualTo("id=3&message=test%20message&anonym=false&silent=false")
+        request.body.readUtf8() shouldEqual "id=3&message=test%20message&anonym=false&silent=false"
     }
 }

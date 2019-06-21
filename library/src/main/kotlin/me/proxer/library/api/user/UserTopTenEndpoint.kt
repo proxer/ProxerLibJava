@@ -20,8 +20,8 @@ class UserTopTenEndpoint internal constructor(
     private var includeHentai: Boolean? = null
 
     init {
-        if (userId == null && username == null) {
-            throw IllegalArgumentException("You must pass either an userId or an username.")
+        require(userId.isNullOrBlank().not() || username.isNullOrBlank().not()) {
+            "You must pass either an userId or an username."
         }
     }
 

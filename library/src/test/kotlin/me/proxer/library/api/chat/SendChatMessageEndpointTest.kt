@@ -1,9 +1,9 @@
 package me.proxer.library.api.chat
 
 import me.proxer.library.ProxerTest
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldBeNull
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -13,35 +13,35 @@ class SendChatMessageEndpointTest : ProxerTest() {
 
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (result, _) = server.runRequest("empty.json") {
+            api.chat
+                .sendMessage("123", "message")
+                .build()
+                .execute()
+        }
 
-        val result = api.chat
-            .sendMessage("123", "message")
-            .build()
-            .execute()
-
-        assertThat(result).isNull()
+        result.shouldBeNull()
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (_, request) = server.runRequest("empty.json") {
+            api.chat.sendMessage("123", "message")
+                .build()
+                .execute()
+        }
 
-        api.chat.sendMessage("123", "message")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/chat/newmessage")
+        request.path shouldEqual "/api/v1/chat/newmessage"
     }
 
     @Test
     fun testParameters() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (_, request) = server.runRequest("empty.json") {
+            api.chat.sendMessage("312", "someMessage")
+                .build()
+                .execute()
+        }
 
-        api.chat.sendMessage("312", "someMessage")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().body.readUtf8()).isEqualTo("room_id=312&message=someMessage")
+        request.body.readUtf8() shouldEqual "room_id=312&message=someMessage"
     }
 }

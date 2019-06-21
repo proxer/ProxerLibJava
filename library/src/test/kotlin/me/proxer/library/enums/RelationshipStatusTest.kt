@@ -2,7 +2,7 @@ package me.proxer.library.enums
 
 import com.serjltt.moshi.adapters.FallbackEnum
 import com.squareup.moshi.Moshi
-import org.assertj.core.api.Assertions.assertThat
+import org.amshove.kluent.shouldBe
 import org.junit.jupiter.api.Test
 
 /**
@@ -17,11 +17,11 @@ class RelationshipStatusTest {
 
     @Test
     fun testDefault() {
-        assertThat(adapter.fromJson("\"single\"")).isSameAs(RelationshipStatus.SINGLE)
+        adapter.fromJson("\"single\"") shouldBe RelationshipStatus.SINGLE
     }
 
     @Test
     fun testFallback() {
-        assertThat(adapter.fromJson("\"xyz\"")).isSameAs(RelationshipStatus.UNKNOWN)
+        adapter.fromJson("\"xyz\"") shouldBe RelationshipStatus.UNKNOWN
     }
 }

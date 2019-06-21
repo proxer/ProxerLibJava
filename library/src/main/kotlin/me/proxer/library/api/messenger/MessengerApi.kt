@@ -110,9 +110,7 @@ class MessengerApi internal constructor(retrofit: Retrofit) {
     }
 
     private fun constructMessageFromAction(action: MessageAction, subject: String): String {
-        if (action == MessageAction.NONE) {
-            throw IllegalArgumentException("Invalid action: $action")
-        }
+        require(action != MessageAction.NONE) { "Invalid action: $action" }
 
         return "/" + ProxerUtils.getSafeApiEnumName(action) + " " + subject
     }

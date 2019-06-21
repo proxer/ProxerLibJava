@@ -18,7 +18,6 @@ import me.proxer.library.internal.adapter.DelimitedStringSet
  * @property fskConstraints The fsk ratings.
  * @property medium The medium.
  * @property industryType The type of the industry.
- * @property episodeAmount The amount of episodes, this entry has. They do not necessarily have to be uploaded.
  * @property state The current state.
  * @property ratingSum The sum of all ratings.
  * @property ratingAmount The clicks on this entry, in this season.

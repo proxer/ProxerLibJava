@@ -1,9 +1,9 @@
 package me.proxer.library.api.ucp
 
 import me.proxer.library.ProxerTest
-import me.proxer.library.fromResource
-import okhttp3.mockwebserver.MockResponse
-import org.assertj.core.api.Assertions.assertThat
+import me.proxer.library.runRequest
+import org.amshove.kluent.shouldBeNull
+import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -13,35 +13,35 @@ class DeleteBookmarkEndpointTest : ProxerTest() {
 
     @Test
     fun testDefault() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (result, _) = server.runRequest("empty.json") {
+            api.ucp
+                .deleteBookmark("123")
+                .build()
+                .execute()
+        }
 
-        val result = api.ucp
-            .deleteBookmark("123")
-            .build()
-            .execute()
-
-        assertThat(result).isNull()
+        result.shouldBeNull()
     }
 
     @Test
     fun testPath() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (_, request) = server.runRequest("empty.json") {
+            api.ucp.deleteBookmark("321")
+                .build()
+                .execute()
+        }
 
-        api.ucp.deleteBookmark("321")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().path).isEqualTo("/api/v1/ucp/deletereminder")
+        request.path shouldEqual "/api/v1/ucp/deletereminder"
     }
 
     @Test
     fun testParameter() {
-        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+        val (_, request) = server.runRequest("empty.json") {
+            api.ucp.deleteBookmark("321")
+                .build()
+                .execute()
+        }
 
-        api.ucp.deleteBookmark("321")
-            .build()
-            .execute()
-
-        assertThat(server.takeRequest().body.readUtf8()).isEqualTo("id=321")
+        request.body.readUtf8() shouldEqual "id=321"
     }
 }
