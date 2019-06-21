@@ -46,9 +46,15 @@ task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions { 
-        freeCompilerArgs = ["-Xjsr305=strict", "-progressive"] 
+    kotlinOptions {
+        jvmTarget = "1.8"
+        allWarningsAsErrors = true
+        freeCompilerArgs = ["-Xjsr305=strict", "-progressive"]
     }
+}
+
+kapt {
+    useBuildCache = true
 }
 
 test {
