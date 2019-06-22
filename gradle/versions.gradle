@@ -8,8 +8,8 @@ ext {
     dokkaVersion = "0.9.18"
 
     jacocoVersion = "0.8.3"
-    ktlintVersion = "7.4.0"
-    detektVersion = "1.0.0-RC14"
+    ktlintVersion = "8.1.0"
+    detektVersion = "1.0.0-RC15"
 
     gradleVersionsPluginVersion = "0.21.0"
     buildConfigPluginVersion = "1.1.8"
@@ -21,7 +21,7 @@ ext {
     moshiLazyAdaptersVersion = "2.2"
 
     junitVersion = "5.4.2"
-    concurrentUnitVersion = "0.4.0"
+    concurrentUnitVersion = "0.4.4"
     kluentVersion = "1.50"
     mockkVersion = "1.9.3"
 }

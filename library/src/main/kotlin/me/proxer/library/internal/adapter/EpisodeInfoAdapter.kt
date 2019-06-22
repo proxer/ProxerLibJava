@@ -24,16 +24,13 @@ internal class EpisodeInfoAdapter {
     fun fromJson(json: IntermediateEpisodeInfo): EpisodeInfo {
         val episodes = when (json.category) {
             Category.ANIME -> json.episodes.map { episode ->
-                val hosters = episode.hosters?.split(DELIMITER)?.toSet()
-                    ?: throw IllegalArgumentException("episode.hosters is null")
-
-                val hosterImages = episode.hosterImages?.split(DELIMITER)
-                    ?: throw IllegalArgumentException("episode.hosters is null")
+                val hosters = requireNotNull(episode.hosters).split(DELIMITER).toSet()
+                val hosterImages = requireNotNull(episode.hosterImages).split(DELIMITER)
 
                 AnimeEpisode(episode.number, episode.language, hosters, hosterImages)
             }
             Category.MANGA -> json.episodes.map { episode ->
-                val title = episode.title ?: throw IllegalArgumentException("episode.title is null")
+                val title = requireNotNull(episode.title)
 
                 MangaEpisode(episode.number, episode.language, title)
             }
@@ -58,7 +55,7 @@ internal class EpisodeInfoAdapter {
                     IntermediateEpisode(it.number, it.language, null, joinedHosters, joinedHosterImages)
                 }
                 is MangaEpisode -> IntermediateEpisode(it.number, it.language, it.title, null, null)
-                else -> throw IllegalArgumentException("Unknown Episode type: ${it.javaClass.name}")
+                else -> error("Unknown Episode type: ${it.javaClass.name}")
             }
         }
 

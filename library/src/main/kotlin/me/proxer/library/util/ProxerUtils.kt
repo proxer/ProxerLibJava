@@ -21,7 +21,7 @@ object ProxerUtils {
     /**
      * Returns the name of the passed enum instance (Using that specified in the `@Json` annotation).
      */
-    inline fun getSafeApiEnumName(it: Enum<*>) = getApiEnumName(it) ?: throw IllegalStateException(
+    inline fun getSafeApiEnumName(it: Enum<*>) = getApiEnumName(it) ?: error(
         "Field ${it.name} not found in Enum ${it.javaClass.declaringClass.name}"
     )
 
@@ -42,7 +42,7 @@ object ProxerUtils {
      * If an invalid enum type is passed (one that is not in this library), an exception is thrown.
      */
     inline fun <T : Enum<T>> toSafeApiEnum(type: Class<T>, value: String) = toApiEnum(type, value)
-        ?: throw IllegalStateException("Value " + value + " not found for Enum " + type.name)
+        ?: error("Value " + value + " not found for Enum " + type.name)
 
     /**
      * Converts the passed [value] string to an instance of the type [T].

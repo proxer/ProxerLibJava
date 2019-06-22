@@ -19,8 +19,8 @@ internal class AdaptionInfoAdapter {
 
     @JsonClass(generateAdapter = true)
     internal data class IntermediateAdaptionInfo(
-        @Json(name = "id") var id: String,
-        @Json(name = "name") var name: String,
-        @Json(name = "medium") var medium: String
+        @Json(name = "id") val id: String,
+        @Json(name = "name") val name: String,
+        @Json(name = "medium") val medium: String
     )
 }
