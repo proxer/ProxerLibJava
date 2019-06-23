@@ -5,7 +5,8 @@ import me.proxer.library.api.Endpoint
 import me.proxer.library.entity.info.Comment
 
 /**
- * Endpoint for sending error logs.
+ * Endpoint for getting a [Comment] either by its [id] or the [entryId] of the associated
+ * [me.proxer.library.entity.info.Entry].
  *
  * @author Ruben Gees
  */
