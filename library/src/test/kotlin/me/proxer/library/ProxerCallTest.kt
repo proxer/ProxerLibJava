@@ -60,8 +60,6 @@ class ProxerCallTest : ProxerTest() {
             result.exception.errorType shouldBe ErrorType.IO
             result.exceptionMessage shouldEqual "Unsuccessful request: 404"
         }
-
-        server.enqueue(MockResponse().setBody("Error!").setResponseCode(404))
     }
 
     @Test
@@ -198,7 +196,7 @@ class ProxerCallTest : ProxerTest() {
             api.notifications.news().build().enqueue(
                 { waiter.fail("Expected error") },
                 { exception ->
-                    waiter.assertTrue(exception.errorType === ErrorType.IO)
+                    waiter.assertEquals(ErrorType.IO, exception.errorType)
                     waiter.resume()
                 }
             )
@@ -223,17 +221,17 @@ class ProxerCallTest : ProxerTest() {
         val waiter = Waiter()
         val call = api.notifications.news().build()
 
-        server.runRequest(MockResponse().setBody(fromResource("news.json")).setResponseCode(404)) {
+        server.runRequest(MockResponse().setBody(fromResource("news.json"))) {
             call.enqueue(
                 { waiter.fail("Expected error") },
                 { exception ->
-                    waiter.assertTrue(exception.errorType === ErrorType.CANCELLED)
+                    waiter.assertEquals(ErrorType.CANCELLED, exception.errorType)
                     waiter.resume()
                 }
             )
-        }
 
-        call.cancel()
+            call.cancel()
+        }
 
         waiter.await(1_000)
 
