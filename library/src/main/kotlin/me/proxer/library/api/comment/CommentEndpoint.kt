@@ -5,8 +5,7 @@ import me.proxer.library.api.Endpoint
 import me.proxer.library.entity.info.Comment
 
 /**
- * Endpoint for getting a [Comment] either by its [id] or the [entryId] of the associated
- * [me.proxer.library.entity.info.Entry].
+ * Endpoint for getting a [Comment] either by its id or the id of the associated [me.proxer.library.entity.info.Entry].
  *
  * @author Ruben Gees
  */
