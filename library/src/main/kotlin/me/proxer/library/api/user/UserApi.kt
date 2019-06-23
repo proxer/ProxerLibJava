@@ -28,42 +28,42 @@ class UserApi internal constructor(retrofit: Retrofit) {
     /**
      * Returns the respective endpoint.
      */
-    fun topTen(userId: String?, username: String?): UserTopTenEndpoint {
+    fun topTen(userId: String? = null, username: String? = null): UserTopTenEndpoint {
         return UserTopTenEndpoint(internalApi, userId, username)
     }
 
     /**
      * Returns the respective endpoint.
      */
-    fun info(userId: String?, username: String?): UserInfoEndpoint {
+    fun info(userId: String? = null, username: String? = null): UserInfoEndpoint {
         return UserInfoEndpoint(internalApi, userId, username)
     }
 
     /**
      * Returns the respective endpoint.
      */
-    fun about(userId: String?, username: String?): UserAboutEndpoint {
+    fun about(userId: String? = null, username: String? = null): UserAboutEndpoint {
         return UserAboutEndpoint(internalApi, userId, username)
     }
 
     /**
      * Returns the respective endpoint.
      */
-    fun mediaList(userId: String?, username: String?): UserMediaListEndpoint {
+    fun mediaList(userId: String? = null, username: String? = null): UserMediaListEndpoint {
         return UserMediaListEndpoint(internalApi, userId, username)
     }
 
     /**
      * Returns the respective endpoint.
      */
-    fun comments(userId: String?, username: String?): UserCommentsEndpoint {
+    fun comments(userId: String? = null, username: String? = null): UserCommentsEndpoint {
         return UserCommentsEndpoint(internalApi, userId, username)
     }
 
     /**
      * Returns the respective endpoint.
      */
-    fun history(userId: String?, username: String?): UserHistoryEndpoint {
+    fun history(userId: String? = null, username: String? = null): UserHistoryEndpoint {
         return UserHistoryEndpoint(internalApi, userId, username)
     }
 }
