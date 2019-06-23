@@ -20,7 +20,6 @@ import retrofit2.http.Query
 /**
  * @author Ruben Gees
  */
-@Suppress("UndocumentedPublicFunction")
 internal interface InternalApi {
 
     @FormUrlEncoded

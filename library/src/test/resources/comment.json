@@ -1,0 +1,18 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich.",
+  "data": {
+    "id": "7621372",
+    "tid": "9723",
+    "uid": "121658",
+    "state": "0",
+    "data": "{\"genre\":\"5\",\"story\":\"5\",\"animation\":\"4\",\"characters\":\"5\",\"music\":\"5\"}",
+    "comment": "Test",
+    "rating": "10",
+    "episode": "24",
+    "timestamp": "1421530040",
+    "positive": "0",
+    "username": "RubyGee",
+    "avatar": "121658_h29uKp.jpg"
+  }
+}

@@ -6,6 +6,7 @@ import me.proxer.library.ProxerApi.Builder
 import me.proxer.library.api.anime.AnimeApi
 import me.proxer.library.api.apps.AppsApi
 import me.proxer.library.api.chat.ChatApi
+import me.proxer.library.api.comment.CommentApi
 import me.proxer.library.api.forum.ForumApi
 import me.proxer.library.api.info.InfoApi
 import me.proxer.library.api.list.ListApi
@@ -139,6 +140,12 @@ class ProxerApi private constructor(retrofit: Retrofit) {
      */
     val apps = AppsApi(retrofit)
         @JvmName("apps") get
+
+    /**
+     * The respective API.
+     */
+    val comment = CommentApi(retrofit)
+        @JvmName("comment") get
 
     /**
      *

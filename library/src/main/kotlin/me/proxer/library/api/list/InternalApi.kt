@@ -29,7 +29,6 @@ import retrofit2.http.Query
 /**
  * @author Desnoo
  */
-@Suppress("UndocumentedPublicFunction")
 internal interface InternalApi {
 
     @GET("list/entrylist")

@@ -8,8 +8,7 @@ import retrofit2.http.POST
 /**
  * @author Ruben Gees
  */
-@Suppress("UndocumentedPublicFunction")
-interface InternalApi {
+internal interface InternalApi {
 
     @FormUrlEncoded
     @POST("apps/errorlog")

@@ -7,8 +7,7 @@ import retrofit2.http.GET
 /**
  * @author Ruben Gees
  */
-@Suppress("UndocumentedPublicFunction")
-interface InternalApi {
+internal interface InternalApi {
 
     @GET("media/calendar")
     fun calendar(): ProxerCall<List<CalendarEntry>>

@@ -13,8 +13,7 @@ import retrofit2.http.Query
 /**
  * @author Ruben Gees
  */
-@Suppress("UndocumentedPublicFunction")
-interface InternalApi {
+internal interface InternalApi {
 
     @GET("chat/publicrooms")
     fun publicRooms(): ProxerCall<List<ChatRoom>>
