@@ -41,7 +41,7 @@ class CommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/comment/info?id=12"
+        request.path shouldEqual "/api/v1/comments/info?id=12"
     }
 
     @Test
@@ -53,7 +53,7 @@ class CommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/comment/entry?eid=7"
+        request.path shouldEqual "/api/v1/comments/entry?eid=7"
     }
 
     @Test

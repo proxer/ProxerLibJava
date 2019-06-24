@@ -1,5 +1,6 @@
 package me.proxer.library.api.comment
 
+import me.proxer.library.enums.UserMediaProgress
 import retrofit2.Retrofit
 
 /**
@@ -16,5 +17,12 @@ class CommentApi internal constructor(retrofit: Retrofit) {
      */
     fun comment(id: String? = null, entryId: String? = null): CommentEndpoint {
         return CommentEndpoint(internalApi, id, entryId)
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    fun create(entryId: String, mediaProgress: UserMediaProgress): CreateCommentEndpoint {
+        return CreateCommentEndpoint(internalApi, entryId, mediaProgress)
     }
 }
