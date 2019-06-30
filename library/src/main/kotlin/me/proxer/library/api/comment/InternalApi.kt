@@ -28,4 +28,14 @@ internal interface InternalApi {
         @Field("state") state: Int,
         @Field("comment") comment: String
     ): ProxerCall<Unit>
+
+    @FormUrlEncoded
+    @POST("comments/update")
+    fun update(
+        @Field("id") id: String,
+        @Field("rating") rating: Int?,
+        @Field("episode") episode: Int?,
+        @Field("state") state: Int?,
+        @Field("comment") comment: String?
+    ): ProxerCall<Unit>
 }

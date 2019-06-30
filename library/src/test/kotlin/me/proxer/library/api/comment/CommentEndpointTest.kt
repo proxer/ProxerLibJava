@@ -11,6 +11,9 @@ import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 import java.util.Date
 
+/**
+ * @author Ruben Gees
+ */
 class CommentEndpointTest : ProxerTest() {
 
     private val expectedComment = Comment(

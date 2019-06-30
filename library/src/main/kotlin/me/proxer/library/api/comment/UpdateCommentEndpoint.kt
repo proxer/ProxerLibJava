@@ -6,28 +6,24 @@ import me.proxer.library.enums.UserMediaProgress
 import me.proxer.library.util.ProxerUtils
 
 /**
- * Endpoint for creating a comment associated with a specific [me.proxer.library.entity.info.Entry].
- *
- * Comments are also used for persisting the current state of the user related to the entry. Thus, at least the progress
- * is required for creating a new comment. Most of the time, the update method should be called, because (empty)
- * comments get created automatically when the user sets a bookmark.
+ * Endpoint for updating a comment.
  *
  * @author Ruben Gees
  */
-class CreateCommentEndpoint internal constructor(
+class UpdateCommentEndpoint internal constructor(
     private val internalApi: InternalApi,
-    private val entryId: String,
-    private val mediaProgress: UserMediaProgress
+    private val id: String
 ) : Endpoint<Unit> {
 
     private var rating: Int? = null
     private var episode: Int? = null
+    private var mediaProgress: UserMediaProgress? = null
     private var comment: String? = null
 
     /**
      * Sets the rating for the comment. Must be between 0 and 10, while 0 means no rating is given by the user.
      */
-    fun rating(rating: Int): CreateCommentEndpoint {
+    fun rating(rating: Int?): UpdateCommentEndpoint {
         require(rating in 0..10) {
             "The rating must be between 0 and 10."
         }
@@ -38,24 +34,27 @@ class CreateCommentEndpoint internal constructor(
     /**
      * Sets the episode the user is currently at.
      */
-    fun episode(episode: Int): CreateCommentEndpoint {
+    fun episode(episode: Int?): UpdateCommentEndpoint {
         return this.apply { this.episode = episode }
+    }
+
+    /**
+     * Sets the overall progress of the user.
+     */
+    fun progress(mediaProgress: UserMediaProgress?): UpdateCommentEndpoint {
+        return this.apply { this.mediaProgress = mediaProgress }
     }
 
     /**
      * Sets the content of the comment. May contain BBCode tags and can be empty.
      */
-    fun comment(comment: String): CreateCommentEndpoint {
+    fun comment(comment: String): UpdateCommentEndpoint {
         return this.apply { this.comment = comment }
     }
 
     override fun build(): ProxerCall<Unit> {
-        return internalApi.create(
-            entryId,
-            rating ?: 0,
-            episode ?: 0,
-            ProxerUtils.getSafeApiEnumName(mediaProgress).toInt(),
-            comment ?: ""
+        return internalApi.update(
+            id, rating, episode, mediaProgress?.let { ProxerUtils.getSafeApiEnumName(it).toInt() }, comment
         )
     }
 }

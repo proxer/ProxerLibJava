@@ -25,4 +25,11 @@ class CommentApi internal constructor(retrofit: Retrofit) {
     fun create(entryId: String, mediaProgress: UserMediaProgress): CreateCommentEndpoint {
         return CreateCommentEndpoint(internalApi, entryId, mediaProgress)
     }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    fun update(id: String): UpdateCommentEndpoint {
+        return UpdateCommentEndpoint(internalApi, id)
+    }
 }

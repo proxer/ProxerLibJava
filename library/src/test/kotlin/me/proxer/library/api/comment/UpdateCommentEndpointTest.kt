@@ -14,13 +14,13 @@ import org.junit.jupiter.params.provider.CsvSource
 /**
  * @author Ruben Gees
  */
-class CreateCommentEndpointTest : ProxerTest() {
+class UpdateCommentEndpointTest : ProxerTest() {
 
     @Test
     fun testDefault() {
         val (result, _) = server.runRequest("empty.json") {
             api.comment
-                .create("12", UserMediaProgress.WILL_WATCH)
+                .update("2")
                 .build()
                 .execute()
         }
@@ -32,46 +32,47 @@ class CreateCommentEndpointTest : ProxerTest() {
     fun testPath() {
         val (_, request) = server.runRequest("empty.json") {
             api.comment
-                .create("7", UserMediaProgress.CANCELLED)
+                .update("9")
                 .build()
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/comments/create"
+        request.path shouldEqual "/api/v1/comments/update"
     }
 
     @Test
     fun testParameters() {
         val (_, request) = server.runRequest("empty.json") {
             api.comment
-                .create("3", UserMediaProgress.WATCHING)
-                .rating(7)
-                .episode(12)
-                .comment("Test")
+                .update("77")
+                .rating(4)
+                .episode(19)
+                .progress(UserMediaProgress.CANCELLED)
+                .comment("Test Update")
                 .build()
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "eid=3&rating=7&episode=12&state=1&comment=Test"
+        request.body.readUtf8() shouldEqual "id=77&rating=4&episode=19&state=3&comment=Test%20Update"
     }
 
     @Test
     fun testParametersEmpty() {
         val (_, request) = server.runRequest("empty.json") {
             api.comment
-                .create("19", UserMediaProgress.CANCELLED)
+                .update("19")
                 .build()
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "eid=19&rating=0&episode=0&state=3&comment="
+        request.body.readUtf8() shouldEqual "id=19"
     }
 
     @ParameterizedTest(name = "{0}")
     @CsvSource("-1", "11")
     fun testRatingValidation(rating: Int) {
         invoking {
-            api.comment.create("0", UserMediaProgress.CANCELLED).rating(rating)
+            api.comment.update("0").rating(rating)
         } shouldThrow IllegalArgumentException::class
     }
 }
