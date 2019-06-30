@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.info.TranslatorGroup
 import me.proxer.library.enums.Country
 import me.proxer.library.runRequest
-import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
@@ -15,7 +15,7 @@ class TranslatorGroupEndpointTest : ProxerTest() {
 
     private val expectedTranslatorGroup = TranslatorGroup(
         id = "11", name = "Gruppe Kampfkuchen", country = Country.GERMANY, image = "http://i.imgur.com/hBoT4Ax.png",
-        link = HttpUrl.parse("http://kampfkuchen.de"),
+        link = "http://kampfkuchen.de".toHttpUrlOrNull(),
         description = "Gruppe Kampfkuchen, die Gruppe für qualitativ hochwertige Lolisubs! Qualität vor Quantität!",
         clicks = 5087, projectAmount = 23
     )

@@ -246,7 +246,7 @@ class ProxerApi private constructor(retrofit: Retrofit) {
 
         private fun constructCertificatePinner(): CertificatePinner {
             return CertificatePinner.Builder()
-                .apply { CERTIFICATES.forEach { add(ProxerUrls.webBase.host(), it) } }
+                .apply { CERTIFICATES.forEach { add(ProxerUrls.webBase.host, it) } }
                 .build()
         }
 

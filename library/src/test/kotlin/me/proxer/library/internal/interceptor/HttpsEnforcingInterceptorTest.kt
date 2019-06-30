@@ -41,7 +41,7 @@ class HttpsEnforcingInterceptorTest {
         interceptor.intercept(chain)
 
         requestSlot.isCaptured shouldBe true
-        requestSlot.captured.url().toString() shouldEqual expected
+        requestSlot.captured.url.toString() shouldEqual expected
     }
 
     @Test

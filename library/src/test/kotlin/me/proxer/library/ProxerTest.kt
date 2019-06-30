@@ -7,6 +7,7 @@ import okhttp3.tls.internal.TlsUtil
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import java.util.concurrent.TimeUnit
+import javax.net.ssl.HostnameVerifier
 
 /**
  * Base class for all integration tests. It provides a ready to use [MockWebServer],
@@ -23,8 +24,8 @@ abstract class ProxerTest {
 
     protected val client: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(MockWebServerUrlRewriteInterceptor(server))
-        .hostnameVerifier { _, _ -> true }
-        .sslSocketFactory(tls.sslSocketFactory(), tls.trustManager())
+        .hostnameVerifier(HostnameVerifier { _, _ -> true })
+        .sslSocketFactory(tls.sslSocketFactory(), tls.trustManager)
         .connectTimeout(500, TimeUnit.MILLISECONDS)
         .writeTimeout(500, TimeUnit.MILLISECONDS)
         .readTimeout(500, TimeUnit.MILLISECONDS)

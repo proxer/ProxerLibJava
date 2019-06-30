@@ -5,7 +5,7 @@ import me.proxer.library.entity.notifications.Notification
 import me.proxer.library.enums.NotificationFilter
 import me.proxer.library.enums.NotificationType
 import me.proxer.library.runRequest
-import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 import java.util.Date
@@ -17,7 +17,7 @@ class NotificationEndpointTest : ProxerTest() {
 
     private val expectedNotification = Notification(
         id = "10185686", type = NotificationType.REMINDER, contentId = "49815105",
-        contentLink = HttpUrl.get("https://proxer.me/chapter/2373/26/en"),
+        contentLink = "https://proxer.me/chapter/2373/26/en".toHttpUrl(),
         text = "Lesezeichen: <u>Test123 Manga #26</u> ist online!",
         date = Date(1494452692L * 1000L), additionalDescription = ""
     )

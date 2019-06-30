@@ -4,9 +4,9 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
 import okhttp3.Interceptor
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Request
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeTrue
 import org.amshove.kluent.shouldEqual
@@ -27,7 +27,7 @@ class OneShotInterceptorTest {
 
     @Test
     fun testOneShotSetForRequestsWithBodies() {
-        val body = RequestBody.create(MediaType.parse("text/plain"), "hello")
+        val body = "hello".toRequestBody("text/plain".toMediaTypeOrNull())
         val request = Request.Builder().post(body).url("https://proxer.me/fake").build()
 
         every { chain.request() } returns request
@@ -35,8 +35,8 @@ class OneShotInterceptorTest {
         interceptor.intercept(chain)
 
         requestSlot.isCaptured shouldBe true
-        requestSlot.captured.body()!!.shouldNotBeNull()
-        requestSlot.captured.body()!!.isOneShot.shouldBeTrue()
+        requestSlot.captured.body!!.shouldNotBeNull()
+        requestSlot.captured.body!!.isOneShot().shouldBeTrue()
     }
 
     @Test

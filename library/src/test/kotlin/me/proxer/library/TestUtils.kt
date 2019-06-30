@@ -22,7 +22,7 @@ fun <T> MockWebServer.runRequest(response: MockResponse, action: () -> T): Pair<
     enqueue(response)
 
     return try {
-        action() to takeRequest(3, TimeUnit.SECONDS)
+        action() to requireNotNull(takeRequest(3, TimeUnit.SECONDS))
     } catch (error: Throwable) {
         takeRequest(3, TimeUnit.SECONDS)
 
@@ -34,9 +34,9 @@ fun <T> MockWebServer.runRequestIgnoringError(response: MockResponse, action: ()
     enqueue(response)
 
     return try {
-        action() to takeRequest(3, TimeUnit.SECONDS)
+        action() to requireNotNull(takeRequest(3, TimeUnit.SECONDS))
     } catch (error: Throwable) {
-        null to takeRequest(3, TimeUnit.SECONDS)
+        null to requireNotNull(takeRequest(3, TimeUnit.SECONDS))
     }
 }
 

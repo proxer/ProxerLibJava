@@ -2,6 +2,7 @@ package me.proxer.library.internal.interceptor
 
 import me.proxer.library.ProxerApi
 import me.proxer.library.util.ProxerUrls
+import me.proxer.library.util.ProxerUrls.hasProxerHost
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -19,13 +20,13 @@ internal class HeaderInterceptor(private val apiKey: String, private val userAge
     override fun intercept(chain: Interceptor.Chain): Response {
         val oldRequest = chain.request()
 
-        require(ProxerUrls.hasProxerHost(oldRequest.url())) {
+        require(oldRequest.url.hasProxerHost) {
             "Only use ProxerLib's OkHttp instance with Proxer.Me URLs!"
         }
 
         val newRequestBuilder = oldRequest.newBuilder()
 
-        if (oldRequest.url().host() == ProxerUrls.apiBase.host()) {
+        if (oldRequest.url.host == ProxerUrls.apiBase.host) {
             if (apiKey == ProxerApi.TEST_KEY) {
                 newRequestBuilder.header(TEST_MODE_HEADER, "1")
             } else {

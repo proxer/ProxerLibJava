@@ -1,3 +1,5 @@
+@file:JvmName("ProxerUrls")
+
 package me.proxer.library.util
 
 import me.proxer.library.entity.notifications.NewsArticle
@@ -298,38 +300,113 @@ object ProxerUrls {
     }
 
     /**
+     * Returns if this url has a valid host of proxer.
+     */
+    @JvmStatic
+    val HttpUrl.hasProxerHost: Boolean
+        @JvmName("hasProxerHost")
+        get() = this.hasProxerWebOrCdnOrStreamHost || this.hasProxerStreamFileHost || this.hasProxerMangaHost ||
+            this.hasProxerProxyHost
+
+    /**
      * Returns if the passed url has a valid host of proxer.
      */
-    fun hasProxerHost(url: HttpUrl): Boolean {
-        return hasProxerWebOrCdnOrStreamHost(url) || hasProxerStreamFileHost(url) || hasProxerMangaHost(url) ||
-            hasProxerProxyHost(url)
-    }
+    @JvmName("-deprecated_hasProxerHost")
+    @Deprecated(
+        message = "moved to extension function",
+        replaceWith = ReplaceWith(
+            expression = "url.hasProxerHost",
+            imports = ["me.proxer.library.util.ProxerUrls.hasProxerHost"]
+        ),
+        level = DeprecationLevel.ERROR
+    )
+    fun hasProxerHost(url: HttpUrl) = url.hasProxerHost
+
+    /**
+     * Returns if this url has a valid host of proxer or the proxer cdn.
+     */
+    @JvmStatic
+    val HttpUrl.hasProxerWebOrCdnOrStreamHost
+        @JvmName("hasProxerWebOrCdnOrStreamHost")
+        get() = host == webBase.host || host == cdnBase.host || host == streamBase.host
 
     /**
      * Returns if the passed url has a valid host of proxer or the proxer cdn.
      */
-    fun hasProxerWebOrCdnOrStreamHost(url: HttpUrl): Boolean {
-        return url.host() == webBase.host() || url.host() == cdnBase.host() || url.host() == streamBase.host()
-    }
+    @JvmName("-deprecated_hasProxerWebOrCdnOrStreamHost")
+    @Deprecated(
+        message = "moved to extension function",
+        replaceWith = ReplaceWith(
+            expression = "url.hasProxerWebOrCdnOrStreamHost",
+            imports = ["me.proxer.library.util.ProxerUrls.hasProxerWebOrCdnOrStreamHost"]
+        ),
+        level = DeprecationLevel.ERROR
+    )
+    fun hasProxerWebOrCdnOrStreamHost(url: HttpUrl) = url.hasProxerWebOrCdnOrStreamHost
+
+    /**
+     * Returns if this url has a valid proxer stream host.
+     */
+    @JvmStatic
+    val HttpUrl.hasProxerStreamFileHost
+        @JvmName("hasProxerStreamFileHost")
+        get() = PROXER_STREAM_FILE_HOST_PATTERN.matches(host)
 
     /**
      * Returns if the passed url has a valid proxer stream host.
      */
-    fun hasProxerStreamFileHost(url: HttpUrl): Boolean {
-        return PROXER_STREAM_FILE_HOST_PATTERN.matches(url.host())
-    }
+    @JvmName("-deprecated_hasProxerStreamFileHost")
+    @Deprecated(
+        message = "moved to extension function",
+        replaceWith = ReplaceWith(
+            expression = "url.hasProxerStreamFileHost",
+            imports = ["me.proxer.library.util.ProxerUrls.hasProxerStreamFileHost"]
+        ),
+        level = DeprecationLevel.ERROR
+    )
+    fun hasProxerStreamFileHost(url: HttpUrl) = url.hasProxerStreamFileHost
+
+    /**
+     * Returns if this url has a valid proxer manga host.
+     */
+    @JvmStatic
+    val HttpUrl.hasProxerMangaHost
+        @JvmName("hasProxerMangaHost")
+        get() = PROXER_MANGA_HOST_PATTERN.matches(host)
 
     /**
      * Returns if the passed url has a valid proxer manga host.
      */
-    fun hasProxerMangaHost(url: HttpUrl): Boolean {
-        return PROXER_MANGA_HOST_PATTERN.matches(url.host())
-    }
+    @JvmName("-deprecated_hasProxerMangaHost")
+    @Deprecated(
+        message = "moved to extension function",
+        replaceWith = ReplaceWith(
+            expression = "url.hasProxerMangaHost",
+            imports = ["me.proxer.library.util.ProxerUrls.hasProxerMangaHost"]
+        ),
+        level = DeprecationLevel.ERROR
+    )
+    fun hasProxerMangaHost(url: HttpUrl) = url.hasProxerMangaHost
+
+    /**
+     * Returns if this url has a valid proxer image proxy host.
+     */
+    @JvmStatic
+    val HttpUrl.hasProxerProxyHost
+        @JvmName("hasProxerProxyHost")
+        get() = host == proxyBase.host
 
     /**
      * Returns if the passed url has a valid proxer image proxy host.
      */
-    fun hasProxerProxyHost(url: HttpUrl): Boolean {
-        return url.host() == proxyBase.host()
-    }
+    @JvmName("-deprecated_hasProxerProxyHost")
+    @Deprecated(
+        message = "moved to extension function",
+        replaceWith = ReplaceWith(
+            expression = "url.hasProxerProxyHost",
+            imports = ["me.proxer.library.util.ProxerUrls.hasProxerProxyHost"]
+        ),
+        level = DeprecationLevel.ERROR
+    )
+    fun hasProxerProxyHost(url: HttpUrl) = url.hasProxerProxyHost
 }

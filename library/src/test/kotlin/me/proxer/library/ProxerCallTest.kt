@@ -27,7 +27,8 @@ class ProxerCallTest : ProxerTest() {
 
     @Test
     fun testTimeoutError() {
-        val response = MockResponse().setBody(fromResource("news.json")).setSocketPolicy(SocketPolicy.NO_RESPONSE)
+        val body = MockResponse().setBody(fromResource("news.json"))
+        val response = body.apply { body.socketPolicy = SocketPolicy.NO_RESPONSE }
 
         server.runRequest(response) {
             val result = invoking {
@@ -221,17 +222,15 @@ class ProxerCallTest : ProxerTest() {
         val waiter = Waiter()
         val call = api.notifications.news().build()
 
-        server.runRequest(MockResponse().setBody(fromResource("news.json"))) {
-            call.enqueue(
-                { waiter.fail("Expected error") },
-                { exception ->
-                    waiter.assertEquals(ErrorType.CANCELLED, exception.errorType)
-                    waiter.resume()
-                }
-            )
+        call.enqueue(
+            { waiter.fail("Expected error") },
+            { exception ->
+                waiter.assertEquals(ErrorType.CANCELLED, exception.errorType)
+                waiter.resume()
+            }
+        )
 
-            call.cancel()
-        }
+        call.cancel()
 
         waiter.await(1_000)
 

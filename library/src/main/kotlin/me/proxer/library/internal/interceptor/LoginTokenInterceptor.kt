@@ -35,10 +35,10 @@ internal class LoginTokenInterceptor(private val loginTokenManager: LoginTokenMa
     override fun intercept(chain: Interceptor.Chain): Response {
         val oldRequest = chain.request()
 
-        if (oldRequest.url().host() == ProxerUrls.apiBase.host()) {
+        if (oldRequest.url.host == ProxerUrls.apiBase.host) {
             val newRequestBuilder = oldRequest.newBuilder()
 
-            if (oldRequest.url() != LOGIN_URL) {
+            if (oldRequest.url != LOGIN_URL) {
                 val loginToken = synchronized(lock) {
                     loginTokenManager.provide()
                 }
@@ -62,7 +62,7 @@ internal class LoginTokenInterceptor(private val loginTokenManager: LoginTokenMa
 
     private fun handleResponse(response: Response) {
         val responseBody = peekResponseBody(response)
-        val url = response.request().url()
+        val url = response.request.url
 
         synchronized(lock) {
             val existingLoginToken = loginTokenManager.provide()
@@ -75,7 +75,7 @@ internal class LoginTokenInterceptor(private val loginTokenManager: LoginTokenMa
                 if (errorType != ServerErrorType.UNKNOWN && existingLoginToken != null && isLoginError(errorType)) {
                     loginTokenManager.persist(null)
                 }
-            } else if (url.pathSegments() == LOGIN_URL.pathSegments()) {
+            } else if (url.pathSegments == LOGIN_URL.pathSegments) {
                 val token = LOGIN_TOKEN_PATTERN.find(responseBody)
 
                 if (token != null) {
@@ -83,14 +83,14 @@ internal class LoginTokenInterceptor(private val loginTokenManager: LoginTokenMa
                 } else {
                     throw JsonDataException("No token found after successful login.")
                 }
-            } else if (url.pathSegments() == LOGOUT_URL.pathSegments()) {
+            } else if (url.pathSegments == LOGOUT_URL.pathSegments) {
                 loginTokenManager.persist(null)
             }
         }
     }
 
     private fun peekResponseBody(response: Response): String {
-        return response.body()?.source()
+        return response.body?.source()
             ?.let {
                 it.request(MAX_PEEK_BYTE_COUNT)
 

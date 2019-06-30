@@ -1,6 +1,6 @@
 package me.proxer.library.internal.interceptor
 
-import me.proxer.library.util.ProxerUrls
+import me.proxer.library.util.ProxerUrls.hasProxerHost
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -14,7 +14,7 @@ internal class HttpsEnforcingInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
 
-        return if (ProxerUrls.hasProxerHost(request.url())) {
+        return if (request.url.hasProxerHost) {
             if (!request.isHttps) {
                 chain.proceed(request.enforceHttps())
             } else {
@@ -26,7 +26,7 @@ internal class HttpsEnforcingInterceptor : Interceptor {
     }
 
     private fun Request.enforceHttps() = newBuilder()
-        .url(url().enforceHttps())
+        .url(url.enforceHttps())
         .build()
 
     private fun HttpUrl.enforceHttps() = newBuilder()

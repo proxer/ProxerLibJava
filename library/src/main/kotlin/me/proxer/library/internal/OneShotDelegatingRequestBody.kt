@@ -11,7 +11,7 @@ internal class OneShotDelegatingRequestBody(private val delegate: RequestBody) :
     override fun contentType() = delegate.contentType()
     override fun contentLength() = delegate.contentLength()
     override fun writeTo(sink: BufferedSink) = delegate.writeTo(sink)
-    override fun isDuplex() = delegate.isDuplex
+    override fun isDuplex() = delegate.isDuplex()
 
     override fun isOneShot() = true
 }

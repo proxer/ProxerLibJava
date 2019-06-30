@@ -5,7 +5,7 @@ import me.proxer.library.entity.info.Industry
 import me.proxer.library.enums.Country
 import me.proxer.library.enums.IndustryType
 import me.proxer.library.runRequest
-import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
@@ -16,7 +16,7 @@ class IndustryEndpointTest : ProxerTest() {
 
     private val expectedIndustry = Industry(
         id = "123", name = "Hoods Entertainment", type = IndustryType.STUDIO, country = Country.JAPAN,
-        link = HttpUrl.parse("http://www.hoods.co.jp/"),
+        link = "http://www.hoods.co.jp/".toHttpUrlOrNull(),
         description = "Anfang 2009 gegründetes Animations-Studio mit Sitz in Tokio."
     )
 

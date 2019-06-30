@@ -10,13 +10,13 @@ import okhttp3.mockwebserver.MockWebServer
 class MockWebServerUrlRewriteInterceptor(private val server: MockWebServer) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val oldUrl = chain.request().url()
-        val serverUrl = server.url(oldUrl.encodedPath())
+        val oldUrl = chain.request().url
+        val serverUrl = server.url(oldUrl.encodedPath)
 
         val newUrl = oldUrl.newBuilder()
-            .scheme(oldUrl.scheme())
-            .host(serverUrl.host())
-            .port(serverUrl.port())
+            .scheme(oldUrl.scheme)
+            .host(serverUrl.host)
+            .port(serverUrl.port)
             .build()
 
         val newRequest = chain.request().newBuilder()

@@ -3,7 +3,8 @@ package me.proxer.library.util
 import me.proxer.library.enums.AnimeLanguage
 import me.proxer.library.enums.Device
 import me.proxer.library.enums.Language
-import okhttp3.HttpUrl
+import me.proxer.library.util.ProxerUrls.hasProxerHost
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
@@ -45,7 +46,7 @@ class ProxerUrlsTest {
 
     @Test
     fun testProxyImage() {
-        ProxerUrls.proxyImage(HttpUrl.get("https://example.com/image.png")).toString() shouldEqual
+        ProxerUrls.proxyImage("https://example.com/image.png".toHttpUrl()).toString() shouldEqual
             "https://proxy.proxer.me/index.php?url=https%3A%2F%2Fexample.com%2Fimage.png"
     }
 
@@ -189,56 +190,56 @@ class ProxerUrlsTest {
 
     @Test
     fun testHasProxerHost() {
-        ProxerUrls.hasProxerHost(HttpUrl.get("https://proxer.me/test")) shouldBe true
+        "https://proxer.me/test".toHttpUrl().hasProxerHost shouldBe true
     }
 
     @Test
     fun testHasProxerHostCdn() {
-        ProxerUrls.hasProxerHost(HttpUrl.get("https://cdn.proxer.me/test")) shouldBe true
+        "https://cdn.proxer.me/test".toHttpUrl().hasProxerHost shouldBe true
     }
 
     @Test
     fun testHasProxerHostProxy() {
-        ProxerUrls.hasProxerHost(HttpUrl.get("https://proxy.proxer.me/index.php?url=test")) shouldBe true
+        "https://proxy.proxer.me/index.php?url=test".toHttpUrl().hasProxerHost shouldBe true
     }
 
     @Test
     fun testHasProxerHostManga() {
-        ProxerUrls.hasProxerHost(HttpUrl.get("https://manga1.proxer.me/f/test")) shouldBe true
+        "https://manga1.proxer.me/f/test".toHttpUrl().hasProxerHost shouldBe true
     }
 
     @Test
     fun testHasProxerHostStream() {
-        ProxerUrls.hasProxerHost(HttpUrl.get("https://stream.proxer.me/files/embed-abc.html")) shouldBe true
+        "https://stream.proxer.me/files/embed-abc.html".toHttpUrl().hasProxerHost shouldBe true
     }
 
     @Test
     fun testHasProxerHostFileStream() {
-        ProxerUrls.hasProxerHost(HttpUrl.get("https://s39-ps.proxer.me/files/test.mp4")) shouldBe true
+        "https://s39-ps.proxer.me/files/test.mp4".toHttpUrl().hasProxerHost shouldBe true
     }
 
     @Test
     fun testHasDotSeparatedProxerHostFileStream() {
-        ProxerUrls.hasProxerHost(HttpUrl.get("https://s39.ps.proxer.me/files/test.mp4")) shouldBe true
+        "https://s39.ps.proxer.me/files/test.mp4".toHttpUrl().hasProxerHost shouldBe true
     }
 
     @Test
     fun testHasNewProxerHostFileStream() {
-        ProxerUrls.hasProxerHost(HttpUrl.get("https://s39-psc.proxer.me/files/test.mp4")) shouldBe true
+        "https://s39-psc.proxer.me/files/test.mp4".toHttpUrl().hasProxerHost shouldBe true
     }
 
     @Test
     fun testHasAlternativeProxerHostFileStream() {
-        ProxerUrls.hasProxerHost(HttpUrl.get("https://s3.stream.proxer.me/files/test.mp4")) shouldBe true
+        "https://s3.stream.proxer.me/files/test.mp4".toHttpUrl().hasProxerHost shouldBe true
     }
 
     @Test
     fun testHasProxerHostFileStreamFalse() {
-        ProxerUrls.hasProxerHost(HttpUrl.get("https://s39-psfalse.proxer.me/files/test.mp4")) shouldBe false
+        "https://s39-psfalse.proxer.me/files/test.mp4".toHttpUrl().hasProxerHost shouldBe false
     }
 
     @Test
     fun testHasProxerHostFalse() {
-        ProxerUrls.hasProxerHost(HttpUrl.get("https://example.me/test")) shouldBe false
+        "https://example.me/test".toHttpUrl().hasProxerHost shouldBe false
     }
 }
