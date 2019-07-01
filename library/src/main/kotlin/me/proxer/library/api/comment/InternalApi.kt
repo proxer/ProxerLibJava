@@ -23,10 +23,10 @@ internal interface InternalApi {
     @POST("comments/create")
     fun create(
         @Field("eid") entryId: String,
-        @Field("rating") rating: Int,
-        @Field("episode") episode: Int,
-        @Field("state") state: Int,
-        @Field("comment") comment: String
+        @Field("rating") rating: Int?,
+        @Field("episode") episode: Int?,
+        @Field("state") state: Int?,
+        @Field("comment") comment: String?
     ): ProxerCall<Unit>
 
     @FormUrlEncoded

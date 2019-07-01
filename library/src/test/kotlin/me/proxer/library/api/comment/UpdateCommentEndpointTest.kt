@@ -17,7 +17,59 @@ import org.junit.jupiter.params.provider.CsvSource
 class UpdateCommentEndpointTest : ProxerTest() {
 
     @Test
-    fun testDefault() {
+    fun testDefaultCreate() {
+        val (result, _) = server.runRequest("empty.json") {
+            api.comment
+                .create("8")
+                .build()
+                .execute()
+        }
+
+        result.shouldBeNull()
+    }
+
+    @Test
+    fun testPathCreate() {
+        val (_, request) = server.runRequest("empty.json") {
+            api.comment
+                .create("33")
+                .build()
+                .execute()
+        }
+
+        request.path shouldEqual "/api/v1/comments/create"
+    }
+
+    @Test
+    fun testParametersCreate() {
+        val (_, request) = server.runRequest("empty.json") {
+            api.comment
+                .create("18")
+                .rating(2)
+                .episode(0)
+                .progress(UserMediaProgress.WILL_WATCH)
+                .comment("Test Create")
+                .build()
+                .execute()
+        }
+
+        request.body.readUtf8() shouldEqual "eid=18&rating=2&episode=0&state=2&comment=Test%20Create"
+    }
+
+    @Test
+    fun testParametersEmptyCreate() {
+        val (_, request) = server.runRequest("empty.json") {
+            api.comment
+                .create("4")
+                .build()
+                .execute()
+        }
+
+        request.body.readUtf8() shouldEqual "eid=4"
+    }
+
+    @Test
+    fun testDefaultUpdate() {
         val (result, _) = server.runRequest("empty.json") {
             api.comment
                 .update("2")
@@ -29,7 +81,7 @@ class UpdateCommentEndpointTest : ProxerTest() {
     }
 
     @Test
-    fun testPath() {
+    fun testPathUpdate() {
         val (_, request) = server.runRequest("empty.json") {
             api.comment
                 .update("9")
@@ -41,7 +93,7 @@ class UpdateCommentEndpointTest : ProxerTest() {
     }
 
     @Test
-    fun testParameters() {
+    fun testParametersUpdate() {
         val (_, request) = server.runRequest("empty.json") {
             api.comment
                 .update("77")
@@ -57,7 +109,7 @@ class UpdateCommentEndpointTest : ProxerTest() {
     }
 
     @Test
-    fun testParametersEmpty() {
+    fun testParametersEmptyUpdate() {
         val (_, request) = server.runRequest("empty.json") {
             api.comment
                 .update("19")
