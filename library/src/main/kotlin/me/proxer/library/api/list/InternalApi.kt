@@ -85,7 +85,7 @@ internal interface InternalApi {
     fun translatorGroupProjectList(
         @Query("id") id: String?,
         @Query("type") projectState: ProjectState?,
-        @Query("isH") includeHentai: Int?,
+        @Query("isH") includeHentai: Boolean?,
         @Query("p") page: Int?,
         @Query("limit") limit: Int?
     ): ProxerCall<List<TranslatorGroupProject>>
@@ -94,7 +94,7 @@ internal interface InternalApi {
     fun industryProjectList(
         @Query("id") id: String?,
         @Query("type") type: IndustryType?,
-        @Query("isH") includeHentai: Int?,
+        @Query("isH") includeHentai: Boolean?,
         @Query("p") page: Int?,
         @Query("limit") limit: Int?
     ): ProxerCall<List<IndustryProject>>

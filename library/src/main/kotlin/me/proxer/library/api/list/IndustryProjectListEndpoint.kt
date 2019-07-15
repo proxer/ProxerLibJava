@@ -4,7 +4,6 @@ import me.proxer.library.ProxerCall
 import me.proxer.library.api.PagingLimitEndpoint
 import me.proxer.library.entity.list.IndustryProject
 import me.proxer.library.enums.IndustryType
-import me.proxer.library.internal.util.toIntOrNull
 
 /**
  * Endpoint for retrieving a list of projects of an industry.
@@ -36,6 +35,6 @@ class IndustryProjectListEndpoint internal constructor(
     fun includeHentai(includeHentai: Boolean? = true) = this.apply { this.includeHentai = includeHentai }
 
     override fun build(): ProxerCall<List<IndustryProject>> {
-        return internalApi.industryProjectList(id, type, includeHentai.toIntOrNull(), page, limit)
+        return internalApi.industryProjectList(id, type, includeHentai, page, limit)
     }
 }

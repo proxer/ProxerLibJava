@@ -44,7 +44,7 @@ class IndustryProjectListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/industryprojects?id=543&type=record_label&isH=1&p=3&limit=12"
+        request.path shouldEqual "/api/v1/list/industryprojects?id=543&type=record_label&isH=true&p=3&limit=12"
     }
 
     @Test
@@ -59,7 +59,7 @@ class IndustryProjectListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/industryprojects?id=543&type=record_label&isH=0&p=3&limit=12"
+        request.path shouldEqual "/api/v1/list/industryprojects?id=543&type=record_label&isH=false&p=3&limit=12"
     }
 
     @Test

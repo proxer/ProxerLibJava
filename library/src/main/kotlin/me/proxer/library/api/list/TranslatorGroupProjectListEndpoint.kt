@@ -4,7 +4,6 @@ import me.proxer.library.ProxerCall
 import me.proxer.library.api.PagingLimitEndpoint
 import me.proxer.library.entity.list.TranslatorGroupProject
 import me.proxer.library.enums.ProjectState
-import me.proxer.library.internal.util.toIntOrNull
 
 /**
  * Endpoint for retrieving a list of projects of a translator group.
@@ -37,7 +36,7 @@ class TranslatorGroupProjectListEndpoint internal constructor(
 
     override fun build(): ProxerCall<List<TranslatorGroupProject>> {
         return internalApi.translatorGroupProjectList(
-            id, projectState, includeHentai.toIntOrNull(), page, limit
+            id, projectState, includeHentai, page, limit
         )
     }
 }

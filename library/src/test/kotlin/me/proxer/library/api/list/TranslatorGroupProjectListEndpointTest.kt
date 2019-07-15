@@ -45,7 +45,7 @@ class TranslatorGroupProjectListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/translatorgroupprojects?id=321&type=5&isH=1&p=3&limit=12"
+        request.path shouldEqual "/api/v1/list/translatorgroupprojects?id=321&type=5&isH=true&p=3&limit=12"
     }
 
     @Test
@@ -60,7 +60,7 @@ class TranslatorGroupProjectListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/translatorgroupprojects?id=321&type=5&isH=0&p=3&limit=12"
+        request.path shouldEqual "/api/v1/list/translatorgroupprojects?id=321&type=5&isH=false&p=3&limit=12"
     }
 
     @Test
