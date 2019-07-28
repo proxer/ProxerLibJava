@@ -6,6 +6,7 @@ import me.proxer.library.runRequest
 import org.amshove.kluent.invoking
 import org.amshove.kluent.shouldBeNull
 import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldNotThrow
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -126,5 +127,12 @@ class UpdateCommentEndpointTest : ProxerTest() {
         invoking {
             api.comment.update("0").rating(rating)
         } shouldThrow IllegalArgumentException::class
+    }
+
+    @Test
+    fun testRatingValidationNull() {
+        invoking {
+            api.comment.update("0").rating(null)
+        } shouldNotThrow IllegalArgumentException::class
     }
 }

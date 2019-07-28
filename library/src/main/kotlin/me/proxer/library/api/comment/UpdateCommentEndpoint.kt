@@ -41,7 +41,7 @@ class UpdateCommentEndpoint internal constructor(
      * Sets the rating for the comment. Must be between 0 and 10, while 0 means no rating is given by the user.
      */
     fun rating(rating: Int?): UpdateCommentEndpoint {
-        require(rating in 0..10) {
+        require(rating == null || rating in 0..10) {
             "The rating must be between 0 and 10."
         }
 
@@ -65,7 +65,7 @@ class UpdateCommentEndpoint internal constructor(
     /**
      * Sets the content of the comment. May contain BBCode tags and can be empty.
      */
-    fun comment(comment: String): UpdateCommentEndpoint {
+    fun comment(comment: String?): UpdateCommentEndpoint {
         return this.apply { this.comment = comment }
     }
 
