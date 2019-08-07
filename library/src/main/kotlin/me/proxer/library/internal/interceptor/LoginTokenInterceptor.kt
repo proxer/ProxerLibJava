@@ -14,9 +14,9 @@ internal class LoginTokenInterceptor(private val loginTokenManager: LoginTokenMa
 
     private companion object {
         private const val LOGIN_TOKEN_HEADER = "proxer-api-token"
-        private const val MAX_PEEK_BYTE_COUNT = 512L
+        private const val MAX_PEEK_BYTE_COUNT = 1_048_576L
 
-        private val LOGIN_TOKEN_PATTERN = Regex("\"token\":.*?\"(.{255})\"", RegexOption.DOT_MATCHES_ALL)
+        private val LOGIN_TOKEN_PATTERN = Regex("\"token\":.*?\"(.+?)\"", RegexOption.DOT_MATCHES_ALL)
         private val ERROR_PATTERN = Regex("\"code\":.*?(\\d+\b?)", RegexOption.DOT_MATCHES_ALL)
 
         private val LOGIN_URL = ProxerUrls.apiBase.newBuilder()
@@ -48,31 +48,24 @@ internal class LoginTokenInterceptor(private val loginTokenManager: LoginTokenMa
                 }
             }
 
-            val response = chain.proceed(newRequestBuilder.build())
-
-            if (response.isSuccessful) {
-                handleResponse(response)
-            }
-
-            return response
+            return handleResponse(chain.proceed(newRequestBuilder.build()))
         } else {
             return chain.proceed(oldRequest)
         }
     }
 
-    private fun handleResponse(response: Response) {
+    private fun handleResponse(response: Response): Response {
         val responseBody = peekResponseBody(response)
         val url = response.request.url
 
         synchronized(lock) {
-            val existingLoginToken = loginTokenManager.provide()
             val potentialError = ERROR_PATTERN.find(responseBody)
 
             if (potentialError != null) {
                 val errorCode = potentialError.groupValues[1].toInt()
                 val errorType = ServerErrorType.fromErrorCode(errorCode)
 
-                if (errorType != ServerErrorType.UNKNOWN && existingLoginToken != null && isLoginError(errorType)) {
+                if (errorType.isLoginError) {
                     loginTokenManager.persist(null)
                 }
             } else if (url.pathSegments == LOGIN_URL.pathSegments) {
@@ -87,32 +80,11 @@ internal class LoginTokenInterceptor(private val loginTokenManager: LoginTokenMa
                 loginTokenManager.persist(null)
             }
         }
+
+        return response
     }
 
     private fun peekResponseBody(response: Response): String {
-        return response.body?.source()
-            ?.let {
-                it.request(MAX_PEEK_BYTE_COUNT)
-
-                it.buffer.snapshot().utf8()
-            }
-            ?: ""
-    }
-
-    private fun isLoginError(errorType: ServerErrorType): Boolean {
-        return when (errorType) {
-            ServerErrorType.INVALID_TOKEN,
-            ServerErrorType.NOTIFICATIONS_LOGIN_REQUIRED,
-            ServerErrorType.UCP_LOGIN_REQUIRED,
-            ServerErrorType.INFO_LOGIN_REQUIRED,
-            ServerErrorType.LOGIN_ALREADY_LOGGED_IN,
-            ServerErrorType.LOGIN_DIFFERENT_USER_ALREADY_LOGGED_IN,
-            ServerErrorType.MESSAGES_LOGIN_REQUIRED,
-            ServerErrorType.CHAT_LOGIN_REQUIRED,
-            ServerErrorType.USER_2FA_SECRET_REQUIRED,
-            ServerErrorType.ANIME_LOGIN_REQUIRED -> true
-
-            else -> false
-        }
+        return if (response.body != null) response.peekBody(MAX_PEEK_BYTE_COUNT).string() else ""
     }
 }

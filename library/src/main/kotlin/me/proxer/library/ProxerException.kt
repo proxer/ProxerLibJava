@@ -44,8 +44,7 @@ class ProxerException : Exception {
      */
     constructor(errorType: ErrorType, serverErrorCode: Int?, message: String?) : super(message) {
         this.errorType = errorType
-        this.serverErrorType =
-            ServerErrorType.fromErrorCode(serverErrorCode)
+        this.serverErrorType = ServerErrorType.fromErrorCode(serverErrorCode)
     }
 
     /**
@@ -164,5 +163,23 @@ class ProxerException : Exception {
                 return enumValues<ServerErrorType>().find { it.code == errorCode } ?: UNKNOWN
             }
         }
+
+        internal val isLoginError
+            get() = when (this) {
+                INVALID_TOKEN,
+                NOTIFICATIONS_LOGIN_REQUIRED,
+                UCP_LOGIN_REQUIRED,
+                INFO_LOGIN_REQUIRED,
+                LOGIN_ALREADY_LOGGED_IN,
+                LOGIN_DIFFERENT_USER_ALREADY_LOGGED_IN,
+                MESSAGES_LOGIN_REQUIRED,
+                CHAT_LOGIN_REQUIRED,
+                USER_2FA_SECRET_REQUIRED,
+                ANIME_LOGIN_REQUIRED,
+                IP_AUTHENTICATION_REQUIRED,
+                COMMENT_LOGIN_REQUIRED -> true
+
+                else -> false
+            }
     }
 }
