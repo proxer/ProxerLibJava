@@ -1,6 +1,7 @@
 package me.proxer.library.internal.interceptor
 
 import com.squareup.moshi.JsonDataException
+import com.squareup.moshi.JsonReader
 import me.proxer.library.LoginTokenManager
 import me.proxer.library.ProxerException.ServerErrorType
 import me.proxer.library.util.ProxerUrls
@@ -16,8 +17,8 @@ internal class LoginTokenInterceptor(private val loginTokenManager: LoginTokenMa
         private const val LOGIN_TOKEN_HEADER = "proxer-api-token"
         private const val MAX_PEEK_BYTE_COUNT = 1_048_576L
 
-        private val LOGIN_TOKEN_PATTERN = Regex("\"token\":.*?\"(.+?)\"", RegexOption.DOT_MATCHES_ALL)
-        private val ERROR_PATTERN = Regex("\"code\":.*?(\\d+\b?)", RegexOption.DOT_MATCHES_ALL)
+        private val OPTIONS = JsonReader.Options.of("code", "data")
+        private val TOKEN_OPTIONS = JsonReader.Options.of("token")
 
         private val LOGIN_URL = ProxerUrls.apiBase.newBuilder()
             .addPathSegment("user")
@@ -55,36 +56,76 @@ internal class LoginTokenInterceptor(private val loginTokenManager: LoginTokenMa
     }
 
     private fun handleResponse(response: Response): Response {
-        val responseBody = peekResponseBody(response)
-        val url = response.request.url
+        if (response.isSuccessful) {
+            val (errorCode, token) = peekResponse(response)
 
-        synchronized(lock) {
-            val potentialError = ERROR_PATTERN.find(responseBody)
+            synchronized(lock) {
+                val errorType = errorCode?.let { ServerErrorType.fromErrorCode(it) }
 
-            if (potentialError != null) {
-                val errorCode = potentialError.groupValues[1].toInt()
-                val errorType = ServerErrorType.fromErrorCode(errorCode)
-
-                if (errorType.isLoginError) {
+                if (errorType != null) {
+                    if (errorType.isLoginError) {
+                        loginTokenManager.persist(null)
+                    }
+                } else if (response.request.url.pathSegments == LOGIN_URL.pathSegments) {
+                    if (token != null) {
+                        loginTokenManager.persist(token)
+                    } else {
+                        throw JsonDataException("No token found after successful login.")
+                    }
+                } else if (response.request.url.pathSegments == LOGOUT_URL.pathSegments) {
                     loginTokenManager.persist(null)
                 }
-            } else if (url.pathSegments == LOGIN_URL.pathSegments) {
-                val token = LOGIN_TOKEN_PATTERN.find(responseBody)
-
-                if (token != null) {
-                    loginTokenManager.persist(token.groupValues[1])
-                } else {
-                    throw JsonDataException("No token found after successful login.")
-                }
-            } else if (url.pathSegments == LOGOUT_URL.pathSegments) {
-                loginTokenManager.persist(null)
             }
         }
 
         return response
     }
 
-    private fun peekResponseBody(response: Response): String {
-        return if (response.body != null) response.peekBody(MAX_PEEK_BYTE_COUNT).string() else ""
+    private fun peekResponse(response: Response): PeekedResponse {
+        if (response.body == null) return PeekedResponse()
+
+        val reader = JsonReader.of(response.peekBody(MAX_PEEK_BYTE_COUNT).source())
+            .also { it.beginObject() }
+
+        var errorCode: Int? = null
+        var token: String? = null
+
+        while (reader.hasNext() && errorCode == null) {
+            when (reader.selectName(OPTIONS)) {
+                0 -> errorCode = reader.nextInt()
+                1 -> when (reader.peek()) {
+                    JsonReader.Token.BEGIN_OBJECT -> token = peekForToken(reader)
+                    else -> reader.skipValue()
+                }
+                else -> {
+                    reader.skipName()
+                    reader.skipValue()
+                }
+            }
+        }
+
+        return PeekedResponse(errorCode, token)
     }
+
+    private fun peekForToken(reader: JsonReader): String? {
+        reader.beginObject()
+
+        var token: String? = null
+
+        while (reader.hasNext()) {
+            when (reader.selectName(TOKEN_OPTIONS)) {
+                0 -> token = reader.nextString()
+                else -> {
+                    reader.skipName()
+                    reader.skipValue()
+                }
+            }
+        }
+
+        reader.endObject()
+
+        return token
+    }
+
+    private data class PeekedResponse(val errorCode: Int? = null, val token: String? = null)
 }

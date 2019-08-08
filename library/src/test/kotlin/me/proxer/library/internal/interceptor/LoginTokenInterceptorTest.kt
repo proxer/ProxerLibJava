@@ -103,13 +103,24 @@ class LoginTokenInterceptorTest : ProxerTest() {
     }
 
     @Test
+    fun testTokenWithErrorResponse() {
+        server.runRequestIgnoringError("login_token_and_error.json") {
+            api.user.login("test", "secret").build().execute()
+        }
+
+        val (_, request) = server.runRequest("news.json") { api.notifications.news().build().execute() }
+
+        request.headers.get("proxer-api-token").shouldBeNull()
+    }
+
+    @Test
     fun testEmptyResponse() {
         server.runRequest(MockResponse()) {
             val result = invoking {
                 api.user.login("test", "secret").build().execute()
             } shouldThrow ProxerException::class
 
-            result.exception.errorType shouldBe ErrorType.PARSING
+            result.exception.errorType shouldBe ErrorType.IO
         }
     }
 
