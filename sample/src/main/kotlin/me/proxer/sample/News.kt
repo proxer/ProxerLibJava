@@ -1,3 +1,5 @@
+@file:JvmName("News")
+
 package me.proxer.sample
 
 import me.proxer.library.ProxerApi
@@ -10,7 +12,7 @@ fun main() {
         val news = api.notifications.news()
             .build()
             .safeExecute()
-            .map { (_, _, _, _, subject, _, _, _, author) -> "$subject written by $author" }
+            .joinToString("\n") { (_, _, _, _, subject, _, _, _, author) -> "$subject written by $author" }
 
         println()
         println("These are the latest news:\n$news")

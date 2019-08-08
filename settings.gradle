@@ -1,1 +1,17 @@
+pluginManagement {
+    apply from: "gradle/versions.gradle"
+
+    plugins {
+        id "org.jetbrains.kotlin.jvm" version "${kotlinVersion}"
+        id "org.jetbrains.kotlin.kapt" version "${kotlinVersion}"
+        id "org.jetbrains.dokka" version "${dokkaVersion}"
+
+        id "io.gitlab.arturbosch.detekt" version "${detektVersion}"
+        id "org.jlleitschuh.gradle.ktlint" version "${ktlintVersion}"
+
+        id "com.github.ben-manes.versions" version "${gradleVersionsPluginVersion}"
+        id "de.fuerstenau.buildconfig" version "${buildConfigPluginVersion}"
+    }
+}
+
 include ":library", ":sample"
