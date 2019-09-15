@@ -30,8 +30,8 @@ class UserCommentsEndpointTest : ProxerTest() {
     fun testDefault() {
         val (result, _) = server.runRequest("user_comment.json") {
             api.user
-            .comments("123", "abc")
-            .build()
+                .comments("123", "abc")
+                .build()
                 .safeExecute()
         }
 
@@ -46,11 +46,14 @@ class UserCommentsEndpointTest : ProxerTest() {
                 .limit(12)
                 .minimumLength(1234)
                 .category(Category.ANIME)
+                .states(UserMediaProgress.WATCHED, UserMediaProgress.WATCHING)
                 .build()
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/user/comments?uid=123&username=abc&kat=anime&p=3&limit=12&length=1234"
+        request.path shouldEqual """
+            /api/v1/user/comments?uid=123&username=abc&kat=anime&p=3&limit=12&length=1234&state=0%2B1
+        """.trimIndent().replace("\n", "")
     }
 
     @Test
