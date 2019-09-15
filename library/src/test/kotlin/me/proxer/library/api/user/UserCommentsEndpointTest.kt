@@ -4,6 +4,7 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.info.RatingDetails
 import me.proxer.library.entity.user.UserComment
 import me.proxer.library.enums.Category
+import me.proxer.library.enums.CommentContentType
 import me.proxer.library.enums.Medium
 import me.proxer.library.enums.UserMediaProgress
 import me.proxer.library.runRequest
@@ -47,12 +48,14 @@ class UserCommentsEndpointTest : ProxerTest() {
                 .minimumLength(1234)
                 .category(Category.ANIME)
                 .states(UserMediaProgress.WATCHED, UserMediaProgress.WATCHING)
+                .hasContent(CommentContentType.COMMENT, CommentContentType.RATING)
                 .build()
                 .execute()
         }
 
         request.path shouldEqual """
             /api/v1/user/comments?uid=123&username=abc&kat=anime&p=3&limit=12&length=1234&state=0%2B1
+            &has=comment%2Brating
         """.trimIndent().replace("\n", "")
     }
 

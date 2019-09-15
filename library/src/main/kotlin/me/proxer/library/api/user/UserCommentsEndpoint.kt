@@ -4,6 +4,7 @@ import me.proxer.library.ProxerCall
 import me.proxer.library.api.PagingLimitEndpoint
 import me.proxer.library.entity.user.UserComment
 import me.proxer.library.enums.Category
+import me.proxer.library.enums.CommentContentType
 import me.proxer.library.enums.UserMediaProgress
 import me.proxer.library.util.ProxerUtils
 
@@ -28,6 +29,7 @@ class UserCommentsEndpoint internal constructor(
     private var category: Category? = null
     private var minimumLength: Int? = null
     private var states: Set<UserMediaProgress>? = null
+    private var hasContent: Set<CommentContentType>? = null
 
     init {
         require(userId.isNullOrBlank().not() || username.isNullOrBlank().not()) {
@@ -51,13 +53,19 @@ class UserCommentsEndpoint internal constructor(
     /**
      * Sets the states to filter by.
      */
-    fun states(vararg states: UserMediaProgress) = this.apply {
-        this.states = states.toSet()
-    }
+    fun states(vararg states: UserMediaProgress) = this.apply { this.states = states.toSet() }
+
+    /**
+     * Content types to filter by.
+     */
+    fun hasContent(vararg contentTypes: CommentContentType) = this.apply { this.hasContent = contentTypes.toSet() }
 
     override fun build(): ProxerCall<List<UserComment>> {
         val joinedStates = states?.joinToString(DELIMITER) { ProxerUtils.getSafeApiEnumName(it) }
+        val joinedHasContent = hasContent?.joinToString(DELIMITER) { ProxerUtils.getSafeApiEnumName(it) }
 
-        return internalApi.comments(userId, username, category, page, limit, minimumLength, joinedStates)
+        return internalApi.comments(
+            userId, username, category, page, limit, minimumLength, joinedStates, joinedHasContent
+        )
     }
 }

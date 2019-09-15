@@ -75,7 +75,8 @@ internal interface InternalApi {
         @Query("p") page: Int?,
         @Query("limit") limit: Int?,
         @Query("length") minimumLength: Int?,
-        @Query("state") state: String?
+        @Query("state") state: String?,
+        @Query("has") has: String?
     ): ProxerCall<List<UserComment>>
 
     @GET("user/history")
