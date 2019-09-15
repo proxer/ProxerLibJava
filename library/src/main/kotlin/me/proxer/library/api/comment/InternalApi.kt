@@ -13,14 +13,14 @@ import retrofit2.http.Query
  */
 internal interface InternalApi {
 
-    @GET("comments/info")
+    @GET("comment/info")
     fun commentById(@Query("id") id: String): ProxerCall<Comment>
 
-    @GET("comments/entry")
+    @GET("comment/entry")
     fun commentByEntry(@Query("eid") entryId: String): ProxerCall<Comment>
 
     @FormUrlEncoded
-    @POST("comments/create")
+    @POST("comment/create")
     fun create(
         @Field("eid") entryId: String,
         @Field("rating") rating: Int?,
@@ -30,7 +30,7 @@ internal interface InternalApi {
     ): ProxerCall<Unit>
 
     @FormUrlEncoded
-    @POST("comments/update")
+    @POST("comment/update")
     fun update(
         @Field("id") id: String,
         @Field("rating") rating: Int?,

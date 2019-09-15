@@ -38,7 +38,7 @@ class UpdateCommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/comments/create"
+        request.path shouldEqual "/api/v1/comment/create"
     }
 
     @Test
@@ -90,7 +90,7 @@ class UpdateCommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/comments/update"
+        request.path shouldEqual "/api/v1/comment/update"
     }
 
     @Test
