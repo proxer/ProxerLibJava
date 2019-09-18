@@ -1,6 +1,7 @@
 package me.proxer.library.entity.info
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import me.proxer.library.entity.ProxerIdItem
 import me.proxer.library.enums.Medium
 
@@ -10,6 +11,7 @@ import me.proxer.library.enums.Medium
  * @property name The name.
  * @property medium The medium.
  */
+@JsonClass(generateAdapter = true)
 data class AdaptionInfo(
     @Json(name = "id") override val id: String,
     @Json(name = "name") val name: String,

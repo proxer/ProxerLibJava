@@ -26,5 +26,5 @@ data class Notification(
     @Json(name = "link") val contentLink: HttpUrl,
     @Json(name = "linktext") val text: String,
     @Json(name = "time") override val date: Date,
-    @Json(name = "description") val additionalDescription: String?
+    @Json(name = "description") val additionalDescription: String
 ) : ProxerIdItem, ProxerDateItem

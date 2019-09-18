@@ -17,7 +17,6 @@ import me.proxer.library.api.notifications.NotificationsApi
 import me.proxer.library.api.ucp.UcpApi
 import me.proxer.library.api.user.UserApi
 import me.proxer.library.internal.DefaultLoginTokenManager
-import me.proxer.library.internal.adapter.AdaptionInfoAdapter
 import me.proxer.library.internal.adapter.BooleanAdapterFactory
 import me.proxer.library.internal.adapter.ConferenceAdapter
 import me.proxer.library.internal.adapter.ConferenceInfoAdapter
@@ -258,7 +257,6 @@ class ProxerApi private constructor(retrofit: Retrofit) {
                 .add(HttpUrlAdapter())
                 .add(ConferenceAdapter())
                 .add(EpisodeInfoAdapter())
-                .add(AdaptionInfoAdapter())
                 .add(NotificationAdapter())
                 .add(ConferenceInfoAdapter())
                 .add(BooleanAdapterFactory())

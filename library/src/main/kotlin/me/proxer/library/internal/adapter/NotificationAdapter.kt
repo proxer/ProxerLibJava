@@ -3,6 +3,7 @@ package me.proxer.library.internal.adapter
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import com.squareup.moshi.ToJson
 import me.proxer.library.entity.notifications.Notification
 import me.proxer.library.enums.NotificationType
 import me.proxer.library.util.ProxerUrls
@@ -25,6 +26,14 @@ internal class NotificationAdapter {
 
         return Notification(
             json.id, json.type, json.contentId, properContentLink, json.text, json.date, json.additionalDescription
+        )
+    }
+
+    @ToJson
+    fun toJson(value: Notification): IntermediateNotification {
+        return IntermediateNotification(
+            value.id, value.type, value.contentId, value.contentLink.toString(),
+            value.text, value.date, value.additionalDescription
         )
     }
 

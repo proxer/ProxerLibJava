@@ -2,6 +2,7 @@ package me.proxer.library.internal.adapter
 
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonDataException
+import com.squareup.moshi.ToJson
 import me.proxer.library.entity.notifications.NotificationInfo
 
 /**
@@ -28,5 +29,10 @@ internal class NotificationInfoAdapter {
             json[MESSAGE_FIELD_LOCATION], json[FRIEND_REQUEST_FIELD_LOCATION],
             json[NEWS_FIELD_LOCATION], json[NOTIFICATIONS_FIELD_LOCATION]
         )
+    }
+
+    @ToJson
+    fun toJson(value: NotificationInfo): IntArray {
+        return intArrayOf(value.messageAmount, value.friendRequestAmount, value.newsAmount, value.notificationAmount)
     }
 }

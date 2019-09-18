@@ -3,6 +3,7 @@ package me.proxer.library.internal.adapter
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import com.squareup.moshi.ToJson
 import me.proxer.library.entity.messenger.ConferenceInfo
 import me.proxer.library.entity.messenger.ConferenceParticipant
 
@@ -18,6 +19,20 @@ internal class ConferenceInfoAdapter {
         return ConferenceInfo(
             json.info.topic, json.info.participantAmount, json.info.firstMessageTime,
             json.info.lastMessageTime, json.info.leaderId, json.participants
+        )
+    }
+
+    @ToJson
+    fun toJson(value: ConferenceInfo): IntermediateConferenceInfoContainer {
+        return IntermediateConferenceInfoContainer(
+            IntermediateConferenceInfoContainer.IntermediateConferenceInfo(
+                value.topic,
+                value.participantAmount,
+                value.firstMessageTime,
+                value.lastMessageTime,
+                value.leaderId
+            ),
+            value.participants
         )
     }
 

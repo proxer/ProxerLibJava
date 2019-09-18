@@ -1,5 +1,6 @@
 package me.proxer.library.internal.adapter
 
+import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import org.amshove.kluent.shouldBeEmpty
@@ -141,15 +142,18 @@ class DelimitedStringSetAdapterFactoryTest {
         result shouldEqual """{"value":"a, b, c"}"""
     }
 
-    private data class StringSetTestClass(
+    @JsonClass(generateAdapter = true)
+    data class StringSetTestClass(
         @field:DelimitedStringSet val value: Set<String>
     )
 
-    private data class StringSetWithDelimiterTestClass(
+    @JsonClass(generateAdapter = true)
+    data class StringSetWithDelimiterTestClass(
         @field:DelimitedStringSet(delimiter = ", ") val value: Set<String>
     )
 
-    private data class StringSetWithValuesToKeepTestClass(
+    @JsonClass(generateAdapter = true)
+    data class StringSetWithValuesToKeepTestClass(
         @field:DelimitedStringSet(valuesToKeep = ["a b"]) val value: Set<String>
     )
 }

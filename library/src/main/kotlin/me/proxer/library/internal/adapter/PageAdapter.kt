@@ -2,6 +2,7 @@ package me.proxer.library.internal.adapter
 
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonDataException
+import com.squareup.moshi.ToJson
 import me.proxer.library.entity.manga.Page
 
 /**
@@ -34,5 +35,10 @@ internal class PageAdapter {
 
             Page(jsonPage[NAME_FIELD_LOCATION], height, width)
         }
+    }
+
+    @ToJson
+    fun toJson(value: Page): Array<String> {
+        return arrayOf(value.name, value.width.toString(), value.height.toString())
     }
 }

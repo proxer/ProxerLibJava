@@ -1,7 +1,5 @@
 package me.proxer.library.entity.notifications
 
-import com.squareup.moshi.Json
-
 /**
  * Entity holding counts of notification types.
  *
@@ -13,8 +11,8 @@ import com.squareup.moshi.Json
  * @author Ruben Gees
  */
 data class NotificationInfo(
-    @Json(name = "message_amount") val messageAmount: Int,
-    @Json(name = "friend_request_amount") val friendRequestAmount: Int,
-    @Json(name = "news_amount") val newsAmount: Int,
-    @Json(name = "notification_amount") val notificationAmount: Int
+    val messageAmount: Int,
+    val friendRequestAmount: Int,
+    val newsAmount: Int,
+    val notificationAmount: Int
 )

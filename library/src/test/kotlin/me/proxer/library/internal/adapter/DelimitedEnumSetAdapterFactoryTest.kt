@@ -1,5 +1,6 @@
 package me.proxer.library.internal.adapter
 
+import com.squareup.moshi.JsonClass
 import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -161,15 +162,18 @@ class DelimitedEnumSetAdapterFactoryTest {
         result shouldEqual """{"genders":"f, m"}"""
     }
 
-    private data class GenderTestClass(
+    @JsonClass(generateAdapter = true)
+    data class GenderTestClass(
         @field:DelimitedEnumSet val genders: Set<Gender>? = null
     )
 
-    private data class GenderWithDelimiterTestClass(
+    @JsonClass(generateAdapter = true)
+    data class GenderWithDelimiterTestClass(
         @field:DelimitedEnumSet(delimiter = ", ") val genders: Set<Gender>? = null
     )
 
-    private data class FskConstrainTestClass(
+    @JsonClass(generateAdapter = true)
+    data class FskConstrainTestClass(
         @field:DelimitedEnumSet val fskConstraints: Set<FskConstraint>? = null
     )
 }

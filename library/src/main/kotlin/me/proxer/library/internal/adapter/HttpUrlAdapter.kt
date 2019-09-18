@@ -1,6 +1,7 @@
 package me.proxer.library.internal.adapter
 
 import com.squareup.moshi.FromJson
+import com.squareup.moshi.ToJson
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 
@@ -15,4 +16,7 @@ internal class HttpUrlAdapter {
 
         return fixedUrl.toHttpUrlOrNull()
     }
+
+    @ToJson
+    fun toJson(url: HttpUrl?) = url?.toString()
 }
