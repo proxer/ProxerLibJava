@@ -33,5 +33,8 @@ enum class Medium {
     DOUJIN,
 
     @Json(name = "hmanga")
-    HMANGA
+    HMANGA,
+
+    @Json(name = "")
+    OTHER
 }
