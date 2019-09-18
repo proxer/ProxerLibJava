@@ -1,7 +1,6 @@
 package me.proxer.library.entity.manga
 
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
 /**
  * Entity representing a single page from a [Chapter].
@@ -12,7 +11,6 @@ import com.squareup.moshi.JsonClass
  *
  * @author Ruben Gees
  */
-@JsonClass(generateAdapter = true)
 data class Page(
     @Json(name = "name") val name: String,
     @Json(name = "height") val height: Int,

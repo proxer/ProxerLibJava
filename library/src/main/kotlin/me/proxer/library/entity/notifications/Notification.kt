@@ -1,7 +1,6 @@
 package me.proxer.library.entity.notifications
 
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 import me.proxer.library.entity.ProxerDateItem
 import me.proxer.library.entity.ProxerIdItem
 import me.proxer.library.enums.NotificationType
@@ -20,7 +19,6 @@ import java.util.Date
  *
  * @author Ruben Gees
  */
-@JsonClass(generateAdapter = true)
 data class Notification(
     @Json(name = "id") override val id: String,
     @Json(name = "type") val type: NotificationType,

@@ -1,14 +1,12 @@
 package me.proxer.library.enums
 
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
 /**
  * Enum holding the possible constraints for a setting in the UCP.
  *
  * @author Ruben Gees
  */
-@JsonClass(generateAdapter = false)
 enum class UcpSettingConstraint {
 
     @Json(name = "0")

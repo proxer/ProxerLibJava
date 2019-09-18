@@ -1,7 +1,6 @@
 package me.proxer.library.entity.info
 
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
 /**
  * Container for the single ratings. This ranges from 1 to 5 and is 0 if the user has not rated a
@@ -15,7 +14,6 @@ import com.squareup.moshi.JsonClass
  *
  * @author Desnoo
  */
-@JsonClass(generateAdapter = true)
 data class RatingDetails(
     @Json(name = "genre") val genre: Int = 0,
     @Json(name = "story") val story: Int = 0,
