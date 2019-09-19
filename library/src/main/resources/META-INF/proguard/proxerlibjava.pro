@@ -1,0 +1,1 @@
+-keepclassmembers,allowoptimization enum me.proxer.library.enums.* { *; }
