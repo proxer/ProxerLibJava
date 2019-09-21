@@ -22,6 +22,6 @@ ext {
 
     junitVersion = "5.5.2"
     concurrentUnitVersion = "0.4.6"
-    kluentVersion = "1.54"
+    kluentVersion = "1.55"
     mockkVersion = "1.9.3"
 }
