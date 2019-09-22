@@ -1,0 +1,8 @@
+{
+  "error": 0,
+  "message": "Abfrage erfolgreich",
+  "data": {
+    "type": "html",
+    "content": "<b>Some content</b>"
+  }
+}

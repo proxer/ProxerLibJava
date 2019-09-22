@@ -16,6 +16,7 @@ import me.proxer.library.api.messenger.MessengerApi
 import me.proxer.library.api.notifications.NotificationsApi
 import me.proxer.library.api.ucp.UcpApi
 import me.proxer.library.api.user.UserApi
+import me.proxer.library.api.wiki.WikiApi
 import me.proxer.library.internal.DefaultLoginTokenManager
 import me.proxer.library.internal.adapter.BooleanAdapterFactory
 import me.proxer.library.internal.adapter.ConferenceAdapter
@@ -145,6 +146,12 @@ class ProxerApi private constructor(retrofit: Retrofit) {
      */
     val comment = CommentApi(retrofit)
         @JvmName("comment") get
+
+    /**
+     * The respective API.
+     */
+    val wiki = WikiApi(retrofit)
+        @JvmName("wiki") get
 
     /**
      *
