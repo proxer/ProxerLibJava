@@ -44,7 +44,7 @@ internal interface InternalApi {
     fun createConferenceGroup(
         @Field("topic") topic: String?,
         @Field("text") firstMessage: String?,
-        @Field("users") participants: List<String>?
+        @Field("users[]") participants: List<String>?
     ): ProxerCall<String>
 
     @FormUrlEncoded

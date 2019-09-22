@@ -35,7 +35,7 @@ class HeaderInterceptorTest : ProxerTest() {
             api.notifications.news().build().execute()
         }
 
-        request.headers.get("proxer-api-key") shouldEqual "mock-key"
+        request.headers["proxer-api-key"] shouldEqual "mock-key"
     }
 
     @Test
@@ -44,7 +44,7 @@ class HeaderInterceptorTest : ProxerTest() {
             api.notifications.news().build().execute()
         }
 
-        request.headers.get("User-Agent") shouldEqual "ProxerLibJava/$VERSION"
+        request.headers["User-Agent"] shouldEqual "ProxerLibJava/$VERSION"
     }
 
     @Test
