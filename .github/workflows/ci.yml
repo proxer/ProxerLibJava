@@ -33,5 +33,7 @@ jobs:
 
       - name: Upload coverage
         uses: codecov/codecov-action@v1.0.2
+        env:
+          CI: "true"
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
