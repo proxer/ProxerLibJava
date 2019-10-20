@@ -45,6 +45,15 @@ class EpisodeInfoEndpointTest : ProxerTest() {
         )
     )
 
+    private val expectedEpisodeInfoNovel = EpisodeInfo(
+        firstEpisode = 1, lastEpisode = 50, category = Category.NOVEL,
+        availableLanguages = setOf(MediaLanguage.ENGLISH), userProgress = 12,
+        episodes = listOf(
+            MangaEpisode(number = 1, language = MediaLanguage.ENGLISH, title = "Chapter 1"),
+            MangaEpisode(number = 2, language = MediaLanguage.ENGLISH, title = "Chapter 2")
+        )
+    )
+
     @Test
     fun testDefault() {
         val (result, _) = server.runRequest("episode_info_anime.json") {
@@ -67,6 +76,18 @@ class EpisodeInfoEndpointTest : ProxerTest() {
         }
 
         result shouldEqual expectedEpisodeInfoManga
+    }
+
+    @Test
+    fun testNovel() {
+        val (result, _) = server.runRequest("episode_info_novel.json") {
+            api.info
+                .episodeInfo("12")
+                .build()
+                .execute()
+        }
+
+        result shouldEqual expectedEpisodeInfoNovel
     }
 
     @Test

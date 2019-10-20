@@ -15,5 +15,8 @@ enum class Category {
     ANIME,
 
     @Json(name = "manga")
-    MANGA
+    MANGA,
+
+    @Json(name = "novel")
+    NOVEL
 }

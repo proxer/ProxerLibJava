@@ -29,7 +29,7 @@ internal class EpisodeInfoAdapter {
 
                 AnimeEpisode(episode.number, episode.language, hosters, hosterImages)
             }
-            Category.MANGA -> json.episodes.map { episode ->
+            Category.MANGA, Category.NOVEL -> json.episodes.map { episode ->
                 val title = requireNotNull(episode.title)
 
                 MangaEpisode(episode.number, episode.language, title)
