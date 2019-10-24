@@ -64,6 +64,18 @@ class ProxerCallTest : ProxerTest() {
     }
 
     @Test
+    fun testInternalServerError() {
+        server.runRequest(MockResponse().setResponseCode(500)) {
+            val result = invoking {
+                api.notifications.news().build().execute()
+            } shouldThrow ProxerException::class
+
+            result.exception.errorType shouldBe ErrorType.SERVER
+            result.exception.serverErrorType shouldBe ServerErrorType.UNKNOWN
+        }
+    }
+
+    @Test
     fun testInvalidEncodingError() {
         val response = MockResponse().setBody(fromResource("news.json").replace(":", "invalid"))
 

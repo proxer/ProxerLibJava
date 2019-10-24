@@ -131,10 +131,18 @@ class ProxerCall<T> internal constructor(private val internalCall: Call<ProxerRe
         } else {
             response.errorBody()?.also { it.close() }
 
-            throw ProxerException(
-                ProxerException.ErrorType.IO,
-                message = "Unsuccessful request: ${response.code()}"
-            )
+            if (response.code() in 500..599) {
+                throw ProxerException(
+                    ProxerException.ErrorType.SERVER,
+                    message = "Unsuccessful request: ${response.code()}",
+                    serverErrorType = ProxerException.ServerErrorType.UNKNOWN
+                )
+            } else {
+                throw ProxerException(
+                    ProxerException.ErrorType.IO,
+                    message = "Unsuccessful request: ${response.code()}"
+                )
+            }
         }
     }
 
