@@ -44,3 +44,5 @@ style:
     active: false
   UnnecessaryApply:
     active: false
+  UseIfInsteadOfWhen:
+    active: false

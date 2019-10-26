@@ -8,8 +8,8 @@ ext {
     dokkaVersion = "0.9.18"
 
     jacocoVersion = "0.8.4"
-    ktlintVersion = "8.2.0"
-    detektVersion = "1.0.0-RC16"
+    ktlintVersion = "9.0.0"
+    detektVersion = "1.1.1"
 
     gradleVersionsPluginVersion = "0.21.0"
     buildConfigPluginVersion = "1.1.8"

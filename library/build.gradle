@@ -83,7 +83,10 @@ jacocoTestReport {
 }
 
 ktlint {
-    reporters = [org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE]
+    disabledRules = ["import-ordering"]
+    reporters {
+        reporter "checkstyle"
+    }
 }
 
 detekt {
