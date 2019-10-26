@@ -184,8 +184,15 @@ class ProxerUrlsTest {
     }
 
     @Test
+    fun testCaptchaWebWithIp() {
+        ProxerUrls.captchaWeb("1.2.3.4").toString() shouldEqual
+            "https://proxer.me/misc/captcha?ip=1.2.3.4&device=default"
+    }
+
+    @Test
     fun testCaptchaWebWithDevice() {
-        ProxerUrls.captchaWeb(Device.MOBILE).toString() shouldEqual "https://proxer.me/misc/captcha?device=mobile"
+        ProxerUrls.captchaWeb(null, Device.MOBILE).toString() shouldEqual
+            "https://proxer.me/misc/captcha?device=mobile"
     }
 
     @Test

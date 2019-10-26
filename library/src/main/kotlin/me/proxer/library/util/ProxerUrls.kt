@@ -279,12 +279,15 @@ object ProxerUrls {
 
     /**
      * Returns the link for the web page to solve the captcha.
+     *
+     * Optionally with the [ip] parameter to give a different from the one in the network request.
      */
     @JvmOverloads
-    fun captchaWeb(device: Device = Device.DEFAULT): HttpUrl {
+    fun captchaWeb(ip: String? = null, device: Device = Device.DEFAULT): HttpUrl {
         return webBase.newBuilder()
             .addPathSegment("misc")
             .addPathSegment("captcha")
+            .apply { if (!ip.isNullOrBlank()) addQueryParameter("ip", ip) }
             .addQueryParameter("device", ProxerUtils.getSafeApiEnumName(device))
             .build()
     }
