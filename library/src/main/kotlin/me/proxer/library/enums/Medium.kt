@@ -29,6 +29,9 @@ enum class Medium {
     @Json(name = "lightnovel")
     LIGHTNOVEL,
 
+    @Json(name = "webnovel")
+    WEBNOVEL,
+
     @Json(name = "oneshot")
     ONESHOT,
 
