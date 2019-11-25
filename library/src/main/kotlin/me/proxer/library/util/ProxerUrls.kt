@@ -70,7 +70,7 @@ object ProxerUrls {
         return cdnBase.newBuilder()
             .addPathSegment("news")
             .addPathSegment("tmp")
-            .addPathSegment(String.format("%s_%s.png", id, image))
+            .addPathSegment("${id}_$image.png")
             .build()
     }
 
@@ -91,7 +91,7 @@ object ProxerUrls {
         return cdnBase.newBuilder()
             .addPathSegment("cover")
             .addPathSegment("tmp")
-            .addPathSegment(String.format("%s.jpg", id))
+            .addPathSegment("$id.jpg")
             .build()
     }
 
@@ -118,7 +118,7 @@ object ProxerUrls {
     fun translatorGroupImage(id: String): HttpUrl {
         return cdnBase.newBuilder()
             .addPathSegment("translatorgroups")
-            .addPathSegment(String.format("%s.jpg", id))
+            .addPathSegment("$id.jpg")
             .build()
     }
 
@@ -128,7 +128,7 @@ object ProxerUrls {
     fun industryImage(id: String): HttpUrl {
         return cdnBase.newBuilder()
             .addPathSegment("industry")
-            .addPathSegment(String.format("%s.jpg", id))
+            .addPathSegment("$id.jpg")
             .build()
     }
 
@@ -150,7 +150,7 @@ object ProxerUrls {
     fun mangaPageImage(server: String, entryId: String, id: String, name: String): HttpUrl {
         return HttpUrl.Builder()
             .scheme("https")
-            .host(String.format("manga%s.proxer.me", server))
+            .host("manga$server.proxer.me")
             .addPathSegment("f")
             .addPathSegment(entryId)
             .addPathSegment(id)

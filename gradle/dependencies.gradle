@@ -8,7 +8,7 @@ dependencies {
 
     implementation "com.serjltt.moshi:moshi-lazy-adapters:$moshiLazyAdaptersVersion"
 
-    runtime "com.squareup.okio:okio:$okioVersion"
+    runtimeOnly "com.squareup.okio:okio:$okioVersion"
 
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
     kaptTest "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
