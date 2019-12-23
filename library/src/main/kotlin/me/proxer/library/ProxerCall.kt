@@ -135,7 +135,7 @@ class ProxerCall<T> internal constructor(private val internalCall: Call<ProxerRe
                 throw ProxerException(
                     ProxerException.ErrorType.SERVER,
                     message = "Unsuccessful request: ${response.code()}",
-                    serverErrorType = ProxerException.ServerErrorType.UNKNOWN
+                    serverErrorType = ProxerException.ServerErrorType.INTERNAL
                 )
             } else {
                 throw ProxerException(
@@ -152,8 +152,8 @@ class ProxerCall<T> internal constructor(private val internalCall: Call<ProxerRe
                 ProxerException.ErrorType.TIMEOUT,
                 cause = error
             )
-            is IOException -> when {
-                error.message == "Canceled" -> ProxerException(
+            is IOException -> when (error.message) {
+                "Canceled" -> ProxerException(
                     ProxerException.ErrorType.CANCELLED,
                     cause = error
                 )

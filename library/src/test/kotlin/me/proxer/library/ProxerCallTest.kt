@@ -71,7 +71,7 @@ class ProxerCallTest : ProxerTest() {
             } shouldThrow ProxerException::class
 
             result.exception.errorType shouldBe ErrorType.SERVER
-            result.exception.serverErrorType shouldBe ServerErrorType.UNKNOWN
+            result.exception.serverErrorType shouldBe ServerErrorType.INTERNAL
         }
     }
 

@@ -156,7 +156,8 @@ class ProxerException : Exception {
         COMMENT_INVALID_CONTENT(3077),
         COMMENT_ALREADY_EXISTS(3078),
 
-        UNKNOWN(10_000);
+        UNKNOWN(10_000),
+        INTERNAL(99_999);
 
         companion object {
             internal fun fromErrorCode(errorCode: Int?): ServerErrorType {
