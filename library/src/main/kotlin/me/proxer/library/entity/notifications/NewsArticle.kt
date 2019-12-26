@@ -30,11 +30,11 @@ data class NewsArticle(
     @Json(name = "description") val description: String,
     @Json(name = "image_id") override val image: String,
     @Json(name = "subject") val subject: String,
-    @Json(name = "hits") val hits: Int = 0,
+    @Json(name = "hits") val hits: Int,
     @Json(name = "thread") val threadId: String,
     @Json(name = "uid") val authorId: String,
     @Json(name = "uname") val author: String,
-    @Json(name = "posts") val commentAmount: Int = 0,
+    @Json(name = "posts") val commentAmount: Int,
     @Json(name = "catid") val categoryId: String,
     @Json(name = "catname") val category: String
 ) : ProxerIdItem, ProxerDateItem, ProxerImageItem
