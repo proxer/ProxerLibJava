@@ -3,7 +3,7 @@ package me.proxer.library.api.info
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.info.MediaUserInfo
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -24,7 +24,7 @@ class MediaUserInfoEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedUserInfo
+        result shouldBeEqualTo expectedUserInfo
     }
 
     @Test
@@ -35,6 +35,6 @@ class MediaUserInfoEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/info/userinfo?id=321"
+        request.path shouldBeEqualTo "/api/v1/info/userinfo?id=321"
     }
 }

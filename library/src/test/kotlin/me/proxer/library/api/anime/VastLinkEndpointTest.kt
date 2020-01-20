@@ -3,7 +3,7 @@ package me.proxer.library.api.anime
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.anime.LinkContainer
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -24,7 +24,7 @@ class VastLinkEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedLinkContainer
+        result shouldBeEqualTo expectedLinkContainer
     }
 
     @Test
@@ -35,6 +35,6 @@ class VastLinkEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/anime/linkvast?id=9"
+        request.path shouldBeEqualTo "/api/v1/anime/linkvast?id=9"
     }
 }

@@ -6,7 +6,7 @@ import me.proxer.library.enums.Category
 import me.proxer.library.enums.Medium
 import me.proxer.library.runRequest
 import org.amshove.kluent.invoking
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
@@ -33,7 +33,7 @@ class UserTopTenEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedEntryAnime
+        result.first() shouldBeEqualTo expectedEntryAnime
     }
 
     @Test
@@ -46,7 +46,7 @@ class UserTopTenEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedEntryManga
+        result.first() shouldBeEqualTo expectedEntryManga
     }
 
     @Test
@@ -59,7 +59,7 @@ class UserTopTenEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/user/topten?uid=123&username=rubygee&kat=anime&isH=true"
+        request.path shouldBeEqualTo "/api/v1/user/topten?uid=123&username=rubygee&kat=anime&isH=true"
     }
 
     @Test

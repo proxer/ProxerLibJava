@@ -5,7 +5,7 @@ import me.proxer.library.entity.info.TranslatorGroup
 import me.proxer.library.enums.Country
 import me.proxer.library.runRequest
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -29,7 +29,7 @@ class TranslatorGroupEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedTranslatorGroup
+        result shouldBeEqualTo expectedTranslatorGroup
     }
 
     @Test
@@ -40,6 +40,6 @@ class TranslatorGroupEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/info/translatorgroup?id=12"
+        request.path shouldBeEqualTo "/api/v1/info/translatorgroup?id=12"
     }
 }

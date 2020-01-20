@@ -6,7 +6,7 @@ import me.proxer.library.entity.info.RatingDetails
 import me.proxer.library.enums.CommentSortCriteria
 import me.proxer.library.enums.UserMediaProgress
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -71,7 +71,7 @@ class CommentsEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedComment
+        result.first() shouldBeEqualTo expectedComment
     }
 
     @Test
@@ -83,7 +83,7 @@ class CommentsEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedCommentWithEmptyRatingDetails
+        result.first() shouldBeEqualTo expectedCommentWithEmptyRatingDetails
     }
 
     @Test
@@ -95,7 +95,7 @@ class CommentsEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedCommentWithOtherEmptyRatingDetails
+        result.first() shouldBeEqualTo expectedCommentWithOtherEmptyRatingDetails
     }
 
     @Test
@@ -109,6 +109,6 @@ class CommentsEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/info/comments?id=1&p=0&limit=10&sort=rating"
+        request.path shouldBeEqualTo "/api/v1/info/comments?id=1&p=0&limit=10&sort=rating"
     }
 }

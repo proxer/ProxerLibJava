@@ -2,8 +2,8 @@ package me.proxer.library.api.messenger
 
 import me.proxer.library.ProxerTest
 import me.proxer.library.runRequest
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -31,7 +31,7 @@ class ConferenceModificationEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/messenger/setread"
+        request.path shouldBeEqualTo "/api/v1/messenger/setread"
     }
 
     @Test
@@ -42,7 +42,7 @@ class ConferenceModificationEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/messenger/setunread"
+        request.path shouldBeEqualTo "/api/v1/messenger/setunread"
     }
 
     @Test
@@ -53,7 +53,7 @@ class ConferenceModificationEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/messenger/setblock"
+        request.path shouldBeEqualTo "/api/v1/messenger/setblock"
     }
 
     @Test
@@ -64,7 +64,7 @@ class ConferenceModificationEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/messenger/setunblock"
+        request.path shouldBeEqualTo "/api/v1/messenger/setunblock"
     }
 
     @Test
@@ -75,7 +75,7 @@ class ConferenceModificationEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/messenger/setfavour"
+        request.path shouldBeEqualTo "/api/v1/messenger/setfavour"
     }
 
     @Test
@@ -86,7 +86,7 @@ class ConferenceModificationEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/messenger/setunfavour"
+        request.path shouldBeEqualTo "/api/v1/messenger/setunfavour"
     }
 
     @Test
@@ -97,6 +97,6 @@ class ConferenceModificationEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "conference_id=321"
+        request.body.readUtf8() shouldBeEqualTo "conference_id=321"
     }
 }

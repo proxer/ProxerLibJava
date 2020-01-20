@@ -9,8 +9,8 @@ import me.proxer.library.runRequest
 import org.amshove.kluent.invoking
 import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeEmpty
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
@@ -50,7 +50,7 @@ class SetSettingsEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/ucp/setsettings"
+        request.path shouldBeEqualTo "/api/v1/ucp/setsettings"
     }
 
     @Test
@@ -61,11 +61,11 @@ class SetSettingsEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual """
-            profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3&profil_forum=3
-            &profil_connections=2&profil_connections_new=0&profil_about=0&profil_chronik=4&profil_board=2
-            &profil_board_post=3&profil_gallery=1&profil_article=2&hide_tags=0&ads_active=1&ads_interval=7
-        """.trimIndent().replace("\n", "")
+        request.body.readUtf8() shouldBeEqualTo """
+                profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3&profil_forum=3
+                &profil_connections=2&profil_connections_new=0&profil_about=0&profil_chronik=4&profil_board=2
+                &profil_board_post=3&profil_gallery=1&profil_article=2&hide_tags=0&ads_active=1&ads_interval=7
+            """.trimIndent().replace("\n", "")
     }
 
     @Test
@@ -93,11 +93,11 @@ class SetSettingsEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual """
-            profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3&profil_forum=3
-            &profil_connections=2&profil_connections_new=0&profil_about=0&profil_chronik=4&profil_board=2
-            &profil_board_post=3&profil_gallery=1&profil_article=2&hide_tags=1&ads_active=0&ads_interval=1
-        """.trimIndent().replace("\n", "")
+        request.body.readUtf8() shouldBeEqualTo """
+                profil=3&profil_topten=2&profil_anime=1&profil_manga=2&profil_latestcomments=3&profil_forum=3
+                &profil_connections=2&profil_connections_new=0&profil_about=0&profil_chronik=4&profil_board=2
+                &profil_board_post=3&profil_gallery=1&profil_article=2&hide_tags=1&ads_active=0&ads_interval=1
+            """.trimIndent().replace("\n", "")
     }
 
     @Test
@@ -109,7 +109,7 @@ class SetSettingsEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "profil=1"
+        request.body.readUtf8() shouldBeEqualTo "profil=1"
     }
 
     @Test

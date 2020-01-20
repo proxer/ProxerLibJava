@@ -3,7 +3,7 @@ package me.proxer.library.api.wiki
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.wiki.WikiPage
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -24,7 +24,7 @@ class WikiContentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedContent
+        result shouldBeEqualTo expectedContent
     }
 
     @Test
@@ -35,6 +35,6 @@ class WikiContentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/wiki/content?title=abc"
+        request.path shouldBeEqualTo "/api/v1/wiki/content?title=abc"
     }
 }

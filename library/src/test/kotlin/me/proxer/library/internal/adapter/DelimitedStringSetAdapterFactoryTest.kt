@@ -4,8 +4,8 @@ import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import org.amshove.kluent.shouldBeEmpty
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.amshove.kluent.shouldNotBeNull
 import org.junit.jupiter.api.Test
 
@@ -67,7 +67,7 @@ class DelimitedStringSetAdapterFactoryTest {
         val result = moshi.adapter(StringSetTestClass::class.java).fromJson("""{"value":"a"}""")
 
         result.shouldNotBeNull()
-        result.value shouldEqual setOf("a")
+        result.value shouldBeEqualTo setOf("a")
     }
 
     @Test
@@ -75,7 +75,7 @@ class DelimitedStringSetAdapterFactoryTest {
         val result = moshi.adapter(StringSetTestClass::class.java).fromJson("""{"value":"a b"}""")
 
         result.shouldNotBeNull()
-        result.value shouldEqual setOf("a", "b")
+        result.value shouldBeEqualTo setOf("a", "b")
     }
 
     @Test
@@ -83,7 +83,7 @@ class DelimitedStringSetAdapterFactoryTest {
         val result = moshi.adapter(StringSetTestClass::class.java).fromJson("""{"value":"a b b"}""")
 
         result.shouldNotBeNull()
-        result.value shouldEqual setOf("a", "b")
+        result.value shouldBeEqualTo setOf("a", "b")
     }
 
     @Test
@@ -107,7 +107,7 @@ class DelimitedStringSetAdapterFactoryTest {
         val result = moshi.adapter(StringSetWithDelimiterTestClass::class.java).fromJson("""{"value":"a, b,c"}""")
 
         result.shouldNotBeNull()
-        result.value shouldEqual setOf("a", "b,c")
+        result.value shouldBeEqualTo setOf("a", "b,c")
     }
 
     @Test
@@ -115,7 +115,7 @@ class DelimitedStringSetAdapterFactoryTest {
         val result = moshi.adapter(StringSetWithValuesToKeepTestClass::class.java).fromJson("""{"value":"a b c"}""")
 
         result.shouldNotBeNull()
-        result.value shouldEqual setOf("a b", "c")
+        result.value shouldBeEqualTo setOf("a b", "c")
     }
 
     @Test
@@ -123,7 +123,7 @@ class DelimitedStringSetAdapterFactoryTest {
         val subject = StringSetTestClass(setOf("a"))
         val result = moshi.adapter(StringSetTestClass::class.java).toJson(subject)
 
-        result shouldEqual """{"value":"a"}"""
+        result shouldBeEqualTo """{"value":"a"}"""
     }
 
     @Test
@@ -131,7 +131,7 @@ class DelimitedStringSetAdapterFactoryTest {
         val subject = StringSetTestClass(setOf("a", "b", "c"))
         val result = moshi.adapter(StringSetTestClass::class.java).toJson(subject)
 
-        result shouldEqual """{"value":"a b c"}"""
+        result shouldBeEqualTo """{"value":"a b c"}"""
     }
 
     @Test
@@ -139,7 +139,7 @@ class DelimitedStringSetAdapterFactoryTest {
         val subject = StringSetWithDelimiterTestClass(setOf("a", "b", "c"))
         val result = moshi.adapter(StringSetWithDelimiterTestClass::class.java).toJson(subject)
 
-        result shouldEqual """{"value":"a, b, c"}"""
+        result shouldBeEqualTo """{"value":"a, b, c"}"""
     }
 
     @JsonClass(generateAdapter = true)

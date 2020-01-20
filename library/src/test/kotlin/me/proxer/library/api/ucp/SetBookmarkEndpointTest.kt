@@ -4,8 +4,8 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.enums.Category
 import me.proxer.library.enums.MediaLanguage
 import me.proxer.library.runRequest
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -33,7 +33,7 @@ class SetBookmarkEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/ucp/setreminder"
+        request.path shouldBeEqualTo "/api/v1/ucp/setreminder"
     }
 
     @Test
@@ -44,6 +44,6 @@ class SetBookmarkEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "id=321&episode=7&language=de&kat=manga"
+        request.body.readUtf8() shouldBeEqualTo "id=321&episode=7&language=de&kat=manga"
     }
 }

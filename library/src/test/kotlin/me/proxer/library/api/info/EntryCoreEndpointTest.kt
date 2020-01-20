@@ -9,7 +9,7 @@ import me.proxer.library.enums.License
 import me.proxer.library.enums.MediaState
 import me.proxer.library.enums.Medium
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -40,7 +40,7 @@ class EntryCoreEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedEntry
+        result shouldBeEqualTo expectedEntry
     }
 
     @Test
@@ -51,6 +51,6 @@ class EntryCoreEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/info/entry?id=1"
+        request.path shouldBeEqualTo "/api/v1/info/entry?id=1"
     }
 }

@@ -2,7 +2,7 @@ package me.proxer.library.api.messenger
 
 import me.proxer.library.ProxerTest
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -19,7 +19,7 @@ class CreateConferenceEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual "abcTest"
+        result shouldBeEqualTo "abcTest"
     }
 
     @Test
@@ -30,7 +30,7 @@ class CreateConferenceEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/messenger/newconference"
+        request.path shouldBeEqualTo "/api/v1/messenger/newconference"
     }
 
     @Test
@@ -41,6 +41,6 @@ class CreateConferenceEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "text=test&username=testUser"
+        request.body.readUtf8() shouldBeEqualTo "text=test&username=testUser"
     }
 }

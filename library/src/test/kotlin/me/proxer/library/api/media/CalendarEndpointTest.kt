@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.media.CalendarEntry
 import me.proxer.library.enums.CalendarDay
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -36,8 +36,8 @@ class CalendarEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual firstExpectedEntry
-        result.last() shouldEqual secondExpectedEntry
+        result.first() shouldBeEqualTo firstExpectedEntry
+        result.last() shouldBeEqualTo secondExpectedEntry
     }
 
     @Test
@@ -48,6 +48,6 @@ class CalendarEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/media/calendar"
+        request.path shouldBeEqualTo "/api/v1/media/calendar"
     }
 }

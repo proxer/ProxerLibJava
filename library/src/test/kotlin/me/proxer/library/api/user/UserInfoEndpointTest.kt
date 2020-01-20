@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.user.UserInfo
 import me.proxer.library.runRequest
 import org.amshove.kluent.invoking
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 import java.util.Date
@@ -30,7 +30,7 @@ class UserInfoEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedInfo
+        result shouldBeEqualTo expectedInfo
     }
 
     @Test
@@ -41,7 +41,7 @@ class UserInfoEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/user/userinfo?uid=123&username=rubygee"
+        request.path shouldBeEqualTo "/api/v1/user/userinfo?uid=123&username=rubygee"
     }
 
     @Test

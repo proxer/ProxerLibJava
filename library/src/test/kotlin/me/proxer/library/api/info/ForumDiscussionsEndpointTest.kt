@@ -3,7 +3,7 @@ package me.proxer.library.api.info
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.info.ForumDiscussion
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -36,8 +36,8 @@ class ForumDiscussionsEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedFirstForumDiscussion
-        result.last() shouldEqual expectedLastForumDiscussion
+        result.first() shouldBeEqualTo expectedFirstForumDiscussion
+        result.last() shouldBeEqualTo expectedLastForumDiscussion
     }
 
     @Test
@@ -48,6 +48,6 @@ class ForumDiscussionsEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/info/forum?id=3"
+        request.path shouldBeEqualTo "/api/v1/info/forum?id=3"
     }
 }

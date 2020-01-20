@@ -6,7 +6,7 @@ import me.proxer.library.entity.info.RatingDetails
 import me.proxer.library.enums.UserMediaProgress
 import me.proxer.library.runRequest
 import org.amshove.kluent.invoking
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 import java.util.Date
@@ -32,7 +32,7 @@ class CommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedComment
+        result shouldBeEqualTo expectedComment
     }
 
     @Test
@@ -44,7 +44,7 @@ class CommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/comment/info?id=12"
+        request.path shouldBeEqualTo "/api/v1/comment/info?id=12"
     }
 
     @Test
@@ -56,7 +56,7 @@ class CommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/comment/entry?eid=7"
+        request.path shouldBeEqualTo "/api/v1/comment/entry?eid=7"
     }
 
     @Test

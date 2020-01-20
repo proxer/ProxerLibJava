@@ -3,7 +3,7 @@ package me.proxer.library.api.chat
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.chat.ChatRoomUser
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -29,8 +29,8 @@ class ChatRoomUsersEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual firstExpectedUser
-        result.last() shouldEqual lastExpectedUser
+        result.first() shouldBeEqualTo firstExpectedUser
+        result.last() shouldBeEqualTo lastExpectedUser
     }
 
     @Test
@@ -41,6 +41,6 @@ class ChatRoomUsersEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/chat/roomusers?room_id=12"
+        request.path shouldBeEqualTo "/api/v1/chat/roomusers?room_id=12"
     }
 }

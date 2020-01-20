@@ -2,7 +2,7 @@ package me.proxer.library.api.anime
 
 import me.proxer.library.ProxerTest
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -19,7 +19,7 @@ class LinkEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual "//www.dailymotion.com/embed/video/k4D1tfdhKG"
+        result shouldBeEqualTo "//www.dailymotion.com/embed/video/k4D1tfdhKG"
     }
 
     @Test
@@ -31,6 +31,6 @@ class LinkEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/anime/link?id=13"
+        request.path shouldBeEqualTo "/api/v1/anime/link?id=13"
     }
 }

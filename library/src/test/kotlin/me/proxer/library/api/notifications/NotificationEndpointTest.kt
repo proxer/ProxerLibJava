@@ -6,7 +6,7 @@ import me.proxer.library.enums.NotificationFilter
 import me.proxer.library.enums.NotificationType
 import me.proxer.library.runRequest
 import okhttp3.HttpUrl.Companion.toHttpUrl
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -31,7 +31,7 @@ class NotificationEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedNotification
+        result.first() shouldBeEqualTo expectedNotification
     }
 
     @Test
@@ -46,6 +46,6 @@ class NotificationEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/notifications/notifications?p=0&limit=10&set_read=true&filter=1"
+        request.path shouldBeEqualTo "/api/v1/notifications/notifications?p=0&limit=10&set_read=true&filter=1"
     }
 }

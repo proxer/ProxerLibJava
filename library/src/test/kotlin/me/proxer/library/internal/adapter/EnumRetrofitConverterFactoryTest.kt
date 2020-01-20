@@ -2,8 +2,8 @@ package me.proxer.library.internal.adapter
 
 import me.proxer.library.entity.info.Entry
 import me.proxer.library.enums.MediaLanguage
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.amshove.kluent.shouldNotBeNull
 import org.junit.jupiter.api.Test
 import retrofit2.Retrofit
@@ -31,6 +31,6 @@ class EnumRetrofitConverterFactoryTest {
         val converter = factory.stringConverter(MediaLanguage::class.java, emptyArray(), retrofit)
 
         converter.shouldNotBeNull()
-        converter.convert(MediaLanguage.GERMAN) shouldEqual "de"
+        converter.convert(MediaLanguage.GERMAN) shouldBeEqualTo "de"
     }
 }

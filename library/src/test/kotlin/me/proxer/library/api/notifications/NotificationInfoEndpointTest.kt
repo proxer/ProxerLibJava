@@ -3,7 +3,7 @@ package me.proxer.library.api.notifications
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.notifications.NotificationInfo
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -24,7 +24,7 @@ class NotificationInfoEndpointTest : ProxerTest() {
             .execute()
         }
 
-        result shouldEqual expectedInfo
+        result shouldBeEqualTo expectedInfo
     }
 
     @Test
@@ -36,6 +36,6 @@ class NotificationInfoEndpointTest : ProxerTest() {
             .execute()
         }
 
-        request.path shouldEqual "/api/v1/notifications/count"
+        request.path shouldBeEqualTo "/api/v1/notifications/count"
     }
 }

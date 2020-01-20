@@ -2,8 +2,8 @@ package me.proxer.library.api.info
 
 import me.proxer.library.ProxerTest
 import me.proxer.library.runRequest
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -31,7 +31,7 @@ class ModifyUserInfoEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/info/setuserinfo"
+        request.path shouldBeEqualTo "/api/v1/info/setuserinfo"
     }
 
     @Test
@@ -42,7 +42,7 @@ class ModifyUserInfoEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "id=321&type=note"
+        request.body.readUtf8() shouldBeEqualTo "id=321&type=note"
     }
 
     @Test
@@ -53,7 +53,7 @@ class ModifyUserInfoEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "id=321&type=favor"
+        request.body.readUtf8() shouldBeEqualTo "id=321&type=favor"
     }
 
     @Test
@@ -64,6 +64,6 @@ class ModifyUserInfoEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "id=321&type=finish"
+        request.body.readUtf8() shouldBeEqualTo "id=321&type=finish"
     }
 }

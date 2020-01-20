@@ -2,8 +2,8 @@ package me.proxer.library.api.chat
 
 import me.proxer.library.ProxerTest
 import me.proxer.library.runRequest
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -31,7 +31,7 @@ class SendChatMessageEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/chat/newmessage"
+        request.path shouldBeEqualTo "/api/v1/chat/newmessage"
     }
 
     @Test
@@ -42,6 +42,6 @@ class SendChatMessageEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "room_id=312&message=someMessage"
+        request.body.readUtf8() shouldBeEqualTo "room_id=312&message=someMessage"
     }
 }

@@ -6,7 +6,7 @@ import me.proxer.library.enums.IndustryType
 import me.proxer.library.enums.MediaState
 import me.proxer.library.enums.Medium
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -29,7 +29,7 @@ class IndustryProjectListEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedIndustryProject
+        result.first() shouldBeEqualTo expectedIndustryProject
     }
 
     @Test
@@ -44,7 +44,7 @@ class IndustryProjectListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/industryprojects?id=543&type=record_label&isH=true&p=3&limit=12"
+        request.path shouldBeEqualTo "/api/v1/list/industryprojects?id=543&type=record_label&isH=true&p=3&limit=12"
     }
 
     @Test
@@ -59,7 +59,7 @@ class IndustryProjectListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/industryprojects?id=543&type=record_label&isH=false&p=3&limit=12"
+        request.path shouldBeEqualTo "/api/v1/list/industryprojects?id=543&type=record_label&isH=false&p=3&limit=12"
     }
 
     @Test
@@ -72,6 +72,6 @@ class IndustryProjectListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/industryprojects?id=543"
+        request.path shouldBeEqualTo "/api/v1/list/industryprojects?id=543"
     }
 }

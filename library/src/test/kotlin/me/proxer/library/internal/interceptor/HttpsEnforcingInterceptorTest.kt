@@ -7,7 +7,7 @@ import okhttp3.Interceptor
 import okhttp3.Request
 import org.amshove.kluent.invoking
 import org.amshove.kluent.shouldBe
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -41,7 +41,7 @@ class HttpsEnforcingInterceptorTest {
         interceptor.intercept(chain)
 
         requestSlot.isCaptured shouldBe true
-        requestSlot.captured.url.toString() shouldEqual expected
+        requestSlot.captured.url.toString() shouldBeEqualTo expected
     }
 
     @Test

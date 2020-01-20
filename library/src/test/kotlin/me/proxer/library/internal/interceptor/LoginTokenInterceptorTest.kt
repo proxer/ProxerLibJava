@@ -17,8 +17,8 @@ import okhttp3.Response
 import okhttp3.mockwebserver.MockResponse
 import org.amshove.kluent.invoking
 import org.amshove.kluent.shouldBe
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -35,11 +35,11 @@ class LoginTokenInterceptorTest : ProxerTest() {
 
         val (_, request) = server.runRequest("news.json") { api.notifications.news().build().execute() }
 
-        request.headers.get("proxer-api-token") shouldEqual """
-            OmSjyOzMeyICUnErDD04lsDta7REW2fIn6ZWUxG96mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCYcdWQ0Xv2TFvTUo
-            D8XGHOHP11Uc46rF4BSXrZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlwK9DHlLxqS83rl6VPD9bqXabkKT
-            sYBOslW61fOwFFDI7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6
-        """.trimIndent().replace("\n", "")
+        request.headers.get("proxer-api-token") shouldBeEqualTo """
+                OmSjyOzMeyICUnErDD04lsDta7REW2fIn6ZWUxG96mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCYcdWQ0Xv2TFvTUo
+                D8XGHOHP11Uc46rF4BSXrZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlwK9DHlLxqS83rl6VPD9bqXabkKT
+                sYBOslW61fOwFFDI7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6
+            """.trimIndent().replace("\n", "")
     }
 
     @Test
@@ -72,11 +72,11 @@ class LoginTokenInterceptorTest : ProxerTest() {
             api.notifications.news().build().execute()
         }
 
-        request.headers.get("proxer-api-token") shouldEqual """
-            OmSjyOzMeyICUnErDD04lsDta7REW2fIn6ZWUxG96mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCYcdWQ0Xv2TFvTUo
-            D8XGHOHP11Uc46rF4BSXrZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlwK9DHlLxqS83rl6VPD9bqXabkKT
-            sYBOslW61fOwFFDI7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6
-        """.trimIndent().replace("\n", "")
+        request.headers.get("proxer-api-token") shouldBeEqualTo """
+                OmSjyOzMeyICUnErDD04lsDta7REW2fIn6ZWUxG96mIXHmplYymjYZK94BNXA1wloFSVcw3fTKdA6CT49ek7b4dfCYcdWQ0Xv2TFvTUo
+                D8XGHOHP11Uc46rF4BSXrZUU1LxwEqSgxNWdAC3ACWMF2di3N0Xe9S88BEBe3tuAfoNP1NpAIadJlwK9DHlLxqS83rl6VPD9bqXabkKT
+                sYBOslW61fOwFFDI7WLZLo8UM35XnPRPLsBdLwgJL5dpJQ6
+            """.trimIndent().replace("\n", "")
     }
 
     @Test

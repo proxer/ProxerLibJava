@@ -5,7 +5,7 @@ import me.proxer.library.entity.ucp.UcpTopTenEntry
 import me.proxer.library.enums.Category
 import me.proxer.library.enums.Medium
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -27,7 +27,7 @@ class UcpTopTenEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedEntry
+        result.first() shouldBeEqualTo expectedEntry
     }
 
     @Test
@@ -38,6 +38,6 @@ class UcpTopTenEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/ucp/topten"
+        request.path shouldBeEqualTo "/api/v1/ucp/topten"
     }
 }

@@ -9,7 +9,7 @@ import me.proxer.library.enums.MediaState
 import me.proxer.library.enums.Medium
 import me.proxer.library.enums.SortType
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -32,7 +32,7 @@ class MediaListEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedEntry
+        result.first() shouldBeEqualTo expectedEntry
     }
 
     @Test
@@ -51,9 +51,9 @@ class MediaListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual """
-            /api/v1/list/entrylist?kat=anime&medium=animeseries&isH=true&start=abc&
-            sort=rating&sort_type=ASC&p=0&limit=10
-        """.trimIndent().replace("\n", "")
+        request.path shouldBeEqualTo """
+                /api/v1/list/entrylist?kat=anime&medium=animeseries&isH=true&start=abc&
+                sort=rating&sort_type=ASC&p=0&limit=10
+            """.trimIndent().replace("\n", "")
     }
 }

@@ -8,8 +8,8 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.amshove.kluent.shouldBe
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeTrue
-import org.amshove.kluent.shouldEqual
 import org.amshove.kluent.shouldNotBeNull
 import org.junit.jupiter.api.Test
 
@@ -48,6 +48,6 @@ class OneShotInterceptorTest {
         interceptor.intercept(chain)
 
         requestSlot.isCaptured shouldBe true
-        requestSlot.captured shouldEqual request
+        requestSlot.captured shouldBeEqualTo request
     }
 }

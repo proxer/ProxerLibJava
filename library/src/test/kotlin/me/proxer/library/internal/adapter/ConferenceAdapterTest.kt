@@ -2,7 +2,7 @@ package me.proxer.library.internal.adapter
 
 import me.proxer.library.entity.messenger.Conference
 import me.proxer.library.internal.adapter.ConferenceAdapter.IntermediateConference
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -30,11 +30,11 @@ class ConferenceAdapterTest {
 
     @Test
     fun testFromJson() {
-        adapter.fromJson(intermediateConferenceWithImage) shouldEqual conferenceWithImage
+        adapter.fromJson(intermediateConferenceWithImage) shouldBeEqualTo conferenceWithImage
     }
 
     @Test
     fun testFromJsonWithoutImage() {
-        adapter.fromJson(intermediateConferenceWithoutImage) shouldEqual conferenceWithoutImage
+        adapter.fromJson(intermediateConferenceWithoutImage) shouldBeEqualTo conferenceWithoutImage
     }
 }

@@ -7,7 +7,7 @@ import me.proxer.library.enums.MediaLanguage
 import me.proxer.library.enums.MediaState
 import me.proxer.library.enums.Medium
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -30,7 +30,7 @@ class BookmarksEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedBookmark
+        result.first() shouldBeEqualTo expectedBookmark
     }
 
     @Test
@@ -45,6 +45,6 @@ class BookmarksEndpointTest : ProxerTest() {
             .execute()
         }
 
-        request.path shouldEqual "/api/v1/ucp/reminder?kat=manga&p=12&limit=1&available=true"
+        request.path shouldBeEqualTo "/api/v1/ucp/reminder?kat=manga&p=12&limit=1&available=true"
     }
 }

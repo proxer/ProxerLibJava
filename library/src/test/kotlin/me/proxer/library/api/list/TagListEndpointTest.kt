@@ -6,7 +6,7 @@ import me.proxer.library.enums.TagSortCriteria
 import me.proxer.library.enums.TagSubType
 import me.proxer.library.enums.TagType
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -34,8 +34,8 @@ class TagListEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual firstExpectedTag
-        result[1] shouldEqual secondExpectedTag
+        result.first() shouldBeEqualTo firstExpectedTag
+        result[1] shouldBeEqualTo secondExpectedTag
     }
 
     @Test
@@ -51,9 +51,9 @@ class TagListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual """
-            /api/v1/list/tags?search=abc&type=entry_tag_h&sort=id&sort_type=ASC&subtype=zukunft
-        """.trimIndent()
+        request.path shouldBeEqualTo """
+                /api/v1/list/tags?search=abc&type=entry_tag_h&sort=id&sort_type=ASC&subtype=zukunft
+            """.trimIndent()
     }
 
     @Test
@@ -69,8 +69,8 @@ class TagListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual """
-            /api/v1/list/tags?search=xyz&type=entry_genre&sort=subtype&sort_type=DESC&subtype=menschen
-        """.trimIndent()
+        request.path shouldBeEqualTo """
+                /api/v1/list/tags?search=xyz&type=entry_genre&sort=subtype&sort_type=DESC&subtype=menschen
+            """.trimIndent()
     }
 }

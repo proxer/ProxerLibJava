@@ -2,8 +2,8 @@ package me.proxer.library.api.notifications
 
 import me.proxer.library.ProxerTest
 import me.proxer.library.runRequest
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -31,7 +31,7 @@ class DeleteNotificationEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/notifications/delete"
+        request.path shouldBeEqualTo "/api/v1/notifications/delete"
     }
 
     @Test
@@ -42,7 +42,7 @@ class DeleteNotificationEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "nid=123"
+        request.body.readUtf8() shouldBeEqualTo "nid=123"
     }
 
     @Test
@@ -53,7 +53,7 @@ class DeleteNotificationEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/notifications/delete"
+        request.path shouldBeEqualTo "/api/v1/notifications/delete"
     }
 
     @Test
@@ -64,6 +64,6 @@ class DeleteNotificationEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "nid=0"
+        request.body.readUtf8() shouldBeEqualTo "nid=0"
     }
 }

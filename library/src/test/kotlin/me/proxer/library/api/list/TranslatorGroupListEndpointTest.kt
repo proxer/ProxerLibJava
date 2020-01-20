@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.list.TranslatorGroupCore
 import me.proxer.library.enums.Country
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -26,7 +26,7 @@ class TranslatorGroupListEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedGroup
+        result.first() shouldBeEqualTo expectedGroup
     }
 
     @Test
@@ -42,6 +42,6 @@ class TranslatorGroupListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/translatorgroups?start=cd&contains=ab&country=jp&p=1&limit=100"
+        request.path shouldBeEqualTo "/api/v1/list/translatorgroups?start=cd&contains=ab&country=jp&p=1&limit=100"
     }
 }

@@ -5,7 +5,7 @@ import me.proxer.library.entity.list.IndustryCore
 import me.proxer.library.enums.Country
 import me.proxer.library.enums.IndustryType
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -26,7 +26,7 @@ class IndustryListEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedIndustry
+        result.first() shouldBeEqualTo expectedIndustry
     }
 
     @Test
@@ -42,6 +42,6 @@ class IndustryListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/industrys?start=test2&contains=test&country=de&p=3&limit=17"
+        request.path shouldBeEqualTo "/api/v1/list/industrys?start=test2&contains=test&country=de&p=3&limit=17"
     }
 }

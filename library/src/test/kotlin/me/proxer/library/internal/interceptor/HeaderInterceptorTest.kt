@@ -12,8 +12,8 @@ import okhttp3.Interceptor
 import okhttp3.Request
 import org.amshove.kluent.invoking
 import org.amshove.kluent.shouldBe
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
@@ -35,7 +35,7 @@ class HeaderInterceptorTest : ProxerTest() {
             api.notifications.news().build().execute()
         }
 
-        request.headers["proxer-api-key"] shouldEqual "mock-key"
+        request.headers["proxer-api-key"] shouldBeEqualTo "mock-key"
     }
 
     @Test
@@ -44,7 +44,7 @@ class HeaderInterceptorTest : ProxerTest() {
             api.notifications.news().build().execute()
         }
 
-        request.headers["User-Agent"] shouldEqual "ProxerLibJava/$VERSION"
+        request.headers["User-Agent"] shouldBeEqualTo "ProxerLibJava/$VERSION"
     }
 
     @Test
@@ -65,7 +65,7 @@ class HeaderInterceptorTest : ProxerTest() {
 
         requestSlot.isCaptured shouldBe true
         requestSlot.captured.header("proxer-api-key").shouldBeNull()
-        requestSlot.captured.header("proxer-api-testmode") shouldEqual "1"
+        requestSlot.captured.header("proxer-api-testmode") shouldBeEqualTo "1"
     }
 
     @Test
@@ -85,7 +85,7 @@ class HeaderInterceptorTest : ProxerTest() {
         interceptor.intercept(chain)
 
         requestSlot.isCaptured shouldBe true
-        requestSlot.captured.header("User-Agent").toString() shouldEqual "mock-user-agent"
+        requestSlot.captured.header("User-Agent").toString() shouldBeEqualTo "mock-user-agent"
     }
 
     @Test
@@ -95,7 +95,7 @@ class HeaderInterceptorTest : ProxerTest() {
         interceptor.intercept(chain)
 
         requestSlot.isCaptured shouldBe true
-        requestSlot.captured.header("User-Agent").toString() shouldEqual "mock-user-agent"
+        requestSlot.captured.header("User-Agent").toString() shouldBeEqualTo "mock-user-agent"
     }
 
     @Test
@@ -105,7 +105,7 @@ class HeaderInterceptorTest : ProxerTest() {
         interceptor.intercept(chain)
 
         requestSlot.isCaptured shouldBe true
-        requestSlot.captured.header("User-Agent").toString() shouldEqual "mock-user-agent"
+        requestSlot.captured.header("User-Agent").toString() shouldBeEqualTo "mock-user-agent"
     }
 
     @Test
@@ -115,7 +115,7 @@ class HeaderInterceptorTest : ProxerTest() {
         interceptor.intercept(chain)
 
         requestSlot.isCaptured shouldBe true
-        requestSlot.captured.header("User-Agent").toString() shouldEqual "mock-user-agent"
+        requestSlot.captured.header("User-Agent").toString() shouldBeEqualTo "mock-user-agent"
     }
 
     @Test
@@ -125,7 +125,7 @@ class HeaderInterceptorTest : ProxerTest() {
         interceptor.intercept(chain)
 
         requestSlot.isCaptured shouldBe true
-        requestSlot.captured.header("User-Agent").toString() shouldEqual "mock-user-agent"
+        requestSlot.captured.header("User-Agent").toString() shouldBeEqualTo "mock-user-agent"
     }
 
     @Test

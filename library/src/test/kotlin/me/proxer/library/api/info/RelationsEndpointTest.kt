@@ -10,7 +10,7 @@ import me.proxer.library.enums.MediaState
 import me.proxer.library.enums.Medium
 import me.proxer.library.enums.Season
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -31,19 +31,19 @@ class RelationsEndpointTest : ProxerTest() {
             genres = setOf("Adventure", "Action", "Comedy", "Drama", "Fantasy", "SciFi"),
             fskConstraints = setOf(FskConstraint.FSK_12, FskConstraint.BAD_LANGUAGE, FskConstraint.VIOLENCE),
             description = """
-                Kazuto Kirigaya testet als einer der ersten einen neuen Hightech-Helm, welcher die Psyche 
-                des Nutzers komplett in die Welt des MMORPGs „Sword Art Online“ transferiert. Als Tester der 
-                Beta-Version besitzt er bereits einiges an Erfahrung und kämpfte sich mehr als erfolgreich als 
-                „Kirito“ durch die ersten Ebenen der Fantasy-Welt. Doch schon kurz nach der Eröffnung SAOs merken 
-                die Spieler, dass etwas nicht stimmt: Im Menü gibt es keinen Logout-Button. Hinter dem Grund der 
-                allgemeinen aufkommenden Panik scheint der Administrator des Spiels zu stecken und die einzige 
-                Möglichkeit wieder in die reale Welt zurückzukehren besteht darin, SAO erfolgreich abzuschließen. 
-                Doch das ist leichter gesagt als getan, denn der Tod in der Fantasy-Welt bedeutet auch den richtigen 
-                Tod in der richtigen Welt.
-            """.trimIndent().replace("\n", ""),
+                |Kazuto Kirigaya testet als einer der ersten einen neuen Hightech-Helm, welcher die Psyche
+                | des Nutzers komplett in die Welt des MMORPGs „Sword Art Online“ transferiert. Als Tester der
+                | Beta-Version besitzt er bereits einiges an Erfahrung und kämpfte sich mehr als erfolgreich als
+                | „Kirito“ durch die ersten Ebenen der Fantasy-Welt. Doch schon kurz nach der Eröffnung SAOs merken
+                | die Spieler, dass etwas nicht stimmt: Im Menü gibt es keinen Logout-Button. Hinter dem Grund der
+                | allgemeinen aufkommenden Panik scheint der Administrator des Spiels zu stecken und die einzige
+                | Möglichkeit wieder in die reale Welt zurückzukehren besteht darin, SAO erfolgreich abzuschließen.
+                | Doch das ist leichter gesagt als getan, denn der Tod in der Fantasy-Welt bedeutet auch den richtigen
+                | Tod in der richtigen Welt.
+            """.trimMargin().replace("\n", ""),
             medium = Medium.ANIMESERIES, episodeAmount = 25, state = MediaState.FINISHED, ratingSum = 158782,
             ratingAmount = 17935, clicks = 5968, category = Category.ANIME, license = License.LICENSED,
-            languages = setOf(MediaLanguage.ENGLISH_SUB, MediaLanguage.ENGLISH_DUB, MediaLanguage.GERMAN_DUB),
+            languages = setOf(MediaLanguage.GERMAN_DUB, MediaLanguage.ENGLISH_SUB, MediaLanguage.ENGLISH_DUB),
             year = 2012, season = Season.SUMMER
         )
     )
@@ -57,7 +57,7 @@ class RelationsEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedRelations
+        result shouldBeEqualTo expectedRelations
     }
 
     @Test
@@ -69,6 +69,6 @@ class RelationsEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/info/relations?id=115&isH=true"
+        request.path shouldBeEqualTo "/api/v1/info/relations?id=115&isH=true"
     }
 }

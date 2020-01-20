@@ -9,7 +9,7 @@ import me.proxer.library.enums.UserMediaListFilterType
 import me.proxer.library.enums.UserMediaListSortCriteria
 import me.proxer.library.enums.UserMediaProgress
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -32,7 +32,7 @@ class UcpMediaListEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedEntry
+        result.first() shouldBeEqualTo expectedEntry
     }
 
     @Test
@@ -51,9 +51,9 @@ class UcpMediaListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual """
-            /api/v1/ucp/list?kat=anime&p=0&limit=5&search=test&search_start=startTest&filter=stateFilter1
-            &sort=stateChangeDateASC&isH=true
-        """.trimIndent().replace("\n", "")
+        request.path shouldBeEqualTo """
+                /api/v1/ucp/list?kat=anime&p=0&limit=5&search=test&search_start=startTest&filter=stateFilter1
+                &sort=stateChangeDateASC&isH=true
+            """.trimIndent().replace("\n", "")
     }
 }

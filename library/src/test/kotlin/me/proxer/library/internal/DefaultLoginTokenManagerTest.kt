@@ -1,7 +1,7 @@
 package me.proxer.library.internal
 
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -20,7 +20,7 @@ class DefaultLoginTokenManagerTest {
     fun testProvideAfterPersist() {
         loginTokenManager.persist("test")
 
-        loginTokenManager.provide() shouldEqual "test"
+        loginTokenManager.provide() shouldBeEqualTo "test"
     }
 
     @Test

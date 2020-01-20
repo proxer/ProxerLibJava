@@ -6,7 +6,7 @@ import me.proxer.library.enums.Country
 import me.proxer.library.enums.IndustryType
 import me.proxer.library.runRequest
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -29,7 +29,7 @@ class IndustryEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedIndustry
+        result shouldBeEqualTo expectedIndustry
     }
 
     @Test
@@ -40,6 +40,6 @@ class IndustryEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/info/industry?id=3"
+        request.path shouldBeEqualTo "/api/v1/info/industry?id=3"
     }
 }

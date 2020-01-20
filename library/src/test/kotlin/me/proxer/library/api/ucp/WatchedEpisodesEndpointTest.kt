@@ -2,7 +2,7 @@ package me.proxer.library.api.ucp
 
 import me.proxer.library.ProxerTest
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -19,7 +19,7 @@ class WatchedEpisodesEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual 3243
+        result shouldBeEqualTo 3243
     }
 
     @Test
@@ -30,6 +30,6 @@ class WatchedEpisodesEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/ucp/listsum"
+        request.path shouldBeEqualTo "/api/v1/ucp/listsum"
     }
 }

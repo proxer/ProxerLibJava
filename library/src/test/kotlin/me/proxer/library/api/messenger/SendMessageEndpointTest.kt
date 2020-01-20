@@ -4,8 +4,8 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.enums.MessageAction
 import me.proxer.library.runRequest
 import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
@@ -34,7 +34,7 @@ class SendMessageEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/messenger/setmessage"
+        request.path shouldBeEqualTo "/api/v1/messenger/setmessage"
     }
 
     @Test
@@ -45,7 +45,7 @@ class SendMessageEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "conference_id=id&text=someMessage"
+        request.body.readUtf8() shouldBeEqualTo "conference_id=id&text=someMessage"
     }
 
     @Test
@@ -56,7 +56,7 @@ class SendMessageEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "conference_id=id&text=%2FremoveUser%20Testerio"
+        request.body.readUtf8() shouldBeEqualTo "conference_id=id&text=%2FremoveUser%20Testerio"
     }
 
     @Test

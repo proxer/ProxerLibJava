@@ -7,7 +7,7 @@ import me.proxer.library.enums.MediaLanguage
 import me.proxer.library.enums.Medium
 import me.proxer.library.runRequest
 import me.proxer.library.toProxerDateTime
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -30,7 +30,7 @@ class UcpHistoryEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedEntry
+        result.first() shouldBeEqualTo expectedEntry
     }
 
     @Test
@@ -43,6 +43,6 @@ class UcpHistoryEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/ucp/history?p=0&limit=10"
+        request.path shouldBeEqualTo "/api/v1/ucp/history?p=0&limit=10"
     }
 }

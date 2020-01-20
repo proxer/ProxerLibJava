@@ -2,7 +2,7 @@ package me.proxer.library.api.user
 
 import me.proxer.library.ProxerTest
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -18,6 +18,6 @@ class LogoutEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/user/logout"
+        request.path shouldBeEqualTo "/api/v1/user/logout"
     }
 }

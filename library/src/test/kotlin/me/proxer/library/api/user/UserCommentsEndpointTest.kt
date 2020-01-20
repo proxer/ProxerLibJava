@@ -9,7 +9,7 @@ import me.proxer.library.enums.Medium
 import me.proxer.library.enums.UserMediaProgress
 import me.proxer.library.runRequest
 import org.amshove.kluent.invoking
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 import java.util.Date
@@ -36,7 +36,7 @@ class UserCommentsEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedComment
+        result.first() shouldBeEqualTo expectedComment
     }
 
     @Test
@@ -53,10 +53,10 @@ class UserCommentsEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual """
-            /api/v1/user/comments?uid=123&username=abc&kat=anime&p=3&limit=12&length=1234&state=0%2B1
-            &has=comment%2Brating
-        """.trimIndent().replace("\n", "")
+        request.path shouldBeEqualTo """
+                /api/v1/user/comments?uid=123&username=abc&kat=anime&p=3&limit=12&length=1234&state=0%2B1
+                &has=comment%2Brating
+            """.trimIndent().replace("\n", "")
     }
 
     @Test

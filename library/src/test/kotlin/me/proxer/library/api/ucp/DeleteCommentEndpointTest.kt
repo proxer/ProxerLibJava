@@ -2,8 +2,8 @@ package me.proxer.library.api.ucp
 
 import me.proxer.library.ProxerTest
 import me.proxer.library.runRequest
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
 /**
@@ -31,7 +31,7 @@ class DeleteCommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/ucp/deletecomment"
+        request.path shouldBeEqualTo "/api/v1/ucp/deletecomment"
     }
 
     @Test
@@ -42,6 +42,6 @@ class DeleteCommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "id=321"
+        request.body.readUtf8() shouldBeEqualTo "id=321"
     }
 }

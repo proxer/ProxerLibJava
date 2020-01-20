@@ -2,8 +2,8 @@ package me.proxer.library.internal.adapter
 
 import com.squareup.moshi.JsonDataException
 import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
@@ -26,6 +26,6 @@ class UnitAdapterTest {
 
     @Test
     fun testToJson() {
-        adapter.toJson(null) shouldEqual "null"
+        adapter.toJson(null) shouldBeEqualTo "null"
     }
 }

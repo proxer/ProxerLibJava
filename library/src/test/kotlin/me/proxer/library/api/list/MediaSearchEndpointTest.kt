@@ -13,7 +13,7 @@ import me.proxer.library.enums.Medium
 import me.proxer.library.enums.TagRateFilter
 import me.proxer.library.enums.TagSpoilerFilter
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import java.util.EnumSet
 
@@ -37,7 +37,7 @@ class MediaSearchEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedEntry
+        result.first() shouldBeEqualTo expectedEntry
     }
 
     @Test
@@ -54,21 +54,21 @@ class MediaSearchEndpointTest : ProxerTest() {
             .fskConstraints(EnumSet.of(FskConstraint.FEAR))
             .language(Language.ENGLISH)
             .length(300)
-            .lengthBound(LengthBound.LOWER)
-            .tagRateFilter(TagRateFilter.RATED_ONLY)
-            .tagSpoilerFilter(TagSpoilerFilter.ONLY_SPOILERS)
-            .type(MediaType.ALL_MANGA)
-            .sort(MediaSearchSortCriteria.CLICKS)
-            .hideFinished(true)
-            .build()
-            .execute()
+                .lengthBound(LengthBound.LOWER)
+                .tagRateFilter(TagRateFilter.RATED_ONLY)
+                .tagSpoilerFilter(TagSpoilerFilter.ONLY_SPOILERS)
+                .type(MediaType.ALL_MANGA)
+                .sort(MediaSearchSortCriteria.CLICKS)
+                .hideFinished(true)
+                .build()
+                .execute()
         }
 
-        request.path shouldEqual """
-            /api/v1/list/entrysearch?name=test&language=en&type=all-manga&fsk=fear&sort=clicks&length=300
-            &length-limit=down&tags=3%2B7&notags=5%2B20&taggenre=22%2B33&notaggenre=13%2B17&tagratefilter=rate_1
-            &tagspoilerfilter=spoiler_1&hide_finished=1&p=3&limit=10
-        """.trimIndent().replace("\n", "")
+        request.path shouldBeEqualTo """
+                /api/v1/list/entrysearch?name=test&language=en&type=all-manga&fsk=fear&sort=clicks&length=300
+                &length-limit=down&tags=3%2B7&notags=5%2B20&taggenre=22%2B33&notaggenre=13%2B17&tagratefilter=rate_1
+                &tagspoilerfilter=spoiler_1&hide_finished=1&p=3&limit=10
+            """.trimIndent().replace("\n", "")
     }
 
     @Test
@@ -81,7 +81,7 @@ class MediaSearchEndpointTest : ProxerTest() {
             .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/entrysearch"
+        request.path shouldBeEqualTo "/api/v1/list/entrysearch"
     }
 
     @Test
@@ -94,7 +94,7 @@ class MediaSearchEndpointTest : ProxerTest() {
             .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/entrysearch"
+        request.path shouldBeEqualTo "/api/v1/list/entrysearch"
     }
 
     @Test
@@ -107,7 +107,7 @@ class MediaSearchEndpointTest : ProxerTest() {
             .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/entrysearch"
+        request.path shouldBeEqualTo "/api/v1/list/entrysearch"
     }
 
     @Test
@@ -120,6 +120,6 @@ class MediaSearchEndpointTest : ProxerTest() {
             .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/entrysearch"
+        request.path shouldBeEqualTo "/api/v1/list/entrysearch"
     }
 }

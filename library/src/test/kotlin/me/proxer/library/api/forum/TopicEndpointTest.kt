@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.forum.Post
 import me.proxer.library.entity.forum.Topic
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -25,10 +25,10 @@ class TopicEndpointTest : ProxerTest() {
             date = Date(1513626886L * 1000), signature = "", modifiedById = "123", modifiedByName = "test",
             modifiedDate = Date(15135529123L * 1000), modifiedReason = "just a test",
             message = """
-                Ich versuche, dass ganze im Rahmen zu halten. Meistens sind es so ungefähr 2-3 Folgen und über 
-                den Tag verteilt. Leider werde ich oft schwach, gerade bei besonders spannenden Anime, dass ich auch 
-                mehrere Folgen am Stück anschaue.
-            """.trimIndent().replace("\n", ""),
+                |Ich versuche, dass ganze im Rahmen zu halten. Meistens sind es so ungefähr 2-3 Folgen und über
+                | den Tag verteilt. Leider werde ich oft schwach, gerade bei besonders spannenden Anime, dass ich auch
+                | mehrere Folgen am Stück anschaue.
+            """.trimMargin().replace("\n", ""),
             thankYouAmount = 0
         )
     )
@@ -48,7 +48,7 @@ class TopicEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedTopic
+        result shouldBeEqualTo expectedTopic
     }
 
     @Test
@@ -61,6 +61,6 @@ class TopicEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/forum/topic?id=123&p=0&limit=10"
+        request.path shouldBeEqualTo "/api/v1/forum/topic?id=123&p=0&limit=10"
     }
 }

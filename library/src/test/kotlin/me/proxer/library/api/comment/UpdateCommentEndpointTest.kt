@@ -4,8 +4,8 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.enums.UserMediaProgress
 import me.proxer.library.runRequest
 import org.amshove.kluent.invoking
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
-import org.amshove.kluent.shouldEqual
 import org.amshove.kluent.shouldNotThrow
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
@@ -38,7 +38,7 @@ class UpdateCommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/comment/create"
+        request.path shouldBeEqualTo "/api/v1/comment/create"
     }
 
     @Test
@@ -54,7 +54,7 @@ class UpdateCommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "eid=18&rating=2&episode=0&state=2&comment=Test%20Create"
+        request.body.readUtf8() shouldBeEqualTo "eid=18&rating=2&episode=0&state=2&comment=Test%20Create"
     }
 
     @Test
@@ -66,7 +66,7 @@ class UpdateCommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "eid=4"
+        request.body.readUtf8() shouldBeEqualTo "eid=4"
     }
 
     @Test
@@ -90,7 +90,7 @@ class UpdateCommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/comment/update"
+        request.path shouldBeEqualTo "/api/v1/comment/update"
     }
 
     @Test
@@ -106,7 +106,7 @@ class UpdateCommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "id=77&rating=4&episode=19&state=3&comment=Test%20Update"
+        request.body.readUtf8() shouldBeEqualTo "id=77&rating=4&episode=19&state=3&comment=Test%20Update"
     }
 
     @Test
@@ -118,7 +118,7 @@ class UpdateCommentEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "id=19"
+        request.body.readUtf8() shouldBeEqualTo "id=19"
     }
 
     @ParameterizedTest(name = "{0}")

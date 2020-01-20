@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.chat.ChatMessage
 import me.proxer.library.enums.ChatMessageAction
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -32,8 +32,8 @@ class ChatMessagesEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual firstExpectedMessage
-        result.last() shouldEqual lastExpectedMessage
+        result.first() shouldBeEqualTo firstExpectedMessage
+        result.last() shouldBeEqualTo lastExpectedMessage
     }
 
     @Test
@@ -45,6 +45,6 @@ class ChatMessagesEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/chat/messages?room_id=12&message_id=21"
+        request.path shouldBeEqualTo "/api/v1/chat/messages?room_id=12&message_id=21"
     }
 }

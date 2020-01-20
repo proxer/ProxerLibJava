@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.ucp.UcpSettings
 import me.proxer.library.enums.UcpSettingConstraint
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -32,7 +32,7 @@ class SettingsEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedSettings
+        result shouldBeEqualTo expectedSettings
     }
 
     @Test
@@ -43,6 +43,6 @@ class SettingsEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/ucp/settings"
+        request.path shouldBeEqualTo "/api/v1/ucp/settings"
     }
 }

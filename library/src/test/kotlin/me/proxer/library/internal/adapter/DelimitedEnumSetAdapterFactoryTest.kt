@@ -9,9 +9,9 @@ import me.proxer.library.enums.FskConstraint
 import me.proxer.library.enums.Gender
 import org.amshove.kluent.invoking
 import org.amshove.kluent.shouldBeEmpty
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeNull
 import org.amshove.kluent.shouldContain
-import org.amshove.kluent.shouldEqual
 import org.amshove.kluent.shouldNotBeNull
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
@@ -74,7 +74,7 @@ class DelimitedEnumSetAdapterFactoryTest {
         val result = moshi.adapter(GenderTestClass::class.java).fromJson("""{"genders":"f"}""")
 
         result.shouldNotBeNull()
-        result.genders shouldEqual setOf(Gender.FEMALE)
+        result.genders shouldBeEqualTo setOf(Gender.FEMALE)
     }
 
     @Test
@@ -82,7 +82,7 @@ class DelimitedEnumSetAdapterFactoryTest {
         val result = moshi.adapter(GenderTestClass::class.java).fromJson("""{"genders":"f m"}""")
 
         result.shouldNotBeNull()
-        result.genders shouldEqual setOf(Gender.MALE, Gender.FEMALE)
+        result.genders shouldBeEqualTo setOf(Gender.MALE, Gender.FEMALE)
     }
 
     @Test
@@ -90,7 +90,7 @@ class DelimitedEnumSetAdapterFactoryTest {
         val result = moshi.adapter(GenderTestClass::class.java).fromJson("""{"genders":"f,m"}""")
 
         result.shouldNotBeNull()
-        result.genders shouldEqual setOf(Gender.UNKNOWN)
+        result.genders shouldBeEqualTo setOf(Gender.UNKNOWN)
     }
 
     @Test
@@ -116,7 +116,7 @@ class DelimitedEnumSetAdapterFactoryTest {
         val result = moshi.adapter(GenderWithDelimiterTestClass::class.java).fromJson("""{"genders":"f, m"}""")
 
         result.shouldNotBeNull()
-        result.genders shouldEqual setOf(Gender.MALE, Gender.FEMALE)
+        result.genders shouldBeEqualTo setOf(Gender.MALE, Gender.FEMALE)
     }
 
     @Test
@@ -124,7 +124,7 @@ class DelimitedEnumSetAdapterFactoryTest {
         val result = moshi.adapter(GenderTestClass::class.java).fromJson("""{"genders":"f m xyz"}""")
 
         result.shouldNotBeNull()
-        result.genders shouldEqual setOf(Gender.MALE, Gender.FEMALE, Gender.UNKNOWN)
+        result.genders shouldBeEqualTo setOf(Gender.MALE, Gender.FEMALE, Gender.UNKNOWN)
     }
 
     @Test
@@ -143,7 +143,7 @@ class DelimitedEnumSetAdapterFactoryTest {
         val testSubject = GenderTestClass(setOf(Gender.FEMALE))
         val result = moshi.adapter(GenderTestClass::class.java).toJson(testSubject)
 
-        result shouldEqual """{"genders":"f"}"""
+        result shouldBeEqualTo """{"genders":"f"}"""
     }
 
     @Test
@@ -151,7 +151,7 @@ class DelimitedEnumSetAdapterFactoryTest {
         val testSubject = GenderTestClass(setOf(Gender.FEMALE, Gender.MALE))
         val result = moshi.adapter(GenderTestClass::class.java).toJson(testSubject)
 
-        result shouldEqual """{"genders":"f m"}"""
+        result shouldBeEqualTo """{"genders":"f m"}"""
     }
 
     @Test
@@ -159,7 +159,7 @@ class DelimitedEnumSetAdapterFactoryTest {
         val testSubject = GenderWithDelimiterTestClass(setOf(Gender.FEMALE, Gender.MALE))
         val result = moshi.adapter(GenderWithDelimiterTestClass::class.java).toJson(testSubject)
 
-        result shouldEqual """{"genders":"f, m"}"""
+        result shouldBeEqualTo """{"genders":"f, m"}"""
     }
 
     @JsonClass(generateAdapter = true)

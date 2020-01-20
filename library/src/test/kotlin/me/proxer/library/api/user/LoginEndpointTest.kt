@@ -3,7 +3,7 @@ package me.proxer.library.api.user
 import me.proxer.library.ProxerTest
 import me.proxer.library.entity.user.User
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -28,7 +28,7 @@ class LoginEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedUser
+        result shouldBeEqualTo expectedUser
     }
 
     @Test
@@ -39,7 +39,7 @@ class LoginEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/user/login"
+        request.path shouldBeEqualTo "/api/v1/user/login"
     }
 
     @Test
@@ -51,6 +51,6 @@ class LoginEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.body.readUtf8() shouldEqual "username=test&password=supersecret&secretkey=secretkey"
+        request.body.readUtf8() shouldBeEqualTo "username=test&password=supersecret&secretkey=secretkey"
     }
 }

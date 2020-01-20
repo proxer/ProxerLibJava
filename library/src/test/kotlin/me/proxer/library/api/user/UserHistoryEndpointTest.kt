@@ -6,7 +6,7 @@ import me.proxer.library.enums.Category
 import me.proxer.library.enums.MediaLanguage
 import me.proxer.library.enums.Medium
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -32,8 +32,8 @@ class UserHistoryEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual firstExpectedEntry
-        result.last() shouldEqual secondExpectedEntry
+        result.first() shouldBeEqualTo firstExpectedEntry
+        result.last() shouldBeEqualTo secondExpectedEntry
     }
 
     @Test
@@ -47,6 +47,6 @@ class UserHistoryEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/user/history?uid=test&username=supersecret&p=1&limit=12&isH=true"
+        request.path shouldBeEqualTo "/api/v1/user/history?uid=test&username=supersecret&p=1&limit=12&isH=true"
     }
 }

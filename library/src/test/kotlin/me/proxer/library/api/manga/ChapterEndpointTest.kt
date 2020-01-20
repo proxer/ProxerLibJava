@@ -5,7 +5,7 @@ import me.proxer.library.entity.manga.Chapter
 import me.proxer.library.entity.manga.Page
 import me.proxer.library.enums.Language
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -32,7 +32,7 @@ class ChapterEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedChapter
+        result shouldBeEqualTo expectedChapter
     }
 
     @Test
@@ -43,6 +43,6 @@ class ChapterEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/manga/chapter?id=4523&episode=1&language=de"
+        request.path shouldBeEqualTo "/api/v1/manga/chapter?id=4523&episode=1&language=de"
     }
 }

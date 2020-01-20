@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.messenger.ConferenceInfo
 import me.proxer.library.entity.messenger.ConferenceParticipant
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -37,7 +37,7 @@ class ConferenceInfoEndpointTest : ProxerTest() {
             .execute()
         }
 
-        result shouldEqual expectedInfo
+        result shouldBeEqualTo expectedInfo
     }
 
     @Test
@@ -48,6 +48,6 @@ class ConferenceInfoEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/messenger/conferenceinfo?conference_id=1"
+        request.path shouldBeEqualTo "/api/v1/messenger/conferenceinfo?conference_id=1"
     }
 }

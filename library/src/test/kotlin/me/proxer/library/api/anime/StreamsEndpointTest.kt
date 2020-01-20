@@ -4,7 +4,7 @@ import me.proxer.library.ProxerTest
 import me.proxer.library.entity.anime.Stream
 import me.proxer.library.enums.AnimeLanguage
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -34,7 +34,7 @@ class StreamsEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedTestStream
+        result.first() shouldBeEqualTo expectedTestStream
     }
 
     @Test
@@ -46,7 +46,7 @@ class StreamsEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result[2] shouldEqual expectedOfficialTestStream
+        result[2] shouldBeEqualTo expectedOfficialTestStream
     }
 
     @Test
@@ -57,7 +57,7 @@ class StreamsEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/anime/streams?id=33&episode=3&language=gerdub"
+        request.path shouldBeEqualTo "/api/v1/anime/streams?id=33&episode=3&language=gerdub"
     }
 
     @Test
@@ -69,7 +69,7 @@ class StreamsEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/anime/proxerstreams?id=35&episode=1&language=engdub"
+        request.path shouldBeEqualTo "/api/v1/anime/proxerstreams?id=35&episode=1&language=engdub"
     }
 
     @Test
@@ -81,6 +81,6 @@ class StreamsEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/anime/streams?id=43&episode=3&language=gersub"
+        request.path shouldBeEqualTo "/api/v1/anime/streams?id=43&episode=3&language=gersub"
     }
 }

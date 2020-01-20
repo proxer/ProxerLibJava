@@ -11,8 +11,8 @@ import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.SocketPolicy
 import org.amshove.kluent.invoking
 import org.amshove.kluent.shouldBe
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeInstanceOf
-import org.amshove.kluent.shouldEqual
 import org.amshove.kluent.shouldNotBeNull
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
@@ -47,7 +47,7 @@ class ProxerCallTest : ProxerTest() {
             } shouldThrow ProxerException::class
 
             result.exception.errorType shouldBe ErrorType.IO
-            result.exceptionMessage shouldEqual "Unsuccessful request: 404"
+            result.exceptionMessage shouldBeEqualTo "Unsuccessful request: 404"
         }
     }
 
@@ -59,7 +59,7 @@ class ProxerCallTest : ProxerTest() {
             } shouldThrow ProxerException::class
 
             result.exception.errorType shouldBe ErrorType.IO
-            result.exceptionMessage shouldEqual "Unsuccessful request: 404"
+            result.exceptionMessage shouldBeEqualTo "Unsuccessful request: 404"
         }
     }
 
@@ -110,7 +110,7 @@ class ProxerCallTest : ProxerTest() {
 
             result.exception.errorType shouldBe ErrorType.SERVER
             result.exception.serverErrorType shouldBe ServerErrorType.MESSAGES_LOGIN_REQUIRED
-            result.exceptionMessage shouldEqual "Du bist nicht eingeloggt."
+            result.exceptionMessage shouldBeEqualTo "Du bist nicht eingeloggt."
         }
     }
 
@@ -123,7 +123,7 @@ class ProxerCallTest : ProxerTest() {
 
             result.exception.errorType shouldBe ErrorType.SERVER
             result.exception.serverErrorType shouldBe ServerErrorType.UCP_INVALID_SETTINGS
-            result.exceptionMessage shouldEqual "Ungültige Eingabe für Felder.\n[profil]"
+            result.exceptionMessage shouldBeEqualTo "Ungültige Eingabe für Felder.\n[profil]"
         }
     }
 

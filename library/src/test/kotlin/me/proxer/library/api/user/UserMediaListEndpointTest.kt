@@ -10,7 +10,7 @@ import me.proxer.library.enums.UserMediaListSortCriteria
 import me.proxer.library.enums.UserMediaProgress
 import me.proxer.library.runRequest
 import org.amshove.kluent.invoking
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
@@ -34,7 +34,7 @@ class UserMediaListEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedEntry
+        result.first() shouldBeEqualTo expectedEntry
     }
 
     @Test
@@ -53,10 +53,10 @@ class UserMediaListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual """
-            /api/v1/user/list?uid=1&username=rubygee&kat=anime&p=0&limit=5&search=test&search_start=startTest
-            &filter=stateFilter1&sort=stateChangeDateASC&isH=true
-        """.trimIndent().replace("\n", "")
+        request.path shouldBeEqualTo """
+                /api/v1/user/list?uid=1&username=rubygee&kat=anime&p=0&limit=5&search=test&search_start=startTest
+                &filter=stateFilter1&sort=stateChangeDateASC&isH=true
+            """.trimIndent().replace("\n", "")
     }
 
     @Test

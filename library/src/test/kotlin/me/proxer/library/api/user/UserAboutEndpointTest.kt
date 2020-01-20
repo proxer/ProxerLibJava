@@ -6,7 +6,7 @@ import me.proxer.library.enums.Gender
 import me.proxer.library.enums.RelationshipStatus
 import me.proxer.library.runRequest
 import org.amshove.kluent.invoking
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
@@ -30,7 +30,7 @@ class UserAboutEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedAbout
+        result shouldBeEqualTo expectedAbout
     }
 
     @Test
@@ -41,7 +41,7 @@ class UserAboutEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/user/about?uid=123&username=rubygee"
+        request.path shouldBeEqualTo "/api/v1/user/about?uid=123&username=rubygee"
     }
 
     @Test

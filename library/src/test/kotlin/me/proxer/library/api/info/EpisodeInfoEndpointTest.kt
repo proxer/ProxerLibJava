@@ -7,7 +7,7 @@ import me.proxer.library.entity.info.MangaEpisode
 import me.proxer.library.enums.Category
 import me.proxer.library.enums.MediaLanguage
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -63,7 +63,7 @@ class EpisodeInfoEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedEpisodeInfo
+        result shouldBeEqualTo expectedEpisodeInfo
     }
 
     @Test
@@ -75,7 +75,7 @@ class EpisodeInfoEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedEpisodeInfoManga
+        result shouldBeEqualTo expectedEpisodeInfoManga
     }
 
     @Test
@@ -87,7 +87,7 @@ class EpisodeInfoEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        result shouldEqual expectedEpisodeInfoNovel
+        result shouldBeEqualTo expectedEpisodeInfoNovel
     }
 
     @Test
@@ -101,6 +101,6 @@ class EpisodeInfoEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/info/listinfo?id=17&p=0&limit=10&includeNotAvailableChapters=true"
+        request.path shouldBeEqualTo "/api/v1/info/listinfo?id=17&p=0&limit=10&includeNotAvailableChapters=true"
     }
 }

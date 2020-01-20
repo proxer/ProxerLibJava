@@ -7,7 +7,7 @@ import me.proxer.library.enums.MediaState
 import me.proxer.library.enums.Medium
 import me.proxer.library.enums.ProjectState
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 /**
@@ -30,7 +30,7 @@ class TranslatorGroupProjectListEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedTranslatorGroup
+        result.first() shouldBeEqualTo expectedTranslatorGroup
     }
 
     @Test
@@ -45,7 +45,7 @@ class TranslatorGroupProjectListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/translatorgroupprojects?id=321&type=5&isH=true&p=3&limit=12"
+        request.path shouldBeEqualTo "/api/v1/list/translatorgroupprojects?id=321&type=5&isH=true&p=3&limit=12"
     }
 
     @Test
@@ -60,7 +60,7 @@ class TranslatorGroupProjectListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/translatorgroupprojects?id=321&type=5&isH=false&p=3&limit=12"
+        request.path shouldBeEqualTo "/api/v1/list/translatorgroupprojects?id=321&type=5&isH=false&p=3&limit=12"
     }
 
     @Test
@@ -73,6 +73,6 @@ class TranslatorGroupProjectListEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/list/translatorgroupprojects?id=654"
+        request.path shouldBeEqualTo "/api/v1/list/translatorgroupprojects?id=654"
     }
 }

@@ -3,7 +3,7 @@ package me.proxer.library.internal.adapter
 import com.squareup.moshi.JsonDataException
 import me.proxer.library.entity.manga.Page
 import org.amshove.kluent.invoking
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldThrow
 import org.junit.jupiter.api.Test
 
@@ -16,7 +16,7 @@ class PageAdapterTest {
 
     @Test
     fun testFromJson() {
-        adapter.fromJson(arrayOf(arrayOf("a", "1", "2"), arrayOf("b", "5", "3"))) shouldEqual listOf(
+        adapter.fromJson(arrayOf(arrayOf("a", "1", "2"), arrayOf("b", "5", "3"))) shouldBeEqualTo listOf(
             Page(name = "a", height = 1, width = 2),
             Page(name = "b", height = 5, width = 3)
         )

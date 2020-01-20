@@ -5,7 +5,7 @@ import me.proxer.library.entity.messenger.Message
 import me.proxer.library.enums.Device
 import me.proxer.library.enums.MessageAction
 import me.proxer.library.runRequest
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import java.util.Date
 
@@ -28,7 +28,7 @@ class MessagesEndpointTest : ProxerTest() {
                 .safeExecute()
         }
 
-        result.first() shouldEqual expectedMessage
+        result.first() shouldBeEqualTo expectedMessage
     }
 
     @Test
@@ -42,6 +42,6 @@ class MessagesEndpointTest : ProxerTest() {
                 .execute()
         }
 
-        request.path shouldEqual "/api/v1/messenger/messages?conference_id=123&message_id=321&read=false"
+        request.path shouldBeEqualTo "/api/v1/messenger/messages?conference_id=123&message_id=321&read=false"
     }
 }
