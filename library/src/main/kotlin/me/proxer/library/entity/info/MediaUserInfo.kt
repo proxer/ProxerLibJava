@@ -18,5 +18,6 @@ data class MediaUserInfo(
     @Json(name = "noted") val isNoted: Boolean,
     @Json(name = "finished") val isFinished: Boolean,
     @Json(name = "canceled") val isCanceled: Boolean,
-    @Json(name = "topten") val isTopTen: Boolean
+    @Json(name = "topten") val isTopTen: Boolean,
+    @Json(name = "subscribed") val isSubscribed: Boolean
 )

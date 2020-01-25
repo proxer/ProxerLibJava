@@ -16,5 +16,11 @@ enum class UserInfoType {
     FAVORITE,
 
     @Json(name = "finish")
-    FINISHED
+    FINISHED,
+
+    @Json(name = "subscribe")
+    SUBSCRIBE,
+
+    @Json(name = "unsubscribe")
+    UNSUBSCRIBE
 }

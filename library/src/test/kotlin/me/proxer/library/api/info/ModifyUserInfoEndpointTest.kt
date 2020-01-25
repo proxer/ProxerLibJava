@@ -66,4 +66,26 @@ class ModifyUserInfoEndpointTest : ProxerTest() {
 
         request.body.readUtf8() shouldBeEqualTo "id=321&type=finish"
     }
+
+    @Test
+    fun testSubscribeParameter() {
+        val (_, request) = server.runRequest("empty.json") {
+            api.info.subscribe("321")
+                .build()
+                .execute()
+        }
+
+        request.body.readUtf8() shouldBeEqualTo "id=321&type=subscribe"
+    }
+
+    @Test
+    fun testUnsubscribeParameter() {
+        val (_, request) = server.runRequest("empty.json") {
+            api.info.unsubscribe("321")
+                .build()
+                .execute()
+        }
+
+        request.body.readUtf8() shouldBeEqualTo "id=321&type=unsubscribe"
+    }
 }

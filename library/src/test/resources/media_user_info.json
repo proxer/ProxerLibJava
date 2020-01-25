@@ -6,6 +6,7 @@
     "noted": false,
     "finished": true,
     "canceled": false,
-    "topten": true
+    "topten": true,
+    "subscribed": false
   }
 }
