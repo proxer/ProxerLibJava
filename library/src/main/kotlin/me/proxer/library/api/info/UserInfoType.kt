@@ -19,8 +19,5 @@ enum class UserInfoType {
     FINISHED,
 
     @Json(name = "subscribe")
-    SUBSCRIBE,
-
-    @Json(name = "unsubscribe")
-    UNSUBSCRIBE
+    SUBSCRIBE
 }

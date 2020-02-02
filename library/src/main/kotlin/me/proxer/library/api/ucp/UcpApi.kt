@@ -38,6 +38,13 @@ class UcpApi internal constructor(retrofit: Retrofit) {
     /**
      * Returns the respective endpoint.
      */
+    fun deleteSubscription(id: String): DeleteSubscriptionEndpoint {
+        return DeleteSubscriptionEndpoint(internalApi, id)
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
     fun watchedEpisodes(): WatchedEpisodesEndpoint {
         return WatchedEpisodesEndpoint(internalApi)
     }

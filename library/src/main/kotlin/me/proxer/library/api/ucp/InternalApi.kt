@@ -34,6 +34,10 @@ internal interface InternalApi {
     @POST("ucp/deletecomment")
     fun deleteComment(@Field("id") id: String?): ProxerCall<Unit>
 
+    @FormUrlEncoded
+    @POST("ucp/deletesubscription")
+    fun deleteSubscription(@Field("id") id: String?): ProxerCall<Unit>
+
     @GET("ucp/listsum")
     fun watchedEpisodes(): ProxerCall<Int>
 

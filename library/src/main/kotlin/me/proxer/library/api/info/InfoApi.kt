@@ -91,13 +91,6 @@ class InfoApi internal constructor(retrofit: Retrofit) {
     /**
      * Returns the respective endpoint.
      */
-    fun unsubscribe(entryId: String): ModifyUserInfoEndpoint {
-        return ModifyUserInfoEndpoint(internalApi, entryId, UserInfoType.UNSUBSCRIBE)
-    }
-
-    /**
-     * Returns the respective endpoint.
-     */
     fun recommendations(entryId: String): RecommendationsEndpoint {
         return RecommendationsEndpoint(internalApi, entryId)
     }
