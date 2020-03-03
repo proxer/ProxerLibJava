@@ -49,9 +49,10 @@ internal interface InternalApi {
 
     @GET("ucp/reminder")
     fun bookmarks(
-        @Query("kat") category: Category?,
         @Query("p") page: Int?,
         @Query("limit") limit: Int?,
+        @Query("name") name: String?,
+        @Query("kat") category: Category?,
         @Query("available") available: Boolean?
     ): ProxerCall<List<Bookmark>>
 
