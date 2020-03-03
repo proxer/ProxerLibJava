@@ -1,6 +1,6 @@
 name: CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -9,36 +9,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Check Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1.0.2
+
       - name: Set up JDK 1.8
-        uses: actions/setup-java@v1.2.0
+        uses: actions/setup-java@v1.3.0
         with:
           java-version: 1.8
 
       - name: Set up Gradle Cache
-        uses: actions/cache@v1.0.3
+        uses: actions/cache@v1.1.2
         with:
-          path: ~/.gradle/caches/modules-2
+          path: ~/.gradle/caches
           key: ${{ runner.OS }}-gradle-${{ hashFiles('**/versions.gradle') }}
           restore-keys: |
             ${{ runner.OS }}-gradle-${{ hashFiles('**/versions.gradle') }}
             ${{ runner.OS }}-gradle-
 
       - name: Build with Gradle
-        run: ./gradlew ktlintCheck detekt build -Dorg.gradle.caching=false
-          -Pkotlin.incremental=false -Pkapt.incremental.apt=false
+        run: ./gradlew ktlintCheck detekt build
 
       - name: Store reports
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v1.0.0
         if: always()
         with:
           name: Reports
           path: library/build/reports
-      - name: Store test results
-        uses: actions/upload-artifact@v1
-        if: always()
-        with:
-          name: Test results
-          path: library/build/test-results/test
 
       - name: Upload coverage
         uses: codecov/codecov-action@v1.0.2
