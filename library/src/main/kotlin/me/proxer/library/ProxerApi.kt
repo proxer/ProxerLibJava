@@ -16,6 +16,7 @@ import me.proxer.library.api.messenger.MessengerApi
 import me.proxer.library.api.notifications.NotificationsApi
 import me.proxer.library.api.ucp.UcpApi
 import me.proxer.library.api.user.UserApi
+import me.proxer.library.api.users.UsersApi
 import me.proxer.library.api.wiki.WikiApi
 import me.proxer.library.internal.DefaultLoginTokenManager
 import me.proxer.library.internal.adapter.BooleanAdapterFactory
@@ -80,6 +81,12 @@ class ProxerApi private constructor(retrofit: Retrofit) {
      */
     val user = UserApi(retrofit)
         @JvmName("user") get
+
+    /**
+     * The respective API.
+     */
+    val users = UsersApi(retrofit)
+        @JvmName("users") get
 
     /**
      * The respective API.
