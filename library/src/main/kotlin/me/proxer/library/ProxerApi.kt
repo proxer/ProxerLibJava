@@ -62,9 +62,9 @@ class ProxerApi private constructor(retrofit: Retrofit) {
         const val TEST_KEY = "test"
 
         private val CERTIFICATES = arrayOf(
-            "sha256/58qRu/uxh4gFezqAcERupSkRYBlBAvfcw7mEjGPLnNU=",
-            "sha256/grX4Ta9HpZx6tSHkmCrvpApTQGo67CYDnvprLg5yRME=",
-            "sha256/Vjs8r4z+80wjNcr1YKepWQboSIRi63WsWXhIMN+eWys="
+            "sha256/KladICQF4U/UJarA6uiJc01TZO22unmxjwSOonPJJcw=",
+            "sha256/3kcNJzkUJ1RqMXJzFX4Zxux5WfETK+uL6Viq9lJNn4o=",
+            "sha256/Y9mvm0exBk1JoQ57f9Vm28jKo5lFm/woKcVxrYxu80o="
         )
 
         private const val DEFAULT_USER_AGENT = "ProxerLibJava/" + BuildConfig.VERSION
