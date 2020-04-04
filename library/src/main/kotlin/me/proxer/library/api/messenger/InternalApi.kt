@@ -77,4 +77,8 @@ internal interface InternalApi {
     @FormUrlEncoded
     @POST("messenger/setunfavour")
     fun unmarkConferenceAsFavorite(@Field("conference_id") id: String?): ProxerCall<Unit>
+
+    @FormUrlEncoded
+    @POST("messenger/report")
+    fun report(@Field("conference_id") id: String?, @Field("text") text: String?): ProxerCall<Unit>
 }

@@ -109,6 +109,13 @@ class MessengerApi internal constructor(retrofit: Retrofit) {
         return ConferenceModificationEndpoint(internalApi, id, ConferenceModification.UNFAVOUR)
     }
 
+    /**
+     * Returns the respective endpoint.
+     */
+    fun report(id: String, text: String): ReportConferenceEndpoint {
+        return ReportConferenceEndpoint(internalApi, id, text)
+    }
+
     private fun constructMessageFromAction(action: MessageAction, subject: String): String {
         require(action != MessageAction.NONE) { "Invalid action: $action" }
 
