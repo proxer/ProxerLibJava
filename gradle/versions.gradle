@@ -4,7 +4,7 @@ ext {
 
     gradleVersion = "6.3"
 
-    kotlinVersion = "1.3.71"
+    kotlinVersion = "1.3.72"
     dokkaVersion = "0.9.18"
 
     jacocoVersion = "0.8.5"
@@ -15,13 +15,13 @@ ext {
     buildConfigPluginVersion = "1.1.8"
 
     retrofitVersion = "2.8.1"
-    okHttpVersion = "4.4.0"
-    okioVersion = "2.5.0"
+    okHttpVersion = "4.6.0"
+    okioVersion = "2.6.0"
     moshiVersion = "1.9.2"
     moshiLazyAdaptersVersion = "2.2"
 
     junitVersion = "5.6.1"
     concurrentUnitVersion = "0.4.6"
-    kluentVersion = "1.60"
-    mockkVersion = "1.9.3"
+    kluentVersion = "1.61"
+    mockkVersion = "1.10.0"
 }
