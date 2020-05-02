@@ -3,6 +3,7 @@ package me.proxer.library.api.messenger
 import me.proxer.library.ProxerCall
 import me.proxer.library.entity.messenger.Conference
 import me.proxer.library.entity.messenger.ConferenceInfo
+import me.proxer.library.entity.messenger.LinkCheckResponse
 import me.proxer.library.entity.messenger.Message
 import me.proxer.library.enums.ConferenceType
 import retrofit2.http.Field
@@ -81,4 +82,8 @@ internal interface InternalApi {
     @FormUrlEncoded
     @POST("messenger/report")
     fun report(@Field("conference_id") id: String?, @Field("text") text: String?): ProxerCall<Unit>
+
+    @FormUrlEncoded
+    @POST("messenger/checkLink")
+    fun checkLink(@Field("link") link: String?): ProxerCall<LinkCheckResponse>
 }

@@ -1,6 +1,7 @@
 package me.proxer.library.entity.info
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import me.proxer.library.enums.Category
 import me.proxer.library.enums.MediaLanguage
 
@@ -16,6 +17,7 @@ import me.proxer.library.enums.MediaLanguage
  *
  * @author Ruben Gees
  */
+@JsonClass(generateAdapter = true)
 data class EpisodeInfo(
     @Json(name = "start") val firstEpisode: Int,
     @Json(name = "end") val lastEpisode: Int,

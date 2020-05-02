@@ -1,6 +1,7 @@
 package me.proxer.library.entity.messenger
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.util.Date
 
 /**
@@ -15,6 +16,7 @@ import java.util.Date
  *
  * @author Desnoo
  */
+@JsonClass(generateAdapter = true)
 data class ConferenceInfo(
     @Json(name = "topic") val topic: String,
     @Json(name = "count") val participantAmount: Int,

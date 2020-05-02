@@ -1,6 +1,7 @@
 package me.proxer.library.entity.messenger
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import me.proxer.library.entity.ProxerDateItem
 import me.proxer.library.entity.ProxerIdItem
 import me.proxer.library.entity.ProxerImageItem
@@ -21,6 +22,7 @@ import java.util.Date
  *
  * @author Ruben Gees
  */
+@JsonClass(generateAdapter = true)
 data class Conference(
     @Json(name = "id") override val id: String,
     @Json(name = "topic") val topic: String,

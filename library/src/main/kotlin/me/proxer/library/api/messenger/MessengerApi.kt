@@ -3,6 +3,7 @@ package me.proxer.library.api.messenger
 import me.proxer.library.api.messenger.ConferenceModificationEndpoint.ConferenceModification
 import me.proxer.library.enums.MessageAction
 import me.proxer.library.util.ProxerUtils
+import okhttp3.HttpUrl
 import retrofit2.Retrofit
 
 /**
@@ -114,6 +115,20 @@ class MessengerApi internal constructor(retrofit: Retrofit) {
      */
     fun report(id: String, text: String): ReportConferenceEndpoint {
         return ReportConferenceEndpoint(internalApi, id, text)
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    fun checkLink(link: String): CheckLinkEndpoint {
+        return CheckLinkEndpoint(internalApi, link)
+    }
+
+    /**
+     * Returns the respective endpoint.
+     */
+    fun checkLink(link: HttpUrl): CheckLinkEndpoint {
+        return CheckLinkEndpoint(internalApi, link.toString())
     }
 
     private fun constructMessageFromAction(action: MessageAction, subject: String): String {
