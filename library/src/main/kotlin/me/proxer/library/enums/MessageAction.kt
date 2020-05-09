@@ -27,5 +27,8 @@ enum class MessageAction {
     SET_LEADER,
 
     @Json(name = "setTopic")
-    SET_TOPIC
+    SET_TOPIC,
+
+    @Json(name = "exit")
+    EXIT
 }
