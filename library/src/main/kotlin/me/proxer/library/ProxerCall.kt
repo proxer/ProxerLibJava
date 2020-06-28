@@ -110,6 +110,7 @@ class ProxerCall<T> internal constructor(private val internalCall: Call<ProxerRe
         return internalCall.request()
     }
 
+    @Suppress("ThrowsCount")
     private fun processResponse(response: Response<ProxerResponse<T>>): T? {
         if (response.isSuccessful) {
             val proxerResponse = response.body() ?: throw ProxerException(ProxerException.ErrorType.PARSING)

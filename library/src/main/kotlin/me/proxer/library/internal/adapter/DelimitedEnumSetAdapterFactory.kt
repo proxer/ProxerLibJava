@@ -19,6 +19,7 @@ import java.util.Locale
  */
 internal class DelimitedEnumSetAdapterFactory : JsonAdapter.Factory {
 
+    @Suppress("ReturnCount")
     override fun create(type: Type, annotations: Set<Annotation>, moshi: Moshi): JsonAdapter<*>? {
         val rawType = Types.getRawType(type)
 

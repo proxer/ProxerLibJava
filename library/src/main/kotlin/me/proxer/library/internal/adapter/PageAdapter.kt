@@ -19,6 +19,7 @@ internal class PageAdapter {
     }
 
     @FromJson
+    @Suppress("ThrowsCount")
     fun fromJson(json: Array<Array<String>>): List<Page> {
         return json.map { jsonPage ->
             if (jsonPage.size != FIELD_AMOUNT) {
