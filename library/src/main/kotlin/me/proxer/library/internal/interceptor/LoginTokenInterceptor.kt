@@ -7,6 +7,8 @@ import me.proxer.library.ProxerException.ServerErrorType
 import me.proxer.library.util.ProxerUrls
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
 
 /**
  * @author Ruben Gees
@@ -31,7 +33,7 @@ internal class LoginTokenInterceptor(private val loginTokenManager: LoginTokenMa
             .build()
     }
 
-    private val lock = Any()
+    private val lock = ReentrantLock()
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val oldRequest = chain.request()
@@ -40,7 +42,7 @@ internal class LoginTokenInterceptor(private val loginTokenManager: LoginTokenMa
             val newRequestBuilder = oldRequest.newBuilder()
 
             if (oldRequest.url != LOGIN_URL) {
-                val loginToken = synchronized(lock) {
+                val loginToken = lock.withLock {
                     loginTokenManager.provide()
                 }
 
@@ -59,7 +61,7 @@ internal class LoginTokenInterceptor(private val loginTokenManager: LoginTokenMa
         if (response.isSuccessful) {
             val (errorCode, token) = peekResponse(response)
 
-            synchronized(lock) {
+            lock.withLock {
                 val errorType = errorCode?.let { ServerErrorType.fromErrorCode(it) }
 
                 if (errorType != null) {

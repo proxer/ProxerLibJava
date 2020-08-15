@@ -39,6 +39,7 @@ import me.proxer.library.internal.interceptor.HeaderInterceptor
 import me.proxer.library.internal.interceptor.HttpsEnforcingInterceptor
 import me.proxer.library.internal.interceptor.LoginTokenInterceptor
 import me.proxer.library.internal.interceptor.OneShotInterceptor
+import me.proxer.library.internal.interceptor.RateLimitInterceptor
 import me.proxer.library.util.ProxerUrls
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
@@ -181,6 +182,7 @@ class ProxerApi private constructor(retrofit: Retrofit) {
         private var moshi: Moshi? = null
         private var client: OkHttpClient? = null
         private var retrofit: Retrofit? = null
+        private var enableRateLimitProtection: Boolean = false
 
         /**
          * Sets a custom login token manager.
@@ -221,34 +223,44 @@ class ProxerApi private constructor(retrofit: Retrofit) {
         fun retrofit(retrofit: Retrofit) = this.apply { this.retrofit = retrofit }
 
         /**
+         * Enables the rate limit protection to avoid users having to fill out captchas.
+         */
+        fun enableRateLimitProtection() = this.apply { this.enableRateLimitProtection = true }
+
+        /**
          * Finally builds the [ProxerApi] with the provided adjustments.
          */
         fun build(): ProxerApi {
-            return ProxerApi(buildRetrofit())
+            val moshi = buildMoshi()
+
+            return ProxerApi(buildRetrofit(moshi))
         }
 
-        private fun buildRetrofit(): Retrofit {
+        private fun buildRetrofit(moshi: Moshi): Retrofit {
             return (retrofit?.newBuilder() ?: Retrofit.Builder())
                 .baseUrl(ProxerUrls.apiBase)
-                .client(buildClient())
+                .client(buildClient(moshi))
                 .addCallAdapterFactory(ProxerResponseCallAdapterFactory())
-                .addConverterFactory(MoshiConverterFactory.create(buildMoshi()))
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .addConverterFactory(EnumRetrofitConverterFactory())
                 .build()
         }
 
-        private fun buildClient(): OkHttpClient {
+        private fun buildClient(moshi: Moshi): OkHttpClient {
             return (client?.newBuilder() ?: OkHttpClient.Builder())
                 .apply {
                     interceptors().apply {
                         addAll(
-                            0, listOf(
+                            0,
+                            listOf(
                                 HeaderInterceptor(apiKey, buildUserAgent()),
                                 LoginTokenInterceptor(buildLoginTokenManager()),
                                 HttpsEnforcingInterceptor(),
                                 OneShotInterceptor()
                             )
                         )
+
+                        if (enableRateLimitProtection) add(0, RateLimitInterceptor(moshi))
                     }
 
                     certificatePinner(constructCertificatePinner())

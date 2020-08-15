@@ -35,7 +35,7 @@ All requests are done through the `ProxerApi` class. You initialize an instance 
 The most simple initialization looks like this:
 
 ```java
-ProxerApi api = new ProxerConnection.Builder("yourApiKey").build();
+ProxerApi api = new ProxerApi.Builder("yourApiKey").build();
 ```
 
 You can customize the `ProxerApi` in the following ways:
@@ -203,6 +203,27 @@ ProxerApi api = new ProxerApi.Builder("yourApiKey")
 ```
 
 > The token is only stored in memory with the default `LoginTokenManager`. This means, that you lose the login information when the application terminates. You may want to persist it into a `File` or `SharedPreferences` on `Android`.
+
+### Rate limiting
+
+The api has rate limiting in place with individual limits for each api class. If more requests than the limit are performed,
+a `ProxerException` (with the `ServerErrorType.CAPTCHA`) is thrown and the user has to solve a captcha. The link to the captcha page can be obtained with
+`ProxerUrls.captchaWeb()`.
+
+##### Rate limit protection
+
+Recent versions have a mechanism for protecting against rate limiting implemented. It can be enabled by calling the method:
+
+```java
+ProxerApi api = new ProxerApi.Builder("yourApiKey")
+        .enableRateLimitProtection()
+        .build();
+```
+
+This cancels requests which would trigger the rate limit and throw a `ProxerException` (with the `ServerErrorType.RATE_LIMIT`).
+The user does not need to solve the captcha but simply wait then.
+
+> This does not completely captcha errors. If multiple users call from the same network, the rate limit can still be hit and thus the error needs to be handled properly. 
 
 ### Utils
 

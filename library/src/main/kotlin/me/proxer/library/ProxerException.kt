@@ -157,6 +157,7 @@ class ProxerException : Exception {
         COMMENT_ALREADY_EXISTS(3078),
 
         UNKNOWN(10_000),
+        RATE_LIMIT(99_998),
         INTERNAL(99_999);
 
         companion object {
