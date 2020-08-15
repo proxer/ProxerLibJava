@@ -260,7 +260,7 @@ class ProxerApi private constructor(retrofit: Retrofit) {
                             )
                         )
 
-                        if (enableRateLimitProtection) add(0, RateLimitInterceptor(moshi))
+                        if (enableRateLimitProtection) add(4, RateLimitInterceptor(moshi, client?.cache))
                     }
 
                     certificatePinner(constructCertificatePinner())

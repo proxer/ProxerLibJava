@@ -5,6 +5,7 @@ import com.squareup.moshi.Types
 import me.proxer.library.ProxerException.ServerErrorType.RATE_LIMIT
 import me.proxer.library.internal.ProxerResponse
 import me.proxer.library.util.ProxerUrls
+import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Protocol
@@ -12,11 +13,8 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
 import java.util.Date
-import java.util.concurrent.locks.ReentrantReadWriteLock
-import kotlin.concurrent.read
-import kotlin.concurrent.write
 
-internal class RateLimitInterceptor(private val moshi: Moshi) : Interceptor {
+internal class RateLimitInterceptor(private val moshi: Moshi, private val cache: Cache?) : Interceptor {
 
     private companion object {
         private const val WAIT_THRESHOLD = 2_000
@@ -47,8 +45,6 @@ internal class RateLimitInterceptor(private val moshi: Moshi) : Interceptor {
 
     private var state = limits.mapValues { State(0, null) }
 
-    private val lock = ReentrantReadWriteLock()
-
     @Suppress("ReturnCount")
     override fun intercept(chain: Interceptor.Chain): Response {
         val oldRequest = chain.request()
@@ -74,35 +70,47 @@ internal class RateLimitInterceptor(private val moshi: Moshi) : Interceptor {
         chain: Interceptor.Chain,
         oldRequest: Request
     ): Response {
-        val (requests, firstRequest) = lock.read { state.getValue(apiClass) }
-        val timeDifferenceMillis = if (firstRequest != null) Date().time - firstRequest.time else null
+        synchronized(limit) {
+            val (requests, firstRequest) = state.getValue(apiClass)
+            val timeDifferenceMillis = if (firstRequest != null) Date().time - firstRequest.time else null
 
-        if (timeDifferenceMillis == null || timeDifferenceMillis > limit.millis) {
-            lock.write { state = state.update(apiClass, 1, Date()) }
+            if (timeDifferenceMillis == null || timeDifferenceMillis > limit.millis) {
+                state = state.update(apiClass, 1, Date())
 
-            return chain.proceed(oldRequest)
-        } else if (requests + 2 >= limit.maxRequests) {
-            return if ((limit.millis - timeDifferenceMillis) < WAIT_THRESHOLD) {
-                Thread.sleep(timeDifferenceMillis)
+                return chain.proceed(oldRequest)
+            } else if (requests + 2 >= limit.maxRequests) {
+                // Do nothing if the request is in the cache.
+                if (cache?.urls()?.asSequence()?.contains(oldRequest.url.toString()) == true) {
+                    return chain.proceed(oldRequest)
+                }
 
-                intercept(chain)
+                return if ((limit.millis - timeDifferenceMillis) < WAIT_THRESHOLD) {
+                    Thread.sleep(timeDifferenceMillis)
+
+                    intercept(chain)
+                } else {
+                    val errorBody = moshi
+                        .adapter<ProxerResponse<Unit?>>(responseType)
+                        .toJson(ProxerResponse(true, "Rate limit", RATE_LIMIT.code, null))
+
+                    Response.Builder()
+                        .body(errorBody.toResponseBody(errorMediaType))
+                        .protocol(Protocol.HTTP_1_1)
+                        .request(oldRequest)
+                        .code(200)
+                        .message("")
+                        .build()
+                }
             } else {
-                val errorBody = moshi
-                    .adapter<ProxerResponse<Unit?>>(responseType)
-                    .toJson(ProxerResponse(true, "Rate limit", RATE_LIMIT.code, null))
+                val response = chain.proceed(oldRequest)
 
-                Response.Builder()
-                    .body(errorBody.toResponseBody(errorMediaType))
-                    .protocol(Protocol.HTTP_1_1)
-                    .request(oldRequest)
-                    .code(200)
-                    .message("")
-                    .build()
+                // Only increment on responses not coming from cache.
+                if (response.networkResponse != null) {
+                    state = state.update(apiClass, requests + 1, firstRequest)
+                }
+
+                return response
             }
-        } else {
-            lock.write { state = state.update(apiClass, requests + 1, firstRequest) }
-
-            return chain.proceed(oldRequest)
         }
     }
 
