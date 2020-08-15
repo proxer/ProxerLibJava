@@ -207,7 +207,7 @@ ProxerApi api = new ProxerApi.Builder("yourApiKey")
 ### Rate limiting
 
 The api has rate limiting in place with individual limits for each api class. If more requests than the limit are performed,
-a `ProxerException` (with the `ServerErrorType.CAPTCHA`) is thrown and the user has to solve a captcha. The link to the captcha page can be obtained with
+a `ProxerException` (with the `ServerErrorType.IP_BLOCKED`) is thrown and the user has to solve a captcha. The link to the captcha page can be obtained with
 `ProxerUrls.captchaWeb()`.
 
 ##### Rate limit protection
