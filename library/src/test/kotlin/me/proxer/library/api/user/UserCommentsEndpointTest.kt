@@ -56,10 +56,7 @@ class UserCommentsEndpointTest : ProxerTest() {
         request.path shouldBeEqualTo """
                 /api/v1/user/comments?uid=123&username=abc&kat=anime&p=3&limit=12&length=1234&state=0%2B1
                 &has=comment%2Brating
-        """.trimIndent().replace(
-            "\n",
-            ""
-        )
+        """.trimIndent().replace("\n", "")
     }
 
     @Test

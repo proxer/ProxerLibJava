@@ -14,14 +14,10 @@ class NewsEndpointTest : ProxerTest() {
 
     private val expectedNews = NewsArticle(
         id = "7709", date = Date(1488654000L * 1000),
-        description =
-        """
+        description = """
             |In der diesjährigen 14. Ausgabe von Shueishas Weekly Shounen Jump-Magazin soll angekündigt werden,
             | dass der Manga To Love-Ru Trouble Darkness eine neue OVA erhält.
-        """.trimMargin().replace(
-            "\n",
-            ""
-        ),
+        """.trimMargin().replace("\n", ""),
         image = "723465714977",
         subject = "To Love-Ru Trouble " + "Darkness – OVA zum zehnjährigen Jubiläum angekündigt", hits = 549,
         threadId = "381362", authorId = "101731", author = "SilentGray", commentAmount = 1, categoryId = "56",

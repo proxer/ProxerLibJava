@@ -10,10 +10,7 @@ plugins {
     id "io.gitlab.arturbosch.detekt"
     id "org.jlleitschuh.gradle.ktlint"
 
-    id "com.github.ben-manes.versions"
     id "de.fuerstenau.buildconfig"
-
-    id "idea"
 }
 
 apply from: "${rootDir}/gradle/dependencies.gradle"
@@ -57,12 +54,6 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     }
 }
 
-tasks.named("dependencyUpdates").configure {
-    rejectVersionIf {
-        !(it.candidate.version ==~ /^[0-9,.v-]+(-r)?$/)
-    }
-}
-
 kapt {
     useBuildCache = true
 }
@@ -91,6 +82,7 @@ jacocoTestReport {
 
 ktlint {
     disabledRules = ["import-ordering"]
+    version = ktlintVersion
 
     reporters {
         reporter "checkstyle"

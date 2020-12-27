@@ -21,10 +21,7 @@ class FixRatingDetailsAdapterTest {
     fun testFromJson() {
         every { jsonReader.nextString() } returns """
             {"genre":"5","story":"5","animation":"5","characters":"5","music":"5"}
-        """.trimIndent().replace(
-            "\n",
-            ""
-        )
+        """.trimIndent().replace("\n", "")
 
         adapter.fromJson(jsonReader, delegate) shouldBeEqualTo RatingDetails(
             genre = 5,

@@ -1,8 +1,6 @@
 plugins {
     id "org.jetbrains.kotlin.jvm"
     id "application"
-
-    id "idea"
 }
 
 mainClassName = "me.proxer.sample.News"

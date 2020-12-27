@@ -30,18 +30,14 @@ class EntryEndpointTest : ProxerTest() {
 
     private val expectedEntry = Entry(
         id = "6174", name = "LuCu LuCu", fskConstraints = setOf(),
-        description =
-        """
+        description = """
             |Humans are a despicable lot, committing sin after sin, filling the endless boundaries of the
             | underworld with tortured souls. Now, it would seem, Hell isn't so endless after all, and it has become
             | dangerously close to filling, and then overflowing into the human realm. Princess Lucuha sees this
             | imminent disaster and has a plan: save Hell by making humans decent again. Of course, the angels can't
             | simply allow demons to roam freely on Earth, and they do their best to stop Lucu and her
             | dastardly plans.
-        """.trimMargin().replace(
-            "\n",
-            ""
-        ),
+        """.trimMargin().replace("\n", ""),
         medium = Medium.MANGASERIES, episodeAmount = 90, state = MediaState.FINISHED, ratingSum = 7, ratingAmount = 1,
         clicks = 134, category = Category.MANGA, license = License.NOT_LICENSED,
         adaptionInfo = AdaptionInfo(id = "2793", name = "KissXsis", medium = Medium.MANGASERIES),
@@ -90,27 +86,19 @@ class EntryEndpointTest : ProxerTest() {
                 entryTagId = "175",
                 date = "2018-03-07 23:17:44".toProxerDateTime(),
                 name = "Action",
-                description =
-                """
+                description = """
                     Dynamische Szenen, spannende Wettkämpfe und beeindruckende Kampfszenen prägen dieses Genre.
-                    """.trimIndent().replace(
-                    "\n",
-                    ""
-                )
+                """.trimIndent().replace("\n", "")
             ),
             InfoGenre(
                 id = "120695",
                 entryTagId = "174",
                 date = "2018-03-07 23:17:44".toProxerDateTime(),
                 name = "Adventure",
-                description =
-                """
+                description = """
                     |Es handelt sich meist um eine Geschichte über eine Reise oder Suche.
                     | Kurzum ein Abenteuer, das es zu bestehen gilt.
-                """.trimMargin().replace(
-                    "\n",
-                    ""
-                )
+                """.trimMargin().replace("\n", "")
             )
         )
     )

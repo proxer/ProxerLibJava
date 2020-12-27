@@ -1,20 +1,13 @@
 buildscript {
     apply from: "gradle/versions.gradle"
+}
 
-    repositories {
-        gradlePluginPortal()
-    }
+plugins {
+    id "org.jetbrains.kotlin.jvm"
+    id "org.jetbrains.kotlin.kapt"
+    id "org.jetbrains.dokka"
 
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokkaVersion"
-
-        classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlintVersion"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
-        
-        classpath "gradle.plugin.de.fuerstenau:BuildConfigPlugin:$buildConfigPluginVersion"
-        classpath "com.github.ben-manes:gradle-versions-plugin:$gradleVersionsPluginVersion"
-    }
+    id "com.github.ben-manes.versions"
 }
 
 allprojects {
@@ -23,6 +16,12 @@ allprojects {
 
     repositories {
         jcenter()
+    }
+}
+
+tasks.named("dependencyUpdates").configure {
+    rejectVersionIf {
+        !(it.candidate.version ==~ /^[0-9,.v-]+(-r)?$/)
     }
 }
 

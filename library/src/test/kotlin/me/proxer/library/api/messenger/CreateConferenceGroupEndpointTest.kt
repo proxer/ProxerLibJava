@@ -48,9 +48,6 @@ class CreateConferenceGroupEndpointTest : ProxerTest() {
 
         request.body.readUtf8() shouldBeEqualTo """
                 topic=topic&text=message&users%5B%5D=someUser&users%5B%5D=anotherUser&users%5B%5D=testUser
-        """.trimIndent().replace(
-            "\n",
-            ""
-        )
+        """.trimIndent().replace("\n", "")
     }
 }

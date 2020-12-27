@@ -54,9 +54,6 @@ class MediaListEndpointTest : ProxerTest() {
         request.path shouldBeEqualTo """
                 /api/v1/list/entrylist?kat=anime&medium=animeseries&isH=true&start=abc&
                 sort=rating&sort_type=ASC&p=0&limit=10
-        """.trimIndent().replace(
-            "\n",
-            ""
-        )
+        """.trimIndent().replace("\n", "")
     }
 }
