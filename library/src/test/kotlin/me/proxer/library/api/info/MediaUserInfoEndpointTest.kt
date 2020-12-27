@@ -12,7 +12,11 @@ import org.junit.jupiter.api.Test
 class MediaUserInfoEndpointTest : ProxerTest() {
 
     private val expectedUserInfo = MediaUserInfo(
-        isNoted = false, isFinished = true, isCanceled = false, isTopTen = true, isSubscribed = false
+        isNoted = false,
+        isFinished = true,
+        isCanceled = false,
+        isTopTen = true,
+        isSubscribed = false
     )
 
     @Test

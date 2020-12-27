@@ -21,10 +21,17 @@ class FixRatingDetailsAdapterTest {
     fun testFromJson() {
         every { jsonReader.nextString() } returns """
             {"genre":"5","story":"5","animation":"5","characters":"5","music":"5"}
-        """.trimIndent().replace("\n", "")
+        """.trimIndent().replace(
+            "\n",
+            ""
+        )
 
         adapter.fromJson(jsonReader, delegate) shouldBeEqualTo RatingDetails(
-            genre = 5, story = 5, animation = 5, characters = 5, music = 5
+            genre = 5,
+            story = 5,
+            animation = 5,
+            characters = 5,
+            music = 5
         )
     }
 
@@ -33,7 +40,11 @@ class FixRatingDetailsAdapterTest {
         every { jsonReader.nextString() } returns """{"genre":"5","story":"5","animation":"5"}"""
 
         adapter.fromJson(jsonReader, delegate) shouldBeEqualTo RatingDetails(
-            genre = 5, story = 5, animation = 5, characters = 0, music = 0
+            genre = 5,
+            story = 5,
+            animation = 5,
+            characters = 0,
+            music = 0
         )
     }
 
@@ -42,7 +53,11 @@ class FixRatingDetailsAdapterTest {
         every { jsonReader.nextString() } returns "[]"
 
         adapter.fromJson(jsonReader, delegate) shouldBeEqualTo RatingDetails(
-            genre = 0, story = 0, animation = 0, characters = 0, music = 0
+            genre = 0,
+            story = 0,
+            animation = 0,
+            characters = 0,
+            music = 0
         )
     }
 
@@ -51,7 +66,11 @@ class FixRatingDetailsAdapterTest {
         every { jsonReader.nextString() } returns ""
 
         adapter.fromJson(jsonReader, delegate) shouldBeEqualTo RatingDetails(
-            genre = 0, story = 0, animation = 0, characters = 0, music = 0
+            genre = 0,
+            story = 0,
+            animation = 0,
+            characters = 0,
+            music = 0
         )
     }
 
@@ -60,7 +79,11 @@ class FixRatingDetailsAdapterTest {
         every { jsonReader.nextString() } returns """{"invalid":"invalid"}"""
 
         adapter.fromJson(jsonReader, delegate) shouldBeEqualTo RatingDetails(
-            genre = 0, story = 0, animation = 0, characters = 0, music = 0
+            genre = 0,
+            story = 0,
+            animation = 0,
+            characters = 0,
+            music = 0
         )
     }
 }

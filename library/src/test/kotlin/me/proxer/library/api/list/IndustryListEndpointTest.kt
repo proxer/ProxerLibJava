@@ -14,7 +14,10 @@ import org.junit.jupiter.api.Test
 class IndustryListEndpointTest : ProxerTest() {
 
     private val expectedIndustry = IndustryCore(
-        id = "493", name = "10Gauge", type = IndustryType.STUDIO, country = Country.JAPAN
+        id = "493",
+        name = "10Gauge",
+        type = IndustryType.STUDIO,
+        country = Country.JAPAN
     )
 
     @Test

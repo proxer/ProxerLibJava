@@ -17,7 +17,10 @@ class NotificationAdapterTest {
     @Test
     fun testFromJson() {
         adapter.fromJson(intArrayOf(0, 0, 1, 2, 3, 4)) shouldBeEqualTo NotificationInfo(
-            messageAmount = 1, friendRequestAmount = 2, newsAmount = 3, notificationAmount = 4
+            messageAmount = 1,
+            friendRequestAmount = 2,
+            newsAmount = 3,
+            notificationAmount = 4
         )
     }
 

@@ -18,22 +18,23 @@ plugins {
 
 apply from: "${rootDir}/gradle/dependencies.gradle"
 
-task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
-    outputFormat = "html"
-    outputDirectory = javadoc.destinationDir
-    enabled = JavaVersion.current().isJava8()
+tasks.withType(org.jetbrains.dokka.gradle.DokkaTask).configureEach {
+    dokkaSourceSets {
+        configureEach {
+            sourceLink {
+                localDirectory.set(file("src/main/kotlin"))
+                remoteUrl.set(uri("https://github.com/proxer/ProxerLibJava/tree/master/library/src/main/kotlin").toURL())
+            }
 
-    includeNonPublic = false
-    jdkVersion = 8
-
-    externalDocumentationLink { url = new URL("https://square.github.io/retrofit/2.x/retrofit/") }
-    externalDocumentationLink { url = new URL("https://square.github.io/okhttp/3.x/okhttp/") }
-    externalDocumentationLink { url = new URL("https://square.github.io/moshi/1.x/moshi/") }
-
-    packageOptions {
-        prefix = "com.github.proxer.library.enums"
-        reportUndocumented = false
+            externalDocumentationLink { url.set(new URL("https://square.github.io/retrofit/2.x/retrofit/")) }
+            externalDocumentationLink { url.set(new URL("https://square.github.io/okhttp/3.x/okhttp/")) }
+            externalDocumentationLink { url.set(new URL("https://square.github.io/moshi/1.x/moshi/")) }
+        }
     }
+}
+
+tasks.dokkaJavadoc.configure {
+    outputDirectory.set(javadoc.destinationDir)
 }
 
 task sourceJar(type: Jar) {
@@ -53,6 +54,12 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         jvmTarget = "1.8"
         allWarningsAsErrors = true
         freeCompilerArgs = ["-Xjsr305=strict", "-progressive"]
+    }
+}
+
+tasks.named("dependencyUpdates").configure {
+    rejectVersionIf {
+        !(it.candidate.version ==~ /^[0-9,.v-]+(-r)?$/)
     }
 }
 
@@ -84,6 +91,7 @@ jacocoTestReport {
 
 ktlint {
     disabledRules = ["import-ordering"]
+
     reporters {
         reporter "checkstyle"
     }

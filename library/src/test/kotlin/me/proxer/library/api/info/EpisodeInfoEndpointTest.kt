@@ -16,29 +16,45 @@ import org.junit.jupiter.api.Test
 class EpisodeInfoEndpointTest : ProxerTest() {
 
     private val expectedEpisodeInfo = EpisodeInfo(
-        firstEpisode = 1, lastEpisode = 12, category = Category.ANIME,
-        availableLanguages = setOf(MediaLanguage.GERMAN_SUB, MediaLanguage.ENGLISH_SUB), userProgress = 0,
+        firstEpisode = 1,
+        lastEpisode = 12,
+        category = Category.ANIME,
+        availableLanguages = setOf(MediaLanguage.GERMAN_SUB, MediaLanguage.ENGLISH_SUB),
+        userProgress = 0,
         episodes = listOf(
             AnimeEpisode(
-                number = 1, language = MediaLanguage.ENGLISH_SUB,
+                number = 1,
+                language = MediaLanguage.ENGLISH_SUB,
                 hosters = setOf("proxer-stream", "mp4upload", "videoweed", "novamov", "streamcloud2"),
                 hosterImages = listOf(
-                    "proxer-stream.png", "mp4upload.png", "videoweed.png", "novamov.png", "streamcloud.png"
+                    "proxer-stream.png",
+                    "mp4upload.png",
+                    "videoweed.png",
+                    "novamov.png",
+                    "streamcloud.png"
                 )
             ),
             AnimeEpisode(
-                number = 2, language = MediaLanguage.ENGLISH_SUB,
+                number = 2,
+                language = MediaLanguage.ENGLISH_SUB,
                 hosters = setOf("proxer-stream", "mp4upload", "videoweed", "novamov", "streamcloud2"),
                 hosterImages = listOf(
-                    "proxer-stream.png", "mp4upload.png", "videoweed.png", "novamov.png", "streamcloud.png"
+                    "proxer-stream.png",
+                    "mp4upload.png",
+                    "videoweed.png",
+                    "novamov.png",
+                    "streamcloud.png"
                 )
             )
         )
     )
 
     private val expectedEpisodeInfoManga = EpisodeInfo(
-        firstEpisode = 1, lastEpisode = 50, category = Category.MANGA,
-        availableLanguages = setOf(MediaLanguage.ENGLISH), userProgress = 12,
+        firstEpisode = 1,
+        lastEpisode = 50,
+        category = Category.MANGA,
+        availableLanguages = setOf(MediaLanguage.ENGLISH),
+        userProgress = 12,
         episodes = listOf(
             MangaEpisode(number = 1, language = MediaLanguage.ENGLISH, title = "Chapter 1"),
             MangaEpisode(number = 2, language = MediaLanguage.ENGLISH, title = "Chapter 2")
@@ -46,8 +62,11 @@ class EpisodeInfoEndpointTest : ProxerTest() {
     )
 
     private val expectedEpisodeInfoNovel = EpisodeInfo(
-        firstEpisode = 1, lastEpisode = 50, category = Category.NOVEL,
-        availableLanguages = setOf(MediaLanguage.ENGLISH), userProgress = 12,
+        firstEpisode = 1,
+        lastEpisode = 50,
+        category = Category.NOVEL,
+        availableLanguages = setOf(MediaLanguage.ENGLISH),
+        userProgress = 12,
         episodes = listOf(
             MangaEpisode(number = 1, language = MediaLanguage.ENGLISH, title = "Chapter 1"),
             MangaEpisode(number = 2, language = MediaLanguage.ENGLISH, title = "Chapter 2")

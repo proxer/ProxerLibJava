@@ -15,8 +15,14 @@ import java.util.Date
 class MessagesEndpointTest : ProxerTest() {
 
     private val expectedMessage = Message(
-        id = "5193325", conferenceId = "131029", userId = "121658", username = "RubyGee", message = "RubyGee",
-        action = MessageAction.ADD_USER, date = Date(1480260735L * 1000), device = Device.UNSPECIFIED
+        id = "5193325",
+        conferenceId = "131029",
+        userId = "121658",
+        username = "RubyGee",
+        message = "RubyGee",
+        action = MessageAction.ADD_USER,
+        date = Date(1480260735L * 1000),
+        device = Device.UNSPECIFIED
     )
 
     @Test

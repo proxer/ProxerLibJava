@@ -16,10 +16,13 @@ import java.util.Date
 class NotificationEndpointTest : ProxerTest() {
 
     private val expectedNotification = Notification(
-        id = "10185686", type = NotificationType.REMINDER, contentId = "49815105",
+        id = "10185686",
+        type = NotificationType.REMINDER,
+        contentId = "49815105",
         contentLink = "https://proxer.me/chapter/2373/26/en".toHttpUrl(),
         text = "Lesezeichen: <u>Test123 Manga #26</u> ist online!",
-        date = Date(1494452692L * 1000L), additionalDescription = ""
+        date = Date(1494452692L * 1000L),
+        additionalDescription = ""
     )
 
     @Test

@@ -26,8 +26,10 @@ internal class NotificationInfoAdapter {
         }
 
         return NotificationInfo(
-            json[MESSAGE_FIELD_LOCATION], json[FRIEND_REQUEST_FIELD_LOCATION],
-            json[NEWS_FIELD_LOCATION], json[NOTIFICATIONS_FIELD_LOCATION]
+            json[MESSAGE_FIELD_LOCATION],
+            json[FRIEND_REQUEST_FIELD_LOCATION],
+            json[NEWS_FIELD_LOCATION],
+            json[NOTIFICATIONS_FIELD_LOCATION]
         )
     }
 

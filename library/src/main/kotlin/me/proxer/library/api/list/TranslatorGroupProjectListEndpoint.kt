@@ -36,7 +36,11 @@ class TranslatorGroupProjectListEndpoint internal constructor(
 
     override fun build(): ProxerCall<List<TranslatorGroupProject>> {
         return internalApi.translatorGroupProjectList(
-            id, projectState, includeHentai, page, limit
+            id,
+            projectState,
+            includeHentai,
+            page,
+            limit
         )
     }
 }

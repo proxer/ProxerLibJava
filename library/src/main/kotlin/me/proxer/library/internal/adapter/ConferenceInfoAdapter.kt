@@ -17,8 +17,12 @@ internal class ConferenceInfoAdapter {
     @FromJson
     fun fromJson(json: IntermediateConferenceInfoContainer): ConferenceInfo {
         return ConferenceInfo(
-            json.info.topic, json.info.participantAmount, json.info.firstMessageTime,
-            json.info.lastMessageTime, json.info.leaderId, json.participants
+            json.info.topic,
+            json.info.participantAmount,
+            json.info.firstMessageTime,
+            json.info.lastMessageTime,
+            json.info.leaderId,
+            json.participants
         )
     }
 

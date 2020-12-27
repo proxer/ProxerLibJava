@@ -14,15 +14,22 @@ import java.util.Date
 class ConferenceInfoEndpointTest : ProxerTest() {
 
     private val expectedInfo = ConferenceInfo(
-        topic = "Ein weiterer Test", participantAmount = 2, firstMessageTime = Date(1480260735L * 1000),
-        lastMessageTime = Date(1487080743L * 1000), leaderId = "121658",
+        topic = "Ein weiterer Test",
+        participantAmount = 2,
+        firstMessageTime = Date(1480260735L * 1000),
+        lastMessageTime = Date(1487080743L * 1000),
+        leaderId = "121658",
         participants = listOf(
             ConferenceParticipant(
-                id = "121658", image = "121658_cEBC8F.png", username = "RubyGee",
+                id = "121658",
+                image = "121658_cEBC8F.png",
+                username = "RubyGee",
                 status = "Ihr könnt mich jederzeit anschreiben, Skype oder ProxerPn!"
             ),
             ConferenceParticipant(
-                id = "574520", image = "574520_K4DfDC.jpg", username = "Testerio",
+                id = "574520",
+                image = "574520_K4DfDC.jpg",
+                username = "Testerio",
                 status = "Ich bin Rubys Sklave~"
             )
         )
@@ -32,9 +39,9 @@ class ConferenceInfoEndpointTest : ProxerTest() {
     fun testDefault() {
         val (result, _) = server.runRequest("conference_info.json") {
             api.messenger
-            .conferenceInfo("1")
-            .build()
-            .execute()
+                .conferenceInfo("1")
+                .build()
+                .execute()
         }
 
         result shouldBeEqualTo expectedInfo

@@ -20,12 +20,15 @@ import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
+import kotlin.io.path.ExperimentalPathApi
+import kotlin.io.path.createTempDirectory
 
+@ExperimentalPathApi
 class RateLimitInterceptorTest : ProxerTest() {
 
     private val rateLimitApi = ProxerApi.Builder("mock-key")
         .enableRateLimitProtection()
-        .client(client.newBuilder().cache(Cache(createTempDir(), 1_024L * 1_024L)).build())
+        .client(client.newBuilder().cache(Cache(createTempDirectory().toFile(), 1_024L * 1_024L)).build())
         .build()
 
     @Test

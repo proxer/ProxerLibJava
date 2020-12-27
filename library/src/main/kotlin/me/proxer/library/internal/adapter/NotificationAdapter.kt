@@ -25,15 +25,26 @@ internal class NotificationAdapter {
             .build()
 
         return Notification(
-            json.id, json.type, json.contentId, properContentLink, json.text, json.date, json.additionalDescription
+            json.id,
+            json.type,
+            json.contentId,
+            properContentLink,
+            json.text,
+            json.date,
+            json.additionalDescription
         )
     }
 
     @ToJson
     fun toJson(value: Notification): IntermediateNotification {
         return IntermediateNotification(
-            value.id, value.type, value.contentId, value.contentLink.toString(),
-            value.text, value.date, value.additionalDescription
+            value.id,
+            value.type,
+            value.contentId,
+            value.contentLink.toString(),
+            value.text,
+            value.date,
+            value.additionalDescription
         )
     }
 

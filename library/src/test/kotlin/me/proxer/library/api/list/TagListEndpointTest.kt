@@ -15,14 +15,21 @@ import org.junit.jupiter.api.Test
 class TagListEndpointTest : ProxerTest() {
 
     private val firstExpectedTag = Tag(
-        id = "262", type = TagType.TAG, name = "4-Koma", description = "Seitenaufteilung in vier gleich große Panels.",
-        subType = TagSubType.DRAWING, isSpoiler = false
+        id = "262",
+        type = TagType.TAG,
+        name = "4-Koma",
+        description = "Seitenaufteilung in vier gleich große Panels.",
+        subType = TagSubType.DRAWING,
+        isSpoiler = false
     )
 
     private val secondExpectedTag = Tag(
-        id = "175", type = TagType.GENRE, name = "Action",
+        id = "175",
+        type = TagType.GENRE,
+        name = "Action",
         description = "Dynamische Szenen, spannende Wettkämpfe und beeindruckende Kampfszenen prägen dieses Genre.",
-        subType = TagSubType.MISCELLANEOUS, isSpoiler = true
+        subType = TagSubType.MISCELLANEOUS,
+        isSpoiler = true
     )
 
     @Test
@@ -53,7 +60,7 @@ class TagListEndpointTest : ProxerTest() {
 
         request.path shouldBeEqualTo """
                 /api/v1/list/tags?search=abc&type=entry_tag_h&sort=id&sort_type=ASC&subtype=zukunft
-            """.trimIndent()
+        """.trimIndent()
     }
 
     @Test
@@ -71,6 +78,6 @@ class TagListEndpointTest : ProxerTest() {
 
         request.path shouldBeEqualTo """
                 /api/v1/list/tags?search=xyz&type=entry_genre&sort=subtype&sort_type=DESC&subtype=menschen
-            """.trimIndent()
+        """.trimIndent()
     }
 }

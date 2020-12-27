@@ -15,13 +15,23 @@ import org.junit.jupiter.api.Test
 class UserHistoryEndpointTest : ProxerTest() {
 
     private val firstExpectedEntry = UserHistoryEntry(
-        id = "457484352", entryId = "16209", name = "Kono Subarashii Sekai ni Shukufuku wo! 2",
-        language = MediaLanguage.ENGLISH_SUB, medium = Medium.ANIMESERIES, category = Category.ANIME, episode = 2
+        id = "457484352",
+        entryId = "16209",
+        name = "Kono Subarashii Sekai ni Shukufuku wo! 2",
+        language = MediaLanguage.ENGLISH_SUB,
+        medium = Medium.ANIMESERIES,
+        category = Category.ANIME,
+        episode = 2
     )
 
     private val secondExpectedEntry = UserHistoryEntry(
-        id = "456582967", entryId = "3088", name = "Girls of the Wild's",
-        language = MediaLanguage.ENGLISH, medium = Medium.MANGASERIES, category = Category.MANGA, episode = 182
+        id = "456582967",
+        entryId = "3088",
+        name = "Girls of the Wild's",
+        language = MediaLanguage.ENGLISH,
+        medium = Medium.MANGASERIES,
+        category = Category.MANGA,
+        episode = 182
     )
 
     @Test

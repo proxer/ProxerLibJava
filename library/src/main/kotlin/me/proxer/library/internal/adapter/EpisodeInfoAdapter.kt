@@ -37,8 +37,12 @@ internal class EpisodeInfoAdapter {
         }
 
         return EpisodeInfo(
-            json.firstEpisode, json.lastEpisode, json.category, json.availableLanguages,
-            json.userProgress, episodes
+            json.firstEpisode,
+            json.lastEpisode,
+            json.category,
+            json.availableLanguages,
+            json.userProgress,
+            episodes
         )
     }
 
@@ -60,8 +64,12 @@ internal class EpisodeInfoAdapter {
         }
 
         return IntermediateEpisodeInfo(
-            value.firstEpisode, value.lastEpisode, value.category, value.availableLanguages,
-            value.userProgress, episodes
+            value.firstEpisode,
+            value.lastEpisode,
+            value.category,
+            value.availableLanguages,
+            value.userProgress,
+            episodes
         )
     }
 

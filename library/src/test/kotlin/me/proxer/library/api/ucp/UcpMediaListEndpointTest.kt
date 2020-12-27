@@ -54,6 +54,9 @@ class UcpMediaListEndpointTest : ProxerTest() {
         request.path shouldBeEqualTo """
                 /api/v1/ucp/list?kat=anime&p=0&limit=5&search=test&search_start=startTest&filter=stateFilter1
                 &sort=stateChangeDateASC&isH=true
-            """.trimIndent().replace("\n", "")
+        """.trimIndent().replace(
+            "\n",
+            ""
+        )
     }
 }

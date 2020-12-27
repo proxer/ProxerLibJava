@@ -14,7 +14,10 @@ import org.junit.jupiter.api.Test
 class UcpTopTenEndpointTest : ProxerTest() {
 
     private val expectedEntry = UcpTopTenEntry(
-        id = "640467", entryId = "2357", name = "High School DxD", medium = Medium.ANIMESERIES,
+        id = "640467",
+        entryId = "2357",
+        name = "High School DxD",
+        medium = Medium.ANIMESERIES,
         category = Category.ANIME
     )
 

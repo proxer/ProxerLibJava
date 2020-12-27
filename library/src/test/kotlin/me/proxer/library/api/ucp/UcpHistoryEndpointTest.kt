@@ -16,8 +16,13 @@ import org.junit.jupiter.api.Test
 class UcpHistoryEndpointTest : ProxerTest() {
 
     private val expectedEntry = UcpHistoryEntry(
-        id = "407661627", entryId = "14701", name = "Nejimaki Seirei Senki: Tenkyou no Alderamin",
-        language = MediaLanguage.ENGLISH_SUB, medium = Medium.ANIMESERIES, category = Category.ANIME, episode = 1,
+        id = "407661627",
+        entryId = "14701",
+        name = "Nejimaki Seirei Senki: Tenkyou no Alderamin",
+        language = MediaLanguage.ENGLISH_SUB,
+        medium = Medium.ANIMESERIES,
+        category = Category.ANIME,
+        episode = 1,
         date = "2017-03-13 23:16:36".toProxerDateTime()
     )
 

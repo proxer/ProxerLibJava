@@ -25,8 +25,8 @@ class BookmarksEndpointTest : ProxerTest() {
     fun testDefault() {
         val (result, _) = server.runRequest("bookmarks.json") {
             api.ucp
-            .bookmarks()
-            .build()
+                .bookmarks()
+                .build()
                 .safeExecute()
         }
 
@@ -37,13 +37,13 @@ class BookmarksEndpointTest : ProxerTest() {
     fun testPath() {
         val (_, request) = server.runRequest("bookmarks.json") {
             api.ucp.bookmarks()
-            .page(12)
-            .limit(1)
-            .name("test")
-            .category(Category.MANGA)
-            .filterAvailable(true)
-            .build()
-            .execute()
+                .page(12)
+                .limit(1)
+                .name("test")
+                .category(Category.MANGA)
+                .filterAvailable(true)
+                .build()
+                .execute()
         }
 
         request.path shouldBeEqualTo "/api/v1/ucp/reminder?p=12&limit=1&name=test&kat=manga&available=true"

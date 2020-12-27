@@ -13,7 +13,9 @@ import org.junit.jupiter.api.Test
 class TranslatorGroupListEndpointTest : ProxerTest() {
 
     private val expectedGroup = TranslatorGroupCore(
-        id = "533", name = "/ak/ Scans", country = Country.ENGLAND,
+        id = "533",
+        name = "/ak/ Scans",
+        country = Country.ENGLAND,
         image = "http://img1.wikia.nocookie.net/__cb20120723230150/ak-scans/images/5/58/1342952821487.png"
     )
 

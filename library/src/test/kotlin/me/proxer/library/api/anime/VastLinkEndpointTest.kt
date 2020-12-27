@@ -12,7 +12,8 @@ import org.junit.jupiter.api.Test
 class VastLinkEndpointTest : ProxerTest() {
 
     private val expectedLinkContainer = LinkContainer(
-        link = "//www.dailymotion.com/embed/video/k4D1tLdhKG", adTag = "https://example.com"
+        link = "//www.dailymotion.com/embed/video/k4D1tLdhKG",
+        adTag = "https://example.com"
     )
 
     @Test

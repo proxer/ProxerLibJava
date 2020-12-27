@@ -14,13 +14,23 @@ import java.util.Date
 class ChatMessagesEndpointTest : ProxerTest() {
 
     private val firstExpectedMessage = ChatMessage(
-        id = "777191", userId = "62", username = "genesis", image = "62_RvGnYl.png",
-        message = "testttt", action = ChatMessageAction.NONE, date = Date(1523608207L * 1000)
+        id = "777191",
+        userId = "62",
+        username = "genesis",
+        image = "62_RvGnYl.png",
+        message = "testttt",
+        action = ChatMessageAction.NONE,
+        date = Date(1523608207L * 1000)
     )
 
     private val lastExpectedMessage = ChatMessage(
-        id = "777189", userId = "62", username = "genesis", image = "62_RvGnYl.png",
-        message = "777186", action = ChatMessageAction.REMOVE_MESSAGE, date = Date(1523608185L * 1000)
+        id = "777189",
+        userId = "62",
+        username = "genesis",
+        image = "62_RvGnYl.png",
+        message = "777186",
+        action = ChatMessageAction.REMOVE_MESSAGE,
+        date = Date(1523608185L * 1000)
     )
 
     @Test

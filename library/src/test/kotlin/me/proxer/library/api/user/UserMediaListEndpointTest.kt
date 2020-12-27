@@ -56,7 +56,10 @@ class UserMediaListEndpointTest : ProxerTest() {
         request.path shouldBeEqualTo """
                 /api/v1/user/list?uid=1&username=rubygee&kat=anime&p=0&limit=5&search=test&search_start=startTest
                 &filter=stateFilter1&sort=stateChangeDateASC&isH=true
-            """.trimIndent().replace("\n", "")
+        """.trimIndent().replace(
+            "\n",
+            ""
+        )
     }
 
     @Test

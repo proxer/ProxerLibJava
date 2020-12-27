@@ -16,11 +16,17 @@ import org.junit.jupiter.api.Test
 class UserTopTenEndpointTest : ProxerTest() {
 
     private val expectedEntryAnime = TopTenEntry(
-        id = "13633", name = "Boku dake ga Inai Machi", category = Category.ANIME, medium = Medium.ANIMESERIES
+        id = "13633",
+        name = "Boku dake ga Inai Machi",
+        category = Category.ANIME,
+        medium = Medium.ANIMESERIES
     )
 
     private val expectedEntryManga = TopTenEntry(
-        id = "6015", name = "Citrus (Saburouta)", category = Category.MANGA, medium = Medium.MANGASERIES
+        id = "6015",
+        name = "Citrus (Saburouta)",
+        category = Category.MANGA,
+        medium = Medium.MANGASERIES
     )
 
     @Test

@@ -14,10 +14,14 @@ import org.junit.jupiter.api.Test
 class TranslatorGroupEndpointTest : ProxerTest() {
 
     private val expectedTranslatorGroup = TranslatorGroup(
-        id = "11", name = "Gruppe Kampfkuchen", country = Country.GERMANY, image = "http://i.imgur.com/hBoT4Ax.png",
+        id = "11",
+        name = "Gruppe Kampfkuchen",
+        country = Country.GERMANY,
+        image = "http://i.imgur.com/hBoT4Ax.png",
         link = "http://kampfkuchen.de".toHttpUrlOrNull(),
         description = "Gruppe Kampfkuchen, die Gruppe für qualitativ hochwertige Lolisubs! Qualität vor Quantität!",
-        clicks = 5087, projectAmount = 23
+        clicks = 5087,
+        projectAmount = 23
     )
 
     @Test

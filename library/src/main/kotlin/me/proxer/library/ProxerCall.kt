@@ -72,21 +72,23 @@ class ProxerCall<T> internal constructor(private val internalCall: Call<ProxerRe
      */
     @JvmOverloads
     fun enqueue(callback: ((T?) -> Unit)? = null, errorCallback: ((ProxerException) -> Unit)? = null) {
-        internalCall.enqueue(object : Callback<ProxerResponse<T>> {
-            override fun onResponse(call: Call<ProxerResponse<T>>, response: Response<ProxerResponse<T>>) {
-                try {
-                    callback?.invoke(processResponse(response))
-                } catch (error: ProxerException) {
-                    errorCallback?.invoke(error)
+        internalCall.enqueue(
+            object : Callback<ProxerResponse<T>> {
+                override fun onResponse(call: Call<ProxerResponse<T>>, response: Response<ProxerResponse<T>>) {
+                    try {
+                        callback?.invoke(processResponse(response))
+                    } catch (error: ProxerException) {
+                        errorCallback?.invoke(error)
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<ProxerResponse<T>>, error: Throwable) {
-                if (error is Exception && errorCallback != null) {
-                    errorCallback.invoke(processNonProxerError(error))
+                override fun onFailure(call: Call<ProxerResponse<T>>, error: Throwable) {
+                    if (error is Exception && errorCallback != null) {
+                        errorCallback.invoke(processNonProxerError(error))
+                    }
                 }
             }
-        })
+        )
     }
 
     /**

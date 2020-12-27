@@ -12,11 +12,17 @@ import org.junit.jupiter.api.Test
 class UserChatRoomsEndpointTest : ProxerTest() {
 
     private val firstExpectedChatRoom = ChatRoom(
-        id = "1", name = "Proxer.Me Hauptchat", topic = "Willkommen im Proxer-Chat!", isReadOnly = false
+        id = "1",
+        name = "Proxer.Me Hauptchat",
+        topic = "Willkommen im Proxer-Chat!",
+        isReadOnly = false
     )
 
     private val lastExpectedChatRoom = ChatRoom(
-        id = "6", name = "Chat-Ankündigungen (21.03.18)", topic = "", isReadOnly = true
+        id = "6",
+        name = "Chat-Ankündigungen (21.03.18)",
+        topic = "",
+        isReadOnly = true
     )
 
     @Test

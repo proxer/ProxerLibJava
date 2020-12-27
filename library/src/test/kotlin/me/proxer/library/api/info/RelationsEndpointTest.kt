@@ -30,7 +30,8 @@ class RelationsEndpointTest : ProxerTest() {
             id = "4167", name = "Sword Art Online",
             genres = setOf("Adventure", "Action", "Comedy", "Drama", "Fantasy", "SciFi"),
             fskConstraints = setOf(FskConstraint.FSK_12, FskConstraint.BAD_LANGUAGE, FskConstraint.VIOLENCE),
-            description = """
+            description =
+            """
                 |Kazuto Kirigaya testet als einer der ersten einen neuen Hightech-Helm, welcher die Psyche
                 | des Nutzers komplett in die Welt des MMORPGs „Sword Art Online“ transferiert. Als Tester der
                 | Beta-Version besitzt er bereits einiges an Erfahrung und kämpfte sich mehr als erfolgreich als
@@ -40,7 +41,10 @@ class RelationsEndpointTest : ProxerTest() {
                 | Möglichkeit wieder in die reale Welt zurückzukehren besteht darin, SAO erfolgreich abzuschließen.
                 | Doch das ist leichter gesagt als getan, denn der Tod in der Fantasy-Welt bedeutet auch den richtigen
                 | Tod in der richtigen Welt.
-            """.trimMargin().replace("\n", ""),
+            """.trimMargin().replace(
+                "\n",
+                ""
+            ),
             medium = Medium.ANIMESERIES, episodeAmount = 25, state = MediaState.FINISHED, ratingSum = 158782,
             ratingAmount = 17935, clicks = 5968, category = Category.ANIME, license = License.LICENSED,
             languages = setOf(MediaLanguage.GERMAN_DUB, MediaLanguage.ENGLISH_SUB, MediaLanguage.ENGLISH_DUB),

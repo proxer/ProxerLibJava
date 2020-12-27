@@ -38,7 +38,8 @@ class CreateConferenceGroupEndpointTest : ProxerTest() {
         val (_, request) = server.runRequest("create_conference.json") {
             api.messenger
                 .createConferenceGroup(
-                    topic = "topic", firstMessage = "message",
+                    topic = "topic",
+                    firstMessage = "message",
                     participants = listOf("someUser", "anotherUser", "testUser")
                 )
                 .build()
@@ -47,6 +48,9 @@ class CreateConferenceGroupEndpointTest : ProxerTest() {
 
         request.body.readUtf8() shouldBeEqualTo """
                 topic=topic&text=message&users%5B%5D=someUser&users%5B%5D=anotherUser&users%5B%5D=testUser
-            """.trimIndent().replace("\n", "")
+        """.trimIndent().replace(
+            "\n",
+            ""
+        )
     }
 }

@@ -15,7 +15,10 @@ import org.junit.jupiter.api.Test
 class IndustryEndpointTest : ProxerTest() {
 
     private val expectedIndustry = Industry(
-        id = "123", name = "Hoods Entertainment", type = IndustryType.STUDIO, country = Country.JAPAN,
+        id = "123",
+        name = "Hoods Entertainment",
+        type = IndustryType.STUDIO,
+        country = Country.JAPAN,
         link = "http://www.hoods.co.jp/".toHttpUrlOrNull(),
         description = "Anfang 2009 gegründetes Animations-Studio mit Sitz in Tokio."
     )

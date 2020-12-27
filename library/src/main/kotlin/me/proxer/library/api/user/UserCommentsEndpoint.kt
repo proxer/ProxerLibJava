@@ -65,7 +65,14 @@ class UserCommentsEndpoint internal constructor(
         val joinedHasContent = hasContent?.joinToString(DELIMITER) { ProxerUtils.getSafeApiEnumName(it) }
 
         return internalApi.comments(
-            userId, username, category, page, limit, minimumLength, joinedStates, joinedHasContent
+            userId,
+            username,
+            category,
+            page,
+            limit,
+            minimumLength,
+            joinedStates,
+            joinedHasContent
         )
     }
 }
