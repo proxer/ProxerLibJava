@@ -8,37 +8,34 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
 
       - name: Check Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1.0.2
+        uses: gradle/wrapper-validation-action@v1.0.3
 
       - name: Set up JDK 1.8
-        uses: actions/setup-java@v1.3.0
+        uses: actions/setup-java@v1.4.3
         with:
           java-version: 1.8
 
       - name: Set up Gradle Cache
-        uses: actions/cache@v1.1.2
+        uses: actions/cache@v2.1.3
         with:
-          path: ~/.gradle/caches
-          key: ${{ runner.OS }}-gradle-${{ hashFiles('**/versions.gradle') }}
-          restore-keys: |
-            ${{ runner.OS }}-gradle-${{ hashFiles('**/versions.gradle') }}
-            ${{ runner.OS }}-gradle-
+          path: ~/.gradle
+          key: ${{ runner.OS }}-gradle-
 
       - name: Build with Gradle
         run: ./gradlew ktlintCheck detekt build
 
       - name: Store reports
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v2.2.1
         if: always()
         with:
           name: Reports
           path: library/build/reports
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v1.0.2
+        uses: codecov/codecov-action@v1.1.1
         env:
           CI: "true"
         with:
