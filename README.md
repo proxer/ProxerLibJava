@@ -80,6 +80,15 @@ api.notifications().news()
 
 As you can see in the example above, the individual endpoints also allow for various options.
 
+##### Coroutines
+
+It is also possible to execute requests in a coroutine context when using Kotlin. Use the `await` extension function on
+the `ProxerCall`:
+
+```kt
+val result = api.notifications().news().build().await()
+```
+
 ### Cancelling a request
 
 You might want to cancel a request, especially if using on `Android`:

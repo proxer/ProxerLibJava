@@ -5,6 +5,7 @@ ext {
     gradleVersion = "6.7.1"
 
     kotlinVersion = "1.4.21"
+    kotlinCoroutinesVersion = "1.4.2"
     dokkaVersion = "1.4.20"
 
     jacocoVersion = "0.8.6"

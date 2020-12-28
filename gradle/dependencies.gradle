@@ -8,10 +8,14 @@ dependencies {
 
     implementation "com.serjltt.moshi:moshi-lazy-adapters:$moshiLazyAdaptersVersion"
 
+    compileOnly "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
+
     runtimeOnly "com.squareup.okio:okio:$okioVersion"
 
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
     kaptTest "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
 
     testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
     testImplementation "org.junit.jupiter:junit-jupiter-params:$junitVersion"
