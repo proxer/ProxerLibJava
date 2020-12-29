@@ -16,9 +16,9 @@ class SetBookmarkEndpoint internal constructor(
     private val episode: Int,
     private val language: MediaLanguage,
     private val category: Category
-) : Endpoint<Unit> {
+) : Endpoint<Unit?> {
 
-    override fun build(): ProxerCall<Unit> {
+    override fun build(): ProxerCall<Unit?> {
         return internalApi.setBookmark(id, episode, language, category)
     }
 }

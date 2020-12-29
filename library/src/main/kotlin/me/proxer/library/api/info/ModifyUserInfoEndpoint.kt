@@ -12,9 +12,9 @@ class ModifyUserInfoEndpoint internal constructor(
     private val internalApi: InternalApi,
     private val id: String,
     private val type: UserInfoType
-) : Endpoint<Unit> {
+) : Endpoint<Unit?> {
 
-    override fun build(): ProxerCall<Unit> {
+    override fun build(): ProxerCall<Unit?> {
         return internalApi.modifyUserInfo(id, type)
     }
 }

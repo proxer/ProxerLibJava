@@ -12,9 +12,9 @@ class ReportChatMessageEndpoint internal constructor(
     private val internalApi: InternalApi,
     private val messageId: String,
     private val message: String
-) : Endpoint<Unit> {
+) : Endpoint<Unit?> {
 
-    override fun build(): ProxerCall<Unit> {
+    override fun build(): ProxerCall<Unit?> {
         return internalApi.reportMessage(messageId, message)
     }
 }

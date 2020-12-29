@@ -12,9 +12,9 @@ class ReportConferenceEndpoint internal constructor(
     private val internalApi: InternalApi,
     private val conferenceId: String,
     private val text: String
-) : Endpoint<Unit> {
+) : Endpoint<Unit?> {
 
-    override fun build(): ProxerCall<Unit> {
+    override fun build(): ProxerCall<Unit?> {
         return internalApi.report(conferenceId, text)
     }
 }

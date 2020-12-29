@@ -36,5 +36,5 @@ internal interface InternalApi {
 
     @FormUrlEncoded
     @POST("notifications/delete")
-    fun deleteNotification(@Field("nid") id: String?): ProxerCall<Unit>
+    fun deleteNotification(@Field("nid") id: String?): ProxerCall<Unit?>
 }

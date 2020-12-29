@@ -31,7 +31,7 @@ internal interface InternalApi {
     ): ProxerCall<User>
 
     @POST("user/logout")
-    fun logout(): ProxerCall<Unit>
+    fun logout(): ProxerCall<Unit?>
 
     @GET("user/topten")
     fun topTen(

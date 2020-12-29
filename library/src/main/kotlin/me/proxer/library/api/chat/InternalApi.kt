@@ -39,7 +39,7 @@ internal interface InternalApi {
     fun reportMessage(
         @Field("message_id") messageId: String?,
         @Field("message") message: String?
-    ): ProxerCall<Unit>
+    ): ProxerCall<Unit?>
 
     @GET("chat/roomusers")
     fun roomUsers(@Query("room_id") roomId: String?): ProxerCall<List<ChatRoomUser>>

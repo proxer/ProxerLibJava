@@ -16,9 +16,9 @@ class SendMessageEndpoint internal constructor(
     private val internalApi: InternalApi,
     private val conferenceId: String,
     private val message: String
-) : Endpoint<String> {
+) : Endpoint<String?> {
 
-    override fun build(): ProxerCall<String> {
+    override fun build(): ProxerCall<String?> {
         return internalApi.sendMessage(conferenceId, message)
     }
 }

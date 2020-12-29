@@ -12,7 +12,7 @@ class ErrorLogEndpoint internal constructor(
     private val internalApi: InternalApi,
     private val id: String,
     private val message: String
-) : Endpoint<Unit> {
+) : Endpoint<Unit?> {
 
     private var anonym: Boolean? = null
     private var silent: Boolean? = null
@@ -27,7 +27,7 @@ class ErrorLogEndpoint internal constructor(
      */
     fun silent(silent: Boolean? = true) = this.apply { this.silent = silent }
 
-    override fun build(): ProxerCall<Unit> {
+    override fun build(): ProxerCall<Unit?> {
         return internalApi.errorLog(id, message, anonym, silent)
     }
 }

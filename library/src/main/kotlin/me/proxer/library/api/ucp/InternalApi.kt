@@ -24,19 +24,19 @@ internal interface InternalApi {
 
     @FormUrlEncoded
     @POST("ucp/deletefavorite")
-    fun deleteFavorite(@Field("id") id: String?): ProxerCall<Unit>
+    fun deleteFavorite(@Field("id") id: String?): ProxerCall<Unit?>
 
     @FormUrlEncoded
     @POST("ucp/deletereminder")
-    fun deleteBookmark(@Field("id") id: String?): ProxerCall<Unit>
+    fun deleteBookmark(@Field("id") id: String?): ProxerCall<Unit?>
 
     @FormUrlEncoded
     @POST("ucp/deletecomment")
-    fun deleteComment(@Field("id") id: String?): ProxerCall<Unit>
+    fun deleteComment(@Field("id") id: String?): ProxerCall<Unit?>
 
     @FormUrlEncoded
     @POST("ucp/deletesubscription")
-    fun deleteSubscription(@Field("id") id: String?): ProxerCall<Unit>
+    fun deleteSubscription(@Field("id") id: String?): ProxerCall<Unit?>
 
     @GET("ucp/listsum")
     fun watchedEpisodes(): ProxerCall<Int>
@@ -66,7 +66,7 @@ internal interface InternalApi {
         @Field("episode") episode: Int,
         @Field("language") language: MediaLanguage?,
         @Field("kat") category: Category?
-    ): ProxerCall<Unit>
+    ): ProxerCall<Unit?>
 
     @GET("ucp/list")
     fun mediaList(

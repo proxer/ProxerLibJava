@@ -27,7 +27,7 @@ internal interface InternalApi {
         @Field("episode") episode: Int?,
         @Field("state") state: Int?,
         @Field("comment") comment: String?
-    ): ProxerCall<Unit>
+    ): ProxerCall<Unit?>
 
     @FormUrlEncoded
     @POST("comment/update")
@@ -37,5 +37,5 @@ internal interface InternalApi {
         @Field("episode") episode: Int?,
         @Field("state") state: Int?,
         @Field("comment") comment: String?
-    ): ProxerCall<Unit>
+    ): ProxerCall<Unit?>
 }

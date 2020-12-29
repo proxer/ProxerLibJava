@@ -23,6 +23,20 @@ class KotlinExtensionsKtTest : ProxerTest() {
     }
 
     @Test
+    fun testNullableAwait(): Unit = runBlocking {
+        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+
+        coInvoking { api.messenger.sendMessage("123", "test").build().await() } shouldNotThrow AnyException
+    }
+
+    @Test
+    fun testUnitAwait(): Unit = runBlocking {
+        server.enqueue(MockResponse().setBody(fromResource("empty.json")))
+
+        coInvoking { api.messenger.report("123", "test").build().await() } shouldNotThrow AnyException
+    }
+
+    @Test
     fun testAwaitWithError(): Unit = runBlocking {
         server.enqueue(MockResponse().setBody(fromResource("news.json")).setResponseCode(404))
 

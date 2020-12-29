@@ -26,9 +26,9 @@ class ConferenceModificationEndpoint internal constructor(
     private val internalApi: InternalApi,
     private val id: String,
     private val modification: ConferenceModification
-) : Endpoint<Unit> {
+) : Endpoint<Unit?> {
 
-    override fun build(): ProxerCall<Unit> {
+    override fun build(): ProxerCall<Unit?> {
         return when (modification) {
             READ -> internalApi.markConferenceAsRead(id)
             UNREAD -> internalApi.unmarkConferenceAsRead(id)

@@ -53,35 +53,35 @@ internal interface InternalApi {
     fun sendMessage(
         @Field("conference_id") conferenceId: String?,
         @Field("text") message: String?
-    ): ProxerCall<String>
+    ): ProxerCall<String?>
 
     @FormUrlEncoded
     @POST("messenger/setread")
-    fun markConferenceAsRead(@Field("conference_id") id: String?): ProxerCall<Unit>
+    fun markConferenceAsRead(@Field("conference_id") id: String?): ProxerCall<Unit?>
 
     @FormUrlEncoded
     @POST("messenger/setunread")
-    fun unmarkConferenceAsRead(@Field("conference_id") id: String?): ProxerCall<Unit>
+    fun unmarkConferenceAsRead(@Field("conference_id") id: String?): ProxerCall<Unit?>
 
     @FormUrlEncoded
     @POST("messenger/setblock")
-    fun markConferenceAsBlocked(@Field("conference_id") id: String?): ProxerCall<Unit>
+    fun markConferenceAsBlocked(@Field("conference_id") id: String?): ProxerCall<Unit?>
 
     @FormUrlEncoded
     @POST("messenger/setunblock")
-    fun unmarkConferenceAsBlocked(@Field("conference_id") id: String?): ProxerCall<Unit>
+    fun unmarkConferenceAsBlocked(@Field("conference_id") id: String?): ProxerCall<Unit?>
 
     @FormUrlEncoded
     @POST("messenger/setfavour")
-    fun markConferenceAsFavorite(@Field("conference_id") id: String?): ProxerCall<Unit>
+    fun markConferenceAsFavorite(@Field("conference_id") id: String?): ProxerCall<Unit?>
 
     @FormUrlEncoded
     @POST("messenger/setunfavour")
-    fun unmarkConferenceAsFavorite(@Field("conference_id") id: String?): ProxerCall<Unit>
+    fun unmarkConferenceAsFavorite(@Field("conference_id") id: String?): ProxerCall<Unit?>
 
     @FormUrlEncoded
     @POST("messenger/report")
-    fun report(@Field("conference_id") id: String?, @Field("text") text: String?): ProxerCall<Unit>
+    fun report(@Field("conference_id") id: String?, @Field("text") text: String?): ProxerCall<Unit?>
 
     @FormUrlEncoded
     @POST("messenger/checkLink")

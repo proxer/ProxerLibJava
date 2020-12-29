@@ -62,7 +62,7 @@ internal interface InternalApi {
     fun modifyUserInfo(
         @Field("id") id: String?,
         @Field("type") type: UserInfoType?
-    ): ProxerCall<Unit>
+    ): ProxerCall<Unit?>
 
     @GET("info/recommendations")
     fun recommendations(@Query("id") id: String?): ProxerCall<List<Recommendation>>

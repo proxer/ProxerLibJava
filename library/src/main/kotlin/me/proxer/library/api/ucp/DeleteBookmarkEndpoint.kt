@@ -11,9 +11,9 @@ import me.proxer.library.api.Endpoint
 class DeleteBookmarkEndpoint internal constructor(
     private val internalApi: InternalApi,
     private val id: String
-) : Endpoint<Unit> {
+) : Endpoint<Unit?> {
 
-    override fun build(): ProxerCall<Unit> {
+    override fun build(): ProxerCall<Unit?> {
         return internalApi.deleteBookmark(id)
     }
 }

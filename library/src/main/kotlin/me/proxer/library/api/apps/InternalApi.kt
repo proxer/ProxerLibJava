@@ -17,5 +17,5 @@ internal interface InternalApi {
         @Field("message") message: String?,
         @Field("anonym") anonym: Boolean?,
         @Field("silent") silent: Boolean?
-    ): ProxerCall<Unit>
+    ): ProxerCall<Unit?>
 }

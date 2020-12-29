@@ -30,7 +30,7 @@ internal class ProxerResponseCallAdapterFactory : CallAdapter.Factory() {
         )
     }
 
-    private class ProxerResponseCallAdapter<R> internal constructor(
+    private class ProxerResponseCallAdapter<R>(
         responseType: Type
     ) : CallAdapter<ProxerResponse<R>, ProxerCall<R>> {
 

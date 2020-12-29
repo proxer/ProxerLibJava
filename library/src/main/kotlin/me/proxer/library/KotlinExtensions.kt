@@ -18,9 +18,21 @@ suspend fun <T : Any> ProxerCall<T>.await(): T {
                     continuation.resumeWithException(NullPointerException())
                 }
             },
-            { error ->
-                continuation.resumeWithException(error)
-            }
+            { error -> continuation.resumeWithException(error) }
+        )
+    }
+}
+
+@JvmName("awaitNullable")
+suspend fun <T : Any> ProxerCall<T?>.await(): T? {
+    return suspendCancellableCoroutine { continuation ->
+        continuation.invokeOnCancellation {
+            cancel()
+        }
+
+        enqueue(
+            { result -> continuation.resume(result) },
+            { error -> continuation.resumeWithException(error) }
         )
     }
 }

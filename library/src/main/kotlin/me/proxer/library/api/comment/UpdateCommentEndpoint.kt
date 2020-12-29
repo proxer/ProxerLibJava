@@ -24,7 +24,7 @@ class UpdateCommentEndpoint internal constructor(
     private val internalApi: InternalApi,
     private val id: String?,
     private val entryId: String?
-) : Endpoint<Unit> {
+) : Endpoint<Unit?> {
 
     private var rating: Int? = null
     private var episode: Int? = null
@@ -69,7 +69,7 @@ class UpdateCommentEndpoint internal constructor(
         return this.apply { this.comment = comment }
     }
 
-    override fun build(): ProxerCall<Unit> {
+    override fun build(): ProxerCall<Unit?> {
         val apiMediaProgress = mediaProgress?.let { ProxerUtils.getSafeApiEnumName(it).toInt() }
 
         return when {

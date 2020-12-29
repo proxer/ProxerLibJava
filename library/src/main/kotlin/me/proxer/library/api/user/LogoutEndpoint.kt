@@ -8,9 +8,9 @@ import me.proxer.library.api.Endpoint
  *
  * @author Ruben Gees
  */
-class LogoutEndpoint internal constructor(private val internalApi: InternalApi) : Endpoint<Unit> {
+class LogoutEndpoint internal constructor(private val internalApi: InternalApi) : Endpoint<Unit?> {
 
-    override fun build(): ProxerCall<Unit> {
+    override fun build(): ProxerCall<Unit?> {
         return internalApi.logout()
     }
 }
