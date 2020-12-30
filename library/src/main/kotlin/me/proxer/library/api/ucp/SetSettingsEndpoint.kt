@@ -11,7 +11,7 @@ import me.proxer.library.internal.util.toIntOrNull
  *
  * @author Ruben Gees
  */
-class SetSettingsEndpoint : Endpoint<List<String>> {
+class SetSettingsEndpoint : Endpoint<List<String>?> {
 
     private val internalApi: InternalApi
 
@@ -179,7 +179,7 @@ class SetSettingsEndpoint : Endpoint<List<String>> {
         this.internalApi = internalApi
     }
 
-    override fun build(): ProxerCall<List<String>> {
+    override fun build(): ProxerCall<List<String>?> {
         return internalApi.setSettings(
             profileVisibility, topTenVisibility, animeVisibility, mangaVisibility, commentVisibility, forumVisibility,
             friendVisibility, friendRequestConstraint, aboutVisibility, historyVisibility, guestBookVisibility,

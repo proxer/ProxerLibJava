@@ -103,5 +103,5 @@ internal interface InternalApi {
         @Field("hide_tags") hideTags: Int?,
         @Field("ads_active") showAds: Int?,
         @Field("ads_interval") adInterval: Int?
-    ): ProxerCall<List<String>>
+    ): ProxerCall<List<String>?>
 }
