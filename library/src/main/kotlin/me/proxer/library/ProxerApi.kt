@@ -63,16 +63,12 @@ class ProxerApi private constructor(retrofit: Retrofit) {
         const val TEST_KEY = "test"
 
         private val CERTIFICATES = arrayOf(
-            // https://censys.io/certificates/0687260331a72403d909f105e69bcf0d32e1bd2493ffc6d9206d11bcd6770739
             "sha256/Vjs8r4z+80wjNcr1YKepWQboSIRi63WsWXhIMN+eWys=",
-            // https://censys.io/certificates/16af57a9f676b0ab126095aa5ebadef22ab31119d644ac95cd4b93dbf3f26aeb
             "sha256/Y9mvm0exBk1JoQ57f9Vm28jKo5lFm/woKcVxrYxu80o=",
-            // https://censys.io/certificates/1793927a0614549789adce2f8f34f7f0b66d0f3ae3a3b84d21ec15dbba4fadc7
             "sha256/58qRu/uxh4gFezqAcERupSkRYBlBAvfcw7mEjGPLnNU=",
-            // https://censys.io/certificates/52f0e1c4e58ec629291b60317f074671b85d7ea80d5b07273463534b32b40234
             "sha256/grX4Ta9HpZx6tSHkmCrvpApTQGo67CYDnvprLg5yRME=",
-            // https://censys.io/certificates/96bcec06264976f37460779acf28c5a7cfe8a3c0aae11a8ffcee05c0bddf08c6
-            "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M="
+            "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=",
+            "sha256/TeT9kTnquzkcIJC0caQ09mL9o/Fj6GqUPJ5IQQ/ztUM=",
         )
 
         private const val DEFAULT_USER_AGENT = "ProxerLibJava/" + BuildConfig.VERSION
@@ -182,6 +178,7 @@ class ProxerApi private constructor(retrofit: Retrofit) {
         private var moshi: Moshi? = null
         private var client: OkHttpClient? = null
         private var retrofit: Retrofit? = null
+        private var enableCertificatePinning: Boolean = false
         private var enableRateLimitProtection: Boolean = false
 
         /**
@@ -263,7 +260,7 @@ class ProxerApi private constructor(retrofit: Retrofit) {
                         if (enableRateLimitProtection) add(4, RateLimitInterceptor(moshi, client?.cache))
                     }
 
-                    certificatePinner(constructCertificatePinner())
+                    if (enableCertificatePinning) certificatePinner(constructCertificatePinner())
                 }
                 .build()
         }
